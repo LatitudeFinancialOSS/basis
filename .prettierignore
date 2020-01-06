@@ -1,5 +1,6 @@
 dist
 node_modules
+public
 package-lock.json
 website/.cache
 website/node_modules

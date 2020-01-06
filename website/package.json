@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run develop",
     "develop": "gatsby develop",
-    "prebuild": "gatsby clean",
+    "prebuild": "pwd && ls && ls node_modules/.bin && gatsby clean",
     "build": "gatsby build"
   },
   "dependencies": {
