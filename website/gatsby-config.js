@@ -3,7 +3,7 @@ const { COMPONENT_STATUS } = require("./src/utils/constants");
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://basis-design-system.now.sh",
+    siteUrl: "https://basis.now.sh",
     components: {
       Button: {
         status: COMPONENT_STATUS.READY
