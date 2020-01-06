@@ -1,0 +1,56 @@
+{
+  "name": "basis-website",
+  "version": "0.1.0",
+  "description": "Basis website",
+  "scripts": {
+    "start": "npm run develop",
+    "develop": "gatsby develop",
+    "prebuild": "gatsby clean",
+    "build": "gatsby build",
+    "deploy": "npm run build && now public --prod"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.22",
+    "@mdx-js/mdx": "^1.5.2",
+    "@mdx-js/react": "^1.5.2",
+    "emotion-theming": "^10.0.19",
+    "gatsby": "^2.18.12",
+    "gatsby-image": "^2.2.36",
+    "gatsby-plugin-emotion": "^4.1.18",
+    "gatsby-plugin-layout": "^1.1.18",
+    "gatsby-plugin-manifest": "^2.2.33",
+    "gatsby-plugin-mdx": "^1.0.62",
+    "gatsby-plugin-offline": "^3.0.29",
+    "gatsby-plugin-react-helmet": "^3.1.18",
+    "gatsby-plugin-robots-txt": "^1.5.0",
+    "gatsby-plugin-root-import": "^2.0.5",
+    "gatsby-plugin-sharp": "^2.3.8",
+    "gatsby-plugin-sitemap": "^2.2.24",
+    "gatsby-source-filesystem": "^2.1.42",
+    "gatsby-transformer-sharp": "^2.3.9",
+    "nanoid": "^2.1.8",
+    "pascal-case": "^3.1.0",
+    "polished": "^3.4.2",
+    "prettier": "^1.19.1",
+    "prop-types": "^15.7.2",
+    "re-resizable": "^6.1.1",
+    "react": "^16.12.0",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-dom": "^16.12.0",
+    "react-frame-component": "^4.1.1",
+    "react-helmet": "^5.2.1",
+    "react-live": "^2.2.2",
+    "typeface-montserrat": "0.0.75",
+    "typeface-roboto": "0.0.75",
+    "wcag-contrast": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moroshko/basis"
+  },
+  "bugs": {
+    "url": "https://github.com/moroshko/basis/issues"
+  },
+  "author": "Misha Moroshko <misha.moroshko@latitudefinancial.com>",
+  "license": "MIT"
+}

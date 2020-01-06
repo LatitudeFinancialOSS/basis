@@ -1,0 +1,117 @@
+import React, { useState, useMemo } from "react";
+import PropTypes from "prop-types";
+import { Resizable } from "re-resizable";
+import { LiveProvider, LiveError } from "react-live";
+import { designTokens, useTheme } from "basis";
+import ComponentCode from "./ComponentCode";
+import ComponentPreview from "./ComponentPreview";
+
+const rightOnly = {
+  top: false,
+  right: true,
+  bottom: false,
+  left: false,
+  topRight: false,
+  bottomRight: false,
+  bottomLeft: false,
+  topLeft: false
+};
+
+function ComponentContainer(props) {
+  const {
+    code,
+    noInline = false,
+    scope,
+    hasBodyMargin,
+    backgroundColor
+  } = props;
+  const theme = useTheme();
+  const spaceBetween = parseInt(designTokens.space[9], 10);
+  const spaceAroundIframe = parseInt(designTokens.space[5], 10);
+  const borderWidthPx = designTokens.borderWidths[0];
+  const borderWidth = parseInt(borderWidthPx, 10);
+  const minWidth = 50 + 2 * spaceAroundIframe + borderWidth;
+  const initialWidth = useMemo(() => {
+    if (!props.width || typeof props.width === "string") {
+      const initialWidthPx =
+        theme.breakpoints[props.width || "xs"] || props.width;
+
+      return parseInt(initialWidthPx, 10) + 2 * spaceAroundIframe;
+    }
+
+    return props.width + 2 * spaceAroundIframe;
+  }, [props.width, theme.breakpoints, spaceAroundIframe]);
+  const [resizeWidth, setResizeWidth] = useState(
+    initialWidth - 2 * spaceAroundIframe
+  );
+  const [width, setWidth] = useState(initialWidth + borderWidth);
+
+  return (
+    <div css={{ display: "flex", flexGrow: 1, overflowY: "auto" }}>
+      <LiveProvider code={code} scope={scope} noInline={noInline}>
+        <div>
+          <Resizable
+            style={{
+              flexShrink: 0,
+              marginRight: spaceBetween,
+              borderRight: `${borderWidthPx} solid ${designTokens.colors.grey.t10}`
+            }}
+            enable={rightOnly}
+            minWidth={minWidth}
+            size={{
+              width,
+              height: "100%"
+            }}
+            onResizeStop={(_e, _direction, _ref, d) => {
+              setWidth(width + d.width);
+            }}
+            onResize={(_e, _direction, _ref, d) => {
+              setResizeWidth(
+                width + d.width - 2 * spaceAroundIframe - borderWidth
+              );
+            }}
+          >
+            <div
+              css={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                backgroundColor: designTokens.colors.grey.t10,
+                fontSize: designTokens.fontSizes[0],
+                padding: `0 ${designTokens.space[1]}`
+              }}
+            >
+              {resizeWidth}px
+            </div>
+            <div
+              css={{
+                height: "100%",
+                boxSizing: "border-box",
+                padding: spaceAroundIframe,
+                backgroundColor,
+                overflowY: "auto"
+              }}
+            >
+              <ComponentPreview hasBodyMargin={hasBodyMargin} />
+            </div>
+          </Resizable>
+        </div>
+        <div css={{ flexGrow: 1, overflowY: "auto" }}>
+          <ComponentCode code={code} />
+          <LiveError />
+        </div>
+      </LiveProvider>
+    </div>
+  );
+}
+
+ComponentContainer.propTypes = {
+  code: PropTypes.string.isRequired,
+  noInline: PropTypes.bool,
+  scope: PropTypes.object.isRequired,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  hasBodyMargin: PropTypes.bool,
+  backgroundColor: PropTypes.string
+};
+
+export default ComponentContainer;
