@@ -34,10 +34,8 @@ export default App;
 ## Developing locally
 
 ```shell
-1. npm install
-2. cd website
-3. npm install
-4. npm start
+npm install
+npm start
 ```
 
 ## Thanks

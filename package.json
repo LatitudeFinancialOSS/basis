@@ -5,10 +5,12 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
+    "postinstall": "cd website && npm install && cd ..",
+    "start": "cd website && npm start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
     "test": "cross-env BABEL_ENV=cjs jest",
-    "reset": "rimraf node_modules && rm -f package-lock.json && npm i && cd website && gatsby clean && rimraf node_modules && rm -f package-lock.json && npm i && npm start",
+    "reset": "rimraf node_modules && rimraf package-lock.json && cd website && gatsby clean && rimraf node_modules && rimraf package-lock.json && cd .. && npm i && npm start",
     "prebuild-basis": "rimraf dist",
     "build-basis:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --ignore \"src/**/*.test.js\"",
     "build-basis:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel src -d dist/esm --ignore \"src/**/*.test.js\"",
