@@ -9,12 +9,12 @@
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
     "test": "cross-env BABEL_ENV=cjs jest",
     "reset": "rimraf node_modules && rm -f package-lock.json && npm i && cd website && gatsby clean && rimraf node_modules && rm -f package-lock.json && npm i && npm start",
-    "prebuild": "rimraf dist",
-    "build:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --ignore \"src/**/*.test.js\"",
-    "build:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel src -d dist/esm --ignore \"src/**/*.test.js\"",
-    "build": "npm run build:cjs && npm run build:esm",
-    "deploy": "cd website && npm run deploy && cd ..",
-    "prepublishOnly": "npm run build"
+    "prebuild-basis": "rimraf dist",
+    "build-basis:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --ignore \"src/**/*.test.js\"",
+    "build-basis:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel src -d dist/esm --ignore \"src/**/*.test.js\"",
+    "build-basis": "npm run build-basis:cjs && npm run build-basis:esm",
+    "build": "cd website && npm run build && mv public .. && cd ..",
+    "prepublishOnly": "npm run build-basis"
   },
   "husky": {
     "hooks": {

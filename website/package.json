@@ -6,8 +6,7 @@
     "start": "npm run develop",
     "develop": "gatsby develop",
     "prebuild": "gatsby clean",
-    "build": "gatsby build",
-    "deploy": "npm run build && now public --prod"
+    "build": "gatsby build"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",
