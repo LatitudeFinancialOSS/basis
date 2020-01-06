@@ -39,3 +39,12 @@ export default App;
 3. npm install
 4. npm start
 ```
+
+## Thanks
+
+- [ZEIT](https://zeit.co) for outstanding deployment experience.
+- [Sharvil Nanavati](https://twitter.com/snrrrub) for providing the `basis` npm package name.
+
+## License
+
+MIT
