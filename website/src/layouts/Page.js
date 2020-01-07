@@ -19,7 +19,7 @@ import "typeface-montserrat";
 import "typeface-roboto";
 
 function Page({ pageContext, children }) {
-  const { header, status } = pageContext;
+  const { header, status, layout = "default" } = pageContext;
   const title = header ? `${header} | Basis` : "Basis";
 
   return (
@@ -40,89 +40,96 @@ function Page({ pageContext, children }) {
         }}
       />
       <SEO title={title} />
-      <div
-        css={{
-          height: "100vh",
-          display: "grid",
-          gridTemplateColumns: `${designTokens.sizes[15]} 1fr`
-        }}
-      >
-        <Sidebar />
-        <main css={{ minHeight: 0, display: "flex", flexDirection: "column" }}>
-          {header && (
-            <div
-              css={{
-                marginBottom: designTokens.space[2],
-                padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`,
-                borderBottom: `1px solid ${designTokens.colors.grey.t16}`
-              }}
-            >
+      {layout === "empty" ? (
+        <main>{children}</main>
+      ) : (
+        <div
+          css={{
+            height: "100vh",
+            display: "grid",
+            gridTemplateColumns: `${designTokens.sizes[15]} 1fr`
+          }}
+        >
+          <Sidebar />
+          <main
+            css={{ minHeight: 0, display: "flex", flexDirection: "column" }}
+          >
+            {header && (
               <div
                 css={{
-                  display: "flex",
-                  height: designTokens.space[5]
+                  marginBottom: designTokens.space[2],
+                  padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`,
+                  borderBottom: `1px solid ${designTokens.colors.grey.t16}`
                 }}
               >
-                <Text intent="h4">{header}</Text>
-                {status && (
-                  <Container margin="0 0 0 9">
-                    <ComponentStatusIndicator status={status} />
-                  </Container>
-                )}
-              </div>
-              <Location>
-                {({ location }) => {
-                  const urls = getTabsUrls(location);
+                <div
+                  css={{
+                    display: "flex",
+                    height: designTokens.space[5]
+                  }}
+                >
+                  <Text intent="h4">{header}</Text>
+                  {status && (
+                    <Container margin="0 0 0 9">
+                      <ComponentStatusIndicator status={status} />
+                    </Container>
+                  )}
+                </div>
+                <Location>
+                  {({ location }) => {
+                    const urls = getTabsUrls(location);
 
-                  return (
-                    <ul
-                      css={{
-                        display: "flex",
-                        margin: `${designTokens.space[8]} 0 0`,
-                        padding: 0
-                      }}
-                    >
-                      {urls.map(({ name, to, isCurrent }, index) => (
-                        <li
-                          css={{
-                            listStyleType: "none",
-                            marginLeft: index === 0 ? 0 : designTokens.space[7],
-                            paddingBottom: designTokens.space[2],
-                            color: isCurrent
-                              ? designTokens.colors.black
-                              : designTokens.colors.grey.t65,
-                            borderBottom: isCurrent
-                              ? `${designTokens.borderWidths[1]} solid ${designTokens.colors.black}`
-                              : 0
-                          }}
-                          key={name}
-                        >
-                          {to ? (
-                            <Link to={to}>{name}</Link>
-                          ) : (
-                            <a title="Coming soon">{name}</a>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  );
-                }}
-              </Location>
+                    return (
+                      <ul
+                        css={{
+                          display: "flex",
+                          margin: `${designTokens.space[8]} 0 0`,
+                          padding: 0
+                        }}
+                      >
+                        {urls.map(({ name, to, isCurrent }, index) => (
+                          <li
+                            css={{
+                              listStyleType: "none",
+                              marginLeft:
+                                index === 0 ? 0 : designTokens.space[7],
+                              paddingBottom: designTokens.space[2],
+                              color: isCurrent
+                                ? designTokens.colors.black
+                                : designTokens.colors.grey.t65,
+                              borderBottom: isCurrent
+                                ? `${designTokens.borderWidths[1]} solid ${designTokens.colors.black}`
+                                : 0
+                            }}
+                            key={name}
+                          >
+                            {to ? (
+                              <Link to={to}>{name}</Link>
+                            ) : (
+                              <a title="Coming soon">{name}</a>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  }}
+                </Location>
+              </div>
+            )}
+            <div
+              css={{
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: 1,
+                minHeight: 0,
+                overflowY: "auto"
+              }}
+            >
+              {children}
             </div>
-          )}
-          <div
-            css={{
-              display: "flex",
-              flexDirection: "column",
-              flexGrow: 1,
-              minHeight: 0,
-              overflowY: "auto"
-            }}
-          >
-            {children}
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
+      )}
     </ThemeProvider>
   );
 }
@@ -130,7 +137,8 @@ function Page({ pageContext, children }) {
 Page.propTypes = {
   pageContext: PropTypes.shape({
     header: PropTypes.string,
-    status: PropTypes.oneOf(Object.values(COMPONENT_STATUS))
+    status: PropTypes.oneOf(Object.values(COMPONENT_STATUS)),
+    layout: PropTypes.string
   }).isRequired,
   children: PropTypes.node
 };

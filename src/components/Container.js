@@ -41,12 +41,23 @@ function Container(_props) {
   const responsiveCSS = hasBreakpointWidth
     ? mergeResponsiveCSS(
         {
-          ...theme["container.hasBreakpointWidth"],
+          marginLeft: "15px", // This is half of our special 30px columns gutter.
+          marginRight: "15px",
           // Note: the order of these media queries is important (because they are not exclusive).
-          [theme.minMediaQueries.sm]: theme["container.hasBreakpointWidth.sm"],
-          [theme.minMediaQueries.md]: theme["container.hasBreakpointWidth.md"],
-          [theme.minMediaQueries.lg]: theme["container.hasBreakpointWidth.lg"],
-          [theme.minMediaQueries.xl]: theme["container.hasBreakpointWidth.xl"]
+          [theme.minMediaQueries.sm]: {
+            maxWidth: theme.breakpointMaxWidths.sm,
+            marginLeft: "auto",
+            marginRight: "auto"
+          },
+          [theme.minMediaQueries.md]: {
+            maxWidth: theme.breakpointMaxWidths.md
+          },
+          [theme.minMediaQueries.lg]: {
+            maxWidth: theme.breakpointMaxWidths.lg
+          },
+          [theme.minMediaQueries.xl]: {
+            maxWidth: theme.breakpointMaxWidths.xl
+          }
         },
         responsivePropsCSS
       )
@@ -56,7 +67,7 @@ function Container(_props) {
     <ContainerProvider value={{ bg }}>
       <div
         css={{
-          ...theme.container,
+          boxSizing: "border-box",
           backgroundColor: theme.getColor(bg),
           ...responsiveCSS
         }}

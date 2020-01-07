@@ -24,7 +24,10 @@ const COMPONENT_PAGE_REGEX = /^\/components\/([^/]*)\//;
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage } = actions;
 
-  if (page.path.startsWith("/color/")) {
+  if (page.path.startsWith("/playground/")) {
+    page.context.header = "Playground";
+    page.context.layout = "empty";
+  } else if (page.path.startsWith("/color/")) {
     page.context.header = "Color";
   } else {
     const match = page.path.match(COMPONENT_PAGE_REGEX);

@@ -62,7 +62,7 @@ function Color({ name }) {
         flexDirection: "column",
         alignItems: "center",
         boxSizing: "border-box",
-        width: designTokens.sizes[13],
+        width: designTokens.sizes[12],
         height: designTokens.sizes[12],
         padding: designTokens.space[3],
         backgroundColor: theme.getColor(name)

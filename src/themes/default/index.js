@@ -1,6 +1,5 @@
 import button from "./button";
 import checkbox from "./checkbox";
-import container from "./container";
 import field from "./field";
 import grid from "./grid";
 import icon from "./icon";
@@ -15,7 +14,6 @@ import text from "./text";
 export default {
   ...button,
   ...checkbox,
-  ...container,
   ...field,
   ...grid,
   ...icon,
@@ -32,5 +30,11 @@ export default {
     md: "768px",
     lg: "992px",
     xl: "1200px"
+  },
+  breakpointMaxWidths: {
+    sm: "540px",
+    md: "720px",
+    lg: "960px",
+    xl: "1140px"
   }
 };
