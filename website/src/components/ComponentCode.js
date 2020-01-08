@@ -9,7 +9,10 @@ function ComponentCode({ className, code }) {
     <div
       className={className}
       css={{
-        padding: `${designTokens.space[3]} ${designTokens.space[5]}`
+        padding: `${designTokens.space[3]} ${designTokens.space[5]}`,
+        "textarea:focus": {
+          outline: "none"
+        }
       }}
     >
       <LiveEditor />

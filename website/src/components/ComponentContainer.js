@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Resizable } from "re-resizable";
 import { LiveProvider, LiveError } from "react-live";
 import { designTokens, useTheme } from "basis";
+import { reactLiveEditorTheme } from "../utils/constants";
 import ComponentCode from "./ComponentCode";
 import ComponentPreview from "./ComponentPreview";
 
@@ -48,7 +49,12 @@ function ComponentContainer(props) {
 
   return (
     <div css={{ display: "flex", flexGrow: 1, overflowY: "auto" }}>
-      <LiveProvider code={code} scope={scope} noInline={noInline}>
+      <LiveProvider
+        code={code}
+        scope={scope}
+        noInline={noInline}
+        theme={reactLiveEditorTheme}
+      >
         <div>
           <Resizable
             style={{
