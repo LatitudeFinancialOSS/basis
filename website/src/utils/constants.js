@@ -5,10 +5,7 @@ const COMPONENT_STATUS = {
 
 // Based on: https://github.com/FormidableLabs/prism-react-renderer/blob/078596ea53e0852dfe120a37aea30b33ae480603/src/themes/github.js
 const reactLiveEditorTheme = {
-  plain: {
-    height: "100%",
-    overflowY: "auto"
-  },
+  plain: {},
   styles: [
     {
       types: ["comment", "prolog", "doctype", "cdata"],

@@ -411,23 +411,20 @@ function Playground({ location }) {
                 display: "flex",
                 position: "relative",
                 flexGrow: 1,
-                minHeight: 0,
-                overflowX: "auto"
+                minHeight: 0
               }}
             >
               <div
                 css={{
                   padding: `${designTokens.space[4]} ${designTokens.space[7]}`,
+                  width: "100%",
+                  overflow: "auto",
                   "textarea:focus": {
                     outline: "none"
                   }
                 }}
               >
-                <LiveEditor
-                  style={{ paddingRight: designTokens.space[8] }}
-                  padding={0}
-                  onChange={setCode}
-                />
+                <LiveEditor padding={0} onChange={setCode} />
               </div>
               {areSettingsOpen && (
                 <div
