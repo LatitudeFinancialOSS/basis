@@ -6,6 +6,7 @@ import { rgba } from "polished";
 import lzString from "lz-string";
 import queryString from "query-string";
 import * as allDesignSystem from "basis";
+import { getReactLiveNoInline } from "../utils/ast";
 import { formatCode } from "../utils/formatting";
 import { reactLiveEditorTheme } from "../utils/constants";
 import useCopyToClipboard from "../hooks/useCopyToClipboard";
@@ -278,6 +279,7 @@ function Playground({ location }) {
   const [code, setCode] = useState(
     () => dataFromUrl.code || prettify(defaultCode)
   );
+  const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useState("40vh");
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
@@ -314,7 +316,12 @@ function Playground({ location }) {
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <LiveProvider code={code} scope={scope} theme={reactLiveEditorTheme}>
+      <LiveProvider
+        code={code}
+        noInline={noInline}
+        scope={scope}
+        theme={reactLiveEditorTheme}
+      >
         <div
           css={{
             flexGrow: 1,
