@@ -18,11 +18,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install
-      run: |
-        npm install
+      run: npm install
     - name: Lint
-      run: |
-        npm run lint
+      run: npm run lint
     - name: Test
-      run: |
-        npm test
+      run: npm test
+    - name: Build Basis
+      run: npm run build:basis
+    - name: Build Website
+      run: npm run build
