@@ -24,6 +24,6 @@ jobs:
     - name: Test
       run: npm test
     - name: Build Basis
-      run: npm run build:basis
+      run: npm run build-basis
     - name: Build Website
       run: npm run build
