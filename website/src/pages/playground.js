@@ -299,10 +299,16 @@ function Playground({ location }) {
           screens: screens.map(({ name, width }) => [name, width])
         }
       };
-
-      return `${location.href}?data=${lzString.compressToEncodedURIComponent(
+      const dataStr = lzString.compressToEncodedURIComponent(
         JSON.stringify(data)
-      )}`;
+      );
+
+      const { url, query } = queryString.parseUrl(location.href);
+
+      return `${url}?${queryString.stringify({
+        ...query,
+        data: dataStr
+      })}`;
     }
   );
 
