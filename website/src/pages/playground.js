@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
 import { rgba } from "polished";
@@ -66,7 +67,7 @@ const PlaygroundError = withLive(({ live }) => {
   );
 });
 
-function PlaygroundFrame() {
+function PlaygroundScreen() {
   return (
     <div
       css={{
@@ -82,28 +83,215 @@ function PlaygroundFrame() {
   );
 }
 
+function PlaygroundSettings({ screens, setScreens }) {
+  const [newScreen, setNewScreen] = useState({
+    id: "new-screen",
+    name: "",
+    width: ""
+  });
+  const [newScreenError, setNewScreenError] = useState(null);
+  const onFrameChange = (id, key, value) => {
+    const frameIndex = screens.findIndex(frame => frame.id === id);
+
+    if (frameIndex === -1) {
+      return;
+    }
+
+    const before = screens.slice(0, frameIndex);
+    const updatedFrame = {
+      ...screens[frameIndex],
+      [key]: value
+    };
+    const after = screens.slice(frameIndex + 1);
+
+    setScreens(before.concat(updatedFrame, after));
+  };
+  const onFrameRemove = id => {
+    const frameIndex = screens.findIndex(frame => frame.id === id);
+
+    if (frameIndex === -1) {
+      return;
+    }
+
+    const before = screens.slice(0, frameIndex);
+    const after = screens.slice(frameIndex + 1);
+
+    setScreens(before.concat(after));
+  };
+  const onFrameAdd = e => {
+    e.preventDefault();
+
+    const { name, width } = newScreen;
+    const cleanName = name.trim();
+
+    if (cleanName === "") {
+      setNewScreenError("name is missing");
+      return;
+    }
+
+    if (screens.find(frame => frame.name === cleanName)) {
+      setNewScreenError(
+        <>
+          <strong>{cleanName}</strong> already exists
+        </>
+      );
+      return;
+    }
+
+    const widthInt = parseInt(width, 10);
+
+    if (isNaN(widthInt)) {
+      setNewScreenError("width is missing");
+      return;
+    }
+
+    if (widthInt < 200 || widthInt > 5000) {
+      setNewScreenError("width must be between 200 and 5000");
+      return;
+    }
+
+    if (screens.find(frame => frame.width === widthInt)) {
+      setNewScreenError(
+        <>
+          <strong>{widthInt}px</strong> already exists
+        </>
+      );
+      return;
+    }
+
+    setScreens(
+      screens.concat({
+        id: cleanName,
+        name: cleanName,
+        width: widthInt
+      })
+    );
+    setNewScreen({
+      ...newScreen,
+      name: "",
+      width: ""
+    });
+    setNewScreenError(null);
+  };
+
+  return (
+    <div
+      css={{
+        height: "100%",
+        boxSizing: "border-box",
+        padding: `${designTokens.space[4]} ${designTokens.space[7]}`,
+        backgroundColor: designTokens.colors.grey.t03
+      }}
+    >
+      <label>Screens</label>
+      <ul css={{ listStyleType: "none", margin: 0, padding: 0 }}>
+        {screens.map(({ id, name, width }) => (
+          <li key={id}>
+            <input
+              css={{ width: 100 }}
+              type="text"
+              value={name}
+              onChange={e => onFrameChange(id, "name", e.target.value)}
+            />
+            <input
+              css={{ width: 50 }}
+              type="number"
+              value={width}
+              onChange={e => onFrameChange(id, "width", Number(e.target.value))}
+            />
+            <button
+              aria-label="Remove Screen"
+              onClick={() => onFrameRemove(id)}
+            >
+              ✕
+            </button>
+          </li>
+        ))}
+        <li key={newScreen.id}>
+          <form onSubmit={onFrameAdd}>
+            <input
+              css={{ width: 100 }}
+              type="text"
+              value={newScreen.name}
+              placeholder="name"
+              onChange={e =>
+                setNewScreen({
+                  ...newScreen,
+                  name: e.target.value
+                })
+              }
+            />
+            <input
+              css={{ width: 50 }}
+              type="number"
+              value={newScreen.width}
+              placeholder="width"
+              onChange={e =>
+                setNewScreen({
+                  ...newScreen,
+                  width: Number(e.target.value)
+                })
+              }
+            />
+            <button aria-label="Add New Screen">Add</button>
+            {newScreenError && (
+              <Text intent="body2" color="conditional.negative.text">
+                {newScreenError}
+              </Text>
+            )}
+          </form>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+PlaygroundSettings.propTypes = {
+  screens: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      width: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  setScreens: PropTypes.func.isRequired
+};
+
 function Playground() {
   const theme = useTheme();
   const [code, setCode] = useState(() => prettify(initialCode));
   const [height, setHeight] = useState("40vh");
-  const [areSettingsOpen, setAreSettingsOpen] = useState(false);
+  const [areSettingsOpen, setAreSettingsOpen] = useState(true);
   const settingsRef = useRef();
+  const [screens, setScreens] = useState(() =>
+    Object.entries(theme.breakpoints).map(([bp, width]) => ({
+      id: bp,
+      name: bp,
+      width: parseInt(width, 10)
+    }))
+  );
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <LiveProvider code={code} scope={scope} theme={reactLiveEditorTheme}>
-        <div css={{ flexGrow: 1, position: "relative", overflowX: "auto" }}>
+        <div
+          css={{
+            flexGrow: 1,
+            position: "relative",
+            overflowX: "auto",
+            backgroundColor: designTokens.colors.grey.t03
+          }}
+        >
           <div
             css={{
               display: "flex",
               padding: designTokens.space[7],
               height: "100%",
               width: "min-content", // Without it, right padding is not visible.
-              boxSizing: "border-box",
-              backgroundColor: designTokens.colors.grey.t03
+              boxSizing: "border-box"
             }}
           >
-            {Object.entries(theme.breakpoints).map(([bp, width], index) => (
+            {screens.map(({ id, name, width }, index) => (
               <div
                 css={{
                   display: "flex",
@@ -111,14 +299,14 @@ function Playground() {
                   marginLeft: index === 0 ? null : designTokens.space[7],
                   width
                 }}
-                key={bp}
+                key={id}
               >
                 <div css={{ flexGrow: 1 }}>
-                  <PlaygroundFrame />
+                  <PlaygroundScreen />
                 </div>
                 <Container padding="1">
                   <Text color="grey.t75">
-                    <strong>{bp}</strong> – {width}
+                    <strong>{name}</strong> – {width}px
                   </Text>
                 </Container>
               </div>
@@ -223,13 +411,14 @@ function Playground() {
                       width: designTokens.sizes[16],
                       maxWidth: "100vw",
                       boxSizing: "border-box",
-                      padding: `${designTokens.space[4]} ${designTokens.space[7]}`,
-                      backgroundColor: designTokens.colors.grey.t03,
                       borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
                     }}
                     ref={settingsRef}
                   >
-                    Settings
+                    <PlaygroundSettings
+                      screens={screens}
+                      setScreens={setScreens}
+                    />
                   </div>
                 </div>
               )}
