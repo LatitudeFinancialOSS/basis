@@ -1,11 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
 import { rgba } from "polished";
+import lzString from "lz-string";
+import queryString from "query-string";
 import * as allDesignSystem from "basis";
 import { formatCode } from "../utils/formatting";
 import { reactLiveEditorTheme } from "../utils/constants";
+import useCopyToClipboard from "../hooks/useCopyToClipboard";
 import ComponentPreview from "../components/ComponentPreview";
 import DemoBlock from "../components/DemoBlock";
 
@@ -22,7 +25,7 @@ const topOnly = {
   topLeft: false
 };
 
-const initialCode = `
+const defaultCode = `
   <Container bg="secondary.lightBlue.t30" padding="2 4" padding-sm="3 5" padding-md="5 7">
     <Text intent="h1" size="5" size-sm="3" size-md="2">
       Hello World
@@ -257,18 +260,50 @@ PlaygroundSettings.propTypes = {
   setScreens: PropTypes.func.isRequired
 };
 
-function Playground() {
+function Playground({ location }) {
   const theme = useTheme();
-  const [code, setCode] = useState(() => prettify(initialCode));
+  const dataFromUrl = useMemo(() => {
+    const { data } = queryString.parse(location.search);
+
+    if (!data) {
+      return {};
+    }
+
+    try {
+      return JSON.parse(lzString.decompressFromEncodedURIComponent(data));
+    } catch (_e) {
+      return {};
+    }
+  }, [location]);
+  const [code, setCode] = useState(
+    () => dataFromUrl.code || prettify(defaultCode)
+  );
   const [height, setHeight] = useState("40vh");
-  const [areSettingsOpen, setAreSettingsOpen] = useState(true);
+  const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
   const [screens, setScreens] = useState(() =>
-    Object.entries(theme.breakpoints).map(([bp, width]) => ({
+    (dataFromUrl.settings && dataFromUrl.settings.screens
+      ? dataFromUrl.settings.screens
+      : Object.entries(theme.breakpoints)
+    ).map(([bp, width]) => ({
       id: bp,
       name: bp,
       width: parseInt(width, 10)
     }))
+  );
+  const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(
+    () => {
+      const data = {
+        code: prettify(code),
+        settings: {
+          screens: screens.map(({ name, width }) => [name, width])
+        }
+      };
+
+      return `${location.href}?data=${lzString.compressToEncodedURIComponent(
+        JSON.stringify(data)
+      )}`;
+    }
   );
 
   return (
@@ -348,6 +383,7 @@ function Playground() {
               }}
             >
               <button
+                css={{ width: 60 }}
                 onClick={() => {
                   setCode(prettify(code));
                 }}
@@ -355,7 +391,14 @@ function Playground() {
                 Prettify
               </button>
               <button
-                css={{ marginLeft: "auto" }}
+                css={{ width: 60, marginLeft: designTokens.space[4] }}
+                disabled={isShareSuccessful}
+                onClick={copyShareUrlToClipboard}
+              >
+                {isShareSuccessful ? "Copied!" : "Share"}
+              </button>
+              <button
+                css={{ width: 60, marginLeft: "auto" }}
                 onClick={() => {
                   setAreSettingsOpen(!areSettingsOpen);
                 }}
@@ -429,5 +472,12 @@ function Playground() {
     </div>
   );
 }
+
+Playground.propTypes = {
+  location: PropTypes.shape({
+    href: PropTypes.string.isRequired,
+    search: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default Playground;
