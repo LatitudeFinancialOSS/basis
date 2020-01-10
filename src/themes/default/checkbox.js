@@ -6,16 +6,6 @@ export default {
     flexDirection: "column",
     flex: 1
   },
-  checkboxInput: {
-    // See: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
-    position: "absolute",
-    width: "1px",
-    height: "1px",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)"
-  },
   checkboxLabel: {
     display: "inline-flex",
     alignItems: "flex-start",
@@ -27,7 +17,7 @@ export default {
     fontFamily: tokens.fonts.body,
     color: tokens.colors.black
   },
-  "checkboxLabel.focused": {
+  "checkboxLabel.focus-visible": {
     boxShadow: tokens.shadows.focus,
     borderRadius: tokens.radii[0]
   },

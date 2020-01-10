@@ -24,6 +24,7 @@ function Link(_props) {
     ...theme.link,
     ...theme[`link.${color}`],
     ":focus": theme["link:focus"],
+    ":focus-visible": theme["link:focus-visible"],
     ":hover": theme[`link.${color}:hover`],
     ":active": theme[`link.${color}:active`]
   };

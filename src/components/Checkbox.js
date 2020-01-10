@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import Field from "./internal/Field";
+import VisuallyHidden from "./VisuallyHidden";
 import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
 import useValidation from "../hooks/useValidation";
@@ -105,27 +106,28 @@ function Checkbox(_props) {
         aria-labelledby={label ? labelId : null}
         aria-describedby={helpText || errors ? auxId : null}
       >
-        <input
-          css={{
-            ...theme.checkboxInput,
-            ":focus + label": theme["checkboxLabel.focused"],
-            ":checked + label": theme["checkboxLabel.checked"]
-          }}
-          type="checkbox"
-          id={inputId}
-          checked={isChecked}
-          disabled={isDisabled}
-          onFocus={() => {
-            setIsTouched(true);
-          }}
-          onBlur={validate}
-          onChange={e => {
-            onChange({
-              ...data,
-              value: e.target.checked
-            });
-          }}
-        />
+        <VisuallyHidden>
+          <input
+            css={{
+              ":focus-visible + label": theme["checkboxLabel.focus-visible"],
+              ":checked + label": theme["checkboxLabel.checked"]
+            }}
+            type="checkbox"
+            id={inputId}
+            checked={isChecked}
+            disabled={isDisabled}
+            onFocus={() => {
+              setIsTouched(true);
+            }}
+            onBlur={validate}
+            onChange={e => {
+              onChange({
+                ...data,
+                value: e.target.checked
+              });
+            }}
+          />
+        </VisuallyHidden>
         <label
           css={{
             ...theme.checkboxLabel,

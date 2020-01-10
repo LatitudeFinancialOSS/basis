@@ -18,7 +18,7 @@ export default {
     color: tokens.colors.black,
     overflow: "hidden"
   },
-  "radioGroupRadioLabel.focused": {
+  "radioGroupRadioLabel.focus-visible": {
     boxShadow: tokens.shadows.focus,
     borderRadius: tokens.radii[0]
   },
@@ -49,15 +49,5 @@ export default {
   },
   radioGroupRadioInnerCircle: {
     fill: tokens.colors.primary.blue.t100
-  },
-  radioGroupRadioInput: {
-    // See: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
-    position: "absolute",
-    width: "1px",
-    height: "1px",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)"
   }
 };

@@ -15,6 +15,7 @@ export { default as Select } from "./components/Select";
 export { default as Stepper } from "./components/Stepper";
 export { default as Text } from "./components/Text";
 export { default as TimeSpan } from "./components/TimeSpan";
+export { default as VisuallyHidden } from "./components/VisuallyHidden";
 
 // Themes
 export { default as designTokens } from "./themes/tokens";

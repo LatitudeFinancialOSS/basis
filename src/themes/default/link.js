@@ -11,7 +11,9 @@ export default {
     transition: tokens.transitions.link
   },
   "link:focus": {
-    outline: 0,
+    outline: 0
+  },
+  "link:focus-visible": {
     borderRadius: tokens.radii[0],
     boxShadow: tokens.shadows.focus
   },

@@ -35,10 +35,11 @@ const iframeStyle = {
   border: 0
 };
 
-function ComponentPreview({ hasBodyMargin = true }) {
+function ComponentPreview({ iframeTitle = "Preview", hasBodyMargin = true }) {
   return (
     <div css={{ height: "100%" }}>
       <Frame
+        title={iframeTitle}
         initialContent={iframeHTML}
         mountTarget="#component-preview"
         style={iframeStyle}
@@ -79,6 +80,7 @@ function ComponentPreview({ hasBodyMargin = true }) {
 }
 
 ComponentPreview.propTypes = {
+  iframeTitle: PropTypes.string,
   hasBodyMargin: PropTypes.bool
 };
 

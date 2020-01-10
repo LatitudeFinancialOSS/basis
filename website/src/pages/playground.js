@@ -13,7 +13,14 @@ import useCopyToClipboard from "../hooks/useCopyToClipboard";
 import ComponentPreview from "../components/ComponentPreview";
 import DemoBlock from "../components/DemoBlock";
 
-const { designTokens, useTheme, Text, Container } = allDesignSystem;
+const {
+  designTokens,
+  useTheme,
+  VisuallyHidden,
+  Text,
+  Container,
+  Button
+} = allDesignSystem;
 
 const topOnly = {
   top: true,
@@ -71,7 +78,7 @@ const PlaygroundError = withLive(({ live }) => {
   );
 });
 
-function PlaygroundScreen() {
+function PlaygroundScreen({ width }) {
   return (
     <div
       css={{
@@ -82,10 +89,17 @@ function PlaygroundScreen() {
           "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
       }}
     >
-      <ComponentPreview hasBodyMargin={false} />
+      <ComponentPreview
+        iframeTitle={`Preview at ${width}px`}
+        hasBodyMargin={false}
+      />
     </div>
   );
 }
+
+PlaygroundScreen.propTypes = {
+  width: PropTypes.number.isRequired
+};
 
 function PlaygroundSettings({ screens, setScreens }) {
   const [newScreen, setNewScreen] = useState({
@@ -350,7 +364,7 @@ function Playground({ location }) {
                 key={id}
               >
                 <div css={{ flexGrow: 1 }}>
-                  <PlaygroundScreen />
+                  <PlaygroundScreen width={width} />
                 </div>
                 <Container padding="1">
                   <Text color="grey.t75">
@@ -395,29 +409,36 @@ function Playground({ location }) {
                 borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
               }}
             >
-              <button
-                css={{ width: 60 }}
+              <Button
+                variant="secondary"
+                isFullWidth={false}
                 onClick={() => {
                   setCode(prettify(code));
                 }}
               >
                 Prettify
-              </button>
-              <button
-                css={{ width: 60, marginLeft: designTokens.space[4] }}
-                disabled={isShareSuccessful}
-                onClick={copyShareUrlToClipboard}
-              >
-                {isShareSuccessful ? "Copied!" : "Share"}
-              </button>
-              <button
-                css={{ width: 60, marginLeft: "auto" }}
-                onClick={() => {
-                  setAreSettingsOpen(!areSettingsOpen);
-                }}
-              >
-                Settings
-              </button>
+              </Button>
+              <div css={{ marginLeft: designTokens.space[4] }}>
+                <Button
+                  variant="secondary"
+                  isFullWidth={false}
+                  isDisabled={isShareSuccessful}
+                  onClick={copyShareUrlToClipboard}
+                >
+                  {isShareSuccessful ? "Copied!" : "Share"}
+                </Button>
+              </div>
+              <div css={{ marginLeft: "auto" }}>
+                <Button
+                  variant="secondary"
+                  isFullWidth={false}
+                  onClick={() => {
+                    setAreSettingsOpen(!areSettingsOpen);
+                  }}
+                >
+                  Settings
+                </Button>
+              </div>
             </div>
             <div
               css={{
@@ -437,7 +458,14 @@ function Playground({ location }) {
                   }
                 }}
               >
-                <LiveEditor padding={0} onChange={setCode} />
+                <VisuallyHidden>
+                  <label htmlFor="code-editor">Code Editor</label>
+                </VisuallyHidden>
+                <LiveEditor
+                  textareaId="code-editor"
+                  padding={0}
+                  onChange={setCode}
+                />
               </div>
               {areSettingsOpen && (
                 <div

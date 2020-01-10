@@ -22,20 +22,22 @@ function Button(_props) {
   const { buttonColor } = useContainer();
   const color =
     !COLORS.includes(_props.color) && buttonColor ? buttonColor : props.color;
+  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
     ...theme.button,
     ...(isFullWidth && theme["button.fullWidth"]),
-    ...theme[`button.${variant}.${color}`],
+    ...theme[`button.${variant}.${colorStr}`],
     ":focus": theme["button:focus"],
+    ":focus-visible": theme["button:focus-visible"],
     ":hover": {
-      ...(!isDisabled && theme[`button.${variant}.${color}:hover`])
+      ...(!isDisabled && theme[`button.${variant}.${colorStr}:hover`])
     },
     ":active": {
-      ...(!isDisabled && theme[`button.${variant}.${color}:active`])
+      ...(!isDisabled && theme[`button.${variant}.${colorStr}:active`])
     },
     ":disabled": {
       ...theme["button:disabled"],
-      ...theme[`button.${variant}.${color}:disabled`]
+      ...theme[`button.${variant}.${colorStr}:disabled`]
     }
   };
 

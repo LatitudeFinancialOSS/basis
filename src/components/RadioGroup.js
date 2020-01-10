@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import Field from "./internal/Field";
 import Grid from "./Grid";
+import VisuallyHidden from "./VisuallyHidden";
 import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
 import useValidation from "../hooks/useValidation";
@@ -81,24 +82,26 @@ function Radio({
 
   return (
     <div css={theme.radioGroupRadio} role="radio" aria-checked={isChecked}>
-      <input
-        css={{
-          ...theme.radioGroupRadioInput,
-          ":focus + label": theme["radioGroupRadioLabel.focused"],
-          ":checked + label": theme["radioGroupRadioLabel.checked"]
-        }}
-        type="radio"
-        id={inputId}
-        name={name}
-        value={value}
-        checked={isChecked}
-        disabled={isDisabled}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={e => {
-          onChange(e.target.value);
-        }}
-      />
+      <VisuallyHidden>
+        <input
+          css={{
+            ":focus-visible + label":
+              theme["radioGroupRadioLabel.focus-visible"],
+            ":checked + label": theme["radioGroupRadioLabel.checked"]
+          }}
+          type="radio"
+          id={inputId}
+          name={name}
+          value={value}
+          checked={isChecked}
+          disabled={isDisabled}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={e => {
+            onChange(e.target.value);
+          }}
+        />
+      </VisuallyHidden>
       <label
         css={{
           ...theme.radioGroupRadioLabel,

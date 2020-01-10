@@ -7,14 +7,9 @@ import { COMPONENT_STATUS } from "../utils/constants";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
-import {
-  Text,
-  Container,
-  designTokens,
-  ThemeProvider,
-  defaultTheme
-} from "basis";
+import { Text, Container, designTokens, ThemeProvider } from "basis";
 import { getTabsUrls } from "../utils/url";
+import websiteTheme from "../themes/website";
 import "typeface-montserrat";
 import "typeface-roboto";
 
@@ -23,7 +18,7 @@ function Page({ pageContext, children }) {
   const title = header ? `${header} | Basis` : "Basis";
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={websiteTheme}>
       <Global
         styles={{
           body: {

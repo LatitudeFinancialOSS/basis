@@ -17,7 +17,9 @@ export default {
     width: "100%"
   },
   "button:focus": {
-    outline: 0,
+    outline: 0
+  },
+  "button:focus-visible": {
     boxShadow: tokens.shadows.focus
   },
   "button:disabled": {
@@ -27,16 +29,17 @@ export default {
     cursor: "not-allowed"
   },
   // Primary blue
-  "button.primary.highlight.blue.t100": {
+  "button.primary.default": {
     backgroundColor: tokens.colors.highlight.blue.t100,
     color: tokens.colors.white
   },
-  "button.primary.highlight.blue.t100:hover": {
+  "button.primary.default:hover": {
     backgroundColor: tokens.colors.primary.blue.t100
   },
-  "button.primary.highlight.blue.t100:active": {
+  "button.primary.default:active": {
     backgroundColor: tokens.colors.primary.blue.t100
   },
+  // Primary white
   "button.primary.white": {
     backgroundColor: tokens.colors.white,
     color: tokens.colors.highlight.blue.t100
@@ -49,23 +52,23 @@ export default {
     backgroundColor: tokens.colors.secondary.lightBlue.t30,
     color: tokens.colors.primary.blue.t100
   },
-  // Secondary blue
-  "button.secondary.highlight.blue.t100": {
+  // Secondary default
+  "button.secondary.default": {
     backgroundColor: "transparent",
     color: tokens.colors.highlight.blue.t100,
     borderWidth: tokens.borderWidths[0],
     borderStyle: "solid",
     borderColor: tokens.colors.highlight.blue.t100
   },
-  "button.secondary.highlight.blue.t100:hover": {
+  "button.secondary.default:hover": {
     backgroundColor: tokens.colors.highlight.blue.t100,
     color: tokens.colors.white
   },
-  "button.secondary.highlight.blue.t100:active": {
+  "button.secondary.default:active": {
     backgroundColor: tokens.colors.highlight.blue.t100,
     color: tokens.colors.white
   },
-  "button.secondary.highlight.blue.t100:disabled": {
+  "button.secondary.default:disabled": {
     borderColor: tokens.colors.grey.t65
   },
   // Secondary white
