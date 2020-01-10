@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
-    "postinstall": "cd website && npm install && cd ..",
+    "postinstall": "if [[ -d website ]]; then npm run install-website; fi",
+    "install-website": "cd website && npm install && cd ..",
     "start": "cd website && npm start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
