@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import { Container, Text, designTokens } from "basis";
+import { Text, designTokens } from "basis";
 
 function Checkbox({ value, checked, label, onChange }) {
   const [id] = useState(`checkbox-${nanoid()}`);
@@ -54,11 +54,9 @@ function CheckboxesSetting({
 
   return (
     <div className={className}>
-      <Container margin="0 0 2 0">
-        <Text weight="bold" color="grey.t75">
-          {heading.toUpperCase()}
-        </Text>
-      </Container>
+      <Text weight="bold" color="grey.t75" margin="0 0 2 0">
+        {heading.toUpperCase()}
+      </Text>
       {options.map(({ value, label }) => (
         <Checkbox
           value={value}

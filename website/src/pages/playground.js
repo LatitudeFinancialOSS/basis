@@ -18,7 +18,6 @@ const {
   useTheme,
   VisuallyHidden,
   Text,
-  Container,
   Button
 } = allDesignSystem;
 
@@ -366,11 +365,9 @@ function Playground({ location }) {
                 <div css={{ flexGrow: 1 }}>
                   <PlaygroundScreen width={width} />
                 </div>
-                <Container padding="1">
-                  <Text color="grey.t75">
-                    <strong>{name}</strong> – {width}px
-                  </Text>
-                </Container>
+                <Text color="grey.t75" margin="1 0 0 1">
+                  <strong>{name}</strong> – {width}px
+                </Text>
               </div>
             ))}
           </div>
@@ -418,27 +415,25 @@ function Playground({ location }) {
               >
                 Prettify
               </Button>
-              <div css={{ marginLeft: designTokens.space[4] }}>
-                <Button
-                  variant="secondary"
-                  isFullWidth={false}
-                  isDisabled={isShareSuccessful}
-                  onClick={copyShareUrlToClipboard}
-                >
-                  {isShareSuccessful ? "Copied!" : "Share"}
-                </Button>
-              </div>
-              <div css={{ marginLeft: "auto" }}>
-                <Button
-                  variant="secondary"
-                  isFullWidth={false}
-                  onClick={() => {
-                    setAreSettingsOpen(!areSettingsOpen);
-                  }}
-                >
-                  Settings
-                </Button>
-              </div>
+              <Button
+                margin="0 0 0 4"
+                variant="secondary"
+                isFullWidth={false}
+                isDisabled={isShareSuccessful}
+                onClick={copyShareUrlToClipboard}
+              >
+                {isShareSuccessful ? "Copied!" : "Share"}
+              </Button>
+              <Button
+                margin="0 0 0 auto"
+                variant="secondary"
+                isFullWidth={false}
+                onClick={() => {
+                  setAreSettingsOpen(!areSettingsOpen);
+                }}
+              >
+                Settings
+              </Button>
             </div>
             <div
               css={{

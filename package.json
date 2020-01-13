@@ -11,7 +11,7 @@
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
     "test": "cross-env BABEL_ENV=cjs jest",
-    "reset": "rimraf node_modules && rimraf package-lock.json && cd website && gatsby clean && rimraf node_modules && rimraf package-lock.json && cd .. && npm i && npm start",
+    "reset": "rimraf package-lock.json && rimraf node_modules && cd website && gatsby clean && rimraf package-lock.json && rimraf node_modules && cd .. && npm i && npm start",
     "prebuild-basis": "rimraf dist",
     "build-basis:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --ignore \"src/**/*.test.js\"",
     "build-basis:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel src -d dist/esm --ignore \"src/**/*.test.js\"",
@@ -25,8 +25,8 @@
     }
   },
   "dependencies": {
-    "date-fns": "^2.8.1",
-    "nanoid": "^2.1.8",
+    "date-fns": "^2.9.0",
+    "nanoid": "^2.1.9",
     "polished": "^3.4.2",
     "react-resize-aware": "^3.0.0"
   },
@@ -37,10 +37,10 @@
     "react-dom": "^16.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-react": "^7.7.4",
+    "@babel/cli": "^7.8.0",
+    "@babel/core": "^7.8.0",
+    "@babel/preset-env": "^7.8.2",
+    "@babel/preset-react": "^7.8.0",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@emotion/core": "^10.0.27",
     "@testing-library/jest-dom": "^4.2.4",
@@ -50,10 +50,10 @@
     "babel-loader": "^8.0.6",
     "cross-env": "^6.0.3",
     "eslint": "^6.8.0",
-    "eslint-plugin-jest": "^23.3.0",
+    "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
-    "husky": "^3.1.0",
+    "husky": "^4.0.7",
     "jest": "^24.9.0",
     "mq-polyfill": "^1.1.8",
     "prettier": "^1.19.1",

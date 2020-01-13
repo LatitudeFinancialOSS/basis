@@ -71,11 +71,9 @@ LegalLinks.propTypes = {
 
 function LegalCopy({ children }) {
   return (
-    <Container margin="7 0 0 0" margin-md="6 0 0 0">
-      <Text intent="legal" align="center">
-        {children}
-      </Text>
-    </Container>
+    <Text intent="legal" align="center" margin="7 0 0 0" margin-md="6 0 0 0">
+      {children}
+    </Text>
   );
 }
 

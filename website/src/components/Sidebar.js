@@ -8,19 +8,19 @@ import { version } from "../../../package.json";
 
 function Section({ heading, children }) {
   return (
-    <Container margin="0 0 4">
-      <Container margin="5 0 2" padding="0 6">
-        <Text weight="bold" color="grey.t75">
+    <Container margin="5 0 4">
+      {heading && (
+        <Text weight="bold" color="grey.t75" margin="0 6 2">
           {heading.toUpperCase()}
         </Text>
-      </Container>
+      )}
       <ul css={{ margin: 0, padding: 0 }}>{children}</ul>
     </Container>
   );
 }
 
 Section.propTypes = {
-  heading: PropTypes.string.isRequired,
+  heading: PropTypes.string,
   children: PropTypes.node.isRequired
 };
 
@@ -109,6 +109,11 @@ function Sidebar() {
         <Location>
           {({ location }) => (
             <>
+              <Section>
+                <Item location={location} href="/playground">
+                  Playground
+                </Item>
+              </Section>
               <Section heading="Foundation">
                 <Item location={location} href="/color">
                   Color
