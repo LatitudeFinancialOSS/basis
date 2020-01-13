@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
-import { responsivePropType } from "../hooks/useResponsiveProp";
+import {
+  responsivePropType,
+  responsiveMarginType
+} from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useContainer from "../hooks/useContainer";
+import { responsiveMargin } from "../utils/css";
 
 export const INTENTS = [
   "hero",
@@ -89,6 +93,7 @@ function Text(_props) {
     ? intent[1] // h1 => 1, h2 => 2, etc.
     : null;
   const responsivePropsCSS = useResponsivePropsCSS(props, {
+    margin: responsiveMargin,
     size: {
       getCSS: value => {
         return isHeader ? theme[`text.size${value}`] : {};
@@ -104,12 +109,12 @@ function Text(_props) {
     ...theme.text,
     ...theme[`text.${intent}`],
     ...theme[`text.${intent}.${weight}`],
-    ...responsivePropsCSS,
     ...theme[`text.${color}`],
     ...(!wrap && theme["text.noWrap"]),
     textAlign: align,
     "& strong": theme[`text.${intent}.bold`],
-    "& b": theme[`text.${intent}.bold`]
+    "& b": theme[`text.${intent}.bold`],
+    ...responsivePropsCSS
   };
 
   return <Component css={css}>{children}</Component>;
@@ -117,6 +122,7 @@ function Text(_props) {
 
 Text.propTypes = {
   intent: PropTypes.oneOf(INTENTS),
+  ...responsiveMarginType,
   ...responsivePropType("size", (props, propName) => {
     if (typeof props[propName] === "undefined") {
       return;

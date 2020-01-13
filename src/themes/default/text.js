@@ -2,7 +2,7 @@ import tokens from "../tokens";
 
 export default {
   text: {
-    margin: 0
+    margin: "0px"
   },
   // intent
   "text.hero": {

@@ -1,7 +1,9 @@
 import {
   getMinMediaQueries,
   getExclusiveMediaQueries,
-  mergeResponsiveCSS
+  mergeResponsiveCSS,
+  responsiveMargin,
+  responsivePadding
 } from "./css";
 
 describe("getMinMediaQueries", () => {
@@ -104,5 +106,25 @@ describe("mergeResponsiveCSS", () => {
         padding: "16px 48px"
       }
     });
+  });
+});
+
+describe("responsiveMargin", () => {
+  it("valid margin", () => {
+    expect(responsiveMargin.getCSS("4 5")).toEqual({ margin: "16px 20px" });
+  });
+
+  it("invalid margin", () => {
+    expect(responsiveMargin.getCSS("")).toEqual({});
+  });
+});
+
+describe("responsivePadding", () => {
+  it("valid padding", () => {
+    expect(responsivePadding.getCSS("1")).toEqual({ padding: "4px" });
+  });
+
+  it("invalid padding", () => {
+    expect(responsivePadding.getCSS(true)).toEqual({});
   });
 });

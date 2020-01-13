@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import useTheme from "./useTheme";
 import useBreakpoint from "./useBreakpoint";
 import defaultTheme from "../themes/default";
@@ -26,6 +27,16 @@ export function responsivePropType(propName, propType) {
 
   return result;
 }
+
+export const responsiveMarginType = responsivePropType(
+  "margin",
+  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+);
+
+export const responsivePaddingType = responsivePropType(
+  "padding",
+  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+);
 
 function useResponsiveProp(props, propName) {
   const theme = useTheme();

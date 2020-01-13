@@ -2,15 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import useContainer from "../hooks/useContainer";
+import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsiveMargin } from "../utils/css";
 
 export const COLORS = [
-  "highlight.blue.t100",
+  "primary.blue.t100",
   "secondary.turquoise.t60",
   "secondary.lightBlue.t100"
 ];
 
 export const DEFAULT_PROPS = {
-  color: "highlight.blue.t100"
+  color: "primary.blue.t100"
 };
 
 function Link(_props) {
@@ -18,15 +21,20 @@ function Link(_props) {
   const { href, newTab, children } = props;
   const theme = useTheme();
   const { linkColor } = useContainer();
+  const responsivePropsCSS = useResponsivePropsCSS(props, {
+    margin: responsiveMargin
+  });
   const color =
     !COLORS.includes(_props.color) && linkColor ? linkColor : props.color;
+  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
     ...theme.link,
-    ...theme[`link.${color}`],
+    ...theme[`link.${colorStr}`],
     ":focus": theme["link:focus"],
     ":focus-visible": theme["link:focus-visible"],
-    ":hover": theme[`link.${color}:hover`],
-    ":active": theme[`link.${color}:active`]
+    ":hover": theme[`link.${colorStr}:hover`],
+    ":active": theme[`link.${colorStr}:active`],
+    ...responsivePropsCSS
   };
   const newTabProps = newTab
     ? {
@@ -43,6 +51,7 @@ function Link(_props) {
 }
 
 Link.propTypes = {
+  ...responsiveMarginType,
   color: PropTypes.oneOf(COLORS),
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,

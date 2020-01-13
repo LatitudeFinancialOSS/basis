@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import useContainer from "../hooks/useContainer";
+import { responsiveMargin } from "../utils/css";
+import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 
 export const VARIANTS = ["primary", "secondary"];
 export const COLORS = ["highlight.blue.t100", "white"];
@@ -20,6 +23,9 @@ function Button(_props) {
   const { variant, isFullWidth, isDisabled, type, onClick, children } = props;
   const theme = useTheme();
   const { buttonColor } = useContainer();
+  const responsivePropsCSS = useResponsivePropsCSS(props, {
+    margin: responsiveMargin
+  });
   const color =
     !COLORS.includes(_props.color) && buttonColor ? buttonColor : props.color;
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
@@ -38,7 +44,8 @@ function Button(_props) {
     ":disabled": {
       ...theme["button:disabled"],
       ...theme[`button.${variant}.${colorStr}:disabled`]
-    }
+    },
+    ...responsivePropsCSS
   };
 
   return (
@@ -49,6 +56,7 @@ function Button(_props) {
 }
 
 Button.propTypes = {
+  ...responsiveMarginType,
   variant: PropTypes.oneOf(VARIANTS),
   color: PropTypes.oneOf(COLORS),
   isFullWidth: PropTypes.bool,

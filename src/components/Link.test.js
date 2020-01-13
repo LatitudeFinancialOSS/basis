@@ -22,7 +22,7 @@ describe("Link", () => {
       border-bottom-style: solid;
       border-bottom-color: rgba(0,106,255,0.5);
       transition: background-color 0.2s ease-out,border-bottom-color 0.2s ease-out;
-      color: #006aff;
+      color: #0046aa;
       font-family: 'Roboto',sans-serif;
     `);
   });
@@ -80,6 +80,19 @@ describe("Link", () => {
     expect(link).toHaveStyle(`
       color: #87edf9;
       border-bottom-color: rgba(135,237,249,0.5);
+    `);
+  });
+
+  it("with margin", () => {
+    const { getByText } = render(
+      <Link href="/terms" newTab={false} margin="1 2 3">
+        Terms and Conditions
+      </Link>
+    );
+    const link = getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle(`
+      margin: 4px 8px 12px;
     `);
   });
 });

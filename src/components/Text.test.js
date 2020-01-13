@@ -52,7 +52,7 @@ describe("Text", () => {
       font-weight: 600;
       line-height: 48px;
       letter-spacing: -0.88px;
-      margin: 0;
+      margin: 0px;
     `);
   });
 
@@ -104,6 +104,15 @@ describe("Text", () => {
 
     expect(node).toHaveStyle(`
       color: #ffffff;
+    `);
+  });
+
+  it("with margin", () => {
+    const { getByText } = render(<Text margin="1 2 3 4">Hello World</Text>);
+    const node = getByText("Hello World");
+
+    expect(node).toHaveStyle(`
+      margin: 4px 8px 12px 16px;
     `);
   });
 });

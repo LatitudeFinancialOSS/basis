@@ -114,4 +114,13 @@ describe("Button", () => {
       color: #006aff;
     `);
   });
+
+  it("with margin", () => {
+    const { getByText } = render(<Button margin="2 4">Find out more</Button>);
+    const button = getByText("Find out more");
+
+    expect(button).toHaveStyle(`
+      margin: 8px 16px;
+    `);
+  });
 });

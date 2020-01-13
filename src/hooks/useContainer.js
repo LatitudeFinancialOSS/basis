@@ -12,7 +12,7 @@ function useContainer() {
   const textColor = isDarkBackground ? "white" : "black";
   const linkColor = isDarkBackground
     ? "secondary.turquoise.t60"
-    : "highlight.blue.t100";
+    : "primary.blue.t100";
   const inputColor = !value || bg === "white" ? "grey.t05" : "white";
 
   return {

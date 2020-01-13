@@ -17,17 +17,17 @@ export default {
     borderRadius: tokens.radii[0],
     boxShadow: tokens.shadows.focus
   },
-  "link.highlight.blue.t100": {
-    color: tokens.colors.highlight.blue.t100,
-    borderBottomColor: rgba(tokens.colors.highlight.blue.t100, 0.5)
+  "link.default": {
+    color: tokens.colors.primary.blue.t100,
+    borderBottomColor: rgba(tokens.colors.primary.blue.t100, 0.5)
   },
-  "link.highlight.blue.t100:hover": {
-    borderBottomColor: tokens.colors.highlight.blue.t100,
-    backgroundColor: rgba(tokens.colors.highlight.blue.t100, 0.2)
+  "link.default:hover": {
+    borderBottomColor: tokens.colors.primary.blue.t100,
+    backgroundColor: rgba(tokens.colors.primary.blue.t100, 0.2)
   },
-  "link.highlight.blue.t100:active": {
-    borderBottomColor: tokens.colors.highlight.blue.t100,
-    backgroundColor: rgba(tokens.colors.highlight.blue.t100, 0.2)
+  "link.default:active": {
+    borderBottomColor: tokens.colors.primary.blue.t100,
+    backgroundColor: rgba(tokens.colors.primary.blue.t100, 0.2)
   },
   "link.secondary.turquoise.t60": {
     color: tokens.colors.secondary.turquoise.t60,

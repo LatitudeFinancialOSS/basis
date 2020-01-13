@@ -151,3 +151,19 @@ export function mergeResponsiveCSS(css1, css2) {
 
   return result;
 }
+
+export const responsiveMargin = {
+  getCSS: value => {
+    const margin = getSpaceValue(value);
+
+    return margin === null ? {} : { margin };
+  }
+};
+
+export const responsivePadding = {
+  getCSS: value => {
+    const padding = getSpaceValue(value);
+
+    return padding === null ? {} : { padding };
+  }
+};
