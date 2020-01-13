@@ -5,13 +5,25 @@ import Text from "./Text";
 import Link from "./Link";
 import useTheme from "../hooks/useTheme";
 import LatitudeLogo from "../logos/latitude";
+import GemLogo from "../logos/gem";
 import tokens from "../themes/tokens";
 
-function HeaderLogo() {
-  return <LatitudeLogo />;
+const LOGO_NAMES = ["latitude", "gem"];
+
+function HeaderLogo({ name = "latitude" }) {
+  switch (name) {
+    case "gem":
+      return <GemLogo />;
+
+    case "latitude":
+    default:
+      return <LatitudeLogo />;
+  }
 }
 
-HeaderLogo.propTypes = {};
+HeaderLogo.propTypes = {
+  name: PropTypes.oneOf(LOGO_NAMES),
+};
 
 function Header({ children }) {
   return (
