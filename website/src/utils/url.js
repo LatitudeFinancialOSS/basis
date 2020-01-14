@@ -1,3 +1,13 @@
+import { paramCase } from "param-case";
+
+function getTabNames(parts) {
+  if (parts[0] === "color") {
+    return ["Palettes", "Accessibility", "Resources"];
+  }
+
+  return ["Playground", "Usage", "Resources"];
+}
+
 export function getTabsUrls(location) {
   const parts = location.pathname.split("/").filter(Boolean);
 
@@ -6,27 +16,19 @@ export function getTabsUrls(location) {
   }
 
   const lastPart = parts[parts.length - 1];
-  const coreParts =
-    lastPart === "usage" || lastPart === "resources"
-      ? parts.slice(0, -1)
-      : parts;
-  const playgroundPathname = `/${coreParts.join("/")}`;
+  const tabNames = getTabNames(parts);
+  const tabSlugs = tabNames.map(paramCase);
+  const isDefaultPath = !tabSlugs.slice(1).includes(lastPart);
+  const coreParts = isDefaultPath ? parts : parts.slice(0, -1);
+  const basePath = `/${coreParts.join("/")}`;
 
-  return [
-    {
-      name: "Playground",
-      to: playgroundPathname,
-      isCurrent: lastPart !== "usage" && lastPart !== "resources"
-    },
-    {
-      name: "Usage",
-      to: `${playgroundPathname}/usage`,
-      isCurrent: lastPart === "usage"
-    },
-    {
-      name: "Resources",
-      to: `${playgroundPathname}/resources`,
-      isCurrent: lastPart === "resources"
-    }
-  ];
+  return tabNames.map((tabName, tabIndex) => {
+    const slug = paramCase(tabName);
+
+    return {
+      name: tabName,
+      to: tabIndex === 0 ? basePath : `${basePath}/${slug}`,
+      isCurrent: tabIndex === 0 ? isDefaultPath : lastPart === slug
+    };
+  });
 }
