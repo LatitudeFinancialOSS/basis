@@ -82,7 +82,6 @@ function PlaygroundScreen({ width }) {
     <div
       css={{
         width: "100%",
-        height: "100%",
         backgroundColor: designTokens.colors.white,
         boxShadow:
           "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
@@ -338,6 +337,7 @@ function Playground({ location }) {
         <div
           css={{
             flexGrow: 1,
+            display: "flex",
             position: "relative",
             overflowX: "auto",
             backgroundColor: designTokens.colors.grey.t03
@@ -347,9 +347,7 @@ function Playground({ location }) {
             css={{
               display: "flex",
               padding: designTokens.space[7],
-              height: "100%",
               width: "min-content", // Without it, right padding is not visible.
-              boxSizing: "border-box"
             }}
           >
             {screens.map(({ id, name, width }, index) => (
@@ -362,10 +360,10 @@ function Playground({ location }) {
                 }}
                 key={id}
               >
-                <div css={{ flexGrow: 1 }}>
+                <div css={{ flexGrow: 1, display: "flex" }}>
                   <PlaygroundScreen width={width} />
                 </div>
-                <Text color="grey.t75" margin="1 0 0 1">
+                <Text color="grey.t75" margin="1 1 0">
                   <strong>{name}</strong> – {width}px
                 </Text>
               </div>
