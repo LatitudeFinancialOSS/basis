@@ -22,7 +22,7 @@ function HeaderLogo({ name = "latitude" }) {
 }
 
 HeaderLogo.propTypes = {
-  name: PropTypes.oneOf(LOGO_NAMES),
+  name: PropTypes.oneOf(LOGO_NAMES)
 };
 
 function Header({ children }) {
