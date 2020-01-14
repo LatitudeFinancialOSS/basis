@@ -13,9 +13,11 @@ function AccessibilityPage() {
           <div
             css={{
               display: "flex",
+              alignItems: "center",
               justifyContent: "center",
               width: designTokens.sizes[15],
-              height: designTokens.sizes[7]
+              height: designTokens.sizes[7],
+              marginLeft: designTokens.space[1]
             }}
             key={backgroundColor}
           >
