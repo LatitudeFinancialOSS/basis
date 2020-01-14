@@ -1,7 +1,7 @@
 import { paramCase } from "param-case";
 
 function getTabNames(parts) {
-  if (parts[0] === "color") {
+  if (parts[0] === "colors") {
     return ["Palettes", "Accessibility", "Resources"];
   }
 

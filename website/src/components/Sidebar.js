@@ -115,8 +115,8 @@ function Sidebar() {
                 </Item>
               </Section>
               <Section heading="Foundation">
-                <Item location={location} href="/color">
-                  Color
+                <Item location={location} href="/colors">
+                  Colors
                 </Item>
               </Section>
               <Section heading="Components">

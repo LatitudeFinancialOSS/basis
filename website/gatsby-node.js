@@ -27,8 +27,8 @@ exports.onCreatePage = ({ page, actions }) => {
   if (page.path.startsWith("/playground/")) {
     page.context.header = "Playground";
     page.context.layout = "empty";
-  } else if (page.path.startsWith("/color/")) {
-    page.context.header = "Color";
+  } else if (page.path.startsWith("/colors/")) {
+    page.context.header = "Colors";
   } else {
     const match = page.path.match(COMPONENT_PAGE_REGEX);
 

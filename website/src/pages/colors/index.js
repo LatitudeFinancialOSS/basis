@@ -84,7 +84,7 @@ Color.propTypes = {
   name: PropTypes.string.isRequired
 };
 
-function ColorPage() {
+function ColorsPage() {
   return (
     <Container padding="6">
       <Grid rowsGutter="10">
@@ -161,4 +161,4 @@ function ColorPage() {
   );
 }
 
-export default ColorPage;
+export default ColorsPage;
