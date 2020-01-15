@@ -288,6 +288,10 @@ function Playground({ location }) {
       return {};
     }
   }, [location]);
+
+  console.log(location);
+  console.log(dataFromUrl);
+
   const [code, setCode] = useState(
     () => dataFromUrl.code || prettify(defaultCode)
   );
