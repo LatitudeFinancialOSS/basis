@@ -13,14 +13,14 @@ function HeaderLogo({ name }) {
   const css = {
     display: "flex",
     alignItems: "center",
-    height: tokens.sizes[15],
+    height: tokens.sizes[16],
     [theme.minMediaQueries.lg]: {
-      height: tokens.sizes[14]
+      height: tokens.sizes[15]
     }
   };
   return (
     <div css={css}>
-      <Logo name={name} color="white" />
+      <Logo name={name} color="white" height="9" height-md="8" />
     </div>
   );
 }

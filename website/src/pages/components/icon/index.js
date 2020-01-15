@@ -32,7 +32,7 @@ function IconPage() {
         css={{
           display: "flex",
           padding: `${designTokens.space[5]} ${designTokens.space[6]}`,
-          maxHeight: designTokens.sizes[18],
+          maxHeight: designTokens.sizes[19],
           flexShrink: 0,
           overflowY: "auto"
         }}
@@ -44,7 +44,7 @@ function IconPage() {
           setSelectedValue={setName}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}

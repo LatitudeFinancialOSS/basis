@@ -74,7 +74,7 @@ function ContainerPage() {
           setSelectedValue={setBg}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Has Breakpoint Width"
           options={hasBreakpointWidthOptions}
           selectedValue={hasBreakpointWidth}

@@ -135,21 +135,21 @@ function FrequencyPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Mode"
           options={modeOptions}
           selectedValue={mode}
           setSelectedValue={setMode}
         />
         <CheckboxesSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Frequency"
           options={frequencyOptions}
           selectedValues={frequencies}
           setSelectedValues={setFrequencies}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -157,7 +157,7 @@ function FrequencyPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -165,7 +165,7 @@ function FrequencyPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

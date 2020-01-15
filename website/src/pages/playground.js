@@ -61,7 +61,7 @@ const PlaygroundError = withLive(({ live }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        maxHeight: designTokens.sizes[18],
+        maxHeight: designTokens.sizes[19],
         overflowY: "auto",
         padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
         backgroundColor: designTokens.colors.white,
@@ -482,7 +482,7 @@ function Playground({ location }) {
                       top: 0,
                       bottom: 0,
                       right: 0,
-                      width: designTokens.sizes[19],
+                      width: designTokens.sizes[20],
                       maxWidth: "100vw",
                       boxSizing: "border-box",
                       borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`

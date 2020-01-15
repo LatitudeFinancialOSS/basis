@@ -123,7 +123,7 @@ function RadioGroupPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Columns"
           options={columnsOptions}
           selectedValue={columns}
@@ -131,7 +131,7 @@ function RadioGroupPage() {
           type="number"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Show Circles"
           options={showCirclesOptions}
           selectedValue={showCircles}
@@ -139,7 +139,7 @@ function RadioGroupPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -147,7 +147,7 @@ function RadioGroupPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -155,7 +155,7 @@ function RadioGroupPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

@@ -8,14 +8,14 @@ function AccessibilityPage() {
 
   return (
     <Container padding="6">
-      <div css={{ display: "flex", paddingLeft: designTokens.sizes[18] }}>
+      <div css={{ display: "flex", paddingLeft: designTokens.sizes[19] }}>
         {BACKGROUNDS.map(backgroundColor => (
           <div
             css={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: designTokens.sizes[18],
+              width: designTokens.sizes[19],
               height: designTokens.sizes[8],
               marginLeft: designTokens.space[1]
             }}
@@ -38,7 +38,7 @@ function AccessibilityPage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              width: designTokens.sizes[18],
+              width: designTokens.sizes[19],
               paddingRight: designTokens.space[3],
               boxSizing: "border-box"
             }}
@@ -51,8 +51,8 @@ function AccessibilityPage() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: designTokens.sizes[18],
-                height: designTokens.sizes[11],
+                width: designTokens.sizes[19],
+                height: designTokens.sizes[12],
                 marginLeft: designTokens.space[1],
                 border:
                   backgroundColor === "white"

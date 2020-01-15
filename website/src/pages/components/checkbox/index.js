@@ -87,14 +87,14 @@ function CheckboxPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -102,7 +102,7 @@ function CheckboxPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -110,7 +110,7 @@ function CheckboxPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

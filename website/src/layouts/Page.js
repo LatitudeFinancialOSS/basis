@@ -42,7 +42,7 @@ function Page({ pageContext, children }) {
           css={{
             height: "100vh",
             display: "grid",
-            gridTemplateColumns: `${designTokens.sizes[18]} 1fr`
+            gridTemplateColumns: `${designTokens.sizes[19]} 1fr`
           }}
         >
           <Sidebar />
@@ -78,7 +78,7 @@ function Page({ pageContext, children }) {
                       <ul
                         css={{
                           display: "flex",
-                          margin: `${designTokens.space[9]} 0 0`,
+                          margin: `${designTokens.space[10]} 0 0`,
                           padding: 0
                         }}
                       >

@@ -15,8 +15,8 @@ HeaderLogo.propTypes = {
 
 function Header({ children }) {
   return (
-    <header>
-      <Container bg="white" height="10" height-lg="13" boxShadow="header">
+    <header css={{ position: "fixed", top: 0, left: 0, right: 0 }}>
+      <Container bg="white" height="11" height-lg="14" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
           <div css={{ display: "flex", height: "100%", alignItems: "center" }}>
             {children}

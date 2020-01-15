@@ -134,7 +134,7 @@ describe("responsivePadding", () => {
 
 describe("responsiveHeight", () => {
   it("valid height", () => {
-    expect(responsiveHeight.getCSS("12")).toStrictEqual({ height: "64px" });
+    expect(responsiveHeight.getCSS("12")).toStrictEqual({ height: "56px" });
     expect(responsiveHeight.getCSS("auto")).toStrictEqual({ height: "auto" });
     expect(responsiveHeight.getCSS("100%")).toStrictEqual({ height: "100%" });
   });

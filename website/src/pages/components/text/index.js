@@ -116,7 +116,7 @@ function TextPage() {
         />
         {isHeading && (
           <RadioGroupSetting
-            css={{ marginLeft: designTokens.space[12] }}
+            css={{ marginLeft: designTokens.space[13] }}
             heading="Size"
             options={sizeOptions}
             selectedValue={size}
@@ -125,7 +125,7 @@ function TextPage() {
         )}
         {colorOptions.length > 1 && (
           <RadioGroupSetting
-            css={{ marginLeft: designTokens.space[12] }}
+            css={{ marginLeft: designTokens.space[13] }}
             heading="Color"
             options={colorOptions}
             selectedValue={color}
@@ -133,7 +133,7 @@ function TextPage() {
           />
         )}
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Align"
           options={alignOptions}
           selectedValue={align}
@@ -141,7 +141,7 @@ function TextPage() {
         />
         {weightOptions.length > 1 && (
           <RadioGroupSetting
-            css={{ marginLeft: designTokens.space[12] }}
+            css={{ marginLeft: designTokens.space[13] }}
             heading="Weight"
             options={weightOptions}
             selectedValue={weight}
@@ -149,7 +149,7 @@ function TextPage() {
           />
         )}
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[12] }}
+          css={{ marginLeft: designTokens.space[13] }}
           heading="Wrap"
           options={wrapOptions}
           selectedValue={wrap}

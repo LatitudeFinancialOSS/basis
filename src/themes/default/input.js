@@ -10,7 +10,7 @@ export default {
     padding: `0 ${tokens.space[4]}`,
     color: tokens.colors.black,
     width: "100%",
-    height: tokens.space[10],
+    height: tokens.space[11],
     border: 0,
     margin: 0,
     MozAppearance: "textfield" // Hides the input="number" spin buttons in Firefox
