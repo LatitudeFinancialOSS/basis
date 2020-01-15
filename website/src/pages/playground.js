@@ -32,17 +32,18 @@ const topOnly = {
   topLeft: false
 };
 
-const defaultCode = `
+const prettify = code =>
+  formatCode(code, {
+    printWidth: 81
+  });
+
+const defaultCode = prettify(`
   <Container bg="secondary.lightBlue.t30" padding="2 4" padding-sm="3 5" padding-md="5 7">
     <Text intent="h1" size="5" size-sm="3" size-md="2">
       Hello World
     </Text>
   </Container>
-`;
-const prettify = code =>
-  formatCode(code, {
-    printWidth: 81
-  });
+`);
 
 const scope = {
   ...allDesignSystem,
@@ -292,9 +293,7 @@ function Playground({ location }) {
   console.log(location);
   console.log(dataFromUrl);
 
-  const [code, setCode] = useState(
-    () => dataFromUrl.code || prettify(defaultCode)
-  );
+  const [code, setCode] = useState(() => dataFromUrl.code || defaultCode);
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useState("40vh");
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
@@ -461,7 +460,11 @@ function Playground({ location }) {
                 <LiveEditor
                   textareaId="code-editor"
                   padding={0}
-                  onChange={setCode}
+                  code={code}
+                  onChange={newCode => {
+                    console.log(`LiveEditor called onChange with:\n`, newCode);
+                    setCode(newCode);
+                  }}
                 />
               </div>
               {areSettingsOpen && (
