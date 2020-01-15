@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useContainer from "../hooks/useContainer";
-import tokens from "../themes/tokens";
 import useTheme from "../hooks/useTheme";
+import { responsiveHeightType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsiveHeight } from "../utils/css";
 
 const COLORS = ["primary.blue.t100", "black", "white"];
 
@@ -13,7 +15,9 @@ const DEFAULT_PROPS = {
 
 function LatitudeLogo(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { height } = props;
+  const responsivePropsCSS = useResponsivePropsCSS(props, {
+    height: responsiveHeight
+  });
   const theme = useTheme();
   const { bg } = useContainer();
   const color =
@@ -22,13 +26,14 @@ function LatitudeLogo(_props) {
         ? "white"
         : "primary.blue.t100"
       : props.color;
-  const heightInt = parseInt(tokens.sizes[height], 10);
 
   return (
     <svg
-      height={heightInt}
+      css={{
+        display: "flex",
+        ...responsivePropsCSS
+      }}
       viewBox="0 0 197 32"
-      css={{ display: "flex" }}
       role="img"
       aria-label="Latitude logo"
     >
@@ -43,7 +48,7 @@ function LatitudeLogo(_props) {
 
 LatitudeLogo.propTypes = {
   color: PropTypes.oneOf(COLORS),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ...responsiveHeightType
 };
 
 export default LatitudeLogo;

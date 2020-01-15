@@ -87,7 +87,7 @@ function DatePickerPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -95,7 +95,7 @@ function DatePickerPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -103,7 +103,7 @@ function DatePickerPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

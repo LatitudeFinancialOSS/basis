@@ -5,7 +5,8 @@
   "scripts": {
     "start": "npm run develop",
     "develop": "gatsby develop",
-    "prebuild": "gatsby clean",
+    "clean": "gatsby clean",
+    "prebuild": "npm run clean",
     "build": "gatsby build"
   },
   "dependencies": {

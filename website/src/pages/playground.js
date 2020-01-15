@@ -61,9 +61,9 @@ const PlaygroundError = withLive(({ live }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        maxHeight: designTokens.sizes[15],
+        maxHeight: designTokens.sizes[18],
         overflowY: "auto",
-        padding: `${designTokens.space[4]} ${designTokens.space[7]}`,
+        padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
         backgroundColor: designTokens.colors.white,
         borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
         color: designTokens.colors.conditional.negative.text,
@@ -195,7 +195,7 @@ function PlaygroundSettings({ screens, setScreens }) {
       css={{
         height: "100%",
         boxSizing: "border-box",
-        padding: `${designTokens.space[4]} ${designTokens.space[7]}`,
+        padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
         backgroundColor: designTokens.colors.grey.t03
       }}
     >
@@ -346,7 +346,7 @@ function Playground({ location }) {
           <div
             css={{
               display: "flex",
-              padding: designTokens.space[7],
+              padding: designTokens.space[8],
               width: "min-content" // Without it, right padding is not visible.
             }}
           >
@@ -355,7 +355,7 @@ function Playground({ location }) {
                 css={{
                   display: "flex",
                   flexDirection: "column",
-                  marginLeft: index === 0 ? null : designTokens.space[7],
+                  marginLeft: index === 0 ? null : designTokens.space[8],
                   width
                 }}
                 key={id}
@@ -398,7 +398,7 @@ function Playground({ location }) {
               css={{
                 flexShrink: 0,
                 display: "flex",
-                padding: `${designTokens.space[2]} ${designTokens.space[7]}`,
+                padding: `${designTokens.space[2]} ${designTokens.space[8]}`,
                 backgroundColor: designTokens.colors.grey.t05,
                 borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
                 borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
@@ -443,7 +443,7 @@ function Playground({ location }) {
             >
               <div
                 css={{
-                  padding: `${designTokens.space[4]} ${designTokens.space[7]}`,
+                  padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
                   width: "100%",
                   overflow: "auto",
                   "textarea:focus": {
@@ -482,7 +482,7 @@ function Playground({ location }) {
                       top: 0,
                       bottom: 0,
                       right: 0,
-                      width: designTokens.sizes[16],
+                      width: designTokens.sizes[19],
                       maxWidth: "100vw",
                       boxSizing: "border-box",
                       borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`

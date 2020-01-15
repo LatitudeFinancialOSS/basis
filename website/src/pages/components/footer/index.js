@@ -9,7 +9,7 @@ function FooterPage() {
   const code = formatCode(`
     <Footer>
       <Footer.Header>
-        <Footer.Header.Logo />
+        <Footer.Header.Logo name="latitude" />
       </Footer.Header>
       <Footer.Legal>
         <Footer.Legal.Links>

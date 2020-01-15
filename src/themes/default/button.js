@@ -9,7 +9,7 @@ export default {
     border: 0,
     borderRadius: tokens.radii[1],
     padding: `0 ${tokens.space[6]}`,
-    minHeight: tokens.sizes[9],
+    minHeight: tokens.sizes[10],
     overflow: "hidden",
     transition: tokens.transitions.button
   },

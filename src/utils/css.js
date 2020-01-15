@@ -16,8 +16,36 @@ export function getSpaceValue(space) {
   }
 
   return parts
-    .map(n => (n === "auto" ? n : tokens.space[n] || "0px"))
+    .map(n => {
+      if (n === "auto") {
+        return n;
+      }
+
+      if (n[0] === "-") {
+        const pxValue = tokens.space[n.slice(1)];
+
+        return pxValue ? `-${pxValue}` : "0px";
+      }
+
+      return tokens.space[n] || "0px";
+    })
     .join(" ");
+}
+
+export function getSizeValue(size) {
+  if (typeof size === "number") {
+    return tokens.sizes[size] || null;
+  }
+
+  if (typeof size !== "string") {
+    return null;
+  }
+
+  if (size === "auto" || size === "100%") {
+    return size;
+  }
+
+  return tokens.sizes[size] || null;
 }
 
 const SPAN_REGEX = /^(\d+)(-(\d+))?$/;
@@ -165,5 +193,13 @@ export const responsivePadding = {
     const padding = getSpaceValue(value);
 
     return padding === null ? {} : { padding };
+  }
+};
+
+export const responsiveHeight = {
+  getCSS: value => {
+    const height = getSizeValue(value);
+
+    return height === null ? {} : { height };
   }
 };

@@ -27,7 +27,7 @@ function ComponentContainer(props) {
     backgroundColor
   } = props;
   const theme = useTheme();
-  const spaceBetween = parseInt(designTokens.space[9], 10);
+  const spaceBetween = parseInt(designTokens.space[10], 10);
   const spaceAroundIframe = parseInt(designTokens.space[5], 10);
   const borderWidthPx = designTokens.borderWidths[0];
   const borderWidth = parseInt(borderWidthPx, 10);

@@ -110,7 +110,7 @@ function SelectPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Full Width"
           options={isFullWidthOptions}
           selectedValue={isFullWidth}
@@ -118,7 +118,7 @@ function SelectPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -126,7 +126,7 @@ function SelectPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -134,7 +134,7 @@ function SelectPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

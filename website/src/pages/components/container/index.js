@@ -11,7 +11,9 @@ import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 const { designTokens } = allDesignSystem;
 const scope = allDesignSystem;
 
-const bgOptions = getRadioOptions(BACKGROUNDS);
+const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
+  emptyLabel: "No background"
+});
 const hasBreakpointWidthOptions = getCheckboxOptions();
 
 function ContainerPage() {
@@ -72,7 +74,7 @@ function ContainerPage() {
           setSelectedValue={setBg}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Has Breakpoint Width"
           options={hasBreakpointWidthOptions}
           selectedValue={hasBreakpointWidth}

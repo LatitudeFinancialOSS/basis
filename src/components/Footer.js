@@ -4,32 +4,36 @@ import Container from "./Container";
 import Text from "./Text";
 import Link from "./Link";
 import useTheme from "../hooks/useTheme";
-import LatitudeLogo from "../logos/latitude";
-import GemLogo from "../logos/gem";
+import Logo, { NAMES as LOGO_NAMES } from "./internal/Logo";
 import tokens from "../themes/tokens";
 
-const LOGO_NAMES = ["latitude", "gem"];
+function HeaderLogo({ name }) {
+  const theme = useTheme();
 
-function HeaderLogo({ name = "latitude" }) {
-  switch (name) {
-    case "gem":
-      return <GemLogo />;
-
-    case "latitude":
-    default:
-      return <LatitudeLogo />;
-  }
+  const css = {
+    display: "flex",
+    alignItems: "center",
+    height: tokens.sizes[15],
+    [theme.minMediaQueries.lg]: {
+      height: tokens.sizes[14]
+    }
+  };
+  return (
+    <div css={css}>
+      <Logo name={name} color="white" />
+    </div>
+  );
 }
 
 HeaderLogo.propTypes = {
-  name: PropTypes.oneOf(LOGO_NAMES)
+  name: PropTypes.oneOf(LOGO_NAMES).isRequired
 };
 
 function Header({ children }) {
   return (
     <Container bg="primary.blue.t100">
-      <Container bg="primary.blue.t100" padding="6 0" hasBreakpointWidth={true}>
-        {children}
+      <Container bg="primary.blue.t100" hasBreakpointWidth={true}>
+        <div css={{ display: "flex", alignItems: "center" }}>{children}</div>
       </Container>
     </Container>
   );
@@ -112,7 +116,7 @@ Legal.propTypes = {
 };
 
 function Footer({ children }) {
-  return children;
+  return <footer>{children}</footer>;
 }
 
 Footer.propTypes = {

@@ -55,7 +55,7 @@ function LinkPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="New Tab"
           options={newTabOptions}
           selectedValue={newTab}

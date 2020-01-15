@@ -3,13 +3,14 @@ import {
   getExclusiveMediaQueries,
   mergeResponsiveCSS,
   responsiveMargin,
-  responsivePadding
+  responsivePadding,
+  responsiveHeight
 } from "./css";
 
 describe("getMinMediaQueries", () => {
   it("no breakpoints", () => {
-    expect(getMinMediaQueries(undefined)).toEqual({});
-    expect(getMinMediaQueries({})).toEqual({});
+    expect(getMinMediaQueries(undefined)).toStrictEqual({});
+    expect(getMinMediaQueries({})).toStrictEqual({});
   });
 
   it("5 breakpoints", () => {
@@ -21,7 +22,7 @@ describe("getMinMediaQueries", () => {
         lg: "992px",
         xl: "1200px"
       })
-    ).toEqual({
+    ).toStrictEqual({
       xs: "@media (min-width: 380px)",
       sm: "@media (min-width: 576px)",
       md: "@media (min-width: 768px)",
@@ -33,8 +34,8 @@ describe("getMinMediaQueries", () => {
 
 describe("getExclusiveMediaQueries", () => {
   it("0 breakpoints", () => {
-    expect(getExclusiveMediaQueries(undefined)).toEqual({});
-    expect(getExclusiveMediaQueries({})).toEqual({});
+    expect(getExclusiveMediaQueries(undefined)).toStrictEqual({});
+    expect(getExclusiveMediaQueries({})).toStrictEqual({});
   });
 
   it("1 breakpoint", () => {
@@ -42,7 +43,7 @@ describe("getExclusiveMediaQueries", () => {
       getExclusiveMediaQueries({
         md: "768px"
       })
-    ).toEqual({
+    ).toStrictEqual({
       default: "(max-width: 767px)",
       md: "(min-width: 768px)"
     });
@@ -57,7 +58,7 @@ describe("getExclusiveMediaQueries", () => {
         lg: "992px",
         xl: "1200px"
       })
-    ).toEqual({
+    ).toStrictEqual({
       default: "(max-width: 379px)",
       xs: "(min-width: 380px) and (max-width: 575px)",
       sm: "(min-width: 576px) and (max-width: 767px)",
@@ -92,7 +93,7 @@ describe("mergeResponsiveCSS", () => {
           }
         }
       )
-    ).toEqual({
+    ).toStrictEqual({
       margin: "0px",
       padding: "12px",
       "@media (min-width: 576px)": {
@@ -111,20 +112,34 @@ describe("mergeResponsiveCSS", () => {
 
 describe("responsiveMargin", () => {
   it("valid margin", () => {
-    expect(responsiveMargin.getCSS("4 5")).toEqual({ margin: "16px 20px" });
+    expect(responsiveMargin.getCSS("4 -5 1 -8")).toStrictEqual({
+      margin: "16px -20px 4px -32px"
+    });
   });
 
   it("invalid margin", () => {
-    expect(responsiveMargin.getCSS("")).toEqual({});
+    expect(responsiveMargin.getCSS("")).toStrictEqual({});
   });
 });
 
 describe("responsivePadding", () => {
   it("valid padding", () => {
-    expect(responsivePadding.getCSS("1")).toEqual({ padding: "4px" });
+    expect(responsivePadding.getCSS("1")).toStrictEqual({ padding: "4px" });
   });
 
   it("invalid padding", () => {
-    expect(responsivePadding.getCSS(true)).toEqual({});
+    expect(responsivePadding.getCSS(true)).toStrictEqual({});
+  });
+});
+
+describe("responsiveHeight", () => {
+  it("valid height", () => {
+    expect(responsiveHeight.getCSS("12")).toStrictEqual({ height: "64px" });
+    expect(responsiveHeight.getCSS("auto")).toStrictEqual({ height: "auto" });
+    expect(responsiveHeight.getCSS("100%")).toStrictEqual({ height: "100%" });
+  });
+
+  it("invalid height", () => {
+    expect(responsiveHeight.getCSS("")).toStrictEqual({});
   });
 });

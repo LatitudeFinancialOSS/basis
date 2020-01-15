@@ -88,7 +88,7 @@ function InputPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -96,7 +96,7 @@ function InputPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Placeholder"
           options={hasPlaceholderOptions}
           selectedValue={hasPlaceholder}
@@ -104,7 +104,7 @@ function InputPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -112,7 +112,7 @@ function InputPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

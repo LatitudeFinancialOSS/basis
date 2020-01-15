@@ -8,7 +8,7 @@ export default {
     fontWeight: tokens.fontWeights.medium,
     borderRadius: tokens.radii[1],
     padding: `0 ${tokens.space[4]}`,
-    minHeight: tokens.sizes[7],
+    minHeight: tokens.sizes[8],
     overflow: "hidden",
     transition:
       "transform 100ms ease, color 100ms ease, border-color 100ms ease"

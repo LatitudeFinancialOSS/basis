@@ -4,14 +4,17 @@ import useTheme from "../hooks/useTheme";
 import { ContainerProvider } from "../hooks/useContainer";
 import {
   responsiveMarginType,
-  responsivePaddingType
+  responsivePaddingType,
+  responsiveHeightType
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMargin,
   responsivePadding,
+  responsiveHeight,
   mergeResponsiveCSS
 } from "../utils/css";
+import tokens from "../themes/tokens";
 
 export const BACKGROUNDS = [
   "white",
@@ -21,17 +24,20 @@ export const BACKGROUNDS = [
   "primary.blue.t100"
 ];
 
+export const BOX_SHADOWS = ["header"];
+
 export const DEFAULT_PROPS = {
   hasBreakpointWidth: false
 };
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { bg, hasBreakpointWidth, children } = props;
+  const { bg, boxShadow, hasBreakpointWidth, children } = props;
   const theme = useTheme();
   const responsivePropsCSS = useResponsivePropsCSS(props, {
     margin: responsiveMargin,
-    padding: responsivePadding
+    padding: responsivePadding,
+    height: responsiveHeight
   });
   const responsiveCSS = hasBreakpointWidth
     ? mergeResponsiveCSS(
@@ -57,6 +63,19 @@ function Container(_props) {
         responsivePropsCSS
       )
     : responsivePropsCSS;
+  const boxShadowCSS =
+    boxShadow === "header"
+      ? {
+          "::after": {
+            content: "''",
+            display: "block",
+            height: tokens.borderWidths[1],
+            boxShadow: tokens.shadows.header
+          }
+        }
+      : {
+          boxShadow: tokens.shadows[boxShadow] || null
+        };
 
   return (
     <ContainerProvider value={{ bg }}>
@@ -64,7 +83,8 @@ function Container(_props) {
         css={{
           boxSizing: "border-box",
           backgroundColor: theme.getColor(bg),
-          ...responsiveCSS
+          ...responsiveCSS,
+          ...boxShadowCSS
         }}
       >
         {children}
@@ -75,8 +95,10 @@ function Container(_props) {
 
 Container.propTypes = {
   bg: PropTypes.oneOf(BACKGROUNDS),
+  boxShadow: PropTypes.oneOf(BOX_SHADOWS),
   ...responsiveMarginType,
   ...responsivePaddingType,
+  ...responsiveHeightType,
   hasBreakpointWidth: PropTypes.bool,
   children: PropTypes.node
 };

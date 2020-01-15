@@ -18,7 +18,7 @@ export function formatCode(code, { printWidth = 56 } = {}) {
 
 export function nonDefaultProps(props) {
   return props
-    .filter(({ value, defaultValue }) => value !== defaultValue)
+    .filter(({ value, defaultValue }) => value !== defaultValue && value !== "")
     .map(({ prop, value, type = "string" }) => {
       if (
         (type === "boolean" || type === "number") &&

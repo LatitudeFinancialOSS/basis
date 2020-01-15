@@ -47,7 +47,7 @@ function LoadingIconPage() {
           setSelectedValue={setSize}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[11] }}
+          css={{ marginLeft: designTokens.space[12] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}

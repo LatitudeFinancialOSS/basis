@@ -4,7 +4,7 @@ import useBreakpoint from "./useBreakpoint";
 import defaultTheme from "../themes/default";
 import { DEFAULT_BREAKPOINT } from "../utils/css";
 
-function getPropName(name, breakpoint) {
+export function getPropName(name, breakpoint) {
   return `${name}-${breakpoint}`;
 }
 
@@ -35,6 +35,11 @@ export const responsiveMarginType = responsivePropType(
 
 export const responsivePaddingType = responsivePropType(
   "padding",
+  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+);
+
+export const responsiveHeightType = responsivePropType(
+  "height",
   PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 );
 

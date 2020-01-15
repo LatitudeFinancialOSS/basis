@@ -14,10 +14,10 @@ const scope = {
   DemoBlock
 };
 
-const showGridOptions = getCheckboxOptions();
+const debugOptions = getCheckboxOptions();
 
 function GridPage() {
-  const [debug, setShowGrid] = useState(true);
+  const [debug, setDebug] = useState(DEFAULT_GRID_PROPS.debug);
   const gridProps = nonDefaultProps([
     {
       prop: "cols",
@@ -69,10 +69,10 @@ function GridPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Show Grid"
-          options={showGridOptions}
+          heading="Debug"
+          options={debugOptions}
           selectedValue={debug}
-          setSelectedValue={setShowGrid}
+          setSelectedValue={setDebug}
           type="boolean"
         />
       </div>

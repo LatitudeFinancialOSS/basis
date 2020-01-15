@@ -11,7 +11,7 @@ function ColorGroup({ title, subTitle, children }) {
     <div css={{ display: "flex" }}>
       <div
         css={{
-          width: designTokens.sizes[14],
+          width: designTokens.sizes[17],
           paddingTop: designTokens.space[2]
         }}
       >
@@ -62,8 +62,8 @@ function Color({ name }) {
         flexDirection: "column",
         alignItems: "center",
         boxSizing: "border-box",
-        width: designTokens.sizes[12],
-        height: designTokens.sizes[12],
+        width: designTokens.sizes[15],
+        height: designTokens.sizes[15],
         padding: designTokens.space[3],
         backgroundColor: theme.getColor(name)
       }}

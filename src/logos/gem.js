@@ -1,34 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useContainer from "../hooks/useContainer";
-import tokens from "../themes/tokens";
 import useTheme from "../hooks/useTheme";
+import { responsiveHeightType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsiveHeight } from "../utils/css";
 
-const COLORS = ["black", "white"];
+const COLORS = ["primary.blue.t100", "black", "white"];
 
 const DEFAULT_PROPS = {
-  color: "black",
+  color: "primary.blue.t100",
   height: "7"
 };
 
 function GemLogo(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { height } = props;
+  const responsivePropsCSS = useResponsivePropsCSS(props, {
+    height: responsiveHeight
+  });
   const theme = useTheme();
   const { bg } = useContainer();
   const color =
     !COLORS.includes(_props.color) && bg
       ? bg === "primary.blue.t100"
         ? "white"
-        : "black"
+        : "primary.blue.t100"
       : props.color;
-  const heightInt = parseInt(tokens.sizes[height], 10);
 
   return (
     <svg
-      height={heightInt}
+      css={{
+        display: "flex",
+        ...responsivePropsCSS
+      }}
       viewBox="0 0 548.23 233.65"
-      css={{ display: "flex" }}
       role="img"
       aria-label="Gem by Latitude logo"
     >
@@ -42,7 +47,7 @@ function GemLogo(_props) {
 
 GemLogo.propTypes = {
   color: PropTypes.oneOf(COLORS),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ...responsiveHeightType
 };
 
 export default GemLogo;

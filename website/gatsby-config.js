@@ -26,6 +26,9 @@ module.exports = {
       Grid: {
         status: COMPONENT_STATUS.READY
       },
+      Header: {
+        status: COMPONENT_STATUS.READY
+      },
       Icon: {
         status: COMPONENT_STATUS.DRAFT
       },
@@ -39,6 +42,9 @@ module.exports = {
         status: COMPONENT_STATUS.DRAFT
       },
       RadioGroup: {
+        status: COMPONENT_STATUS.READY
+      },
+      Section: {
         status: COMPONENT_STATUS.READY
       },
       Select: {

@@ -43,7 +43,7 @@ describe("useResponsivePropsCSS", () => {
       { wrapper: TestWrapper }
     );
 
-    expect(result.current).toEqual({
+    expect(result.current).toStrictEqual({
       margin: "4px 8px 12px 16px",
       padding: "16px",
       "@media (min-width: 380px)": {
@@ -58,7 +58,7 @@ describe("useResponsivePropsCSS", () => {
         margin: "8px 12px 0px"
       },
       "@media (min-width: 1200px)": {
-        padding: "0px 40px"
+        padding: "0px 32px"
       }
     });
   });
@@ -102,7 +102,7 @@ describe("useResponsivePropsCSS", () => {
       { wrapper: TestWrapper }
     );
 
-    expect(result.current).toEqual({
+    expect(result.current).toStrictEqual({
       gridTemplateColumns: "repeat(3, 1fr)",
       gridColumnGap: "20px",
       gridRowGap: "0px",
@@ -114,7 +114,7 @@ describe("useResponsivePropsCSS", () => {
       },
       "@media (min-width: 992px)": {
         gridColumnGap: "30px",
-        gridRowGap: "32px"
+        gridRowGap: "28px"
       },
       "@media (min-width: 1200px)": {
         gridTemplateColumns: "repeat(240px, 1fr)"
@@ -162,7 +162,7 @@ describe("useResponsivePropsCSS", () => {
       { wrapper: TestWrapper }
     );
 
-    expect(result.current).toEqual({
+    expect(result.current).toStrictEqual({
       gridColumn: "1 / -1",
       "@media (min-width: 576px)": {
         gridColumn: "9 / 10"
@@ -203,7 +203,7 @@ describe("useResponsivePropsCSS", () => {
       }
     );
 
-    expect(result.current).toEqual({
+    expect(result.current).toStrictEqual({
       fontFamily: "'Montserrat', sans-serif",
       fontSize: "24px",
       fontWeight: 600,
@@ -252,6 +252,6 @@ describe("useResponsivePropsCSS", () => {
       }
     );
 
-    expect(result.current).toEqual({});
+    expect(result.current).toStrictEqual({});
   });
 });

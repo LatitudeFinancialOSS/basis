@@ -10,7 +10,7 @@ export default {
     alignItems: "center",
     paddingLeft: tokens.space[4],
     paddingRight: tokens.space[4],
-    height: tokens.sizes[9],
+    height: tokens.sizes[10],
     fontSize: tokens.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],

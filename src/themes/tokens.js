@@ -140,16 +140,19 @@ const tokens = {
     "16px", // 4
     "20px", // 5
     "24px", // 6
-    "32px", // 7
-    "40px", // 8
-    "48px", // 9
-    "56px", // 10
-    "64px", // 11
-    "96px", // 12
-    "112px", // 13
-    "160px", // 14
-    "224px", // 15
-    "320px" // 16
+    "28px", // 7
+    "32px", // 8
+    "40px", // 9
+    "48px", // 10
+    "56px", // 11
+    "64px", // 12
+    "72px", // 13
+    "80px", // 14
+    "96px", // 15
+    "112px", // 16
+    "160px", // 17
+    "224px", // 18
+    "320px" // 19
   ],
   // margin, padding
   space: [
@@ -160,13 +163,12 @@ const tokens = {
     "16px", // 4
     "20px", // 5
     "24px", // 6
-    "32px", // 7
-    "40px", // 8
-    "48px", // 9
-    "56px", // 10
-    "64px", // 11
-    "72px", // 12
-    "96px" // 13
+    "28px", // 7
+    "32px", // 8
+    "40px", // 9
+    "48px", // 10
+    "56px", // 11
+    "64px" // 12
   ],
   radii: ["1px", "4px", "12px", "50%"],
   borderWidths: ["1px", "2px", "4px"],
@@ -179,6 +181,7 @@ const tokens = {
 export default {
   ...tokens,
   shadows: {
+    header: `inset 0 ${tokens.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
     focus: `0 0 0px ${tokens.radii[1]} ${tokens.colors.secondary.lightBlue.t80}`
   }
 };

@@ -31,7 +31,7 @@ function DemoBlock({
         width: width === "auto" ? "auto" : designTokens.sizes[width],
         height:
           typeof height === "string" ? height : designTokens.sizes[height],
-        minHeight: designTokens.sizes[10],
+        minHeight: designTokens.sizes[11],
         overflow: "hidden",
         backgroundColor
       }}
