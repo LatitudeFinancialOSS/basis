@@ -58,16 +58,31 @@ Item.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+export const PRESETS = ["page"];
+
+const presetsMap = {
+  page: {
+    cols: 4,
+    "cols-sm": 8,
+    "cols-lg": 12,
+    colsGutter: "30px"
+  }
+};
+
 export const DEFAULT_GRID_PROPS = {
   debug: false
 };
 
 function Grid(_props) {
   const props = { ...DEFAULT_GRID_PROPS, ..._props };
-  const { debug, children } = props;
+  const { preset, debug, children } = props;
   const theme = useTheme();
   const [resizeListener, sizes] = useResizeAware();
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
+  const parsedProps = {
+    ...presetsMap[preset],
+    ...props
+  };
+  const responsivePropsCSS = useResponsivePropsCSS(parsedProps, {
     cols: {
       getCSS: value => {
         return {
@@ -139,6 +154,7 @@ Grid.propTypes = {
     "rowsGutter",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
+  preset: PropTypes.oneOf(PRESETS),
   debug: PropTypes.bool,
   children: PropTypes.node.isRequired
 };

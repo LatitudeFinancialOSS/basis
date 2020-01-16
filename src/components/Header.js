@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
 import Logo, { NAMES as LOGO_NAMES } from "./internal/Logo";
+import useTheme from "../hooks/useTheme";
 
 function HeaderLogo({ name }) {
   return (
@@ -14,8 +15,18 @@ HeaderLogo.propTypes = {
 };
 
 function Header({ children }) {
+  const theme = useTheme();
+
   return (
-    <header css={{ position: "fixed", top: 0, left: 0, right: 0 }}>
+    <header
+      css={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: theme.zIndices.header
+      }}
+    >
       <Container bg="white" height="11" height-lg="14" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
           <div css={{ display: "flex", height: "100%", alignItems: "center" }}>

@@ -36,5 +36,8 @@ export default {
     md: "720px",
     lg: "960px",
     xl: "1140px"
+  },
+  zIndices: {
+    header: 1000
   }
 };
