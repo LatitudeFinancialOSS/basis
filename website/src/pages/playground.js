@@ -50,8 +50,8 @@ const scope = {
   DemoBlock
 };
 
-const PlaygroundError = withLive(({ code, live }) => {
-  if (code.trim() === "" || !live.error) {
+const PlaygroundError = withLive(({ live }) => {
+  if (!live.error) {
     return null;
   }
 
@@ -375,7 +375,7 @@ function Playground({ location }) {
               </div>
             ))}
           </div>
-          <PlaygroundError code={code} />
+          <PlaygroundError />
         </div>
         <Resizable
           style={{
@@ -463,7 +463,6 @@ function Playground({ location }) {
                 <LiveEditor
                   textareaId="code-editor"
                   padding={0}
-                  code={code}
                   onChange={setCode}
                 />
               </div>
