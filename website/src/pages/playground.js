@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
@@ -276,41 +276,12 @@ PlaygroundSettings.propTypes = {
 
 function Playground({ location }) {
   const theme = useTheme();
-  const dataFromUrl = useMemo(() => {
-    const { data } = queryString.parse(location.search);
-
-    if (!data) {
-      return {};
-    }
-
-    try {
-      return JSON.parse(lzString.decompressFromEncodedURIComponent(data));
-    } catch (_e) {
-      return {};
-    }
-  }, [location]);
-  const [code, setCode] = useState(() => {
-    if (typeof window === "undefined") {
-      // at build time
-      return "";
-    }
-
-    return dataFromUrl.code || defaultCode;
-  });
+  const [code, setCode] = useState("");
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useState("40vh");
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
-  const [screens, setScreens] = useState(() =>
-    (dataFromUrl.settings && dataFromUrl.settings.screens
-      ? dataFromUrl.settings.screens
-      : Object.entries(theme.breakpoints)
-    ).map(([bp, width]) => ({
-      id: bp,
-      name: bp,
-      width: parseInt(width, 10)
-    }))
-  );
+  const [screens, setScreens] = useState([]);
   const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(
     () => {
       const data = {
@@ -331,6 +302,40 @@ function Playground({ location }) {
       })}`;
     }
   );
+
+  useEffect(() => {
+    let initialCode = defaultCode;
+    let initialScreens = Object.entries(theme.breakpoints);
+
+    const { data } = queryString.parse(location.search);
+
+    if (data) {
+      try {
+        const dataFromUrl = JSON.parse(
+          lzString.decompressFromEncodedURIComponent(data)
+        );
+
+        if (dataFromUrl.code) {
+          initialCode = dataFromUrl.code;
+        }
+
+        if (dataFromUrl.settings && dataFromUrl.settings.screens) {
+          initialScreens = dataFromUrl.settings.screens;
+        }
+      } catch (_e) {
+        // Ignore
+      }
+    }
+
+    setCode(initialCode);
+    setScreens(
+      initialScreens.map(([bp, width]) => ({
+        id: bp,
+        name: bp,
+        width: parseInt(width, 10)
+      }))
+    );
+  }, [location.search, theme.breakpoints]);
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
