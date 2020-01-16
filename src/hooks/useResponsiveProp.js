@@ -3,6 +3,7 @@ import useTheme from "./useTheme";
 import useBreakpoint from "./useBreakpoint";
 import defaultTheme from "../themes/default";
 import { DEFAULT_BREAKPOINT } from "../utils/css";
+import { hasOwnProperty } from "../utils/core";
 
 export function getPropName(name, breakpoint) {
   return `${name}-${breakpoint}`;
@@ -58,13 +59,7 @@ function useResponsiveProp(props, propName) {
     const bp = breakpoints[i];
     const prop = getPropName(propName, bp);
 
-    /*
-      ESLint complains about:
-        props.hasOwnProperty[prop]
-      
-      See: https://eslint.org/docs/rules/no-prototype-builtins
-    */
-    if (Object.prototype.hasOwnProperty.call(props, prop)) {
+    if (hasOwnProperty(props, prop)) {
       result = props[prop];
     }
 

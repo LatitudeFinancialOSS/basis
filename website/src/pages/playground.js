@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
 import { rgba } from "polished";
-import lzString from "lz-string";
-import queryString from "query-string";
 import * as allDesignSystem from "basis";
+import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../utils/url";
 import { getReactLiveNoInline } from "../utils/ast";
 import { formatCode } from "../utils/formatting";
 import { reactLiveEditorTheme } from "../utils/constants";
@@ -282,50 +281,20 @@ function Playground({ location }) {
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
   const [screens, setScreens] = useState([]);
-  const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(
-    () => {
-      const data = {
-        code: prettify(code),
-        settings: {
-          screens: screens.map(({ name, width }) => [name, width])
-        }
-      };
-      const dataStr = lzString.compressToEncodedURIComponent(
-        JSON.stringify(data)
-      );
-
-      const { url, query } = queryString.parseUrl(location.href);
-
-      return `${url}?${queryString.stringify({
-        ...query,
-        data: dataStr
-      })}`;
-    }
+  const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(() =>
+    getPlaygroundUrl(location, {
+      code: prettify(code),
+      settings: {
+        screens: screens.map(({ name, width }) => [name, width])
+      }
+    })
   );
 
   useEffect(() => {
-    let initialCode = defaultCode;
-    let initialScreens = Object.entries(theme.breakpoints);
-
-    const { data } = queryString.parse(location.search);
-
-    if (data) {
-      try {
-        const dataFromUrl = JSON.parse(
-          lzString.decompressFromEncodedURIComponent(data)
-        );
-
-        if (dataFromUrl.code) {
-          initialCode = dataFromUrl.code;
-        }
-
-        if (dataFromUrl.settings && dataFromUrl.settings.screens) {
-          initialScreens = dataFromUrl.settings.screens;
-        }
-      } catch (_e) {
-        // ESLint doesn't allow an empty block
-      }
-    }
+    const dataFromUrl = getPlaygroundDataFromUrl(location);
+    const initialCode = dataFromUrl.code ?? defaultCode;
+    const initialScreens =
+      dataFromUrl.settings?.screens ?? Object.entries(theme.breakpoints);
 
     setCode(initialCode);
     setScreens(
@@ -335,7 +304,7 @@ function Playground({ location }) {
         width: parseInt(width, 10)
       }))
     );
-  }, [location.search, theme.breakpoints]);
+  }, [location, theme.breakpoints]);
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>

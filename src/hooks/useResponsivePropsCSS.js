@@ -1,5 +1,6 @@
 import useTheme from "./useTheme";
 import { DEFAULT_BREAKPOINT } from "../utils/css";
+import { hasOwnProperty } from "../utils/core";
 
 function getCSSforBreakpoint(bp, props, responsiveProps) {
   let result = {};
@@ -8,13 +9,8 @@ function getCSSforBreakpoint(bp, props, responsiveProps) {
     const { getCSS, defaultValue } = responsiveProps[responsiveProp];
     const actualProp =
       bp === DEFAULT_BREAKPOINT ? responsiveProp : `${responsiveProp}-${bp}`;
-    /*
-      ESLint complains about:
-        props.hasOwnProperty[actualProp]
-      
-      See: https://eslint.org/docs/rules/no-prototype-builtins
-    */
-    if (Object.prototype.hasOwnProperty.call(props, actualProp)) {
+
+    if (hasOwnProperty(props, actualProp)) {
       result = {
         ...result,
         ...getCSS(props[actualProp])

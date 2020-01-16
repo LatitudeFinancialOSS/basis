@@ -1,4 +1,6 @@
 import { paramCase } from "param-case";
+import lzString from "lz-string";
+import queryString from "query-string";
 
 function getTabNames(parts) {
   if (parts[0] === "colors") {
@@ -31,4 +33,29 @@ export function getTabsUrls(location) {
       isCurrent: tabIndex === 0 ? isDefaultPath : lastPart === slug
     };
   });
+}
+
+export function getPlaygroundUrl(location, data) {
+  const dataStr = lzString.compressToEncodedURIComponent(JSON.stringify(data));
+
+  const { url, query } = queryString.parseUrl(location.href);
+
+  return `${url}?${queryString.stringify({
+    ...query,
+    data: dataStr
+  })}`;
+}
+
+export function getPlaygroundDataFromUrl(location) {
+  const { data } = queryString.parse(location.search);
+
+  if (!data) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(lzString.decompressFromEncodedURIComponent(data));
+  } catch (_e) {
+    return {};
+  }
 }

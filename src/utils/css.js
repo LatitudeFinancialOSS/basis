@@ -1,4 +1,5 @@
 import tokens from "../themes/tokens";
+import { hasOwnProperty } from "./core";
 
 export function getSpaceValue(space) {
   if (typeof space === "number") {
@@ -157,13 +158,7 @@ export function mergeResponsiveCSS(css1, css2) {
 
   for (const key in css2) {
     if (typeof css2[key] === "object") {
-      /*
-        ESLint complains about:
-          result.hasOwnProperty[key]
-        
-        See: https://eslint.org/docs/rules/no-prototype-builtins
-      */
-      if (Object.prototype.hasOwnProperty.call(result, key)) {
+      if (hasOwnProperty(result, key)) {
         // merge with css1
         result[key] = {
           ...result[key],
