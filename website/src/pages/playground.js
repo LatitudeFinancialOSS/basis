@@ -289,11 +289,13 @@ function Playground({ location }) {
       return {};
     }
   }, [location]);
+  const [code, setCode] = useState(() => {
+    if (typeof window === "undefined") {
+      return "";
+    }
 
-  console.log(location);
-  console.log(dataFromUrl);
-
-  const [code, setCode] = useState(() => dataFromUrl.code || defaultCode);
+    return dataFromUrl.code || defaultCode;
+  });
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useState("40vh");
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
@@ -461,10 +463,7 @@ function Playground({ location }) {
                   textareaId="code-editor"
                   padding={0}
                   code={code}
-                  onChange={newCode => {
-                    console.log(`LiveEditor called onChange with:\n`, newCode);
-                    setCode(newCode);
-                  }}
+                  onChange={setCode}
                 />
               </div>
               {areSettingsOpen && (
