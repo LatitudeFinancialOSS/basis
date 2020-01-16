@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
@@ -32,17 +32,18 @@ const topOnly = {
   topLeft: false
 };
 
-const defaultCode = `
+const prettify = code =>
+  formatCode(code, {
+    printWidth: 81
+  });
+
+const defaultCode = prettify(`
   <Container bg="secondary.lightBlue.t30" padding="2 4" padding-sm="3 5" padding-md="5 7">
     <Text intent="h1" size="5" size-sm="3" size-md="2">
       Hello World
     </Text>
   </Container>
-`;
-const prettify = code =>
-  formatCode(code, {
-    printWidth: 81
-  });
+`);
 
 const scope = {
   ...allDesignSystem,
@@ -50,7 +51,7 @@ const scope = {
 };
 
 const PlaygroundError = withLive(({ live }) => {
-  if (!live.error) {
+  if (typeof window === "undefined" || !live.error) {
     return null;
   }
 
@@ -275,36 +276,12 @@ PlaygroundSettings.propTypes = {
 
 function Playground({ location }) {
   const theme = useTheme();
-  const dataFromUrl = useMemo(() => {
-    const { data } = queryString.parse(location.search);
-
-    if (!data) {
-      return {};
-    }
-
-    try {
-      return JSON.parse(lzString.decompressFromEncodedURIComponent(data));
-    } catch (_e) {
-      return {};
-    }
-  }, [location]);
-  const [code, setCode] = useState(
-    () => dataFromUrl.code || prettify(defaultCode)
-  );
+  const [code, setCode] = useState("");
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useState("40vh");
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
-  const [screens, setScreens] = useState(() =>
-    (dataFromUrl.settings && dataFromUrl.settings.screens
-      ? dataFromUrl.settings.screens
-      : Object.entries(theme.breakpoints)
-    ).map(([bp, width]) => ({
-      id: bp,
-      name: bp,
-      width: parseInt(width, 10)
-    }))
-  );
+  const [screens, setScreens] = useState([]);
   const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(
     () => {
       const data = {
@@ -325,6 +302,40 @@ function Playground({ location }) {
       })}`;
     }
   );
+
+  useEffect(() => {
+    let initialCode = defaultCode;
+    let initialScreens = Object.entries(theme.breakpoints);
+
+    const { data } = queryString.parse(location.search);
+
+    if (data) {
+      try {
+        const dataFromUrl = JSON.parse(
+          lzString.decompressFromEncodedURIComponent(data)
+        );
+
+        if (dataFromUrl.code) {
+          initialCode = dataFromUrl.code;
+        }
+
+        if (dataFromUrl.settings && dataFromUrl.settings.screens) {
+          initialScreens = dataFromUrl.settings.screens;
+        }
+      } catch (_e) {
+        // ESLint doesn't allow an empty block
+      }
+    }
+
+    setCode(initialCode);
+    setScreens(
+      initialScreens.map(([bp, width]) => ({
+        id: bp,
+        name: bp,
+        width: parseInt(width, 10)
+      }))
+    );
+  }, [location.search, theme.breakpoints]);
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
