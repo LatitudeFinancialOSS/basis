@@ -50,8 +50,8 @@ const scope = {
   DemoBlock
 };
 
-const PlaygroundError = withLive(({ live }) => {
-  if (!live.error) {
+const PlaygroundError = withLive(({ code, live }) => {
+  if (code.trim() === "" || !live.error) {
     return null;
   }
 
@@ -291,6 +291,7 @@ function Playground({ location }) {
   }, [location]);
   const [code, setCode] = useState(() => {
     if (typeof window === "undefined") {
+      // at build time
       return "";
     }
 
@@ -374,7 +375,7 @@ function Playground({ location }) {
               </div>
             ))}
           </div>
-          <PlaygroundError />
+          <PlaygroundError code={code} />
         </div>
         <Resizable
           style={{
