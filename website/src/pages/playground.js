@@ -51,7 +51,7 @@ const scope = {
 };
 
 const PlaygroundError = withLive(({ live }) => {
-  if (!live.error) {
+  if (typeof window === "undefined" || !live.error) {
     return null;
   }
 
@@ -323,7 +323,7 @@ function Playground({ location }) {
           initialScreens = dataFromUrl.settings.screens;
         }
       } catch (_e) {
-        // Ignore
+        // ESLint doesn't allow an empty block
       }
     }
 
