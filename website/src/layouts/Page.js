@@ -47,12 +47,16 @@ function Page({ pageContext, children }) {
         >
           <Sidebar />
           <main
-            css={{ minHeight: 0, display: "flex", flexDirection: "column" }}
+            css={{
+              minHeight: 0,
+              display: "flex",
+              flexDirection: "column",
+              overflow: "auto"
+            }}
           >
             {header && (
               <div
                 css={{
-                  marginBottom: designTokens.space[2],
                   padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`,
                   borderBottom: `1px solid ${designTokens.colors.grey.t16}`
                 }}
@@ -63,7 +67,9 @@ function Page({ pageContext, children }) {
                     height: designTokens.space[5]
                   }}
                 >
-                  <Text intent="h4">{header}</Text>
+                  <Text intent="h1" size="4">
+                    {header}
+                  </Text>
                   {status && (
                     <Container margin="0 0 0 9">
                       <ComponentStatusIndicator status={status} />

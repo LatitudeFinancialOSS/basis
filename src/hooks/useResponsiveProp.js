@@ -39,6 +39,11 @@ export const responsivePaddingType = responsivePropType(
   PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 );
 
+export const responsiveWidthType = responsivePropType(
+  "width",
+  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+);
+
 export const responsiveHeightType = responsivePropType(
   "height",
   PropTypes.oneOfType([PropTypes.number, PropTypes.string])

@@ -51,6 +51,7 @@ function Input(_props) {
   const { inputColor } = useContainer();
   const color =
     !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState(false);
@@ -75,8 +76,9 @@ function Input(_props) {
       <input
         css={{
           ...theme.input,
-          ...theme[`input.${color}`],
+          ...theme[`input.${colorStr}`],
           ":focus": theme["input:focus"],
+          ":hover": theme["input:hover"],
           ...(type === "number" && {
             "::-webkit-inner-spin-button, ::-webkit-outer-spin-button":
               theme["input.webkitSpinButton"]

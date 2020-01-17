@@ -4,6 +4,7 @@ import {
   mergeResponsiveCSS,
   responsiveMargin,
   responsivePadding,
+  responsiveWidth,
   responsiveHeight
 } from "./css";
 
@@ -129,6 +130,18 @@ describe("responsivePadding", () => {
 
   it("invalid padding", () => {
     expect(responsivePadding.getCSS(true)).toStrictEqual({});
+  });
+});
+
+describe("responsiveWidth", () => {
+  it("valid width", () => {
+    expect(responsiveWidth.getCSS("12")).toStrictEqual({ width: "56px" });
+    expect(responsiveWidth.getCSS("auto")).toStrictEqual({ width: "auto" });
+    expect(responsiveWidth.getCSS("100%")).toStrictEqual({ width: "100%" });
+  });
+
+  it("invalid width", () => {
+    expect(responsiveWidth.getCSS("")).toStrictEqual({});
   });
 });
 

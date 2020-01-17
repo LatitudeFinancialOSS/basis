@@ -55,6 +55,7 @@ function Select(_props) {
   const { inputColor } = useContainer();
   const color =
     !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState(false);
@@ -81,11 +82,17 @@ function Select(_props) {
       <select
         css={{
           ...theme.selectInput,
-          ...theme[`selectInput.${color}`],
+          ...theme[`selectInput.${colorStr}`],
           ...(isFullWidth && theme["selectInput.fullWidth"]),
           ":focus": {
             ...theme["selectInput:focus"],
-            ...theme[`selectInput.${color}:focus`]
+            ...theme[`selectInput.${colorStr}:focus`]
+          },
+          ":active": {
+            ...(!isDisabled && theme[`selectInput.${colorStr}:active`])
+          },
+          ":hover": {
+            ...(!isDisabled && theme[`selectInput.${colorStr}:hover`])
           }
         }}
         id={selectId}

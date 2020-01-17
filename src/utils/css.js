@@ -191,6 +191,14 @@ export const responsivePadding = {
   }
 };
 
+export const responsiveWidth = {
+  getCSS: value => {
+    const width = getSizeValue(value);
+
+    return width === null ? {} : { width };
+  }
+};
+
 export const responsiveHeight = {
   getCSS: value => {
     const height = getSizeValue(value);

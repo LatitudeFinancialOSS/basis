@@ -15,7 +15,11 @@ function ColorGroup({ title, subTitle, children }) {
           paddingTop: designTokens.space[2]
         }}
       >
-        {title && <Text intent="h5">{title}</Text>}
+        {title && (
+          <Text intent="h3" size="5" color="grey.t75">
+            {title}
+          </Text>
+        )}
         {subTitle && (
           <div css={{ marginTop: title ? designTokens.space[1] : "2px" }}>
             <Text color="grey.t75">{subTitle}</Text>

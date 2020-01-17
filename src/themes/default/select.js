@@ -28,10 +28,10 @@ export default {
     borderRadius: tokens.radii[0],
     boxShadow: tokens.shadows.focus
   },
-  "selectInput.grey.t05": {
+  "selectInput.default": {
     backgroundColor: tokens.colors.grey.t05
   },
-  "selectInput.grey.t05:focus": {
+  "selectInput.default:focus": {
     backgroundColor: tokens.colors.grey.t05
   },
   "selectInput.white": {

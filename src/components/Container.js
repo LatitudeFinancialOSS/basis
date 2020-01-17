@@ -5,12 +5,14 @@ import { ContainerProvider } from "../hooks/useContainer";
 import {
   responsiveMarginType,
   responsivePaddingType,
+  responsiveWidthType,
   responsiveHeightType
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMargin,
   responsivePadding,
+  responsiveWidth,
   responsiveHeight,
   mergeResponsiveCSS
 } from "../utils/css";
@@ -37,6 +39,7 @@ function Container(_props) {
   const responsivePropsCSS = useResponsivePropsCSS(props, {
     margin: responsiveMargin,
     padding: responsivePadding,
+    width: responsiveWidth,
     height: responsiveHeight
   });
   const responsiveCSS = hasBreakpointWidth
@@ -98,6 +101,7 @@ Container.propTypes = {
   boxShadow: PropTypes.oneOf(BOX_SHADOWS),
   ...responsiveMarginType,
   ...responsivePaddingType,
+  ...responsiveWidthType,
   ...responsiveHeightType,
   hasBreakpointWidth: PropTypes.bool,
   children: PropTypes.node

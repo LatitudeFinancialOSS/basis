@@ -33,6 +33,26 @@ describe("Container", () => {
     `);
   });
 
+  it("with width", () => {
+    const { getByText } = render(<Container width="15">Hello World</Container>);
+    const node = getByText("Hello World");
+
+    expect(node).toHaveStyle(`
+      width: 80px;
+    `);
+  });
+
+  it("with height", () => {
+    const { getByText } = render(
+      <Container height="14">Hello World</Container>
+    );
+    const node = getByText("Hello World");
+
+    expect(node).toHaveStyle(`
+      height: 72px;
+    `);
+  });
+
   it("with background color", () => {
     const { getByText } = render(
       <Container bg="secondary.lightBlue.t30">Hello World</Container>

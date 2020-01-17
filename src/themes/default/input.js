@@ -23,7 +23,7 @@ export default {
   "input.webkitSpinButton": {
     display: "none" // Hides the input="number" spin buttons in Chrome
   },
-  "input.grey.t05": {
+  "input.default": {
     backgroundColor: tokens.colors.grey.t05
   },
   "input.white": {
