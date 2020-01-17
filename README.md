@@ -16,15 +16,15 @@ npm install --save typeface-{montserrat,roboto}
 
 ```jsx
 import React from "react";
-import { ThemeProvider, defaultTheme, Text } from "basis";
+import { BasisProvider, defaultTheme, Text } from "basis";
 import "typeface-montserrat";
 import "typeface-roboto";
 
 function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <BasisProvider theme={defaultTheme}>
       <Text>Hello World</Text>
-    </ThemeProvider>
+    </BasisProvider>
   );
 }
 

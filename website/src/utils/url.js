@@ -29,7 +29,7 @@ export function getTabsUrls(location) {
 
     return {
       name: tabName,
-      to: tabIndex === 0 ? basePath : `${basePath}/${slug}`,
+      href: tabIndex === 0 ? basePath : `${basePath}/${slug}`,
       isCurrent: tabIndex === 0 ? isDefaultPath : lastPart === slug
     };
   });

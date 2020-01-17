@@ -95,4 +95,17 @@ describe("Link", () => {
       margin: 4px 8px 12px;
     `);
   });
+
+  it("with padding", () => {
+    const { getByText } = render(
+      <Link href="/terms" newTab={false} padding="3 6">
+        Terms and Conditions
+      </Link>
+    );
+    const link = getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle(`
+      padding: 12px 24px;
+    `);
+  });
 });

@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "gatsby";
 import { Location } from "@reach/router";
 import { Global } from "@emotion/core";
+import { Link as GatsbyLink } from "gatsby";
 import { COMPONENT_STATUS } from "../utils/constants";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
-import { Text, Container, designTokens, ThemeProvider } from "basis";
+import { BasisProvider, designTokens, Container, Text, Link } from "basis";
 import { getTabsUrls } from "../utils/url";
 import websiteTheme from "../themes/website";
 import "typeface-montserrat";
@@ -18,14 +18,14 @@ function Page({ pageContext, children }) {
   const title = header ? `${header} | Basis` : "Basis";
 
   return (
-    <ThemeProvider theme={websiteTheme}>
+    <BasisProvider theme={websiteTheme} InternalLink={GatsbyLink}>
       <Global
         styles={{
           body: {
             margin: 0,
             fontFamily: designTokens.fonts.body,
             fontSize: designTokens.fontSizes[1],
-            lineHeight: designTokens.lineHeights[0],
+            lineHeight: designTokens.lineHeights[2],
             color: designTokens.colors.black
           },
           a: {
@@ -57,14 +57,13 @@ function Page({ pageContext, children }) {
             {header && (
               <div
                 css={{
-                  padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`,
                   borderBottom: `1px solid ${designTokens.colors.grey.t16}`
                 }}
               >
                 <div
                   css={{
                     display: "flex",
-                    height: designTokens.space[5]
+                    padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`
                   }}
                 >
                   <Text intent="h1" size="4">
@@ -84,31 +83,32 @@ function Page({ pageContext, children }) {
                       <ul
                         css={{
                           display: "flex",
-                          margin: `${designTokens.space[10]} 0 0`,
+                          margin: `${designTokens.space[6]} 0 0`,
                           padding: 0
                         }}
                       >
-                        {urls.map(({ name, to, isCurrent }, index) => (
+                        {urls.map(({ name, href, isCurrent }) => (
                           <li
                             css={{
                               listStyleType: "none",
-                              marginLeft:
-                                index === 0 ? 0 : designTokens.space[8],
-                              paddingBottom: designTokens.space[2],
                               color: isCurrent
                                 ? designTokens.colors.black
                                 : designTokens.colors.grey.t65,
-                              borderBottom: isCurrent
-                                ? `${designTokens.borderWidths[1]} solid ${designTokens.colors.black}`
-                                : 0
+                              ...(isCurrent && {
+                                "::after": {
+                                  content: "''",
+                                  display: "block",
+                                  height: designTokens.borderWidths[1],
+                                  margin: `0 ${designTokens.space[6]}`,
+                                  backgroundColor: designTokens.colors.black
+                                }
+                              })
                             }}
                             key={name}
                           >
-                            {to ? (
-                              <Link to={to}>{name}</Link>
-                            ) : (
-                              <a title="Coming soon">{name}</a>
-                            )}
+                            <Link href={href} newTab={false} padding="2 6">
+                              {name}
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -131,7 +131,7 @@ function Page({ pageContext, children }) {
           </main>
         </div>
       )}
-    </ThemeProvider>
+    </BasisProvider>
   );
 }
 

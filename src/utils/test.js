@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { render } from "@testing-library/react";
 import matchMediaPolyfill from "mq-polyfill";
-import { ThemeProvider, defaultTheme } from "..";
+import { BasisProvider, defaultTheme } from "..";
 
 matchMediaPolyfill(global);
 
 export function TestWrapper({ children }) {
-  return <ThemeProvider theme={defaultTheme}>{children}</ThemeProvider>;
+  return <BasisProvider theme={defaultTheme}>{children}</BasisProvider>;
 }
 
 TestWrapper.propTypes = {

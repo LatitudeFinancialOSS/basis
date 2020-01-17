@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { LinkContext } from "../providers/LinkProvider";
 import useTheme from "../hooks/useTheme";
 import useContainer from "../hooks/useContainer";
-import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import {
+  responsiveMarginType,
+  responsivePaddingType
+} from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsiveMargin } from "../utils/css";
+import { responsiveMargin, responsivePadding } from "../utils/css";
 
 export const COLORS = [
   "primary.blue.t100",
@@ -19,10 +23,12 @@ export const DEFAULT_PROPS = {
 function Link(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { href, newTab, children } = props;
+  const { InternalLink, isLinkInternal } = useContext(LinkContext);
   const theme = useTheme();
   const { linkColor } = useContainer();
   const responsivePropsCSS = useResponsivePropsCSS(props, {
-    margin: responsiveMargin
+    margin: responsiveMargin,
+    padding: responsivePadding
   });
   const color =
     !COLORS.includes(_props.color) && linkColor ? linkColor : props.color;
@@ -43,6 +49,23 @@ function Link(_props) {
       }
     : {};
 
+  if (!newTab && InternalLink && isLinkInternal(href)) {
+    /*
+      Note: We assume here that InternalLink respects the following contract:
+
+        - It gets a `className` prop, which gets applies to the rendered <a>.
+        - It gets a `to` prop, which gets mapped to <a>'s `href` prop.
+        - It gets a `children` prop, which gets rendered as <a>'s `children`.
+
+      Example: Gatsby `Link` component.
+    */
+    return (
+      <InternalLink css={css} to={href}>
+        {children}
+      </InternalLink>
+    );
+  }
+
   return (
     <a css={css} href={href} {...newTabProps}>
       {children}
@@ -52,6 +75,7 @@ function Link(_props) {
 
 Link.propTypes = {
   ...responsiveMarginType,
+  ...responsivePaddingType,
   color: PropTypes.oneOf(COLORS),
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,

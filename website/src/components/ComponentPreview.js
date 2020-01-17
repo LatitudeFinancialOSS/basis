@@ -5,7 +5,7 @@ import Frame, { FrameContextConsumer } from "react-frame-component";
 import weakMemoize from "@emotion/weak-memoize";
 import createCache from "@emotion/cache";
 import { CacheProvider, Global } from "@emotion/core";
-import { ThemeProvider, defaultTheme } from "basis";
+import { BasisProvider, defaultTheme } from "basis";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";
 import "typeface-montserrat";
 import "typeface-roboto";
@@ -57,7 +57,7 @@ function ComponentPreview({ iframeTitle = "Preview", hasBodyMargin = true }) {
             return (
               <CacheProvider value={cache}>
                 <CacheProviderWithContainer container={document.head}>
-                  <ThemeProvider theme={defaultTheme} window={window}>
+                  <BasisProvider theme={defaultTheme} window={window}>
                     {!hasBodyMargin && (
                       <Global
                         styles={{
@@ -68,7 +68,7 @@ function ComponentPreview({ iframeTitle = "Preview", hasBodyMargin = true }) {
                       />
                     )}
                     <LivePreview />
-                  </ThemeProvider>
+                  </BasisProvider>
                 </CacheProviderWithContainer>
               </CacheProvider>
             );
