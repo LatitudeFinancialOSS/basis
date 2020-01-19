@@ -32,3 +32,24 @@ export function colorContrast(str1, str2) {
 
   return (L1 + 0.05) / (L2 + 0.05);
 }
+
+// http://www.w3.org/TR/2008/REC-WCAG20-20081211/#larger-scaledef
+function isLargeScale(fontSize, isBold) {
+  const points = fontSize / 1.333; // 1pt = 1.333px according to http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html#visual-audio-contrast-contrast-73-head
+
+  return isBold ? points >= 14 : points >= 18;
+}
+
+export function accessibleContrast(accessibilityLevel, fontSize, isBold) {
+  switch (accessibilityLevel) {
+    // http://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
+    case "AA":
+      return isLargeScale(fontSize, isBold) ? 3 : 4.5;
+
+    // http://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast7
+    case "AAA":
+      return isLargeScale(fontSize, isBold) ? 4.5 : 7;
+  }
+
+  return null;
+}

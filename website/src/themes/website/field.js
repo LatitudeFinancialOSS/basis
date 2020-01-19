@@ -22,5 +22,8 @@ export default {
     lineHeight: tokens.lineHeights[1],
     color: tokens.colors.grey.t65,
     marginBottom: tokens.space[1]
+  },
+  "field.helpText": {
+    padding: `${tokens.space[1]} ${tokens.space[1]} 0`
   }
 };
