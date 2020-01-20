@@ -33,7 +33,7 @@ export const COLORS = [
   "conditional.positive.text",
   "conditional.negative.text"
 ];
-export const ALIGNS = ["left", "center", "right"];
+export const ALIGNS = ["inherit", "left", "center", "right"];
 export const WEIGHTS = ["regular", "bold"];
 
 export const allowedColors = [
@@ -80,7 +80,7 @@ export const DEFAULT_PROPS = {
   intent: "body1",
   weight: "regular",
   color: "black",
-  align: "left",
+  align: "inherit",
   wrap: true
 };
 

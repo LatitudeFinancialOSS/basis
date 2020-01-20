@@ -46,12 +46,13 @@ function ContainerPage() {
           <Link href="https://google.com" newTab={true}>Google</Link>{" "}
           <Link href="https://facebook.com" newTab={true}>Facebook</Link>
         </Text>
-        <Text>Here are some buttons:<br />
-          <Button isFullWidth={false}>Submit</Button>{" "}
-          <Button variant="secondary" isFullWidth={false}>Cancel</Button>
+        <Text>
+          Here are some buttons:<br />
+          <Button isFullWidth={false}>Submit</Button>
+          <Button variant="secondary" isFullWidth={false} margin="0 0 0 2">Cancel</Button>
         </Text>
-        <Text>Here is a nested container with margin and padding:</Text>
-        <Container bg="primary.blue.t100" margin="4" padding="6">
+        <Text>Here is a nested container:</Text>
+        <Container bg="primary.blue.t100" margin="2" padding="6" textAlign-md="center">
           <Text>Text color is white here. Magic!</Text>
         </Container>
       </Grid>

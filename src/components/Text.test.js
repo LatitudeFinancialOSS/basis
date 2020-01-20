@@ -17,7 +17,7 @@ describe("Text", () => {
       line-height: 24px;
       letter-spacing: 0px;
       color: #000000;
-      text-align: left;
+      text-align: inherit;
       margin: 0;
     `);
   });

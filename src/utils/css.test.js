@@ -5,7 +5,8 @@ import {
   responsiveMargin,
   responsivePadding,
   responsiveWidth,
-  responsiveHeight
+  responsiveHeight,
+  responsiveTextAlign
 } from "./css";
 
 describe("getMinMediaQueries", () => {
@@ -154,5 +155,26 @@ describe("responsiveHeight", () => {
 
   it("invalid height", () => {
     expect(responsiveHeight.getCSS("")).toStrictEqual({});
+  });
+});
+
+describe("responsiveTextAlign", () => {
+  it("valid textAlign", () => {
+    expect(responsiveTextAlign.getCSS("inherit")).toStrictEqual({
+      textAlign: "inherit"
+    });
+    expect(responsiveTextAlign.getCSS("left")).toStrictEqual({
+      textAlign: "left"
+    });
+    expect(responsiveTextAlign.getCSS("center")).toStrictEqual({
+      textAlign: "center"
+    });
+    expect(responsiveTextAlign.getCSS("right")).toStrictEqual({
+      textAlign: "right"
+    });
+  });
+
+  it("invalid textAlign", () => {
+    expect(responsiveTextAlign.getCSS("bottom")).toStrictEqual({});
   });
 });

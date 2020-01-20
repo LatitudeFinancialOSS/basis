@@ -6,7 +6,8 @@ import {
   responsiveMarginType,
   responsivePaddingType,
   responsiveWidthType,
-  responsiveHeightType
+  responsiveHeightType,
+  responsivePropType
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
@@ -14,8 +15,10 @@ import {
   responsivePadding,
   responsiveWidth,
   responsiveHeight,
+  responsiveTextAlign,
   mergeResponsiveCSS
 } from "../utils/css";
+import { ALIGNS as TEXT_ALIGNS } from "./Text";
 import tokens from "../themes/tokens";
 
 export const BACKGROUNDS = [
@@ -40,7 +43,8 @@ function Container(_props) {
     margin: responsiveMargin,
     padding: responsivePadding,
     width: responsiveWidth,
-    height: responsiveHeight
+    height: responsiveHeight,
+    textAlign: responsiveTextAlign
   });
   const responsiveCSS = hasBreakpointWidth
     ? mergeResponsiveCSS(
@@ -103,6 +107,7 @@ Container.propTypes = {
   ...responsivePaddingType,
   ...responsiveWidthType,
   ...responsiveHeightType,
+  ...responsivePropType("textAlign", PropTypes.oneOf(TEXT_ALIGNS)),
   hasBreakpointWidth: PropTypes.bool,
   children: PropTypes.node
 };

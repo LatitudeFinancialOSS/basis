@@ -53,6 +53,17 @@ describe("Container", () => {
     `);
   });
 
+  it("with textAlign", () => {
+    const { getByText } = render(
+      <Container textAlign="right">Hello World</Container>
+    );
+    const node = getByText("Hello World");
+
+    expect(node).toHaveStyle(`
+      text-align: right;
+    `);
+  });
+
   it("with background color", () => {
     const { getByText } = render(
       <Container bg="secondary.lightBlue.t30">Hello World</Container>

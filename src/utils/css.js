@@ -1,5 +1,6 @@
 import tokens from "../themes/tokens";
 import { hasOwnProperty } from "./core";
+import { ALIGNS as TEXT_ALIGNS } from "../components/Text";
 
 export function getSpaceValue(space) {
   if (typeof space === "number") {
@@ -47,6 +48,14 @@ export function getSizeValue(size) {
   }
 
   return tokens.sizes[size] || null;
+}
+
+function getTextAlignValue(textAlign) {
+  if (TEXT_ALIGNS.includes(textAlign)) {
+    return textAlign;
+  }
+
+  return null;
 }
 
 const SPAN_REGEX = /^(\d+)(-(\d+))?$/;
@@ -204,5 +213,13 @@ export const responsiveHeight = {
     const height = getSizeValue(value);
 
     return height === null ? {} : { height };
+  }
+};
+
+export const responsiveTextAlign = {
+  getCSS: value => {
+    const textAlign = getTextAlignValue(value);
+
+    return textAlign === null ? {} : { textAlign };
   }
 };
