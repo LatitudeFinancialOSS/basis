@@ -1,13 +1,91 @@
 import { renderHook } from "@testing-library/react-hooks";
-import useResponsivePropsCSS from "./useResponsivePropsCSS";
+import { DEFAULT_PROPS as DEFAULT_CONTAINER_PROPS } from "../components/Container";
 import {
-  getSpaceValue,
+  DEFAULT_GRID_PROPS,
+  DEFAULT_GRID_ITEM_PROPS
+} from "../components/Grid";
+import { DEFAULT_PROPS as DEFAULT_TEXT_PROPS } from "../components/Text";
+import { DEFAULT_PROPS as DEFAULT_FLEX_PROPS } from "../components/Flex";
+import useResponsivePropsCSS, {
+  getBreakpointToPropsMap
+} from "./useResponsivePropsCSS";
+import {
   getGridTemplateColumns,
   getGutterPx,
-  getGridLines
+  getGridLines,
+  isCSSinOrder,
+  responsiveMargin,
+  responsivePadding,
+  responsiveFlexDirection,
+  responsiveFlexGutter,
+  responsiveFlexPlaceItems
 } from "../utils/css";
 import { TestWrapper } from "../utils/test";
 import { defaultTheme } from "..";
+
+describe("getBreakpointToPropsMap", () => {
+  it("builds the correct map", () => {
+    const props = {
+      direction: "row",
+      "direction-sm": "column",
+      "gutter-lg": 6,
+      placeItems: "center",
+      "placeItems-md": "bottom right",
+      width: 4,
+      "foo-xll": true
+    };
+    const defaultProps = {
+      gutter: 2
+    };
+
+    expect(
+      getBreakpointToPropsMap(defaultTheme, props, defaultProps)
+    ).toStrictEqual({
+      default: {
+        direction: "row",
+        gutter: 2,
+        placeItems: "center",
+        width: 4,
+        "foo-xll": true
+      },
+      xs: {
+        direction: "row",
+        gutter: 2,
+        placeItems: "center",
+        width: 4,
+        "foo-xll": true
+      },
+      sm: {
+        direction: "column",
+        gutter: 2,
+        placeItems: "center",
+        width: 4,
+        "foo-xll": true
+      },
+      md: {
+        direction: "column",
+        gutter: 2,
+        placeItems: "bottom right",
+        width: 4,
+        "foo-xll": true
+      },
+      lg: {
+        direction: "column",
+        gutter: 6,
+        placeItems: "bottom right",
+        width: 4,
+        "foo-xll": true
+      },
+      xl: {
+        direction: "column",
+        gutter: 6,
+        placeItems: "bottom right",
+        width: 4,
+        "foo-xll": true
+      }
+    });
+  });
+});
 
 describe("useResponsivePropsCSS", () => {
   it("Container", () => {
@@ -24,21 +102,9 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, {
-          margin: {
-            getCSS: value => {
-              return {
-                margin: getSpaceValue(value)
-              };
-            }
-          },
-          padding: {
-            getCSS: value => {
-              return {
-                padding: getSpaceValue(value)
-              };
-            }
-          }
+        useResponsivePropsCSS(props, DEFAULT_CONTAINER_PROPS, {
+          margin: responsiveMargin,
+          padding: responsivePadding
         }),
       { wrapper: TestWrapper }
     );
@@ -61,6 +127,7 @@ describe("useResponsivePropsCSS", () => {
         padding: "0px 32px"
       }
     });
+    expect(isCSSinOrder(result.current)).toBe(true);
   });
 
   it("Grid", () => {
@@ -76,27 +143,21 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, {
-          cols: {
-            getCSS: value => {
-              return {
-                gridTemplateColumns: getGridTemplateColumns(value)
-              };
-            }
+        useResponsivePropsCSS(props, DEFAULT_GRID_PROPS, {
+          cols: ({ cols }) => {
+            return {
+              gridTemplateColumns: getGridTemplateColumns(cols)
+            };
           },
-          colsGutter: {
-            getCSS: value => {
-              return {
-                gridColumnGap: getGutterPx(value)
-              };
-            }
+          colsGutter: ({ colsGutter }) => {
+            return {
+              gridColumnGap: getGutterPx(colsGutter)
+            };
           },
-          rowsGutter: {
-            getCSS: value => {
-              return {
-                gridRowGap: getGutterPx(value)
-              };
-            }
+          rowsGutter: ({ rowsGutter }) => {
+            return {
+              gridRowGap: getGutterPx(rowsGutter)
+            };
           }
         }),
       { wrapper: TestWrapper }
@@ -120,6 +181,7 @@ describe("useResponsivePropsCSS", () => {
         gridTemplateColumns: "repeat(240px, 1fr)"
       }
     });
+    expect(isCSSinOrder(result.current)).toBe(true);
   });
 
   it("Grid.Item", () => {
@@ -135,28 +197,24 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, {
-          colSpan: {
-            getCSS: value => {
-              const gridLines = getGridLines(value, { allAllowed: true });
+        useResponsivePropsCSS(props, DEFAULT_GRID_ITEM_PROPS, {
+          colSpan: ({ colSpan }) => {
+            const gridLines = getGridLines(colSpan, { allAllowed: true });
 
-              return gridLines
-                ? {
-                    gridColumn: `${gridLines[0]} / ${gridLines[1]}`
-                  }
-                : {};
-            }
+            return gridLines
+              ? {
+                  gridColumn: `${gridLines[0]} / ${gridLines[1]}`
+                }
+              : {};
           },
-          rowSpan: {
-            getCSS: value => {
-              const gridLines = getGridLines(value);
+          rowSpan: ({ rowSpan }) => {
+            const gridLines = getGridLines(rowSpan);
 
-              return gridLines
-                ? {
-                    gridRow: `${gridLines[0]} / ${gridLines[1]}`
-                  }
-                : {};
-            }
+            return gridLines
+              ? {
+                  gridRow: `${gridLines[0]} / ${gridLines[1]}`
+                }
+              : {};
           }
         }),
       { wrapper: TestWrapper }
@@ -175,6 +233,7 @@ describe("useResponsivePropsCSS", () => {
         gridRow: "3 / 5"
       }
     });
+    expect(isCSSinOrder(result.current)).toBe(true);
   });
 
   it("Text - header", () => {
@@ -183,22 +242,22 @@ describe("useResponsivePropsCSS", () => {
       "size-sm": 3,
       "size-lg": "2"
     };
+    const defaultProps = {
+      ...DEFAULT_TEXT_PROPS,
+      size: "4"
+    };
     const { result } = renderHook(
-      ({ isHeader, theme, defaultSize }) =>
-        useResponsivePropsCSS(props, {
-          size: {
-            getCSS: value => {
-              return isHeader ? theme[`text.size${value}`] : {};
-            },
-            defaultValue: defaultSize
+      ({ isHeader, theme }) =>
+        useResponsivePropsCSS(props, defaultProps, {
+          size: ({ size }) => {
+            return isHeader ? theme[`text.size${size}`] : {};
           }
         }),
       {
         wrapper: TestWrapper,
         initialProps: {
           isHeader: true,
-          theme: defaultTheme,
-          defaultSize: "4"
+          theme: defaultTheme
         }
       }
     );
@@ -210,20 +269,17 @@ describe("useResponsivePropsCSS", () => {
       letterSpacing: "-0.52px",
       lineHeight: "28px",
       "@media (min-width: 576px)": {
-        fontFamily: "'Montserrat', sans-serif",
         fontSize: "32px",
-        fontWeight: 600,
         letterSpacing: "-0.7px",
         lineHeight: "36px"
       },
       "@media (min-width: 992px)": {
-        fontFamily: "'Montserrat', sans-serif",
         fontSize: "40px",
-        fontWeight: 600,
         letterSpacing: "-0.88px",
         lineHeight: "48px"
       }
     });
+    expect(isCSSinOrder(result.current)).toBe(true);
   });
 
   it("Text - not header", () => {
@@ -232,26 +288,132 @@ describe("useResponsivePropsCSS", () => {
       "size-sm": 3,
       "size-lg": "2"
     };
+    const defaultProps = {
+      ...DEFAULT_TEXT_PROPS,
+      size: null
+    };
     const { result } = renderHook(
-      ({ isHeader, theme, defaultSize }) =>
-        useResponsivePropsCSS(props, {
-          size: {
-            getCSS: value => {
-              return isHeader ? theme[`text.size${value}`] : {};
-            },
-            defaultValue: defaultSize
+      ({ isHeader, theme }) =>
+        useResponsivePropsCSS(props, defaultProps, {
+          size: ({ size }) => {
+            return isHeader ? theme[`text.size${size}`] : {};
           }
         }),
       {
         wrapper: TestWrapper,
         initialProps: {
           isHeader: false,
-          theme: defaultTheme,
-          defaultSize: null
+          theme: defaultTheme
         }
       }
     );
 
     expect(result.current).toStrictEqual({});
+  });
+
+  it("Flex - direction", () => {
+    const props = {
+      height: "15",
+      "direction-md": "column",
+      "direction-large": "row",
+      "direction-xl": "row"
+    };
+    const { result } = renderHook(
+      () =>
+        useResponsivePropsCSS(props, DEFAULT_FLEX_PROPS, {
+          gutter: responsiveFlexDirection
+        }),
+      {
+        wrapper: TestWrapper
+      }
+    );
+
+    expect(result.current).toStrictEqual({
+      flexDirection: "row",
+      "@media (min-width: 768px)": {
+        flexDirection: "column"
+      },
+      "@media (min-width: 1200px)": {
+        flexDirection: "row"
+      }
+    });
+    expect(isCSSinOrder(result.current)).toBe(true);
+  });
+
+  it("Flex - gutter with direction change", () => {
+    const props = {
+      height: "100%",
+      direction: "column",
+      "direction-sm": "row",
+      gutter: "6",
+      placeItems: "top center"
+    };
+    const { result } = renderHook(
+      () =>
+        useResponsivePropsCSS(props, DEFAULT_FLEX_PROPS, {
+          gutter: responsiveFlexGutter
+        }),
+      {
+        wrapper: TestWrapper
+      }
+    );
+
+    expect(result.current).toStrictEqual({
+      ":not(:first-of-type)": {
+        marginTop: "24px",
+        marginLeft: "0px"
+      },
+      "@media (min-width: 576px)": {
+        ":not(:first-of-type)": {
+          marginTop: "0px",
+          marginLeft: "24px"
+        }
+      }
+    });
+    expect(isCSSinOrder(result.current)).toBe(true);
+  });
+
+  it("Flex - placeItems with direction change", () => {
+    const props = {
+      "direction-md": "column",
+      "direction-lg": "row",
+      "direction-xl": "column",
+      "placeItems-xs": "bottom left",
+      "placeItems-sm": "center right",
+      "placeItems-xl": "center"
+    };
+    const { result } = renderHook(
+      () =>
+        useResponsivePropsCSS(props, DEFAULT_FLEX_PROPS, {
+          placeItems: responsiveFlexPlaceItems
+        }),
+      {
+        wrapper: TestWrapper
+      }
+    );
+
+    expect(result.current).toStrictEqual({
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      "@media (min-width: 380px)": {
+        alignItems: "flex-end"
+      },
+      "@media (min-width: 576px)": {
+        alignItems: "center",
+        justifyContent: "flex-end"
+      },
+      "@media (min-width: 768px)": {
+        alignItems: "flex-end",
+        justifyContent: "center"
+      },
+      "@media (min-width: 992px)": {
+        alignItems: "center",
+        justifyContent: "flex-end"
+      },
+      "@media (min-width: 1200px)": {
+        justifyContent: "center"
+      }
+    });
+    expect(isCSSinOrder(result.current)).toBe(true);
   });
 });

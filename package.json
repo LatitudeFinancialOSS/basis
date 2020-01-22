@@ -26,6 +26,9 @@
   },
   "dependencies": {
     "date-fns": "^2.9.0",
+    "deep-object-diff": "^1.1.0",
+    "deepmerge": "^4.2.2",
+    "klona": "^1.1.1",
     "nanoid": "^2.1.9",
     "polished": "^3.4.2",
     "react-resize-aware": "^3.0.0"

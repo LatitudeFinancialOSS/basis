@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
+import Flex from "./Flex";
 import Logo, { NAMES as LOGO_NAMES } from "./internal/Logo";
 import useTheme from "../hooks/useTheme";
 
@@ -29,9 +30,9 @@ function Header({ children }) {
     >
       <Container bg="white" height="11" height-lg="14" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
-          <div css={{ display: "flex", height: "100%", alignItems: "center" }}>
+          <Flex height="100%" placeItems="left center">
             {children}
-          </div>
+          </Flex>
         </Container>
       </Container>
     </header>

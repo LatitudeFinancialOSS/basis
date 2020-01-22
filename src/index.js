@@ -3,6 +3,7 @@ export { default as Button } from "./components/Button";
 export { default as Checkbox } from "./components/Checkbox";
 export { default as Container } from "./components/Container";
 export { default as DatePicker } from "./components/DatePicker";
+export { default as Flex } from "./components/Flex";
 export { default as Frequency } from "./components/Frequency";
 export { default as Footer } from "./components/Footer";
 export { default as Grid } from "./components/Grid";

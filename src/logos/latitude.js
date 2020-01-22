@@ -15,7 +15,7 @@ const DEFAULT_PROPS = {
 
 function LatitudeLogo(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
+  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     height: responsiveHeight
   });
   const theme = useTheme();

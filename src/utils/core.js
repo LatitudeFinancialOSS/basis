@@ -1,3 +1,11 @@
+export function isObjectEmpty(obj) {
+  for (const _key in obj) {
+    return false;
+  }
+
+  return true;
+}
+
 /*
   ESLint complains about:
     obj.hasOwnProperty(key)

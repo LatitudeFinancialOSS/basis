@@ -21,9 +21,11 @@ describe("Button", () => {
       padding: 0 24px;
       min-height: 48px;
       transition: background-color 150ms ease,color 150ms ease;
-      width: 100%;
       background-color: #006aff;
       color: #ffffff;
+    `);
+    expect(button).not.toHaveStyle(`
+      width: 100%;
     `);
   });
 
@@ -69,13 +71,13 @@ describe("Button", () => {
     `);
   });
 
-  it("not full width", () => {
+  it("full width", () => {
     const { getByText } = render(
-      <Button isFullWidth={false}>Find out more</Button>
+      <Button isFullWidth={true}>Find out more</Button>
     );
     const button = getByText("Find out more");
 
-    expect(button).not.toHaveStyle(`
+    expect(button).toHaveStyle(`
       width: 100%;
     `);
   });

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
+import Flex from "./Flex";
 import Text from "./Text";
 import Link from "./Link";
 import useTheme from "../hooks/useTheme";
@@ -8,20 +9,10 @@ import Logo, { NAMES as LOGO_NAMES } from "./internal/Logo";
 import tokens from "../themes/tokens";
 
 function HeaderLogo({ name }) {
-  const theme = useTheme();
-
-  const css = {
-    display: "flex",
-    alignItems: "center",
-    height: tokens.sizes[16],
-    [theme.minMediaQueries.lg]: {
-      height: tokens.sizes[15]
-    }
-  };
   return (
-    <div css={css}>
+    <Flex height="16" height-lg="15" placeItems="left center">
       <Logo name={name} color="white" height="9" height-md="8" />
-    </div>
+    </Flex>
   );
 }
 
@@ -33,7 +24,7 @@ function Header({ children }) {
   return (
     <Container bg="primary.blue.t100">
       <Container bg="primary.blue.t100" hasBreakpointWidth={true}>
-        <div css={{ display: "flex", alignItems: "center" }}>{children}</div>
+        <Flex placeItems="left center">{children}</Flex>
       </Container>
     </Container>
   );

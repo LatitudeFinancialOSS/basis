@@ -13,7 +13,7 @@ export const TYPES = ["button", "submit"];
 export const DEFAULT_PROPS = {
   variant: "primary",
   color: "highlight.blue.t100",
-  isFullWidth: true,
+  isFullWidth: false,
   isDisabled: false,
   type: "button"
 };
@@ -23,7 +23,7 @@ function Button(_props) {
   const { variant, isFullWidth, isDisabled, type, onClick, children } = props;
   const theme = useTheme();
   const { buttonColor } = useContainer();
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
+  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin
   });
   const color =

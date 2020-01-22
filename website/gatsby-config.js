@@ -17,6 +17,9 @@ module.exports = {
       DatePicker: {
         status: COMPONENT_STATUS.READY
       },
+      Flex: {
+        status: COMPONENT_STATUS.READY
+      },
       Frequency: {
         status: COMPONENT_STATUS.READY
       },

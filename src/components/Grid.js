@@ -11,24 +11,25 @@ import {
   getGutterPx
 } from "../utils/css";
 
+export const DEFAULT_GRID_ITEM_PROPS = {};
 function Item(props) {
   const { children } = props;
   const theme = useTheme();
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
-    colSpan: {
-      getCSS: value => {
-        const gridLines = getGridLines(value, { allAllowed: true });
+  const responsivePropsCSS = useResponsivePropsCSS(
+    props,
+    DEFAULT_GRID_ITEM_PROPS,
+    {
+      colSpan: ({ colSpan }) => {
+        const gridLines = getGridLines(colSpan, { allAllowed: true });
 
         return gridLines
           ? {
               gridColumn: `${gridLines[0]} / ${gridLines[1]}`
             }
           : {};
-      }
-    },
-    rowSpan: {
-      getCSS: value => {
-        const gridLines = getGridLines(value);
+      },
+      rowSpan: ({ rowSpan }) => {
+        const gridLines = getGridLines(rowSpan);
 
         return gridLines
           ? {
@@ -37,7 +38,7 @@ function Item(props) {
           : {};
       }
     }
-  });
+  );
   const itemCSS = {
     ...theme.gridItem,
     ...responsivePropsCSS
@@ -82,29 +83,27 @@ function Grid(_props) {
     ...presetsMap[preset],
     ...props
   };
-  const responsivePropsCSS = useResponsivePropsCSS(parsedProps, {
-    cols: {
-      getCSS: value => {
+  const responsivePropsCSS = useResponsivePropsCSS(
+    parsedProps,
+    DEFAULT_GRID_PROPS,
+    {
+      cols: ({ cols }) => {
         return {
-          gridTemplateColumns: getGridTemplateColumns(value)
+          gridTemplateColumns: getGridTemplateColumns(cols)
         };
-      }
-    },
-    colsGutter: {
-      getCSS: value => {
+      },
+      colsGutter: ({ colsGutter }) => {
         return {
-          gridColumnGap: getGutterPx(value)
+          gridColumnGap: getGutterPx(colsGutter)
         };
-      }
-    },
-    rowsGutter: {
-      getCSS: value => {
+      },
+      rowsGutter: ({ rowsGutter }) => {
         return {
-          gridRowGap: getGutterPx(value)
+          gridRowGap: getGutterPx(rowsGutter)
         };
       }
     }
-  });
+  );
   const gridRef = useRef();
   const [gridInfo, setGridInfo] = useState(null);
 

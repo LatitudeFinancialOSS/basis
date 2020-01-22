@@ -1,5 +1,9 @@
 import tokens from "../themes/tokens";
 import { hasOwnProperty } from "./core";
+import {
+  DIRECTIONS as FLEX_DIRECTIONS,
+  PLACE_ITEMS as FLEX_PLACE_ITEMS
+} from "../components/Flex";
 import { ALIGNS as TEXT_ALIGNS } from "../components/Text";
 
 export function getSpaceValue(space) {
@@ -184,42 +188,159 @@ export function mergeResponsiveCSS(css1, css2) {
   return result;
 }
 
-export const responsiveMargin = {
-  getCSS: value => {
-    const margin = getSpaceValue(value);
+const MIN_MEDIA_QUERY_REGEX = /^@media \(min-width: (\d+)px\)$/;
 
-    return margin === null ? {} : { margin };
+function isMinMediaQuery(str) {
+  return str.match(MIN_MEDIA_QUERY_REGEX) !== null;
+}
+
+export function isCSSinOrder(css) {
+  const keys = Object.keys(css);
+  const firstMinMediaQueryIndex = keys.findIndex(isMinMediaQuery);
+
+  if (firstMinMediaQueryIndex === -1) {
+    // No min media queries found. Nothing to worry about.
+    return true;
   }
-};
 
-export const responsivePadding = {
-  getCSS: value => {
-    const padding = getSpaceValue(value);
+  let lastBreakpoint = -1;
 
-    return padding === null ? {} : { padding };
+  for (let i = firstMinMediaQueryIndex + 1; i < keys.length; i++) {
+    const match = keys[i].match(MIN_MEDIA_QUERY_REGEX);
+
+    if (match === null) {
+      // Default CSS found. It must appear BEFORE ALL media queries.
+      return false;
+    }
+
+    const breakpoint = parseInt(match[1], 10);
+
+    if (breakpoint < lastBreakpoint) {
+      // Min media queries must appear in acsending order.
+      return false;
+    }
+
+    lastBreakpoint = breakpoint;
   }
-};
 
-export const responsiveWidth = {
-  getCSS: value => {
-    const width = getSizeValue(value);
+  return true;
+}
 
-    return width === null ? {} : { width };
+export function responsiveMargin(propsAtBreakpoint) {
+  const margin = getSpaceValue(propsAtBreakpoint.margin);
+
+  return margin === null ? {} : { margin };
+}
+
+export function responsivePadding(propsAtBreakpoint) {
+  const padding = getSpaceValue(propsAtBreakpoint.padding);
+
+  return padding === null ? {} : { padding };
+}
+
+export function responsiveWidth(propsAtBreakpoint) {
+  const width = getSizeValue(propsAtBreakpoint.width);
+
+  return width === null ? {} : { width };
+}
+
+export function responsiveHeight(propsAtBreakpoint) {
+  const height = getSizeValue(propsAtBreakpoint.height);
+
+  return height === null ? {} : { height };
+}
+
+export function responsiveTextAlign(propsAtBreakpoint) {
+  const textAlign = getTextAlignValue(propsAtBreakpoint.textAlign);
+
+  return textAlign === null ? {} : { textAlign };
+}
+
+export function responsiveFlexDirection({ direction }) {
+  if (!FLEX_DIRECTIONS.includes(direction)) {
+    return {};
   }
-};
 
-export const responsiveHeight = {
-  getCSS: value => {
-    const height = getSizeValue(value);
+  return {
+    flexDirection: direction
+  };
+}
 
-    return height === null ? {} : { height };
+export function responsiveFlexGutter({ gutter, direction }) {
+  const margin = getSpaceValue(gutter);
+
+  return margin === null
+    ? {}
+    : {
+        /*
+          Note: Setting only `marginLeft` or `marginTop` would be a mistake.
+
+          For example, the resulting CSS could look like this then:
+
+            {
+              marginLeft: "16px",
+              "@media (min-width: 380px)": {
+                marginTop: "32px"
+              },
+            }
+
+          and we would get both `marginLeft` AND `marginTop` on wide screens,
+          which is not what we want.
+        */
+        ":not(:first-of-type)": {
+          marginLeft: direction === "row" ? margin : "0px",
+          marginTop: direction === "row" ? "0px" : margin
+        }
+      };
+}
+
+export function responsiveFlexPlaceItems({ direction, placeItems }) {
+  if (!FLEX_PLACE_ITEMS.includes(placeItems)) {
+    return {};
   }
-};
 
-export const responsiveTextAlign = {
-  getCSS: value => {
-    const textAlign = getTextAlignValue(value);
+  const parts = placeItems.trim().split(/\s+/);
 
-    return textAlign === null ? {} : { textAlign };
+  if (parts.length === 1) {
+    if (parts[0] === "center") {
+      return {
+        alignItems: "center",
+        justifyContent: "center"
+      };
+    }
+
+    return {};
   }
-};
+
+  if (parts.length !== 2) {
+    return {};
+  }
+
+  if (parts[0] === "center" && parts[1] === "center") {
+    return {
+      alignItems: "center",
+      justifyContent: "center"
+    };
+  }
+
+  const hasLeft = parts[0] === "left" || parts[1] === "left";
+  const hasRight = parts[0] === "right" || parts[1] === "right";
+  const hasTop = parts[0] === "top" || parts[1] === "top";
+  const hasBottom = parts[0] === "bottom" || parts[1] === "bottom";
+  const horizontalAlignment = hasLeft
+    ? "flex-start"
+    : hasRight
+    ? "flex-end"
+    : "center";
+  const verticalAlignment = hasTop
+    ? "flex-start"
+    : hasBottom
+    ? "flex-end"
+    : "center";
+
+  return {
+    alignItems: direction === "row" ? verticalAlignment : horizontalAlignment,
+    justifyContent:
+      direction === "row" ? horizontalAlignment : verticalAlignment
+  };
+}

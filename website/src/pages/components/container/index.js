@@ -40,7 +40,7 @@ function ContainerPage() {
       }
     ])}
     >
-      <Grid rowsGutter={4}>
+      <Flex direction="column" gutter="4">
         <Text intent="h3">Here goes anything you want.</Text>
         <Text>Here are some links:
           <Link href="https://google.com" newTab={true}>Google</Link>{" "}
@@ -48,14 +48,14 @@ function ContainerPage() {
         </Text>
         <Text>
           Here are some buttons:<br />
-          <Button isFullWidth={false}>Submit</Button>
-          <Button variant="secondary" isFullWidth={false} margin="0 0 0 2">Cancel</Button>
+          <Button>Submit</Button>
+          <Button variant="secondary" margin="0 0 0 2">Cancel</Button>
         </Text>
         <Text>Here is a nested container:</Text>
         <Container bg="primary.blue.t100" margin="2" padding="6" textAlign-md="center">
           <Text>Text color is white here. Magic!</Text>
         </Container>
-      </Grid>
+      </Flex>
     </Container>
   `);
 

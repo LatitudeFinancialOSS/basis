@@ -1,10 +1,10 @@
-import { Children, cloneElement } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 function VisuallyHidden({ children }) {
-  const child = Children.only(children);
+  const child = React.Children.only(children);
 
-  return cloneElement(child, {
+  return React.cloneElement(child, {
     // See: https://github.com/emotion-js/emotion/issues/1713#issuecomment-574121500
     style: {
       // See: https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html

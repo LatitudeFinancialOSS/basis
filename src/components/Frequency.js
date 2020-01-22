@@ -201,6 +201,7 @@ function Frequency(_props) {
               <Select
                 color={color}
                 options={frequencyOptions}
+                isFullWidth={true}
                 isDisabled={isDisabled}
                 onFocus={() => {
                   setIsTouched({

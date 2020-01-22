@@ -39,7 +39,7 @@ function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { bg, boxShadow, hasBreakpointWidth, children } = props;
   const theme = useTheme();
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
+  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     padding: responsivePadding,
     width: responsiveWidth,

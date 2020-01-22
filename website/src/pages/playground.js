@@ -386,7 +386,6 @@ function Playground({ location }) {
             >
               <Button
                 variant="secondary"
-                isFullWidth={false}
                 onClick={() => {
                   setCode(prettify(code));
                 }}
@@ -396,7 +395,6 @@ function Playground({ location }) {
               <Button
                 margin="0 0 0 4"
                 variant="secondary"
-                isFullWidth={false}
                 isDisabled={isShareSuccessful}
                 onClick={copyShareUrlToClipboard}
               >
@@ -405,7 +403,6 @@ function Playground({ location }) {
               <Button
                 margin="0 0 0 auto"
                 variant="secondary"
-                isFullWidth={false}
                 onClick={() => {
                   setAreSettingsOpen(!areSettingsOpen);
                 }}

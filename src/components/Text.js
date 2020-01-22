@@ -92,15 +92,19 @@ function Text(_props) {
   const defaultSize = isHeader
     ? intent[1] // h1 => 1, h2 => 2, etc.
     : null;
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
-    margin: responsiveMargin,
-    size: {
-      getCSS: value => {
-        return isHeader ? theme[`text.size${value}`] : {};
-      },
-      defaultValue: defaultSize
+  const responsivePropsCSS = useResponsivePropsCSS(
+    props,
+    {
+      ...DEFAULT_PROPS,
+      size: defaultSize
+    },
+    {
+      margin: responsiveMargin,
+      size: ({ size }) => {
+        return isHeader ? theme[`text.size${size}`] : {};
+      }
     }
-  });
+  );
   const Component = intent === "hero" ? "h1" : isHeader ? intent : "p";
   const { textColor } = useContainer();
   const color =

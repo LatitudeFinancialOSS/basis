@@ -26,7 +26,7 @@ function Link(_props) {
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
   const theme = useTheme();
   const { linkColor } = useContainer();
-  const responsivePropsCSS = useResponsivePropsCSS(props, {
+  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     padding: responsivePadding
   });

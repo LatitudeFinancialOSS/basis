@@ -2,6 +2,7 @@ import {
   getMinMediaQueries,
   getExclusiveMediaQueries,
   mergeResponsiveCSS,
+  isCSSinOrder,
   responsiveMargin,
   responsivePadding,
   responsiveWidth,
@@ -112,69 +113,180 @@ describe("mergeResponsiveCSS", () => {
   });
 });
 
+describe("isCSSinOrder", () => {
+  it("in order - only default css", () => {
+    expect(
+      isCSSinOrder({
+        width: "100%",
+        fontSize: "14px",
+        height: "12px"
+      })
+    ).toBe(true);
+  });
+
+  it("in order - only media queries", () => {
+    expect(
+      isCSSinOrder({
+        "@media (min-width: 380px)": {
+          height: "24px"
+        },
+        "@media (min-width: 768px)": {
+          fontSize: "21px"
+        },
+        "@media (min-width: 1200px)": {
+          height: "200px"
+        }
+      })
+    ).toBe(true);
+  });
+
+  it("in order - default css and media queries", () => {
+    expect(
+      isCSSinOrder({
+        width: "100%",
+        height: "12px",
+        "@media (min-width: 380px)": {
+          height: "24px"
+        },
+        "@media (min-width: 576px)": {
+          width: "100px",
+          height: "24px"
+        },
+        "@media (min-width: 768px)": {
+          fontSize: "21px"
+        },
+        "@media (min-width: 992px)": {},
+        "@media (min-width: 1200px)": {
+          height: "200px"
+        }
+      })
+    ).toBe(true);
+  });
+
+  it("not in order - default css after media queries", () => {
+    expect(
+      isCSSinOrder({
+        width: "100%",
+        "@media (min-width: 380px)": {
+          height: "24px"
+        },
+        "@media (min-width: 576px)": {
+          width: "100px",
+          height: "24px"
+        },
+        "@media (min-width: 768px)": {
+          fontSize: "21px"
+        },
+        height: "12px",
+        "@media (min-width: 992px)": {},
+        "@media (min-width: 1200px)": {
+          height: "200px"
+        }
+      })
+    ).toBe(false);
+  });
+
+  it("not in order - media queries not in ascending order", () => {
+    expect(
+      isCSSinOrder({
+        width: "100%",
+        height: "12px",
+        "@media (min-width: 380px)": {
+          height: "24px"
+        },
+        "@media (min-width: 576px)": {
+          width: "100px",
+          height: "24px"
+        },
+        "@media (min-width: 992px)": {},
+        "@media (min-width: 768px)": {
+          fontSize: "21px"
+        },
+        "@media (min-width: 1200px)": {
+          height: "200px"
+        }
+      })
+    ).toBe(false);
+  });
+});
+
 describe("responsiveMargin", () => {
   it("valid margin", () => {
-    expect(responsiveMargin.getCSS("4 -5 1 -8")).toStrictEqual({
+    expect(responsiveMargin({ margin: "4 -5 1 -8" })).toStrictEqual({
       margin: "16px -20px 4px -32px"
     });
   });
 
   it("invalid margin", () => {
-    expect(responsiveMargin.getCSS("")).toStrictEqual({});
+    expect(responsiveMargin({ margin: "" })).toStrictEqual({});
   });
 });
 
 describe("responsivePadding", () => {
   it("valid padding", () => {
-    expect(responsivePadding.getCSS("1")).toStrictEqual({ padding: "4px" });
+    expect(responsivePadding({ padding: "1" })).toStrictEqual({
+      padding: "4px"
+    });
   });
 
   it("invalid padding", () => {
-    expect(responsivePadding.getCSS(true)).toStrictEqual({});
+    expect(responsivePadding({ padding: true })).toStrictEqual({});
   });
 });
 
 describe("responsiveWidth", () => {
   it("valid width", () => {
-    expect(responsiveWidth.getCSS("12")).toStrictEqual({ width: "56px" });
-    expect(responsiveWidth.getCSS("auto")).toStrictEqual({ width: "auto" });
-    expect(responsiveWidth.getCSS("100%")).toStrictEqual({ width: "100%" });
+    expect(responsiveWidth({ width: "12" })).toStrictEqual({
+      width: "56px"
+    });
+    expect(responsiveWidth({ width: "auto" })).toStrictEqual({
+      width: "auto"
+    });
+    expect(responsiveWidth({ width: "100%" })).toStrictEqual({
+      width: "100%"
+    });
   });
 
   it("invalid width", () => {
-    expect(responsiveWidth.getCSS("")).toStrictEqual({});
+    expect(responsiveWidth({ width: "" })).toStrictEqual({});
   });
 });
 
 describe("responsiveHeight", () => {
   it("valid height", () => {
-    expect(responsiveHeight.getCSS("12")).toStrictEqual({ height: "56px" });
-    expect(responsiveHeight.getCSS("auto")).toStrictEqual({ height: "auto" });
-    expect(responsiveHeight.getCSS("100%")).toStrictEqual({ height: "100%" });
+    expect(responsiveHeight({ height: "12" })).toStrictEqual({
+      height: "56px"
+    });
+    expect(responsiveHeight({ height: "auto" })).toStrictEqual({
+      height: "auto"
+    });
+    expect(responsiveHeight({ height: "100%" })).toStrictEqual({
+      height: "100%"
+    });
   });
 
   it("invalid height", () => {
-    expect(responsiveHeight.getCSS("")).toStrictEqual({});
+    expect(responsiveHeight({ height: "" })).toStrictEqual({});
   });
 });
 
 describe("responsiveTextAlign", () => {
   it("valid textAlign", () => {
-    expect(responsiveTextAlign.getCSS("inherit")).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "inherit" })).toStrictEqual({
       textAlign: "inherit"
     });
-    expect(responsiveTextAlign.getCSS("left")).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "left" })).toStrictEqual({
       textAlign: "left"
     });
-    expect(responsiveTextAlign.getCSS("center")).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "center" })).toStrictEqual({
       textAlign: "center"
     });
-    expect(responsiveTextAlign.getCSS("right")).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "right" })).toStrictEqual({
       textAlign: "right"
     });
   });
 
   it("invalid textAlign", () => {
-    expect(responsiveTextAlign.getCSS("bottom")).toStrictEqual({});
+    expect(responsiveTextAlign({ textAlign: "bottom" })).toStrictEqual({});
   });
 });

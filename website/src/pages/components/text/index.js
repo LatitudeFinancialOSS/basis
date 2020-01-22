@@ -163,7 +163,7 @@ function TextPage() {
         width="sm"
         backgroundColor={
           color === "white"
-            ? designTokens.colors.highlight.blue.t100
+            ? designTokens.colors.primary.blue.t100
             : designTokens.colors.white
         }
       />

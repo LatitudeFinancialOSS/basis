@@ -2,19 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { pascalCase } from "pascal-case";
 import { hex } from "wcag-contrast";
-import { Container, Grid, Text, designTokens, useTheme } from "basis";
+import { Container, Flex, Text, designTokens, useTheme } from "basis";
 
 const { colors } = designTokens;
 
 function ColorGroup({ title, subTitle, children }) {
   return (
-    <div css={{ display: "flex" }}>
-      <div
-        css={{
-          width: designTokens.sizes[18],
-          paddingTop: designTokens.space[2]
-        }}
-      >
+    <Flex>
+      <Container width="18" padding="2 0 0 0">
         {title && (
           <Text intent="h3" size="5" color="grey.t75">
             {title}
@@ -25,9 +20,9 @@ function ColorGroup({ title, subTitle, children }) {
             <Text color="grey.t75">{subTitle}</Text>
           </div>
         )}
-      </div>
-      <div css={{ display: "flex" }}>{children}</div>
-    </div>
+      </Container>
+      <Flex>{children}</Flex>
+    </Flex>
   );
 }
 
@@ -91,7 +86,7 @@ Color.propTypes = {
 function ColorsPage() {
   return (
     <Container padding="6">
-      <Grid rowsGutter="10">
+      <Flex direction="column" gutter="10">
         <ColorGroup title="Greys">
           <Color name="black" />
           {Object.keys(colors.grey).map(t => (
@@ -104,7 +99,7 @@ function ColorsPage() {
             <Color name={`primary.blue.${t}`} key={t} />
           ))}
         </ColorGroup>
-        <Grid rowsGutter="6">
+        <Flex direction="column" gutter="6">
           <ColorGroup title="Secondary" subTitle="Light Blue">
             {Object.keys(colors.secondary.lightBlue).map(t => (
               <Color name={`secondary.lightBlue.${t}`} key={t} />
@@ -125,8 +120,8 @@ function ColorsPage() {
               <Color name={`secondary.turquoise.${t}`} key={t} />
             ))}
           </ColorGroup>
-        </Grid>
-        <Grid rowsGutter="6">
+        </Flex>
+        <Flex direction="column" gutter="6">
           <ColorGroup title="Highlight" subTitle="Blue">
             {Object.keys(colors.highlight.blue).map(t => (
               <Color name={`highlight.blue.${t}`} key={t} />
@@ -142,8 +137,8 @@ function ColorsPage() {
               <Color name={`highlight.purple.${t}`} key={t} />
             ))}
           </ColorGroup>
-        </Grid>
-        <Grid rowsGutter="6">
+        </Flex>
+        <Flex direction="column" gutter="6">
           <ColorGroup title="Conditional" subTitle="Positive">
             {Object.keys(colors.conditional.positive).map(t => (
               <Color name={`conditional.positive.${t}`} key={t} />
@@ -159,8 +154,8 @@ function ColorsPage() {
               <Color name={`conditional.negative.${t}`} key={t} />
             ))}
           </ColorGroup>
-        </Grid>
-      </Grid>
+        </Flex>
+      </Flex>
     </Container>
   );
 }

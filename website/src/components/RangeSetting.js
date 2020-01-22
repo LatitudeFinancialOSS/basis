@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text, designTokens } from "basis";
+import { Text, Flex, designTokens } from "basis";
 
 function RangeSetting({
   className,
@@ -17,7 +17,7 @@ function RangeSetting({
       <Text weight="bold" color="grey.t75" margin="0 0 2 0">
         {heading.toUpperCase()}
       </Text>
-      <div css={{ display: "flex" }}>
+      <Flex>
         <input
           type="range"
           min={min}
@@ -35,7 +35,7 @@ function RangeSetting({
             </span>
           )}
         </div>
-      </div>
+      </Flex>
     </div>
   );
 }
