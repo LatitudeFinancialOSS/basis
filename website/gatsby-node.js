@@ -27,6 +27,9 @@ exports.onCreatePage = ({ page, actions }) => {
   if (page.path.startsWith("/playground/")) {
     page.context.header = "Playground";
     page.context.layout = "empty";
+  } else if (page.path.startsWith("/kitchen-sink/")) {
+    page.context.header = "Kitchen Sink";
+    page.context.layout = "empty";
   } else if (page.path.startsWith("/colors/")) {
     page.context.header = "Colors";
   } else {

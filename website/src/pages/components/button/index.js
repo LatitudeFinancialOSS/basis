@@ -112,7 +112,7 @@ function ButtonPage() {
         scope={scope}
         backgroundColor={
           color === "white"
-            ? designTokens.colors.highlight.blue.t100
+            ? designTokens.colors.primary.blue.t100
             : designTokens.colors.white
         }
       />

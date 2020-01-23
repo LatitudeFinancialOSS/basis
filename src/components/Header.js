@@ -15,18 +15,28 @@ HeaderLogo.propTypes = {
   name: PropTypes.oneOf(LOGO_NAMES).isRequired
 };
 
-function Header({ children }) {
+export const DEFAULT_PROPS = {
+  __internal__notFixed: false
+};
+
+function Header(_props) {
+  const props = { ...DEFAULT_PROPS, ..._props };
+  const { children, __internal__notFixed } = props;
   const theme = useTheme();
 
   return (
     <header
-      css={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: theme.zIndices.header
-      }}
+      css={
+        __internal__notFixed
+          ? null
+          : {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: theme.zIndices.header
+            }
+      }
     >
       <Container bg="white" height="11" height-lg="14" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
@@ -40,7 +50,8 @@ function Header({ children }) {
 }
 
 Header.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  __internal__notFixed: PropTypes.bool
 };
 
 Header.Logo = HeaderLogo;

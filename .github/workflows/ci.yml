@@ -1,0 +1,43 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build basis
+        run: npm run build-basis
+
+      - name: Build website
+        run: npm run build
+
+      - name: Visual test
+        uses: percy/snapshot-action@v0.1.1
+        with:
+          build-directory: "public"
+          flags: "-s kitchen-sink"
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
