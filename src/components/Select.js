@@ -11,7 +11,7 @@ export const COLORS = ["grey.t05", "white"];
 export const DEFAULT_PROPS = {
   color: "grey.t05",
   placeholder: "Please select",
-  isFullWidth: false,
+  isFullWidth: true,
   isOptional: false,
   isDisabled: false,
   validation: [

@@ -76,19 +76,19 @@ describe("Select", () => {
       background-image: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' hei…1.495.802.874.874 0 01-.253.607z' fill='%23414141'%3E%3C/path%3E%3C/svg%3E);
       background-repeat: no-repeat;
       background-position: right 8px top 50%;
-      align-self: flex-start;
+      align-self: auto;
       background-color: #f2f2f2;
     `);
   });
 
-  it("full width", () => {
+  it("not full width", () => {
     const { getByDisplayValue } = render(
-      <App label="Relationship status" isFullWidth={true} />
+      <App label="Relationship status" isFullWidth={false} />
     );
     const select = getByDisplayValue("Please select");
 
     expect(select).toHaveStyle(`
-      align-self: auto;
+      align-self: flex-start;
     `);
   });
 

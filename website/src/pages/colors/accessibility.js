@@ -264,7 +264,6 @@ function AccessibilityPage() {
           <Select
             label="Show"
             options={showOptions}
-            isFullWidth={true}
             placeholder={null}
             helpText={
               minContrast
@@ -277,7 +276,6 @@ function AccessibilityPage() {
           <Select
             label="Intent"
             options={intentOptions}
-            isFullWidth={true}
             placeholder={null}
             data={intent}
             onChange={data => {
@@ -292,7 +290,6 @@ function AccessibilityPage() {
             label="Size"
             placeholder={null}
             options={isIntentHeading ? sizeOptions : notApplicableOptions}
-            isFullWidth={true}
             isDisabled={!isIntentHeading}
             data={size}
             onChange={setSize}
@@ -301,7 +298,6 @@ function AccessibilityPage() {
             label="Weight"
             placeholder={null}
             options={isBoldAllowed ? weightOptions : notApplicableOptions}
-            isFullWidth={true}
             isDisabled={!isBoldAllowed}
             data={weight}
             onChange={setWeight}
