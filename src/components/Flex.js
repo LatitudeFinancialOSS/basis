@@ -5,6 +5,7 @@ import {
   responsiveHeightType,
   responsivePropType
 } from "../hooks/useResponsiveProp";
+import { isObjectEmpty } from "../utils/core";
 import {
   responsiveHeight,
   responsiveFlexDirection,
@@ -62,11 +63,13 @@ function Flex(_props) {
         ...flexCSS
       }}
     >
-      {childrenArray.map((child, index) => (
-        <div css={flexItemCSS} key={index}>
-          {child}
-        </div>
-      ))}
+      {isObjectEmpty(flexItemCSS)
+        ? childrenArray
+        : childrenArray.map((child, index) => (
+            <div css={flexItemCSS} key={index}>
+              {child}
+            </div>
+          ))}
     </div>
   );
 }
