@@ -20,7 +20,15 @@ export const DEFAULT_PROPS = {
 
 function Button(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { variant, isFullWidth, isDisabled, type, onClick, children } = props;
+  const {
+    variant,
+    isFullWidth,
+    isDisabled,
+    type,
+    onClick,
+    children,
+    __internal__keyboardFocused
+  } = props;
   const theme = useTheme();
   const { buttonColor } = useContainer();
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
@@ -35,6 +43,10 @@ function Button(_props) {
     ...theme[`button.${variant}.${colorStr}`],
     ":focus": theme["button:focus"],
     ":focus-visible": theme["button:focus-visible"],
+    ...(__internal__keyboardFocused && {
+      ...theme["button:focus"],
+      ...theme["button:focus-visible"]
+    }),
     ":hover": {
       ...(!isDisabled && theme[`button.${variant}.${colorStr}:hover`])
     },
@@ -63,7 +75,8 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  __internal__keyboardFocused: PropTypes.bool
 };
 
 export default Button;

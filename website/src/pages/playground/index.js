@@ -4,13 +4,13 @@ import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
 import { rgba } from "polished";
 import * as allDesignSystem from "basis";
-import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../utils/url";
-import { getReactLiveNoInline } from "../utils/ast";
-import { formatCode } from "../utils/formatting";
-import { reactLiveEditorTheme } from "../utils/constants";
-import useCopyToClipboard from "../hooks/useCopyToClipboard";
-import ComponentPreview from "../components/ComponentPreview";
-import DemoBlock from "../components/DemoBlock";
+import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../../utils/url";
+import { getReactLiveNoInline } from "../../utils/ast";
+import { formatCode } from "../../utils/formatting";
+import { reactLiveEditorTheme } from "../../utils/constants";
+import useCopyToClipboard from "../../hooks/useCopyToClipboard";
+import ComponentPreview from "../../components/ComponentPreview";
+import DemoBlock from "../../components/DemoBlock";
 
 const {
   designTokens,
