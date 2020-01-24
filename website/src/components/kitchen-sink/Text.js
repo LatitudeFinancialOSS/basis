@@ -1,11 +1,5 @@
 import React from "react";
 import { Container, Text } from "basis";
-import {
-  INTENTS,
-  COLORS,
-  ALIGNS,
-  WEIGHTS
-} from "../../../../src/components/Text";
 import Layout from "./Layout";
 
 function KitchenSinkText() {
@@ -16,7 +10,7 @@ function KitchenSinkText() {
       </Container>
 
       <Container padding="4">
-        {INTENTS.map(intent => (
+        {Text.INTENTS.map(intent => (
           <Text intent={intent} key={intent}>
             {intent} <strong>bold</strong>
           </Text>
@@ -31,7 +25,7 @@ function KitchenSinkText() {
         ))}
       </Container>
 
-      {COLORS.map(color => (
+      {Text.COLORS.map(color => (
         <Container
           bg={color === "white" ? "primary.blue.t100" : null}
           padding="4"
@@ -41,13 +35,13 @@ function KitchenSinkText() {
         </Container>
       ))}
 
-      {ALIGNS.map(align => (
+      {Text.ALIGNS.map(align => (
         <Container padding="4" key={align}>
           <Text align={align}>{align}</Text>
         </Container>
       ))}
 
-      {WEIGHTS.map(weight => (
+      {Text.WEIGHTS.map(weight => (
         <Container padding="4" key={weight}>
           <Text weight={weight}>{weight}</Text>
         </Container>

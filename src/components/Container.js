@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ALIGNS as TEXT_ALIGNS } from "./Text";
+import Text from "./Text";
 import useTheme from "../hooks/useTheme";
 import { ContainerProvider } from "../hooks/useContainer";
 import {
@@ -22,7 +22,7 @@ import {
 import { EXCEPTION_PREFIX } from "../utils/css";
 import tokens from "../themes/tokens";
 
-export const BACKGROUNDS = [
+const BACKGROUNDS = [
   "white",
   "grey.t03",
   "grey.t05",
@@ -30,11 +30,15 @@ export const BACKGROUNDS = [
   "primary.blue.t100"
 ];
 
-export const BOX_SHADOWS = ["header"];
+const BOX_SHADOWS = ["header"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   hasBreakpointWidth: false
 };
+
+Container.BACKGROUNDS = BACKGROUNDS;
+Container.BOX_SHADOWS = BOX_SHADOWS;
+Container.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
@@ -122,7 +126,7 @@ Container.propTypes = {
   ...responsivePaddingType,
   ...responsiveWidthType,
   ...responsiveHeightType,
-  ...responsivePropType("textAlign", PropTypes.oneOf(TEXT_ALIGNS)),
+  ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
   hasBreakpointWidth: PropTypes.bool,
   children: PropTypes.node
 };

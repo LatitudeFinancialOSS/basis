@@ -1,5 +1,6 @@
 import React from "react";
 import { Checkbox } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 function OptionallyControlledCheckbox(props) {
   const [data, setData] = React.useState({
@@ -16,4 +17,4 @@ function OptionallyControlledCheckbox(props) {
   );
 }
 
-export default OptionallyControlledCheckbox;
+export default withConstantsFrom(Checkbox, OptionallyControlledCheckbox);

@@ -1,10 +1,9 @@
 import tokens from "../themes/tokens";
 import { hasOwnProperty } from "./core";
-import {
-  DIRECTIONS as FLEX_DIRECTIONS,
-  PLACE_ITEMS as FLEX_PLACE_ITEMS
-} from "../components/Flex";
-import { ALIGNS as TEXT_ALIGNS } from "../components/Text";
+import Flex from "../components/Flex";
+import Text from "../components/Text";
+
+const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
 export const EXCEPTION_PREFIX = "__exception__:";
 
@@ -57,7 +56,7 @@ export function getSizeValue(size) {
 }
 
 function getTextAlignValue(textAlign) {
-  if (TEXT_ALIGNS.includes(textAlign)) {
+  if (Text.ALIGNS.includes(textAlign)) {
     return textAlign;
   }
 

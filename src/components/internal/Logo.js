@@ -5,10 +5,14 @@ import GemLogo from "../../logos/gem";
 import { responsiveHeightType } from "../../hooks/useResponsiveProp";
 import useAllResponsiveProps from "../../hooks/useAllResponsiveProps";
 
-export const NAMES = ["latitude", "gem"];
-export const COLORS = ["primary.blue.t100", "black", "white"];
+const NAMES = ["latitude", "gem"];
+const COLORS = ["primary.blue.t100", "black", "white"];
 
-export const DEFAULT_PROPS = {};
+const DEFAULT_PROPS = {};
+
+Logo.NAMES = NAMES;
+Logo.COLORS = COLORS;
+Logo.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Logo(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

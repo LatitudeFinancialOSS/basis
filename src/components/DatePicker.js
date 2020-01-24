@@ -12,9 +12,9 @@ import Grid from "./Grid";
 import Input from "./Input";
 import useValidation from "../hooks/useValidation";
 
-export const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   isOptional: false,
   isDisabled: false,
@@ -102,6 +102,9 @@ export const DEFAULT_PROPS = {
     }
   ]
 };
+
+DatePicker.COLORS = COLORS;
+DatePicker.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function getHelpText(day, month, year, defaultHelpText) {
   const dayInt = parseInt(day || "0", 10);

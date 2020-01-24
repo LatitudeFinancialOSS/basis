@@ -9,7 +9,7 @@ import Select from "./Select";
 import Grid from "./Grid";
 import useValidation from "../hooks/useValidation";
 
-export const ALL_FREQUENCY_OPTIONS = [
+const ALL_FREQUENCY_OPTIONS = [
   {
     label: "Annually",
     value: "annually"
@@ -32,10 +32,10 @@ export const ALL_FREQUENCY_OPTIONS = [
   }
 ];
 
-export const COLORS = ["grey.t05", "white"];
-export const MODES = ["radio-group", "select"];
+const COLORS = ["grey.t05", "white"];
+const MODES = ["radio-group", "select"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   mode: "radio-group",
   annually: true,
@@ -80,6 +80,11 @@ export const DEFAULT_PROPS = {
     }
   ]
 };
+
+Frequency.ALL_FREQUENCY_OPTIONS = ALL_FREQUENCY_OPTIONS;
+Frequency.COLORS = COLORS;
+Frequency.MODES = MODES;
+Frequency.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Frequency(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

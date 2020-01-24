@@ -6,17 +6,22 @@ import { responsiveMargin } from "../utils/css";
 import { responsiveMarginType } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 
-export const VARIANTS = ["primary", "secondary"];
-export const COLORS = ["highlight.blue.t100", "white"];
-export const TYPES = ["button", "submit"];
+const VARIANTS = ["primary", "secondary"];
+const COLORS = ["highlight.blue.t100", "white"];
+const TYPES = ["button", "submit"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   variant: "primary",
   color: "highlight.blue.t100",
   isFullWidth: false,
   isDisabled: false,
   type: "button"
 };
+
+Button.VARIANTS = VARIANTS;
+Button.COLORS = COLORS;
+Button.TYPES = TYPES;
+Button.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Button(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

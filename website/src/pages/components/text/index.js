@@ -1,12 +1,5 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
-import {
-  INTENTS,
-  ALIGNS,
-  DEFAULT_PROPS,
-  allowedColors,
-  allowedWeights
-} from "basis/components/Text";
 import RadioGroupSetting, {
   getRadioOptions,
   getCheckboxOptions
@@ -14,7 +7,8 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens } = allDesignSystem;
+const { designTokens, Text } = allDesignSystem;
+const { INTENTS, ALIGNS, DEFAULT_PROPS, allowedColors, allowedWeights } = Text;
 const scope = allDesignSystem;
 
 const intentOptions = getRadioOptions(INTENTS);

@@ -1,13 +1,12 @@
 import React from "react";
 import { Container, Flex, Link } from "basis";
-import { COLORS } from "../../../../src/components/Link";
 import Layout from "./Layout";
 
 function KitchenSinkLink() {
   return (
     <Layout name="Link">
       <Container padding="6 0" bg="grey.t05">
-        {COLORS.map(color => (
+        {Link.COLORS.map(color => (
           <Container
             padding="4"
             bg={

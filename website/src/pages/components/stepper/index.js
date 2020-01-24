@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
-import { DEFAULT_PROPS, DEFAULT_ITEM_PROPS } from "basis/components/Stepper";
 import RangeSetting from "../../../components/RangeSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens } = allDesignSystem;
+const { designTokens, Stepper } = allDesignSystem;
 const scope = allDesignSystem;
 
 const STEPS = [
@@ -25,7 +24,7 @@ function StepperPage() {
       {
         prop: "isCompleted",
         value: progress === 6,
-        defaultValue: DEFAULT_PROPS.isCompleted,
+        defaultValue: Stepper.DEFAULT_PROPS.isCompleted,
         type: "boolean"
       }
     ])}>
@@ -41,7 +40,7 @@ function StepperPage() {
         {
           prop: "isCurrent",
           value: progress === 1,
-          defaultValue: DEFAULT_ITEM_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
           type: "boolean"
         }
       ])} />
@@ -61,13 +60,13 @@ function StepperPage() {
         {
           prop: "isCurrent",
           value: progress === 2,
-          defaultValue: DEFAULT_ITEM_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
           type: "boolean"
         },
         {
           prop: "isMinor",
           value: true,
-          defaultValue: DEFAULT_ITEM_PROPS.isMinor,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isMinor,
           type: "boolean"
         }
       ])} />
@@ -83,7 +82,7 @@ function StepperPage() {
         {
           prop: "isCurrent",
           value: progress === 3,
-          defaultValue: DEFAULT_ITEM_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
           type: "boolean"
         }
       ])} />        
@@ -95,13 +94,13 @@ function StepperPage() {
         {
           prop: "isCurrent",
           value: progress === 4,
-          defaultValue: DEFAULT_ITEM_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
           type: "boolean"
         },
         {
           prop: "isMinor",
           value: true,
-          defaultValue: DEFAULT_ITEM_PROPS.isMinor,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isMinor,
           type: "boolean"
         }
       ])} />
@@ -117,7 +116,7 @@ function StepperPage() {
         {
           prop: "isCurrent",
           value: progress === 5,
-          defaultValue: DEFAULT_ITEM_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
           type: "boolean"
         }
       ])} />

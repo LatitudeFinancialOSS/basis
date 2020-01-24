@@ -8,9 +8,9 @@ import Grid from "./Grid";
 import useValidation from "../hooks/useValidation";
 import { pluralize } from "../utils/string";
 
-export const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   isOptional: false,
   isDisabled: false,
@@ -74,6 +74,9 @@ export const DEFAULT_PROPS = {
     }
   ]
 };
+
+TimeSpan.COLORS = COLORS;
+TimeSpan.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function getHelpText(years, months, defaultHelpText) {
   const yearsInt = parseInt(years || "0", 10);

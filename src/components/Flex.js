@@ -13,8 +13,8 @@ import {
   responsiveFlexPlaceItems
 } from "../utils/css";
 
-export const DIRECTIONS = ["row", "column"];
-export const PLACE_ITEMS = [
+const DIRECTIONS = ["row", "column"];
+const PLACE_ITEMS = [
   "top left",
   "top center",
   "top right",
@@ -37,10 +37,14 @@ export const PLACE_ITEMS = [
   "center"
 ];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   direction: "row",
   placeItems: "top left"
 };
+
+Flex.DIRECTIONS = DIRECTIONS;
+Flex.PLACE_ITEMS = PLACE_ITEMS;
+Flex.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Flex(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
-import { SIZES, COLORS, DEFAULT_PROPS } from "basis/components/LoadingIcon";
 import RadioGroupSetting, {
   getRadioOptions
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens } = allDesignSystem;
+const { designTokens, LoadingIcon } = allDesignSystem;
+const { SIZES, COLORS, DEFAULT_PROPS } = LoadingIcon;
 const scope = allDesignSystem;
 
 const sizeOptions = getRadioOptions(SIZES);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 const options = [
   {
@@ -24,4 +25,4 @@ function OptionallyControlledSelect(props) {
   return <Select options={options} data={data} onChange={setData} {...props} />;
 }
 
-export default OptionallyControlledSelect;
+export default withConstantsFrom(Select, OptionallyControlledSelect);

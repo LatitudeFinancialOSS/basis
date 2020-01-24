@@ -9,7 +9,7 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useContainer from "../hooks/useContainer";
 import { responsiveMargin } from "../utils/css";
 
-export const INTENTS = [
+const INTENTS = [
   "hero",
   "h1",
   "h2",
@@ -24,7 +24,7 @@ export const INTENTS = [
   "legal",
   "overline"
 ];
-export const COLORS = [
+const COLORS = [
   "black",
   "white",
   "grey.t75",
@@ -33,10 +33,10 @@ export const COLORS = [
   "conditional.positive.text",
   "conditional.negative.text"
 ];
-export const ALIGNS = ["inherit", "left", "center", "right"];
-export const WEIGHTS = ["regular", "bold"];
+const ALIGNS = ["inherit", "left", "center", "right"];
+const WEIGHTS = ["regular", "bold"];
 
-export const allowedColors = [
+const allowedColors = [
   {
     intent: ["hero", "h1", "h2", "h3", "h4", "h5", "h6"],
     allowedColors: ["black", "white", "primary.blue.t100"]
@@ -65,7 +65,7 @@ export const allowedColors = [
   }
 ];
 
-export const allowedWeights = [
+const allowedWeights = [
   {
     intent: ["hero", "h1", "h2", "h3", "h4", "h5", "h6", "overline"],
     allowedWeights: ["regular"]
@@ -76,13 +76,21 @@ export const allowedWeights = [
   }
 ];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   intent: "body1",
   weight: "regular",
   color: "black",
   align: "inherit",
   wrap: true
 };
+
+Text.INTENTS = INTENTS;
+Text.COLORS = COLORS;
+Text.ALIGNS = ALIGNS;
+Text.WEIGHTS = WEIGHTS;
+Text.allowedColors = allowedColors;
+Text.allowedWeights = allowedWeights;
+Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Text(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

@@ -7,10 +7,9 @@ import useTheme from "../hooks/useTheme";
 import useValidation from "../hooks/useValidation";
 
 const TYPES = ["text", "number"];
+const COLORS = ["grey.t05", "white"];
 
-export const COLORS = ["grey.t05", "white"];
-
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   type: "text",
   isOptional: false,
@@ -33,6 +32,10 @@ export const DEFAULT_PROPS = {
     }
   ]
 };
+
+Input.TYPES = TYPES;
+Input.COLORS = COLORS;
+Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Input(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

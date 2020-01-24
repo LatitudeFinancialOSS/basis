@@ -1,5 +1,6 @@
 import React from "react";
 import { Frequency } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 function OptionallyControlledFrequency(props) {
   const [data, setData] = React.useState({
@@ -12,4 +13,4 @@ function OptionallyControlledFrequency(props) {
   return <Frequency data={data} onChange={setData} {...props} />;
 }
 
-export default OptionallyControlledFrequency;
+export default withConstantsFrom(Frequency, OptionallyControlledFrequency);

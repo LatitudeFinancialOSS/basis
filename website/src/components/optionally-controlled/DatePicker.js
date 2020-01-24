@@ -1,5 +1,6 @@
 import React from "react";
 import { DatePicker } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 function OptionallyControlledDatePicker(props) {
   const [data, setData] = React.useState({
@@ -20,4 +21,4 @@ function OptionallyControlledDatePicker(props) {
   );
 }
 
-export default OptionallyControlledDatePicker;
+export default withConstantsFrom(DatePicker, OptionallyControlledDatePicker);

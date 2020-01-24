@@ -8,9 +8,9 @@ import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
 import useValidation from "../hooks/useValidation";
 
-export const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   showCircles: true,
   isOptional: false,
@@ -141,6 +141,9 @@ Radio.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
+
+RadioGroup.COLORS = COLORS;
+RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function RadioGroup(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

@@ -1,11 +1,8 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { DEFAULT_PROPS as DEFAULT_CONTAINER_PROPS } from "../components/Container";
-import {
-  DEFAULT_GRID_PROPS,
-  DEFAULT_GRID_ITEM_PROPS
-} from "../components/Grid";
-import { DEFAULT_PROPS as DEFAULT_TEXT_PROPS } from "../components/Text";
-import { DEFAULT_PROPS as DEFAULT_FLEX_PROPS } from "../components/Flex";
+import Container from "../components/Container";
+import Grid from "../components/Grid";
+import Flex from "../components/Flex";
+import Text from "../components/Text";
 import useResponsivePropsCSS, {
   getBreakpointToPropsMap
 } from "./useResponsivePropsCSS";
@@ -102,7 +99,7 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, DEFAULT_CONTAINER_PROPS, {
+        useResponsivePropsCSS(props, Container.DEFAULT_PROPS, {
           margin: responsiveMargin,
           padding: responsivePadding
         }),
@@ -143,7 +140,7 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, DEFAULT_GRID_PROPS, {
+        useResponsivePropsCSS(props, Grid.DEFAULT_PROPS, {
           cols: ({ cols }) => {
             return {
               gridTemplateColumns: getGridTemplateColumns(cols)
@@ -197,7 +194,7 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, DEFAULT_GRID_ITEM_PROPS, {
+        useResponsivePropsCSS(props, Grid.Item.DEFAULT_PROPS, {
           colSpan: ({ colSpan }) => {
             const gridLines = getGridLines(colSpan, { allAllowed: true });
 
@@ -243,7 +240,7 @@ describe("useResponsivePropsCSS", () => {
       "size-lg": "2"
     };
     const defaultProps = {
-      ...DEFAULT_TEXT_PROPS,
+      ...Text.DEFAULT_PROPS,
       size: "4"
     };
     const { result } = renderHook(
@@ -289,7 +286,7 @@ describe("useResponsivePropsCSS", () => {
       "size-lg": "2"
     };
     const defaultProps = {
-      ...DEFAULT_TEXT_PROPS,
+      ...Text.DEFAULT_PROPS,
       size: null
     };
     const { result } = renderHook(
@@ -320,7 +317,7 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, DEFAULT_FLEX_PROPS, {
+        useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
           gutter: responsiveFlexDirection
         }),
       {
@@ -350,7 +347,7 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, DEFAULT_FLEX_PROPS, {
+        useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
           gutter: responsiveFlexGutter
         }),
       {
@@ -384,7 +381,7 @@ describe("useResponsivePropsCSS", () => {
     };
     const { result } = renderHook(
       () =>
-        useResponsivePropsCSS(props, DEFAULT_FLEX_PROPS, {
+        useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
           placeItems: responsiveFlexPlaceItems
         }),
       {

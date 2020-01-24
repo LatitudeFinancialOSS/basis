@@ -7,9 +7,9 @@ import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
 import useValidation from "../hooks/useValidation";
 
-export const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   isOptional: false,
   isDisabled: false,
@@ -30,6 +30,9 @@ export const DEFAULT_PROPS = {
     }
   ]
 };
+
+Checkbox.COLORS = COLORS;
+Checkbox.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function CheckboxIcon({ color, isChecked }) {
   const theme = useTheme();

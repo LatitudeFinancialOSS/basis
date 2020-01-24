@@ -1,5 +1,6 @@
 import React from "react";
 import { RadioGroup } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 const options = [
   {
@@ -26,4 +27,4 @@ function OptionallyControlledRadioGroup(props) {
   );
 }
 
-export default OptionallyControlledRadioGroup;
+export default withConstantsFrom(RadioGroup, OptionallyControlledRadioGroup);

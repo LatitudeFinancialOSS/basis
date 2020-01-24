@@ -10,15 +10,18 @@ import {
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveMargin, responsivePadding } from "../utils/css";
 
-export const COLORS = [
+const COLORS = [
   "primary.blue.t100",
   "secondary.turquoise.t60",
   "secondary.lightBlue.t100"
 ];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "primary.blue.t100"
 };
+
+Link.COLORS = COLORS;
+Link.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Link(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

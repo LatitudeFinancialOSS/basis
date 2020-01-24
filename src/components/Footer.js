@@ -5,7 +5,7 @@ import Flex from "./Flex";
 import Text from "./Text";
 import Link from "./Link";
 import useTheme from "../hooks/useTheme";
-import Logo, { NAMES as LOGO_NAMES } from "./internal/Logo";
+import Logo from "./internal/Logo";
 import tokens from "../themes/tokens";
 
 function HeaderLogo({ name }) {
@@ -17,7 +17,7 @@ function HeaderLogo({ name }) {
 }
 
 HeaderLogo.propTypes = {
-  name: PropTypes.oneOf(LOGO_NAMES).isRequired
+  name: PropTypes.oneOf(Logo.NAMES).isRequired
 };
 
 function Header({ children }) {

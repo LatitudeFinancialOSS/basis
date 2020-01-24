@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
-import { DEFAULT_GRID_PROPS } from "basis/components/Grid";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getCheckboxOptions
@@ -8,7 +7,8 @@ import RadioGroupSetting, {
 import DemoBlock from "../../../components/DemoBlock";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens } = allDesignSystem;
+const { designTokens, Grid } = allDesignSystem;
+const { DEFAULT_PROPS } = Grid;
 const scope = {
   ...allDesignSystem,
   DemoBlock
@@ -17,7 +17,7 @@ const scope = {
 const debugOptions = getCheckboxOptions();
 
 function GridPage() {
-  const [debug, setDebug] = useState(DEFAULT_GRID_PROPS.debug);
+  const [debug, setDebug] = useState(DEFAULT_PROPS.debug);
   const gridProps = nonDefaultProps([
     {
       prop: "cols",
@@ -41,7 +41,7 @@ function GridPage() {
     {
       prop: "debug",
       value: debug,
-      defaultValue: DEFAULT_GRID_PROPS.debug,
+      defaultValue: DEFAULT_PROPS.debug,
       type: "boolean"
     }
   ]);

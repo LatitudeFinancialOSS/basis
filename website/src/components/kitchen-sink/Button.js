@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Grid, Flex, Button } from "basis";
-import { VARIANTS, COLORS } from "../../../../src/components/Button";
 import Layout from "./Layout";
 
 function KitchenSinkButton() {
@@ -11,8 +10,8 @@ function KitchenSinkButton() {
           <Button>Default</Button>
         </Container>
 
-        {VARIANTS.map(variant =>
-          COLORS.map(color => (
+        {Button.VARIANTS.map(variant =>
+          Button.COLORS.map(color => (
             <Container
               padding="4"
               bg={color === "white" ? "primary.blue.t100" : null}

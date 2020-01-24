@@ -7,10 +7,12 @@ import useResponsiveProp, {
 import Text from "./Text";
 import Icon from "./Icon";
 
-export const DEFAULT_ITEM_PROPS = {
+const DEFAULT_ITEM_PROPS = {
   isMinor: false,
   isCurrent: false
 };
+
+Item.DEFAULT_PROPS = DEFAULT_ITEM_PROPS;
 
 function Item(_props) {
   const props = { ...DEFAULT_ITEM_PROPS, ..._props };
@@ -95,9 +97,11 @@ Item.propTypes = {
   majorStepNumber: PropTypes.number
 };
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   isCompleted: false
 };
+
+Stepper.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Stepper(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 
-export const NAMES = [
+const NAMES = [
   "arrow-back",
   "arrow-forward",
   "birthday",
@@ -41,7 +41,7 @@ export const NAMES = [
   "triangle-down",
   "triangle-up"
 ];
-export const COLORS = [
+const COLORS = [
   "grey.t75",
   "primary.blue.t100",
   "highlight.blue.t100",
@@ -49,12 +49,17 @@ export const COLORS = [
   "conditional.negative.graphics",
   "white"
 ];
-export const SECONDARY_COLORS = ["highlight.blue.t100"];
+const SECONDARY_COLORS = ["highlight.blue.t100"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t75",
   secondaryColor: "highlight.blue.t100"
 };
+
+Icon.NAMES = NAMES;
+Icon.COLORS = COLORS;
+Icon.SECONDARY_COLORS = SECONDARY_COLORS;
+Icon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Icon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

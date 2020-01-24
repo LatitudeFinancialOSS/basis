@@ -1,5 +1,6 @@
 import React from "react";
 import { TimeSpan } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 function OptionallyControlledTimeSpan(props) {
   const [data, setData] = React.useState({
@@ -19,4 +20,4 @@ function OptionallyControlledTimeSpan(props) {
   );
 }
 
-export default OptionallyControlledTimeSpan;
+export default withConstantsFrom(TimeSpan, OptionallyControlledTimeSpan);

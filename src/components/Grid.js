@@ -11,7 +11,10 @@ import {
   getGutterPx
 } from "../utils/css";
 
-export const DEFAULT_GRID_ITEM_PROPS = {};
+const DEFAULT_GRID_ITEM_PROPS = {};
+
+Item.DEFAULT_PROPS = DEFAULT_GRID_ITEM_PROPS;
+
 function Item(props) {
   const { children } = props;
   const theme = useTheme();
@@ -59,7 +62,7 @@ Item.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export const PRESETS = ["page"];
+const PRESETS = ["page"];
 
 const presetsMap = {
   page: {
@@ -70,9 +73,12 @@ const presetsMap = {
   }
 };
 
-export const DEFAULT_GRID_PROPS = {
+const DEFAULT_GRID_PROPS = {
   debug: false
 };
+
+Grid.PRESETS = PRESETS;
+Grid.DEFAULT_PROPS = DEFAULT_GRID_PROPS;
 
 function Grid(_props) {
   const props = { ...DEFAULT_GRID_PROPS, ..._props };

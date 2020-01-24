@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
-import { BACKGROUNDS, DEFAULT_PROPS } from "basis/components/Container";
 import RadioGroupSetting, {
   getRadioOptions,
   getCheckboxOptions
@@ -8,7 +7,8 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens } = allDesignSystem;
+const { designTokens, Container } = allDesignSystem;
+const { BACKGROUNDS, DEFAULT_PROPS } = Container;
 const scope = allDesignSystem;
 
 const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {

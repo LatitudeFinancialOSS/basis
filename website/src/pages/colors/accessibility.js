@@ -1,11 +1,19 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { rgba } from "polished";
-import { COLORS } from "basis/components/Text";
-import { BACKGROUNDS } from "basis/components/Container";
-import { designTokens, useTheme, Grid, Text, Select, Input } from "basis";
-import { INTENTS, WEIGHTS, allowedWeights } from "basis/components/Text";
+import {
+  designTokens,
+  useTheme,
+  Container,
+  Grid,
+  Text,
+  Select,
+  Input
+} from "basis";
 import { colorContrast, accessibleContrast } from "../../utils/color";
+
+const { BACKGROUNDS } = Container;
+const { COLORS, INTENTS, WEIGHTS, allowedWeights } = Text;
 
 const TEXT_COLOR_COLUMN_WIDTH = designTokens.sizes[18];
 const CELL_WIDTH = designTokens.sizes[18];

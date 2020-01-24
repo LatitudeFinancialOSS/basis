@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "basis";
+import { withConstantsFrom } from "../../utils/component";
 
 function OptionallyControlledInput(props) {
   const [data, setData] = React.useState({
@@ -9,4 +10,4 @@ function OptionallyControlledInput(props) {
   return <Input data={data} onChange={setData} {...props} />;
 }
 
-export default OptionallyControlledInput;
+export default withConstantsFrom(Input, OptionallyControlledInput);

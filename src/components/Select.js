@@ -6,9 +6,9 @@ import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
 import useValidation from "../hooks/useValidation";
 
-export const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"];
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   color: "grey.t05",
   placeholder: "Please select",
   isFullWidth: true,
@@ -35,6 +35,9 @@ export const DEFAULT_PROPS = {
     }
   ]
 };
+
+Select.COLORS = COLORS;
+Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Select(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

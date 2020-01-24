@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
-import { COLORS, DEFAULT_PROPS } from "basis/components/RadioGroup";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getRadioOptions,
@@ -8,7 +7,8 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens } = allDesignSystem;
+const { designTokens, RadioGroup } = allDesignSystem;
+const { COLORS, DEFAULT_PROPS } = RadioGroup;
 const scope = allDesignSystem;
 
 const colorOptions = getRadioOptions(COLORS);

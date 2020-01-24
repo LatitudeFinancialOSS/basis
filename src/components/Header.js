@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
 import Flex from "./Flex";
-import Logo, { NAMES as LOGO_NAMES } from "./internal/Logo";
+import Logo from "./internal/Logo";
 import useTheme from "../hooks/useTheme";
 
 function HeaderLogo({ name }) {
@@ -12,12 +12,14 @@ function HeaderLogo({ name }) {
 }
 
 HeaderLogo.propTypes = {
-  name: PropTypes.oneOf(LOGO_NAMES).isRequired
+  name: PropTypes.oneOf(Logo.NAMES).isRequired
 };
 
-export const DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
   __internal__notFixed: false
 };
+
+Header.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Header(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };

@@ -4,16 +4,20 @@ import { keyframes } from "@emotion/core";
 import useTheme from "../hooks/useTheme";
 import tokens from "../themes/tokens";
 
-export const SIZES = ["small", "medium", "large"];
-export const COLORS = ["highlight.blue.t100", "white"];
-
 const DEFAULT_CIRCLE_RADIUS = tokens.sizes[1];
 const DEFAULT_COLOR = tokens.colors.black;
 
-export const DEFAULT_PROPS = {
+const SIZES = ["small", "medium", "large"];
+const COLORS = ["highlight.blue.t100", "white"];
+
+const DEFAULT_PROPS = {
   size: "small",
   color: "highlight.blue.t100"
 };
+
+LoadingIcon.SIZES = SIZES;
+LoadingIcon.COLORS = COLORS;
+LoadingIcon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function LoadingIcon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
