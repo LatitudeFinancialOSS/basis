@@ -15,6 +15,7 @@ export const DEFAULT_PROPS = {
   type: "text",
   isOptional: false,
   isDisabled: false,
+  isPasteAllowed: true,
   validation: [
     {
       condition: ({ isOptional }) => !isOptional,
@@ -44,6 +45,7 @@ function Input(_props) {
     onFocus,
     onBlur,
     isDisabled,
+    isPasteAllowed,
     data,
     onChange,
     __internal__focus
@@ -104,6 +106,11 @@ function Input(_props) {
           validate();
           onBlur && onBlur();
         }}
+        onPaste={e => {
+          if (!isPasteAllowed) {
+            e.preventDefault();
+          }
+        }}
         value={value}
         onChange={e => {
           onChange({
@@ -124,6 +131,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
   isDisabled: PropTypes.bool,
+  isPasteAllowed: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   validation: PropTypes.arrayOf(
