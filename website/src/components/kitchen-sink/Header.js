@@ -1,21 +1,16 @@
 import React from "react";
-import { Container, Text, Header } from "basis";
+import { Container, Header } from "basis";
+import Layout from "./Layout";
 
 function KitchenSinkHeader() {
   return (
-    <Container>
-      <Container bg="primary.blue.t100" padding="6">
-        <Text intent="h2" align="center">
-          Header
-        </Text>
-      </Container>
-
+    <Layout name="Header">
       <Container padding="6 0" bg="grey.t05">
         <Header __internal__notFixed={true}>
           <Header.Logo name="gem" />
         </Header>
       </Container>
-    </Container>
+    </Layout>
   );
 }
 

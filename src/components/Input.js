@@ -46,7 +46,7 @@ function Input(_props) {
     isDisabled,
     data,
     onChange,
-    __internal__focused
+    __internal__focus
   } = props;
   const theme = useTheme();
   const { inputColor } = useContainer();
@@ -79,7 +79,7 @@ function Input(_props) {
           ...theme.input,
           ...theme[`input.${colorStr}`],
           ":focus": theme["input:focus"],
-          ...(__internal__focused && theme["input:focus"]),
+          ...(__internal__focus && theme["input:focus"]),
           ":hover": theme["input:hover"],
           ...(type === "number" && {
             "::-webkit-inner-spin-button, ::-webkit-outer-spin-button":
@@ -137,7 +137,7 @@ Input.propTypes = {
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
   onChange: PropTypes.func.isRequired,
-  __internal__focused: PropTypes.bool
+  __internal__focus: PropTypes.bool
 };
 
 export default Input;

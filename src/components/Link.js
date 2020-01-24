@@ -22,7 +22,14 @@ export const DEFAULT_PROPS = {
 
 function Link(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { href, newTab, children } = props;
+  const {
+    href,
+    newTab,
+    children,
+    __internal__keyboardFocus,
+    __internal__hover,
+    __internal__active
+  } = props;
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
   const theme = useTheme();
   const { linkColor } = useContainer();
@@ -38,8 +45,14 @@ function Link(_props) {
     ...theme[`link.${colorStr}`],
     ":focus": theme["link:focus"],
     ":focus-visible": theme["link:focus-visible"],
+    ...(__internal__keyboardFocus && {
+      ...theme["link:focus"],
+      ...theme["link:focus-visible"]
+    }),
     ":hover": theme[`link.${colorStr}:hover`],
+    ...(__internal__hover && theme[`link.${colorStr}:hover`]),
     ":active": theme[`link.${colorStr}:active`],
+    ...(__internal__active && theme[`link.${colorStr}:active`]),
     ...responsivePropsCSS
   };
   const newTabProps = newTab
@@ -79,7 +92,10 @@ Link.propTypes = {
   color: PropTypes.oneOf(COLORS),
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
+  __internal__keyboardFocus: PropTypes.bool,
+  __internal__hover: PropTypes.bool,
+  __internal__active: PropTypes.bool
 };
 
 export default Link;

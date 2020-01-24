@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { ALIGNS as TEXT_ALIGNS } from "./Text";
 import useTheme from "../hooks/useTheme";
 import { ContainerProvider } from "../hooks/useContainer";
 import {
@@ -18,7 +19,7 @@ import {
   responsiveTextAlign,
   mergeResponsiveCSS
 } from "../utils/css";
-import { ALIGNS as TEXT_ALIGNS } from "./Text";
+import { EXCEPTION_PREFIX } from "../utils/css";
 import tokens from "../themes/tokens";
 
 export const BACKGROUNDS = [
@@ -101,7 +102,21 @@ function Container(_props) {
 }
 
 Container.propTypes = {
-  bg: PropTypes.oneOf(BACKGROUNDS),
+  bg: props => {
+    if (!props.bg || BACKGROUNDS.includes(props.bg)) {
+      return;
+    }
+
+    if (typeof props.bg === "string" && props.bg.startsWith(EXCEPTION_PREFIX)) {
+      return;
+    }
+
+    return new Error(
+      `Container: bg="${
+        props.bg
+      }" is not allowed. Must be one of: ${JSON.stringify(BACKGROUNDS)}`
+    );
+  },
   boxShadow: PropTypes.oneOf(BOX_SHADOWS),
   ...responsiveMarginType,
   ...responsivePaddingType,

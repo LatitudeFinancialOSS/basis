@@ -1,15 +1,10 @@
 import React from "react";
-import { Container, Text, Link, Footer } from "basis";
+import { Container, Link, Footer } from "basis";
+import Layout from "./Layout";
 
 function KitchenSinkFooter() {
   return (
-    <Container>
-      <Container bg="primary.blue.t100" padding="6">
-        <Text intent="h2" align="center">
-          Footer
-        </Text>
-      </Container>
-
+    <Layout name="Footer">
       <Container padding="6 0" bg="grey.t05">
         <Footer>
           <Footer.Header>
@@ -31,7 +26,7 @@ function KitchenSinkFooter() {
           </Footer.Legal>
         </Footer>
       </Container>
-    </Container>
+    </Layout>
   );
 }
 
