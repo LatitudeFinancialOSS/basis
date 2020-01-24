@@ -22,6 +22,7 @@ function KitchenSinkButton() {
                 <Button variant={variant} color={color}>
                   {variant} {color}
                 </Button>
+
                 <Button
                   variant={variant}
                   color={color}
@@ -29,6 +30,7 @@ function KitchenSinkButton() {
                 >
                   Hover
                 </Button>
+
                 <Button
                   variant={variant}
                   color={color}
@@ -36,6 +38,7 @@ function KitchenSinkButton() {
                 >
                   Active
                 </Button>
+
                 <Button
                   variant={variant}
                   color={color}
@@ -43,6 +46,7 @@ function KitchenSinkButton() {
                 >
                   Keyboard focus
                 </Button>
+
                 <Button variant={variant} color={color} isDisabled={true}>
                   Disabled
                 </Button>

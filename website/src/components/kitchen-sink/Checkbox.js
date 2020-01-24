@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid } from "basis";
 import Layout from "./Layout";
-import Checkbox from "../optionally-uncontrolled/Checkbox";
+import { Checkbox } from "../optionally-controlled";
 
 function KitchenSinkCheckbox() {
   return (

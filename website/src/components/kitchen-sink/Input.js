@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid } from "basis";
-import Input from "../optionally-uncontrolled/Input";
 import Layout from "./Layout";
+import { Input } from "../optionally-controlled";
 
 function KitchenSinkInput() {
   return (

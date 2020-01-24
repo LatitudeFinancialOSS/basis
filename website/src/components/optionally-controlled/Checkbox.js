@@ -6,7 +6,14 @@ function OptionallyControlledCheckbox(props) {
     value: false
   });
 
-  return <Checkbox data={data} onChange={setData} {...props} />;
+  return (
+    <Checkbox
+      children="Add children to display here"
+      data={data}
+      onChange={setData}
+      {...props}
+    />
+  );
 }
 
 export default OptionallyControlledCheckbox;
