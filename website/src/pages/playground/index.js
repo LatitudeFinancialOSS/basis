@@ -4,6 +4,7 @@ import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
 import { rgba } from "polished";
 import * as allDesignSystem from "basis";
+import * as allOptionallyControlled from "../../components/optionally-controlled";
 import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../../utils/url";
 import { getReactLiveNoInline } from "../../utils/ast";
 import { formatCode } from "../../utils/formatting";
@@ -46,6 +47,7 @@ const defaultCode = prettify(`
 
 const scope = {
   ...allDesignSystem,
+  ...allOptionallyControlled,
   DemoBlock
 };
 

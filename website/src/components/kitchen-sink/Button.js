@@ -1,16 +1,11 @@
 import React from "react";
-import { Container, Grid, Flex, Text, Button } from "basis";
+import { Container, Grid, Flex, Button } from "basis";
 import { VARIANTS, COLORS } from "../../../../src/components/Button";
+import Layout from "./Layout";
 
 function KitchenSinkButton() {
   return (
-    <Container>
-      <Container bg="primary.blue.t100" padding="6">
-        <Text intent="h2" align="center">
-          Button
-        </Text>
-      </Container>
-
+    <Layout name="Button">
       <Grid>
         <Container padding="4">
           <Button>Default</Button>
@@ -27,13 +22,31 @@ function KitchenSinkButton() {
                 <Button variant={variant} color={color}>
                   {variant} {color}
                 </Button>
+
                 <Button
                   variant={variant}
                   color={color}
-                  __internal__keyboardFocused={true}
+                  __internal__hover={true}
                 >
-                  Keyboard focused
+                  Hover
                 </Button>
+
+                <Button
+                  variant={variant}
+                  color={color}
+                  __internal__active={true}
+                >
+                  Active
+                </Button>
+
+                <Button
+                  variant={variant}
+                  color={color}
+                  __internal__keyboardFocus={true}
+                >
+                  Keyboard focus
+                </Button>
+
                 <Button variant={variant} color={color} isDisabled={true}>
                   Disabled
                 </Button>
@@ -46,7 +59,7 @@ function KitchenSinkButton() {
           <Button isFullWidth={true}>Full width</Button>
         </Container>
       </Grid>
-    </Container>
+    </Layout>
   );
 }
 

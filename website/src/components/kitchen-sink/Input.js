@@ -1,33 +1,29 @@
 import React from "react";
-import { Container, Grid, Text } from "basis";
-import Input from "../optionally-uncontrolled/Input";
+import { Container, Grid } from "basis";
+import Layout from "./Layout";
+import { Input } from "../optionally-controlled";
 
 function KitchenSinkInput() {
   return (
-    <Container>
-      <Container bg="primary.blue.t100" padding="6">
-        <Text intent="h2" align="center">
-          Input
-        </Text>
-      </Container>
-
-      <Container padding="4" bg="white">
+    <Layout name="Input">
+      <Container padding="4">
         <Container width="20">
           <Grid rowsGutter="8">
             <Input placeholder="Grey" color="grey.t05" />
             <Input
-              placeholder="Grey focused"
+              placeholder="Grey focus"
               color="grey.t05"
-              __internal__focused={true}
+              __internal__focus={true}
             />
           </Grid>
         </Container>
       </Container>
+
       <Container padding="4" bg="grey.t05">
         <Container width="20">
           <Grid rowsGutter="8">
             <Input placeholder="White" />
-            <Input placeholder="White focused" __internal__focused={true} />
+            <Input placeholder="White focus" __internal__focus={true} />
             <Input placeholder="With label" label="First name" />
             <Input
               placeholder="With value"
@@ -86,7 +82,7 @@ function KitchenSinkInput() {
           </Grid>
         </Container>
       </Container>
-    </Container>
+    </Layout>
   );
 }
 

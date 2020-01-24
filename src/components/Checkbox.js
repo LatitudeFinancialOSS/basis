@@ -70,7 +70,8 @@ function Checkbox(_props) {
     isDisabled,
     data,
     onChange,
-    children
+    children,
+    __internal__keyboardFocus
   } = props;
   const theme = useTheme();
   const { inputColor } = useContainer();
@@ -131,7 +132,9 @@ function Checkbox(_props) {
         <label
           css={{
             ...theme.checkboxLabel,
-            ...theme[`checkboxLabel.${color}`]
+            ...theme[`checkboxLabel.${color}`],
+            ...(__internal__keyboardFocus &&
+              theme["checkboxLabel.focus-visible"])
           }}
           htmlFor={inputId}
         >
@@ -170,7 +173,8 @@ Checkbox.propTypes = {
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
   onChange: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  __internal__keyboardFocus: PropTypes.bool
 };
 
 export default Checkbox;

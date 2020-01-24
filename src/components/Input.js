@@ -15,6 +15,7 @@ export const DEFAULT_PROPS = {
   type: "text",
   isOptional: false,
   isDisabled: false,
+  isPasteAllowed: true,
   validation: [
     {
       condition: ({ isOptional }) => !isOptional,
@@ -44,9 +45,10 @@ function Input(_props) {
     onFocus,
     onBlur,
     isDisabled,
+    isPasteAllowed,
     data,
     onChange,
-    __internal__focused
+    __internal__focus
   } = props;
   const theme = useTheme();
   const { inputColor } = useContainer();
@@ -79,7 +81,7 @@ function Input(_props) {
           ...theme.input,
           ...theme[`input.${colorStr}`],
           ":focus": theme["input:focus"],
-          ...(__internal__focused && theme["input:focus"]),
+          ...(__internal__focus && theme["input:focus"]),
           ":hover": theme["input:hover"],
           ...(type === "number" && {
             "::-webkit-inner-spin-button, ::-webkit-outer-spin-button":
@@ -104,6 +106,11 @@ function Input(_props) {
           validate();
           onBlur && onBlur();
         }}
+        onPaste={e => {
+          if (!isPasteAllowed) {
+            e.preventDefault();
+          }
+        }}
         value={value}
         onChange={e => {
           onChange({
@@ -124,6 +131,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
   isDisabled: PropTypes.bool,
+  isPasteAllowed: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   validation: PropTypes.arrayOf(
@@ -137,7 +145,7 @@ Input.propTypes = {
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
   onChange: PropTypes.func.isRequired,
-  __internal__focused: PropTypes.bool
+  __internal__focus: PropTypes.bool
 };
 
 export default Input;

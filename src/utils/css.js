@@ -6,6 +6,8 @@ import {
 } from "../components/Flex";
 import { ALIGNS as TEXT_ALIGNS } from "../components/Text";
 
+export const EXCEPTION_PREFIX = "__exception__:";
+
 export function getSpaceValue(space) {
   if (typeof space === "number") {
     return tokens.space[space] || "0px";

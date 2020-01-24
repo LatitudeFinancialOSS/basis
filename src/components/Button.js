@@ -27,7 +27,9 @@ function Button(_props) {
     type,
     onClick,
     children,
-    __internal__keyboardFocused
+    __internal__keyboardFocus,
+    __internal__hover,
+    __internal__active
   } = props;
   const theme = useTheme();
   const { buttonColor } = useContainer();
@@ -43,16 +45,18 @@ function Button(_props) {
     ...theme[`button.${variant}.${colorStr}`],
     ":focus": theme["button:focus"],
     ":focus-visible": theme["button:focus-visible"],
-    ...(__internal__keyboardFocused && {
+    ...(__internal__keyboardFocus && {
       ...theme["button:focus"],
       ...theme["button:focus-visible"]
     }),
     ":hover": {
       ...(!isDisabled && theme[`button.${variant}.${colorStr}:hover`])
     },
+    ...(__internal__hover && theme[`button.${variant}.${colorStr}:hover`]),
     ":active": {
       ...(!isDisabled && theme[`button.${variant}.${colorStr}:active`])
     },
+    ...(__internal__active && theme[`button.${variant}.${colorStr}:active`]),
     ":disabled": {
       ...theme["button:disabled"],
       ...theme[`button.${variant}.${colorStr}:disabled`]
@@ -76,7 +80,9 @@ Button.propTypes = {
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,
   children: PropTypes.node,
-  __internal__keyboardFocused: PropTypes.bool
+  __internal__keyboardFocus: PropTypes.bool,
+  __internal__hover: PropTypes.bool,
+  __internal__active: PropTypes.bool
 };
 
 export default Button;

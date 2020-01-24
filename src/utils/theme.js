@@ -1,9 +1,17 @@
 import tokens from "../themes/tokens";
-import { getMinMediaQueries, getExclusiveMediaQueries } from "./css";
+import {
+  EXCEPTION_PREFIX,
+  getMinMediaQueries,
+  getExclusiveMediaQueries
+} from "./css";
 
 function getColor(colorName) {
   if (typeof colorName !== "string") {
     return null;
+  }
+
+  if (colorName.startsWith(EXCEPTION_PREFIX)) {
+    colorName = colorName.slice(EXCEPTION_PREFIX.length);
   }
 
   const parts = colorName.split(".");

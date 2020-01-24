@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "basis";
 
-function UncontrolledInput(props) {
+function OptionallyControlledInput(props) {
   const [data, setData] = React.useState({
     value: ""
   });
@@ -9,4 +9,4 @@ function UncontrolledInput(props) {
   return <Input data={data} onChange={setData} {...props} />;
 }
 
-export default UncontrolledInput;
+export default OptionallyControlledInput;

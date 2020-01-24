@@ -6,16 +6,11 @@ import {
   ALIGNS,
   WEIGHTS
 } from "../../../../src/components/Text";
+import Layout from "./Layout";
 
 function KitchenSinkText() {
   return (
-    <Container>
-      <Container bg="primary.blue.t100" padding="6">
-        <Text intent="h2" align="center">
-          Text
-        </Text>
-      </Container>
-
+    <Layout name="Text">
       <Container padding="4">
         <Text>Default</Text>
       </Container>
@@ -65,7 +60,7 @@ function KitchenSinkText() {
       <Container padding="4" width="19" bg="grey.t05">
         <Text wrap={false}>This text should NOT wrap to the next line.</Text>
       </Container>
-    </Container>
+    </Layout>
   );
 }
 
