@@ -11,6 +11,7 @@ import Grid from "../../components/kitchen-sink/Grid";
 import Header from "../../components/kitchen-sink/Header";
 import Input from "../../components/kitchen-sink/Input";
 import Link from "../../components/kitchen-sink/Link";
+import RadioGroup from "../../components/kitchen-sink/RadioGroup";
 import Text from "../../components/kitchen-sink/Text";
 import "typeface-montserrat";
 import "typeface-roboto";
@@ -29,6 +30,7 @@ function KitchenSink() {
       <Header />
       <Input />
       <Link />
+      <RadioGroup />
       <Text />
     </BasisProvider>
   );
