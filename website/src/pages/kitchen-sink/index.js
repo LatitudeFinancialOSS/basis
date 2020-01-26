@@ -6,6 +6,8 @@ import Container from "../../components/kitchen-sink/Container";
 import DatePicker from "../../components/kitchen-sink/DatePicker";
 import Flex from "../../components/kitchen-sink/Flex";
 import Footer from "../../components/kitchen-sink/Footer";
+import Frequency from "../../components/kitchen-sink/Frequency";
+import Grid from "../../components/kitchen-sink/Grid";
 import Header from "../../components/kitchen-sink/Header";
 import Input from "../../components/kitchen-sink/Input";
 import Link from "../../components/kitchen-sink/Link";
@@ -22,6 +24,8 @@ function KitchenSink() {
       <DatePicker />
       <Flex />
       <Footer />
+      <Frequency />
+      <Grid />
       <Header />
       <Input />
       <Link />
