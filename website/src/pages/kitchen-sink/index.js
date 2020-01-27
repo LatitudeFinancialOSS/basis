@@ -14,6 +14,7 @@ import Link from "../../components/kitchen-sink/Link";
 import RadioGroup from "../../components/kitchen-sink/RadioGroup";
 import Section from "../../components/kitchen-sink/Section";
 import Select from "../../components/kitchen-sink/Select";
+import Stepper from "../../components/kitchen-sink/Stepper";
 import Text from "../../components/kitchen-sink/Text";
 import "typeface-montserrat";
 import "typeface-roboto";
@@ -35,6 +36,7 @@ function KitchenSink() {
       <RadioGroup />
       <Section />
       <Select />
+      <Stepper />
       <Text />
     </BasisProvider>
   );
