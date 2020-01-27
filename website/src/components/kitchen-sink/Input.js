@@ -10,6 +10,7 @@ function KitchenSinkInput() {
         <Container width="20">
           <Grid rowsGutter="8">
             <Input placeholder="Grey" color="grey.t05" />
+
             <Input
               placeholder="Grey focus"
               color="grey.t05"
@@ -23,34 +24,42 @@ function KitchenSinkInput() {
         <Container width="20">
           <Grid rowsGutter="8">
             <Input placeholder="White" />
+
             <Input placeholder="White focus" __internal__focus={true} />
+
             <Input placeholder="With label" label="First name" />
+
             <Input
               placeholder="With value"
               label="First name"
               data={{ value: "With value" }}
             />
+
             <Input
               placeholder="Optional"
               label="First name"
               isOptional={true}
             />
+
             <Input
               placeholder="With help text"
               label="First name"
               helpText="Please enter your name exactly as it appears in your passport."
             />
+
             <Input
               placeholder="Disabled"
               label="First name"
               helpText="Nickname is not allowed."
               isDisabled={true}
             />
+
             <Input
               placeholder="Single error"
               label="First name"
               data={{ value: "", errors: ["Something is wrong"] }}
             />
+
             <Input
               placeholder="Very long error"
               label="First name"
@@ -61,6 +70,7 @@ function KitchenSinkInput() {
                 ]
               }}
             />
+
             <Input
               placeholder="Multiple errors"
               label="First name"
@@ -73,7 +83,9 @@ function KitchenSinkInput() {
                 ]
               }}
             />
+
             <Input placeholder='type="number"' type="number" />
+
             <Input
               label="With number value"
               type="number"

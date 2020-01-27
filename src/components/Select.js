@@ -52,7 +52,8 @@ function Select(_props) {
     helpText,
     isDisabled,
     data,
-    onChange
+    onChange,
+    __internal__focus
   } = props;
   const theme = useTheme();
   const { inputColor } = useContainer();
@@ -91,6 +92,10 @@ function Select(_props) {
             ...theme["selectInput:focus"],
             ...theme[`selectInput.${colorStr}:focus`]
           },
+          ...(__internal__focus && {
+            ...theme["selectInput:focus"],
+            ...theme[`selectInput.${colorStr}:focus`]
+          }),
           ":active": {
             ...(!isDisabled && theme[`selectInput.${colorStr}:active`])
           },
@@ -168,7 +173,8 @@ Select.propTypes = {
     value: PropTypes.string.isRequired,
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  __internal__focus: PropTypes.bool
 };
 
 export default Select;

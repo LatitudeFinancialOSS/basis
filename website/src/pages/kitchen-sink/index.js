@@ -13,6 +13,7 @@ import Input from "../../components/kitchen-sink/Input";
 import Link from "../../components/kitchen-sink/Link";
 import RadioGroup from "../../components/kitchen-sink/RadioGroup";
 import Section from "../../components/kitchen-sink/Section";
+import Select from "../../components/kitchen-sink/Select";
 import Text from "../../components/kitchen-sink/Text";
 import "typeface-montserrat";
 import "typeface-roboto";
@@ -33,6 +34,7 @@ function KitchenSink() {
       <Link />
       <RadioGroup />
       <Section />
+      <Select />
       <Text />
     </BasisProvider>
   );
