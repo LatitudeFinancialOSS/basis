@@ -10,6 +10,7 @@ import { getReactLiveNoInline } from "../../utils/ast";
 import { formatCode } from "../../utils/formatting";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import ComponentPreview from "../../components/ComponentPreview";
 import DemoBlock from "../../components/DemoBlock";
 
@@ -279,7 +280,10 @@ function Playground({ location }) {
   const theme = useTheme();
   const [code, setCode] = useState("");
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
-  const [height, setHeight] = useState("40vh");
+  const [height, setHeight] = useLocalStorage(
+    "playground-code-panel-height",
+    "40vh"
+  );
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
   const [screens, setScreens] = useState([]);
@@ -353,131 +357,138 @@ function Playground({ location }) {
           </div>
           <PlaygroundError />
         </div>
-        <Resizable
-          style={{
-            flexShrink: 0
-          }}
-          enable={topOnly}
-          minHeight="10vh"
-          maxHeight="90vh"
-          size={{
-            width: "100%",
-            height
-          }}
-          onResizeStop={(_e, _direction, _ref, d) => {
-            setHeight(height + d.height);
-          }}
-        >
-          <div
-            css={{
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-              boxSizing: "border-box"
+        {height && (
+          <Resizable
+            style={{
+              flexShrink: 0
+            }}
+            enable={topOnly}
+            minHeight="10vh"
+            maxHeight="90vh"
+            size={{
+              width: "100%",
+              height
+            }}
+            onResizeStop={(_e, _direction, _ref, d) => {
+              setHeight(
+                `${(((parseInt(height, 10) / 100) * window.innerHeight +
+                  d.height) /
+                  window.innerHeight) *
+                  100}vh`
+              );
             }}
           >
             <div
               css={{
-                flexShrink: 0,
                 display: "flex",
-                padding: `${designTokens.space[2]} ${designTokens.space[8]}`,
-                backgroundColor: designTokens.colors.grey.t05,
-                borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
-                borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
-              }}
-            >
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setCode(prettify(code));
-                }}
-              >
-                Prettify
-              </Button>
-              <Button
-                margin="0 0 0 4"
-                variant="secondary"
-                isDisabled={isShareSuccessful}
-                onClick={copyShareUrlToClipboard}
-              >
-                {isShareSuccessful ? "Copied!" : "Share"}
-              </Button>
-              <Button
-                margin="0 0 0 auto"
-                variant="secondary"
-                onClick={() => {
-                  setAreSettingsOpen(!areSettingsOpen);
-                }}
-              >
-                Settings
-              </Button>
-            </div>
-            <div
-              css={{
-                display: "flex",
-                position: "relative",
-                flexGrow: 1,
-                minHeight: 0
+                flexDirection: "column",
+                height: "100%",
+                boxSizing: "border-box"
               }}
             >
               <div
                 css={{
-                  padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
-                  width: "100%",
-                  overflow: "auto",
-                  "textarea:focus": {
-                    outline: "none"
-                  }
+                  flexShrink: 0,
+                  display: "flex",
+                  padding: `${designTokens.space[2]} ${designTokens.space[8]}`,
+                  backgroundColor: designTokens.colors.grey.t05,
+                  borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
+                  borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
                 }}
               >
-                <VisuallyHidden>
-                  <label htmlFor="code-editor">Code Editor</label>
-                </VisuallyHidden>
-                <LiveEditor
-                  textareaId="code-editor"
-                  padding={0}
-                  onChange={setCode}
-                />
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setCode(prettify(code));
+                  }}
+                >
+                  Prettify
+                </Button>
+                <Button
+                  margin="0 0 0 4"
+                  variant="secondary"
+                  isDisabled={isShareSuccessful}
+                  onClick={copyShareUrlToClipboard}
+                >
+                  {isShareSuccessful ? "Copied!" : "Share"}
+                </Button>
+                <Button
+                  margin="0 0 0 auto"
+                  variant="secondary"
+                  onClick={() => {
+                    setAreSettingsOpen(!areSettingsOpen);
+                  }}
+                >
+                  Settings
+                </Button>
               </div>
-              {areSettingsOpen && (
+              <div
+                css={{
+                  display: "flex",
+                  position: "relative",
+                  flexGrow: 1,
+                  minHeight: 0
+                }}
+              >
                 <div
                   css={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    backgroundColor: rgba(designTokens.colors.white, 0.7)
-                  }}
-                  onClick={e => {
-                    if (!settingsRef.current.contains(e.target)) {
-                      setAreSettingsOpen(false);
+                    padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
+                    width: "100%",
+                    overflow: "auto",
+                    "textarea:focus": {
+                      outline: "none"
                     }
                   }}
                 >
+                  <VisuallyHidden>
+                    <label htmlFor="code-editor">Code Editor</label>
+                  </VisuallyHidden>
+                  <LiveEditor
+                    textareaId="code-editor"
+                    padding={0}
+                    onChange={setCode}
+                  />
+                </div>
+                {areSettingsOpen && (
                   <div
                     css={{
                       position: "absolute",
+                      left: 0,
+                      right: 0,
                       top: 0,
                       bottom: 0,
-                      right: 0,
-                      width: designTokens.sizes[20],
-                      maxWidth: "100vw",
-                      boxSizing: "border-box",
-                      borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
+                      backgroundColor: rgba(designTokens.colors.white, 0.7)
                     }}
-                    ref={settingsRef}
+                    onClick={e => {
+                      if (!settingsRef.current.contains(e.target)) {
+                        setAreSettingsOpen(false);
+                      }
+                    }}
                   >
-                    <PlaygroundSettings
-                      screens={screens}
-                      setScreens={setScreens}
-                    />
+                    <div
+                      css={{
+                        position: "absolute",
+                        top: 0,
+                        bottom: 0,
+                        right: 0,
+                        width: designTokens.sizes[20],
+                        maxWidth: "100vw",
+                        boxSizing: "border-box",
+                        borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
+                      }}
+                      ref={settingsRef}
+                    >
+                      <PlaygroundSettings
+                        screens={screens}
+                        setScreens={setScreens}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        </Resizable>
+          </Resizable>
+        )}
       </LiveProvider>
     </div>
   );
