@@ -8,15 +8,24 @@ function KitchenSinkFrequency() {
     <Layout name="Frequency">
       <Container padding="4" bg="white">
         <Grid rowsGutter="8">
-          <Frequency label="Grey disabled" isDisabled={true} />
+          <Frequency
+            label="Grey disabled"
+            isDisabled={true}
+            data={{
+              value: {
+                input: "726",
+                frequency: "monthly"
+              }
+            }}
+          />
 
           <Frequency
             label="Optional with error"
             isOptional={true}
             data={{
               value: {
-                input: "",
-                frequency: ""
+                input: "-12.8",
+                frequency: "annually"
               },
               errors: ["Please enter a valid amount."]
             }}
@@ -26,7 +35,16 @@ function KitchenSinkFrequency() {
 
       <Container padding="4" bg="grey.t05">
         <Grid rowsGutter="8">
-          <Frequency label="White" quarterly={true} />
+          <Frequency
+            label="White"
+            quarterly={true}
+            data={{
+              value: {
+                input: "9822",
+                frequency: "weekly"
+              }
+            }}
+          />
 
           <Frequency
             label="Select with multiple errors"

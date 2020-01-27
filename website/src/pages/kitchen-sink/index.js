@@ -16,6 +16,7 @@ import Section from "../../components/kitchen-sink/Section";
 import Select from "../../components/kitchen-sink/Select";
 import Stepper from "../../components/kitchen-sink/Stepper";
 import Text from "../../components/kitchen-sink/Text";
+import TimeSpan from "../../components/kitchen-sink/TimeSpan";
 import "typeface-montserrat";
 import "typeface-roboto";
 
@@ -38,6 +39,7 @@ function KitchenSink() {
       <Select />
       <Stepper />
       <Text />
+      <TimeSpan />
     </BasisProvider>
   );
 }

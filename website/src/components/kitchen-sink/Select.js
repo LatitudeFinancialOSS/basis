@@ -14,6 +14,7 @@ function KitchenSinkSelect() {
             <Select
               label="Grey focus"
               color="grey.t05"
+              data={{ value: "option-2" }}
               __internal__focus={true}
             />
           </Grid>

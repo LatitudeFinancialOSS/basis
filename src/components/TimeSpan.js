@@ -109,7 +109,9 @@ function TimeSpan(_props) {
     helpText: helpTextProp,
     isDisabled,
     data,
-    onChange
+    onChange,
+    __internal__yearsFocus,
+    __internal__monthsFocus
   } = props;
   const { inputColor } = useContainer();
   const color =
@@ -174,6 +176,7 @@ function TimeSpan(_props) {
                   }
                 });
               }}
+              __internal__focus={__internal__yearsFocus}
             />
           </Grid.Item>
           <Grid.Item colSpan="1">
@@ -202,6 +205,7 @@ function TimeSpan(_props) {
                   }
                 });
               }}
+              __internal__focus={__internal__monthsFocus}
             />
           </Grid.Item>
         </Grid>
@@ -229,7 +233,9 @@ TimeSpan.propTypes = {
     }).isRequired,
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  __internal__yearsFocus: PropTypes.bool,
+  __internal__monthsFocus: PropTypes.bool
 };
 
 export default TimeSpan;

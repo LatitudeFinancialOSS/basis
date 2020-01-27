@@ -8,7 +8,11 @@ function KitchenSinkRadioGroup() {
     <Layout name="RadioGroup">
       <Container padding="4" bg="white">
         <Grid rowsGutter="8">
-          <RadioGroup label="Grey disabled" isDisabled={true} />
+          <RadioGroup
+            label="Grey disabled"
+            isDisabled={true}
+            data={{ value: "option-2" }}
+          />
 
           <RadioGroup
             label="Optional with error"
@@ -26,6 +30,7 @@ function KitchenSinkRadioGroup() {
           <RadioGroup
             label="White one column with help text"
             columns={1}
+            data={{ value: "option-1" }}
             helpText="Help text goes here."
           />
 
@@ -33,6 +38,7 @@ function KitchenSinkRadioGroup() {
             label="No circles centered"
             showCircles={false}
             columns={3}
+            data={{ value: "option-3" }}
           />
 
           <RadioGroup

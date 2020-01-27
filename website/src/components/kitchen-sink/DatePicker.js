@@ -14,9 +14,9 @@ function KitchenSinkDatePicker() {
             label="With error"
             data={{
               value: {
-                day: "",
-                month: "",
-                year: ""
+                day: "17",
+                month: "13",
+                year: "1934"
               },
               errors: ["Month must be within 1-12."]
             }}
@@ -26,7 +26,16 @@ function KitchenSinkDatePicker() {
 
       <Container padding="4" width="20" bg="grey.t05">
         <Grid rowsGutter="8">
-          <DatePicker label="White" />
+          <DatePicker
+            label="White"
+            data={{
+              value: {
+                day: "1",
+                month: "01",
+                year: "2023"
+              }
+            }}
+          />
 
           <DatePicker
             label="Multiple errors"
