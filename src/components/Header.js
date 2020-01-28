@@ -5,14 +5,21 @@ import Flex from "./Flex";
 import Logo from "./internal/Logo";
 import useTheme from "../hooks/useTheme";
 
-function HeaderLogo({ name }) {
+function HeaderLogo({ name, testId }) {
   return (
-    <Logo name={name} color="primary.blue.t100" height="5" height-xs="7" />
+    <Logo
+      name={name}
+      color="primary.blue.t100"
+      height="5"
+      height-xs="7"
+      testId={testId}
+    />
   );
 }
 
 HeaderLogo.propTypes = {
-  name: PropTypes.oneOf(Logo.NAMES).isRequired
+  name: PropTypes.oneOf(Logo.NAMES).isRequired,
+  testId: PropTypes.string
 };
 
 const DEFAULT_PROPS = {

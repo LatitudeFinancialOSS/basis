@@ -16,11 +16,12 @@ Logo.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Logo(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { name, color } = props;
+  const { name, color, testId } = props;
   const heightProps = useAllResponsiveProps(props, "height");
   const logoProps = {
     color,
-    ...heightProps
+    ...heightProps,
+    testId
   };
 
   switch (name) {
@@ -41,7 +42,8 @@ function Logo(_props) {
 Logo.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
   color: PropTypes.oneOf(COLORS).isRequired,
-  ...responsiveHeightType
+  ...responsiveHeightType,
+  testId: PropTypes.string
 };
 
 export default Logo;

@@ -8,21 +8,22 @@ import useTheme from "../hooks/useTheme";
 import Logo from "./internal/Logo";
 import tokens from "../themes/tokens";
 
-function HeaderLogo({ name }) {
+function HeaderLogo({ name, testId }) {
   return (
-    <Flex height="16" height-lg="15" placeItems="left center">
+    <Flex height="16" height-lg="15" placeItems="left center" testId={testId}>
       <Logo name={name} color="white" height="9" height-md="8" />
     </Flex>
   );
 }
 
 HeaderLogo.propTypes = {
-  name: PropTypes.oneOf(Logo.NAMES).isRequired
+  name: PropTypes.oneOf(Logo.NAMES).isRequired,
+  testId: PropTypes.string
 };
 
-function Header({ children }) {
+function Header({ children, testId }) {
   return (
-    <Container bg="primary.blue.t100">
+    <Container bg="primary.blue.t100" testId={testId}>
       <Container bg="primary.blue.t100" hasBreakpointWidth={true}>
         <Flex placeItems="left center">{children}</Flex>
       </Container>
@@ -31,10 +32,11 @@ function Header({ children }) {
 }
 
 Header.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
-function LegalLinks({ children }) {
+function LegalLinks({ children, testId }) {
   const theme = useTheme();
   const links = React.Children.toArray(children).filter(
     // Ignore all children that aren't a Link
@@ -51,7 +53,7 @@ function LegalLinks({ children }) {
   };
 
   return (
-    <div css={linksContainerCSS}>
+    <div css={linksContainerCSS} data-testid={testId}>
       {links.map((link, index) => {
         const linkItemCSS = {
           whiteSpace: "nowrap",
@@ -73,24 +75,32 @@ function LegalLinks({ children }) {
 }
 
 LegalLinks.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
-function LegalCopy({ children }) {
+function LegalCopy({ children, testId }) {
   return (
-    <Text intent="legal" align="center" margin="7 0 0 0" margin-md="6 0 0 0">
+    <Text
+      intent="legal"
+      align="center"
+      margin="7 0 0 0"
+      margin-md="6 0 0 0"
+      testId={testId}
+    >
       {children}
     </Text>
   );
 }
 
 LegalCopy.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
-function Legal({ children }) {
+function Legal({ children, testId }) {
   return (
-    <Container bg="secondary.lightBlue.t30">
+    <Container bg="secondary.lightBlue.t30" testId={testId}>
       <Container
         bg="secondary.lightBlue.t30"
         padding="7 0"
@@ -103,7 +113,8 @@ function Legal({ children }) {
 }
 
 Legal.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 function Footer({ children, testId }) {

@@ -16,7 +16,7 @@ const DEFAULT_GRID_ITEM_PROPS = {};
 Item.DEFAULT_PROPS = DEFAULT_GRID_ITEM_PROPS;
 
 function Item(props) {
-  const { children } = props;
+  const { children, testId } = props;
   const theme = useTheme();
   const responsivePropsCSS = useResponsivePropsCSS(
     props,
@@ -47,7 +47,11 @@ function Item(props) {
     ...responsivePropsCSS
   };
 
-  return <div css={itemCSS}>{children}</div>;
+  return (
+    <div css={itemCSS} data-testid={testId}>
+      {children}
+    </div>
+  );
 }
 
 Item.propTypes = {
@@ -59,7 +63,8 @@ Item.propTypes = {
     "rowSpan",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 const PRESETS = ["page"];
