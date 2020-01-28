@@ -23,7 +23,7 @@ Header.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Header(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { children, __internal__notFixed } = props;
+  const { children, testId, __internal__notFixed } = props;
   const theme = useTheme();
 
   return (
@@ -39,6 +39,7 @@ function Header(_props) {
               zIndex: theme.zIndices.header
             }
       }
+      data-testid={testId}
     >
       <Container bg="white" height="11" height-lg="14" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
@@ -53,6 +54,7 @@ function Header(_props) {
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
+  testId: PropTypes.string,
   __internal__notFixed: PropTypes.bool
 };
 

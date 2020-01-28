@@ -14,7 +14,8 @@ function Field({
   auxId,
   helpText,
   errors,
-  children
+  children,
+  testId
 }) {
   const theme = useTheme();
 
@@ -25,6 +26,7 @@ function Field({
         ...(isFullWidth && theme["field.fullWidth"]),
         ...(isDisabled && theme["field.disabled"])
       }}
+      data-testid={testId}
     >
       {label && (
         <label css={theme["field.label"]} id={labelId} htmlFor={labelFor}>
@@ -68,7 +70,8 @@ Field.propTypes = {
   auxId: PropTypes.string.isRequired,
   helpText: PropTypes.node,
   errors: PropTypes.arrayOf(PropTypes.node),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 export default Field;

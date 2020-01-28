@@ -106,12 +106,13 @@ Legal.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-function Footer({ children }) {
-  return <footer>{children}</footer>;
+function Footer({ children, testId }) {
+  return <footer data-testid={testId}>{children}</footer>;
 }
 
 Footer.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 Header.Logo = HeaderLogo;

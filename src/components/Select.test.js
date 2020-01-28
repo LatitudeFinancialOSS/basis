@@ -114,4 +114,12 @@ describe("Select", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <App label="Relationship status" testId="my-select" />
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-select");
+  });
 });

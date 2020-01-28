@@ -51,6 +51,7 @@ function Input(_props) {
     isPasteAllowed,
     data,
     onChange,
+    testId,
     __internal__focus
   } = props;
   const theme = useTheme();
@@ -78,6 +79,7 @@ function Input(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <input
         css={{
@@ -148,6 +150,7 @@ Input.propTypes = {
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };
 

@@ -82,7 +82,7 @@ Grid.DEFAULT_PROPS = DEFAULT_GRID_PROPS;
 
 function Grid(_props) {
   const props = { ...DEFAULT_GRID_PROPS, ..._props };
-  const { preset, debug, children } = props;
+  const { preset, debug, children, testId } = props;
   const theme = useTheme();
   const [resizeListener, sizes] = useResizeAware();
   const parsedProps = {
@@ -129,7 +129,11 @@ function Grid(_props) {
   }, [sizes.width, children]);
 
   return (
-    <div css={{ ...theme.grid, ...responsivePropsCSS }} ref={gridRef}>
+    <div
+      css={{ ...theme.grid, ...responsivePropsCSS }}
+      data-testid={testId}
+      ref={gridRef}
+    >
       {resizeListener}
       {children}
       {debug && gridInfo && (
@@ -161,7 +165,8 @@ Grid.propTypes = {
   ),
   preset: PropTypes.oneOf(PRESETS),
   debug: PropTypes.bool,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 Grid.Item = Item;

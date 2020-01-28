@@ -63,7 +63,7 @@ Icon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Icon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { name, color, secondaryColor } = props;
+  const { name, color, secondaryColor, testId } = props;
   const theme = useTheme();
   const IconComponent = require(`../icons/${name}`).default;
 
@@ -71,6 +71,7 @@ function Icon(_props) {
     <IconComponent
       primaryColor={theme[`icon.${color}`].fill}
       secondaryColor={theme[`icon.${secondaryColor}`].fill}
+      testId={testId}
     />
   );
 }
@@ -78,7 +79,8 @@ function Icon(_props) {
 Icon.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
   color: PropTypes.oneOf(COLORS),
-  secondaryColor: PropTypes.oneOf(SECONDARY_COLORS)
+  secondaryColor: PropTypes.oneOf(SECONDARY_COLORS),
+  testId: PropTypes.string
 };
 
 export default Icon;

@@ -48,7 +48,7 @@ Flex.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Flex(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { children } = props;
+  const { children, testId } = props;
   const childrenArray = React.Children.toArray(children);
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     height: responsiveHeight,
@@ -66,6 +66,7 @@ function Flex(_props) {
         boxSizing: "border-box",
         ...flexCSS
       }}
+      data-testid={testId}
     >
       {isObjectEmpty(flexItemCSS)
         ? childrenArray
@@ -86,7 +87,8 @@ Flex.propTypes = {
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   ...responsivePropType("placeItems", PropTypes.oneOf(PLACE_ITEMS)),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 export default Flex;

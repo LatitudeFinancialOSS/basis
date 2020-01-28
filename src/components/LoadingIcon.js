@@ -21,7 +21,7 @@ LoadingIcon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function LoadingIcon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { size, color } = props;
+  const { size, color, testId } = props;
   const theme = useTheme();
   const radius = parseInt(
     theme[`loadingIcon.${size}`]
@@ -130,6 +130,7 @@ function LoadingIcon(_props) {
       viewBox={`0 0 ${svgSize} ${svgSize}`}
       role="img"
       aria-label="Loading icon"
+      data-testid={testId}
     >
       <circle
         cx={radius}
@@ -158,7 +159,8 @@ function LoadingIcon(_props) {
 
 LoadingIcon.propTypes = {
   size: PropTypes.oneOf(SIZES),
-  color: PropTypes.oneOf(COLORS)
+  color: PropTypes.oneOf(COLORS),
+  testId: PropTypes.string
 };
 
 export default LoadingIcon;

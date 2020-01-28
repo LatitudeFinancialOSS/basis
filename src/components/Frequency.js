@@ -96,7 +96,8 @@ function Frequency(_props) {
     helpText,
     isDisabled,
     data,
-    onChange
+    onChange,
+    testId
   } = props;
   const { inputColor } = useContainer();
   const color =
@@ -160,6 +161,7 @@ function Frequency(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <div
         aria-invalid={errors ? "true" : null}
@@ -262,7 +264,8 @@ Frequency.propTypes = {
     }).isRequired,
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  testId: PropTypes.string
 };
 
 export default Frequency;

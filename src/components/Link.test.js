@@ -108,4 +108,14 @@ describe("Link", () => {
       padding: 12px 24px;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <Link href="/terms" newTab={false} testId="my-link">
+        Terms and Conditions
+      </Link>
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-link");
+  });
 });

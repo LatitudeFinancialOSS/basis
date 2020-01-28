@@ -114,4 +114,15 @@ describe("DatePicker", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <App label="Expiry date" testId="my-date-picker" />
+    );
+
+    expect(container.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-date-picker"
+    );
+  });
 });

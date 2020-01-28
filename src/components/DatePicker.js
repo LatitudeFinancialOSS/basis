@@ -126,7 +126,8 @@ function DatePicker(_props) {
     helpText: helpTextProp,
     isDisabled,
     data,
-    onChange
+    onChange,
+    testId
   } = props;
   const { inputColor } = useContainer();
   const color =
@@ -159,6 +160,7 @@ function DatePicker(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <div
         aria-invalid={errors ? "true" : null}
@@ -276,7 +278,8 @@ DatePicker.propTypes = {
     }).isRequired,
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  testId: PropTypes.string
 };
 
 export default DatePicker;

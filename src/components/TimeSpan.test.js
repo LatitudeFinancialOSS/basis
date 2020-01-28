@@ -122,4 +122,15 @@ describe("TimeSpan", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <App
+        label="How long do you live in the current address?"
+        testId="my-time-span"
+      />
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-time-span");
+  });
 });

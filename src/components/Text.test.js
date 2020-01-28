@@ -115,4 +115,10 @@ describe("Text", () => {
       margin: 4px 8px 12px 16px;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(<Text testId="my-text">Hello World</Text>);
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-text");
+  });
 });
