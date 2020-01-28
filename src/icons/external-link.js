@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function ExternalLink({ primaryColor }) {
+function ExternalLink({ primaryColor, testId }) {
   return (
     <svg
       width={32}
@@ -9,6 +9,7 @@ function ExternalLink({ primaryColor }) {
       viewBox="0 0 32 32"
       role="img"
       aria-label="External link"
+      data-testid={testId}
     >
       <path
         d="M16 10a1 1 0 110 2H8v12h12v-8a1 1 0 112 0v9a1 1 0 01-1 1H7a1 1 0 01-1-1V11a1 1 0 011-1zm9-4a1 1 0 011 1v9a1 1 0 11-2 0V9.414l-9.408 9.409c-.391.39-1.025.39-1.415 0a1.002 1.002 0 010-1.415L22.586 8H16a1 1 0 110-2z"
@@ -19,7 +20,8 @@ function ExternalLink({ primaryColor }) {
 }
 
 ExternalLink.propTypes = {
-  primaryColor: PropTypes.string.isRequired
+  primaryColor: PropTypes.string.isRequired,
+  testId: PropTypes.string
 };
 
 export default ExternalLink;

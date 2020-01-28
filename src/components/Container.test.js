@@ -74,4 +74,12 @@ describe("Container", () => {
       background-color: #d0e9ff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <Container testId="my-container">Hello World</Container>
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-container");
+  });
 });

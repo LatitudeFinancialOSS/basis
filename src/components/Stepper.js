@@ -105,7 +105,7 @@ Stepper.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Stepper(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { isCompleted, children } = props;
+  const { isCompleted, children, testId } = props;
   const theme = useTheme();
   const steps = React.Children.toArray(children).filter(
     // Ignore all children that aren't Step.Item
@@ -116,7 +116,7 @@ function Stepper(_props) {
   );
 
   return (
-    <div css={theme.stepper}>
+    <div css={theme.stepper} data-testid={testId}>
       {
         steps.reduce(
           (acc, step, index) => {
@@ -149,7 +149,8 @@ function Stepper(_props) {
 
 Stepper.propTypes = {
   isCompleted: PropTypes.bool,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 Stepper.Item = Item;

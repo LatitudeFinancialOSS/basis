@@ -74,6 +74,7 @@ function Checkbox(_props) {
     data,
     onChange,
     children,
+    testId,
     __internal__keyboardFocus
   } = props;
   const theme = useTheme();
@@ -101,6 +102,7 @@ function Checkbox(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <div
         css={theme.checkboxLabelContainer}
@@ -177,6 +179,7 @@ Checkbox.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool
 };
 

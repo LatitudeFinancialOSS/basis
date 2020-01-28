@@ -125,4 +125,10 @@ describe("Frequency", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(<App label="Salary" testId="my-frequency" />);
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-frequency");
+  });
 });

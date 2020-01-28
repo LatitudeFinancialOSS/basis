@@ -53,6 +53,7 @@ function Select(_props) {
     isDisabled,
     data,
     onChange,
+    testId,
     __internal__focus
   } = props;
   const theme = useTheme();
@@ -82,6 +83,7 @@ function Select(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <select
         css={{
@@ -174,6 +176,7 @@ Select.propTypes = {
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };
 

@@ -32,6 +32,7 @@ function Button(_props) {
     type,
     onClick,
     children,
+    testId,
     __internal__keyboardFocus,
     __internal__hover,
     __internal__active
@@ -70,7 +71,13 @@ function Button(_props) {
   };
 
   return (
-    <button css={css} disabled={isDisabled} type={type} onClick={onClick}>
+    <button
+      css={css}
+      disabled={isDisabled}
+      type={type}
+      onClick={onClick}
+      data-testid={testId}
+    >
       {children}
     </button>
   );
@@ -85,6 +92,7 @@ Button.propTypes = {
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,
   children: PropTypes.node,
+  testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
   __internal__hover: PropTypes.bool,
   __internal__active: PropTypes.bool

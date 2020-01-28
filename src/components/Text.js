@@ -94,7 +94,7 @@ Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Text(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { intent, weight, align, wrap, children } = props;
+  const { intent, weight, align, wrap, children, testId } = props;
   const theme = useTheme();
   const isHeader = ["h1", "h2", "h3", "h4", "h5", "h6"].includes(intent);
   const defaultSize = isHeader
@@ -129,7 +129,11 @@ function Text(_props) {
     ...responsivePropsCSS
   };
 
-  return <Component css={css}>{children}</Component>;
+  return (
+    <Component css={css} data-testid={testId}>
+      {children}
+    </Component>
+  );
 }
 
 Text.propTypes = {
@@ -195,7 +199,8 @@ Text.propTypes = {
   },
   align: PropTypes.oneOf(ALIGNS),
   wrap: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
+  testId: PropTypes.string
 };
 
 export default Text;

@@ -125,4 +125,12 @@ describe("Button", () => {
       margin: 8px 16px;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <Button testId="my-button">Find out more</Button>
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-button");
+  });
 });

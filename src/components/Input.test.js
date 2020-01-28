@@ -92,4 +92,10 @@ describe("Input", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(<App label="First name" testId="my-input" />);
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-input");
+  });
 });

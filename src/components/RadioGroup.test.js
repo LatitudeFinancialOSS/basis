@@ -89,4 +89,15 @@ describe("RadioGroup", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <App label="Are you happy?" testId="my-radio-group" />
+    );
+
+    expect(container.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-radio-group"
+    );
+  });
 });

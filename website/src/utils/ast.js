@@ -1,8 +1,12 @@
 import { parse } from "@babel/parser";
 
+function getASTfromCode(code) {
+  return parse(code, { plugins: ["jsx"] });
+}
+
 export function getReactLiveNoInline(code) {
   try {
-    const ast = parse(code, { plugins: ["jsx"] });
+    const ast = getASTfromCode(code);
 
     const { body } = ast.program;
     const lastItem = body[body.length - 1];

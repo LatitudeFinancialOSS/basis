@@ -29,6 +29,7 @@ function Link(_props) {
     href,
     newTab,
     children,
+    testId,
     __internal__keyboardFocus,
     __internal__hover,
     __internal__active
@@ -71,19 +72,20 @@ function Link(_props) {
 
         - It gets a `className` prop, which gets applies to the rendered <a>.
         - It gets a `to` prop, which gets mapped to <a>'s `href` prop.
+        - It gets a `data-testid` prop which is set on the rendered <a>.
         - It gets a `children` prop, which gets rendered as <a>'s `children`.
 
       Example: Gatsby `Link` component.
     */
     return (
-      <InternalLink css={css} to={href}>
+      <InternalLink css={css} to={href} data-testid={testId}>
         {children}
       </InternalLink>
     );
   }
 
   return (
-    <a css={css} href={href} {...newTabProps}>
+    <a css={css} href={href} data-testid={testId} {...newTabProps}>
       {children}
     </a>
   );
@@ -96,6 +98,7 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,
   children: PropTypes.node,
+  testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
   __internal__hover: PropTypes.bool,
   __internal__active: PropTypes.bool

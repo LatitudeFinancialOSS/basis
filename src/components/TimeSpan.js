@@ -110,6 +110,7 @@ function TimeSpan(_props) {
     isDisabled,
     data,
     onChange,
+    testId,
     __internal__yearsFocus,
     __internal__monthsFocus
   } = props;
@@ -143,6 +144,7 @@ function TimeSpan(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <div
         aria-invalid={errors ? "true" : null}
@@ -234,6 +236,7 @@ TimeSpan.propTypes = {
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
   onChange: PropTypes.func.isRequired,
+  testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool
 };

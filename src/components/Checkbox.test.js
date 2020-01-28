@@ -61,4 +61,14 @@ describe("Checkbox", () => {
       background-color: #ffffff;
     `);
   });
+
+  it("with testId", () => {
+    const { container } = render(
+      <App label="Accept terms and conditions" testId="my-checkbox">
+        I agree
+      </App>
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-checkbox");
+  });
 });

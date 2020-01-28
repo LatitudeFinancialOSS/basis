@@ -42,7 +42,7 @@ Container.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { bg, boxShadow, hasBreakpointWidth, children } = props;
+  const { bg, boxShadow, hasBreakpointWidth, children, testId } = props;
   const theme = useTheme();
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
@@ -98,6 +98,7 @@ function Container(_props) {
           ...responsiveCSS,
           ...boxShadowCSS
         }}
+        data-testid={testId}
       >
         {children}
       </div>
@@ -128,7 +129,8 @@ Container.propTypes = {
   ...responsiveHeightType,
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
   hasBreakpointWidth: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
+  testId: PropTypes.string
 };
 
 export default Container;

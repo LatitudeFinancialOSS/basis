@@ -158,7 +158,8 @@ function RadioGroup(_props) {
     onFocus,
     onBlur,
     data,
-    onChange
+    onChange,
+    testId
   } = props;
   const { inputColor } = useContainer();
   const color =
@@ -194,6 +195,7 @@ function RadioGroup(_props) {
       auxId={auxId}
       helpText={helpText}
       errors={errors}
+      testId={testId}
     >
       <div
         role="radiogroup"
@@ -260,7 +262,8 @@ RadioGroup.propTypes = {
     value: PropTypes.string.isRequired,
     errors: PropTypes.arrayOf(PropTypes.node)
   }).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  testId: PropTypes.string
 };
 
 export default RadioGroup;

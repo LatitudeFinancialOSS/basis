@@ -10,11 +10,11 @@ const { BACKGROUNDS } = Container;
 Section.BACKGROUNDS = BACKGROUNDS;
 
 function Section(props) {
-  const { bg, children } = props;
+  const { bg, children, testId } = props;
   const paddingProps = useAllResponsiveProps(props, "padding");
 
   return (
-    <Container bg={bg} {...paddingProps}>
+    <Container bg={bg} {...paddingProps} testId={testId}>
       <Container hasBreakpointWidth>{children}</Container>
     </Container>
   );
@@ -23,7 +23,8 @@ function Section(props) {
 Section.propTypes = {
   bg: PropTypes.oneOf(BACKGROUNDS),
   ...responsivePaddingType,
-  children: PropTypes.node
+  children: PropTypes.node,
+  testId: PropTypes.string
 };
 
 export default Section;
