@@ -346,7 +346,7 @@ function Playground({ location }) {
     })
   );
   const calculateBoundingRectangles = () => {
-    console.log("Calculating...");
+    // TODO
   };
 
   useEffect(() => {
@@ -364,8 +364,6 @@ function Playground({ location }) {
       }))
     );
   }, [location, theme.breakpoints]);
-
-  console.log(screens);
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
