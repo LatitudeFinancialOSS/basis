@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { LivePreview } from "react-live";
 import Frame, { FrameContextConsumer } from "react-frame-component";
@@ -35,7 +35,46 @@ const iframeStyle = {
   border: 0
 };
 
-function ComponentPreview({ iframeTitle = "Preview", hasBodyMargin = true }) {
+function ComponentPreviewContent({
+  window,
+  document,
+  hasBodyMargin,
+  setDocument
+}) {
+  useEffect(() => {
+    if (setDocument) {
+      setDocument(document);
+    }
+  }, [setDocument, document]);
+
+  return (
+    <BasisProvider theme={defaultTheme} window={window}>
+      {!hasBodyMargin && (
+        <Global
+          styles={{
+            body: {
+              margin: 0
+            }
+          }}
+        />
+      )}
+      <LivePreview />
+    </BasisProvider>
+  );
+}
+
+ComponentPreviewContent.propTypes = {
+  window: PropTypes.object.isRequired,
+  document: PropTypes.object.isRequired,
+  hasBodyMargin: PropTypes.bool.isRequired,
+  setDocument: PropTypes.func
+};
+
+function ComponentPreview({
+  iframeTitle = "Preview",
+  hasBodyMargin = true,
+  setDocument
+}) {
   return (
     <div css={{ height: "100%" }}>
       <Frame
@@ -57,18 +96,12 @@ function ComponentPreview({ iframeTitle = "Preview", hasBodyMargin = true }) {
             return (
               <CacheProvider value={cache}>
                 <CacheProviderWithContainer container={document.head}>
-                  <BasisProvider theme={defaultTheme} window={window}>
-                    {!hasBodyMargin && (
-                      <Global
-                        styles={{
-                          body: {
-                            margin: 0
-                          }
-                        }}
-                      />
-                    )}
-                    <LivePreview />
-                  </BasisProvider>
+                  <ComponentPreviewContent
+                    window={window}
+                    document={document}
+                    hasBodyMargin={hasBodyMargin}
+                    setDocument={setDocument}
+                  />
                 </CacheProviderWithContainer>
               </CacheProvider>
             );
@@ -81,7 +114,8 @@ function ComponentPreview({ iframeTitle = "Preview", hasBodyMargin = true }) {
 
 ComponentPreview.propTypes = {
   iframeTitle: PropTypes.string,
-  hasBodyMargin: PropTypes.bool
+  hasBodyMargin: PropTypes.bool,
+  setDocument: PropTypes.func
 };
 
 export default ComponentPreview;

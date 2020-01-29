@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef
+} from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
@@ -6,17 +12,24 @@ import { rgba } from "polished";
 import * as allDesignSystem from "basis";
 import * as allOptionallyControlled from "../../components/optionally-controlled";
 import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../../utils/url";
-import { getReactLiveNoInline } from "../../utils/ast";
+import {
+  getReactLiveNoInline,
+  annotateCodeForPlayground
+} from "../../utils/ast";
 import { formatCode } from "../../utils/formatting";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ComponentPreview from "../../components/ComponentPreview";
+import Canary from "../../components/Canary";
 import DemoBlock from "../../components/DemoBlock";
+
+import "../../utils/meta";
 
 const {
   designTokens,
   useTheme,
+  Flex,
   VisuallyHidden,
   Text,
   Button
@@ -80,7 +93,14 @@ const PlaygroundError = withLive(({ live }) => {
   );
 });
 
-function PlaygroundScreen({ width }) {
+function PlaygroundScreen({ id, width, setDocument }) {
+  const _setDocument = useCallback(
+    document => {
+      setDocument(id, document);
+    },
+    [setDocument, id]
+  );
+
   return (
     <div
       css={{
@@ -93,13 +113,16 @@ function PlaygroundScreen({ width }) {
       <ComponentPreview
         iframeTitle={`Preview at ${width}px`}
         hasBodyMargin={false}
+        setDocument={_setDocument}
       />
     </div>
   );
 }
 
 PlaygroundScreen.propTypes = {
-  width: PropTypes.number.isRequired
+  id: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  setDocument: PropTypes.func.isRequired
 };
 
 function PlaygroundSettings({ screens, setScreens }) {
@@ -109,35 +132,39 @@ function PlaygroundSettings({ screens, setScreens }) {
     width: ""
   });
   const [newScreenError, setNewScreenError] = useState(null);
-  const onFrameChange = (id, key, value) => {
-    const frameIndex = screens.findIndex(frame => frame.id === id);
+  const onScreenChange = (id, key, value) => {
+    setScreens(screens => {
+      const screenIndex = screens.findIndex(screen => screen.id === id);
 
-    if (frameIndex === -1) {
-      return;
-    }
+      if (screenIndex === -1) {
+        return;
+      }
 
-    const before = screens.slice(0, frameIndex);
-    const updatedFrame = {
-      ...screens[frameIndex],
-      [key]: value
-    };
-    const after = screens.slice(frameIndex + 1);
+      const before = screens.slice(0, screenIndex);
+      const updatedScreen = {
+        ...screens[screenIndex],
+        [key]: value
+      };
+      const after = screens.slice(screenIndex + 1);
 
-    setScreens(before.concat(updatedFrame, after));
+      return before.concat(updatedScreen, after);
+    });
   };
-  const onFrameRemove = id => {
-    const frameIndex = screens.findIndex(frame => frame.id === id);
+  const onScreenRemove = id => {
+    setScreens(screens => {
+      const screenIndex = screens.findIndex(screen => screen.id === id);
 
-    if (frameIndex === -1) {
-      return;
-    }
+      if (screenIndex === -1) {
+        return;
+      }
 
-    const before = screens.slice(0, frameIndex);
-    const after = screens.slice(frameIndex + 1);
+      const before = screens.slice(0, screenIndex);
+      const after = screens.slice(screenIndex + 1);
 
-    setScreens(before.concat(after));
+      return before.concat(after);
+    });
   };
-  const onFrameAdd = e => {
+  const onScreenAdd = e => {
     e.preventDefault();
 
     const { name, width } = newScreen;
@@ -148,7 +175,7 @@ function PlaygroundSettings({ screens, setScreens }) {
       return;
     }
 
-    if (screens.find(frame => frame.name === cleanName)) {
+    if (screens.find(screen => screen.name === cleanName)) {
       setNewScreenError(
         <>
           <strong>{cleanName}</strong> already exists
@@ -169,7 +196,7 @@ function PlaygroundSettings({ screens, setScreens }) {
       return;
     }
 
-    if (screens.find(frame => frame.width === widthInt)) {
+    if (screens.find(screen => screen.width === widthInt)) {
       setNewScreenError(
         <>
           <strong>{widthInt}px</strong> already exists
@@ -185,11 +212,13 @@ function PlaygroundSettings({ screens, setScreens }) {
         width: widthInt
       })
     );
-    setNewScreen({
+
+    setNewScreen(newScreen => ({
       ...newScreen,
       name: "",
       width: ""
-    });
+    }));
+
     setNewScreenError(null);
   };
 
@@ -210,24 +239,26 @@ function PlaygroundSettings({ screens, setScreens }) {
               css={{ width: 100 }}
               type="text"
               value={name}
-              onChange={e => onFrameChange(id, "name", e.target.value)}
+              onChange={e => onScreenChange(id, "name", e.target.value)}
             />
             <input
               css={{ width: 50 }}
               type="number"
               value={width}
-              onChange={e => onFrameChange(id, "width", Number(e.target.value))}
+              onChange={e =>
+                onScreenChange(id, "width", Number(e.target.value))
+              }
             />
             <button
               aria-label="Remove Screen"
-              onClick={() => onFrameRemove(id)}
+              onClick={() => onScreenRemove(id)}
             >
               ✕
             </button>
           </li>
         ))}
         <li key={newScreen.id}>
-          <form onSubmit={onFrameAdd}>
+          <form onSubmit={onScreenAdd}>
             <input
               css={{ width: 100 }}
               type="text"
@@ -284,9 +315,28 @@ function Playground({ location }) {
     "playground-code-panel-height",
     "40vh"
   );
+  const [isInspectMode, setIsInspectMode] = useState(false);
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
   const [screens, setScreens] = useState([]);
+  const setScreenDocument = useCallback((id, document) => {
+    setScreens(screens => {
+      const screenIndex = screens.findIndex(screen => screen.id === id);
+
+      if (screenIndex === -1) {
+        return;
+      }
+
+      const before = screens.slice(0, screenIndex);
+      const updatedScreen = {
+        ...screens[screenIndex],
+        document
+      };
+      const after = screens.slice(screenIndex + 1);
+
+      return before.concat(updatedScreen, after);
+    });
+  }, []);
   const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(() =>
     getPlaygroundUrl(location, {
       code: prettify(code),
@@ -295,6 +345,9 @@ function Playground({ location }) {
       }
     })
   );
+  const calculateBoundingRectangles = () => {
+    console.log("Calculating...");
+  };
 
   useEffect(() => {
     const dataFromUrl = getPlaygroundDataFromUrl(location);
@@ -312,10 +365,13 @@ function Playground({ location }) {
     );
   }, [location, theme.breakpoints]);
 
+  console.log(screens);
+
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <LiveProvider
         code={code}
+        transformCode={annotateCodeForPlayground}
         noInline={noInline}
         scope={scope}
         theme={reactLiveEditorTheme}
@@ -347,7 +403,11 @@ function Playground({ location }) {
                 key={id}
               >
                 <div css={{ flexGrow: 1, display: "flex" }}>
-                  <PlaygroundScreen width={width} />
+                  <PlaygroundScreen
+                    id={id}
+                    width={width}
+                    setDocument={setScreenDocument}
+                  />
                 </div>
                 <Text color="grey.t75" margin="1 1 0">
                   <strong>{name}</strong> – {width}px
@@ -396,22 +456,34 @@ function Playground({ location }) {
                   borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
                 }}
               >
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    setCode(prettify(code));
-                  }}
-                >
-                  Prettify
-                </Button>
-                <Button
-                  margin="0 0 0 4"
-                  variant="secondary"
-                  isDisabled={isShareSuccessful}
-                  onClick={copyShareUrlToClipboard}
-                >
-                  {isShareSuccessful ? "Copied!" : "Share"}
-                </Button>
+                <Flex gutter="4">
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      setCode(prettify(code));
+                    }}
+                  >
+                    Prettify
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    isDisabled={isShareSuccessful}
+                    onClick={copyShareUrlToClipboard}
+                  >
+                    {isShareSuccessful ? "Copied!" : "Share"}
+                  </Button>
+                  <Canary>
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setIsInspectMode(!isInspectMode);
+                        calculateBoundingRectangles();
+                      }}
+                    >
+                      {isInspectMode ? "Inspect ON" : "Inspect"}
+                    </Button>
+                  </Canary>
+                </Flex>
                 <Button
                   margin="0 0 0 auto"
                   variant="secondary"
