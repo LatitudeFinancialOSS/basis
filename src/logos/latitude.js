@@ -35,6 +35,7 @@ function LatitudeLogo(_props) {
         ...responsivePropsCSS
       }}
       viewBox="0 0 197 32"
+      focusable="false"
       role="img"
       aria-label="Latitude logo"
       data-testid={testId}

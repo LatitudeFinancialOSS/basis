@@ -11,6 +11,7 @@ function InspectIcon(props) {
       width={24}
       height={24}
       viewBox="0 0 32 32"
+      focusable="false"
       role="img"
       aria-label="Inspect components"
       fill={color}

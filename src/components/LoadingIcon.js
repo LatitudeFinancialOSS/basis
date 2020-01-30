@@ -128,6 +128,7 @@ function LoadingIcon(_props) {
       width={svgSize}
       height={svgSize}
       viewBox={`0 0 ${svgSize} ${svgSize}`}
+      focusable="false"
       role="img"
       aria-label="Loading icon"
       data-testid={testId}

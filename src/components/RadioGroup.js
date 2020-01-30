@@ -44,6 +44,7 @@ function RadioCircle({ color, isChecked }) {
     <svg
       css={theme.radioGroupRadioCircle}
       viewBox="0 0 24 24"
+      focusable="false"
       aria-hidden="true"
     >
       <circle

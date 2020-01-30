@@ -35,6 +35,7 @@ function GemLogo(_props) {
         ...responsivePropsCSS
       }}
       viewBox="0 0 548.23 233.65"
+      focusable="false"
       role="img"
       aria-label="Gem by Latitude logo"
       data-testid={testId}

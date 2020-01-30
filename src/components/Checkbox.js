@@ -38,7 +38,12 @@ function CheckboxIcon({ color, isChecked }) {
   const theme = useTheme();
 
   return (
-    <svg css={theme.checkboxIcon} viewBox="0 0 100 100" aria-hidden="true">
+    <svg
+      css={theme.checkboxIcon}
+      viewBox="0 0 100 100"
+      focusable="false"
+      aria-hidden="true"
+    >
       <rect
         css={theme[`checkboxIcon.${color}`]}
         width="100"
