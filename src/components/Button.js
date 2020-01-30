@@ -6,7 +6,7 @@ import { responsiveMargin } from "../utils/css";
 import { responsiveMarginType } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 
-const VARIANTS = ["primary", "secondary"];
+const VARIANTS = ["primary", "secondary", "icon"];
 const COLORS = ["highlight.blue.t100", "white"];
 const TYPES = ["button", "submit"];
 

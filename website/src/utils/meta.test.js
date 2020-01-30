@@ -1,10 +1,8 @@
 import { pascalCase } from "pascal-case";
-import { getAllComponentNames } from "./meta";
+import { allComponentNames } from "./meta";
 
-describe("getAllComponentNames", () => {
+describe("allComponentNames", () => {
   it("all component names must be PascalCase with optional dots in between", () => {
-    const allComponentNames = getAllComponentNames();
-
     allComponentNames.forEach(componentName => {
       const parts = componentName.split(".");
 

@@ -39,5 +39,16 @@ export default {
     color: tokens.colors.black,
     borderColor: tokens.colors.black,
     transform: "scale(0.95)"
+  },
+  // Icon default
+  "button.icon.default": {
+    display: "flex",
+    padding: `0 ${tokens.space[1]}`,
+    color: tokens.colors.grey.t65,
+    backgroundColor: "transparent",
+    border: 0
+  },
+  "button.icon.default:hover": {
+    color: tokens.colors.black
   }
 };

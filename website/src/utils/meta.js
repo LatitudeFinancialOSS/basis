@@ -19,6 +19,4 @@ function getComponentNames(initialQueue) {
   return result;
 }
 
-export function getAllComponentNames() {
-  return getComponentNames(Object.entries(components));
-}
+export const allComponentNames = getComponentNames(Object.entries(components));

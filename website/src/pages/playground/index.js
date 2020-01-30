@@ -23,6 +23,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import ComponentPreview from "../../components/ComponentPreview";
 import Canary from "../../components/Canary";
 import DemoBlock from "../../components/DemoBlock";
+import InspectIcon from "../../components/icons/Inspect";
 
 import "../../utils/meta";
 
@@ -93,7 +94,22 @@ const PlaygroundError = withLive(({ live }) => {
   );
 });
 
-function PlaygroundScreen({ id, width, setDocument }) {
+function PlaygroundScreenOverlay() {
+  return (
+    <div
+      css={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(255,0,0,0.2)"
+      }}
+    ></div>
+  );
+}
+
+function PlaygroundScreen({ id, width, setDocument, isInspectMode }) {
   const _setDocument = useCallback(
     document => {
       setDocument(id, document);
@@ -104,6 +120,7 @@ function PlaygroundScreen({ id, width, setDocument }) {
   return (
     <div
       css={{
+        position: "relative",
         width: "100%",
         backgroundColor: designTokens.colors.white,
         boxShadow:
@@ -115,6 +132,7 @@ function PlaygroundScreen({ id, width, setDocument }) {
         hasBodyMargin={false}
         setDocument={_setDocument}
       />
+      {isInspectMode && <PlaygroundScreenOverlay />}
     </div>
   );
 }
@@ -122,7 +140,8 @@ function PlaygroundScreen({ id, width, setDocument }) {
 PlaygroundScreen.propTypes = {
   id: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
-  setDocument: PropTypes.func.isRequired
+  setDocument: PropTypes.func.isRequired,
+  isInspectMode: PropTypes.bool.isRequired
 };
 
 function PlaygroundSettings({ screens, setScreens }) {
@@ -346,7 +365,15 @@ function Playground({ location }) {
     })
   );
   const calculateBoundingRectangles = () => {
-    // TODO
+    const screen = screens[0];
+    const { document } = screen;
+    const components = document.querySelectorAll(`[data-testid^="playground"]`);
+
+    components.forEach(component => {
+      const { top, left, right, bottom } = component.getBoundingClientRect();
+
+      console.log(component, { top, left, right, bottom });
+    });
   };
 
   useEffect(() => {
@@ -405,6 +432,7 @@ function Playground({ location }) {
                     id={id}
                     width={width}
                     setDocument={setScreenDocument}
+                    isInspectMode={isInspectMode}
                   />
                 </div>
                 <Text color="grey.t75" margin="1 1 0">
@@ -455,6 +483,19 @@ function Playground({ location }) {
                 }}
               >
                 <Flex gutter="4">
+                  <Canary>
+                    <Button
+                      variant="icon"
+                      onClick={() => {
+                        setIsInspectMode(isInspectMode => !isInspectMode);
+                        calculateBoundingRectangles();
+                      }}
+                    >
+                      <InspectIcon
+                        color={isInspectMode ? "highlight.blue.t100" : null}
+                      />
+                    </Button>
+                  </Canary>
                   <Button
                     variant="secondary"
                     onClick={() => {
@@ -470,17 +511,6 @@ function Playground({ location }) {
                   >
                     {isShareSuccessful ? "Copied!" : "Share"}
                   </Button>
-                  <Canary>
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        setIsInspectMode(!isInspectMode);
-                        calculateBoundingRectangles();
-                      }}
-                    >
-                      {isInspectMode ? "Inspect ON" : "Inspect"}
-                    </Button>
-                  </Canary>
                 </Flex>
                 <Button
                   margin="0 0 0 auto"

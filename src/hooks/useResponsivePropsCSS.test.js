@@ -356,12 +356,12 @@ describe("useResponsivePropsCSS", () => {
     );
 
     expect(result.current).toStrictEqual({
-      ":not(:first-of-type)": {
+      "> * + *": {
         marginTop: "24px",
         marginLeft: "0px"
       },
       "@media (min-width: 576px)": {
-        ":not(:first-of-type)": {
+        "> * + *": {
           marginTop: "0px",
           marginLeft: "24px"
         }

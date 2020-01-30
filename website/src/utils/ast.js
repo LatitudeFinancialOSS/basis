@@ -2,9 +2,7 @@ import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
-import { getAllComponentNames } from "./meta";
-
-const allComponentNames = getAllComponentNames();
+import { allComponentNames } from "./meta";
 
 function getASTfromCode(code) {
   try {
@@ -48,6 +46,8 @@ export function annotateCodeForPlayground(code) {
     return code;
   }
 
+  let count = 0;
+
   traverse(ast, {
     JSXOpeningElement: path => {
       const componentName = path.node.name.name;
@@ -56,12 +56,14 @@ export function annotateCodeForPlayground(code) {
         return;
       }
 
-      const testId = `playground:${componentName}`;
+      const testId = `playground:${componentName}:${count}`;
 
       path.pushContainer(
         "attributes",
         t.jsxAttribute(t.jsxIdentifier("testId"), t.stringLiteral(testId))
       );
+
+      count++;
     }
   });
 
