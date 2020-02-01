@@ -11,6 +11,7 @@ import Grid from "../../components/kitchen-sink/Grid";
 import Header from "../../components/kitchen-sink/Header";
 import Input from "../../components/kitchen-sink/Input";
 import Link from "../../components/kitchen-sink/Link";
+import List from "../../components/kitchen-sink/List";
 import RadioGroup from "../../components/kitchen-sink/RadioGroup";
 import Section from "../../components/kitchen-sink/Section";
 import Select from "../../components/kitchen-sink/Select";
@@ -34,6 +35,7 @@ function KitchenSink() {
       <Header />
       <Input />
       <Link />
+      <List />
       <RadioGroup />
       <Section />
       <Select />

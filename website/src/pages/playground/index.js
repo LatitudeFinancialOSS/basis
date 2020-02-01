@@ -23,7 +23,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import useCanary from "../../hooks/useCanary";
 import ComponentPreview from "../../components/ComponentPreview";
 import DemoBlock from "../../components/DemoBlock";
-import InspectIcon from "../../components/icons/Inspect";
+import InspectIcon from "../../components/icons/inspect";
 
 import "../../utils/meta";
 
