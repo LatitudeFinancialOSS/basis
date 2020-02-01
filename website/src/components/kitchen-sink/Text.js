@@ -10,17 +10,9 @@ function KitchenSinkText() {
       </Container>
 
       <Container padding="4">
-        {Text.INTENTS.map(intent => (
-          <Text intent={intent} key={intent}>
-            {intent} <strong>bold</strong>
-          </Text>
-        ))}
-      </Container>
-
-      <Container padding="4">
-        {["1", "2", "3", "4", "5", "6"].map(size => (
-          <Text intent="h1" size={size} key={size}>
-            h1 size {size}
+        {Text.TEXT_STYLES.map(textStyle => (
+          <Text textStyle={textStyle} key={textStyle}>
+            {textStyle} <strong>bold</strong>
           </Text>
         ))}
       </Container>
@@ -38,12 +30,6 @@ function KitchenSinkText() {
       {Text.ALIGNS.map(align => (
         <Container padding="4" key={align}>
           <Text align={align}>{align}</Text>
-        </Container>
-      ))}
-
-      {Text.WEIGHTS.map(weight => (
-        <Container padding="4" key={weight}>
-          <Text weight={weight}>{weight}</Text>
         </Container>
       ))}
 

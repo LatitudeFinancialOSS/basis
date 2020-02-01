@@ -11,7 +11,7 @@ function ColorGroup({ title, subTitle, children }) {
     <Flex>
       <Container width="18" padding="2 0 0 0">
         {title && (
-          <Text intent="h3" size="5" color="grey.t75">
+          <Text as="h3" textStyle="heading5" color="grey.t75">
             {title}
           </Text>
         )}
@@ -67,11 +67,11 @@ function Color({ name }) {
         backgroundColor: theme.getColor(name)
       }}
     >
-      <Text intent="body2" color={textColor}>
+      <Text textStyle="body2" color={textColor}>
         {getNiceColorName(name)}
       </Text>
       <div css={{ marginTop: "auto" }}>
-        <Text intent="body2" color={textColor}>
+        <Text textStyle="body2" color={textColor}>
           {colorHex.toUpperCase()}
         </Text>
       </div>

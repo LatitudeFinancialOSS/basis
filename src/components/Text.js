@@ -7,16 +7,18 @@ import {
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useContainer from "../hooks/useContainer";
-import { responsiveMargin } from "../utils/css";
+import useTextStyle from "../hooks/useTextStyle";
+import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 
-const INTENTS = [
+const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
+const TEXT_STYLES = [
   "hero",
-  "h1",
-  "h2",
-  "h3",
-  "h4",
-  "h5",
-  "h6",
+  "heading1",
+  "heading2",
+  "heading3",
+  "heading4",
+  "heading5",
+  "heading6",
   "subtitle1",
   "subtitle2",
   "body1",
@@ -34,15 +36,22 @@ const COLORS = [
   "conditional.negative.text"
 ];
 const ALIGNS = ["inherit", "left", "center", "right"];
-const WEIGHTS = ["regular", "bold"];
 
 const allowedColors = [
   {
-    intent: ["hero", "h1", "h2", "h3", "h4", "h5", "h6"],
+    textStyles: [
+      "hero",
+      "heading1",
+      "heading2",
+      "heading3",
+      "heading4",
+      "heading5",
+      "heading6"
+    ],
     allowedColors: ["black", "white", "primary.blue.t100"]
   },
   {
-    intent: ["subtitle1", "subtitle2", "body1", "body2", "legal"],
+    textStyles: ["subtitle1", "subtitle2", "body1", "body2", "legal"],
     allowedColors: [
       "black",
       "white",
@@ -54,7 +63,7 @@ const allowedColors = [
     ]
   },
   {
-    intent: ["overline"],
+    textStyles: ["overline"],
     allowedColors: [
       "black",
       "white",
@@ -65,68 +74,44 @@ const allowedColors = [
   }
 ];
 
-const allowedWeights = [
-  {
-    intent: ["hero", "h1", "h2", "h3", "h4", "h5", "h6", "overline"],
-    allowedWeights: ["regular"]
-  },
-  {
-    intent: ["subtitle1", "subtitle2", "body1", "body2", "legal"],
-    allowedWeights: ["regular", "bold"]
-  }
-];
-
 const DEFAULT_PROPS = {
-  intent: "body1",
-  weight: "regular",
+  as: "p",
+  textStyle: "body1",
   color: "black",
   align: "inherit",
   wrap: true
 };
 
-Text.INTENTS = INTENTS;
+Text.AS = AS;
+Text.TEXT_STYLES = TEXT_STYLES;
 Text.COLORS = COLORS;
 Text.ALIGNS = ALIGNS;
-Text.WEIGHTS = WEIGHTS;
 Text.allowedColors = allowedColors;
-Text.allowedWeights = allowedWeights;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Text(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
-  const { intent, weight, align, wrap, children, testId } = props;
+  const { textStyle } = useTextStyle();
+  const props = {
+    ...DEFAULT_PROPS,
+    ...(textStyle && { textStyle }),
+    ..._props
+  };
+  const { as, align, wrap, children, testId } = props;
   const theme = useTheme();
-  const isHeader = ["h1", "h2", "h3", "h4", "h5", "h6"].includes(intent);
-  const defaultSize = isHeader
-    ? intent[1] // h1 => 1, h2 => 2, etc.
-    : null;
-  const responsivePropsCSS = useResponsivePropsCSS(
-    props,
-    {
-      ...DEFAULT_PROPS,
-      size: defaultSize
-    },
-    {
-      margin: responsiveMargin,
-      size: ({ size }) => {
-        return isHeader ? theme[`text.size${size}`] : {};
-      }
-    }
-  );
-  const Component = intent === "hero" ? "h1" : isHeader ? intent : "p";
+  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    margin: responsiveMargin,
+    textStyle: responsiveTextStyle
+  });
+  const Component = as;
   const { textColor } = useContainer();
   const color =
     !COLORS.includes(_props.color) && textColor ? textColor : props.color;
   const css = {
     ...theme.text,
-    ...theme[`text.${intent}`],
-    ...theme[`text.${intent}.${weight}`],
-    ...theme[`text.${color}`],
     ...(!wrap && theme["text.noWrap"]),
+    ...responsivePropsCSS,
     textAlign: align,
-    "& strong": theme[`text.${intent}.bold`],
-    "& b": theme[`text.${intent}.bold`],
-    ...responsivePropsCSS
+    color: theme.getColor(color)
   };
 
   return (
@@ -137,61 +122,18 @@ function Text(_props) {
 }
 
 Text.propTypes = {
-  intent: PropTypes.oneOf(INTENTS),
   ...responsiveMarginType,
-  ...responsivePropType("size", (props, propName) => {
-    if (typeof props[propName] === "undefined") {
-      return;
-    }
-
-    if (
-      typeof props[propName] !== "string" &&
-      typeof props[propName] !== "number"
-    ) {
-      return new Error(
-        `Text: ${propName} must be a string or a number. Found: ${typeof props[
-          propName
-        ]}.`
-      );
-    }
-
-    if (!["h1", "h2", "h3", "h4", "h5", "h6"].includes(props.intent)) {
-      return new Error(
-        `Text: ${propName} is not allowed for intent="${props.intent}".`
-      );
-    }
-
-    const intValue = Number(props[propName]);
-
-    if (isNaN(intValue) || intValue < 1 || intValue > 6) {
-      return new Error(
-        `Text: ${propName} must be between 1 and 6. Found: ${props[propName]}.`
-      );
-    }
-  }),
-  weight: props => {
-    allowedWeights.forEach(({ intent, allowedWeights }) => {
-      if (
-        intent.includes(props.intent) &&
-        !allowedWeights.includes(props.weight)
-      ) {
-        return new Error(
-          `Text: weight="${props.weight}" is not allowed for intent="${
-            props.intent
-          }". Must be one of: ${allowedWeights.map(w => `"${w}"`).join(", ")}`
-        );
-      }
-    });
-  },
+  as: PropTypes.oneOf(AS),
+  ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
   color: props => {
-    allowedColors.forEach(({ intent, allowedColors }) => {
+    allowedColors.forEach(({ textStyles, allowedColors }) => {
       if (
-        intent.includes(props.intent) &&
+        textStyles.includes(props.textStyle) &&
         !allowedColors.includes(props.color)
       ) {
         return new Error(
-          `Text: color="${props.color}" is not allowed for intent="${
-            props.intent
+          `Text: color="${props.color}" is not allowed for textStyle="${
+            props.textStyle
           }". Must be one of: ${allowedColors.map(c => `"${c}"`).join(", ")}`
         );
       }

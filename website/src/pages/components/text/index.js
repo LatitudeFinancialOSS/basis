@@ -8,62 +8,47 @@ import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { designTokens, Text } = allDesignSystem;
-const { INTENTS, ALIGNS, DEFAULT_PROPS, allowedColors, allowedWeights } = Text;
+const { AS, TEXT_STYLES, ALIGNS, DEFAULT_PROPS, allowedColors } = Text;
 const scope = allDesignSystem;
 
-const intentOptions = getRadioOptions(INTENTS);
-const sizeOptions = getRadioOptions(["1", "2", "3", "4", "5", "6"]);
+const asOptions = getRadioOptions(AS);
+const textStyleOptions = getRadioOptions(TEXT_STYLES);
 const alignOptions = getRadioOptions(ALIGNS);
 const wrapOptions = getCheckboxOptions();
 
-function getAllowedWeightsForIntent(intent) {
-  const item = allowedWeights.find(item => item.intent.includes(intent));
+function getAllowedColorsForTextStyle(textStyle) {
+  const item = allowedColors.find(({ textStyles }) =>
+    textStyles.includes(textStyle)
+  );
 
-  return item ? item.allowedWeights : [];
-}
-
-function getAllowedColorsForIntent(intent) {
-  const item = allowedColors.find(item => item.intent.includes(intent));
-
-  return item ? item.allowedColors : [];
+  return item?.allowedColors ?? [];
 }
 
 function TextPage() {
-  const [intent, setIntent] = useState(DEFAULT_PROPS.intent);
-  const isHeading = ["h1", "h2", "h3", "h4", "h5", "h6"].includes(intent);
-  const [size, setSize] = useState(isHeading ? intent[1] : null);
+  const [as, setAs] = useState(DEFAULT_PROPS.as);
+  const [textStyle, setTextStyle] = useState(DEFAULT_PROPS.textStyle);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [align, setAlign] = useState(DEFAULT_PROPS.align);
-  const [weight, setWeight] = useState(DEFAULT_PROPS.weight);
-  const colorOptions = getRadioOptions(getAllowedColorsForIntent(intent));
-  const weightOptions = getRadioOptions(getAllowedWeightsForIntent(intent));
+  const colorOptions = getRadioOptions(getAllowedColorsForTextStyle(textStyle));
   const [wrap, setWrap] = useState(DEFAULT_PROPS.wrap);
-  const setIntentAndResetValues = intent => {
-    setIntent(intent);
+  const setTextStyleAndResetValues = textStyle => {
+    setTextStyle(textStyle);
 
-    if (!getAllowedColorsForIntent(intent).includes(color)) {
+    if (!getAllowedColorsForTextStyle(textStyle).includes(color)) {
       setColor(DEFAULT_PROPS.color);
-    }
-
-    if (!getAllowedWeightsForIntent(intent).includes(weight)) {
-      setWeight(DEFAULT_PROPS.weight);
-    }
-
-    if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(intent)) {
-      setSize(intent[1]);
     }
   };
   const code = formatCode(
     `<Text ${nonDefaultProps([
       {
-        prop: "intent",
-        value: intent,
-        defaultValue: DEFAULT_PROPS.intent
+        prop: "as",
+        value: as,
+        defaultValue: DEFAULT_PROPS.as
       },
       {
-        prop: "size",
-        value: size,
-        defaultValue: isHeading ? intent[1] : null
+        prop: "textStyle",
+        value: textStyle,
+        defaultValue: DEFAULT_PROPS.textStyle
       },
       {
         prop: "color",
@@ -74,11 +59,6 @@ function TextPage() {
         prop: "align",
         value: align,
         defaultValue: DEFAULT_PROPS.align
-      },
-      {
-        prop: "weight",
-        value: weight,
-        defaultValue: DEFAULT_PROPS.weight
       },
       {
         prop: "wrap",
@@ -103,20 +83,18 @@ function TextPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Intent"
-          options={intentOptions}
-          selectedValue={intent}
-          setSelectedValue={setIntentAndResetValues}
+          heading="As"
+          options={asOptions}
+          selectedValue={as}
+          setSelectedValue={setAs}
         />
-        {isHeading && (
-          <RadioGroupSetting
-            css={{ marginLeft: designTokens.space[13] }}
-            heading="Size"
-            options={sizeOptions}
-            selectedValue={size}
-            setSelectedValue={setSize}
-          />
-        )}
+        <RadioGroupSetting
+          css={{ marginLeft: designTokens.space[13] }}
+          heading="Text Style"
+          options={textStyleOptions}
+          selectedValue={textStyle}
+          setSelectedValue={setTextStyleAndResetValues}
+        />
         {colorOptions.length > 1 && (
           <RadioGroupSetting
             css={{ marginLeft: designTokens.space[13] }}
@@ -133,15 +111,6 @@ function TextPage() {
           selectedValue={align}
           setSelectedValue={setAlign}
         />
-        {weightOptions.length > 1 && (
-          <RadioGroupSetting
-            css={{ marginLeft: designTokens.space[13] }}
-            heading="Weight"
-            options={weightOptions}
-            selectedValue={weight}
-            setSelectedValue={setWeight}
-          />
-        )}
         <RadioGroupSetting
           css={{ marginLeft: designTokens.space[13] }}
           heading="Wrap"

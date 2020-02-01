@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Flex, Button } from "basis";
+import { Container, Flex, Button, Text } from "basis";
 import Layout from "./Layout";
 
 function KitchenSinkFlex() {
@@ -17,11 +17,11 @@ function KitchenSinkFlex() {
 
       <Container padding="4" bg="grey.t05">
         <Flex direction="column" gutter="1">
-          <Button variant="secondary">Vertical</Button>
-          <Button variant="secondary">Stack</Button>
-          <Button variant="secondary">With</Button>
-          <Button variant="secondary">Small</Button>
-          <Button variant="secondary">Gutter</Button>
+          <Text>Vertical</Text>
+          <Text>Stack</Text>
+          <Text>With</Text>
+          <Text>Small</Text>
+          <Text>Gutter</Text>
         </Flex>
       </Container>
 

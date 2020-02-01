@@ -40,7 +40,7 @@ function Item(_props) {
         <div css={theme["stepper.itemLabel"]}>
           {label && (
             <Text
-              intent="body2"
+              textStyle="body2"
               color={isCurrent ? "primary.blue.t100" : "black"}
               align="center"
             >
@@ -77,7 +77,7 @@ function Item(_props) {
         >
           {isPrevious && !isMinor && <Icon name="tick" color="white" />}
           {!isPrevious && !isMinor && (
-            <Text intent="subtitle2" color={isPrevious ? "white" : "black"}>
+            <Text textStyle="subtitle2" color={isPrevious ? "white" : "black"}>
               <strong>{majorStepNumber}</strong>
             </Text>
           )}

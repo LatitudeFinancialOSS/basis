@@ -251,6 +251,12 @@ export function responsiveHeight(propsAtBreakpoint) {
   return height === null ? {} : { height };
 }
 
+export function responsiveTextStyle(propsAtBreakpoint, theme) {
+  const css = theme.getTextStyleCSS(propsAtBreakpoint.textStyle);
+
+  return css === null ? {} : css;
+}
+
 export function responsiveTextAlign(propsAtBreakpoint) {
   const textAlign = getTextAlignValue(propsAtBreakpoint.textAlign);
 
@@ -288,7 +294,7 @@ export function responsiveFlexGutter({ gutter, direction }) {
           and we would get both `marginLeft` AND `marginTop` on wide screens,
           which is not what we want.
         */
-        "> * + *": {
+        ":not(:first-of-type)": {
           marginLeft: direction === "row" ? margin : "0px",
           marginTop: direction === "row" ? "0px" : margin
         }

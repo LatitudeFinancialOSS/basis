@@ -41,7 +41,7 @@ function ContainerPage() {
     ])}
     >
       <Flex direction="column" gutter="4">
-        <Text intent="h3">Here goes anything you want.</Text>
+        <Text as="h3" textStyle="heading3">Here goes anything you want.</Text>
         <Text>Here are some links:
           <Link href="https://google.com" newTab={true}>Google</Link>{" "}
           <Link href="https://facebook.com" newTab={true}>Facebook</Link>
@@ -52,7 +52,7 @@ function ContainerPage() {
           <Button variant="secondary" margin="0 0 0 2">Cancel</Button>
         </Text>
         <Text>Here is a nested container:</Text>
-        <Container bg="primary.blue.t100" margin="2" padding="6" textAlign-md="center">
+        <Container bg="primary.blue.t100" padding="6" textAlign-md="center">
           <Text>Text color is white here. Magic!</Text>
         </Container>
       </Flex>

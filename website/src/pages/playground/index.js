@@ -20,8 +20,8 @@ import { formatCode } from "../../utils/formatting";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import useCanary from "../../hooks/useCanary";
 import ComponentPreview from "../../components/ComponentPreview";
-import Canary from "../../components/Canary";
 import DemoBlock from "../../components/DemoBlock";
 import InspectIcon from "../../components/icons/Inspect";
 
@@ -54,7 +54,7 @@ const prettify = code =>
 
 const defaultCode = prettify(`
   <Container bg="secondary.lightBlue.t30" padding="2 4" padding-sm="3 5" padding-md="5 7">
-    <Text intent="h1" size="5" size-sm="3" size-md="2">
+    <Text as="h1" textStyle="heading5" textStyle-sm="heading3" textStyle-md="heading2">
       Hello World
     </Text>
   </Container>
@@ -304,7 +304,7 @@ function PlaygroundSettings({ screens, setScreens }) {
             />
             <button aria-label="Add New Screen">Add</button>
             {newScreenError && (
-              <Text intent="body2" color="conditional.negative.text">
+              <Text textStyle="body2" color="conditional.negative.text">
                 {newScreenError}
               </Text>
             )}
@@ -328,6 +328,7 @@ PlaygroundSettings.propTypes = {
 
 function Playground({ location }) {
   const theme = useTheme();
+  const isCanary = useCanary();
   const [code, setCode] = useState("");
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useLocalStorage(
@@ -483,7 +484,7 @@ function Playground({ location }) {
                 }}
               >
                 <Flex gutter="4">
-                  <Canary>
+                  {isCanary && (
                     <Button
                       variant="icon"
                       onClick={() => {
@@ -495,7 +496,7 @@ function Playground({ location }) {
                         color={isInspectMode ? "highlight.blue.t100" : null}
                       />
                     </Button>
-                  </Canary>
+                  )}
                   <Button
                     variant="secondary"
                     onClick={() => {

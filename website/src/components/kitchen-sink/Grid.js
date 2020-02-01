@@ -8,11 +8,11 @@ function KitchenSinkGrid() {
       <Container padding="4">
         <Grid preset="page">
           <Grid.Item colSpan="0" colSpan-sm="0-1" colSpan-lg="0-2">
-            <Text weight="bold">
-              {`Lorem Ipsum is simply dummy text of the printing and typesetting
+            <Text>
+              <strong>{`Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.`}
+              type and scrambled it to make a type specimen book.`}</strong>
             </Text>
           </Grid.Item>
           <Grid.Item colSpan="2-3" colSpan-sm="4-7" colSpan-lg="6-11">
@@ -32,7 +32,7 @@ function KitchenSinkGrid() {
             </Text>
           </Grid.Item>
           <Grid.Item colSpan="all">
-            <Text intent="legal" margin="6 0 0 0">
+            <Text textStyle="legal" margin="6 0 0 0">
               {`It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum is that it has a more-or-less normal

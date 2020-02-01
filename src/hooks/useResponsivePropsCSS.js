@@ -78,13 +78,13 @@ export function getBreakpointToPropsMap(theme, props, defaultProps) {
   return result;
 }
 
-function getCSSforBreakpoint(responsiveProps, propsAtBreakpoint) {
+function getCSSforBreakpoint(responsiveProps, propsAtBreakpoint, theme) {
   let result = {};
 
   for (const prop in responsiveProps) {
     result = {
       ...result,
-      ...responsiveProps[prop](propsAtBreakpoint)
+      ...responsiveProps[prop](propsAtBreakpoint, theme)
     };
   }
 
@@ -130,9 +130,9 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
     const bp = breakpoints[i];
     const newCSS = getCSSforBreakpoint(
       responsiveProps,
-      breakpointToPropsMap[bp]
+      breakpointToPropsMap[bp],
+      theme
     );
-
     const necessaryNewCSS = removeRedundantCSS(
       newCSS,
       result,

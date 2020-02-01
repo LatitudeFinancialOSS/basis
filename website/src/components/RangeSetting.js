@@ -14,8 +14,8 @@ function RangeSetting({
 }) {
   return (
     <div className={className}>
-      <Text weight="bold" color="grey.t75" margin="0 0 2 0">
-        {heading.toUpperCase()}
+      <Text color="grey.t75" margin="0 0 2 0">
+        <strong>{heading.toUpperCase()}</strong>
       </Text>
       <Flex>
         <input

@@ -10,8 +10,8 @@ function Section({ heading, children }) {
   return (
     <Container margin="5 0 4">
       {heading && (
-        <Text weight="bold" color="grey.t75" margin="0 6 2">
-          {heading.toUpperCase()}
+        <Text color="grey.t75" margin="0 6 2">
+          <strong>{heading.toUpperCase()}</strong>
         </Text>
       )}
       <ul css={{ margin: 0, padding: 0 }}>{children}</ul>
@@ -94,7 +94,9 @@ function Sidebar() {
         }}
       >
         <Link to="/">
-          <Text intent="h5">Basis</Text>
+          <Text as="h5" textStyle="heading5">
+            Basis
+          </Text>
         </Link>
       </div>
       <div

@@ -41,6 +41,9 @@ module.exports = {
       Link: {
         status: COMPONENT_STATUS.READY
       },
+      List: {
+        status: COMPONENT_STATUS.READY
+      },
       LoadingIcon: {
         status: COMPONENT_STATUS.DRAFT
       },

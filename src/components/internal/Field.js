@@ -42,7 +42,7 @@ function Field({
           <Grid cols={1} rowsGutter={1}>
             {errors.map((error, index) => (
               <Text
-                intent="body2"
+                textStyle="body2"
                 color="conditional.negative.text"
                 key={index}
               >
@@ -53,7 +53,7 @@ function Field({
         </div>
       ) : helpText ? (
         <div css={theme["field.helpText"]} id={auxId}>
-          <Text intent="body2">{helpText}</Text>
+          <Text textStyle="body2">{helpText}</Text>
         </div>
       ) : null}
     </div>

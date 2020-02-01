@@ -5,7 +5,7 @@ import Text from "./Text";
 import Container from "./Container";
 
 describe("Text", () => {
-  it("no props", () => {
+  it("default", () => {
     const { getByText } = render(<Text>Hello World</Text>);
     const node = getByText("Hello World");
 
@@ -23,7 +23,11 @@ describe("Text", () => {
   });
 
   it("h1", () => {
-    const { getByText } = render(<Text intent="h1">Hello World</Text>);
+    const { getByText } = render(
+      <Text as="h1" textStyle="heading1">
+        Hello World
+      </Text>
+    );
     const node = getByText("Hello World");
 
     expect(node.tagName).toBe("H1");
@@ -37,9 +41,9 @@ describe("Text", () => {
     `);
   });
 
-  it(`h1 with size="2"`, () => {
+  it(`h1 with textStyle="heading2"`, () => {
     const { getByText } = render(
-      <Text intent="h1" size="2">
+      <Text as="h1" textStyle="heading2">
         Hello World
       </Text>
     );
@@ -58,7 +62,7 @@ describe("Text", () => {
 
   it("h2 and center aligned", () => {
     const { getByText } = render(
-      <Text intent="h2" align="center">
+      <Text as="h2" textStyle="heading2" align="center">
         Hello World
       </Text>
     );
@@ -77,7 +81,7 @@ describe("Text", () => {
 
   it("h3 and primary.blue.t100", () => {
     const { getByText } = render(
-      <Text intent="h3" color="primary.blue.t100">
+      <Text as="h3" textStyle="heading3" color="primary.blue.t100">
         Hello World
       </Text>
     );

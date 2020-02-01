@@ -13,6 +13,7 @@ import {
   isCSSinOrder,
   responsiveMargin,
   responsivePadding,
+  responsiveTextStyle,
   responsiveFlexDirection,
   responsiveFlexGutter,
   responsiveFlexPlaceItems
@@ -233,29 +234,22 @@ describe("useResponsivePropsCSS", () => {
     expect(isCSSinOrder(result.current)).toBe(true);
   });
 
-  it("Text - header", () => {
+  it("Text - heading", () => {
     const props = {
-      intent: "h4",
-      "size-sm": 3,
-      "size-lg": "2"
-    };
-    const defaultProps = {
-      ...Text.DEFAULT_PROPS,
-      size: "4"
+      as: "h4",
+      textStyle: "heading4",
+      "textStyle-sm": "heading3",
+      "textStyle-lg": "heading2",
+      margin: "5"
     };
     const { result } = renderHook(
-      ({ isHeader, theme }) =>
-        useResponsivePropsCSS(props, defaultProps, {
-          size: ({ size }) => {
-            return isHeader ? theme[`text.size${size}`] : {};
-          }
+      () =>
+        useResponsivePropsCSS(props, Text.DEFAULT_PROPS, {
+          margin: responsiveMargin,
+          textStyle: responsiveTextStyle
         }),
       {
-        wrapper: TestWrapper,
-        initialProps: {
-          isHeader: true,
-          theme: defaultTheme
-        }
+        wrapper: TestWrapper
       }
     );
 
@@ -265,6 +259,13 @@ describe("useResponsivePropsCSS", () => {
       fontWeight: 600,
       letterSpacing: "-0.52px",
       lineHeight: "28px",
+      margin: "20px",
+      "& b": {
+        fontWeight: 600
+      },
+      "& strong": {
+        fontWeight: 600
+      },
       "@media (min-width: 576px)": {
         fontSize: "32px",
         letterSpacing: "-0.7px",
@@ -279,33 +280,34 @@ describe("useResponsivePropsCSS", () => {
     expect(isCSSinOrder(result.current)).toBe(true);
   });
 
-  it("Text - not header", () => {
+  it("Text - paragraph", () => {
     const props = {
-      intent: "body2",
-      "size-sm": 3,
-      "size-lg": "2"
-    };
-    const defaultProps = {
-      ...Text.DEFAULT_PROPS,
-      size: null
+      textStyle: "body2"
     };
     const { result } = renderHook(
-      ({ isHeader, theme }) =>
-        useResponsivePropsCSS(props, defaultProps, {
-          size: ({ size }) => {
-            return isHeader ? theme[`text.size${size}`] : {};
-          }
+      () =>
+        useResponsivePropsCSS(props, Text.DEFAULT_PROPS, {
+          margin: responsiveMargin,
+          textStyle: responsiveTextStyle
         }),
       {
-        wrapper: TestWrapper,
-        initialProps: {
-          isHeader: false,
-          theme: defaultTheme
-        }
+        wrapper: TestWrapper
       }
     );
 
-    expect(result.current).toStrictEqual({});
+    expect(result.current).toStrictEqual({
+      fontFamily: "'Roboto', sans-serif",
+      fontSize: "14px",
+      fontWeight: 300,
+      letterSpacing: "0px",
+      lineHeight: "20px",
+      "& b": {
+        fontWeight: 500
+      },
+      "& strong": {
+        fontWeight: 500
+      }
+    });
   });
 
   it("Flex - direction", () => {
@@ -356,12 +358,12 @@ describe("useResponsivePropsCSS", () => {
     );
 
     expect(result.current).toStrictEqual({
-      "> * + *": {
+      ":not(:first-of-type)": {
         marginTop: "24px",
         marginLeft: "0px"
       },
       "@media (min-width: 576px)": {
-        "> * + *": {
+        ":not(:first-of-type)": {
           marginTop: "0px",
           marginLeft: "24px"
         }

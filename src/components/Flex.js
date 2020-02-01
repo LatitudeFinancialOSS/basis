@@ -11,6 +11,7 @@ import {
   responsiveFlexGutter,
   responsiveFlexPlaceItems
 } from "../utils/css";
+import { isObjectEmpty } from "../utils/core";
 
 const DIRECTIONS = ["row", "column"];
 const PLACE_ITEMS = [
@@ -52,7 +53,9 @@ function Flex(_props) {
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     height: responsiveHeight,
     placeItems: responsiveFlexPlaceItems,
-    direction: responsiveFlexDirection,
+    direction: responsiveFlexDirection
+  });
+  const flexItemCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     gutter: responsiveFlexGutter
   });
 
@@ -65,7 +68,13 @@ function Flex(_props) {
       }}
       data-testid={testId}
     >
-      {childrenArray}
+      {isObjectEmpty(flexItemCSS)
+        ? childrenArray
+        : childrenArray.map((child, index) => (
+            <div css={flexItemCSS} key={index}>
+              {child}
+            </div>
+          ))}
     </div>
   );
 }

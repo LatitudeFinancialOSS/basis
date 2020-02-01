@@ -66,7 +66,7 @@ function Page({ pageContext, children }) {
                     padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`
                   }}
                 >
-                  <Text intent="h1" size="4">
+                  <Text as="h1" textStyle="heading4">
                     {header}
                   </Text>
                   {status && (

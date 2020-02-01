@@ -6,7 +6,7 @@ function KitchenSinkLayout({ name, children }) {
   return (
     <Container>
       <Container bg="primary.blue.t100" padding="6">
-        <Text intent="h2" align="center">
+        <Text as="h2" textStyle="heading2" align="center">
           {name}
         </Text>
       </Container>

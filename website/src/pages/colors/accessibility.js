@@ -13,7 +13,7 @@ import {
 import { colorContrast, accessibleContrast } from "../../utils/color";
 
 const { BACKGROUNDS } = Container;
-const { COLORS, INTENTS, WEIGHTS, allowedWeights } = Text;
+const { TEXT_STYLES, COLORS } = Text;
 
 const TEXT_COLOR_COLUMN_WIDTH = designTokens.sizes[18];
 const CELL_WIDTH = designTokens.sizes[18];
@@ -41,16 +41,11 @@ const showOptions = [
     value: "Fail AAA"
   }
 ];
-const intentOptions = INTENTS.map(intent => ({
-  label: intent,
-  value: intent
+const textStyleOptions = TEXT_STYLES.map(textStyle => ({
+  label: textStyle,
+  value: textStyle
 }));
-const SIZES = ["1", "2", "3", "4", "5", "6"];
-const sizeOptions = SIZES.map(size => ({
-  label: size,
-  value: size
-}));
-const weightOptions = WEIGHTS.map(weight => ({
+const weightOptions = ["regular", "bold"].map(weight => ({
   label: weight,
   value: weight
 }));
@@ -61,26 +56,17 @@ const notApplicableOptions = [
   }
 ];
 
-function isHeading(intent) {
-  return ["h1", "h2", "h3", "h4", "h5", "h6"].includes(intent);
-}
-
-function isBoldAllowedForIntent(intent) {
-  for (let i = 0; i < allowedWeights.length; i++) {
-    if (allowedWeights[i].intent.includes(intent)) {
-      return allowedWeights[i].allowedWeights.length > 1;
-    }
-  }
-
-  return false;
+function isBoldAllowedForTextStyle(textStyle) {
+  return ["subtitle1", "subtitle2", "body1", "body2", "legal"].includes(
+    textStyle
+  );
 }
 
 function MatrixCell({
   color,
   backgroundColor,
-  intent,
-  weight,
-  size,
+  textStyle,
+  isBold,
   text,
   minContrast,
   shouldPass
@@ -118,8 +104,8 @@ function MatrixCell({
       }}
       aria-hidden={isVisible ? null : "true"}
     >
-      <Text intent={intent} weight={weight} size={size} color={color}>
-        {text}
+      <Text textStyle={textStyle} color={color}>
+        {isBold ? <strong>{text}</strong> : text}
       </Text>
       <div
         css={{
@@ -132,7 +118,7 @@ function MatrixCell({
           backgroundColor: rgba(designTokens.colors.black, 0.6)
         }}
       >
-        <Text intent="body2" color="white" align="center">
+        <Text textStyle="body2" color="white" align="center">
           {contrast.toFixed(2)}
         </Text>
       </div>
@@ -143,9 +129,8 @@ function MatrixCell({
 MatrixCell.propTypes = {
   color: PropTypes.oneOf(COLORS).isRequired,
   backgroundColor: PropTypes.oneOf(BACKGROUNDS).isRequired,
-  intent: PropTypes.oneOf(INTENTS).isRequired,
-  weight: PropTypes.oneOf(WEIGHTS).isRequired,
-  size: PropTypes.oneOf(SIZES),
+  textStyle: PropTypes.oneOf(TEXT_STYLES).isRequired,
+  isBold: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   minContrast: PropTypes.number,
   shouldPass: PropTypes.bool
@@ -156,11 +141,8 @@ function AccessibilityPage() {
   const [show, setShow] = useState({
     value: "Pass AA"
   });
-  const [intent, setIntent] = useState({
+  const [textStyle, setTextStyle] = useState({
     value: "body1"
-  });
-  const [size, setSize] = useState({
-    value: ""
   });
   const [weight, setWeight] = useState({
     value: "regular"
@@ -168,12 +150,10 @@ function AccessibilityPage() {
   const [text, setText] = useState({
     value: "Text"
   });
-  const isIntentHeading = isHeading(intent.value);
-  const isBoldAllowed = isBoldAllowedForIntent(intent.value);
+  const isBoldAllowed = isBoldAllowedForTextStyle(textStyle.value);
   const { fontSize, fontWeight } = {
-    ...theme[`text.${intent.value}`],
-    ...(weight.value === "bold" && theme[`text.${intent.value}.bold`]),
-    ...(isIntentHeading && theme[`text.size${size.value}`])
+    ...theme.textStyles[textStyle],
+    ...(weight.value === "bold" && theme.textStyles[`${textStyle}.bold`])
   };
   const showParts = show.value.split(" ");
   const shouldPass = showParts[0] === "All" ? null : showParts[0] === "Pass";
@@ -189,7 +169,7 @@ function AccessibilityPage() {
   return (
     <div css={{ display: "flex", height: "100%" }}>
       <div css={{ flexGrow: 1, overflow: "auto" }}>
-        <Text intent="h3" size="5" color="grey.t75" margin="6">
+        <Text as="h3" textStyle="heading5" color="grey.t75" margin="6">
           Color contrast matrix
         </Text>
         <div
@@ -213,8 +193,8 @@ function AccessibilityPage() {
                 }}
                 key={backgroundColor}
               >
-                <Text intent="body2" weight="bold">
-                  {backgroundColor}
+                <Text textStyle="body2">
+                  <strong>{backgroundColor}</strong>
                 </Text>
               </div>
             ))}
@@ -237,17 +217,16 @@ function AccessibilityPage() {
                   boxSizing: "border-box"
                 }}
               >
-                <Text intent="body2" weight="bold">
-                  {color}
+                <Text textStyle="body2">
+                  <strong>{color}</strong>
                 </Text>
               </div>
               {BACKGROUNDS.map(backgroundColor => (
                 <MatrixCell
                   color={color}
                   backgroundColor={backgroundColor}
-                  intent={intent.value}
-                  weight={weight.value}
-                  size={size.value || undefined}
+                  textStyle={textStyle.value}
+                  isBold={weight.value === "bold"}
                   text={text.value}
                   minContrast={minContrast}
                   shouldPass={shouldPass}
@@ -282,25 +261,11 @@ function AccessibilityPage() {
             onChange={setShow}
           />
           <Select
-            label="Intent"
-            options={intentOptions}
+            label="Text Style"
+            options={textStyleOptions}
             placeholder={null}
-            data={intent}
-            onChange={data => {
-              setIntent(data);
-              setSize({
-                ...size,
-                value: isHeading(data.value) ? data.value[1] : ""
-              });
-            }}
-          />
-          <Select
-            label="Size"
-            placeholder={null}
-            options={isIntentHeading ? sizeOptions : notApplicableOptions}
-            isDisabled={!isIntentHeading}
-            data={size}
-            onChange={setSize}
+            data={textStyle}
+            onChange={setTextStyle}
           />
           <Select
             label="Weight"

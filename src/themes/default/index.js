@@ -5,11 +5,13 @@ import grid from "./grid";
 import icon from "./icon";
 import input from "./input";
 import link from "./link";
+import list from "./list";
 import loadingIcon from "./loadingIcon";
 import radioGroup from "./radioGroup";
 import select from "./select";
 import stepper from "./stepper";
 import text from "./text";
+import textStyles from "./textStyles";
 
 export default {
   ...button,
@@ -19,11 +21,13 @@ export default {
   ...icon,
   ...input,
   ...link,
+  ...list,
   ...loadingIcon,
   ...radioGroup,
   ...select,
   ...stepper,
   ...text,
+  textStyles,
   breakpoints: {
     xs: "380px",
     sm: "576px",

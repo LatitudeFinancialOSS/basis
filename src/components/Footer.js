@@ -82,7 +82,7 @@ LegalLinks.propTypes = {
 function LegalCopy({ children, testId }) {
   return (
     <Text
-      intent="legal"
+      textStyle="legal"
       align="center"
       margin="7 0 0 0"
       margin-md="6 0 0 0"

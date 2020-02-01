@@ -28,11 +28,28 @@ function getColor(colorName) {
   return result;
 }
 
+function getTextStyleCSS(textStyle, theme) {
+  if (typeof textStyle !== "string") {
+    return null;
+  }
+
+  const boldCSS = theme.textStyles[`${textStyle}.bold`];
+
+  return {
+    ...theme.textStyles[textStyle],
+    ...(boldCSS && {
+      "& strong": boldCSS,
+      "& b": boldCSS
+    })
+  };
+}
+
 export function enhanceTheme(theme) {
   return {
     ...theme,
     minMediaQueries: getMinMediaQueries(theme.breakpoints),
     exclusiveMediaQueries: getExclusiveMediaQueries(theme.breakpoints),
-    getColor
+    getColor,
+    getTextStyleCSS: textStyle => getTextStyleCSS(textStyle, theme)
   };
 }
