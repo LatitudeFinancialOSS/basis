@@ -41,17 +41,7 @@ function ListPage() {
     <Text>
       <strong>Nested list</strong>
     </Text>
-    <List ${nonDefaultProps([
-      {
-        prop: "type",
-        value: type,
-        defaultValue: DEFAULT_PROPS.type
-      },
-      {
-        prop: "margin",
-        value: "3 0 0 0"
-      }
-    ])}>
+    <List margin="3 0 0 0">
       <List.Item>First</List.Item>
       <List.Item>Second</List.Item>
       <List.Item>Third</List.Item>

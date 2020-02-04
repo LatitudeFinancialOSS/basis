@@ -20,8 +20,11 @@ const NAMES = [
   "eye-hidden",
   "eye-visible",
   "face-id",
+  "facebook",
   "fingerprint",
   "hamburger",
+  "instagram",
+  "linkedin",
   "lock-small",
   "lock",
   "mail",
@@ -39,7 +42,8 @@ const NAMES = [
   "tick",
   "time",
   "triangle-down",
-  "triangle-up"
+  "triangle-up",
+  "twitter"
 ];
 const COLORS = [
   "grey.t75",
@@ -49,6 +53,7 @@ const COLORS = [
   "conditional.negative.graphics",
   "white"
 ];
+const HOVER_COLORS = ["secondary.lightBlue.t80"];
 const SECONDARY_COLORS = ["highlight.blue.t100"];
 
 const DEFAULT_PROPS = {
@@ -58,19 +63,21 @@ const DEFAULT_PROPS = {
 
 Icon.NAMES = NAMES;
 Icon.COLORS = COLORS;
+Icon.HOVER_COLORS = HOVER_COLORS;
 Icon.SECONDARY_COLORS = SECONDARY_COLORS;
 Icon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Icon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { name, color, secondaryColor, testId } = props;
+  const { name, color, hoverColor, secondaryColor, testId } = props;
   const theme = useTheme();
   const IconComponent = require(`../icons/${name}`).default;
 
   return (
     <IconComponent
-      primaryColor={theme[`icon.${color}`].fill}
-      secondaryColor={theme[`icon.${secondaryColor}`].fill}
+      primaryColor={theme.getColor(color)}
+      secondaryColor={theme.getColor(secondaryColor)}
+      hoverColor={theme.getColor(hoverColor)}
       testId={testId}
     />
   );
@@ -79,6 +86,7 @@ function Icon(_props) {
 Icon.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
   color: PropTypes.oneOf(COLORS),
+  hoverColor: PropTypes.oneOf(HOVER_COLORS),
   secondaryColor: PropTypes.oneOf(SECONDARY_COLORS),
   testId: PropTypes.string
 };

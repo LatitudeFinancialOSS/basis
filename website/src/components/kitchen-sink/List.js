@@ -48,7 +48,7 @@ function KitchenSinkList() {
             <Text>
               <b>Nested list</b>
             </Text>
-            <List type="ordered" textStyle="body2" margin="3 0 0 0">
+            <List textStyle="body2" margin="3 0 0 0">
               <List.Item>Hello</List.Item>
               <List.Item>World</List.Item>
             </List>

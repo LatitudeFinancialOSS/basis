@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import Field from "./internal/Field";
-import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
+import useBackground from "../hooks/useBackground";
 import useValidation from "../hooks/useValidation";
+import { mergeProps } from "../utils/component";
+import Field from "./internal/Field";
 
 const COLORS = ["grey.t05", "white"];
 
@@ -39,9 +40,20 @@ const DEFAULT_PROPS = {
 Select.COLORS = COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Select(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function Select(props) {
+  const theme = useTheme();
+  const { inputColor } = useBackground();
+  const inheritedProps = {
+    color: inputColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color),
+    isFullWidth: isFullWidth => typeof isFullWidth === "boolean",
+    isOptional: isOptional => typeof isOptional === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean"
+  });
   const {
+    color,
     label,
     placeholder,
     onFocus,
@@ -55,21 +67,17 @@ function Select(_props) {
     onChange,
     testId,
     __internal__focus
-  } = props;
-  const theme = useTheme();
-  const { inputColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  } = mergedProps;
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState(false);
   const { value: selectedValue, errors } = data;
   const validate = useValidation({
-    props,
+    props: mergedProps,
     extraData: {
       isTouched,
-      props
+      props: mergedProps
     }
   });
 

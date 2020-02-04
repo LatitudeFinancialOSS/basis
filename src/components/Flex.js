@@ -2,10 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
+  responsiveMarginType,
+  responsiveWidthType,
   responsiveHeightType,
   responsivePropType
 } from "../hooks/useResponsiveProp";
 import {
+  responsiveMargin,
+  responsiveWidth,
   responsiveHeight,
   responsiveFlexDirection,
   responsiveFlexGutter,
@@ -39,6 +43,7 @@ const PLACE_ITEMS = [
 
 const DEFAULT_PROPS = {
   direction: "row",
+  wrap: false,
   placeItems: "top left"
 };
 
@@ -48,44 +53,61 @@ Flex.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Flex(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { children, testId } = props;
+  const { wrap, children, testId } = props;
   const childrenArray = React.Children.toArray(children);
+  const wrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    margin: responsiveMargin,
+    width: responsiveWidth,
+    height: responsiveHeight
+  });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    height: responsiveHeight,
+    gutter: responsiveFlexGutter("items-container"),
     placeItems: responsiveFlexPlaceItems,
     direction: responsiveFlexDirection
   });
   const flexItemCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    gutter: responsiveFlexGutter
+    gutter: responsiveFlexGutter("item")
   });
 
   return (
     <div
       css={{
-        display: "flex",
-        boxSizing: "border-box",
-        ...flexCSS
+        display: "flex", // Without it, parent and child margins collapse. See: https://stackoverflow.com/a/19719427/247243
+        ...wrapperCSS
       }}
       data-testid={testId}
     >
-      {isObjectEmpty(flexItemCSS)
-        ? childrenArray
-        : childrenArray.map((child, index) => (
-            <div css={flexItemCSS} key={index}>
-              {child}
-            </div>
-          ))}
+      <div
+        css={{
+          display: "flex",
+          width: "100%",
+          height: "100%",
+          flexWrap: wrap === true ? "wrap" : "nowrap",
+          ...flexCSS
+        }}
+      >
+        {isObjectEmpty(flexItemCSS)
+          ? childrenArray
+          : childrenArray.map((child, index) => (
+              <div css={flexItemCSS} key={index}>
+                {child}
+              </div>
+            ))}
+      </div>
     </div>
   );
 }
 
 Flex.propTypes = {
-  ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
+  ...responsiveMarginType,
+  ...responsiveWidthType,
   ...responsiveHeightType,
+  ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
   ...responsivePropType(
     "gutter",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
+  wrap: PropTypes.bool,
   ...responsivePropType("placeItems", PropTypes.oneOf(PLACE_ITEMS)),
   children: PropTypes.node.isRequired,
   testId: PropTypes.string

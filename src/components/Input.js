@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import Field from "./internal/Field";
-import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
+import useBackground from "../hooks/useBackground";
 import useValidation from "../hooks/useValidation";
+import { mergeProps } from "../utils/component";
+import Field from "./internal/Field";
 
 const TYPES = ["text", "number"];
 const COLORS = ["grey.t05", "white"];
@@ -37,9 +38,21 @@ Input.TYPES = TYPES;
 Input.COLORS = COLORS;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Input(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function Input(props) {
+  const theme = useTheme();
+  const { inputColor } = useBackground();
+  const inheritedProps = {
+    color: inputColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color),
+    type: type => TYPES.includes(type),
+    isOptional: isOptional => typeof isOptional === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean",
+    isPasteAllowed: isPasteAllowed => typeof isPasteAllowed === "boolean"
+  });
   const {
+    color,
     type,
     label,
     isOptional,
@@ -53,18 +66,14 @@ function Input(_props) {
     onChange,
     testId,
     __internal__focus
-  } = props;
-  const theme = useTheme();
-  const { inputColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  } = mergedProps;
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState(false);
   const { value, errors } = data;
   const validate = useValidation({
-    props,
+    props: mergedProps,
     extraData: {
       isTouched
     }

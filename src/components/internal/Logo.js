@@ -41,7 +41,7 @@ function Logo(_props) {
 
 Logo.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
-  color: PropTypes.oneOf(COLORS).isRequired,
+  color: PropTypes.oneOf(COLORS),
   ...responsiveHeightType,
   testId: PropTypes.string
 };

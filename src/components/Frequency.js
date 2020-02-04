@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
+import useBackground from "../hooks/useBackground";
+import useValidation from "../hooks/useValidation";
+import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
-import useContainer from "../hooks/useContainer";
 import Input from "./Input";
+import Grid from "./Grid";
 import RadioGroup from "./RadioGroup";
 import Select from "./Select";
-import Grid from "./Grid";
-import useValidation from "../hooks/useValidation";
 
 const ALL_FREQUENCY_OPTIONS = [
   {
@@ -86,9 +87,24 @@ Frequency.COLORS = COLORS;
 Frequency.MODES = MODES;
 Frequency.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Frequency(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function Frequency(props) {
+  const { inputColor } = useBackground();
+  const inheritedProps = {
+    color: inputColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color),
+    mode: mode => MODES.includes(mode),
+    annually: annually => typeof annually === "boolean",
+    quarterly: quarterly => typeof quarterly === "boolean",
+    monthly: monthly => typeof monthly === "boolean",
+    fortnightly: fortnightly => typeof fortnightly === "boolean",
+    weekly: weekly => typeof weekly === "boolean",
+    isOptional: isOptional => typeof isOptional === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean"
+  });
   const {
+    color,
     mode,
     label,
     isOptional,
@@ -98,10 +114,7 @@ function Frequency(_props) {
     data,
     onChange,
     testId
-  } = props;
-  const { inputColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  } = mergedProps;
   const [labelId] = useState(() => `frequency-label-${nanoid()}`);
   const [auxId] = useState(() => `frequency-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState({
@@ -110,10 +123,10 @@ function Frequency(_props) {
   });
   const { value, errors } = data;
   const validate = useValidation({
-    props,
+    props: mergedProps,
     extraData: {
       isTouched,
-      props
+      props: mergedProps
     }
   });
   const inputComponent = (
@@ -145,7 +158,7 @@ function Frequency(_props) {
     />
   );
   const frequencyOptions = ALL_FREQUENCY_OPTIONS.reduce((acc, option) => {
-    if (props[option.value] === true) {
+    if (mergedProps[option.value] === true) {
       acc.push(option);
     }
 

@@ -339,37 +339,44 @@ describe("useResponsivePropsCSS", () => {
     expect(isCSSinOrder(result.current)).toBe(true);
   });
 
-  it("Flex - gutter with direction change", () => {
+  it("Flex - gutter", () => {
     const props = {
       height: "100%",
       direction: "column",
-      "direction-sm": "row",
-      gutter: "6",
+      gutter: "6 2",
       placeItems: "top center"
     };
-    const { result } = renderHook(
+    const { result: itemResult } = renderHook(
       () =>
         useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gutter: responsiveFlexGutter
+          gutter: responsiveFlexGutter("item")
         }),
       {
         wrapper: TestWrapper
       }
     );
 
-    expect(result.current).toStrictEqual({
-      ":not(:first-of-type)": {
-        marginTop: "24px",
-        marginLeft: "0px"
-      },
-      "@media (min-width: 576px)": {
-        ":not(:first-of-type)": {
-          marginTop: "0px",
-          marginLeft: "24px"
-        }
-      }
+    expect(itemResult.current).toStrictEqual({
+      marginTop: "24px",
+      marginLeft: "8px"
     });
-    expect(isCSSinOrder(result.current)).toBe(true);
+    expect(isCSSinOrder(itemResult.current)).toBe(true);
+
+    const { result: itemsContainerResult } = renderHook(
+      () =>
+        useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
+          gutter: responsiveFlexGutter("items-container")
+        }),
+      {
+        wrapper: TestWrapper
+      }
+    );
+
+    expect(itemsContainerResult.current).toStrictEqual({
+      marginTop: "-24px",
+      marginLeft: "-8px"
+    });
+    expect(isCSSinOrder(itemsContainerResult.current)).toBe(true);
   });
 
   it("Flex - placeItems with direction change", () => {

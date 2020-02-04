@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Text from "./Text";
 import useTheme from "../hooks/useTheme";
-import { ContainerProvider } from "../hooks/useContainer";
+import { TextStyleProvider } from "../hooks/useTextStyle";
+import { BackgroundProvider } from "../hooks/useBackground";
 import {
   responsiveMarginType,
   responsivePaddingType,
@@ -42,7 +43,14 @@ Container.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { bg, boxShadow, hasBreakpointWidth, children, testId } = props;
+  const {
+    bg,
+    boxShadow,
+    hasBreakpointWidth,
+    textStyle,
+    children,
+    testId
+  } = props;
   const theme = useTheme();
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
@@ -88,22 +96,31 @@ function Container(_props) {
       : {
           boxShadow: tokens.shadows[boxShadow] || null
         };
-
-  return (
-    <ContainerProvider value={{ bg }}>
-      <div
-        css={{
-          boxSizing: "border-box",
-          backgroundColor: theme.getColor(bg),
-          ...responsiveCSS,
-          ...boxShadowCSS
-        }}
-        data-testid={testId}
-      >
-        {children}
-      </div>
-    </ContainerProvider>
+  let container = (
+    <div
+      css={{
+        boxSizing: "border-box",
+        backgroundColor: theme.getColor(bg),
+        ...responsiveCSS,
+        ...boxShadowCSS
+      }}
+      data-testid={testId}
+    >
+      {children}
+    </div>
   );
+
+  if (textStyle) {
+    container = (
+      <TextStyleProvider value={textStyle}>{container}</TextStyleProvider>
+    );
+  }
+
+  if (bg) {
+    container = <BackgroundProvider value={bg}>{container}</BackgroundProvider>;
+  }
+
+  return container;
 }
 
 Container.propTypes = {
@@ -127,6 +144,7 @@ Container.propTypes = {
   ...responsivePaddingType,
   ...responsiveWidthType,
   ...responsiveHeightType,
+  ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
   hasBreakpointWidth: PropTypes.bool,
   children: PropTypes.node,

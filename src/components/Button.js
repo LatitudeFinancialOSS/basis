@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
-import useContainer from "../hooks/useContainer";
-import { responsiveMargin } from "../utils/css";
-import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import { responsiveMargin } from "../utils/css";
+import { mergeProps } from "../utils/component";
 
 const VARIANTS = ["primary", "secondary", "icon"];
 const COLORS = ["highlight.blue.t100", "white"];
@@ -23,10 +24,24 @@ Button.COLORS = COLORS;
 Button.TYPES = TYPES;
 Button.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Button(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function Button(props) {
+  const theme = useTheme();
+  const { background } = useBackground();
+  const inheritedColor =
+    background === "primary.blue.t100" ? "white" : "highlight.blue.t100";
+  const inheritedProps = {
+    color: inheritedColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    variant: variant => VARIANTS.includes(variant),
+    color: color => COLORS.includes(color),
+    isFullWidth: isFullWidth => typeof isFullWidth === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean",
+    type: type => TYPES.includes(type)
+  });
   const {
     variant,
+    color,
     isFullWidth,
     isDisabled,
     type,
@@ -36,14 +51,10 @@ function Button(_props) {
     __internal__keyboardFocus,
     __internal__hover,
     __internal__active
-  } = props;
-  const theme = useTheme();
-  const { buttonColor } = useContainer();
-  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  } = mergedProps;
+  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin
   });
-  const color =
-    !COLORS.includes(_props.color) && buttonColor ? buttonColor : props.color;
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
     ...theme.button,

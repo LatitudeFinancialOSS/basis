@@ -2,7 +2,6 @@ import button from "./button";
 import checkbox from "./checkbox";
 import field from "./field";
 import grid from "./grid";
-import icon from "./icon";
 import input from "./input";
 import link from "./link";
 import list from "./list";
@@ -18,7 +17,6 @@ export default {
   ...checkbox,
   ...field,
   ...grid,
-  ...icon,
   ...input,
   ...link,
   ...list,
@@ -40,6 +38,11 @@ export default {
     md: "720px",
     lg: "960px",
     xl: "1140px"
+  },
+  transitions: {
+    button: "background-color 150ms ease, color 150ms ease",
+    link: "background-color 0.2s ease-out, border-bottom-color 0.2s ease-out",
+    icon: "fill 0.2s ease-out"
   },
   zIndices: {
     header: 1000

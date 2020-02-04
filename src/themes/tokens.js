@@ -177,7 +177,8 @@ const tokens = {
   borderWidths: ["1px", "2px", "4px"],
   transitions: {
     button: "background-color 150ms ease, color 150ms ease",
-    link: "background-color 0.2s ease-out, border-bottom-color 0.2s ease-out"
+    link: "background-color 0.2s ease-out, border-bottom-color 0.2s ease-out",
+    icon: "fill 0.2s ease-out"
   }
 };
 

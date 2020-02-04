@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
+import useTheme from "../hooks/useTheme";
+import useBackground from "../hooks/useBackground";
+import useValidation from "../hooks/useValidation";
+import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import Grid from "./Grid";
 import VisuallyHidden from "./VisuallyHidden";
-import useContainer from "../hooks/useContainer";
-import useTheme from "../hooks/useTheme";
-import useValidation from "../hooks/useValidation";
 
 const COLORS = ["grey.t05", "white"];
 
@@ -146,12 +147,22 @@ Radio.propTypes = {
 RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function RadioGroup(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function RadioGroup(props) {
+  const { inputColor } = useBackground();
+  const inheritedProps = {
+    color: inputColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color),
+    showCircles: showCircles => typeof showCircles === "boolean",
+    isOptional: isOptional => typeof isOptional === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean"
+  });
   const {
     label,
     options,
     columns,
+    color,
     showCircles,
     isOptional,
     helpText,
@@ -161,20 +172,17 @@ function RadioGroup(_props) {
     data,
     onChange,
     testId
-  } = props;
-  const { inputColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  } = mergedProps;
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
   const [radioName] = useState(() => `radio-name-${nanoid()}`);
   const [isTouched, setIsTouched] = useState(false);
   const { value: checkedValue, errors } = data;
   const validate = useValidation({
-    props,
+    props: mergedProps,
     extraData: {
       isTouched,
-      props
+      props: mergedProps
     }
   });
   const onRadioFocus = () => {

@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import Field from "./internal/Field";
-import useContainer from "../hooks/useContainer";
-import Input from "./Input";
-import Grid from "./Grid";
+import useBackground from "../hooks/useBackground";
 import useValidation from "../hooks/useValidation";
 import { pluralize } from "../utils/string";
+import { mergeProps } from "../utils/component";
+import Field from "./internal/Field";
+import Input from "./Input";
+import Grid from "./Grid";
 
 const COLORS = ["grey.t05", "white"];
 
@@ -101,9 +102,18 @@ function getHelpText(years, months, defaultHelpText) {
     .join(" and ");
 }
 
-function TimeSpan(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function TimeSpan(props) {
+  const { inputColor } = useBackground();
+  const inheritedProps = {
+    color: inputColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color),
+    isOptional: isOptional => typeof isOptional === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean"
+  });
   const {
+    color,
     label,
     isOptional,
     helpText: helpTextProp,
@@ -113,10 +123,7 @@ function TimeSpan(_props) {
     testId,
     __internal__yearsFocus,
     __internal__monthsFocus
-  } = props;
-  const { inputColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
+  } = mergedProps;
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState({
@@ -129,7 +136,7 @@ function TimeSpan(_props) {
     [value.years, value.months, helpTextProp]
   );
   const validate = useValidation({
-    props,
+    props: mergedProps,
     extraData: {
       isTouched
     }

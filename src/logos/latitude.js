@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useContainer from "../hooks/useContainer";
 import useTheme from "../hooks/useTheme";
-import { responsiveHeightType } from "../hooks/useResponsiveProp";
+import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsiveHeightType } from "../hooks/useResponsiveProp";
 import { responsiveHeight } from "../utils/css";
+import { mergeProps } from "../utils/component";
 
 const COLORS = ["primary.blue.t100", "black", "white"];
 
@@ -13,20 +14,21 @@ const DEFAULT_PROPS = {
   height: "7"
 };
 
-function LatitudeLogo(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
-  const { testId } = props;
-  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+function LatitudeLogo(props) {
+  const theme = useTheme();
+  const { background } = useBackground();
+  const inheritedColor =
+    background === "primary.blue.t100" ? "white" : "primary.blue.t100";
+  const inheritedProps = {
+    color: inheritedColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color)
+  });
+  const { color, testId } = mergedProps;
+  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     height: responsiveHeight
   });
-  const theme = useTheme();
-  const { bg } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && bg
-      ? bg === "primary.blue.t100"
-        ? "white"
-        : "primary.blue.t100"
-      : props.color;
 
   return (
     <svg

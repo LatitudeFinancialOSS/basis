@@ -55,6 +55,31 @@ export function getSizeValue(size) {
   return tokens.sizes[size] || null;
 }
 
+function getGutterValues(gutter) {
+  if (typeof gutter === "number") {
+    gutter = String(gutter);
+  }
+
+  if (typeof gutter !== "string") {
+    return null;
+  }
+
+  const parts = gutter.split(/\s+/).filter(Boolean);
+
+  if (parts.length < 1 || parts.length > 2) {
+    return null;
+  }
+
+  const rowGutterPx = tokens.space[parts[0]] || "0px";
+  const columnGutterPx =
+    parts.length === 2 ? tokens.space[parts[1]] || "0px" : rowGutterPx;
+
+  return {
+    rowGutter: rowGutterPx,
+    columnGutter: columnGutterPx
+  };
+}
+
 function getTextAlignValue(textAlign) {
   if (Text.ALIGNS.includes(textAlign)) {
     return textAlign;
@@ -273,33 +298,31 @@ export function responsiveFlexDirection({ direction }) {
   };
 }
 
-export function responsiveFlexGutter({ gutter, direction }) {
-  const margin = getSpaceValue(gutter);
+export const responsiveFlexGutter = whatFor => ({ gutter }) => {
+  const gutterValues = getGutterValues(gutter);
 
-  return margin === null
-    ? {}
-    : {
-        /*
-          Note: Setting only `marginLeft` or `marginTop` would be a mistake.
+  if (gutterValues === null) {
+    return {};
+  }
 
-          For example, the resulting CSS could look like this then:
+  const { rowGutter, columnGutter } = gutterValues;
 
-            {
-              marginLeft: "16px",
-              "@media (min-width: 380px)": {
-                marginTop: "32px"
-              },
-            }
+  if (whatFor === "items-container") {
+    return {
+      marginTop: `-${rowGutter}`,
+      marginLeft: `-${columnGutter}`
+    };
+  }
 
-          and we would get both `marginLeft` AND `marginTop` on wide screens,
-          which is not what we want.
-        */
-        ":not(:first-of-type)": {
-          marginLeft: direction === "row" ? margin : "0px",
-          marginTop: direction === "row" ? "0px" : margin
-        }
-      };
-}
+  if (whatFor === "item") {
+    return {
+      marginTop: rowGutter,
+      marginLeft: columnGutter
+    };
+  }
+
+  return {};
+};
 
 export function responsiveFlexPlaceItems({ direction, placeItems }) {
   if (!FLEX_PLACE_ITEMS.includes(placeItems)) {

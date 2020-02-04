@@ -1,17 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
-import Flex from "./Flex";
-import Text from "./Text";
-import Link from "./Link";
-import useTheme from "../hooks/useTheme";
+import { Flex, Text, Link, Icon } from "..";
 import Logo from "./internal/Logo";
-import tokens from "../themes/tokens";
 
 function HeaderLogo({ name, testId }) {
   return (
-    <Flex height="16" height-lg="15" placeItems="left center" testId={testId}>
-      <Logo name={name} color="white" height="9" height-md="8" />
+    <Flex height="12" height-lg="14" placeItems="left center" testId={testId}>
+      <Logo name={name} color="white" height="6" height-lg="8" />
     </Flex>
   );
 }
@@ -21,11 +17,130 @@ HeaderLogo.propTypes = {
   testId: PropTypes.string
 };
 
+function HeaderSocial({ children, testId }) {
+  return (
+    <Flex
+      height="12"
+      width="100%"
+      width-sm="auto"
+      margin-sm="0 0 0 auto"
+      placeItems="left center"
+      testId={testId}
+    >
+      <Text margin="0" margin-sm="0 4 0 0">
+        <strong>Connect with us</strong>
+      </Text>
+      <Flex gutter="3" margin="0 0 0 auto" margin-sm="0">
+        {children}
+      </Flex>
+    </Flex>
+  );
+}
+
+HeaderSocial.propTypes = {
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
+};
+
+function SocialFacebook({ href, title, testId }) {
+  return (
+    <Link
+      variant="icon"
+      href={href}
+      newTab={true}
+      title={title}
+      testId={testId}
+    >
+      <Icon
+        name="facebook"
+        color="white"
+        hoverColor="secondary.lightBlue.t80"
+      />
+    </Link>
+  );
+}
+
+SocialFacebook.propTypes = {
+  href: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  testId: PropTypes.string
+};
+
+function SocialTwitter({ href, title, testId }) {
+  return (
+    <Link
+      variant="icon"
+      href={href}
+      newTab={true}
+      title={title}
+      testId={testId}
+    >
+      <Icon name="twitter" color="white" hoverColor="secondary.lightBlue.t80" />
+    </Link>
+  );
+}
+
+SocialTwitter.propTypes = {
+  href: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  testId: PropTypes.string
+};
+
+function SocialInstagram({ href, title, testId }) {
+  return (
+    <Link
+      variant="icon"
+      href={href}
+      newTab={true}
+      title={title}
+      testId={testId}
+    >
+      <Icon
+        name="instagram"
+        color="white"
+        hoverColor="secondary.lightBlue.t80"
+      />
+    </Link>
+  );
+}
+
+SocialInstagram.propTypes = {
+  href: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  testId: PropTypes.string
+};
+
+function SocialLinkedIn({ href, title, testId }) {
+  return (
+    <Link
+      variant="icon"
+      href={href}
+      newTab={true}
+      title={title}
+      testId={testId}
+    >
+      <Icon
+        name="linkedin"
+        color="white"
+        hoverColor="secondary.lightBlue.t80"
+      />
+    </Link>
+  );
+}
+
+SocialLinkedIn.propTypes = {
+  href: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  testId: PropTypes.string
+};
+
 function Header({ children, testId }) {
   return (
     <Container bg="primary.blue.t100" testId={testId}>
       <Container bg="primary.blue.t100" hasBreakpointWidth={true}>
-        <Flex placeItems="left center">{children}</Flex>
+        <Flex direction="column" direction-sm="row" placeItems="left center">
+          {children}
+        </Flex>
       </Container>
     </Container>
   );
@@ -37,40 +152,15 @@ Header.propTypes = {
 };
 
 function LegalLinks({ children, testId }) {
-  const theme = useTheme();
   const links = React.Children.toArray(children).filter(
     // Ignore all children that aren't a Link
     child => child.type === Link
   );
-  const linksContainerCSS = {
-    display: "flex",
-    flexDirection: "column",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    [theme.minMediaQueries.md]: {
-      flexDirection: "row"
-    }
-  };
 
   return (
-    <div css={linksContainerCSS} data-testid={testId}>
-      {links.map((link, index) => {
-        const linkItemCSS = {
-          whiteSpace: "nowrap",
-          marginTop: index > 0 && tokens.space[3],
-          [theme.minMediaQueries.md]: {
-            marginTop: 0,
-            marginLeft: index > 0 && tokens.space[4]
-          }
-        };
-
-        return (
-          <div css={linkItemCSS} key={index}>
-            {link}
-          </div>
-        );
-      })}
-    </div>
+    <Flex gutter="3 4" wrap={true} placeItems="top center" testId={testId}>
+      {links}
+    </Flex>
   );
 }
 
@@ -81,15 +171,9 @@ LegalLinks.propTypes = {
 
 function LegalCopy({ children, testId }) {
   return (
-    <Text
-      textStyle="legal"
-      align="center"
-      margin="7 0 0 0"
-      margin-md="6 0 0 0"
-      testId={testId}
-    >
+    <Container textStyle="legal" margin="7 0 0 0" testId={testId}>
       {children}
-    </Text>
+    </Container>
   );
 }
 
@@ -101,11 +185,7 @@ LegalCopy.propTypes = {
 function Legal({ children, testId }) {
   return (
     <Container bg="secondary.lightBlue.t30" testId={testId}>
-      <Container
-        bg="secondary.lightBlue.t30"
-        padding="7 0"
-        hasBreakpointWidth={true}
-      >
+      <Container hasBreakpointWidth={true} padding="9 0" textAlign="center">
         {children}
       </Container>
     </Container>
@@ -126,10 +206,16 @@ Footer.propTypes = {
   testId: PropTypes.string
 };
 
-Header.Logo = HeaderLogo;
 Footer.Header = Header;
-Legal.Links = LegalLinks;
-Legal.Copy = LegalCopy;
+Footer.Header.Logo = HeaderLogo;
+Footer.Header.Social = HeaderSocial;
+Footer.Header.Social.Facebook = SocialFacebook;
+Footer.Header.Social.Twitter = SocialTwitter;
+Footer.Header.Social.Instagram = SocialInstagram;
+Footer.Header.Social.LinkedIn = SocialLinkedIn;
+
 Footer.Legal = Legal;
+Footer.Legal.Links = LegalLinks;
+Footer.Legal.Copy = LegalCopy;
 
 export default Footer;

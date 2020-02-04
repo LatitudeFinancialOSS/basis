@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Container from "./Container";
+import Text from "./Text";
 
 describe("Container", () => {
   it("no props", () => {
@@ -50,6 +51,34 @@ describe("Container", () => {
 
     expect(node).toHaveStyle(`
       height: 72px;
+    `);
+  });
+
+  it("with textStyle parent", () => {
+    const { getByText } = render(
+      <Container textStyle="legal">
+        <Text>Hello World</Text>
+      </Container>
+    );
+    const text = getByText("Hello World");
+
+    expect(text).toHaveStyle(`
+      font-size: 14px;
+    `);
+  });
+
+  it("with textStyle grandparent", () => {
+    const { getByText } = render(
+      <Container textStyle="hero">
+        <Container>
+          <Text>Hello World</Text>
+        </Container>
+      </Container>
+    );
+    const text = getByText("Hello World");
+
+    expect(text).toHaveStyle(`
+      font-size: 104px;
     `);
   });
 

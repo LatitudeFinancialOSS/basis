@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
+import useTheme from "../hooks/useTheme";
+import useBackground from "../hooks/useBackground";
+import useValidation from "../hooks/useValidation";
+import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import VisuallyHidden from "./VisuallyHidden";
-import useContainer from "../hooks/useContainer";
-import useTheme from "../hooks/useTheme";
-import useValidation from "../hooks/useValidation";
 
 const COLORS = ["grey.t05", "white"];
 
@@ -69,10 +70,19 @@ CheckboxIcon.propTypes = {
   isChecked: PropTypes.bool.isRequired
 };
 
-function Checkbox(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function Checkbox(props) {
+  const { inputColor } = useBackground();
+  const inheritedProps = {
+    color: inputColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    color: color => COLORS.includes(color),
+    isOptional: isOptional => typeof isOptional === "boolean",
+    isDisabled: isDisabled => typeof isDisabled === "boolean"
+  });
   const {
     label,
+    color,
     isOptional,
     helpText,
     isDisabled,
@@ -81,18 +91,15 @@ function Checkbox(_props) {
     children,
     testId,
     __internal__keyboardFocus
-  } = props;
+  } = mergedProps;
   const theme = useTheme();
-  const { inputColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && inputColor ? inputColor : props.color;
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [inputId] = useState(() => `checkbox-${nanoid()}`);
   const [auxId] = useState(() => `checkbox-aux-${nanoid()}`);
   const [isTouched, setIsTouched] = useState(false);
   const { value: isChecked, errors } = data;
   const validate = useValidation({
-    props,
+    props: mergedProps,
     extraData: {
       isTouched
     }

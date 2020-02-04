@@ -6,9 +6,10 @@ import {
   responsiveMarginType
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import useContainer from "../hooks/useContainer";
 import useTextStyle from "../hooks/useTextStyle";
+import useBackground from "../hooks/useBackground";
 import { responsiveMargin, responsiveTextStyle } from "../utils/css";
+import { mergeProps } from "../utils/component";
 
 const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
 const TEXT_STYLES = [
@@ -89,23 +90,28 @@ Text.ALIGNS = ALIGNS;
 Text.allowedColors = allowedColors;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Text(_props) {
-  const { textStyle } = useTextStyle();
-  const props = {
-    ...DEFAULT_PROPS,
-    ...(textStyle && { textStyle }),
-    ..._props
-  };
-  const { as, align, wrap, children, testId } = props;
+function Text(props) {
   const theme = useTheme();
-  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const { textStyle: inheritedTextStyle } = useTextStyle();
+  const { background } = useBackground();
+  const inheritedColor = background === "primary.blue.t100" ? "white" : "black";
+  const inheritedProps = {
+    textStyle: inheritedTextStyle,
+    color: inheritedColor
+  };
+  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    as: as => AS.includes(as),
+    textStyle: textStyle => TEXT_STYLES.includes(textStyle),
+    color: color => COLORS.includes(color),
+    align: align => ALIGNS.includes(align),
+    wrap: wrap => typeof wrap === "boolean"
+  });
+  const { as, color, align, wrap, children, testId } = mergedProps;
+  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
     textStyle: responsiveTextStyle
   });
   const Component = as;
-  const { textColor } = useContainer();
-  const color =
-    !COLORS.includes(_props.color) && textColor ? textColor : props.color;
   const css = {
     ...theme.text,
     ...(!wrap && theme["text.noWrap"]),
