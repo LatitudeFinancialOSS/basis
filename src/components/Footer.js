@@ -54,13 +54,33 @@ function SocialFacebook({ href, title, testId }) {
       <Icon
         name="facebook"
         color="white"
-        hoverColor="secondary.lightBlue.t80"
+        hoverColor="secondary.lightBlue.t60"
       />
     </Link>
   );
 }
 
 SocialFacebook.propTypes = {
+  href: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  testId: PropTypes.string
+};
+
+function SocialYouTube({ href, title, testId }) {
+  return (
+    <Link
+      variant="icon"
+      href={href}
+      newTab={true}
+      title={title}
+      testId={testId}
+    >
+      <Icon name="youtube" color="white" hoverColor="secondary.lightBlue.t60" />
+    </Link>
+  );
+}
+
+SocialYouTube.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   testId: PropTypes.string
@@ -75,7 +95,7 @@ function SocialTwitter({ href, title, testId }) {
       title={title}
       testId={testId}
     >
-      <Icon name="twitter" color="white" hoverColor="secondary.lightBlue.t80" />
+      <Icon name="twitter" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
 }
@@ -98,7 +118,7 @@ function SocialInstagram({ href, title, testId }) {
       <Icon
         name="instagram"
         color="white"
-        hoverColor="secondary.lightBlue.t80"
+        hoverColor="secondary.lightBlue.t60"
       />
     </Link>
   );
@@ -122,7 +142,7 @@ function SocialLinkedIn({ href, title, testId }) {
       <Icon
         name="linkedin"
         color="white"
-        hoverColor="secondary.lightBlue.t80"
+        hoverColor="secondary.lightBlue.t60"
       />
     </Link>
   );
@@ -210,6 +230,7 @@ Footer.Header = Header;
 Footer.Header.Logo = HeaderLogo;
 Footer.Header.Social = HeaderSocial;
 Footer.Header.Social.Facebook = SocialFacebook;
+Footer.Header.Social.YouTube = SocialYouTube;
 Footer.Header.Social.Twitter = SocialTwitter;
 Footer.Header.Social.Instagram = SocialInstagram;
 Footer.Header.Social.LinkedIn = SocialLinkedIn;

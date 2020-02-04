@@ -43,7 +43,8 @@ const NAMES = [
   "time",
   "triangle-down",
   "triangle-up",
-  "twitter"
+  "twitter",
+  "youtube"
 ];
 const COLORS = [
   "grey.t75",
@@ -53,7 +54,7 @@ const COLORS = [
   "conditional.negative.graphics",
   "white"
 ];
-const HOVER_COLORS = ["secondary.lightBlue.t80"];
+const HOVER_COLORS = ["secondary.lightBlue.t60"];
 const SECONDARY_COLORS = ["highlight.blue.t100"];
 
 const DEFAULT_PROPS = {

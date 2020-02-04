@@ -15,6 +15,10 @@ function FooterPage() {
             href="https://www.facebook.com/latitudefinancialservices/"
             title="Latitude Financial Facebook"
           />
+          <Footer.Header.Social.YouTube
+            href="https://www.youtube.com/channel/UC4OODvUJswoDRTS_xFCCXcw/"
+            title="Latitude Financial YouTube"
+          />
           <Footer.Header.Social.Twitter
             href="https://twitter.com/Latitude_FS/"
             title="Latitude Financial Twitter"

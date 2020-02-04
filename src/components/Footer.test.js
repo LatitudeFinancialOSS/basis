@@ -17,6 +17,11 @@ describe("Footer", () => {
               title="Latitude Financial Facebook"
               testId="my-footer-header-social-facebook"
             />
+            <Footer.Header.Social.YouTube
+              href="https://www.youtube.com/channel/UC4OODvUJswoDRTS_xFCCXcw/"
+              title="Latitude Financial YouTube"
+              testId="my-footer-header-social-youtube"
+            />
             <Footer.Header.Social.Twitter
               href="https://twitter.com/Latitude_FS/"
               title="Latitude Financial Twitter"
@@ -63,6 +68,7 @@ describe("Footer", () => {
       "my-footer-header-social"
     );
     getByTestId(footerHeaderSocial, "my-footer-header-social-facebook");
+    getByTestId(footerHeaderSocial, "my-footer-header-social-youtube");
     getByTestId(footerHeaderSocial, "my-footer-header-social-twitter");
     getByTestId(footerHeaderSocial, "my-footer-header-social-instagram");
     getByTestId(footerHeaderSocial, "my-footer-header-social-linkedin");
