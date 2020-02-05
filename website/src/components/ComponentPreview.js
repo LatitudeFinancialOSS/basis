@@ -35,11 +35,65 @@ const iframeStyle = {
   border: 0
 };
 
+function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
+  return (
+    <div
+      css={{
+        position: "relative",
+        minHeight: "100vh"
+      }}
+      ref={containerRef}
+    >
+      {children}
+      {containerRef && (
+        <div
+          css={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            cursor: "default"
+          }}
+        >
+          {Object.keys(highlightedComponents).map(testId => {
+            const { left, top, right, bottom } = highlightedComponents[testId];
+
+            return (
+              <div
+                css={{
+                  position: "absolute",
+                  left,
+                  top,
+                  width: right - left,
+                  height: bottom - top,
+                  backgroundColor: "rgba(255, 0, 0, 0.2)"
+                }}
+                key={testId}
+              >
+                {testId}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+LivePreviewWrapper.propTypes = {
+  children: PropTypes.node,
+  containerRef: PropTypes.func,
+  highlightedComponents: PropTypes.object
+};
+
 function ComponentPreviewContent({
   window,
   document,
   hasBodyMargin,
-  setDocument
+  setDocument,
+  containerRef,
+  highlightedComponents
 }) {
   useEffect(() => {
     if (setDocument) {
@@ -58,7 +112,11 @@ function ComponentPreviewContent({
           }}
         />
       )}
-      <LivePreview />
+      <LivePreview
+        Component={LivePreviewWrapper}
+        containerRef={containerRef}
+        highlightedComponents={highlightedComponents}
+      />
     </BasisProvider>
   );
 }
@@ -67,55 +125,61 @@ ComponentPreviewContent.propTypes = {
   window: PropTypes.object.isRequired,
   document: PropTypes.object.isRequired,
   hasBodyMargin: PropTypes.bool.isRequired,
-  setDocument: PropTypes.func
+  setDocument: PropTypes.func,
+  containerRef: PropTypes.func,
+  highlightedComponents: PropTypes.object
 };
 
 function ComponentPreview({
   iframeTitle = "Preview",
   hasBodyMargin = true,
-  setDocument
+  setDocument,
+  containerRef,
+  highlightedComponents
 }) {
   return (
-    <div css={{ height: "100%" }}>
-      <Frame
-        title={iframeTitle}
-        initialContent={iframeHTML}
-        mountTarget="#component-preview"
-        style={iframeStyle}
-      >
-        <FrameContextConsumer>
-          {({ window, document }) => {
-            const cache = memoizedCreateCacheWithContainer({
-              container: document.head
-            });
+    <Frame
+      title={iframeTitle}
+      initialContent={iframeHTML}
+      mountTarget="#component-preview"
+      style={iframeStyle}
+    >
+      <FrameContextConsumer>
+        {({ window, document }) => {
+          const cache = memoizedCreateCacheWithContainer({
+            container: document.head
+          });
 
-            /*
+          /*
               CacheProvider injects website styles into the iframe (e.g. DemoBlock styles).
               CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
             */
-            return (
-              <CacheProvider value={cache}>
-                <CacheProviderWithContainer container={document.head}>
-                  <ComponentPreviewContent
-                    window={window}
-                    document={document}
-                    hasBodyMargin={hasBodyMargin}
-                    setDocument={setDocument}
-                  />
-                </CacheProviderWithContainer>
-              </CacheProvider>
-            );
-          }}
-        </FrameContextConsumer>
-      </Frame>
-    </div>
+          return (
+            <CacheProvider value={cache}>
+              <CacheProviderWithContainer container={document.head}>
+                <ComponentPreviewContent
+                  window={window}
+                  document={document}
+                  hasBodyMargin={hasBodyMargin}
+                  setDocument={setDocument}
+                  containerRef={containerRef}
+                  highlightedComponents={highlightedComponents}
+                />
+              </CacheProviderWithContainer>
+            </CacheProvider>
+          );
+        }}
+      </FrameContextConsumer>
+    </Frame>
   );
 }
 
 ComponentPreview.propTypes = {
   iframeTitle: PropTypes.string,
   hasBodyMargin: PropTypes.bool,
-  setDocument: PropTypes.func
+  setDocument: PropTypes.func,
+  containerRef: PropTypes.func,
+  highlightedComponents: PropTypes.object
 };
 
 export default ComponentPreview;

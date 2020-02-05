@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
 import { Resizable } from "re-resizable";
 import { rgba } from "polished";
+import useMousePosition from "@react-hook/mouse-position";
 import * as allDesignSystem from "basis";
 import * as allOptionallyControlled from "../../components/optionally-controlled";
 import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../../utils/url";
@@ -18,6 +19,7 @@ import {
 } from "../../utils/ast";
 import { formatCode } from "../../utils/formatting";
 import { reactLiveEditorTheme } from "../../utils/constants";
+import { getComponentsAtPoint } from "../../utils/playground";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useCanary from "../../hooks/useCanary";
@@ -94,28 +96,43 @@ const PlaygroundError = withLive(({ live }) => {
   );
 });
 
-function PlaygroundScreenOverlay() {
-  return (
-    <div
-      css={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(255,0,0,0.2)"
-      }}
-    ></div>
-  );
-}
-
-function PlaygroundScreen({ id, width, setDocument, isInspectMode }) {
+function PlaygroundScreen({
+  id,
+  width,
+  setDocument,
+  isInspectMode,
+  onInspectMouseMove,
+  onMouseLeave,
+  highlightedComponents
+}) {
   const _setDocument = useCallback(
     document => {
       setDocument(id, document);
     },
     [setDocument, id]
   );
+  const [mousePosition, mouseMoveRef] = useMousePosition(
+    0, // enterDelay
+    0, // leaveDelay
+    10 // fps
+  );
+  const lastMousePosition = useRef();
+
+  useEffect(() => {
+    const { x, y } = mousePosition;
+
+    if (
+      x !== null &&
+      y !== null &&
+      (!lastMousePosition.current ||
+        lastMousePosition.current.x !== x ||
+        lastMousePosition.current.y !== y)
+    ) {
+      onInspectMouseMove(id, { x, y });
+    }
+
+    lastMousePosition.current = mousePosition;
+  }, [onInspectMouseMove, id, mousePosition]);
 
   return (
     <div
@@ -126,13 +143,15 @@ function PlaygroundScreen({ id, width, setDocument, isInspectMode }) {
         boxShadow:
           "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
       }}
+      onMouseLeave={onMouseLeave}
     >
       <ComponentPreview
         iframeTitle={`Preview at ${width}px`}
         hasBodyMargin={false}
         setDocument={_setDocument}
+        containerRef={isInspectMode ? mouseMoveRef : undefined}
+        highlightedComponents={highlightedComponents}
       />
-      {isInspectMode && <PlaygroundScreenOverlay />}
     </div>
   );
 }
@@ -141,7 +160,10 @@ PlaygroundScreen.propTypes = {
   id: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   setDocument: PropTypes.func.isRequired,
-  isInspectMode: PropTypes.bool.isRequired
+  isInspectMode: PropTypes.bool.isRequired,
+  onInspectMouseMove: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+  highlightedComponents: PropTypes.object.isRequired
 };
 
 function PlaygroundSettings({ screens, setScreens }) {
@@ -339,9 +361,13 @@ function Playground({ location }) {
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
   const [screens, setScreens] = useState([]);
-  const setScreenDocument = useCallback((id, document) => {
+  const [inspectInfo, setInspectInfo] = useState({
+    screenId: null,
+    componentsAtMouse: {}
+  });
+  const setScreenDocument = useCallback((screenId, document) => {
     setScreens(screens => {
-      const screenIndex = screens.findIndex(screen => screen.id === id);
+      const screenIndex = screens.findIndex(screen => screen.id === screenId);
 
       if (screenIndex === -1) {
         return;
@@ -357,6 +383,31 @@ function Playground({ location }) {
       return before.concat(updatedScreen, after);
     });
   }, []);
+  const onInspectMouseMove = useCallback(
+    (screenId, { x, y }) => {
+      const screenIndex = screens.findIndex(screen => screen.id === screenId);
+
+      if (screenIndex === -1) {
+        return;
+      }
+
+      const screen = screens[screenIndex];
+      const { scrollX, scrollY } = screen.document.defaultView;
+      const componentsAtMouse = getComponentsAtPoint(
+        {
+          x: x - scrollX,
+          y: y - scrollY
+        },
+        screen.componentsLocation
+      );
+
+      setInspectInfo({
+        screenId,
+        componentsAtMouse
+      });
+    },
+    [screens]
+  );
   const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(() =>
     getPlaygroundUrl(location, {
       code: prettify(code),
@@ -365,16 +416,38 @@ function Playground({ location }) {
       }
     })
   );
-  const calculateBoundingRectangles = () => {
-    const screen = screens[0];
-    const { document } = screen;
-    const components = document.querySelectorAll(`[data-testid^="playground"]`);
+  const calculateComponentsLocation = () => {
+    setScreens(screens =>
+      screens.map(screen => {
+        const { document } = screen;
+        const { scrollX, scrollY } = document.defaultView;
+        const components = document.querySelectorAll(
+          `[data-testid^="playground"]`
+        );
+        const componentsLocation = {};
 
-    components.forEach(component => {
-      const { top, left, right, bottom } = component.getBoundingClientRect();
+        components.forEach(component => {
+          const {
+            left,
+            top,
+            right,
+            bottom
+          } = component.getBoundingClientRect();
 
-      console.log(component, { top, left, right, bottom });
-    });
+          componentsLocation[component.dataset.testid] = {
+            left: left + scrollX,
+            top: top + scrollY,
+            right: right + scrollX,
+            bottom: bottom + scrollY
+          };
+        });
+
+        return {
+          ...screen,
+          componentsLocation
+        };
+      })
+    );
   };
 
   useEffect(() => {
@@ -392,6 +465,17 @@ function Playground({ location }) {
       }))
     );
   }, [location, theme.breakpoints]);
+
+  useEffect(() => {
+    setInspectInfo({
+      screenId: null,
+      componentsAtMouse: {}
+    });
+
+    if (isInspectMode) {
+      calculateComponentsLocation();
+    }
+  }, [isInspectMode]);
 
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
@@ -434,6 +518,20 @@ function Playground({ location }) {
                     width={width}
                     setDocument={setScreenDocument}
                     isInspectMode={isInspectMode}
+                    onInspectMouseMove={onInspectMouseMove}
+                    onMouseLeave={() => {
+                      if (isInspectMode) {
+                        setInspectInfo({
+                          screenId: null,
+                          componentsAtMouse: {}
+                        });
+                      }
+                    }}
+                    highlightedComponents={
+                      isInspectMode && id === inspectInfo.screenId
+                        ? inspectInfo.componentsAtMouse
+                        : {}
+                    }
                   />
                 </div>
                 <Text color="grey.t75" margin="1 1 0">
@@ -489,7 +587,6 @@ function Playground({ location }) {
                       variant="icon"
                       onClick={() => {
                         setIsInspectMode(isInspectMode => !isInspectMode);
-                        calculateBoundingRectangles();
                       }}
                     >
                       <InspectIcon
@@ -555,8 +652,8 @@ function Playground({ location }) {
                     css={{
                       position: "absolute",
                       left: 0,
-                      right: 0,
                       top: 0,
+                      right: 0,
                       bottom: 0,
                       backgroundColor: rgba(designTokens.colors.white, 0.7)
                     }}
