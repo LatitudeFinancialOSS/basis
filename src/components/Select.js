@@ -134,7 +134,7 @@ function Select(props) {
         }}
       >
         {placeholder && (
-          <option value="" disabled={true}>
+          <option value="" disabled={!isOptional} hidden={!isOptional}>
             {placeholder}
           </option>
         )}
