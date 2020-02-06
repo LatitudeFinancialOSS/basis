@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { keyframes } from "@emotion/core";
 import useTheme from "../hooks/useTheme";
-import tokens from "../themes/tokens";
+import tokens from "../themes/default/tokens";
 
 const DEFAULT_CIRCLE_RADIUS = tokens.sizes[1];
 const DEFAULT_COLOR = tokens.colors.black;

@@ -2,7 +2,7 @@
 export * from "./components";
 
 // Themes
-export { default as designTokens } from "./themes/tokens";
+export { default as designTokens } from "./themes/default/tokens";
 export { default as defaultTheme } from "./themes/default";
 
 // Providers

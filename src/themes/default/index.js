@@ -1,5 +1,6 @@
 import button from "./button";
 import checkbox from "./checkbox";
+import container from "./container";
 import field from "./field";
 import grid from "./grid";
 import input from "./input";
@@ -15,6 +16,7 @@ import textStyles from "./textStyles";
 export default {
   ...button,
   ...checkbox,
+  ...container,
   ...field,
   ...grid,
   ...input,
@@ -41,8 +43,8 @@ export default {
   },
   transitions: {
     button: "background-color 150ms ease, color 150ms ease",
-    link: "background-color 0.2s ease-out, border-bottom-color 0.2s ease-out",
-    icon: "fill 0.2s ease-out"
+    link: "background-color 200ms ease-out, border-bottom-color 200ms ease-out",
+    icon: "fill 200ms ease-out"
   },
   zIndices: {
     header: 1000

@@ -21,7 +21,6 @@ import {
   mergeResponsiveCSS
 } from "../utils/css";
 import { EXCEPTION_PREFIX } from "../utils/css";
-import tokens from "../themes/tokens";
 
 const BACKGROUNDS = [
   "white",
@@ -83,26 +82,14 @@ function Container(_props) {
         responsivePropsCSS
       )
     : responsivePropsCSS;
-  const boxShadowCSS =
-    boxShadow === "header"
-      ? {
-          "::after": {
-            content: "''",
-            display: "block",
-            height: tokens.borderWidths[1],
-            boxShadow: tokens.shadows.header
-          }
-        }
-      : {
-          boxShadow: tokens.shadows[boxShadow] || null
-        };
   let container = (
     <div
       css={{
         boxSizing: "border-box",
         backgroundColor: theme.getColor(bg),
         ...responsiveCSS,
-        ...boxShadowCSS
+        ...theme[`container.${boxShadow}`],
+        "::after": theme[`container.${boxShadow}::after`]
       }}
       data-testid={testId}
     >

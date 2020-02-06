@@ -1,4 +1,4 @@
-import tokens from "../themes/tokens";
+import tokens from "../themes/default/tokens";
 import {
   EXCEPTION_PREFIX,
   getMinMediaQueries,

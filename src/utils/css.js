@@ -1,4 +1,4 @@
-import tokens from "../themes/tokens";
+import tokens from "../themes/default/tokens";
 import { hasOwnProperty } from "./core";
 import Flex from "../components/Flex";
 import Text from "../components/Text";

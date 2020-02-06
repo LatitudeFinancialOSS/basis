@@ -1,4 +1,4 @@
-import tokens from "../tokens";
+import tokens from "./tokens";
 
 export default {
   hero: {
@@ -17,7 +17,7 @@ export default {
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: tokens.fontSizes[7],
     lineHeight: tokens.lineHeights[6],
-    letterSpacing: tokens.letterSpacings.h1
+    letterSpacing: tokens.letterSpacings.heading1
   },
   "heading1.bold": {
     fontWeight: tokens.fontWeights.semiBold
@@ -27,7 +27,7 @@ export default {
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: tokens.fontSizes[6],
     lineHeight: tokens.lineHeights[5],
-    letterSpacing: tokens.letterSpacings.h2
+    letterSpacing: tokens.letterSpacings.heading2
   },
   "heading2.bold": {
     fontWeight: tokens.fontWeights.semiBold
@@ -37,7 +37,7 @@ export default {
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: tokens.fontSizes[5],
     lineHeight: tokens.lineHeights[4],
-    letterSpacing: tokens.letterSpacings.h3
+    letterSpacing: tokens.letterSpacings.heading3
   },
   "heading3.bold": {
     fontWeight: tokens.fontWeights.semiBold
@@ -47,7 +47,7 @@ export default {
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: tokens.fontSizes[4],
     lineHeight: tokens.lineHeights[3],
-    letterSpacing: tokens.letterSpacings.h4
+    letterSpacing: tokens.letterSpacings.heading4
   },
   "heading4.bold": {
     fontWeight: tokens.fontWeights.semiBold
@@ -57,7 +57,7 @@ export default {
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: tokens.fontSizes[3],
     lineHeight: tokens.lineHeights[2],
-    letterSpacing: tokens.letterSpacings.h5
+    letterSpacing: tokens.letterSpacings.heading5
   },
   "heading5.bold": {
     fontWeight: tokens.fontWeights.semiBold
@@ -67,7 +67,7 @@ export default {
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: tokens.fontSizes[1],
     lineHeight: tokens.lineHeights[1],
-    letterSpacing: tokens.letterSpacings.h6
+    letterSpacing: tokens.letterSpacings.heading6
   },
   "heading6.bold": {
     fontWeight: tokens.fontWeights.semiBold

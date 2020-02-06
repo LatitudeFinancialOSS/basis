@@ -122,12 +122,12 @@ const tokens = {
   ],
   letterSpacings: {
     hero: "-2.28px",
-    h1: "-1.05px",
-    h2: "-0.88px",
-    h3: "-0.7px",
-    h4: "-0.52px",
-    h5: "-0.44px",
-    h6: "-0.35px",
+    heading1: "-1.05px",
+    heading2: "-0.88px",
+    heading3: "-0.7px",
+    heading4: "-0.52px",
+    heading5: "-0.44px",
+    heading6: "-0.35px",
     body: "0px",
     overline: "2.6px"
   },
@@ -177,8 +177,8 @@ const tokens = {
   borderWidths: ["1px", "2px", "4px"],
   transitions: {
     button: "background-color 150ms ease, color 150ms ease",
-    link: "background-color 0.2s ease-out, border-bottom-color 0.2s ease-out",
-    icon: "fill 0.2s ease-out"
+    link: "background-color 200ms ease-out, border-bottom-color 200ms ease-out",
+    icon: "fill 200ms ease-out"
   }
 };
 
