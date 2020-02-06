@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default _theme => ({
   grid: {
     display: "grid",
     position: "relative"
@@ -25,4 +25,4 @@ export default {
   gridOverlayItem: {
     border: `${tokens.borderWidths[0]} dotted`
   }
-};
+});

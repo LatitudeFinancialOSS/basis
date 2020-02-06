@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default theme => ({
   selectInput: {
     display: "inline-block",
     fontSize: tokens.fontSizes[1],
@@ -26,7 +26,7 @@ export default {
   "selectInput:focus": {
     outline: 0,
     borderRadius: tokens.radii[0],
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "selectInput.default": {
     backgroundColor: tokens.colors.grey.t05
@@ -37,4 +37,4 @@ export default {
   "selectInput.white": {
     backgroundColor: tokens.colors.white
   }
-};
+});

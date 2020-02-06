@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default theme => ({
   radioGroupRadio: {
     display: "flex",
     flexDirection: "column"
@@ -19,7 +19,7 @@ export default {
     overflow: "hidden"
   },
   "radioGroupRadioLabel.focus-visible": {
-    boxShadow: tokens.shadows.focus,
+    boxShadow: theme.shadows.focus,
     borderRadius: tokens.radii[0]
   },
   "radioGroupRadioLabel.checked": {
@@ -50,4 +50,4 @@ export default {
   radioGroupRadioInnerCircle: {
     fill: tokens.colors.primary.blue.t100
   }
-};
+});

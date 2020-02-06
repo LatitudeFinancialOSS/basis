@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default _theme => ({
   stepper: {
     display: "flex"
   },
@@ -69,4 +69,4 @@ export default {
   "stepper.itemCircle.previous": {
     backgroundColor: tokens.colors.primary.blue.t100
   }
-};
+});

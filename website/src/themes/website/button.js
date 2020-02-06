@@ -1,6 +1,6 @@
 import { designTokens as tokens } from "basis";
 
-export default {
+export default theme => ({
   button: {
     fontSize: tokens.fontSizes[0],
     lineHeight: tokens.lineHeights[0],
@@ -17,7 +17,7 @@ export default {
     outline: 0
   },
   "button:focus-visible": {
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "button:disabled": {
     opacity: 0.4,
@@ -51,4 +51,4 @@ export default {
   "button.icon.default:hover": {
     color: tokens.colors.black
   }
-};
+});

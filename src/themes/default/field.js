@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default _theme => ({
   field: {
     display: "inline-flex",
     flexDirection: "column",
@@ -42,4 +42,4 @@ export default {
     borderTop: `${tokens.borderWidths[2]} solid ${tokens.colors.conditional.negative.graphics}`,
     zIndex: 1
   }
-};
+});

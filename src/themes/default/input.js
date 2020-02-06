@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default theme => ({
   input: {
     boxSizing: "border-box",
     fontSize: tokens.fontSizes[1],
@@ -18,7 +18,7 @@ export default {
   "input:focus": {
     outline: 0,
     borderRadius: tokens.radii[0],
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "input.webkitSpinButton": {
     display: "none" // Hides the input="number" spin buttons in Chrome
@@ -29,4 +29,4 @@ export default {
   "input.white": {
     backgroundColor: tokens.colors.white
   }
-};
+});

@@ -1,6 +1,6 @@
 import { designTokens as tokens } from "basis";
 
-export default {
+export default _theme => ({
   selectInput: {
     display: "inline-block",
     fontSize: tokens.fontSizes[0],
@@ -44,4 +44,4 @@ export default {
     color: tokens.colors.black,
     borderColor: tokens.colors.black
   }
-};
+});

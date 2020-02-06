@@ -1,4 +1,4 @@
-const tokens = {
+export default {
   colors: {
     black: "#000000",
     grey: {
@@ -174,18 +174,5 @@ const tokens = {
     "72px" // 14
   ],
   radii: ["1px", "4px", "12px", "50%"],
-  borderWidths: ["1px", "2px", "4px"],
-  transitions: {
-    button: "background-color 150ms ease, color 150ms ease",
-    link: "background-color 200ms ease-out, border-bottom-color 200ms ease-out",
-    icon: "fill 200ms ease-out"
-  }
-};
-
-export default {
-  ...tokens,
-  shadows: {
-    header: `inset 0 ${tokens.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
-    focus: `0 0 0px ${tokens.radii[1]} ${tokens.colors.secondary.lightBlue.t80}`
-  }
+  borderWidths: ["1px", "2px", "4px"]
 };

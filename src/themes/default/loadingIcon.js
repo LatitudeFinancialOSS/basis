@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default _theme => ({
   "loadingIcon.small": {
     circleRadius: tokens.sizes[1]
   },
@@ -16,4 +16,4 @@ export default {
   "loadingIcon.white": {
     color: tokens.colors.white
   }
-};
+});

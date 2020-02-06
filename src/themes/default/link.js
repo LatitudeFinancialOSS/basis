@@ -1,7 +1,7 @@
 import tokens from "./tokens";
 import { rgba } from "polished";
 
-export default {
+export default theme => ({
   link: {
     textDecoration: "none"
   },
@@ -10,14 +10,14 @@ export default {
   },
   "link:focus-visible": {
     borderRadius: tokens.radii[0],
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "link.text": {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
     borderBottomWidth: tokens.borderWidths[0],
     borderBottomStyle: "solid",
-    transition: tokens.transitions.link
+    transition: theme.transitions.link
   },
   "link.icon": {
     display: "flex"
@@ -58,4 +58,4 @@ export default {
     borderBottomColor: tokens.colors.secondary.lightBlue.t100,
     backgroundColor: rgba(tokens.colors.secondary.lightBlue.t100, 0.4)
   }
-};
+});

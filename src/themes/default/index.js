@@ -1,3 +1,4 @@
+import tokens from "./tokens";
 import button from "./button";
 import checkbox from "./checkbox";
 import container from "./container";
@@ -13,20 +14,7 @@ import stepper from "./stepper";
 import text from "./text";
 import textStyles from "./textStyles";
 
-export default {
-  ...button,
-  ...checkbox,
-  ...container,
-  ...field,
-  ...grid,
-  ...input,
-  ...link,
-  ...list,
-  ...loadingIcon,
-  ...radioGroup,
-  ...select,
-  ...stepper,
-  ...text,
+const theme = {
   textStyles,
   breakpoints: {
     xs: "380px",
@@ -48,5 +36,26 @@ export default {
   },
   zIndices: {
     header: 1000
+  },
+  shadows: {
+    header: `inset 0 ${tokens.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
+    focus: `0 0 0px ${tokens.radii[1]} ${tokens.colors.secondary.lightBlue.t80}`
   }
+};
+
+export default {
+  ...theme,
+  ...button(theme),
+  ...checkbox(theme),
+  ...container(theme),
+  ...field(theme),
+  ...grid(theme),
+  ...input(theme),
+  ...link(theme),
+  ...list(theme),
+  ...loadingIcon(theme),
+  ...radioGroup(theme),
+  ...select(theme),
+  ...stepper(theme),
+  ...text(theme)
 };

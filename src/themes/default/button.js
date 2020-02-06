@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default theme => ({
   button: {
     fontSize: tokens.fontSizes[2],
     lineHeight: tokens.lineHeights[3],
@@ -11,7 +11,7 @@ export default {
     padding: `0 ${tokens.space[6]}`,
     minHeight: tokens.sizes[11],
     overflow: "hidden",
-    transition: tokens.transitions.button
+    transition: theme.transitions.button
   },
   "button.fullWidth": {
     width: "100%"
@@ -20,7 +20,7 @@ export default {
     outline: 0
   },
   "button:focus-visible": {
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "button:disabled": {
     backgroundColor: tokens.colors.grey.t30,
@@ -90,4 +90,4 @@ export default {
   "button.secondary.white:disabled": {
     backgroundColor: tokens.colors.grey.t30
   }
-};
+});

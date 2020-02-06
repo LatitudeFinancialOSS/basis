@@ -1,6 +1,6 @@
 import { designTokens as tokens } from "basis";
 
-export default {
+export default _theme => ({
   field: {
     display: "inline-flex",
     flexDirection: "column",
@@ -26,4 +26,4 @@ export default {
   "field.helpText": {
     padding: `${tokens.space[1]} ${tokens.space[1]} 0`
   }
-};
+});

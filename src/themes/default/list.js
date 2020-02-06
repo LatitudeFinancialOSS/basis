@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default {
+export default _theme => ({
   list: {
     margin: 0
   },
@@ -50,4 +50,4 @@ export default {
   "listItemContent.ordered.body2": {
     margin: `0 0 0 ${tokens.space[1]}`
   }
-};
+});

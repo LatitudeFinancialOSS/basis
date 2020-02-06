@@ -1,6 +1,6 @@
 import { designTokens as tokens } from "basis";
 
-export default {
+export default _theme => ({
   input: {
     boxSizing: "border-box",
     fontSize: tokens.fontSizes[0],
@@ -34,4 +34,4 @@ export default {
     backgroundColor: "transparent",
     borderColor: tokens.colors.grey.t30
   }
-};
+});
