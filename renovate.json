@@ -1,0 +1,5 @@
+{
+  "extends": ["config:base"],
+  "schedule": "every weekend",
+  "rangeStrategy": "pin"
+}
