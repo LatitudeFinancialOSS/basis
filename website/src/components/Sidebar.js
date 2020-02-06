@@ -34,6 +34,7 @@ function Item({ location, href, children }) {
         css={{
           display: "flex",
           alignItems: "center",
+          boxSizing: "border-box",
           width: "100%",
           padding: `${theme.space[2]} ${theme.space[6]}`,
           color: isCurrent ? theme.colors.black : theme.colors.grey.t75,
