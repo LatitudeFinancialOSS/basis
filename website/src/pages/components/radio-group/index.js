@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, RadioGroup } = allDesignSystem;
+const { designTokens, useTheme, RadioGroup } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = RadioGroup;
 const scope = allDesignSystem;
 
@@ -19,6 +19,7 @@ const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
 
 function RadioGroupPage() {
+  const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [columns, setColumns] = useState("Unspecified");
   const [showCircles, setShowCircles] = useState(DEFAULT_PROPS.showCircles);
@@ -169,9 +170,7 @@ function RadioGroupPage() {
         scope={scope}
         width="md"
         backgroundColor={
-          color === "white"
-            ? designTokens.colors.grey.t05
-            : designTokens.colors.white
+          color === "white" ? theme.colors.grey.t05 : theme.colors.white
         }
       />
     </>

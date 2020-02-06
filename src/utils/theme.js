@@ -1,11 +1,10 @@
-import tokens from "../themes/default/tokens";
 import {
   EXCEPTION_PREFIX,
   getMinMediaQueries,
   getExclusiveMediaQueries
 } from "./css";
 
-function getColor(colorName) {
+function getColor(colorName, theme) {
   if (typeof colorName !== "string") {
     return null;
   }
@@ -15,7 +14,7 @@ function getColor(colorName) {
   }
 
   const parts = colorName.split(".");
-  let result = tokens.colors;
+  let result = theme.colors;
 
   for (let i = 0, len = parts.length; i < len; i++) {
     result = result[parts[i]];
@@ -49,7 +48,7 @@ export function enhanceTheme(theme) {
     ...theme,
     minMediaQueries: getMinMediaQueries(theme.breakpoints),
     exclusiveMediaQueries: getExclusiveMediaQueries(theme.breakpoints),
-    getColor,
+    getColor: color => getColor(color, theme),
     getTextStyleCSS: textStyle => getTextStyleCSS(textStyle, theme)
   };
 }

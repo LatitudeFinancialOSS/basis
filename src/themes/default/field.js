@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default _theme => ({
+export default theme => ({
   field: {
     display: "inline-flex",
     flexDirection: "column",
@@ -20,7 +20,7 @@ export default _theme => ({
     fontSize: tokens.fontSizes[1],
     fontWeight: tokens.fontWeights.medium,
     lineHeight: tokens.lineHeights[2],
-    color: tokens.colors.grey.t75,
+    color: theme.colors.grey.t75,
     marginBottom: tokens.space[2]
   },
   "field.label.optional": {
@@ -29,7 +29,7 @@ export default _theme => ({
     lineHeight: tokens.lineHeights[0],
     paddingLeft: tokens.space[2],
     paddingRight: tokens.space[2],
-    border: `${tokens.borderWidths[1]} solid ${tokens.colors.grey.t75}`,
+    border: `${tokens.borderWidths[1]} solid ${theme.colors.grey.t75}`,
     borderRadius: tokens.radii[2],
     opacity: 0.66,
     marginLeft: "auto"
@@ -39,7 +39,7 @@ export default _theme => ({
   },
   "field.errors": {
     paddingTop: tokens.space[1],
-    borderTop: `${tokens.borderWidths[2]} solid ${tokens.colors.conditional.negative.graphics}`,
+    borderTop: `${tokens.borderWidths[2]} solid ${theme.colors.conditional.negative.graphics}`,
     zIndex: 1
   }
 });

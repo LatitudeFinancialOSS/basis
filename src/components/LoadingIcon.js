@@ -5,7 +5,6 @@ import useTheme from "../hooks/useTheme";
 import tokens from "../themes/default/tokens";
 
 const DEFAULT_CIRCLE_RADIUS = tokens.sizes[1];
-const DEFAULT_COLOR = tokens.colors.black;
 
 const SIZES = ["small", "medium", "large"];
 const COLORS = ["highlight.blue.t100", "white"];
@@ -31,7 +30,7 @@ function LoadingIcon(_props) {
   );
   const circleColor = theme[`loadingIcon.${color}`]
     ? theme[`loadingIcon.${color}`].color
-    : DEFAULT_COLOR;
+    : theme.colors.black;
   const stepPx = `${3 * radius}px`;
   const frames = 12; // 3 circles * 4 steps each
   const percantagePerFrame = 100 / frames;

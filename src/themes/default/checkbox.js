@@ -15,21 +15,21 @@ export default theme => ({
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,
-    color: tokens.colors.black
+    color: theme.colors.black
   },
   "checkboxLabel.focus-visible": {
     boxShadow: theme.shadows.focus,
     borderRadius: tokens.radii[0]
   },
   "checkboxLabel.checked": {
-    backgroundColor: tokens.colors.secondary.lightBlue.t30,
-    color: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    color: theme.colors.primary.blue.t100
   },
   "checkboxLabel.grey.t05": {
-    backgroundColor: tokens.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05
   },
   "checkboxLabel.white": {
-    backgroundColor: tokens.colors.white
+    backgroundColor: theme.colors.white
   },
   checkboxIcon: {
     flexShrink: 0,
@@ -38,12 +38,12 @@ export default theme => ({
     marginRight: tokens.space[3]
   },
   "checkboxIcon.secondary.lightBlue.t30": {
-    fill: tokens.colors.secondary.lightBlue.t30
+    fill: theme.colors.secondary.lightBlue.t30
   },
   "checkboxIcon.white": {
-    fill: tokens.colors.white
+    fill: theme.colors.white
   },
   checkboxIconMark: {
-    stroke: tokens.colors.primary.blue.t100
+    stroke: theme.colors.primary.blue.t100
   }
 });

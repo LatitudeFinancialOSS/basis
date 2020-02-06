@@ -4,8 +4,6 @@ import { pascalCase } from "pascal-case";
 import { hex } from "wcag-contrast";
 import { Container, Flex, Text, designTokens, useTheme } from "basis";
 
-const { colors } = designTokens;
-
 function ColorGroup({ title, subTitle, children }) {
   return (
     <Flex>
@@ -50,8 +48,8 @@ function getNiceColorName(colorName) {
 function Color({ name }) {
   const theme = useTheme();
   const colorHex = theme.getColor(name);
-  const contrastWithBlack = hex(colorHex, designTokens.colors.black);
-  const contrastWithWhite = hex(colorHex, designTokens.colors.white);
+  const contrastWithBlack = hex(colorHex, theme.colors.black);
+  const contrastWithWhite = hex(colorHex, theme.colors.white);
   const textColor = contrastWithBlack > contrastWithWhite ? "black" : "white";
 
   return (
@@ -84,73 +82,75 @@ Color.propTypes = {
 };
 
 function ColorsPage() {
+  const theme = useTheme();
+
   return (
     <Container padding="6">
       <Flex direction="column" gutter="10">
         <ColorGroup title="Greys">
           <Color name="black" />
-          {Object.keys(colors.grey).map(t => (
+          {Object.keys(theme.colors.grey).map(t => (
             <Color name={`grey.${t}`} key={t} />
           ))}
           <Color name="white" />
         </ColorGroup>
         <ColorGroup title="Primary" subTitle="Blue">
-          {Object.keys(colors.primary.blue).map(t => (
+          {Object.keys(theme.colors.primary.blue).map(t => (
             <Color name={`primary.blue.${t}`} key={t} />
           ))}
         </ColorGroup>
         <Flex direction="column" gutter="6">
           <ColorGroup title="Secondary" subTitle="Light Blue">
-            {Object.keys(colors.secondary.lightBlue).map(t => (
+            {Object.keys(theme.colors.secondary.lightBlue).map(t => (
               <Color name={`secondary.lightBlue.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Pink">
-            {Object.keys(colors.secondary.pink).map(t => (
+            {Object.keys(theme.colors.secondary.pink).map(t => (
               <Color name={`secondary.pink.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Purple">
-            {Object.keys(colors.secondary.purple).map(t => (
+            {Object.keys(theme.colors.secondary.purple).map(t => (
               <Color name={`secondary.purple.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Turquoise">
-            {Object.keys(colors.secondary.turquoise).map(t => (
+            {Object.keys(theme.colors.secondary.turquoise).map(t => (
               <Color name={`secondary.turquoise.${t}`} key={t} />
             ))}
           </ColorGroup>
         </Flex>
         <Flex direction="column" gutter="6">
           <ColorGroup title="Highlight" subTitle="Blue">
-            {Object.keys(colors.highlight.blue).map(t => (
+            {Object.keys(theme.colors.highlight.blue).map(t => (
               <Color name={`highlight.blue.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Pink">
-            {Object.keys(colors.highlight.pink).map(t => (
+            {Object.keys(theme.colors.highlight.pink).map(t => (
               <Color name={`highlight.pink.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Purple">
-            {Object.keys(colors.highlight.purple).map(t => (
+            {Object.keys(theme.colors.highlight.purple).map(t => (
               <Color name={`highlight.purple.${t}`} key={t} />
             ))}
           </ColorGroup>
         </Flex>
         <Flex direction="column" gutter="6">
           <ColorGroup title="Conditional" subTitle="Positive">
-            {Object.keys(colors.conditional.positive).map(t => (
+            {Object.keys(theme.colors.conditional.positive).map(t => (
               <Color name={`conditional.positive.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Attention">
-            {Object.keys(colors.conditional.attention).map(t => (
+            {Object.keys(theme.colors.conditional.attention).map(t => (
               <Color name={`conditional.attention.${t}`} key={t} />
             ))}
           </ColorGroup>
           <ColorGroup subTitle="Negative">
-            {Object.keys(colors.conditional.negative).map(t => (
+            {Object.keys(theme.colors.conditional.negative).map(t => (
               <Color name={`conditional.negative.${t}`} key={t} />
             ))}
           </ColorGroup>

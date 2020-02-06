@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Text } = allDesignSystem;
+const { designTokens, useTheme, Text } = allDesignSystem;
 const { AS, TEXT_STYLES, ALIGNS, DEFAULT_PROPS, allowedColors } = Text;
 const scope = allDesignSystem;
 
@@ -25,6 +25,7 @@ function getAllowedColorsForTextStyle(textStyle) {
 }
 
 function TextPage() {
+  const theme = useTheme();
   const [as, setAs] = useState(DEFAULT_PROPS.as);
   const [textStyle, setTextStyle] = useState(DEFAULT_PROPS.textStyle);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
@@ -126,8 +127,8 @@ function TextPage() {
         width="sm"
         backgroundColor={
           color === "white"
-            ? designTokens.colors.primary.blue.t100
-            : designTokens.colors.white
+            ? theme.colors.primary.blue.t100
+            : theme.colors.white
         }
       />
     </>

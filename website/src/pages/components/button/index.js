@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Button } = allDesignSystem;
+const { designTokens, useTheme, Button } = allDesignSystem;
 const { VARIANTS, COLORS, TYPES, DEFAULT_PROPS } = Button;
 const scope = allDesignSystem;
 
@@ -18,6 +18,7 @@ const isDisabledOptions = getCheckboxOptions();
 const typeOptions = getRadioOptions(TYPES);
 
 function ButtonPage() {
+  const theme = useTheme();
   const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [isFullWidth, setIsFullWidth] = useState(DEFAULT_PROPS.isFullWidth);
@@ -107,8 +108,8 @@ function ButtonPage() {
         scope={scope}
         backgroundColor={
           color === "white"
-            ? designTokens.colors.primary.blue.t100
-            : designTokens.colors.white
+            ? theme.colors.primary.blue.t100
+            : theme.colors.white
         }
       />
     </>

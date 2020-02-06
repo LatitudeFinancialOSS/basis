@@ -7,7 +7,7 @@ export default theme => ({
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,
-    color: tokens.colors.black,
+    color: theme.colors.black,
     height: tokens.sizes[11],
     paddingLeft: tokens.space[4],
     paddingRight: tokens.space[10],
@@ -29,12 +29,12 @@ export default theme => ({
     boxShadow: theme.shadows.focus
   },
   "selectInput.default": {
-    backgroundColor: tokens.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05
   },
   "selectInput.default:focus": {
-    backgroundColor: tokens.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05
   },
   "selectInput.white": {
-    backgroundColor: tokens.colors.white
+    backgroundColor: theme.colors.white
   }
 });

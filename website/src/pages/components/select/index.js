@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Select } = allDesignSystem;
+const { designTokens, useTheme, Select } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = Select;
 const scope = allDesignSystem;
 
@@ -18,6 +18,7 @@ const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
 
 function SelectPage() {
+  const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [isFullWidth, setIsFullWidth] = useState(DEFAULT_PROPS.isFullWidth);
   const [isOptional, setIsOptional] = useState(DEFAULT_PROPS.isOptional);
@@ -147,9 +148,7 @@ function SelectPage() {
         noInline={true}
         scope={scope}
         backgroundColor={
-          color === "white"
-            ? designTokens.colors.grey.t05
-            : designTokens.colors.white
+          color === "white" ? theme.colors.grey.t05 : theme.colors.white
         }
       />
     </>

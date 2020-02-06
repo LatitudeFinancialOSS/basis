@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useStaticQuery, graphql, Link } from "gatsby";
 import { Location } from "@reach/router";
 import { pascalCase } from "pascal-case";
-import { Container, Text, designTokens } from "basis";
+import { Container, Text, designTokens, useTheme } from "basis";
 import { version } from "../../../package.json";
 
 function Section({ heading, children }) {
@@ -25,6 +25,7 @@ Section.propTypes = {
 };
 
 function Item({ location, href, children }) {
+  const theme = useTheme();
   const isCurrent = location.pathname.startsWith(href);
 
   return (
@@ -35,13 +36,11 @@ function Item({ location, href, children }) {
           alignItems: "center",
           width: "100%",
           padding: `${designTokens.space[2]} ${designTokens.space[6]}`,
-          color: isCurrent
-            ? designTokens.colors.black
-            : designTokens.colors.grey.t75,
-          backgroundColor: isCurrent ? designTokens.colors.grey.t16 : null,
+          color: isCurrent ? theme.colors.black : theme.colors.grey.t75,
+          backgroundColor: isCurrent ? theme.colors.grey.t16 : null,
           fontWeight: isCurrent ? designTokens.fontWeights.medium : null,
           ":hover": {
-            backgroundColor: designTokens.colors.grey.t16
+            backgroundColor: theme.colors.grey.t16
           }
         }}
         to={href}
@@ -61,6 +60,7 @@ Item.propTypes = {
 };
 
 function Sidebar() {
+  const theme = useTheme();
   const data = useStaticQuery(graphql`
     query ComponentsQuery {
       allFile(
@@ -89,8 +89,8 @@ function Sidebar() {
       <div
         css={{
           padding: `${designTokens.space[5]} ${designTokens.space[6]}`,
-          borderBottom: `1px solid ${designTokens.colors.grey.t10}`,
-          backgroundColor: designTokens.colors.grey.t05
+          borderBottom: `1px solid ${theme.colors.grey.t10}`,
+          backgroundColor: theme.colors.grey.t05
         }}
       >
         <Link to="/">
@@ -105,7 +105,7 @@ function Sidebar() {
           flexDirection: "column",
           flexGrow: 1,
           overflowY: "auto",
-          backgroundColor: designTokens.colors.grey.t05
+          backgroundColor: theme.colors.grey.t05
         }}
       >
         <Location>
@@ -136,8 +136,8 @@ function Sidebar() {
             marginTop: "auto",
             padding: `${designTokens.space[4]} ${designTokens.space[6]}`,
             fontSize: "10px",
-            color: designTokens.colors.grey.t65,
-            borderTop: `1px solid ${designTokens.colors.grey.t10}`
+            color: theme.colors.grey.t65,
+            borderTop: `1px solid ${theme.colors.grey.t10}`
           }}
         >
           Version {version}

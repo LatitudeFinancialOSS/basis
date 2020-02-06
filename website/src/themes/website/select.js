@@ -1,6 +1,6 @@
 import { designTokens as tokens } from "basis";
 
-export default _theme => ({
+export default theme => ({
   selectInput: {
     display: "inline-block",
     fontSize: tokens.fontSizes[0],
@@ -28,20 +28,20 @@ export default _theme => ({
     outline: 0
   },
   "selectInput.default": {
-    color: tokens.colors.grey.t65,
+    color: theme.colors.grey.t65,
     backgroundColor: "transparent",
-    borderColor: tokens.colors.grey.t30
+    borderColor: theme.colors.grey.t30
   },
   "selectInput.default:focus": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black
+    color: theme.colors.black,
+    borderColor: theme.colors.black
   },
   "selectInput.default:hover": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black
+    color: theme.colors.black,
+    borderColor: theme.colors.black
   },
   "selectInput.default:active": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black
+    color: theme.colors.black,
+    borderColor: theme.colors.black
   }
 });

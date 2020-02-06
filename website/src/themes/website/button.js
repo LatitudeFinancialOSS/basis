@@ -25,30 +25,30 @@ export default theme => ({
   },
   // Secondary default
   "button.secondary.default": {
-    color: tokens.colors.grey.t65,
+    color: theme.colors.grey.t65,
     backgroundColor: "transparent",
     borderWidth: tokens.borderWidths[0],
     borderStyle: "solid",
-    borderColor: tokens.colors.grey.t30
+    borderColor: theme.colors.grey.t30
   },
   "button.secondary.default:hover": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black
+    color: theme.colors.black,
+    borderColor: theme.colors.black
   },
   "button.secondary.default:active": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black,
+    color: theme.colors.black,
+    borderColor: theme.colors.black,
     transform: "scale(0.95)"
   },
   // Icon default
   "button.icon.default": {
     display: "flex",
     padding: `0 ${tokens.space[1]}`,
-    color: tokens.colors.grey.t65,
+    color: theme.colors.grey.t65,
     backgroundColor: "transparent",
     border: 0
   },
   "button.icon.default:hover": {
-    color: tokens.colors.black
+    color: theme.colors.black
   }
 });

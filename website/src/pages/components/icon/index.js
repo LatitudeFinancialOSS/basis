@@ -6,7 +6,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
 
-const { designTokens, Icon } = allDesignSystem;
+const { designTokens, useTheme, Icon } = allDesignSystem;
 const { NAMES, COLORS, DEFAULT_PROPS } = Icon;
 const scope = allDesignSystem;
 
@@ -14,6 +14,7 @@ const nameOptions = getRadioOptions(["all", ...NAMES]);
 const colorOptions = getRadioOptions(COLORS);
 
 function IconPage() {
+  const theme = useTheme();
   const [name, setName] = useState("all");
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const code = formatCode(
@@ -56,8 +57,8 @@ function IconPage() {
         scope={scope}
         backgroundColor={
           color === "white"
-            ? designTokens.colors.highlight.blue.t100
-            : designTokens.colors.white
+            ? theme.colors.highlight.blue.t100
+            : theme.colors.white
         }
       />
     </>

@@ -69,6 +69,8 @@ const scope = {
 };
 
 const PlaygroundError = withLive(({ live }) => {
+  const theme = useTheme();
+
   if (typeof window === "undefined" || !live.error) {
     return null;
   }
@@ -83,9 +85,9 @@ const PlaygroundError = withLive(({ live }) => {
         maxHeight: designTokens.sizes[19],
         overflowY: "auto",
         padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
-        backgroundColor: designTokens.colors.white,
-        borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
-        color: designTokens.colors.conditional.negative.text,
+        backgroundColor: theme.colors.white,
+        borderTop: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`,
+        color: theme.colors.conditional.negative.text,
         "> pre": {
           margin: 0
         }
@@ -105,6 +107,7 @@ function PlaygroundScreen({
   onMouseLeave,
   highlightedComponents
 }) {
+  const theme = useTheme();
   const _setDocument = useCallback(
     document => {
       setDocument(id, document);
@@ -139,7 +142,7 @@ function PlaygroundScreen({
       css={{
         position: "relative",
         width: "100%",
-        backgroundColor: designTokens.colors.white,
+        backgroundColor: theme.colors.white,
         boxShadow:
           "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
       }}
@@ -167,6 +170,7 @@ PlaygroundScreen.propTypes = {
 };
 
 function PlaygroundSettings({ screens, setScreens }) {
+  const theme = useTheme();
   const [newScreen, setNewScreen] = useState({
     id: "new-screen",
     name: "",
@@ -269,7 +273,7 @@ function PlaygroundSettings({ screens, setScreens }) {
         height: "100%",
         boxSizing: "border-box",
         padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
-        backgroundColor: designTokens.colors.grey.t03
+        backgroundColor: theme.colors.grey.t03
       }}
     >
       <label>Screens</label>
@@ -492,7 +496,7 @@ function Playground({ location }) {
             display: "flex",
             position: "relative",
             overflowX: "auto",
-            backgroundColor: designTokens.colors.grey.t03
+            backgroundColor: theme.colors.grey.t03
           }}
         >
           <div
@@ -576,9 +580,9 @@ function Playground({ location }) {
                   flexShrink: 0,
                   display: "flex",
                   padding: `${designTokens.space[2]} ${designTokens.space[8]}`,
-                  backgroundColor: designTokens.colors.grey.t05,
-                  borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
-                  borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
+                  backgroundColor: theme.colors.grey.t05,
+                  borderTop: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`,
+                  borderBottom: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`
                 }}
               >
                 <Flex gutter="4">
@@ -655,7 +659,7 @@ function Playground({ location }) {
                       top: 0,
                       right: 0,
                       bottom: 0,
-                      backgroundColor: rgba(designTokens.colors.white, 0.7)
+                      backgroundColor: rgba(theme.colors.white, 0.7)
                     }}
                     onClick={e => {
                       if (!settingsRef.current.contains(e.target)) {
@@ -672,7 +676,7 @@ function Playground({ location }) {
                         width: designTokens.sizes[20],
                         maxWidth: "100vw",
                         boxSizing: "border-box",
-                        borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
+                        borderLeft: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`
                       }}
                       ref={settingsRef}
                     >

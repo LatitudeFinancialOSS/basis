@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Checkbox } = allDesignSystem;
+const { designTokens, useTheme, Checkbox } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = Checkbox;
 const scope = allDesignSystem;
 
@@ -18,6 +18,7 @@ const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
 
 function CheckboxPage() {
+  const theme = useTheme();
   const [hasLabel, setHasLabel] = useState(true);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [isOptional, setIsOptional] = useState(DEFAULT_PROPS.isOptional);
@@ -122,9 +123,7 @@ function CheckboxPage() {
         code={code}
         scope={scope}
         backgroundColor={
-          color === "white"
-            ? designTokens.colors.grey.t05
-            : designTokens.colors.white
+          color === "white" ? theme.colors.grey.t05 : theme.colors.white
         }
       />
     </>

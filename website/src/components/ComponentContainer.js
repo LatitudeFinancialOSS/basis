@@ -60,7 +60,7 @@ function ComponentContainer(props) {
             style={{
               flexShrink: 0,
               marginRight: spaceBetween,
-              borderRight: `${borderWidthPx} solid ${designTokens.colors.grey.t10}`
+              borderRight: `${borderWidthPx} solid ${theme.colors.grey.t10}`
             }}
             enable={rightOnly}
             minWidth={minWidth}
@@ -82,7 +82,7 @@ function ComponentContainer(props) {
                 position: "absolute",
                 right: 0,
                 top: 0,
-                backgroundColor: designTokens.colors.grey.t10,
+                backgroundColor: theme.colors.grey.t10,
                 fontSize: designTokens.fontSizes[0],
                 padding: `0 ${designTokens.space[1]}`
               }}

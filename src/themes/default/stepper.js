@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default _theme => ({
+export default theme => ({
   stepper: {
     display: "flex"
   },
@@ -24,7 +24,7 @@ export default _theme => ({
     width: "50%",
     height: tokens.sizes[2],
     top: `calc(50% - ${parseInt(tokens.sizes[2], 10) / 2}px)`,
-    backgroundColor: tokens.colors.white
+    backgroundColor: theme.colors.white
   },
   "stepper.progress.right": {
     position: "absolute",
@@ -32,10 +32,10 @@ export default _theme => ({
     width: "50%",
     height: tokens.sizes[2],
     top: `calc(50% - ${parseInt(tokens.sizes[2], 10) / 2}px)`,
-    backgroundColor: tokens.colors.white
+    backgroundColor: theme.colors.white
   },
   "stepper.progress.completed": {
-    backgroundColor: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100
   },
   "stepper.itemContent": {
     display: "flex",
@@ -53,8 +53,8 @@ export default _theme => ({
     width: tokens.sizes[10],
     height: tokens.sizes[10],
     borderRadius: tokens.radii[3],
-    backgroundColor: tokens.colors.white,
-    color: tokens.colors.black,
+    backgroundColor: theme.colors.white,
+    color: theme.colors.black,
     boxSizing: "border-box",
     flexShrink: 0,
     zIndex: 1
@@ -64,9 +64,9 @@ export default _theme => ({
     height: tokens.sizes[5]
   },
   "stepper.itemCircle.current": {
-    border: `${tokens.borderWidths[1]} solid ${tokens.colors.primary.blue.t100}`
+    border: `${tokens.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`
   },
   "stepper.itemCircle.previous": {
-    backgroundColor: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100
   }
 });

@@ -8,7 +8,7 @@ export default theme => ({
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,
     padding: `0 ${tokens.space[4]}`,
-    color: tokens.colors.black,
+    color: theme.colors.black,
     width: "100%",
     height: tokens.space[11],
     border: 0,
@@ -24,9 +24,9 @@ export default theme => ({
     display: "none" // Hides the input="number" spin buttons in Chrome
   },
   "input.default": {
-    backgroundColor: tokens.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05
   },
   "input.white": {
-    backgroundColor: tokens.colors.white
+    backgroundColor: theme.colors.white
   }
 });

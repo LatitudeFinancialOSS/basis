@@ -8,7 +8,7 @@ import RadioGroupSetting, {
 import CheckboxesSetting from "../../../components/CheckboxesSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Frequency } = allDesignSystem;
+const { designTokens, useTheme, Frequency } = allDesignSystem;
 const { ALL_FREQUENCY_OPTIONS, COLORS, MODES, DEFAULT_PROPS } = Frequency;
 const scope = allDesignSystem;
 
@@ -20,6 +20,7 @@ const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
 
 function FrequencyPage() {
+  const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [mode, setMode] = useState(DEFAULT_PROPS.mode);
   const [frequencies, setFrequencies] = useState(() => {
@@ -172,9 +173,7 @@ function FrequencyPage() {
         code={code}
         scope={scope}
         backgroundColor={
-          color === "white"
-            ? designTokens.colors.grey.t05
-            : designTokens.colors.white
+          color === "white" ? theme.colors.grey.t05 : theme.colors.white
         }
       />
     </>

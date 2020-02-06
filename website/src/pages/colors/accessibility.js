@@ -93,7 +93,7 @@ function MatrixCell({
         marginLeft: designTokens.space[1],
         border:
           backgroundColor === "white"
-            ? `1px solid ${designTokens.colors.grey.t05}`
+            ? `1px solid ${theme.colors.grey.t05}`
             : null,
         boxSizing: "border-box",
         backgroundColor: theme.getColor(backgroundColor),
@@ -115,7 +115,7 @@ function MatrixCell({
           bottom: 0,
           width: designTokens.sizes[9],
           padding: `0 ${designTokens.space[1]}`,
-          backgroundColor: rgba(designTokens.colors.black, 0.6)
+          backgroundColor: rgba(theme.colors.black, 0.6)
         }}
       >
         <Text textStyle="body2" color="white" align="center">
@@ -241,7 +241,7 @@ function AccessibilityPage() {
         css={{
           flexShrink: 0,
           width: designTokens.sizes[19],
-          backgroundColor: designTokens.colors.grey.t05,
+          backgroundColor: theme.colors.grey.t05,
           padding: designTokens.space[6],
           boxSizing: "border-box",
           overflow: "auto"

@@ -1,6 +1,6 @@
 import tokens from "./tokens";
 
-export default _theme => ({
+export default theme => ({
   list: {
     margin: 0
   },
@@ -35,7 +35,7 @@ export default _theme => ({
     alignItems: "center"
   },
   "listItemMarker.unordered": {
-    backgroundColor: tokens.colors.secondary.lightBlue.t100,
+    backgroundColor: theme.colors.secondary.lightBlue.t100,
     borderRadius: tokens.radii[3]
   },
   "listItemContent.ordered.subtitle1": {

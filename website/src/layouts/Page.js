@@ -9,7 +9,7 @@ import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
 import { BasisProvider, designTokens, Container, Text, Link } from "basis";
 import { getTabsUrls } from "../utils/url";
-import websiteTheme from "../themes/website";
+import theme from "../themes/website";
 import "typeface-montserrat";
 import "typeface-roboto";
 
@@ -18,7 +18,7 @@ function Page({ pageContext, children }) {
   const title = header ? `${header} | Basis` : "Basis";
 
   return (
-    <BasisProvider theme={websiteTheme} InternalLink={GatsbyLink}>
+    <BasisProvider theme={theme} InternalLink={GatsbyLink}>
       <Global
         styles={{
           body: {
@@ -26,7 +26,7 @@ function Page({ pageContext, children }) {
             fontFamily: designTokens.fonts.body,
             fontSize: designTokens.fontSizes[1],
             lineHeight: designTokens.lineHeights[2],
-            color: designTokens.colors.black
+            color: theme.colors.black
           },
           a: {
             color: "inherit",
@@ -57,7 +57,7 @@ function Page({ pageContext, children }) {
             {header && (
               <div
                 css={{
-                  borderBottom: `1px solid ${designTokens.colors.grey.t16}`
+                  borderBottom: `1px solid ${theme.colors.grey.t16}`
                 }}
               >
                 <div
@@ -92,15 +92,15 @@ function Page({ pageContext, children }) {
                             css={{
                               listStyleType: "none",
                               color: isCurrent
-                                ? designTokens.colors.black
-                                : designTokens.colors.grey.t65,
+                                ? theme.colors.black
+                                : theme.colors.grey.t65,
                               ...(isCurrent && {
                                 "::after": {
                                   content: "''",
                                   display: "block",
                                   height: designTokens.borderWidths[1],
                                   margin: `0 ${designTokens.space[6]}`,
-                                  backgroundColor: designTokens.colors.black
+                                  backgroundColor: theme.colors.black
                                 }
                               })
                             }}

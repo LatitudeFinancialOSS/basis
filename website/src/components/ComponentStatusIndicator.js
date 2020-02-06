@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { COMPONENT_STATUS } from "../utils/constants";
-import { designTokens } from "basis";
+import { designTokens, useTheme } from "basis";
 
 const statusDescriptions = {
   DRAFT:
@@ -10,6 +10,8 @@ const statusDescriptions = {
 };
 
 function ComponentStatusIndicator({ status }) {
+  const theme = useTheme();
+
   return (
     <div
       css={{
@@ -17,11 +19,11 @@ function ComponentStatusIndicator({ status }) {
         padding: `${designTokens.space[1]} ${designTokens.space[2]}`,
         backgroundColor:
           status === COMPONENT_STATUS.READY
-            ? designTokens.colors.conditional.positive.graphics
+            ? theme.colors.conditional.positive.graphics
             : status === COMPONENT_STATUS.DRAFT
-            ? designTokens.colors.conditional.negative.graphics
-            : designTokens.colors.grey.t05,
-        color: designTokens.colors.white,
+            ? theme.colors.conditional.negative.graphics
+            : theme.colors.grey.t05,
+        color: theme.colors.white,
         cursor: "default"
       }}
       title={statusDescriptions[status]}
