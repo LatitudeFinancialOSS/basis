@@ -17,7 +17,7 @@ export default theme => ({
   "field.label": {
     display: "flex",
     fontFamily: tokens.fonts.body,
-    fontSize: tokens.fontSizes[1],
+    fontSize: theme.fontSizes[1],
     fontWeight: tokens.fontWeights.medium,
     lineHeight: tokens.lineHeights[2],
     color: theme.colors.grey.t75,
@@ -25,7 +25,7 @@ export default theme => ({
   },
   "field.label.optional": {
     alignSelf: "flex-end",
-    fontSize: tokens.fontSizes[0],
+    fontSize: theme.fontSizes[0],
     lineHeight: tokens.lineHeights[0],
     paddingLeft: theme.space[2],
     paddingRight: theme.space[2],

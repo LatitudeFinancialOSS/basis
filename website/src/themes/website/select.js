@@ -3,7 +3,7 @@ import { designTokens as tokens } from "basis";
 export default theme => ({
   selectInput: {
     display: "inline-block",
-    fontSize: tokens.fontSizes[0],
+    fontSize: theme.fontSizes[0],
     lineHeight: tokens.lineHeights[0],
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,

@@ -3,7 +3,7 @@ import { designTokens as tokens } from "basis";
 export default theme => ({
   input: {
     boxSizing: "border-box",
-    fontSize: tokens.fontSizes[0],
+    fontSize: theme.fontSizes[0],
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[1],
     fontFamily: tokens.fonts.body,

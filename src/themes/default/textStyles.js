@@ -1,10 +1,10 @@
 import tokens from "./tokens";
 
-export default {
+export default theme => ({
   hero: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[8],
+    fontSize: theme.fontSizes[8],
     lineHeight: tokens.lineHeights[7],
     letterSpacing: tokens.letterSpacings.hero
   },
@@ -15,7 +15,7 @@ export default {
   heading1: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[7],
+    fontSize: theme.fontSizes[7],
     lineHeight: tokens.lineHeights[6],
     letterSpacing: tokens.letterSpacings.heading1
   },
@@ -25,7 +25,7 @@ export default {
   heading2: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[6],
+    fontSize: theme.fontSizes[6],
     lineHeight: tokens.lineHeights[5],
     letterSpacing: tokens.letterSpacings.heading2
   },
@@ -35,7 +35,7 @@ export default {
   heading3: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[5],
+    fontSize: theme.fontSizes[5],
     lineHeight: tokens.lineHeights[4],
     letterSpacing: tokens.letterSpacings.heading3
   },
@@ -45,7 +45,7 @@ export default {
   heading4: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[4],
+    fontSize: theme.fontSizes[4],
     lineHeight: tokens.lineHeights[3],
     letterSpacing: tokens.letterSpacings.heading4
   },
@@ -55,7 +55,7 @@ export default {
   heading5: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[3],
+    fontSize: theme.fontSizes[3],
     lineHeight: tokens.lineHeights[2],
     letterSpacing: tokens.letterSpacings.heading5
   },
@@ -65,7 +65,7 @@ export default {
   heading6: {
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
-    fontSize: tokens.fontSizes[1],
+    fontSize: theme.fontSizes[1],
     lineHeight: tokens.lineHeights[1],
     letterSpacing: tokens.letterSpacings.heading6
   },
@@ -75,7 +75,7 @@ export default {
   subtitle1: {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
-    fontSize: tokens.fontSizes[4],
+    fontSize: theme.fontSizes[4],
     lineHeight: tokens.lineHeights[4],
     letterSpacing: tokens.letterSpacings.body
   },
@@ -85,7 +85,7 @@ export default {
   subtitle2: {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
-    fontSize: tokens.fontSizes[2],
+    fontSize: theme.fontSizes[2],
     lineHeight: tokens.lineHeights[3],
     letterSpacing: tokens.letterSpacings.body
   },
@@ -95,7 +95,7 @@ export default {
   body1: {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
-    fontSize: tokens.fontSizes[1],
+    fontSize: theme.fontSizes[1],
     lineHeight: tokens.lineHeights[2],
     letterSpacing: tokens.letterSpacings.body
   },
@@ -105,7 +105,7 @@ export default {
   body2: {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
-    fontSize: tokens.fontSizes[0],
+    fontSize: theme.fontSizes[0],
     lineHeight: tokens.lineHeights[0],
     letterSpacing: tokens.letterSpacings.body
   },
@@ -115,7 +115,7 @@ export default {
   legal: {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
-    fontSize: tokens.fontSizes[0],
+    fontSize: theme.fontSizes[0],
     lineHeight: tokens.lineHeights[2],
     letterSpacing: tokens.letterSpacings.body
   },
@@ -125,7 +125,7 @@ export default {
   overline: {
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.bold,
-    fontSize: tokens.fontSizes[0],
+    fontSize: theme.fontSizes[0],
     lineHeight: tokens.lineHeights[0],
     letterSpacing: tokens.letterSpacings.overline,
     textTransform: "uppercase"
@@ -133,4 +133,4 @@ export default {
   "overline.bold": {
     fontWeight: tokens.fontWeights.bold
   }
-};
+});

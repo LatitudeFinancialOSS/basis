@@ -11,7 +11,7 @@ export default theme => ({
     paddingLeft: theme.space[4],
     paddingRight: theme.space[4],
     height: theme.sizes[11],
-    fontSize: tokens.fontSizes[1],
+    fontSize: theme.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,

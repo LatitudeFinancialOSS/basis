@@ -9,17 +9,6 @@ export default {
     semiBold: 600,
     bold: 700
   },
-  fontSizes: [
-    "14px", // 0
-    "16px", // 1
-    "18px", // 2
-    "20px", // 3
-    "24px", // 4
-    "32px", // 5
-    "40px", // 6
-    "48px", // 7
-    "104px" // 8
-  ],
   lineHeights: [
     "20px", // 0
     "22px", // 1

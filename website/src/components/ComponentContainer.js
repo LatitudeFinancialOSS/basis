@@ -83,7 +83,7 @@ function ComponentContainer(props) {
                 right: 0,
                 top: 0,
                 backgroundColor: theme.colors.grey.t10,
-                fontSize: designTokens.fontSizes[0],
+                fontSize: theme.fontSizes[0],
                 padding: `0 ${theme.space[1]}`
               }}
             >

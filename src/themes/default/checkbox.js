@@ -11,7 +11,7 @@ export default theme => ({
     alignItems: "flex-start",
     padding: `${theme.space[3]} ${theme.space[4]}`,
     minHeight: theme.sizes[6],
-    fontSize: tokens.fontSizes[1],
+    fontSize: theme.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,

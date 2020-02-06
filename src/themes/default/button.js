@@ -2,7 +2,7 @@ import tokens from "./tokens";
 
 export default theme => ({
   button: {
-    fontSize: tokens.fontSizes[2],
+    fontSize: theme.fontSizes[2],
     lineHeight: tokens.lineHeights[3],
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.medium,

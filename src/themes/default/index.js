@@ -57,6 +57,17 @@ const theme = {
     "224px", // 19
     "320px" // 20
   ],
+  fontSizes: [
+    "14px", // 0
+    "16px", // 1
+    "18px", // 2
+    "20px", // 3
+    "24px", // 4
+    "32px", // 5
+    "40px", // 6
+    "48px", // 7
+    "104px" // 8
+  ],
   colors: {
     black: "#000000",
     grey: {
@@ -147,7 +158,6 @@ const theme = {
       }
     }
   },
-  textStyles,
   breakpoints: {
     xs: "380px",
     sm: "576px",
@@ -170,6 +180,8 @@ const theme = {
     header: 1000
   }
 };
+
+theme.textStyles = textStyles(theme);
 
 theme.shadows = {
   header: `inset 0 ${tokens.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
