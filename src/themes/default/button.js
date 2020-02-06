@@ -4,7 +4,7 @@ export default theme => ({
   button: {
     fontSize: theme.fontSizes[2],
     lineHeight: theme.lineHeights[3],
-    fontFamily: tokens.fonts.body,
+    fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.medium,
     border: 0,
     borderRadius: tokens.radii[1],

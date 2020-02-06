@@ -1,5 +1,3 @@
-import { designTokens as tokens } from "basis";
-
 export default theme => ({
   field: {
     display: "inline-flex",
@@ -16,7 +14,7 @@ export default theme => ({
   },
   "field.label": {
     display: "flex",
-    fontFamily: tokens.fonts.body,
+    fontFamily: theme.fonts.body,
     fontSize: theme.fontSizes[0],
     fontWeight: theme.fontWeights.medium,
     lineHeight: theme.lineHeights[1],

@@ -16,7 +16,7 @@ export default theme => ({
   },
   "field.label": {
     display: "flex",
-    fontFamily: tokens.fonts.body,
+    fontFamily: theme.fonts.body,
     fontSize: theme.fontSizes[1],
     fontWeight: theme.fontWeights.medium,
     lineHeight: theme.lineHeights[2],

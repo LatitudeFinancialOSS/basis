@@ -13,7 +13,7 @@ export default theme => ({
     boxShadow: theme.shadows.focus
   },
   "link.text": {
-    fontFamily: tokens.fonts.body,
+    fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.light,
     borderBottomWidth: tokens.borderWidths[0],
     borderBottomStyle: "solid",

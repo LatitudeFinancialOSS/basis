@@ -23,7 +23,7 @@ function Page({ pageContext, children }) {
         styles={{
           body: {
             margin: 0,
-            fontFamily: designTokens.fonts.body,
+            fontFamily: theme.fonts.body,
             fontSize: theme.fontSizes[1],
             lineHeight: theme.lineHeights[2],
             color: theme.colors.black

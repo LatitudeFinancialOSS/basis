@@ -5,7 +5,7 @@ export default theme => ({
     display: "inline-block",
     fontSize: theme.fontSizes[0],
     lineHeight: theme.lineHeights[0],
-    fontFamily: tokens.fonts.body,
+    fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.light,
     height: theme.sizes[8],
     paddingLeft: theme.space[3],

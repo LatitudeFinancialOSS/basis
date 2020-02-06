@@ -78,6 +78,21 @@ const theme = {
     "56px", // 6
     "120px" // 7
   ],
+  letterSpacings: {
+    hero: "-2.28px",
+    heading1: "-1.05px",
+    heading2: "-0.88px",
+    heading3: "-0.7px",
+    heading4: "-0.52px",
+    heading5: "-0.44px",
+    heading6: "-0.35px",
+    body: "0px",
+    overline: "2.6px"
+  },
+  fonts: {
+    heading: "'Montserrat', sans-serif",
+    body: "'Roboto', sans-serif"
+  },
   fontWeights: {
     light: 300,
     medium: 500,
