@@ -21,9 +21,9 @@ export default theme => ({
     fontWeight: tokens.fontWeights.medium,
     lineHeight: tokens.lineHeights[1],
     color: theme.colors.grey.t65,
-    marginBottom: tokens.space[1]
+    marginBottom: theme.space[1]
   },
   "field.helpText": {
-    padding: `${tokens.space[1]} ${tokens.space[1]} 0`
+    padding: `${theme.space[1]} ${theme.space[1]} 0`
   }
 });

@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Container } = allDesignSystem;
+const { Container, useTheme } = allDesignSystem;
 const { BACKGROUNDS, DEFAULT_PROPS } = Container;
 const scope = allDesignSystem;
 
@@ -17,6 +17,7 @@ const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
 const hasBreakpointWidthOptions = getCheckboxOptions();
 
 function ContainerPage() {
+  const theme = useTheme();
   const [bg, setBg] = useState("grey.t05");
   const [hasBreakpointWidth, setHasBreakpointWidth] = useState(
     DEFAULT_PROPS.hasBreakpointWidth
@@ -65,7 +66,7 @@ function ContainerPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -75,7 +76,7 @@ function ContainerPage() {
           setSelectedValue={setBg}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Has Breakpoint Width"
           options={hasBreakpointWidthOptions}
           selectedValue={hasBreakpointWidth}

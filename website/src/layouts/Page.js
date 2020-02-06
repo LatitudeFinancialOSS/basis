@@ -8,8 +8,8 @@ import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
 import { BasisProvider, designTokens, Container, Text, Link } from "basis";
-import { getTabsUrls } from "../utils/url";
 import theme from "../themes/website";
+import { getTabsUrls } from "../utils/url";
 import "typeface-montserrat";
 import "typeface-roboto";
 
@@ -63,7 +63,7 @@ function Page({ pageContext, children }) {
                 <div
                   css={{
                     display: "flex",
-                    padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`
+                    padding: `${theme.space[5]} ${theme.space[6]} 0`
                   }}
                 >
                   <Text as="h1" textStyle="heading4">
@@ -83,7 +83,7 @@ function Page({ pageContext, children }) {
                       <ul
                         css={{
                           display: "flex",
-                          margin: `${designTokens.space[6]} 0 0`,
+                          margin: `${theme.space[6]} 0 0`,
                           padding: 0
                         }}
                       >
@@ -99,7 +99,7 @@ function Page({ pageContext, children }) {
                                   content: "''",
                                   display: "block",
                                   height: designTokens.borderWidths[1],
-                                  margin: `0 ${designTokens.space[6]}`,
+                                  margin: `0 ${theme.space[6]}`,
                                   backgroundColor: theme.colors.black
                                 }
                               })

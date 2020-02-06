@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, DatePicker } = allDesignSystem;
+const { useTheme, DatePicker } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = DatePicker;
 const scope = allDesignSystem;
 
@@ -78,7 +78,7 @@ function DatePickerPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -88,7 +88,7 @@ function DatePickerPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -96,7 +96,7 @@ function DatePickerPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -104,7 +104,7 @@ function DatePickerPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

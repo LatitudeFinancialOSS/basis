@@ -8,7 +8,7 @@ export default theme => ({
     fontWeight: tokens.fontWeights.medium,
     border: 0,
     borderRadius: tokens.radii[1],
-    padding: `0 ${tokens.space[6]}`,
+    padding: `0 ${theme.space[6]}`,
     minHeight: theme.sizes[11],
     overflow: "hidden",
     transition: theme.transitions.button

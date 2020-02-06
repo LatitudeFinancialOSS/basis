@@ -5,8 +5,8 @@ export default theme => ({
     display: "flex"
   },
   "stepper.item": {
-    paddingTop: tokens.space[4],
-    paddingBottom: tokens.space[4]
+    paddingTop: theme.space[4],
+    paddingBottom: theme.space[4]
   },
   "stepper.itemLabelContainer": {
     display: "flex",
@@ -43,7 +43,7 @@ export default theme => ({
     justifyContent: "center",
     width: "100%",
     height: theme.sizes[10],
-    marginTop: tokens.space[2],
+    marginTop: theme.space[2],
     position: "relative"
   },
   "stepper.itemCircle": {

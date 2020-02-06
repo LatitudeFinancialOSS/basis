@@ -41,24 +41,6 @@ export default {
     body: "0px",
     overline: "2.6px"
   },
-  // margin, padding
-  space: [
-    "0px", // 0
-    "4px", // 1
-    "8px", // 2
-    "12px", // 3
-    "16px", // 4
-    "20px", // 5
-    "24px", // 6
-    "28px", // 7
-    "32px", // 8
-    "36px", // 9
-    "40px", // 10
-    "48px", // 11
-    "56px", // 12
-    "64px", // 13
-    "72px" // 14
-  ],
   radii: ["1px", "4px", "12px", "50%"],
   borderWidths: ["1px", "2px", "4px"]
 };

@@ -6,7 +6,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, List } = allDesignSystem;
+const { useTheme, List } = allDesignSystem;
 const { TYPES, TEXT_STYLES, DEFAULT_PROPS } = List;
 const scope = allDesignSystem;
 
@@ -14,6 +14,7 @@ const typeOptions = getRadioOptions(TYPES);
 const textStyleOptions = getRadioOptions(TEXT_STYLES);
 
 function ListPage() {
+  const theme = useTheme();
   const [type, setType] = useState(DEFAULT_PROPS.type);
   const [textStyle, setTextStyle] = useState(DEFAULT_PROPS.textStyle);
   const code = formatCode(
@@ -56,7 +57,7 @@ function ListPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -66,7 +67,7 @@ function ListPage() {
           setSelectedValue={setType}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Text Style"
           options={textStyleOptions}
           selectedValue={textStyle}

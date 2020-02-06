@@ -27,8 +27,8 @@ function ComponentContainer(props) {
     backgroundColor
   } = props;
   const theme = useTheme();
-  const spaceBetween = parseInt(designTokens.space[11], 10);
-  const spaceAroundIframe = parseInt(designTokens.space[5], 10);
+  const spaceBetween = parseInt(theme.space[11], 10);
+  const spaceAroundIframe = parseInt(theme.space[5], 10);
   const borderWidthPx = designTokens.borderWidths[0];
   const borderWidth = parseInt(borderWidthPx, 10);
   const minWidth = 50 + 2 * spaceAroundIframe + borderWidth;
@@ -84,7 +84,7 @@ function ComponentContainer(props) {
                 top: 0,
                 backgroundColor: theme.colors.grey.t10,
                 fontSize: designTokens.fontSizes[0],
-                padding: `0 ${designTokens.space[1]}`
+                padding: `0 ${theme.space[1]}`
               }}
             >
               {resizeWidth}px

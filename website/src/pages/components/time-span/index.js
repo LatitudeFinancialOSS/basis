@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, TimeSpan } = allDesignSystem;
+const { useTheme, TimeSpan } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = TimeSpan;
 const scope = allDesignSystem;
 
@@ -77,7 +77,7 @@ function TimeSpanPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -87,7 +87,7 @@ function TimeSpanPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -95,7 +95,7 @@ function TimeSpanPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -103,7 +103,7 @@ function TimeSpanPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

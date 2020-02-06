@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, Checkbox } = allDesignSystem;
+const { useTheme, Checkbox } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = Checkbox;
 const scope = allDesignSystem;
 
@@ -77,7 +77,7 @@ function CheckboxPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -88,14 +88,14 @@ function CheckboxPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -103,7 +103,7 @@ function CheckboxPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -111,7 +111,7 @@ function CheckboxPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

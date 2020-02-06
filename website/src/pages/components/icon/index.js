@@ -6,7 +6,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
 
-const { designTokens, useTheme, Icon } = allDesignSystem;
+const { useTheme, Icon } = allDesignSystem;
 const { NAMES, COLORS, DEFAULT_PROPS } = Icon;
 const scope = allDesignSystem;
 
@@ -32,7 +32,7 @@ function IconPage() {
       <div
         css={{
           display: "flex",
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`,
+          padding: `${theme.space[5]} ${theme.space[6]}`,
           maxHeight: theme.sizes[19],
           flexShrink: 0,
           overflowY: "auto"
@@ -45,7 +45,7 @@ function IconPage() {
           setSelectedValue={setName}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}

@@ -6,7 +6,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Section } = allDesignSystem;
+const { useTheme, Section } = allDesignSystem;
 const { BACKGROUNDS } = Section;
 const scope = allDesignSystem;
 
@@ -15,6 +15,7 @@ const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
 });
 
 function SectionPage() {
+  const theme = useTheme();
   const [bg, setBg] = useState("grey.t05");
   const code = formatCode(`
     <Section ${nonDefaultProps([
@@ -53,7 +54,7 @@ function SectionPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting

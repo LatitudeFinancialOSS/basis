@@ -16,7 +16,7 @@ function ComponentStatusIndicator({ status }) {
     <div
       css={{
         fontSize: designTokens.fontSizes[0],
-        padding: `${designTokens.space[1]} ${designTokens.space[2]}`,
+        padding: `${theme.space[1]} ${theme.space[2]}`,
         backgroundColor:
           status === COMPONENT_STATUS.READY
             ? theme.colors.conditional.positive.graphics

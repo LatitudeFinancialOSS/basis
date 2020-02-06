@@ -1,15 +1,7 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { rgba } from "polished";
-import {
-  designTokens,
-  useTheme,
-  Container,
-  Grid,
-  Text,
-  Select,
-  Input
-} from "basis";
+import { useTheme, Container, Grid, Text, Select, Input } from "basis";
 
 import { colorContrast, accessibleContrast } from "../../utils/color";
 
@@ -89,7 +81,7 @@ function MatrixCell({
         flexShrink: 0,
         width,
         height,
-        marginLeft: designTokens.space[1],
+        marginLeft: theme.space[1],
         border:
           backgroundColor === "white"
             ? `1px solid ${theme.colors.grey.t05}`
@@ -113,7 +105,7 @@ function MatrixCell({
           borderTopLeftRadius: "4px",
           bottom: 0,
           width: theme.sizes[9],
-          padding: `0 ${designTokens.space[1]}`,
+          padding: `0 ${theme.space[1]}`,
           backgroundColor: rgba(theme.colors.black, 0.6)
         }}
       >
@@ -178,8 +170,8 @@ function AccessibilityPage() {
         </Text>
         <div
           css={{
-            marginBottom: designTokens.space[6],
-            padding: `0 ${designTokens.space[6]}`,
+            marginBottom: theme.space[6],
+            padding: `0 ${theme.space[6]}`,
             width: "min-content" // Otherwise, right padding is not visible when there is an overflow.
           }}
         >
@@ -192,8 +184,8 @@ function AccessibilityPage() {
                   justifyContent: "center",
                   flexShrink: 0,
                   width: CELL_WIDTH,
-                  height: designTokens.space[8],
-                  marginLeft: designTokens.space[1]
+                  height: theme.space[8],
+                  marginLeft: theme.space[1]
                 }}
                 key={backgroundColor}
               >
@@ -207,7 +199,7 @@ function AccessibilityPage() {
             <div
               css={{
                 display: "flex",
-                marginTop: designTokens.space[1]
+                marginTop: theme.space[1]
               }}
               key={color}
             >
@@ -217,7 +209,7 @@ function AccessibilityPage() {
                   alignItems: "center",
                   flexShrink: 0,
                   width: TEXT_COLOR_COLUMN_WIDTH,
-                  paddingRight: designTokens.space[3],
+                  paddingRight: theme.space[3],
                   boxSizing: "border-box"
                 }}
               >
@@ -248,7 +240,7 @@ function AccessibilityPage() {
           flexShrink: 0,
           width: theme.sizes[19],
           backgroundColor: theme.colors.grey.t05,
-          padding: designTokens.space[6],
+          padding: theme.space[6],
           boxSizing: "border-box",
           overflow: "auto"
         }}

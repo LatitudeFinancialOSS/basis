@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, Link } = allDesignSystem;
+const { useTheme, Link } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = Link;
 const scope = allDesignSystem;
 
@@ -46,7 +46,7 @@ function LinkPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -56,7 +56,7 @@ function LinkPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="New Tab"
           options={newTabOptions}
           selectedValue={newTab}

@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, Text } = allDesignSystem;
+const { useTheme, Text } = allDesignSystem;
 const { AS, TEXT_STYLES, ALIGNS, DEFAULT_PROPS, allowedColors } = Text;
 const scope = allDesignSystem;
 
@@ -80,7 +80,7 @@ function TextPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -90,7 +90,7 @@ function TextPage() {
           setSelectedValue={setAs}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Text Style"
           options={textStyleOptions}
           selectedValue={textStyle}
@@ -98,7 +98,7 @@ function TextPage() {
         />
         {colorOptions.length > 1 && (
           <RadioGroupSetting
-            css={{ marginLeft: designTokens.space[13] }}
+            css={{ marginLeft: theme.space[13] }}
             heading="Color"
             options={colorOptions}
             selectedValue={color}
@@ -106,14 +106,14 @@ function TextPage() {
           />
         )}
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Align"
           options={alignOptions}
           selectedValue={align}
           setSelectedValue={setAlign}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Wrap"
           options={wrapOptions}
           selectedValue={wrap}

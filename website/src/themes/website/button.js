@@ -7,7 +7,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.medium,
     borderRadius: tokens.radii[1],
-    padding: `0 ${tokens.space[4]}`,
+    padding: `0 ${theme.space[4]}`,
     minHeight: theme.sizes[8],
     overflow: "hidden",
     transition:
@@ -43,7 +43,7 @@ export default theme => ({
   // Icon default
   "button.icon.default": {
     display: "flex",
-    padding: `0 ${tokens.space[1]}`,
+    padding: `0 ${theme.space[1]}`,
     color: theme.colors.grey.t65,
     backgroundColor: "transparent",
     border: 0

@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import { Text, designTokens } from "basis";
+import { useTheme, Text } from "basis";
 
 function Checkbox({ value, checked, label, onChange }) {
+  const theme = useTheme();
   const [id] = useState(`checkbox-${nanoid()}`);
 
   return (
     <div
       css={{
-        paddingTop: designTokens.space[1],
-        paddingBottom: designTokens.space[1],
+        paddingTop: theme.space[1],
+        paddingBottom: theme.space[1],
         whiteSpace: "nowrap"
       }}
     >
@@ -22,7 +23,7 @@ function Checkbox({ value, checked, label, onChange }) {
         onChange={onChange}
       />
       <label
-        css={{ marginLeft: designTokens.space[2], verticalAlign: "middle" }}
+        css={{ marginLeft: theme.space[2], verticalAlign: "middle" }}
         htmlFor={id}
       >
         {label}

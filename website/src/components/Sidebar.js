@@ -35,7 +35,7 @@ function Item({ location, href, children }) {
           display: "flex",
           alignItems: "center",
           width: "100%",
-          padding: `${designTokens.space[2]} ${designTokens.space[6]}`,
+          padding: `${theme.space[2]} ${theme.space[6]}`,
           color: isCurrent ? theme.colors.black : theme.colors.grey.t75,
           backgroundColor: isCurrent ? theme.colors.grey.t16 : null,
           fontWeight: isCurrent ? designTokens.fontWeights.medium : null,
@@ -88,7 +88,7 @@ function Sidebar() {
     <header css={{ minHeight: 0, display: "flex", flexDirection: "column" }}>
       <div
         css={{
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`,
+          padding: `${theme.space[5]} ${theme.space[6]}`,
           borderBottom: `1px solid ${theme.colors.grey.t10}`,
           backgroundColor: theme.colors.grey.t05
         }}
@@ -134,7 +134,7 @@ function Sidebar() {
         <div
           css={{
             marginTop: "auto",
-            padding: `${designTokens.space[4]} ${designTokens.space[6]}`,
+            padding: `${theme.space[4]} ${theme.space[6]}`,
             fontSize: "10px",
             color: theme.colors.grey.t65,
             borderTop: `1px solid ${theme.colors.grey.t10}`

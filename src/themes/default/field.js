@@ -21,24 +21,24 @@ export default theme => ({
     fontWeight: tokens.fontWeights.medium,
     lineHeight: tokens.lineHeights[2],
     color: theme.colors.grey.t75,
-    marginBottom: tokens.space[2]
+    marginBottom: theme.space[2]
   },
   "field.label.optional": {
     alignSelf: "flex-end",
     fontSize: tokens.fontSizes[0],
     lineHeight: tokens.lineHeights[0],
-    paddingLeft: tokens.space[2],
-    paddingRight: tokens.space[2],
+    paddingLeft: theme.space[2],
+    paddingRight: theme.space[2],
     border: `${tokens.borderWidths[1]} solid ${theme.colors.grey.t75}`,
     borderRadius: tokens.radii[2],
     opacity: 0.66,
     marginLeft: "auto"
   },
   "field.helpText": {
-    paddingTop: tokens.space[2]
+    paddingTop: theme.space[2]
   },
   "field.errors": {
-    paddingTop: tokens.space[1],
+    paddingTop: theme.space[1],
     borderTop: `${tokens.borderWidths[2]} solid ${theme.colors.conditional.negative.graphics}`,
     zIndex: 1
   }

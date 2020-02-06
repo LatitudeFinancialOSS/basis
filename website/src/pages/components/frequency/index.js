@@ -8,7 +8,7 @@ import RadioGroupSetting, {
 import CheckboxesSetting from "../../../components/CheckboxesSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, Frequency } = allDesignSystem;
+const { useTheme, Frequency } = allDesignSystem;
 const { ALL_FREQUENCY_OPTIONS, COLORS, MODES, DEFAULT_PROPS } = Frequency;
 const scope = allDesignSystem;
 
@@ -121,7 +121,7 @@ function FrequencyPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -131,21 +131,21 @@ function FrequencyPage() {
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Mode"
           options={modeOptions}
           selectedValue={mode}
           setSelectedValue={setMode}
         />
         <CheckboxesSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Frequency"
           options={frequencyOptions}
           selectedValues={frequencies}
           setSelectedValues={setFrequencies}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
           selectedValue={isOptional}
@@ -153,7 +153,7 @@ function FrequencyPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Help Text"
           options={hasHelpTextOptions}
           selectedValue={hasHelpText}
@@ -161,7 +161,7 @@ function FrequencyPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}

@@ -6,7 +6,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, LoadingIcon } = allDesignSystem;
+const { useTheme, LoadingIcon } = allDesignSystem;
 const { SIZES, COLORS, DEFAULT_PROPS } = LoadingIcon;
 const scope = allDesignSystem;
 
@@ -38,7 +38,7 @@ function LoadingIconPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -48,7 +48,7 @@ function LoadingIconPage() {
           setSelectedValue={setSize}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}

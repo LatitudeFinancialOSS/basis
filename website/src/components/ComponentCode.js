@@ -2,14 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { LiveEditor } from "react-live";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { designTokens } from "basis";
+import { useTheme } from "basis";
 
 function ComponentCode({ className, code }) {
+  const theme = useTheme();
+
   return (
     <div
       className={className}
       css={{
-        padding: `${designTokens.space[3]} ${designTokens.space[5]}`,
+        padding: `${theme.space[3]} ${theme.space[5]}`,
         "textarea:focus": {
           outline: "none"
         }

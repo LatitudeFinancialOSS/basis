@@ -9,7 +9,7 @@ export default theme => ({
   checkboxLabel: {
     display: "inline-flex",
     alignItems: "flex-start",
-    padding: `${tokens.space[3]} ${tokens.space[4]}`,
+    padding: `${theme.space[3]} ${theme.space[4]}`,
     minHeight: theme.sizes[6],
     fontSize: tokens.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
@@ -35,7 +35,7 @@ export default theme => ({
     flexShrink: 0,
     width: theme.sizes[6],
     height: theme.sizes[6],
-    marginRight: tokens.space[3]
+    marginRight: theme.space[3]
   },
   "checkboxIcon.secondary.lightBlue.t30": {
     fill: theme.colors.secondary.lightBlue.t30

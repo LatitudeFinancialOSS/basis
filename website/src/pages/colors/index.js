@@ -2,9 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { pascalCase } from "pascal-case";
 import { hex } from "wcag-contrast";
-import { Container, Flex, Text, designTokens, useTheme } from "basis";
+import { useTheme, Container, Flex, Text } from "basis";
 
 function ColorGroup({ title, subTitle, children }) {
+  const theme = useTheme();
+
   return (
     <Flex>
       <Container width="18" padding="2 0 0 0">
@@ -14,7 +16,7 @@ function ColorGroup({ title, subTitle, children }) {
           </Text>
         )}
         {subTitle && (
-          <div css={{ marginTop: title ? designTokens.space[1] : "2px" }}>
+          <div css={{ marginTop: title ? theme.space[1] : "2px" }}>
             <Text color="grey.t75">{subTitle}</Text>
           </div>
         )}
@@ -61,7 +63,7 @@ function Color({ name }) {
         boxSizing: "border-box",
         width: theme.sizes[16],
         height: theme.sizes[16],
-        padding: designTokens.space[3],
+        padding: theme.space[3],
         backgroundColor: theme.getColor(name)
       }}
     >

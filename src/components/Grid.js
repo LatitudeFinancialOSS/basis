@@ -105,12 +105,12 @@ function Grid(_props) {
       },
       colsGutter: ({ colsGutter }) => {
         return {
-          gridColumnGap: getGutterPx(colsGutter)
+          gridColumnGap: getGutterPx(colsGutter, theme)
         };
       },
       rowsGutter: ({ rowsGutter }) => {
         return {
-          gridRowGap: getGutterPx(rowsGutter)
+          gridRowGap: getGutterPx(rowsGutter, theme)
         };
       }
     }

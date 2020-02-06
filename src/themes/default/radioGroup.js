@@ -8,8 +8,8 @@ export default theme => ({
   radioGroupRadioLabel: {
     display: "inline-flex",
     alignItems: "center",
-    paddingLeft: tokens.space[4],
-    paddingRight: tokens.space[4],
+    paddingLeft: theme.space[4],
+    paddingRight: theme.space[4],
     height: theme.sizes[11],
     fontSize: tokens.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
@@ -39,7 +39,7 @@ export default theme => ({
     flexShrink: 0,
     width: theme.sizes[6],
     height: theme.sizes[6],
-    marginRight: tokens.space[3]
+    marginRight: theme.space[3]
   },
   "radioGroupRadioOuterCircle.white": {
     fill: theme.colors.white

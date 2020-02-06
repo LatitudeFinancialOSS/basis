@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, useTheme, Button } = allDesignSystem;
+const { useTheme, Button } = allDesignSystem;
 const { VARIANTS, COLORS, TYPES, DEFAULT_PROPS } = Button;
 const scope = allDesignSystem;
 
@@ -63,7 +63,7 @@ function ButtonPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -73,14 +73,14 @@ function ButtonPage() {
           setSelectedValue={setVariant}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Full Width"
           options={isFullWidthOptions}
           selectedValue={isFullWidth}
@@ -88,7 +88,7 @@ function ButtonPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}
@@ -96,7 +96,7 @@ function ButtonPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Type"
           options={typeOptions}
           selectedValue={type}

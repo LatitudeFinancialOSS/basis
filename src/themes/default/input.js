@@ -7,10 +7,10 @@ export default theme => ({
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,
-    padding: `0 ${tokens.space[4]}`,
+    padding: `0 ${theme.space[4]}`,
     color: theme.colors.black,
     width: "100%",
-    height: tokens.space[11],
+    height: theme.space[11],
     border: 0,
     margin: 0,
     MozAppearance: "textfield" // Hides the input="number" spin buttons in Firefox

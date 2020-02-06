@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import DemoBlock from "../../../components/DemoBlock";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Grid } = allDesignSystem;
+const { useTheme, Grid } = allDesignSystem;
 const { DEFAULT_PROPS } = Grid;
 const scope = {
   ...allDesignSystem,
@@ -17,6 +17,7 @@ const scope = {
 const debugOptions = getCheckboxOptions();
 
 function GridPage() {
+  const theme = useTheme();
   const [debug, setDebug] = useState(DEFAULT_PROPS.debug);
   const gridProps = nonDefaultProps([
     {
@@ -65,7 +66,7 @@ function GridPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
