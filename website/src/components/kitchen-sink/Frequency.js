@@ -60,6 +60,19 @@ function KitchenSinkFrequency() {
               ]
             }}
           />
+
+          <Frequency
+            label="Custom placeholders"
+            mode="select"
+            inputPlaceholder="Type something"
+            selectPlaceholder="Select something"
+            data={{
+              value: {
+                input: "",
+                frequency: ""
+              }
+            }}
+          />
         </Grid>
       </Container>
     </Layout>
