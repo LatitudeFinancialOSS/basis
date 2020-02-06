@@ -111,6 +111,11 @@ function Select(props) {
           },
           ":hover": {
             ...(!isDisabled && theme[`selectInput.${colorStr}:hover`])
+          },
+          // See: https://stackoverflow.com/a/19451423/247243
+          ":-moz-focusring": {
+            color: "transparent",
+            textShadow: "0 0 0 #000"
           }
         }}
         id={selectId}
