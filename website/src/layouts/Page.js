@@ -25,7 +25,7 @@ function Page({ pageContext, children }) {
             margin: 0,
             fontFamily: designTokens.fonts.body,
             fontSize: theme.fontSizes[1],
-            lineHeight: designTokens.lineHeights[2],
+            lineHeight: theme.lineHeights[2],
             color: theme.colors.black
           },
           a: {

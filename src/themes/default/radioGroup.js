@@ -13,7 +13,7 @@ export default theme => ({
     height: theme.sizes[11],
     fontSize: theme.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
-    lineHeight: tokens.lineHeights[2],
+    lineHeight: theme.lineHeights[2],
     fontFamily: tokens.fonts.body,
     color: theme.colors.black,
     overflow: "hidden"

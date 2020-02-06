@@ -3,7 +3,7 @@ import { designTokens as tokens } from "basis";
 export default theme => ({
   button: {
     fontSize: theme.fontSizes[0],
-    lineHeight: tokens.lineHeights[0],
+    lineHeight: theme.lineHeights[0],
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.medium,
     borderRadius: tokens.radii[1],

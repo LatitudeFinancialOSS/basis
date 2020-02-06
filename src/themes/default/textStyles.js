@@ -5,7 +5,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[8],
-    lineHeight: tokens.lineHeights[7],
+    lineHeight: theme.lineHeights[7],
     letterSpacing: tokens.letterSpacings.hero
   },
   // This is needed in order to override browser's default
@@ -16,7 +16,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[7],
-    lineHeight: tokens.lineHeights[6],
+    lineHeight: theme.lineHeights[6],
     letterSpacing: tokens.letterSpacings.heading1
   },
   "heading1.bold": {
@@ -26,7 +26,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[6],
-    lineHeight: tokens.lineHeights[5],
+    lineHeight: theme.lineHeights[5],
     letterSpacing: tokens.letterSpacings.heading2
   },
   "heading2.bold": {
@@ -36,7 +36,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[5],
-    lineHeight: tokens.lineHeights[4],
+    lineHeight: theme.lineHeights[4],
     letterSpacing: tokens.letterSpacings.heading3
   },
   "heading3.bold": {
@@ -46,7 +46,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[4],
-    lineHeight: tokens.lineHeights[3],
+    lineHeight: theme.lineHeights[3],
     letterSpacing: tokens.letterSpacings.heading4
   },
   "heading4.bold": {
@@ -56,7 +56,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[3],
-    lineHeight: tokens.lineHeights[2],
+    lineHeight: theme.lineHeights[2],
     letterSpacing: tokens.letterSpacings.heading5
   },
   "heading5.bold": {
@@ -66,7 +66,7 @@ export default theme => ({
     fontFamily: tokens.fonts.heading,
     fontWeight: tokens.fontWeights.semiBold,
     fontSize: theme.fontSizes[1],
-    lineHeight: tokens.lineHeights[1],
+    lineHeight: theme.lineHeights[1],
     letterSpacing: tokens.letterSpacings.heading6
   },
   "heading6.bold": {
@@ -76,7 +76,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
     fontSize: theme.fontSizes[4],
-    lineHeight: tokens.lineHeights[4],
+    lineHeight: theme.lineHeights[4],
     letterSpacing: tokens.letterSpacings.body
   },
   "subtitle1.bold": {
@@ -86,7 +86,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
     fontSize: theme.fontSizes[2],
-    lineHeight: tokens.lineHeights[3],
+    lineHeight: theme.lineHeights[3],
     letterSpacing: tokens.letterSpacings.body
   },
   "subtitle2.bold": {
@@ -96,7 +96,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
     fontSize: theme.fontSizes[1],
-    lineHeight: tokens.lineHeights[2],
+    lineHeight: theme.lineHeights[2],
     letterSpacing: tokens.letterSpacings.body
   },
   "body1.bold": {
@@ -106,7 +106,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
     fontSize: theme.fontSizes[0],
-    lineHeight: tokens.lineHeights[0],
+    lineHeight: theme.lineHeights[0],
     letterSpacing: tokens.letterSpacings.body
   },
   "body2.bold": {
@@ -116,7 +116,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.light,
     fontSize: theme.fontSizes[0],
-    lineHeight: tokens.lineHeights[2],
+    lineHeight: theme.lineHeights[2],
     letterSpacing: tokens.letterSpacings.body
   },
   "legal.bold": {
@@ -126,7 +126,7 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontWeight: tokens.fontWeights.bold,
     fontSize: theme.fontSizes[0],
-    lineHeight: tokens.lineHeights[0],
+    lineHeight: theme.lineHeights[0],
     letterSpacing: tokens.letterSpacings.overline,
     textTransform: "uppercase"
   },

@@ -68,6 +68,16 @@ const theme = {
     "48px", // 7
     "104px" // 8
   ],
+  lineHeights: [
+    "20px", // 0
+    "22px", // 1
+    "24px", // 2
+    "28px", // 3
+    "36px", // 4
+    "48px", // 5
+    "56px", // 6
+    "120px" // 7
+  ],
   colors: {
     black: "#000000",
     grey: {

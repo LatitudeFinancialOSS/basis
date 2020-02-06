@@ -19,14 +19,14 @@ export default theme => ({
     fontFamily: tokens.fonts.body,
     fontSize: theme.fontSizes[1],
     fontWeight: tokens.fontWeights.medium,
-    lineHeight: tokens.lineHeights[2],
+    lineHeight: theme.lineHeights[2],
     color: theme.colors.grey.t75,
     marginBottom: theme.space[2]
   },
   "field.label.optional": {
     alignSelf: "flex-end",
     fontSize: theme.fontSizes[0],
-    lineHeight: tokens.lineHeights[0],
+    lineHeight: theme.lineHeights[0],
     paddingLeft: theme.space[2],
     paddingRight: theme.space[2],
     border: `${tokens.borderWidths[1]} solid ${theme.colors.grey.t75}`,

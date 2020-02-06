@@ -9,16 +9,6 @@ export default {
     semiBold: 600,
     bold: 700
   },
-  lineHeights: [
-    "20px", // 0
-    "22px", // 1
-    "24px", // 2
-    "28px", // 3
-    "36px", // 4
-    "48px", // 5
-    "56px", // 6
-    "120px" // 7
-  ],
   letterSpacings: {
     hero: "-2.28px",
     heading1: "-1.05px",

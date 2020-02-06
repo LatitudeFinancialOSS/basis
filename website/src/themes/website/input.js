@@ -5,7 +5,7 @@ export default theme => ({
     boxSizing: "border-box",
     fontSize: theme.fontSizes[0],
     fontWeight: tokens.fontWeights.light,
-    lineHeight: tokens.lineHeights[1],
+    lineHeight: theme.lineHeights[1],
     fontFamily: tokens.fonts.body,
     padding: `0 ${theme.space[2]}`,
     width: "100%",
