@@ -10,7 +10,7 @@ export default theme => ({
     alignItems: "center",
     paddingLeft: tokens.space[4],
     paddingRight: tokens.space[4],
-    height: tokens.sizes[11],
+    height: theme.sizes[11],
     fontSize: tokens.fontSizes[1],
     fontWeight: tokens.fontWeights.light,
     lineHeight: tokens.lineHeights[2],
@@ -37,8 +37,8 @@ export default theme => ({
   },
   radioGroupRadioCircle: {
     flexShrink: 0,
-    width: tokens.sizes[6],
-    height: tokens.sizes[6],
+    width: theme.sizes[6],
+    height: theme.sizes[6],
     marginRight: tokens.space[3]
   },
   "radioGroupRadioOuterCircle.white": {

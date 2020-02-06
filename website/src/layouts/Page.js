@@ -42,7 +42,7 @@ function Page({ pageContext, children }) {
           css={{
             height: "100vh",
             display: "grid",
-            gridTemplateColumns: `${designTokens.sizes[19]} 1fr`
+            gridTemplateColumns: `${theme.sizes[19]} 1fr`
           }}
         >
           <Sidebar />

@@ -2,9 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { keyframes } from "@emotion/core";
 import useTheme from "../hooks/useTheme";
-import tokens from "../themes/default/tokens";
-
-const DEFAULT_CIRCLE_RADIUS = tokens.sizes[1];
 
 const SIZES = ["small", "medium", "large"];
 const COLORS = ["highlight.blue.t100", "white"];
@@ -25,7 +22,7 @@ function LoadingIcon(_props) {
   const radius = parseInt(
     theme[`loadingIcon.${size}`]
       ? theme[`loadingIcon.${size}`].circleRadius
-      : DEFAULT_CIRCLE_RADIUS,
+      : theme.sizes[1],
     10
   );
   const circleColor = theme[`loadingIcon.${color}`]

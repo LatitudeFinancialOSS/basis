@@ -10,7 +10,7 @@ export default theme => ({
   },
   "stepper.itemLabelContainer": {
     display: "flex",
-    height: tokens.sizes[5]
+    height: theme.sizes[5]
   },
   "stepper.itemLabel": {
     position: "relative",
@@ -22,16 +22,16 @@ export default theme => ({
     position: "absolute",
     left: 0,
     width: "50%",
-    height: tokens.sizes[2],
-    top: `calc(50% - ${parseInt(tokens.sizes[2], 10) / 2}px)`,
+    height: theme.sizes[2],
+    top: `calc(50% - ${parseInt(theme.sizes[2], 10) / 2}px)`,
     backgroundColor: theme.colors.white
   },
   "stepper.progress.right": {
     position: "absolute",
     left: "50%",
     width: "50%",
-    height: tokens.sizes[2],
-    top: `calc(50% - ${parseInt(tokens.sizes[2], 10) / 2}px)`,
+    height: theme.sizes[2],
+    top: `calc(50% - ${parseInt(theme.sizes[2], 10) / 2}px)`,
     backgroundColor: theme.colors.white
   },
   "stepper.progress.completed": {
@@ -42,7 +42,7 @@ export default theme => ({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: tokens.sizes[10],
+    height: theme.sizes[10],
     marginTop: tokens.space[2],
     position: "relative"
   },
@@ -50,8 +50,8 @@ export default theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: tokens.sizes[10],
-    height: tokens.sizes[10],
+    width: theme.sizes[10],
+    height: theme.sizes[10],
     borderRadius: tokens.radii[3],
     backgroundColor: theme.colors.white,
     color: theme.colors.black,
@@ -60,8 +60,8 @@ export default theme => ({
     zIndex: 1
   },
   "stepper.itemCircle.minor": {
-    width: tokens.sizes[5],
-    height: tokens.sizes[5]
+    width: theme.sizes[5],
+    height: theme.sizes[5]
   },
   "stepper.itemCircle.current": {
     border: `${tokens.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`

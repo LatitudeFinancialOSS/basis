@@ -8,7 +8,7 @@ export default theme => ({
     lineHeight: tokens.lineHeights[2],
     fontFamily: tokens.fonts.body,
     color: theme.colors.black,
-    height: tokens.sizes[11],
+    height: theme.sizes[11],
     paddingLeft: tokens.space[4],
     paddingRight: tokens.space[10],
     margin: 0,

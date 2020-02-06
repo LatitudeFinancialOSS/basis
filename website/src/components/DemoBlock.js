@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { rgba } from "polished";
-import { designTokens } from "basis";
+import { useTheme } from "basis";
 
 const DEMO_BLOCK_COLORS_MAP = {
   red: "#ffd4d2",
@@ -15,6 +15,7 @@ function DemoBlock({
   height = "100%",
   children
 }) {
+  const theme = useTheme();
   const [colorName, colorOpacity = 1] = color.split("-");
   const backgroundColor = rgba(
     DEMO_BLOCK_COLORS_MAP[colorName] || DEMO_BLOCK_COLORS_MAP.red,
@@ -28,10 +29,9 @@ function DemoBlock({
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        width: width === "auto" ? "auto" : designTokens.sizes[width],
-        height:
-          typeof height === "string" ? height : designTokens.sizes[height],
-        minHeight: designTokens.sizes[12],
+        width: width === "auto" ? "auto" : theme.sizes[width],
+        height: typeof height === "string" ? height : theme.sizes[height],
+        minHeight: theme.sizes[12],
         overflow: "hidden",
         backgroundColor
       }}

@@ -39,9 +39,9 @@ export function getSpaceValue(space) {
     .join(" ");
 }
 
-export function getSizeValue(size) {
+function getSizeValue(size, theme) {
   if (typeof size === "number") {
-    return tokens.sizes[size] || null;
+    return theme.sizes[size] || null;
   }
 
   if (typeof size !== "string") {
@@ -52,7 +52,7 @@ export function getSizeValue(size) {
     return size;
   }
 
-  return tokens.sizes[size] || null;
+  return theme.sizes[size] || null;
 }
 
 function getGutterValues(gutter) {
@@ -264,14 +264,14 @@ export function responsivePadding(propsAtBreakpoint) {
   return padding === null ? {} : { padding };
 }
 
-export function responsiveWidth(propsAtBreakpoint) {
-  const width = getSizeValue(propsAtBreakpoint.width);
+export function responsiveWidth(propsAtBreakpoint, theme) {
+  const width = getSizeValue(propsAtBreakpoint.width, theme);
 
   return width === null ? {} : { width };
 }
 
-export function responsiveHeight(propsAtBreakpoint) {
-  const height = getSizeValue(propsAtBreakpoint.height);
+export function responsiveHeight(propsAtBreakpoint, theme) {
+  const height = getSizeValue(propsAtBreakpoint.height, theme);
 
   return height === null ? {} : { height };
 }

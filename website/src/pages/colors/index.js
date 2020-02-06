@@ -59,8 +59,8 @@ function Color({ name }) {
         flexDirection: "column",
         alignItems: "center",
         boxSizing: "border-box",
-        width: designTokens.sizes[16],
-        height: designTokens.sizes[16],
+        width: theme.sizes[16],
+        height: theme.sizes[16],
         padding: designTokens.space[3],
         backgroundColor: theme.getColor(name)
       }}

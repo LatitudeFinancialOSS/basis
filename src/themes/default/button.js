@@ -9,7 +9,7 @@ export default theme => ({
     border: 0,
     borderRadius: tokens.radii[1],
     padding: `0 ${tokens.space[6]}`,
-    minHeight: tokens.sizes[11],
+    minHeight: theme.sizes[11],
     overflow: "hidden",
     transition: theme.transitions.button
   },

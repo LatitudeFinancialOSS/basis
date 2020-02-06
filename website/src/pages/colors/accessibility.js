@@ -10,14 +10,11 @@ import {
   Select,
   Input
 } from "basis";
+
 import { colorContrast, accessibleContrast } from "../../utils/color";
 
 const { BACKGROUNDS } = Container;
 const { TEXT_STYLES, COLORS } = Text;
-
-const TEXT_COLOR_COLUMN_WIDTH = designTokens.sizes[18];
-const CELL_WIDTH = designTokens.sizes[18];
-const CELL_HEIGHT = designTokens.sizes[14];
 
 const showOptions = [
   {
@@ -63,6 +60,8 @@ function isBoldAllowedForTextStyle(textStyle) {
 }
 
 function MatrixCell({
+  width,
+  height,
   color,
   backgroundColor,
   textStyle,
@@ -88,8 +87,8 @@ function MatrixCell({
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
-        width: CELL_WIDTH,
-        height: CELL_HEIGHT,
+        width,
+        height,
         marginLeft: designTokens.space[1],
         border:
           backgroundColor === "white"
@@ -113,7 +112,7 @@ function MatrixCell({
           right: 0,
           borderTopLeftRadius: "4px",
           bottom: 0,
-          width: designTokens.sizes[9],
+          width: theme.sizes[9],
           padding: `0 ${designTokens.space[1]}`,
           backgroundColor: rgba(theme.colors.black, 0.6)
         }}
@@ -127,6 +126,8 @@ function MatrixCell({
 }
 
 MatrixCell.propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS).isRequired,
   backgroundColor: PropTypes.oneOf(BACKGROUNDS).isRequired,
   textStyle: PropTypes.oneOf(TEXT_STYLES).isRequired,
@@ -165,6 +166,9 @@ function AccessibilityPage() {
         fontWeight > 400
       )
     : null;
+  const TEXT_COLOR_COLUMN_WIDTH = theme.sizes[18];
+  const CELL_WIDTH = theme.sizes[18];
+  const CELL_HEIGHT = theme.sizes[14];
 
   return (
     <div css={{ display: "flex", height: "100%" }}>
@@ -223,6 +227,8 @@ function AccessibilityPage() {
               </div>
               {BACKGROUNDS.map(backgroundColor => (
                 <MatrixCell
+                  width={CELL_WIDTH}
+                  height={CELL_HEIGHT}
                   color={color}
                   backgroundColor={backgroundColor}
                   textStyle={textStyle.value}
@@ -240,7 +246,7 @@ function AccessibilityPage() {
       <div
         css={{
           flexShrink: 0,
-          width: designTokens.sizes[19],
+          width: theme.sizes[19],
           backgroundColor: theme.colors.grey.t05,
           padding: designTokens.space[6],
           boxSizing: "border-box",
