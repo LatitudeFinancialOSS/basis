@@ -1,23 +1,12 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { rgba } from "polished";
-import {
-  designTokens,
-  useTheme,
-  Container,
-  Grid,
-  Text,
-  Select,
-  Input
-} from "basis";
+import { useTheme, Container, Grid, Text, Select, Input } from "basis";
+
 import { colorContrast, accessibleContrast } from "../../utils/color";
 
 const { BACKGROUNDS } = Container;
 const { TEXT_STYLES, COLORS } = Text;
-
-const TEXT_COLOR_COLUMN_WIDTH = designTokens.sizes[18];
-const CELL_WIDTH = designTokens.sizes[18];
-const CELL_HEIGHT = designTokens.sizes[14];
 
 const showOptions = [
   {
@@ -63,6 +52,8 @@ function isBoldAllowedForTextStyle(textStyle) {
 }
 
 function MatrixCell({
+  width,
+  height,
   color,
   backgroundColor,
   textStyle,
@@ -88,12 +79,12 @@ function MatrixCell({
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
-        width: CELL_WIDTH,
-        height: CELL_HEIGHT,
-        marginLeft: designTokens.space[1],
+        width,
+        height,
+        marginLeft: theme.space[1],
         border:
           backgroundColor === "white"
-            ? `1px solid ${designTokens.colors.grey.t05}`
+            ? `1px solid ${theme.colors.grey.t05}`
             : null,
         boxSizing: "border-box",
         backgroundColor: theme.getColor(backgroundColor),
@@ -113,9 +104,9 @@ function MatrixCell({
           right: 0,
           borderTopLeftRadius: "4px",
           bottom: 0,
-          width: designTokens.sizes[9],
-          padding: `0 ${designTokens.space[1]}`,
-          backgroundColor: rgba(designTokens.colors.black, 0.6)
+          width: theme.sizes[9],
+          padding: `0 ${theme.space[1]}`,
+          backgroundColor: rgba(theme.colors.black, 0.6)
         }}
       >
         <Text textStyle="body2" color="white" align="center">
@@ -127,6 +118,8 @@ function MatrixCell({
 }
 
 MatrixCell.propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS).isRequired,
   backgroundColor: PropTypes.oneOf(BACKGROUNDS).isRequired,
   textStyle: PropTypes.oneOf(TEXT_STYLES).isRequired,
@@ -165,6 +158,9 @@ function AccessibilityPage() {
         fontWeight > 400
       )
     : null;
+  const TEXT_COLOR_COLUMN_WIDTH = theme.sizes[18];
+  const CELL_WIDTH = theme.sizes[18];
+  const CELL_HEIGHT = theme.sizes[14];
 
   return (
     <div css={{ display: "flex", height: "100%" }}>
@@ -174,8 +170,8 @@ function AccessibilityPage() {
         </Text>
         <div
           css={{
-            marginBottom: designTokens.space[6],
-            padding: `0 ${designTokens.space[6]}`,
+            marginBottom: theme.space[6],
+            padding: `0 ${theme.space[6]}`,
             width: "min-content" // Otherwise, right padding is not visible when there is an overflow.
           }}
         >
@@ -188,8 +184,8 @@ function AccessibilityPage() {
                   justifyContent: "center",
                   flexShrink: 0,
                   width: CELL_WIDTH,
-                  height: designTokens.space[8],
-                  marginLeft: designTokens.space[1]
+                  height: theme.space[8],
+                  marginLeft: theme.space[1]
                 }}
                 key={backgroundColor}
               >
@@ -203,7 +199,7 @@ function AccessibilityPage() {
             <div
               css={{
                 display: "flex",
-                marginTop: designTokens.space[1]
+                marginTop: theme.space[1]
               }}
               key={color}
             >
@@ -213,7 +209,7 @@ function AccessibilityPage() {
                   alignItems: "center",
                   flexShrink: 0,
                   width: TEXT_COLOR_COLUMN_WIDTH,
-                  paddingRight: designTokens.space[3],
+                  paddingRight: theme.space[3],
                   boxSizing: "border-box"
                 }}
               >
@@ -223,6 +219,8 @@ function AccessibilityPage() {
               </div>
               {BACKGROUNDS.map(backgroundColor => (
                 <MatrixCell
+                  width={CELL_WIDTH}
+                  height={CELL_HEIGHT}
                   color={color}
                   backgroundColor={backgroundColor}
                   textStyle={textStyle.value}
@@ -240,9 +238,9 @@ function AccessibilityPage() {
       <div
         css={{
           flexShrink: 0,
-          width: designTokens.sizes[19],
-          backgroundColor: designTokens.colors.grey.t05,
-          padding: designTokens.space[6],
+          width: theme.sizes[19],
+          backgroundColor: theme.colors.grey.t05,
+          padding: theme.space[6],
           boxSizing: "border-box",
           overflow: "auto"
         }}

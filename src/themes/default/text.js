@@ -1,4 +1,4 @@
-export default {
+export default _theme => ({
   text: {
     margin: "0px"
   },
@@ -8,4 +8,4 @@ export default {
     overflow: "hidden",
     textOverflow: "ellipsis"
   }
-};
+});

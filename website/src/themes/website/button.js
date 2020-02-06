@@ -1,14 +1,12 @@
-import { designTokens as tokens } from "basis";
-
-export default {
+export default theme => ({
   button: {
-    fontSize: tokens.fontSizes[0],
-    lineHeight: tokens.lineHeights[0],
-    fontFamily: tokens.fonts.body,
-    fontWeight: tokens.fontWeights.medium,
-    borderRadius: tokens.radii[1],
-    padding: `0 ${tokens.space[4]}`,
-    minHeight: tokens.sizes[8],
+    fontSize: theme.fontSizes[0],
+    lineHeight: theme.lineHeights[0],
+    fontFamily: theme.fonts.body,
+    fontWeight: theme.fontWeights.medium,
+    borderRadius: theme.radii[1],
+    padding: `0 ${theme.space[4]}`,
+    minHeight: theme.sizes[8],
     overflow: "hidden",
     transition:
       "transform 100ms ease, color 100ms ease, border-color 100ms ease"
@@ -17,7 +15,7 @@ export default {
     outline: 0
   },
   "button:focus-visible": {
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "button:disabled": {
     opacity: 0.4,
@@ -25,30 +23,30 @@ export default {
   },
   // Secondary default
   "button.secondary.default": {
-    color: tokens.colors.grey.t65,
+    color: theme.colors.grey.t65,
     backgroundColor: "transparent",
-    borderWidth: tokens.borderWidths[0],
+    borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
-    borderColor: tokens.colors.grey.t30
+    borderColor: theme.colors.grey.t30
   },
   "button.secondary.default:hover": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black
+    color: theme.colors.black,
+    borderColor: theme.colors.black
   },
   "button.secondary.default:active": {
-    color: tokens.colors.black,
-    borderColor: tokens.colors.black,
+    color: theme.colors.black,
+    borderColor: theme.colors.black,
     transform: "scale(0.95)"
   },
   // Icon default
   "button.icon.default": {
     display: "flex",
-    padding: `0 ${tokens.space[1]}`,
-    color: tokens.colors.grey.t65,
+    padding: `0 ${theme.space[1]}`,
+    color: theme.colors.grey.t65,
     backgroundColor: "transparent",
     border: 0
   },
   "button.icon.default:hover": {
-    color: tokens.colors.black
+    color: theme.colors.black
   }
-};
+});

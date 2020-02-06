@@ -1,6 +1,4 @@
-import { designTokens as tokens } from "basis";
-
-export default {
+export default theme => ({
   link: {
     display: "inline-block",
     textDecoration: "none"
@@ -9,8 +7,8 @@ export default {
     outline: 0
   },
   "link:focus-visible": {
-    borderRadius: tokens.radii[0],
-    boxShadow: tokens.shadows.focus
+    borderRadius: theme.radii[0],
+    boxShadow: theme.shadows.focus
   },
   "link.text": {
     fontFamily: "inherit",
@@ -28,4 +26,4 @@ export default {
     color: "inherit",
     borderBottomColor: "inherit"
   }
-};
+});

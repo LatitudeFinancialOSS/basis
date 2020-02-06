@@ -18,7 +18,7 @@ function App(props) {
 describe("Frequency", () => {
   it("renders label, input and frequency options", () => {
     const { container, getByText, queryByText, getByPlaceholderText } = render(
-      <App label="Salary" placeholder="0.00" />
+      <App label="Salary" inputPlaceholder="0.00" />
     );
     const label = getByText("Salary");
     const inputsContainer = container.querySelector("[aria-labelledby]");
@@ -38,6 +38,16 @@ describe("Frequency", () => {
     getByText("Weekly");
   });
 
+  it("select mode", () => {
+    const { getByText } = render(
+      <App label="Salary" mode="select" selectPlaceholder="Select frequency" />
+    );
+
+    const placeholderOption = getByText("Select frequency");
+
+    expect(placeholderOption.parentNode.tagName).toBe("SELECT");
+  });
+
   it("renders help text", () => {
     const { container } = render(
       <App label="Salary" helpText="Some help text" />
@@ -51,7 +61,7 @@ describe("Frequency", () => {
 
   it("renders error message", () => {
     const { container, queryByText, getByPlaceholderText } = render(
-      <App label="Salary" placeholder="0.00" helpText="Some help text" />
+      <App label="Salary" inputPlaceholder="0.00" helpText="Some help text" />
     );
 
     const amountInput = getByPlaceholderText("0.00");
@@ -71,7 +81,7 @@ describe("Frequency", () => {
 
   it("renders multiple error messages", () => {
     const { container, getByPlaceholderText, getByDisplayValue } = render(
-      <App label="Salary" placeholder="0.00" />
+      <App label="Salary" inputPlaceholder="0.00" />
     );
 
     const amountInput = getByPlaceholderText("0.00");
@@ -112,7 +122,7 @@ describe("Frequency", () => {
   it("inside dark container", () => {
     const { getByPlaceholderText, getByText } = render(
       <Container bg="primary.blue.t100">
-        <App label="Salary" placeholder="0.00" />
+        <App label="Salary" inputPlaceholder="0.00" />
       </Container>
     );
     const amountInput = getByPlaceholderText("0.00");

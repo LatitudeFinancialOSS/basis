@@ -1,16 +1,14 @@
-import tokens from "../tokens";
-
-export default {
+export default theme => ({
   stepper: {
     display: "flex"
   },
   "stepper.item": {
-    paddingTop: tokens.space[4],
-    paddingBottom: tokens.space[4]
+    paddingTop: theme.space[4],
+    paddingBottom: theme.space[4]
   },
   "stepper.itemLabelContainer": {
     display: "flex",
-    height: tokens.sizes[5]
+    height: theme.sizes[5]
   },
   "stepper.itemLabel": {
     position: "relative",
@@ -22,51 +20,51 @@ export default {
     position: "absolute",
     left: 0,
     width: "50%",
-    height: tokens.sizes[2],
-    top: `calc(50% - ${parseInt(tokens.sizes[2], 10) / 2}px)`,
-    backgroundColor: tokens.colors.white
+    height: theme.sizes[2],
+    top: `calc(50% - ${parseInt(theme.sizes[2], 10) / 2}px)`,
+    backgroundColor: theme.colors.white
   },
   "stepper.progress.right": {
     position: "absolute",
     left: "50%",
     width: "50%",
-    height: tokens.sizes[2],
-    top: `calc(50% - ${parseInt(tokens.sizes[2], 10) / 2}px)`,
-    backgroundColor: tokens.colors.white
+    height: theme.sizes[2],
+    top: `calc(50% - ${parseInt(theme.sizes[2], 10) / 2}px)`,
+    backgroundColor: theme.colors.white
   },
   "stepper.progress.completed": {
-    backgroundColor: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100
   },
   "stepper.itemContent": {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: tokens.sizes[10],
-    marginTop: tokens.space[2],
+    height: theme.sizes[10],
+    marginTop: theme.space[2],
     position: "relative"
   },
   "stepper.itemCircle": {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: tokens.sizes[10],
-    height: tokens.sizes[10],
-    borderRadius: tokens.radii[3],
-    backgroundColor: tokens.colors.white,
-    color: tokens.colors.black,
+    width: theme.sizes[10],
+    height: theme.sizes[10],
+    borderRadius: theme.radii[3],
+    backgroundColor: theme.colors.white,
+    color: theme.colors.black,
     boxSizing: "border-box",
     flexShrink: 0,
     zIndex: 1
   },
   "stepper.itemCircle.minor": {
-    width: tokens.sizes[5],
-    height: tokens.sizes[5]
+    width: theme.sizes[5],
+    height: theme.sizes[5]
   },
   "stepper.itemCircle.current": {
-    border: `${tokens.borderWidths[1]} solid ${tokens.colors.primary.blue.t100}`
+    border: `${theme.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`
   },
   "stepper.itemCircle.previous": {
-    backgroundColor: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100
   }
-};
+});

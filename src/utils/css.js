@@ -1,4 +1,3 @@
-import tokens from "../themes/tokens";
 import { hasOwnProperty } from "./core";
 import Flex from "../components/Flex";
 import Text from "../components/Text";
@@ -7,9 +6,9 @@ const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
 export const EXCEPTION_PREFIX = "__exception__:";
 
-export function getSpaceValue(space) {
+function getSpaceValue(space, theme) {
   if (typeof space === "number") {
-    return tokens.space[space] || "0px";
+    return theme.space[space] || "0px";
   }
 
   if (typeof space !== "string") {
@@ -29,19 +28,19 @@ export function getSpaceValue(space) {
       }
 
       if (n[0] === "-") {
-        const pxValue = tokens.space[n.slice(1)];
+        const pxValue = theme.space[n.slice(1)];
 
         return pxValue ? `-${pxValue}` : "0px";
       }
 
-      return tokens.space[n] || "0px";
+      return theme.space[n] || "0px";
     })
     .join(" ");
 }
 
-export function getSizeValue(size) {
+function getSizeValue(size, theme) {
   if (typeof size === "number") {
-    return tokens.sizes[size] || null;
+    return theme.sizes[size] || null;
   }
 
   if (typeof size !== "string") {
@@ -52,10 +51,10 @@ export function getSizeValue(size) {
     return size;
   }
 
-  return tokens.sizes[size] || null;
+  return theme.sizes[size] || null;
 }
 
-function getGutterValues(gutter) {
+function getGutterValues(gutter, theme) {
   if (typeof gutter === "number") {
     gutter = String(gutter);
   }
@@ -70,9 +69,9 @@ function getGutterValues(gutter) {
     return null;
   }
 
-  const rowGutterPx = tokens.space[parts[0]] || "0px";
+  const rowGutterPx = theme.space[parts[0]] || "0px";
   const columnGutterPx =
-    parts.length === 2 ? tokens.space[parts[1]] || "0px" : rowGutterPx;
+    parts.length === 2 ? theme.space[parts[1]] || "0px" : rowGutterPx;
 
   return {
     rowGutter: rowGutterPx,
@@ -115,13 +114,13 @@ export function getGridLines(span, { allAllowed = false } = {}) {
   return [start + 1, end + 2];
 }
 
-export function getGutterPx(gutter) {
-  // Exception to our tokens scale
+export function getGutterPx(gutter, theme) {
+  // Exception to our space scale
   if (gutter === "30px") {
     return gutter;
   }
 
-  return tokens.space[gutter] || "0px";
+  return theme.space[gutter] || "0px";
 }
 
 export function getGridTemplateColumns(cols) {
@@ -252,26 +251,26 @@ export function isCSSinOrder(css) {
   return true;
 }
 
-export function responsiveMargin(propsAtBreakpoint) {
-  const margin = getSpaceValue(propsAtBreakpoint.margin);
+export function responsiveMargin(propsAtBreakpoint, theme) {
+  const margin = getSpaceValue(propsAtBreakpoint.margin, theme);
 
   return margin === null ? {} : { margin };
 }
 
-export function responsivePadding(propsAtBreakpoint) {
-  const padding = getSpaceValue(propsAtBreakpoint.padding);
+export function responsivePadding(propsAtBreakpoint, theme) {
+  const padding = getSpaceValue(propsAtBreakpoint.padding, theme);
 
   return padding === null ? {} : { padding };
 }
 
-export function responsiveWidth(propsAtBreakpoint) {
-  const width = getSizeValue(propsAtBreakpoint.width);
+export function responsiveWidth(propsAtBreakpoint, theme) {
+  const width = getSizeValue(propsAtBreakpoint.width, theme);
 
   return width === null ? {} : { width };
 }
 
-export function responsiveHeight(propsAtBreakpoint) {
-  const height = getSizeValue(propsAtBreakpoint.height);
+export function responsiveHeight(propsAtBreakpoint, theme) {
+  const height = getSizeValue(propsAtBreakpoint.height, theme);
 
   return height === null ? {} : { height };
 }
@@ -298,8 +297,8 @@ export function responsiveFlexDirection({ direction }) {
   };
 }
 
-export const responsiveFlexGutter = whatFor => ({ gutter }) => {
-  const gutterValues = getGutterValues(gutter);
+export const responsiveFlexGutter = whatFor => ({ gutter }, theme) => {
+  const gutterValues = getGutterValues(gutter, theme);
 
   if (gutterValues === null) {
     return {};

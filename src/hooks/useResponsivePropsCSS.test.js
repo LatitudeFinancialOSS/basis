@@ -19,7 +19,7 @@ import {
   responsiveFlexPlaceItems
 } from "../utils/css";
 import { TestWrapper } from "../utils/test";
-import { defaultTheme } from "..";
+import { defaultTheme as theme } from "..";
 
 describe("getBreakpointToPropsMap", () => {
   it("builds the correct map", () => {
@@ -36,9 +36,7 @@ describe("getBreakpointToPropsMap", () => {
       gutter: 2
     };
 
-    expect(
-      getBreakpointToPropsMap(defaultTheme, props, defaultProps)
-    ).toStrictEqual({
+    expect(getBreakpointToPropsMap(theme, props, defaultProps)).toStrictEqual({
       default: {
         direction: "row",
         gutter: 2,
@@ -149,12 +147,12 @@ describe("useResponsivePropsCSS", () => {
           },
           colsGutter: ({ colsGutter }) => {
             return {
-              gridColumnGap: getGutterPx(colsGutter)
+              gridColumnGap: getGutterPx(colsGutter, theme)
             };
           },
           rowsGutter: ({ rowsGutter }) => {
             return {
-              gridRowGap: getGutterPx(rowsGutter)
+              gridRowGap: getGutterPx(rowsGutter, theme)
             };
           }
         }),

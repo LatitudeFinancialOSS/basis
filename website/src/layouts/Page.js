@@ -7,9 +7,9 @@ import { COMPONENT_STATUS } from "../utils/constants";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
-import { BasisProvider, designTokens, Container, Text, Link } from "basis";
+import { BasisProvider, Container, Text, Link } from "basis";
+import theme from "../themes/website";
 import { getTabsUrls } from "../utils/url";
-import websiteTheme from "../themes/website";
 import "typeface-montserrat";
 import "typeface-roboto";
 
@@ -18,15 +18,15 @@ function Page({ pageContext, children }) {
   const title = header ? `${header} | Basis` : "Basis";
 
   return (
-    <BasisProvider theme={websiteTheme} InternalLink={GatsbyLink}>
+    <BasisProvider theme={theme} InternalLink={GatsbyLink}>
       <Global
         styles={{
           body: {
             margin: 0,
-            fontFamily: designTokens.fonts.body,
-            fontSize: designTokens.fontSizes[1],
-            lineHeight: designTokens.lineHeights[2],
-            color: designTokens.colors.black
+            fontFamily: theme.fonts.body,
+            fontSize: theme.fontSizes[1],
+            lineHeight: theme.lineHeights[2],
+            color: theme.colors.black
           },
           a: {
             color: "inherit",
@@ -42,7 +42,7 @@ function Page({ pageContext, children }) {
           css={{
             height: "100vh",
             display: "grid",
-            gridTemplateColumns: `${designTokens.sizes[19]} 1fr`
+            gridTemplateColumns: `${theme.sizes[19]} 1fr`
           }}
         >
           <Sidebar />
@@ -57,13 +57,13 @@ function Page({ pageContext, children }) {
             {header && (
               <div
                 css={{
-                  borderBottom: `1px solid ${designTokens.colors.grey.t16}`
+                  borderBottom: `1px solid ${theme.colors.grey.t16}`
                 }}
               >
                 <div
                   css={{
                     display: "flex",
-                    padding: `${designTokens.space[5]} ${designTokens.space[6]} 0`
+                    padding: `${theme.space[5]} ${theme.space[6]} 0`
                   }}
                 >
                   <Text as="h1" textStyle="heading4">
@@ -83,7 +83,7 @@ function Page({ pageContext, children }) {
                       <ul
                         css={{
                           display: "flex",
-                          margin: `${designTokens.space[6]} 0 0`,
+                          margin: `${theme.space[6]} 0 0`,
                           padding: 0
                         }}
                       >
@@ -92,15 +92,15 @@ function Page({ pageContext, children }) {
                             css={{
                               listStyleType: "none",
                               color: isCurrent
-                                ? designTokens.colors.black
-                                : designTokens.colors.grey.t65,
+                                ? theme.colors.black
+                                : theme.colors.grey.t65,
                               ...(isCurrent && {
                                 "::after": {
                                   content: "''",
                                   display: "block",
-                                  height: designTokens.borderWidths[1],
-                                  margin: `0 ${designTokens.space[6]}`,
-                                  backgroundColor: designTokens.colors.black
+                                  height: theme.borderWidths[1],
+                                  margin: `0 ${theme.space[6]}`,
+                                  backgroundColor: theme.colors.black
                                 }
                               })
                             }}

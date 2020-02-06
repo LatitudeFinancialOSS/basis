@@ -46,6 +46,7 @@ const DEFAULT_PROPS = {
   weekly: true,
   isOptional: false,
   isDisabled: false,
+  selectPlaceholder: Select.DEFAULT_PROPS.placeholder,
   validation: [
     {
       condition: ({ isOptional }) => !isOptional,
@@ -108,7 +109,8 @@ function Frequency(props) {
     mode,
     label,
     isOptional,
-    placeholder,
+    inputPlaceholder,
+    selectPlaceholder,
     helpText,
     isDisabled,
     data,
@@ -133,7 +135,7 @@ function Frequency(props) {
     <Input
       color={color}
       type="number"
-      placeholder={placeholder}
+      placeholder={inputPlaceholder}
       isDisabled={isDisabled}
       onFocus={() => {
         setIsTouched({
@@ -220,6 +222,7 @@ function Frequency(props) {
             <Grid.Item colSpan="1">
               <Select
                 color={color}
+                placeholder={selectPlaceholder}
                 options={frequencyOptions}
                 isDisabled={isDisabled}
                 onFocus={() => {
@@ -261,7 +264,8 @@ Frequency.propTypes = {
   fortnightly: PropTypes.bool,
   weekly: PropTypes.bool,
   isOptional: PropTypes.bool,
-  placeholder: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
+  selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,
   isDisabled: PropTypes.bool,
   validation: PropTypes.arrayOf(

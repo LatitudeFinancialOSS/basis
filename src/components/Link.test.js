@@ -20,8 +20,8 @@ describe("Link", () => {
       text-decoration: none;
       border-bottom-width: 1px;
       border-bottom-style: solid;
-      border-bottom-color: rgba(0,106,255,0.5);
-      transition: background-color 0.2s ease-out,border-bottom-color 0.2s ease-out;
+      border-bottom-color: rgba(0,70,170,0.5);
+      transition: background-color 200ms ease-out,border-bottom-color 200ms ease-out;
       color: #0046aa;
       font-family: 'Roboto',sans-serif;
     `);

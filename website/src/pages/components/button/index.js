@@ -7,7 +7,7 @@ import RadioGroupSetting, {
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Button } = allDesignSystem;
+const { useTheme, Button } = allDesignSystem;
 const { VARIANTS, COLORS, TYPES, DEFAULT_PROPS } = Button;
 const scope = allDesignSystem;
 
@@ -18,6 +18,7 @@ const isDisabledOptions = getCheckboxOptions();
 const typeOptions = getRadioOptions(TYPES);
 
 function ButtonPage() {
+  const theme = useTheme();
   const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [isFullWidth, setIsFullWidth] = useState(DEFAULT_PROPS.isFullWidth);
@@ -62,7 +63,7 @@ function ButtonPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RadioGroupSetting
@@ -72,14 +73,14 @@ function ButtonPage() {
           setSelectedValue={setVariant}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}
           setSelectedValue={setColor}
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Full Width"
           options={isFullWidthOptions}
           selectedValue={isFullWidth}
@@ -87,7 +88,7 @@ function ButtonPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
           selectedValue={isDisabled}
@@ -95,7 +96,7 @@ function ButtonPage() {
           type="boolean"
         />
         <RadioGroupSetting
-          css={{ marginLeft: designTokens.space[13] }}
+          css={{ marginLeft: theme.space[13] }}
           heading="Type"
           options={typeOptions}
           selectedValue={type}
@@ -107,8 +108,8 @@ function ButtonPage() {
         scope={scope}
         backgroundColor={
           color === "white"
-            ? designTokens.colors.primary.blue.t100
-            : designTokens.colors.white
+            ? theme.colors.primary.blue.t100
+            : theme.colors.white
         }
       />
     </>

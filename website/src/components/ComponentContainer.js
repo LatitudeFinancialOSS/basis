@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Resizable } from "re-resizable";
 import { LiveProvider, LiveError } from "react-live";
-import { designTokens, useTheme } from "basis";
+import { useTheme } from "basis";
 import { reactLiveEditorTheme } from "../utils/constants";
 import ComponentCode from "./ComponentCode";
 import ComponentPreview from "./ComponentPreview";
@@ -27,9 +27,9 @@ function ComponentContainer(props) {
     backgroundColor
   } = props;
   const theme = useTheme();
-  const spaceBetween = parseInt(designTokens.space[11], 10);
-  const spaceAroundIframe = parseInt(designTokens.space[5], 10);
-  const borderWidthPx = designTokens.borderWidths[0];
+  const spaceBetween = parseInt(theme.space[11], 10);
+  const spaceAroundIframe = parseInt(theme.space[5], 10);
+  const borderWidthPx = theme.borderWidths[0];
   const borderWidth = parseInt(borderWidthPx, 10);
   const minWidth = 50 + 2 * spaceAroundIframe + borderWidth;
   const initialWidth = useMemo(() => {
@@ -60,7 +60,7 @@ function ComponentContainer(props) {
             style={{
               flexShrink: 0,
               marginRight: spaceBetween,
-              borderRight: `${borderWidthPx} solid ${designTokens.colors.grey.t10}`
+              borderRight: `${borderWidthPx} solid ${theme.colors.grey.t10}`
             }}
             enable={rightOnly}
             minWidth={minWidth}
@@ -82,9 +82,9 @@ function ComponentContainer(props) {
                 position: "absolute",
                 right: 0,
                 top: 0,
-                backgroundColor: designTokens.colors.grey.t10,
-                fontSize: designTokens.fontSizes[0],
-                padding: `0 ${designTokens.space[1]}`
+                backgroundColor: theme.colors.grey.t10,
+                fontSize: theme.fontSizes[0],
+                padding: `0 ${theme.space[1]}`
               }}
             >
               {resizeWidth}px

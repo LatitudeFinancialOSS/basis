@@ -1,3 +1,4 @@
+import theme from "../themes/default";
 import {
   getMinMediaQueries,
   getExclusiveMediaQueries,
@@ -212,81 +213,83 @@ describe("isCSSinOrder", () => {
 
 describe("responsiveMargin", () => {
   it("valid margin", () => {
-    expect(responsiveMargin({ margin: "4 -5 1 -8" })).toStrictEqual({
+    expect(responsiveMargin({ margin: "4 -5 1 -8" }, theme)).toStrictEqual({
       margin: "16px -20px 4px -32px"
     });
   });
 
   it("invalid margin", () => {
-    expect(responsiveMargin({ margin: "" })).toStrictEqual({});
+    expect(responsiveMargin({ margin: "" }, theme)).toStrictEqual({});
   });
 });
 
 describe("responsivePadding", () => {
   it("valid padding", () => {
-    expect(responsivePadding({ padding: "1" })).toStrictEqual({
+    expect(responsivePadding({ padding: "1" }, theme)).toStrictEqual({
       padding: "4px"
     });
   });
 
   it("invalid padding", () => {
-    expect(responsivePadding({ padding: true })).toStrictEqual({});
+    expect(responsivePadding({ padding: true }, theme)).toStrictEqual({});
   });
 });
 
 describe("responsiveWidth", () => {
   it("valid width", () => {
-    expect(responsiveWidth({ width: "12" })).toStrictEqual({
+    expect(responsiveWidth({ width: "12" }, theme)).toStrictEqual({
       width: "56px"
     });
-    expect(responsiveWidth({ width: "auto" })).toStrictEqual({
+    expect(responsiveWidth({ width: "auto" }, theme)).toStrictEqual({
       width: "auto"
     });
-    expect(responsiveWidth({ width: "100%" })).toStrictEqual({
+    expect(responsiveWidth({ width: "100%" }, theme)).toStrictEqual({
       width: "100%"
     });
   });
 
   it("invalid width", () => {
-    expect(responsiveWidth({ width: "" })).toStrictEqual({});
+    expect(responsiveWidth({ width: "" }, theme)).toStrictEqual({});
   });
 });
 
 describe("responsiveHeight", () => {
   it("valid height", () => {
-    expect(responsiveHeight({ height: "12" })).toStrictEqual({
+    expect(responsiveHeight({ height: "12" }, theme)).toStrictEqual({
       height: "56px"
     });
-    expect(responsiveHeight({ height: "auto" })).toStrictEqual({
+    expect(responsiveHeight({ height: "auto" }, theme)).toStrictEqual({
       height: "auto"
     });
-    expect(responsiveHeight({ height: "100%" })).toStrictEqual({
+    expect(responsiveHeight({ height: "100%" }, theme)).toStrictEqual({
       height: "100%"
     });
   });
 
   it("invalid height", () => {
-    expect(responsiveHeight({ height: "" })).toStrictEqual({});
+    expect(responsiveHeight({ height: "" }, theme)).toStrictEqual({});
   });
 });
 
 describe("responsiveTextAlign", () => {
   it("valid textAlign", () => {
-    expect(responsiveTextAlign({ textAlign: "inherit" })).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "inherit" }, theme)).toStrictEqual({
       textAlign: "inherit"
     });
-    expect(responsiveTextAlign({ textAlign: "left" })).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "left" }, theme)).toStrictEqual({
       textAlign: "left"
     });
-    expect(responsiveTextAlign({ textAlign: "center" })).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "center" }, theme)).toStrictEqual({
       textAlign: "center"
     });
-    expect(responsiveTextAlign({ textAlign: "right" })).toStrictEqual({
+    expect(responsiveTextAlign({ textAlign: "right" }, theme)).toStrictEqual({
       textAlign: "right"
     });
   });
 
   it("invalid textAlign", () => {
-    expect(responsiveTextAlign({ textAlign: "bottom" })).toStrictEqual({});
+    expect(responsiveTextAlign({ textAlign: "bottom" }, theme)).toStrictEqual(
+      {}
+    );
   });
 });

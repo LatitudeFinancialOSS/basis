@@ -29,14 +29,7 @@ import InspectIcon from "../../components/icons/inspect";
 
 import "../../utils/meta";
 
-const {
-  designTokens,
-  useTheme,
-  Flex,
-  VisuallyHidden,
-  Text,
-  Button
-} = allDesignSystem;
+const { useTheme, Flex, VisuallyHidden, Text, Button } = allDesignSystem;
 
 const topOnly = {
   top: true,
@@ -69,6 +62,8 @@ const scope = {
 };
 
 const PlaygroundError = withLive(({ live }) => {
+  const theme = useTheme();
+
   if (typeof window === "undefined" || !live.error) {
     return null;
   }
@@ -80,12 +75,12 @@ const PlaygroundError = withLive(({ live }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        maxHeight: designTokens.sizes[19],
+        maxHeight: theme.sizes[19],
         overflowY: "auto",
-        padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
-        backgroundColor: designTokens.colors.white,
-        borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
-        color: designTokens.colors.conditional.negative.text,
+        padding: `${theme.space[4]} ${theme.space[8]}`,
+        backgroundColor: theme.colors.white,
+        borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
+        color: theme.colors.conditional.negative.text,
         "> pre": {
           margin: 0
         }
@@ -105,6 +100,7 @@ function PlaygroundScreen({
   onMouseLeave,
   highlightedComponents
 }) {
+  const theme = useTheme();
   const _setDocument = useCallback(
     document => {
       setDocument(id, document);
@@ -139,7 +135,7 @@ function PlaygroundScreen({
       css={{
         position: "relative",
         width: "100%",
-        backgroundColor: designTokens.colors.white,
+        backgroundColor: theme.colors.white,
         boxShadow:
           "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
       }}
@@ -167,6 +163,7 @@ PlaygroundScreen.propTypes = {
 };
 
 function PlaygroundSettings({ screens, setScreens }) {
+  const theme = useTheme();
   const [newScreen, setNewScreen] = useState({
     id: "new-screen",
     name: "",
@@ -268,8 +265,8 @@ function PlaygroundSettings({ screens, setScreens }) {
       css={{
         height: "100%",
         boxSizing: "border-box",
-        padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
-        backgroundColor: designTokens.colors.grey.t03
+        padding: `${theme.space[4]} ${theme.space[8]}`,
+        backgroundColor: theme.colors.grey.t03
       }}
     >
       <label>Screens</label>
@@ -492,13 +489,13 @@ function Playground({ location }) {
             display: "flex",
             position: "relative",
             overflowX: "auto",
-            backgroundColor: designTokens.colors.grey.t03
+            backgroundColor: theme.colors.grey.t03
           }}
         >
           <div
             css={{
               display: "flex",
-              padding: designTokens.space[8],
+              padding: theme.space[8],
               width: "min-content" // Without it, right padding is not visible.
             }}
           >
@@ -507,7 +504,7 @@ function Playground({ location }) {
                 css={{
                   display: "flex",
                   flexDirection: "column",
-                  marginLeft: index === 0 ? null : designTokens.space[8],
+                  marginLeft: index === 0 ? null : theme.space[8],
                   width
                 }}
                 key={id}
@@ -575,10 +572,10 @@ function Playground({ location }) {
                 css={{
                   flexShrink: 0,
                   display: "flex",
-                  padding: `${designTokens.space[2]} ${designTokens.space[8]}`,
-                  backgroundColor: designTokens.colors.grey.t05,
-                  borderTop: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`,
-                  borderBottom: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
+                  padding: `${theme.space[2]} ${theme.space[8]}`,
+                  backgroundColor: theme.colors.grey.t05,
+                  borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
+                  borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                 }}
               >
                 <Flex gutter="4">
@@ -630,7 +627,7 @@ function Playground({ location }) {
               >
                 <div
                   css={{
-                    padding: `${designTokens.space[4]} ${designTokens.space[8]}`,
+                    padding: `${theme.space[4]} ${theme.space[8]}`,
                     width: "100%",
                     overflow: "auto",
                     "textarea:focus": {
@@ -655,7 +652,7 @@ function Playground({ location }) {
                       top: 0,
                       right: 0,
                       bottom: 0,
-                      backgroundColor: rgba(designTokens.colors.white, 0.7)
+                      backgroundColor: rgba(theme.colors.white, 0.7)
                     }}
                     onClick={e => {
                       if (!settingsRef.current.contains(e.target)) {
@@ -669,10 +666,10 @@ function Playground({ location }) {
                         top: 0,
                         bottom: 0,
                         right: 0,
-                        width: designTokens.sizes[20],
+                        width: theme.sizes[20],
                         maxWidth: "100vw",
                         boxSizing: "border-box",
-                        borderLeft: `${designTokens.borderWidths[0]} solid ${designTokens.colors.grey.t10}`
+                        borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                       }}
                       ref={settingsRef}
                     >

@@ -1,17 +1,15 @@
-import tokens from "../tokens";
-
-export default {
+export default theme => ({
   button: {
-    fontSize: tokens.fontSizes[2],
-    lineHeight: tokens.lineHeights[3],
-    fontFamily: tokens.fonts.body,
-    fontWeight: tokens.fontWeights.medium,
+    fontSize: theme.fontSizes[2],
+    lineHeight: theme.lineHeights[3],
+    fontFamily: theme.fonts.body,
+    fontWeight: theme.fontWeights.medium,
     border: 0,
-    borderRadius: tokens.radii[1],
-    padding: `0 ${tokens.space[6]}`,
-    minHeight: tokens.sizes[11],
+    borderRadius: theme.radii[1],
+    padding: `0 ${theme.space[6]}`,
+    minHeight: theme.sizes[11],
     overflow: "hidden",
-    transition: tokens.transitions.button
+    transition: theme.transitions.button
   },
   "button.fullWidth": {
     width: "100%"
@@ -20,74 +18,74 @@ export default {
     outline: 0
   },
   "button:focus-visible": {
-    boxShadow: tokens.shadows.focus
+    boxShadow: theme.shadows.focus
   },
   "button:disabled": {
-    backgroundColor: tokens.colors.grey.t30,
-    color: tokens.colors.grey.t75,
+    backgroundColor: theme.colors.grey.t30,
+    color: theme.colors.grey.t75,
     opacity: 0.7,
     cursor: "not-allowed"
   },
   // Primary blue
   "button.primary.default": {
-    backgroundColor: tokens.colors.highlight.blue.t100,
-    color: tokens.colors.white
+    backgroundColor: theme.colors.highlight.blue.t100,
+    color: theme.colors.white
   },
   "button.primary.default:hover": {
-    backgroundColor: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100
   },
   "button.primary.default:active": {
-    backgroundColor: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100
   },
   // Primary white
   "button.primary.white": {
-    backgroundColor: tokens.colors.white,
-    color: tokens.colors.highlight.blue.t100
+    backgroundColor: theme.colors.white,
+    color: theme.colors.highlight.blue.t100
   },
   "button.primary.white:hover": {
-    backgroundColor: tokens.colors.secondary.lightBlue.t30,
-    color: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    color: theme.colors.primary.blue.t100
   },
   "button.primary.white:active": {
-    backgroundColor: tokens.colors.secondary.lightBlue.t30,
-    color: tokens.colors.primary.blue.t100
+    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    color: theme.colors.primary.blue.t100
   },
   // Secondary default
   "button.secondary.default": {
     backgroundColor: "transparent",
-    color: tokens.colors.highlight.blue.t100,
-    borderWidth: tokens.borderWidths[0],
+    color: theme.colors.highlight.blue.t100,
+    borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
-    borderColor: tokens.colors.highlight.blue.t100
+    borderColor: theme.colors.highlight.blue.t100
   },
   "button.secondary.default:hover": {
-    backgroundColor: tokens.colors.highlight.blue.t100,
-    color: tokens.colors.white
+    backgroundColor: theme.colors.highlight.blue.t100,
+    color: theme.colors.white
   },
   "button.secondary.default:active": {
-    backgroundColor: tokens.colors.highlight.blue.t100,
-    color: tokens.colors.white
+    backgroundColor: theme.colors.highlight.blue.t100,
+    color: theme.colors.white
   },
   "button.secondary.default:disabled": {
-    borderColor: tokens.colors.grey.t65
+    borderColor: theme.colors.grey.t65
   },
   // Secondary white
   "button.secondary.white": {
     backgroundColor: "transparent",
-    color: tokens.colors.white,
-    borderWidth: tokens.borderWidths[0],
+    color: theme.colors.white,
+    borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
-    borderColor: tokens.colors.white
+    borderColor: theme.colors.white
   },
   "button.secondary.white:hover": {
-    backgroundColor: tokens.colors.white,
-    color: tokens.colors.highlight.blue.t100
+    backgroundColor: theme.colors.white,
+    color: theme.colors.highlight.blue.t100
   },
   "button.secondary.white:active": {
-    backgroundColor: tokens.colors.white,
-    color: tokens.colors.highlight.blue.t100
+    backgroundColor: theme.colors.white,
+    color: theme.colors.highlight.blue.t100
   },
   "button.secondary.white:disabled": {
-    backgroundColor: tokens.colors.grey.t30
+    backgroundColor: theme.colors.grey.t30
   }
-};
+});

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text, Flex, designTokens } from "basis";
+import { Text, Flex, useTheme } from "basis";
 
 function RangeSetting({
   className,
@@ -12,6 +12,8 @@ function RangeSetting({
   selectedValueText,
   selectedValueAuxText
 }) {
+  const theme = useTheme();
+
   return (
     <div className={className}>
       <Text color="grey.t75" margin="0 0 2 0">
@@ -27,10 +29,10 @@ function RangeSetting({
             setSelectedValue(Number(e.target.value));
           }}
         />
-        <div css={{ marginLeft: designTokens.space[2] }}>
+        <div css={{ marginLeft: theme.space[2] }}>
           {selectedValueText || selectedValue}
           {selectedValueAuxText && (
-            <span css={{ marginLeft: designTokens.space[5] }}>
+            <span css={{ marginLeft: theme.space[5] }}>
               {selectedValueAuxText}
             </span>
           )}

@@ -1,6 +1,4 @@
-import { designTokens as tokens } from "basis";
-
-export default {
+export default theme => ({
   field: {
     display: "inline-flex",
     flexDirection: "column",
@@ -16,14 +14,14 @@ export default {
   },
   "field.label": {
     display: "flex",
-    fontFamily: tokens.fonts.body,
-    fontSize: tokens.fontSizes[0],
-    fontWeight: tokens.fontWeights.medium,
-    lineHeight: tokens.lineHeights[1],
-    color: tokens.colors.grey.t65,
-    marginBottom: tokens.space[1]
+    fontFamily: theme.fonts.body,
+    fontSize: theme.fontSizes[0],
+    fontWeight: theme.fontWeights.medium,
+    lineHeight: theme.lineHeights[1],
+    color: theme.colors.grey.t65,
+    marginBottom: theme.space[1]
   },
   "field.helpText": {
-    padding: `${tokens.space[1]} ${tokens.space[1]} 0`
+    padding: `${theme.space[1]} ${theme.space[1]} 0`
   }
-};
+});

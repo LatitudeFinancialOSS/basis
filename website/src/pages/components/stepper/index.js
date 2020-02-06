@@ -4,7 +4,7 @@ import RangeSetting from "../../../components/RangeSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { designTokens, Stepper } = allDesignSystem;
+const { useTheme, Stepper } = allDesignSystem;
 const scope = allDesignSystem;
 
 const STEPS = [
@@ -18,6 +18,7 @@ const STEPS = [
 ];
 
 function StepperPage() {
+  const theme = useTheme();
   const [progress, setProgress] = useState(0);
   const code = formatCode(`
     <Stepper ${nonDefaultProps([
@@ -129,7 +130,7 @@ function StepperPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${designTokens.space[5]} ${designTokens.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`
         }}
       >
         <RangeSetting
@@ -146,7 +147,7 @@ function StepperPage() {
         scope={scope}
         width="md"
         hasBodyMargin={false}
-        backgroundColor={designTokens.colors.grey.t07}
+        backgroundColor={theme.colors.grey.t07}
       />
     </>
   );
