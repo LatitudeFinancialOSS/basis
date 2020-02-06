@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useStaticQuery, graphql, Link } from "gatsby";
 import { Location } from "@reach/router";
 import { pascalCase } from "pascal-case";
-import { Container, Text, designTokens, useTheme } from "basis";
+import { Container, Text, useTheme } from "basis";
 import { version } from "../../../package.json";
 
 function Section({ heading, children }) {
@@ -38,7 +38,7 @@ function Item({ location, href, children }) {
           padding: `${theme.space[2]} ${theme.space[6]}`,
           color: isCurrent ? theme.colors.black : theme.colors.grey.t75,
           backgroundColor: isCurrent ? theme.colors.grey.t16 : null,
-          fontWeight: isCurrent ? designTokens.fontWeights.medium : null,
+          fontWeight: isCurrent ? theme.fontWeights.medium : null,
           ":hover": {
             backgroundColor: theme.colors.grey.t16
           }

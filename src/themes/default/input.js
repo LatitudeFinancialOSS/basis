@@ -4,7 +4,7 @@ export default theme => ({
   input: {
     boxSizing: "border-box",
     fontSize: theme.fontSizes[1],
-    fontWeight: tokens.fontWeights.light,
+    fontWeight: theme.fontWeights.light,
     lineHeight: theme.lineHeights[2],
     fontFamily: tokens.fonts.body,
     padding: `0 ${theme.space[4]}`,

@@ -6,7 +6,7 @@ export default theme => ({
     fontSize: theme.fontSizes[0],
     lineHeight: theme.lineHeights[0],
     fontFamily: tokens.fonts.body,
-    fontWeight: tokens.fontWeights.light,
+    fontWeight: theme.fontWeights.light,
     height: theme.sizes[8],
     paddingLeft: theme.space[3],
     paddingRight: theme.space[9],

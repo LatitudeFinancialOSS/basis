@@ -18,7 +18,7 @@ export default theme => ({
     display: "flex",
     fontFamily: tokens.fonts.body,
     fontSize: theme.fontSizes[1],
-    fontWeight: tokens.fontWeights.medium,
+    fontWeight: theme.fontWeights.medium,
     lineHeight: theme.lineHeights[2],
     color: theme.colors.grey.t75,
     marginBottom: theme.space[2]

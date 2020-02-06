@@ -14,7 +14,7 @@ export default theme => ({
   },
   "link.text": {
     fontFamily: tokens.fonts.body,
-    fontWeight: tokens.fontWeights.light,
+    fontWeight: theme.fontWeights.light,
     borderBottomWidth: tokens.borderWidths[0],
     borderBottomStyle: "solid",
     transition: theme.transitions.link

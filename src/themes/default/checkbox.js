@@ -12,7 +12,7 @@ export default theme => ({
     padding: `${theme.space[3]} ${theme.space[4]}`,
     minHeight: theme.sizes[6],
     fontSize: theme.fontSizes[1],
-    fontWeight: tokens.fontWeights.light,
+    fontWeight: theme.fontWeights.light,
     lineHeight: theme.lineHeights[2],
     fontFamily: tokens.fonts.body,
     color: theme.colors.black

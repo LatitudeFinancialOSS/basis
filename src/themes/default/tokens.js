@@ -3,12 +3,6 @@ export default {
     heading: "'Montserrat', sans-serif",
     body: "'Roboto', sans-serif"
   },
-  fontWeights: {
-    light: 300,
-    medium: 500,
-    semiBold: 600,
-    bold: 700
-  },
   letterSpacings: {
     hero: "-2.28px",
     heading1: "-1.05px",

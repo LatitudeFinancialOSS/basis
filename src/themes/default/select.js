@@ -4,7 +4,7 @@ export default theme => ({
   selectInput: {
     display: "inline-block",
     fontSize: theme.fontSizes[1],
-    fontWeight: tokens.fontWeights.light,
+    fontWeight: theme.fontWeights.light,
     lineHeight: theme.lineHeights[2],
     fontFamily: tokens.fonts.body,
     color: theme.colors.black,

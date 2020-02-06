@@ -78,6 +78,12 @@ const theme = {
     "56px", // 6
     "120px" // 7
   ],
+  fontWeights: {
+    light: 300,
+    medium: 500,
+    semiBold: 600,
+    bold: 700
+  },
   colors: {
     black: "#000000",
     grey: {
