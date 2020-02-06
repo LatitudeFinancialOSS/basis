@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   list: {
     margin: 0
@@ -36,7 +34,7 @@ export default theme => ({
   },
   "listItemMarker.unordered": {
     backgroundColor: theme.colors.secondary.lightBlue.t100,
-    borderRadius: tokens.radii[3]
+    borderRadius: theme.radii[3]
   },
   "listItemContent.ordered.subtitle1": {
     margin: `0 0 0 ${theme.space[2]}`

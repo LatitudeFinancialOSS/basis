@@ -1,5 +1,3 @@
-import { designTokens as tokens } from "basis";
-
 export default theme => ({
   input: {
     boxSizing: "border-box",
@@ -11,8 +9,8 @@ export default theme => ({
     width: "100%",
     height: theme.space[8],
     margin: 0,
-    borderRadius: tokens.radii[1],
-    borderWidth: tokens.borderWidths[0],
+    borderRadius: theme.radii[1],
+    borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
     MozAppearance: "textfield", // Hides the input="number" spin buttons in Firefox
     transition: "color 100ms ease, border-color 100ms ease"

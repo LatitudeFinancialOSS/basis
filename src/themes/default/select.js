@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   selectInput: {
     display: "inline-block",
@@ -25,7 +23,7 @@ export default theme => ({
   },
   "selectInput:focus": {
     outline: 0,
-    borderRadius: tokens.radii[0],
+    borderRadius: theme.radii[0],
     boxShadow: theme.shadows.focus
   },
   "selectInput.default": {

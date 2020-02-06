@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   input: {
     boxSizing: "border-box",
@@ -17,7 +15,7 @@ export default theme => ({
   },
   "input:focus": {
     outline: 0,
-    borderRadius: tokens.radii[0],
+    borderRadius: theme.radii[0],
     boxShadow: theme.shadows.focus
   },
   "input.webkitSpinButton": {

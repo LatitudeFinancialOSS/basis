@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   checkboxLabelContainer: {
     display: "flex",
@@ -19,7 +17,7 @@ export default theme => ({
   },
   "checkboxLabel.focus-visible": {
     boxShadow: theme.shadows.focus,
-    borderRadius: tokens.radii[0]
+    borderRadius: theme.radii[0]
   },
   "checkboxLabel.checked": {
     backgroundColor: theme.colors.secondary.lightBlue.t30,

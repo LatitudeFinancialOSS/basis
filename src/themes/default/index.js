@@ -1,4 +1,3 @@
-import tokens from "./tokens";
 import button from "./button";
 import checkbox from "./checkbox";
 import container from "./container";
@@ -189,6 +188,8 @@ const theme = {
       }
     }
   },
+  borderWidths: ["1px", "2px", "4px"],
+  radii: ["1px", "4px", "12px", "50%"],
   breakpoints: {
     xs: "380px",
     sm: "576px",
@@ -215,8 +216,8 @@ const theme = {
 theme.textStyles = textStyles(theme);
 
 theme.shadows = {
-  header: `inset 0 ${tokens.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
-  focus: `0 0 0px ${tokens.radii[1]} ${theme.colors.secondary.lightBlue.t80}`
+  header: `inset 0 ${theme.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
+  focus: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`
 };
 
 export default {

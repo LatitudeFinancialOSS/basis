@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   radioGroupRadio: {
     display: "flex",
@@ -20,7 +18,7 @@ export default theme => ({
   },
   "radioGroupRadioLabel.focus-visible": {
     boxShadow: theme.shadows.focus,
-    borderRadius: tokens.radii[0]
+    borderRadius: theme.radii[0]
   },
   "radioGroupRadioLabel.checked": {
     backgroundColor: theme.colors.secondary.lightBlue.t30,

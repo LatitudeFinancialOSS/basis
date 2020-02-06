@@ -115,7 +115,7 @@ export function getGridLines(span, { allAllowed = false } = {}) {
 }
 
 export function getGutterPx(gutter, theme) {
-  // Exception to our tokens scale
+  // Exception to our space scale
   if (gutter === "30px") {
     return gutter;
   }

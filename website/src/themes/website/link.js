@@ -1,5 +1,3 @@
-import { designTokens as tokens } from "basis";
-
 export default theme => ({
   link: {
     display: "inline-block",
@@ -9,7 +7,7 @@ export default theme => ({
     outline: 0
   },
   "link:focus-visible": {
-    borderRadius: tokens.radii[0],
+    borderRadius: theme.radii[0],
     boxShadow: theme.shadows.focus
   },
   "link.text": {

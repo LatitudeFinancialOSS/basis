@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   stepper: {
     display: "flex"
@@ -52,7 +50,7 @@ export default theme => ({
     justifyContent: "center",
     width: theme.sizes[10],
     height: theme.sizes[10],
-    borderRadius: tokens.radii[3],
+    borderRadius: theme.radii[3],
     backgroundColor: theme.colors.white,
     color: theme.colors.black,
     boxSizing: "border-box",
@@ -64,7 +62,7 @@ export default theme => ({
     height: theme.sizes[5]
   },
   "stepper.itemCircle.current": {
-    border: `${tokens.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`
+    border: `${theme.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`
   },
   "stepper.itemCircle.previous": {
     backgroundColor: theme.colors.primary.blue.t100

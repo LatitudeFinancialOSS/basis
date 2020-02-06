@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   button: {
     fontSize: theme.fontSizes[2],
@@ -7,7 +5,7 @@ export default theme => ({
     fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.medium,
     border: 0,
-    borderRadius: tokens.radii[1],
+    borderRadius: theme.radii[1],
     padding: `0 ${theme.space[6]}`,
     minHeight: theme.sizes[11],
     overflow: "hidden",
@@ -56,7 +54,7 @@ export default theme => ({
   "button.secondary.default": {
     backgroundColor: "transparent",
     color: theme.colors.highlight.blue.t100,
-    borderWidth: tokens.borderWidths[0],
+    borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
     borderColor: theme.colors.highlight.blue.t100
   },
@@ -75,7 +73,7 @@ export default theme => ({
   "button.secondary.white": {
     backgroundColor: "transparent",
     color: theme.colors.white,
-    borderWidth: tokens.borderWidths[0],
+    borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
     borderColor: theme.colors.white
   },

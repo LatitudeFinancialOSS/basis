@@ -7,7 +7,7 @@ import { COMPONENT_STATUS } from "../utils/constants";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
-import { BasisProvider, designTokens, Container, Text, Link } from "basis";
+import { BasisProvider, Container, Text, Link } from "basis";
 import theme from "../themes/website";
 import { getTabsUrls } from "../utils/url";
 import "typeface-montserrat";
@@ -98,7 +98,7 @@ function Page({ pageContext, children }) {
                                 "::after": {
                                   content: "''",
                                   display: "block",
-                                  height: designTokens.borderWidths[1],
+                                  height: theme.borderWidths[1],
                                   margin: `0 ${theme.space[6]}`,
                                   backgroundColor: theme.colors.black
                                 }

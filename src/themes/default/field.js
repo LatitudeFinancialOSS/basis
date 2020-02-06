@@ -1,5 +1,3 @@
-import tokens from "./tokens";
-
 export default theme => ({
   field: {
     display: "inline-flex",
@@ -29,8 +27,8 @@ export default theme => ({
     lineHeight: theme.lineHeights[0],
     paddingLeft: theme.space[2],
     paddingRight: theme.space[2],
-    border: `${tokens.borderWidths[1]} solid ${theme.colors.grey.t75}`,
-    borderRadius: tokens.radii[2],
+    border: `${theme.borderWidths[1]} solid ${theme.colors.grey.t75}`,
+    borderRadius: theme.radii[2],
     opacity: 0.66,
     marginLeft: "auto"
   },
@@ -39,7 +37,7 @@ export default theme => ({
   },
   "field.errors": {
     paddingTop: theme.space[1],
-    borderTop: `${tokens.borderWidths[2]} solid ${theme.colors.conditional.negative.graphics}`,
+    borderTop: `${theme.borderWidths[2]} solid ${theme.colors.conditional.negative.graphics}`,
     zIndex: 1
   }
 });

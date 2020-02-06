@@ -1,4 +1,3 @@
-import tokens from "./tokens";
 import { rgba } from "polished";
 
 export default theme => ({
@@ -9,13 +8,13 @@ export default theme => ({
     outline: 0
   },
   "link:focus-visible": {
-    borderRadius: tokens.radii[0],
+    borderRadius: theme.radii[0],
     boxShadow: theme.shadows.focus
   },
   "link.text": {
     fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.light,
-    borderBottomWidth: tokens.borderWidths[0],
+    borderBottomWidth: theme.borderWidths[0],
     borderBottomStyle: "solid",
     transition: theme.transitions.link
   },

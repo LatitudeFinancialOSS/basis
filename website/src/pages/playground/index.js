@@ -29,14 +29,7 @@ import InspectIcon from "../../components/icons/inspect";
 
 import "../../utils/meta";
 
-const {
-  designTokens,
-  useTheme,
-  Flex,
-  VisuallyHidden,
-  Text,
-  Button
-} = allDesignSystem;
+const { useTheme, Flex, VisuallyHidden, Text, Button } = allDesignSystem;
 
 const topOnly = {
   top: true,
@@ -86,7 +79,7 @@ const PlaygroundError = withLive(({ live }) => {
         overflowY: "auto",
         padding: `${theme.space[4]} ${theme.space[8]}`,
         backgroundColor: theme.colors.white,
-        borderTop: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`,
+        borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
         color: theme.colors.conditional.negative.text,
         "> pre": {
           margin: 0
@@ -581,8 +574,8 @@ function Playground({ location }) {
                   display: "flex",
                   padding: `${theme.space[2]} ${theme.space[8]}`,
                   backgroundColor: theme.colors.grey.t05,
-                  borderTop: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`,
-                  borderBottom: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`
+                  borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
+                  borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                 }}
               >
                 <Flex gutter="4">
@@ -676,7 +669,7 @@ function Playground({ location }) {
                         width: theme.sizes[20],
                         maxWidth: "100vw",
                         boxSizing: "border-box",
-                        borderLeft: `${designTokens.borderWidths[0]} solid ${theme.colors.grey.t10}`
+                        borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                       }}
                       ref={settingsRef}
                     >
