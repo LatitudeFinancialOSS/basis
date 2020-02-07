@@ -25,11 +25,10 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import useCanary from "../../hooks/useCanary";
 import ComponentPreview from "../../components/ComponentPreview";
 import DemoBlock from "../../components/DemoBlock";
-import InspectIcon from "../../components/icons/inspect";
 
 import "../../utils/meta";
 
-const { useTheme, Flex, VisuallyHidden, Text, Button } = allDesignSystem;
+const { useTheme, Flex, VisuallyHidden, Text, Button, Icon } = allDesignSystem;
 
 const topOnly = {
   top: true,
@@ -586,8 +585,13 @@ function Playground({ location }) {
                         setIsInspectMode(isInspectMode => !isInspectMode);
                       }}
                     >
-                      <InspectIcon
-                        color={isInspectMode ? "highlight.blue.t100" : null}
+                      <Icon
+                        name="select-object"
+                        size="6"
+                        color={
+                          isInspectMode ? "highlight.blue.t100" : "grey.t75"
+                        }
+                        hoverColor="black"
                       />
                     </Button>
                   )}

@@ -6,54 +6,6 @@ const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
 export const EXCEPTION_PREFIX = "__exception__:";
 
-function getSpaceValue(space, theme) {
-  if (typeof space === "number") {
-    return theme.space[space] || "0px";
-  }
-
-  if (typeof space !== "string") {
-    return null;
-  }
-
-  const parts = space.split(/\s+/).filter(Boolean);
-
-  if (parts.length < 1 || parts.length > 4) {
-    return null;
-  }
-
-  return parts
-    .map(n => {
-      if (n === "auto") {
-        return n;
-      }
-
-      if (n[0] === "-") {
-        const pxValue = theme.space[n.slice(1)];
-
-        return pxValue ? `-${pxValue}` : "0px";
-      }
-
-      return theme.space[n] || "0px";
-    })
-    .join(" ");
-}
-
-function getSizeValue(size, theme) {
-  if (typeof size === "number") {
-    return theme.sizes[size] || null;
-  }
-
-  if (typeof size !== "string") {
-    return null;
-  }
-
-  if (size === "auto" || size === "100%") {
-    return size;
-  }
-
-  return theme.sizes[size] || null;
-}
-
 function getGutterValues(gutter, theme) {
   if (typeof gutter === "number") {
     gutter = String(gutter);
@@ -252,25 +204,25 @@ export function isCSSinOrder(css) {
 }
 
 export function responsiveMargin(propsAtBreakpoint, theme) {
-  const margin = getSpaceValue(propsAtBreakpoint.margin, theme);
+  const margin = theme.getSpaceValue(propsAtBreakpoint.margin);
 
   return margin === null ? {} : { margin };
 }
 
 export function responsivePadding(propsAtBreakpoint, theme) {
-  const padding = getSpaceValue(propsAtBreakpoint.padding, theme);
+  const padding = theme.getSpaceValue(propsAtBreakpoint.padding);
 
   return padding === null ? {} : { padding };
 }
 
 export function responsiveWidth(propsAtBreakpoint, theme) {
-  const width = getSizeValue(propsAtBreakpoint.width, theme);
+  const width = theme.getSizeValue(propsAtBreakpoint.width);
 
   return width === null ? {} : { width };
 }
 
 export function responsiveHeight(propsAtBreakpoint, theme) {
-  const height = getSizeValue(propsAtBreakpoint.height, theme);
+  const height = theme.getSizeValue(propsAtBreakpoint.height);
 
   return height === null ? {} : { height };
 }

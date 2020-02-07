@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Lock({ primaryColor, testId }) {
+function Lock({ size, primaryColor, testId }) {
   return (
     <svg
-      width={32}
-      height={32}
+      width={size}
+      height={size}
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
@@ -21,6 +21,7 @@ function Lock({ primaryColor, testId }) {
 }
 
 Lock.propTypes = {
+  size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   testId: PropTypes.string
 };

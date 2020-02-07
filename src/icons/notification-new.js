@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function NotificationNew({ primaryColor, secondaryColor, testId }) {
+function NotificationNew({ size, primaryColor, secondaryColor, testId }) {
   return (
     <svg
-      width={32}
-      height={32}
+      width={size}
+      height={size}
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
@@ -22,6 +22,7 @@ function NotificationNew({ primaryColor, secondaryColor, testId }) {
 }
 
 NotificationNew.propTypes = {
+  size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   secondaryColor: PropTypes.string.isRequired,
   testId: PropTypes.string

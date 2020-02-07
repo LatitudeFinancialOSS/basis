@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function CrossSmall({ primaryColor, testId }) {
+function CrossSmall({ size, primaryColor, testId }) {
   return (
     <svg
-      width={32}
-      height={32}
+      width={size}
+      height={size}
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
@@ -21,6 +21,7 @@ function CrossSmall({ primaryColor, testId }) {
 }
 
 CrossSmall.propTypes = {
+  size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   testId: PropTypes.string
 };

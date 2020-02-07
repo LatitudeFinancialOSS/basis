@@ -14,6 +14,7 @@ const NAMES = [
   "comparison",
   "cross-small",
   "cross",
+  "devices",
   "download",
   "edit",
   "external-link",
@@ -35,6 +36,7 @@ const NAMES = [
   "person",
   "question",
   "search",
+  "select-object",
   "shield",
   "stopwatch-alt",
   "stopwatch",
@@ -54,10 +56,11 @@ const COLORS = [
   "conditional.negative.graphics",
   "white"
 ];
-const HOVER_COLORS = ["secondary.lightBlue.t60"];
+const HOVER_COLORS = ["black", "secondary.lightBlue.t60"];
 const SECONDARY_COLORS = ["highlight.blue.t100"];
 
 const DEFAULT_PROPS = {
+  size: "8",
   color: "grey.t75",
   secondaryColor: "highlight.blue.t100"
 };
@@ -70,12 +73,13 @@ Icon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Icon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { name, color, hoverColor, secondaryColor, testId } = props;
+  const { name, size, color, hoverColor, secondaryColor, testId } = props;
   const theme = useTheme();
   const IconComponent = require(`../icons/${name}`).default;
 
   return (
     <IconComponent
+      size={theme.getSizeValue(size)}
       primaryColor={theme.getColor(color)}
       secondaryColor={theme.getColor(secondaryColor)}
       hoverColor={theme.getColor(hoverColor)}
@@ -86,6 +90,7 @@ function Icon(_props) {
 
 Icon.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
+  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.oneOf(COLORS),
   hoverColor: PropTypes.oneOf(HOVER_COLORS),
   secondaryColor: PropTypes.oneOf(SECONDARY_COLORS),

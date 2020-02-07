@@ -1,4 +1,4 @@
-import theme from "../themes/default";
+import { theme } from "./test";
 import {
   getMinMediaQueries,
   getExclusiveMediaQueries,

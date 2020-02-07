@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 
-function Facebook({ size, primaryColor, hoverColor, testId }) {
+function SelectObject({ size, primaryColor, hoverColor, testId }) {
   const theme = useTheme();
 
   return (
@@ -19,22 +19,20 @@ function Facebook({ size, primaryColor, hoverColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Facebook"
+      aria-label="Select object"
       data-testid={testId}
     >
-      <path
-        d="M4 15.998C4 21.986 8.434 26.95 14.232 27.85v-8.385h-3.079v-3.467h3.079v-2.643c0-3.007 1.81-4.668 4.58-4.668 1.326 0 2.714.234 2.714.234v2.953h-1.529c-1.506 0-1.976.924-1.976 1.873v2.251h3.363l-.537 3.467h-2.826v8.385c5.798-.9 10.231-5.864 10.231-11.852C28.252 9.372 22.823 4 16.126 4 9.428 4 4 9.372 4 15.998z"
-        fillRule="evenodd"
-      />
+      <path d="M14 14l14 3.5-5.2 3.5 4.86 4.93a.49.49 0 010 .7l-1 1a.5.5 0 01-.7 0L21 22.77 17.5 28z" />
+      <path d="M12 26H6a2 2 0 01-2-2V6a2 2 0 012-2h18a2 2 0 012 2v6a1 1 0 01-2 0V6H6v18h6a1 1 0 010 2z" />
     </svg>
   );
 }
 
-Facebook.propTypes = {
+SelectObject.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   hoverColor: PropTypes.string,
   testId: PropTypes.string
 };
 
-export default Facebook;
+export default SelectObject;

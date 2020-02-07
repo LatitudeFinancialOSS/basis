@@ -2,16 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 
-function Twitter({ primaryColor, hoverColor, testId }) {
+function Twitter({ size, primaryColor, hoverColor, testId }) {
   const theme = useTheme();
 
   return (
     <svg
-      width={32}
-      height={32}
+      width={size}
+      height={size}
       css={{
         fill: primaryColor,
-        transition: theme.transitions.icon,
+        transition: hoverColor ? theme.transitions.icon : null,
         ":hover": {
           ...(hoverColor && { fill: hoverColor })
         }
@@ -31,6 +31,7 @@ function Twitter({ primaryColor, hoverColor, testId }) {
 }
 
 Twitter.propTypes = {
+  size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   hoverColor: PropTypes.string,
   testId: PropTypes.string

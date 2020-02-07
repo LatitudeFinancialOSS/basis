@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { render } from "@testing-library/react";
 import matchMediaPolyfill from "mq-polyfill";
 import { BasisProvider, defaultTheme } from "..";
+import { enhanceTheme } from "./theme";
+
+export const theme = enhanceTheme(defaultTheme);
 
 matchMediaPolyfill(global);
 
