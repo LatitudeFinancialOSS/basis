@@ -9,7 +9,12 @@ describe("List", () => {
       <List>
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
-        <List.Item>Third Item</List.Item>
+        <List.Item>
+          <List>
+            <List.Item>Nested First Item</List.Item>
+            <List.Item>Nested Second Item</List.Item>
+          </List>
+        </List.Item>
       </List>
     );
 
@@ -17,7 +22,8 @@ describe("List", () => {
 
     getByText("First Item");
     getByText("Second Item");
-    getByText("Third Item");
+    getByText("Nested First Item");
+    getByText("Nested Second Item");
   });
 
   it("ordered", () => {
@@ -25,7 +31,12 @@ describe("List", () => {
       <List type="ordered">
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
-        <List.Item>Third Item</List.Item>
+        <List.Item>
+          <List>
+            <List.Item>Nested First Item</List.Item>
+            <List.Item>Nested Second Item</List.Item>
+          </List>
+        </List.Item>
       </List>
     );
 
@@ -33,7 +44,35 @@ describe("List", () => {
 
     getByText("First Item");
     getByText("Second Item");
-    getByText("Third Item");
+    getByText("Nested First Item");
+    getByText("Nested Second Item");
+  });
+
+  it("steps", () => {
+    const { container, getByText } = render(
+      <List type="steps">
+        <List.Item>First Item</List.Item>
+        <List.Item>Second Item</List.Item>
+        <List.Item>
+          <List>
+            <List.Item>Nested First Item</List.Item>
+            <List.Item>Nested Second Item</List.Item>
+          </List>
+        </List.Item>
+      </List>
+    );
+
+    expect(container.firstChild.tagName).toBe("OL");
+
+    getByText("1");
+    getByText("2");
+    getByText("3");
+    getByText("a");
+    getByText("b");
+    getByText("First Item");
+    getByText("Second Item");
+    getByText("Nested First Item");
+    getByText("Nested Second Item");
   });
 
   it("ignores children that are not List.Item", () => {

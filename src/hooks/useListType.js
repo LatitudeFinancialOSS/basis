@@ -5,10 +5,12 @@ const ListTypeContext = React.createContext();
 export const ListTypeProvider = ListTypeContext.Provider;
 
 function useListType() {
-  const listType = useContext(ListTypeContext);
+  const listInfo = useContext(ListTypeContext);
+  const { type, level } = listInfo ?? { type: null, level: -1 };
 
   return {
-    listType
+    type,
+    level
   };
 }
 

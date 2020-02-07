@@ -2,15 +2,32 @@ export default theme => ({
   list: {
     margin: 0
   },
+  listItemMarkerContainer: {
+    display: "flex",
+    alignItems: "center"
+  },
+  // Unordered
+  "list.unordered": {
+    padding: 0,
+    listStyleType: "none"
+  },
+  "listItem.unordered": {
+    display: "flex",
+    alignItems: "flex-start"
+  },
+  "listItemMarker.unordered": {
+    backgroundColor: theme.colors.secondary.lightBlue.t100,
+    borderRadius: theme.radii[3]
+  },
+  // Ordered
   "list.ordered": {
     listStyleType: "decimal"
   },
   "list.ordered.nested": {
     listStyleType: "lower-alpha"
   },
-  "list.unordered": {
-    padding: 0,
-    listStyleType: "none"
+  "list.ordered.nested.nested": {
+    listStyleType: "lower-roman"
   },
   "list.ordered.subtitle1": {
     padding: `0 0 0 ${theme.space[6]}`
@@ -24,18 +41,6 @@ export default theme => ({
   "list.ordered.body2": {
     padding: `0 0 0 ${theme.space[4]}`
   },
-  "listItem.unordered": {
-    display: "flex",
-    alignItems: "flex-start"
-  },
-  listItemMarkerContainer: {
-    display: "flex",
-    alignItems: "center"
-  },
-  "listItemMarker.unordered": {
-    backgroundColor: theme.colors.secondary.lightBlue.t100,
-    borderRadius: theme.radii[3]
-  },
   "listItemContent.ordered.subtitle1": {
     margin: `0 0 0 ${theme.space[2]}`
   },
@@ -47,5 +52,30 @@ export default theme => ({
   },
   "listItemContent.ordered.body2": {
     margin: `0 0 0 ${theme.space[1]}`
+  },
+  // Steps
+  "list.steps": {
+    padding: 0,
+    listStyleType: "none"
+  },
+  "listItem.steps": {
+    display: "flex",
+    alignItems: "flex-start"
+  },
+  "listItemMarker.steps": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: theme.space[8],
+    height: theme.space[8],
+    borderRadius: theme.radii[3],
+    color: theme.colors.white,
+    backgroundColor: theme.colors.primary.blue.t100,
+    ...theme.textStyles.body2,
+    ...theme.textStyles["body2.bold"]
+  },
+  "listItemMarker.steps.nested": {
+    color: theme.colors.black,
+    backgroundColor: theme.colors.secondary.lightBlue.t100
   }
 });

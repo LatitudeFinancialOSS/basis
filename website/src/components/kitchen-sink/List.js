@@ -37,6 +37,7 @@ function KitchenSinkList() {
           </List.Item>
         </List>
       </Container>
+
       <Container padding="4" width="20" bg="grey.t05">
         <Text textStyle="heading4" margin="0 0 4 0">
           Ordered list:
@@ -51,6 +52,35 @@ function KitchenSinkList() {
             <List textStyle="body2" margin="3 0 0 0">
               <List.Item>Hello</List.Item>
               <List.Item>World</List.Item>
+              <List.Item>
+                <Text>
+                  <b>Nested again</b>
+                </Text>
+                <List margin="3 0 0 0">
+                  <List.Item>Deeply</List.Item>
+                  <List.Item>Nested</List.Item>
+                </List>
+              </List.Item>
+            </List>
+          </List.Item>
+        </List>
+      </Container>
+
+      <Container padding="4" width="20">
+        <Text textStyle="heading4" margin="0 0 4 0">
+          Steps list:
+        </Text>
+        <List type="steps">
+          <List.Item>First item</List.Item>
+          <List.Item>Second item</List.Item>
+          <List.Item>
+            <Text>
+              <b>Nested list</b>
+            </Text>
+            <List margin="3 0 0 0">
+              <List.Item>Some</List.Item>
+              <List.Item>Nested</List.Item>
+              <List.Item>Items</List.Item>
             </List>
           </List.Item>
         </List>

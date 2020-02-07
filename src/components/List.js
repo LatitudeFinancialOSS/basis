@@ -11,7 +11,7 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../utils/component";
 import { responsiveMargin } from "../utils/css";
 
-const TYPES = ["unordered", "ordered"];
+const TYPES = ["unordered", "ordered", "steps"];
 const TEXT_STYLES = ["subtitle1", "subtitle2", "body1", "body2"];
 
 const DEFAULT_PROPS = {
@@ -23,9 +23,9 @@ List.TYPES = TYPES;
 List.TEXT_STYLES = TEXT_STYLES;
 List.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Item({ children, testId }) {
+function Item({ children, testId, __index }) {
   const theme = useTheme();
-  const { listType } = useListType();
+  const { type, level } = useListType();
   const { textStyle } = useTextStyle();
   const fontSizeInt = parseInt(theme.getTextStyleCSS(textStyle).fontSize, 10);
   const markerContainerMargin = `${fontSizeInt * 0.75}px`;
@@ -39,15 +39,16 @@ function Item({ children, testId }) {
   return (
     <li
       css={{
-        ...theme[`listItem.${listType}`],
+        ...theme[`listItem.${type}`],
         ":not(:first-of-type)": {
           marginTop: spaceBetweenItems
         },
-        "& ol": theme["list.ordered.nested"]
+        "& ol": theme["list.ordered.nested"],
+        "& ol ol": theme["list.ordered.nested.nested"]
       }}
       data-testid={testId}
     >
-      {listType === "unordered" && (
+      {(type === "unordered" || type === "steps") && (
         <>
           <div
             css={{
@@ -58,30 +59,35 @@ function Item({ children, testId }) {
           >
             <div
               css={{
-                ...theme[`listItemMarker.${listType}`],
-                ...(listType === "unordered" && unorderedCSS)
+                ...theme[`listItemMarker.${type}`],
+                ...(level === 1 && theme[`listItemMarker.${type}.nested`]),
+                ...(type === "unordered" && unorderedCSS)
               }}
-            />
+            >
+              {type === "steps" && level === 0 && __index + 1}
+              {type === "steps" &&
+                level === 1 &&
+                String.fromCharCode(97 + __index)}
+            </div>
             &#8203;
             {/* See: https://twitter.com/adamwathan/status/1217864323466432516 */}
           </div>
         </>
       )}
-      <div css={theme[`listItemContent.${listType}.${textStyle}`]}>
-        {children}
-      </div>
+      <div css={theme[`listItemContent.${type}.${textStyle}`]}>{children}</div>
     </li>
   );
 }
 
 Item.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
+  __index: PropTypes.number
 };
 
 function List(props) {
   const theme = useTheme();
-  const { listType: inheritedListType } = useListType();
+  const { type: inheritedListType, level } = useListType();
   const { textStyle: inheritedTextStyle } = useTextStyle();
   const inheritedProps = {
     type: inheritedListType,
@@ -96,10 +102,12 @@ function List(props) {
     margin: responsiveMargin
   });
   const ListComponent = type === "unordered" ? "ul" : "ol";
-  const items = React.Children.toArray(children).filter(
-    // Ignore all children that aren't List.Item
-    child => child.type === Item
-  );
+  const items = React.Children.toArray(children)
+    .filter(
+      // Ignore all children that aren't List.Item
+      child => child.type === Item
+    )
+    .map((child, index) => React.cloneElement(child, { __index: index }));
   let list = (
     <ListComponent
       css={{
@@ -119,7 +127,11 @@ function List(props) {
     list = <TextStyleProvider value={textStyle}>{list}</TextStyleProvider>;
   }
 
-  return <ListTypeProvider value={type}>{list}</ListTypeProvider>;
+  return (
+    <ListTypeProvider value={{ type, level: level + 1 }}>
+      {list}
+    </ListTypeProvider>
+  );
 }
 
 List.propTypes = {
