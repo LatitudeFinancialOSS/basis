@@ -2,21 +2,12 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { LivePreview } from "react-live";
 import Frame, { FrameContextConsumer } from "react-frame-component";
-import weakMemoize from "@emotion/weak-memoize";
-import createCache from "@emotion/cache";
-import { CacheProvider, Global } from "@emotion/core";
+import { Global } from "@emotion/core";
 import { BasisProvider, defaultTheme } from "basis";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";
 import "typeface-montserrat";
 import "typeface-roboto";
 
-// Inspired by: https://github.com/emotion-js/emotion/issues/760#issuecomment-404353706
-const memoizedCreateCacheWithContainer = weakMemoize(container => {
-  return createCache({
-    key: "website", // This key must exist! See: https://emotion.sh/docs/@emotion/cache#key
-    container
-  });
-});
 const iframeHTML = `
 <!DOCTYPE html>
 <html lang="en">
@@ -146,27 +137,18 @@ function ComponentPreview({
     >
       <FrameContextConsumer>
         {({ window, document }) => {
-          const cache = memoizedCreateCacheWithContainer({
-            container: document.head
-          });
-
-          /*
-            CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
-            I'm not sure if we still need the CacheProvider. It used to inject website styles into the iframe (e.g. DemoBlock styles).
-          */
+          // CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
           return (
-            <CacheProvider value={cache}>
-              <CacheProviderWithContainer container={document.head}>
-                <ComponentPreviewContent
-                  window={window}
-                  document={document}
-                  hasBodyMargin={hasBodyMargin}
-                  setDocument={setDocument}
-                  containerRef={containerRef}
-                  highlightedComponents={highlightedComponents}
-                />
-              </CacheProviderWithContainer>
-            </CacheProvider>
+            <CacheProviderWithContainer container={document.head}>
+              <ComponentPreviewContent
+                window={window}
+                document={document}
+                hasBodyMargin={hasBodyMargin}
+                setDocument={setDocument}
+                containerRef={containerRef}
+                highlightedComponents={highlightedComponents}
+              />
+            </CacheProviderWithContainer>
           );
         }}
       </FrameContextConsumer>
