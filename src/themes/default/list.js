@@ -19,6 +19,9 @@ export default theme => ({
     backgroundColor: theme.colors.secondary.lightBlue.t100,
     borderRadius: theme.radii[3]
   },
+  "listItemContent.unordered": {
+    flexGrow: 1
+  },
   // Ordered
   "list.ordered": {
     listStyleType: "decimal"
@@ -77,5 +80,8 @@ export default theme => ({
   "listItemMarker.steps.nested": {
     color: theme.colors.black,
     backgroundColor: theme.colors.secondary.lightBlue.t100
+  },
+  "listItemContent.steps": {
+    flexGrow: 1
   }
 });

@@ -1,4 +1,4 @@
-function filterValidProps(props, validations) {
+function filterValidProps(props, validations = {}) {
   const result = {};
 
   for (const propName in props) {

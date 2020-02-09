@@ -151,9 +151,9 @@ function ComponentPreview({
           });
 
           /*
-              CacheProvider injects website styles into the iframe (e.g. DemoBlock styles).
-              CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
-            */
+            CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
+            I'm not sure if we still need the CacheProvider. It used to inject website styles into the iframe (e.g. DemoBlock styles).
+          */
           return (
             <CacheProvider value={cache}>
               <CacheProviderWithContainer container={document.head}>

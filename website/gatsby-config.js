@@ -47,6 +47,9 @@ module.exports = {
       LoadingIcon: {
         status: COMPONENT_STATUS.DRAFT
       },
+      Placeholder: {
+        status: COMPONENT_STATUS.READY
+      },
       RadioGroup: {
         status: COMPONENT_STATUS.READY
       },

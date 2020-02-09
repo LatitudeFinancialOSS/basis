@@ -24,7 +24,6 @@ import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useCanary from "../../hooks/useCanary";
 import ComponentPreview from "../../components/ComponentPreview";
-import DemoBlock from "../../components/DemoBlock";
 
 import "../../utils/meta";
 
@@ -56,8 +55,7 @@ const defaultCode = prettify(`
 
 const scope = {
   ...allDesignSystem,
-  ...allOptionallyControlled,
-  DemoBlock
+  ...allOptionallyControlled
 };
 
 const PlaygroundError = withLive(({ live }) => {

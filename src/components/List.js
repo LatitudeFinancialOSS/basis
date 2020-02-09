@@ -74,7 +74,14 @@ function Item({ children, testId, __index }) {
           </div>
         </>
       )}
-      <div css={theme[`listItemContent.${type}.${textStyle}`]}>{children}</div>
+      <div
+        css={{
+          ...theme[`listItemContent.${type}`],
+          ...theme[`listItemContent.${type}.${textStyle}`]
+        }}
+      >
+        {children}
+      </div>
     </li>
   );
 }
