@@ -75,6 +75,11 @@ function Icon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { name, size, color, hoverColor, secondaryColor, testId } = props;
   const theme = useTheme();
+
+  if (!NAMES.includes(name)) {
+    return null;
+  }
+
   const IconComponent = require(`../icons/${name}`).default;
 
   return (

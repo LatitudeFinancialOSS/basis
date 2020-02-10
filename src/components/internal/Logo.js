@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import LatitudeLogo from "../../logos/latitude";
-import GemLogo from "../../logos/gem";
 import {
   responsiveHeightType,
   responsiveMaxWidthType
@@ -22,6 +20,12 @@ function Logo(_props) {
   const { name, color, testId } = props;
   const heightProps = useAllResponsiveProps(props, "height");
   const maxWidthProps = useAllResponsiveProps(props, "maxWidth");
+
+  if (!NAMES.includes(name)) {
+    return null;
+  }
+
+  const LogoComponent = require(`../../logos/${name}`).default;
   const logoProps = {
     color,
     ...heightProps,
@@ -29,19 +33,7 @@ function Logo(_props) {
     testId
   };
 
-  switch (name) {
-    case "latitude": {
-      return <LatitudeLogo {...logoProps} />;
-    }
-
-    case "gem": {
-      return <GemLogo {...logoProps} />;
-    }
-
-    default: {
-      return null;
-    }
-  }
+  return <LogoComponent {...logoProps} />;
 }
 
 Logo.propTypes = {
