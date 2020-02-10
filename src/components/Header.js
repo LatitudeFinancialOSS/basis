@@ -6,7 +6,17 @@ import Logo from "./internal/Logo";
 import useTheme from "../hooks/useTheme";
 
 function HeaderLogo({ name, testId }) {
-  return <Logo name={name} height="5" height-xs="7" testId={testId} />;
+  return (
+    <Logo
+      name={name}
+      height="9"
+      height-xs="10"
+      height-lg="11"
+      maxWidth="120px"
+      maxWidth-xs="none"
+      testId={testId}
+    />
+  );
 }
 
 HeaderLogo.propTypes = {
@@ -40,7 +50,7 @@ function Header(_props) {
       }
       data-testid={testId}
     >
-      <Container bg="white" height="11" height-lg="14" boxShadow="header">
+      <Container bg="white" height="12" height-lg="15" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
           <Flex height="100%" placeItems="left center">
             {children}

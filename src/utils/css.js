@@ -227,6 +227,15 @@ export function responsiveHeight(propsAtBreakpoint, theme) {
   return height === null ? {} : { height };
 }
 
+export function responsiveMaxWidth(propsAtBreakpoint) {
+  const maxWidth =
+    typeof propsAtBreakpoint.maxWidth === "string" && propsAtBreakpoint.maxWidth
+      ? propsAtBreakpoint.maxWidth
+      : null;
+
+  return maxWidth === null ? {} : { maxWidth };
+}
+
 export function responsiveTextStyle(propsAtBreakpoint, theme) {
   const css = theme.getTextStyleCSS(propsAtBreakpoint.textStyle);
 

@@ -6,8 +6,16 @@ import Logo from "./internal/Logo";
 
 function HeaderLogo({ name, testId }) {
   return (
-    <Flex height="12" height-lg="14" placeItems="left center" testId={testId}>
-      <Logo name={name} color="white" height="6" height-lg="8" />
+    <Flex height="12" height-lg="15" placeItems="left center" testId={testId}>
+      <Logo
+        name={name}
+        color="white"
+        height="9"
+        height-xs="10"
+        height-lg="11"
+        maxWidth="120px"
+        maxWidth-xs="none"
+      />
     </Flex>
   );
 }

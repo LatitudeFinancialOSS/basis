@@ -3,9 +3,11 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
 
+const { useTheme } = allDesignSystem;
 const scope = allDesignSystem;
 
 function FooterPage() {
+  const theme = useTheme();
   const code = formatCode(`
     <Footer>
       <Footer.Header>
@@ -101,6 +103,7 @@ function FooterPage() {
       scope={scope}
       width="md"
       hasBodyMargin={false}
+      backgroundColor={theme.colors.grey.t07}
     />
   );
 }

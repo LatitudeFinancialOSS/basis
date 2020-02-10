@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import LatitudeLogo from "../../logos/latitude";
 import GemLogo from "../../logos/gem";
-import { responsiveHeightType } from "../../hooks/useResponsiveProp";
+import {
+  responsiveHeightType,
+  responsiveMaxWidthType
+} from "../../hooks/useResponsiveProp";
 import useAllResponsiveProps from "../../hooks/useAllResponsiveProps";
 
 const NAMES = ["latitude", "gem"];
@@ -18,9 +21,11 @@ function Logo(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { name, color, testId } = props;
   const heightProps = useAllResponsiveProps(props, "height");
+  const maxWidthProps = useAllResponsiveProps(props, "maxWidth");
   const logoProps = {
     color,
     ...heightProps,
+    ...maxWidthProps,
     testId
   };
 
@@ -43,6 +48,7 @@ Logo.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
   color: PropTypes.oneOf(COLORS),
   ...responsiveHeightType,
+  ...responsiveMaxWidthType,
   testId: PropTypes.string
 };
 

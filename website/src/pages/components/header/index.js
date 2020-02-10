@@ -3,12 +3,14 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
 
+const { useTheme } = allDesignSystem;
 const scope = allDesignSystem;
 
 function HeaderPage() {
+  const theme = useTheme();
   const code = formatCode(`
     <Header>
-      <Header.Logo name="gem" />
+      <Header.Logo name="latitude" />
     </Header>
   `);
 
@@ -18,6 +20,7 @@ function HeaderPage() {
       scope={scope}
       width="md"
       hasBodyMargin={false}
+      backgroundColor={theme.colors.grey.t07}
     />
   );
 }

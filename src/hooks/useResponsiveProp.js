@@ -49,6 +49,11 @@ export const responsiveHeightType = responsivePropType(
   PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 );
 
+export const responsiveMaxWidthType = responsivePropType(
+  "maxWidth",
+  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+);
+
 function useResponsiveProp(props, propName) {
   const theme = useTheme();
   const breakpoint = useBreakpoint();

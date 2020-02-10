@@ -8,6 +8,7 @@ import {
   responsivePadding,
   responsiveWidth,
   responsiveHeight,
+  responsiveMaxWidth,
   responsiveTextAlign
 } from "./css";
 
@@ -268,6 +269,28 @@ describe("responsiveHeight", () => {
 
   it("invalid height", () => {
     expect(responsiveHeight({ height: "" }, theme)).toStrictEqual({});
+  });
+});
+
+describe("responsiveMaxWidth", () => {
+  it("valid maxWidth", () => {
+    expect(responsiveMaxWidth({ maxWidth: "120" }, theme)).toStrictEqual({
+      maxWidth: "120"
+    });
+    expect(responsiveMaxWidth({ maxWidth: "120px" }, theme)).toStrictEqual({
+      maxWidth: "120px"
+    });
+    expect(responsiveMaxWidth({ maxWidth: "auto" }, theme)).toStrictEqual({
+      maxWidth: "auto"
+    });
+    expect(responsiveMaxWidth({ maxWidth: "100%" }, theme)).toStrictEqual({
+      maxWidth: "100%"
+    });
+  });
+
+  it("invalid maxWidth", () => {
+    expect(responsiveMaxWidth({ maxWidth: true }, theme)).toStrictEqual({});
+    expect(responsiveMaxWidth({ maxWidth: "" }, theme)).toStrictEqual({});
   });
 });
 
