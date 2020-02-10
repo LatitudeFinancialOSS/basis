@@ -1,49 +1,57 @@
 import React from "react";
-import { Container, Grid, Text } from "basis";
+import { Container, Grid, Placeholder } from "basis";
 import Layout from "./Layout";
 
 function KitchenSinkGrid() {
   return (
     <Layout name="Grid">
       <Container padding="4">
-        <Grid preset="page">
-          <Grid.Item colSpan="0" colSpan-sm="0-1" colSpan-lg="0-2">
-            <Text>
-              <strong>{`Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.`}</strong>
-            </Text>
-          </Grid.Item>
-          <Grid.Item colSpan="2-3" colSpan-sm="4-7" colSpan-lg="6-11">
-            <Text>
-              {`There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don't look even
-              slightly believable. If you are going to use a passage of Lorem
-              Ipsum, you need to be sure there isn't anything embarrassing
-              hidden in the middle of text. All the Lorem Ipsum generators on
-              the Internet tend to repeat predefined chunks as necessary, making
-              this the first true generator on the Internet. It uses a
-              dictionary of over 200 Latin words, combined with a handful of
-              model sentence structures, to generate Lorem Ipsum which looks
-              reasonable. The generated Lorem Ipsum is therefore always free
-              from repetition, injected humour, or non-characteristic words etc.`}
-            </Text>
-          </Grid.Item>
+        <Grid preset="page" rowsGutter={4}>
           <Grid.Item colSpan="all">
-            <Text textStyle="legal" margin="6 0 0 0">
-              {`It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop
-              publishing packages and web page editors now use Lorem Ipsum as
-              their default model text, and a search for 'lorem ipsum' will
-              uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on
-              purpose (injected humour and the like).`}
-            </Text>
+            <Placeholder label="Header" height="32" />
+          </Grid.Item>
+          <Grid.Item colSpan="all" colSpan-lg="0-1" rowSpan-lg="1-2">
+            <Placeholder
+              label="Navigation"
+              height="64"
+              height-sm="32"
+              height-lg="100%"
+            />
+          </Grid.Item>
+          <Grid.Item
+            colSpan="all"
+            colSpan-sm="2-7"
+            rowSpan-sm="2"
+            colSpan-lg="2-9"
+            rowSpan-lg="1-2"
+          >
+            <Placeholder label="Main article area" height="160" />
+          </Grid.Item>
+          <Grid.Item
+            colSpan="all"
+            colSpan-sm="0-1"
+            rowSpan-sm="2"
+            colSpan-lg="10-11"
+            rowSpan-lg="1"
+          >
+            <Placeholder label="Sidebar" height="32" height-sm="100%" />
+          </Grid.Item>
+          <Grid.Item
+            colSpan="all"
+            colSpan-sm="0-1"
+            rowSpan-sm="3"
+            colSpan-lg="10-11"
+            rowSpan-lg="2"
+          >
+            <Placeholder label="Advertising" height="32" height-lg="100%" />
+          </Grid.Item>
+          <Grid.Item
+            colSpan="all"
+            colSpan-sm="2-7"
+            rowSpan-sm="3"
+            colSpan-lg="all"
+          >
+            <Placeholder label="Footer" height="32" />
           </Grid.Item>
         </Grid>
       </Container>

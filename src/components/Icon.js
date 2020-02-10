@@ -48,6 +48,7 @@ const NAMES = [
   "twitter",
   "youtube"
 ];
+const SIZES = ["24px", "32px"];
 const COLORS = [
   "grey.t75",
   "primary.blue.t100",
@@ -60,12 +61,13 @@ const HOVER_COLORS = ["black", "secondary.lightBlue.t60"];
 const SECONDARY_COLORS = ["highlight.blue.t100"];
 
 const DEFAULT_PROPS = {
-  size: "8",
+  size: "32px",
   color: "grey.t75",
   secondaryColor: "highlight.blue.t100"
 };
 
 Icon.NAMES = NAMES;
+Icon.SIZES = SIZES;
 Icon.COLORS = COLORS;
 Icon.HOVER_COLORS = HOVER_COLORS;
 Icon.SECONDARY_COLORS = SECONDARY_COLORS;
@@ -84,7 +86,7 @@ function Icon(_props) {
 
   return (
     <IconComponent
-      size={theme.getSizeValue(size)}
+      size={size}
       primaryColor={theme.getColor(color)}
       secondaryColor={theme.getColor(secondaryColor)}
       hoverColor={theme.getColor(hoverColor)}
@@ -95,7 +97,7 @@ function Icon(_props) {
 
 Icon.propTypes = {
   name: PropTypes.oneOf(NAMES).isRequired,
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  size: PropTypes.oneOf(SIZES),
   color: PropTypes.oneOf(COLORS),
   hoverColor: PropTypes.oneOf(HOVER_COLORS),
   secondaryColor: PropTypes.oneOf(SECONDARY_COLORS),

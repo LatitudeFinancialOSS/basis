@@ -14,7 +14,7 @@ function KitchenSinkPlaceholder() {
       </Container>
 
       <Container padding="6">
-        <Placeholder label="Custom size" width="20" height="17" />
+        <Placeholder label="Custom size" width="320" height="112" />
       </Container>
     </Layout>
   );

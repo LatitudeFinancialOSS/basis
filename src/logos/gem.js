@@ -4,14 +4,14 @@ import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveHeightType } from "../hooks/useResponsiveProp";
-import { responsiveHeight } from "../utils/css";
+import { responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
 const COLORS = ["primary.blue.t100", "black", "white"];
 
 const DEFAULT_PROPS = {
   color: "primary.blue.t100",
-  height: "7"
+  height: "40px"
 };
 
 function GemLogo(props) {
@@ -27,7 +27,7 @@ function GemLogo(props) {
   });
   const { color, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    height: responsiveHeight
+    height: responsiveSize("height")
   });
 
   return (

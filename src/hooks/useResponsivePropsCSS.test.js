@@ -29,7 +29,7 @@ describe("getBreakpointToPropsMap", () => {
       "gutter-lg": 6,
       placeItems: "center",
       "placeItems-md": "bottom right",
-      width: 4,
+      width: "40",
       "foo-xll": true
     };
     const defaultProps = {
@@ -41,42 +41,42 @@ describe("getBreakpointToPropsMap", () => {
         direction: "row",
         gutter: 2,
         placeItems: "center",
-        width: 4,
+        width: "40",
         "foo-xll": true
       },
       xs: {
         direction: "row",
         gutter: 2,
         placeItems: "center",
-        width: 4,
+        width: "40",
         "foo-xll": true
       },
       sm: {
         direction: "column",
         gutter: 2,
         placeItems: "center",
-        width: 4,
+        width: "40",
         "foo-xll": true
       },
       md: {
         direction: "column",
         gutter: 2,
         placeItems: "bottom right",
-        width: 4,
+        width: "40",
         "foo-xll": true
       },
       lg: {
         direction: "column",
         gutter: 6,
         placeItems: "bottom right",
-        width: 4,
+        width: "40",
         "foo-xll": true
       },
       xl: {
         direction: "column",
         gutter: 6,
         placeItems: "bottom right",
-        width: 4,
+        width: "40",
         "foo-xll": true
       }
     });
@@ -310,7 +310,7 @@ describe("useResponsivePropsCSS", () => {
 
   it("Flex - direction", () => {
     const props = {
-      height: "15",
+      height: "80px",
       "direction-md": "column",
       "direction-large": "row",
       "direction-xl": "row"

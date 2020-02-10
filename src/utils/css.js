@@ -215,26 +215,23 @@ export function responsivePadding(propsAtBreakpoint, theme) {
   return padding === null ? {} : { padding };
 }
 
-export function responsiveWidth(propsAtBreakpoint, theme) {
-  const width = theme.getSizeValue(propsAtBreakpoint.width);
+function addPxIfNeeded(str) {
+  if (/^\d+$/.test(str)) {
+    return `${str}px`;
+  }
 
-  return width === null ? {} : { width };
+  return str;
 }
 
-export function responsiveHeight(propsAtBreakpoint, theme) {
-  const height = theme.getSizeValue(propsAtBreakpoint.height);
-
-  return height === null ? {} : { height };
-}
-
-export function responsiveMaxWidth(propsAtBreakpoint) {
-  const maxWidth =
-    typeof propsAtBreakpoint.maxWidth === "string" && propsAtBreakpoint.maxWidth
-      ? propsAtBreakpoint.maxWidth
+export const responsiveSize = prop => propsAtBreakpoint => {
+  const value =
+    typeof propsAtBreakpoint[prop] === "string" &&
+    propsAtBreakpoint[prop].trim() !== ""
+      ? addPxIfNeeded(propsAtBreakpoint[prop])
       : null;
 
-  return maxWidth === null ? {} : { maxWidth };
-}
+  return value === null ? {} : { [prop]: value };
+};
 
 export function responsiveTextStyle(propsAtBreakpoint, theme) {
   const css = theme.getTextStyleCSS(propsAtBreakpoint.textStyle);

@@ -7,7 +7,7 @@ function KitchenSinkInput() {
   return (
     <Layout name="Input">
       <Container padding="4">
-        <Container width="20">
+        <Container width="320">
           <Grid rowsGutter="8">
             <Input placeholder="Grey" color="grey.t05" />
 
@@ -21,7 +21,7 @@ function KitchenSinkInput() {
       </Container>
 
       <Container padding="4" bg="grey.t05">
-        <Container width="20">
+        <Container width="320">
           <Grid rowsGutter="8">
             <Input placeholder="White" />
 

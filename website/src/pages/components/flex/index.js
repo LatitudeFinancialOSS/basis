@@ -23,28 +23,28 @@ function FlexPage() {
       </Flex>
 
       <Text as="h4" textStyle="heading4" margin="10 0 3">Horizontal centering:</Text>
-      <Container bg="grey.t05" height="16">
+      <Container bg="grey.t05" height="96">
         <Flex fullHeight placeItems="top center">
           <Button>Button</Button>
         </Flex>
       </Container>
 
       <Text as="h4" textStyle="heading4" margin="10 0 3">Vertical centering:</Text>
-      <Container bg="grey.t05" height="16">
+      <Container bg="grey.t05" height="96">
         <Flex fullHeight placeItems="center right">
           <Button>Button</Button>
         </Flex>
       </Container>
 
       <Text as="h4" textStyle="heading4" margin="10 0 3">Horizontal and vertical centering:</Text>
-      <Container bg="grey.t05" height="16">
+      <Container bg="grey.t05" height="96">
         <Flex fullHeight placeItems="center">
           <Button>Button</Button>
         </Flex>
       </Container>
 
       <Text as="h4" textStyle="heading4" margin="10 0 3">Wrapping items:</Text>
-      <Container bg="grey.t05" width="20" height="16">
+      <Container bg="grey.t05" width="320" height="96">
         <Flex fullHeight wrap={true} gutter="4 10">
           <Container bg="secondary.lightBlue.t30" padding="1 3">
             <Text textStyle="body2">Item 1</Text>

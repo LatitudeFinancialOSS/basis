@@ -11,6 +11,12 @@ const DEFAULT_PROPS = {
   color: "highlight.blue.t100"
 };
 
+const circleRadiusMap = {
+  small: 4,
+  medium: 8,
+  large: 12
+};
+
 LoadingIcon.SIZES = SIZES;
 LoadingIcon.COLORS = COLORS;
 LoadingIcon.DEFAULT_PROPS = DEFAULT_PROPS;
@@ -19,15 +25,8 @@ function LoadingIcon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { size, color, testId } = props;
   const theme = useTheme();
-  const radius = parseInt(
-    theme[`loadingIcon.${size}`]
-      ? theme[`loadingIcon.${size}`].circleRadius
-      : theme.sizes[1],
-    10
-  );
-  const circleColor = theme[`loadingIcon.${color}`]
-    ? theme[`loadingIcon.${color}`].color
-    : theme.colors.black;
+  const radius = circleRadiusMap[size] ?? 4;
+  const circleColor = theme.getColor(color) ?? theme.colors.black;
   const stepPx = `${3 * radius}px`;
   const frames = 12; // 3 circles * 4 steps each
   const percantagePerFrame = 100 / frames;

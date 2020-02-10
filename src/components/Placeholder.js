@@ -6,13 +6,13 @@ import {
   responsiveHeightType
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsiveWidth, responsiveHeight } from "../utils/css";
+import { responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import Flex from "./Flex";
 import Text from "./Text";
 
 const DEFAULT_PROPS = {
-  height: "14",
+  height: "72px",
   label: "Placeholder"
 };
 
@@ -28,8 +28,8 @@ function Placeholder(props) {
   );
   const { label, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    width: responsiveWidth,
-    height: responsiveHeight
+    width: responsiveSize("width"),
+    height: responsiveSize("height")
   });
 
   return (

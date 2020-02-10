@@ -46,7 +46,7 @@ function getDefaultBreakpointProps(props, breakpoints) {
 export function getBreakpointToPropsMap(theme, props, defaultProps) {
   const breakpoints = Object.keys(theme.breakpoints);
   /*
-    If `props` is { "height-sm": 10 }, `getResponsiveProps` will include "height".
+    If `props` is { "height-sm": "40px" }, `getResponsiveProps` will include "height".
     But, `getDefaultBreakpointProps` will not.
   */
   const nonBreakpointProps = getResponsiveProps(props, breakpoints);

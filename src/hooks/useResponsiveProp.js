@@ -41,17 +41,17 @@ export const responsivePaddingType = responsivePropType(
 
 export const responsiveWidthType = responsivePropType(
   "width",
-  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  PropTypes.string
 );
 
 export const responsiveHeightType = responsivePropType(
   "height",
-  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  PropTypes.string
 );
 
 export const responsiveMaxWidthType = responsivePropType(
   "maxWidth",
-  PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  PropTypes.string
 );
 
 function useResponsiveProp(props, propName) {

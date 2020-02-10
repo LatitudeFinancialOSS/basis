@@ -8,7 +8,7 @@ export default theme => ({
     padding: `0 ${theme.space[4]}`,
     color: theme.colors.black,
     width: "100%",
-    height: theme.space[11],
+    height: "48px",
     border: 0,
     margin: 0,
     MozAppearance: "textfield" // Hides the input="number" spin buttons in Firefox

@@ -9,10 +9,10 @@ function HeaderLogo({ name, testId }) {
   return (
     <Logo
       name={name}
-      height="9"
-      height-xs="10"
-      height-lg="11"
-      maxWidth="120px"
+      height="36"
+      height-xs="40"
+      height-lg="48"
+      maxWidth="120"
       maxWidth-xs="none"
       testId={testId}
     />
@@ -50,7 +50,7 @@ function Header(_props) {
       }
       data-testid={testId}
     >
-      <Container bg="white" height="12" height-lg="15" boxShadow="header">
+      <Container bg="white" height="56" height-lg="80" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
           <Flex fullHeight placeItems="left center">
             {children}
