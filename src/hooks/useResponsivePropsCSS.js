@@ -174,7 +174,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
         "@media (min-width: 576px)": {
           height: "24px"
         },
-        "@media (min-width: 380px)": {
+        "@media (min-width: 375px)": {
           height: "48px"
         }
       }

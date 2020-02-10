@@ -108,7 +108,7 @@ describe("useResponsivePropsCSS", () => {
     expect(result.current).toStrictEqual({
       margin: "4px 8px 12px 16px",
       padding: "16px",
-      "@media (min-width: 380px)": {
+      "@media (min-width: 375px)": {
         margin: "auto 16px 24px auto",
         padding: "20px"
       },
@@ -163,7 +163,7 @@ describe("useResponsivePropsCSS", () => {
       gridTemplateColumns: "repeat(3, 1fr)",
       gridColumnGap: "20px",
       gridRowGap: "0px",
-      "@media (min-width: 380px)": {
+      "@media (min-width: 375px)": {
         gridTemplateColumns: "repeat(2, 1fr)"
       },
       "@media (min-width: 768px)": {
@@ -399,7 +399,7 @@ describe("useResponsivePropsCSS", () => {
     expect(result.current).toStrictEqual({
       alignItems: "flex-start",
       justifyContent: "flex-start",
-      "@media (min-width: 380px)": {
+      "@media (min-width: 375px)": {
         alignItems: "flex-end"
       },
       "@media (min-width: 576px)": {

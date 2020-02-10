@@ -21,14 +21,14 @@ describe("getMinMediaQueries", () => {
   it("5 breakpoints", () => {
     expect(
       getMinMediaQueries({
-        xs: "380px",
+        xs: "375px",
         sm: "576px",
         md: "768px",
         lg: "992px",
         xl: "1200px"
       })
     ).toStrictEqual({
-      xs: "@media (min-width: 380px)",
+      xs: "@media (min-width: 375px)",
       sm: "@media (min-width: 576px)",
       md: "@media (min-width: 768px)",
       lg: "@media (min-width: 992px)",
@@ -57,15 +57,15 @@ describe("getExclusiveMediaQueries", () => {
   it("> 1 breakpoint", () => {
     expect(
       getExclusiveMediaQueries({
-        xs: "380px",
+        xs: "375px",
         sm: "576px",
         md: "768px",
         lg: "992px",
         xl: "1200px"
       })
     ).toStrictEqual({
-      default: "(max-width: 379px)",
-      xs: "(min-width: 380px) and (max-width: 575px)",
+      default: "(max-width: 374px)",
+      xs: "(min-width: 375px) and (max-width: 575px)",
       sm: "(min-width: 576px) and (max-width: 767px)",
       md: "(min-width: 768px) and (max-width: 991px)",
       lg: "(min-width: 992px) and (max-width: 1199px)",
@@ -129,7 +129,7 @@ describe("isCSSinOrder", () => {
   it("in order - only media queries", () => {
     expect(
       isCSSinOrder({
-        "@media (min-width: 380px)": {
+        "@media (min-width: 375px)": {
           height: "24px"
         },
         "@media (min-width: 768px)": {
@@ -147,7 +147,7 @@ describe("isCSSinOrder", () => {
       isCSSinOrder({
         width: "100%",
         height: "12px",
-        "@media (min-width: 380px)": {
+        "@media (min-width: 375px)": {
           height: "24px"
         },
         "@media (min-width: 576px)": {
@@ -169,7 +169,7 @@ describe("isCSSinOrder", () => {
     expect(
       isCSSinOrder({
         width: "100%",
-        "@media (min-width: 380px)": {
+        "@media (min-width: 375px)": {
           height: "24px"
         },
         "@media (min-width: 576px)": {
@@ -193,7 +193,7 @@ describe("isCSSinOrder", () => {
       isCSSinOrder({
         width: "100%",
         height: "12px",
-        "@media (min-width: 380px)": {
+        "@media (min-width: 375px)": {
           height: "24px"
         },
         "@media (min-width: 576px)": {
