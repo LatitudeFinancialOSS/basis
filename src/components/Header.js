@@ -52,7 +52,7 @@ function Header(_props) {
     >
       <Container bg="white" height="12" height-lg="15" boxShadow="header">
         <Container hasBreakpointWidth={true} height="100%">
-          <Flex height="100%" placeItems="left center">
+          <Flex fullHeight placeItems="left center">
             {children}
           </Flex>
         </Container>

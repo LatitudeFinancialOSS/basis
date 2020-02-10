@@ -6,17 +6,19 @@ import Logo from "./internal/Logo";
 
 function HeaderLogo({ name, testId }) {
   return (
-    <Flex height="12" height-lg="15" placeItems="left center" testId={testId}>
-      <Logo
-        name={name}
-        color="white"
-        height="9"
-        height-xs="10"
-        height-lg="11"
-        maxWidth="120px"
-        maxWidth-xs="none"
-      />
-    </Flex>
+    <Container height="12" height-lg="15" testId={testId}>
+      <Flex fullHeight placeItems="left center">
+        <Logo
+          name={name}
+          color="white"
+          height="9"
+          height-xs="10"
+          height-lg="11"
+          maxWidth="120px"
+          maxWidth-xs="none"
+        />
+      </Flex>
+    </Container>
   );
 }
 
@@ -27,21 +29,22 @@ HeaderLogo.propTypes = {
 
 function HeaderSocial({ children, testId }) {
   return (
-    <Flex
+    <Container
       height="12"
       width="100%"
       width-sm="auto"
       margin-sm="0 0 0 auto"
-      placeItems="left center"
       testId={testId}
     >
-      <Text margin="0" margin-sm="0 4 0 0">
-        <strong>Connect with us</strong>
-      </Text>
-      <Flex gutter="3" margin="0 0 0 auto" margin-sm="0">
-        {children}
+      <Flex fullHeight placeItems="left center">
+        <Text margin="0" margin-sm="0 4 0 0">
+          <strong>Connect with us</strong>
+        </Text>
+        <Flex gutter="3" margin="0 0 0 auto" margin-sm="0">
+          {children}
+        </Flex>
       </Flex>
-    </Flex>
+    </Container>
   );
 }
 
@@ -186,7 +189,7 @@ function LegalLinks({ children, testId }) {
   );
 
   return (
-    <Flex gutter="3 4" wrap={true} placeItems="top center" testId={testId}>
+    <Flex gutter="3 4" wrap placeItems="top center" testId={testId}>
       {links}
     </Flex>
   );

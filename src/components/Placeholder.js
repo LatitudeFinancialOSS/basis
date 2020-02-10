@@ -42,7 +42,7 @@ function Placeholder(props) {
       }}
       data-testid={testId}
     >
-      <Flex height="100%" placeItems="center">
+      <Flex fullHeight placeItems="center">
         <Text>{label}</Text>
       </Flex>
     </div>

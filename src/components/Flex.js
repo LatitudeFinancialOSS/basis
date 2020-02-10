@@ -3,14 +3,10 @@ import PropTypes from "prop-types";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMarginType,
-  responsiveWidthType,
-  responsiveHeightType,
   responsivePropType
 } from "../hooks/useResponsiveProp";
 import {
   responsiveMargin,
-  responsiveWidth,
-  responsiveHeight,
   responsiveFlexDirection,
   responsiveFlexGutter,
   responsiveFlexPlaceItems
@@ -43,6 +39,7 @@ const PLACE_ITEMS = [
 
 const DEFAULT_PROPS = {
   direction: "row",
+  fullHeight: false,
   wrap: false,
   placeItems: "top left"
 };
@@ -53,12 +50,10 @@ Flex.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Flex(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { wrap, children, testId } = props;
+  const { fullHeight, wrap, children, testId } = props;
   const childrenArray = React.Children.toArray(children);
   const wrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    margin: responsiveMargin,
-    width: responsiveWidth,
-    height: responsiveHeight
+    margin: responsiveMargin
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     gutter: responsiveFlexGutter("items-container"),
@@ -73,6 +68,7 @@ function Flex(_props) {
     <div
       css={{
         display: "flex", // Without it, parent and child margins collapse. See: https://stackoverflow.com/a/19719427/247243
+        ...(fullHeight === true ? { height: "100%" } : {}),
         ...wrapperCSS
       }}
       data-testid={testId}
@@ -100,13 +96,12 @@ function Flex(_props) {
 
 Flex.propTypes = {
   ...responsiveMarginType,
-  ...responsiveWidthType,
-  ...responsiveHeightType,
   ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
   ...responsivePropType(
     "gutter",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
+  fullHeight: PropTypes.bool,
   wrap: PropTypes.bool,
   ...responsivePropType("placeItems", PropTypes.oneOf(PLACE_ITEMS)),
   children: PropTypes.node.isRequired,

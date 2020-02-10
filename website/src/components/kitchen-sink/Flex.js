@@ -25,20 +25,20 @@ function KitchenSinkFlex() {
         </Flex>
       </Container>
 
-      <Container padding="4">
-        <Flex height="17" placeItems="top center">
+      <Container padding="4" height="18">
+        <Flex fullHeight placeItems="top center">
           <Button>top center</Button>
         </Flex>
       </Container>
 
-      <Container padding="4" bg="grey.t05">
-        <Flex height="17" placeItems="center right">
+      <Container padding="4" height="18" bg="grey.t05">
+        <Flex fullHeight placeItems="center right">
           <Button>center right</Button>
         </Flex>
       </Container>
 
-      <Container padding="4">
-        <Flex height="17" placeItems="center">
+      <Container padding="4" height="18">
+        <Flex fullHeight placeItems="center">
           <Button>center</Button>
         </Flex>
       </Container>
