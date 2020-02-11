@@ -52,7 +52,7 @@ function KitchenSinkStepper() {
         </Section>
 
         <Section bg="grey.t05">
-          <Stepper isCompleted={true}>
+          <Stepper completed={true}>
             <Stepper.Item label="You" label-md="About you" />
             <Stepper.Item
               label="Address"

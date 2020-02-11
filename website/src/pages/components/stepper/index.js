@@ -23,9 +23,9 @@ function StepperPage() {
   const code = formatCode(`
     <Stepper ${nonDefaultProps([
       {
-        prop: "isCompleted",
+        prop: "completed",
         value: progress === 6,
-        defaultValue: Stepper.DEFAULT_PROPS.isCompleted,
+        defaultValue: Stepper.DEFAULT_PROPS.completed,
         type: "boolean"
       }
     ])}>

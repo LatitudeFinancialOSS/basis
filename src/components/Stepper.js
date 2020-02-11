@@ -91,14 +91,14 @@ Item.propTypes = {
 };
 
 const DEFAULT_PROPS = {
-  isCompleted: false
+  completed: false
 };
 
 Stepper.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Stepper(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { isCompleted, children, testId } = props;
+  const { completed, children, testId } = props;
   const theme = useTheme();
   const steps = React.Children.toArray(children).filter(
     // Ignore all children that aren't Step.Item
@@ -117,7 +117,7 @@ function Stepper(_props) {
               React.cloneElement(step, {
                 index: index,
                 total: steps.length,
-                isPrevious: isCompleted || index < currentStepIndex,
+                isPrevious: completed || index < currentStepIndex,
                 majorStepNumber: minor ? null : acc.majorStepNumber
               })
             );
@@ -139,7 +139,7 @@ function Stepper(_props) {
 }
 
 Stepper.propTypes = {
-  isCompleted: PropTypes.bool,
+  completed: PropTypes.bool,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string
 };
