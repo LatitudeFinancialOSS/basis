@@ -33,7 +33,7 @@ function KitchenSinkSelect() {
             <Select
               label="Optional with custom placeholder"
               placeholder="Select one..."
-              isOptional={true}
+              optional={true}
             />
 
             <Select label="Natural width" fullWidth={false} />

@@ -44,12 +44,12 @@ const DEFAULT_PROPS = {
   monthly: true,
   fortnightly: true,
   weekly: true,
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   selectPlaceholder: Select.DEFAULT_PROPS.placeholder,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ input }, { isTouched }) => {
         if (!isTouched.input) {
           return null;
@@ -63,7 +63,7 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ frequency }, { isTouched, props }) => {
         if (!isTouched.frequency) {
           return null;
@@ -101,14 +101,14 @@ function Frequency(props) {
     monthly: monthly => typeof monthly === "boolean",
     fortnightly: fortnightly => typeof fortnightly === "boolean",
     weekly: weekly => typeof weekly === "boolean",
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
   const {
     color,
     mode,
     label,
-    isOptional,
+    optional,
     inputPlaceholder,
     selectPlaceholder,
     helpText,
@@ -169,7 +169,7 @@ function Frequency(props) {
 
   return (
     <Field
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelId={labelId}
@@ -263,7 +263,7 @@ Frequency.propTypes = {
   monthly: PropTypes.bool,
   fortnightly: PropTypes.bool,
   weekly: PropTypes.bool,
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   inputPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,

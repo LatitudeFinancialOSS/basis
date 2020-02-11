@@ -21,7 +21,7 @@ function CheckboxPage() {
   const theme = useTheme();
   const [hasLabel, setHasLabel] = useState(true);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
-  const [isOptional, setIsOptional] = useState(DEFAULT_PROPS.isOptional);
+  const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
   );
@@ -45,9 +45,9 @@ function CheckboxPage() {
           defaultValue: DEFAULT_PROPS.color
         },
         {
-          prop: "isOptional",
-          value: isOptional,
-          defaultValue: DEFAULT_PROPS.isOptional,
+          prop: "optional",
+          value: optional,
+          defaultValue: DEFAULT_PROPS.optional,
           type: "boolean"
         },
         {
@@ -98,7 +98,7 @@ function CheckboxPage() {
           css={{ marginLeft: theme.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
-          selectedValue={isOptional}
+          selectedValue={optional}
           setSelectedValue={setIsOptional}
           type="boolean"
         />

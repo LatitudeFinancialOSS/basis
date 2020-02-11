@@ -14,11 +14,11 @@ const COLORS = ["grey.t05", "white"];
 const DEFAULT_PROPS = {
   color: "grey.t05",
   showCircles: true,
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: (value, { isTouched, props }) => {
         if (!isTouched) {
           return null;
@@ -155,7 +155,7 @@ function RadioGroup(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     showCircles: showCircles => typeof showCircles === "boolean",
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
   const {
@@ -164,7 +164,7 @@ function RadioGroup(props) {
     columns,
     color,
     showCircles,
-    isOptional,
+    optional,
     helpText,
     isDisabled,
     onFocus,
@@ -197,7 +197,7 @@ function RadioGroup(props) {
 
   return (
     <Field
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelId={labelId}
@@ -256,7 +256,7 @@ RadioGroup.propTypes = {
   columns: PropTypes.number,
   color: PropTypes.oneOf(COLORS),
   showCircles: PropTypes.bool,
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   helpText: PropTypes.string,
   isDisabled: PropTypes.bool,
   onFocus: PropTypes.func,

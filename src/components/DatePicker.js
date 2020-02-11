@@ -17,11 +17,11 @@ const COLORS = ["grey.t05", "white"];
 
 const DEFAULT_PROPS = {
   color: "grey.t05",
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ day }, { isTouched }) => {
         if (!isTouched.day) {
           return null;
@@ -41,7 +41,7 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ month }, { isTouched }) => {
         if (!isTouched.month) {
           return null;
@@ -61,7 +61,7 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ year }, { isTouched }) => {
         if (!isTouched.year) {
           return null;
@@ -81,8 +81,8 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ isOptional }, { previousErrors }) =>
-        !isOptional && previousErrors.every(error => error === null),
+      condition: ({ optional }, { previousErrors }) =>
+        !optional && previousErrors.every(error => error === null),
       validator: ({ day, month, year }, { isTouched }) => {
         if (!isTouched.day || !isTouched.month || !isTouched.year) {
           return null;
@@ -126,13 +126,13 @@ function DatePicker(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
   const {
     color,
     label,
-    isOptional,
+    optional,
     helpText: helpTextProp,
     isDisabled,
     data,
@@ -160,7 +160,7 @@ function DatePicker(props) {
 
   return (
     <Field
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelId={labelId}
@@ -268,7 +268,7 @@ function DatePicker(props) {
 DatePicker.propTypes = {
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   helpText: PropTypes.string,
   isDisabled: PropTypes.bool,
   validation: PropTypes.arrayOf(

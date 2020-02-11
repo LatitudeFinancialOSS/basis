@@ -16,7 +16,7 @@ function KitchenSinkRadioGroup() {
 
           <RadioGroup
             label="Optional with error"
-            isOptional={true}
+            optional={true}
             data={{
               value: "",
               errors: ["Please make a selection."]

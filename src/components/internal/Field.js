@@ -6,7 +6,7 @@ import useTheme from "../../hooks/useTheme";
 
 function Field({
   fullWidth = true,
-  isOptional,
+  optional,
   isDisabled,
   label,
   labelId,
@@ -31,7 +31,7 @@ function Field({
       {label && (
         <label css={theme["field.label"]} id={labelId} htmlFor={labelFor}>
           {label}
-          {isOptional && (
+          {optional && (
             <span css={theme["field.label.optional"]}>Optional</span>
           )}
         </label>
@@ -62,7 +62,7 @@ function Field({
 
 Field.propTypes = {
   fullWidth: PropTypes.bool,
-  isOptional: PropTypes.bool.isRequired,
+  optional: PropTypes.bool.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   labelId: PropTypes.string,
   labelFor: PropTypes.string,

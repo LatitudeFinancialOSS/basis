@@ -13,12 +13,12 @@ const COLORS = ["grey.t05", "white"];
 const DEFAULT_PROPS = {
   color: "grey.t05",
   type: "text",
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   isPasteAllowed: true,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: (value, { isTouched }) => {
         if (!isTouched) {
           return null;
@@ -47,7 +47,7 @@ function Input(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     type: type => TYPES.includes(type),
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean",
     isPasteAllowed: isPasteAllowed => typeof isPasteAllowed === "boolean"
   });
@@ -55,7 +55,7 @@ function Input(props) {
     color,
     type,
     label,
-    isOptional,
+    optional,
     placeholder,
     helpText,
     onFocus,
@@ -81,7 +81,7 @@ function Input(props) {
 
   return (
     <Field
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelFor={inputId}
@@ -141,7 +141,7 @@ Input.propTypes = {
   color: PropTypes.oneOf(COLORS),
   type: PropTypes.oneOf(TYPES),
   label: PropTypes.string,
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
   isDisabled: PropTypes.bool,

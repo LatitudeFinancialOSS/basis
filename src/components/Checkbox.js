@@ -12,11 +12,11 @@ const COLORS = ["grey.t05", "white"];
 
 const DEFAULT_PROPS = {
   color: "grey.t05",
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: (value, { isTouched }) => {
         if (!isTouched) {
           return null;
@@ -77,13 +77,13 @@ function Checkbox(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
   const {
     label,
     color,
-    isOptional,
+    optional,
     helpText,
     isDisabled,
     data,
@@ -107,7 +107,7 @@ function Checkbox(props) {
 
   return (
     <Field
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelId={labelId}
@@ -176,7 +176,7 @@ function Checkbox(props) {
 Checkbox.propTypes = {
   label: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   helpText: PropTypes.string,
   isDisabled: PropTypes.bool,
   validation: PropTypes.arrayOf(

@@ -12,7 +12,7 @@ function KitchenSinkTimeSpan() {
 
           <TimeSpan
             label="Optional with errors"
-            isOptional={true}
+            optional={true}
             data={{
               value: {
                 years: "100",

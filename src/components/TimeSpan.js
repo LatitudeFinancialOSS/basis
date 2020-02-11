@@ -13,11 +13,11 @@ const COLORS = ["grey.t05", "white"];
 
 const DEFAULT_PROPS = {
   color: "grey.t05",
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ years }, { isTouched }) => {
         if (!isTouched.years || years === "") {
           return null;
@@ -37,7 +37,7 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ months }, { isTouched }) => {
         if (!isTouched.months || months === "") {
           return null;
@@ -57,7 +57,7 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: ({ years, months }, { isTouched }) => {
         if (!isTouched.years && !isTouched.months) {
           return null;
@@ -109,13 +109,13 @@ function TimeSpan(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
   const {
     color,
     label,
-    isOptional,
+    optional,
     helpText: helpTextProp,
     isDisabled,
     data,
@@ -144,7 +144,7 @@ function TimeSpan(props) {
 
   return (
     <Field
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelId={labelId}
@@ -226,7 +226,7 @@ function TimeSpan(props) {
 TimeSpan.propTypes = {
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   helpText: PropTypes.string,
   isDisabled: PropTypes.bool,
   validation: PropTypes.arrayOf(

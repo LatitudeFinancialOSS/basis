@@ -38,7 +38,7 @@ function KitchenSinkInput() {
             <Input
               placeholder="Optional"
               label="First name"
-              isOptional={true}
+              optional={true}
             />
 
             <Input

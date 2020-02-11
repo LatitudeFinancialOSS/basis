@@ -13,11 +13,11 @@ const DEFAULT_PROPS = {
   color: "grey.t05",
   placeholder: "Please select",
   fullWidth: true,
-  isOptional: false,
+  optional: false,
   isDisabled: false,
   validation: [
     {
-      condition: ({ isOptional }) => !isOptional,
+      condition: ({ optional }) => !optional,
       validator: (value, { isTouched, props }) => {
         if (!isTouched) {
           return null;
@@ -49,7 +49,7 @@ function Select(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     fullWidth: fullWidth => typeof fullWidth === "boolean",
-    isOptional: isOptional => typeof isOptional === "boolean",
+    optional: optional => typeof optional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
   const {
@@ -60,7 +60,7 @@ function Select(props) {
     onBlur,
     options,
     fullWidth,
-    isOptional,
+    optional,
     helpText,
     isDisabled,
     data,
@@ -84,7 +84,7 @@ function Select(props) {
   return (
     <Field
       fullWidth={fullWidth}
-      isOptional={isOptional}
+      optional={optional}
       isDisabled={isDisabled}
       label={label}
       labelFor={selectId}
@@ -139,7 +139,7 @@ function Select(props) {
         }}
       >
         {placeholder && (
-          <option value="" disabled={!isOptional} hidden={!isOptional}>
+          <option value="" disabled={!optional} hidden={!optional}>
             {placeholder}
           </option>
         )}
@@ -174,7 +174,7 @@ Select.propTypes = {
     })
   ).isRequired,
   fullWidth: PropTypes.bool,
-  isOptional: PropTypes.bool,
+  optional: PropTypes.bool,
   helpText: PropTypes.string,
   errorMessage: PropTypes.string,
   isDisabled: PropTypes.bool,

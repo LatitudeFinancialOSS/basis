@@ -20,7 +20,7 @@ const isDisabledOptions = getCheckboxOptions();
 function InputPage() {
   const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
-  const [isOptional, setIsOptional] = useState(DEFAULT_PROPS.isOptional);
+  const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasPlaceholder, setHasPlaceholder] = useState(
     Boolean(DEFAULT_PROPS.placeholder)
   );
@@ -45,9 +45,9 @@ function InputPage() {
         value: "Name"
       },
       {
-        prop: "isOptional",
-        value: isOptional,
-        defaultValue: DEFAULT_PROPS.isOptional,
+        prop: "optional",
+        value: optional,
+        defaultValue: DEFAULT_PROPS.optional,
         type: "boolean"
       },
       {
@@ -92,7 +92,7 @@ function InputPage() {
           css={{ marginLeft: theme.space[13] }}
           heading="Optional"
           options={isOptionalOptions}
-          selectedValue={isOptional}
+          selectedValue={optional}
           setSelectedValue={setIsOptional}
           type="boolean"
         />

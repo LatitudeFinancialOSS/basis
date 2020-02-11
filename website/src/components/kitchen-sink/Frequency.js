@@ -21,7 +21,7 @@ function KitchenSinkFrequency() {
 
           <Frequency
             label="Optional with error"
-            isOptional={true}
+            optional={true}
             data={{
               value: {
                 input: "-12.8",

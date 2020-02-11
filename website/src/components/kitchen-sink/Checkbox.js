@@ -49,7 +49,7 @@ function KitchenSinkCheckbox() {
 
             <Checkbox label="Accept terms and conditions">With label</Checkbox>
 
-            <Checkbox label="Get occasional promotions" isOptional={true}>
+            <Checkbox label="Get occasional promotions" optional={true}>
               Optional
             </Checkbox>
 
