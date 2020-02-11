@@ -6,11 +6,10 @@ export const ListTypeProvider = ListTypeContext.Provider;
 
 function useListType() {
   const listInfo = useContext(ListTypeContext);
-  const { type, level } = listInfo ?? { type: null, level: -1 };
+  const { type } = listInfo ?? { type: null };
 
   return {
-    type,
-    level
+    type
   };
 }
 

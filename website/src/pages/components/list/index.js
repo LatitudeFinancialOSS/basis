@@ -17,39 +17,40 @@ function ListPage() {
   const theme = useTheme();
   const [type, setType] = useState(DEFAULT_PROPS.type);
   const [textStyle, setTextStyle] = useState(DEFAULT_PROPS.textStyle);
-  const code = formatCode(
-    `<List ${nonDefaultProps([
-      {
-        prop: "type",
-        value: type,
-        defaultValue: DEFAULT_PROPS.type
-      },
-      {
-        prop: "textStyle",
-        value: textStyle,
-        defaultValue: DEFAULT_PROPS.textStyle
-      }
-    ])}
->
-  <List.Item>
-    <Text>Short item</Text>
-  </List.Item>
-  <List.Item>
-    <Text>Very long item with a <Link href="#" newTab={false}>link</Link> and a <b>bold text</b> that demonstrates a multi-line paragraph.</Text>
-    <Text textStyle="legal" margin="4 0 0 0">Note that you can override List's textStyle.</Text>
-  </List.Item>
-  <List.Item>
-    <Text>
-      <strong>Nested list</strong>
-    </Text>
-    <List margin="3 0 0 0">
-      <List.Item>First</List.Item>
-      <List.Item>Second</List.Item>
-      <List.Item>Third</List.Item>
-    </List>
-  </List.Item>
-</List>`
-  );
+  const code = formatCode(`
+  <List ${nonDefaultProps([
+    {
+      prop: "type",
+      value: type,
+      defaultValue: DEFAULT_PROPS.type
+    },
+    {
+      prop: "textStyle",
+      value: textStyle,
+      defaultValue: DEFAULT_PROPS.textStyle
+    }
+  ])}
+  >
+    <List.Item>
+      Short item
+    </List.Item>
+    <List.Item>
+      Very long item with a <Link href="#" newTab={false}>link</Link> and a <b>bold text</b> that 
+      demonstrates a multi-line paragraph.
+    </List.Item>
+    <List.Item>
+      Nested list:
+      <List>
+        <List.Item>First</List.Item>
+        <List.Item>Second</List.Item>
+        <List.Item>Third</List.Item>
+      </List>
+    </List.Item>
+    <List.Item>
+      Last item
+    </List.Item>
+  </List>
+`);
 
   return (
     <>

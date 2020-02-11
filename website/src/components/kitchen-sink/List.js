@@ -1,89 +1,121 @@
 import React from "react";
-import { Container, List, Text, Link } from "basis";
+import { Container, Flex, List, Text, Link } from "basis";
 import Layout from "./Layout";
 
 function KitchenSinkList() {
   return (
     <Layout name="List">
-      <Container padding="4" width="320">
+      <Container padding="4">
         <Text textStyle="heading4" margin="0 0 4 0">
-          Unordered list:
+          Unordered:
         </Text>
-        <List>
-          <List.Item>
-            <Text>Short item</Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Very long item with a{" "}
-              <Link href="#" newTab={false}>
-                link
-              </Link>{" "}
-              and a <b>bold text</b> that demonstrates a multi-line paragraph.
-            </Text>
-            <Text textStyle="legal" margin="4 0 0 0">
-              {`Note that you can override List's textStyle.`}
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              <strong>Nested list</strong>
-            </Text>
-            <List textStyle="body2" margin="3 0 0 0">
-              <List.Item>First</List.Item>
-              <List.Item>Second</List.Item>
-              <List.Item>Third</List.Item>
-            </List>
-          </List.Item>
-        </List>
+        <Flex gutter="10" wrap>
+          {List.TEXT_STYLES.map(textStyle => (
+            <Container width="240" bg="grey.t10" key={textStyle}>
+              <List textStyle={textStyle}>
+                <List.Item>Short item</List.Item>
+                <List.Item>
+                  Very long item with a{" "}
+                  <Link href="#" newTab={false}>
+                    link
+                  </Link>{" "}
+                  and a <b>bold text</b> that demonstrates a multi-line
+                  paragraph.
+                  <Text textStyle="legal">
+                    {`Note that you can override List's textStyle.`}
+                  </Text>
+                </List.Item>
+                <List.Item>
+                  <strong>Nested list</strong>
+                  <List>
+                    <List.Item>First</List.Item>
+                    <List.Item>Second</List.Item>
+                    <List.Item>Third</List.Item>
+                  </List>
+                </List.Item>
+                <List.Item>Last item</List.Item>
+              </List>
+            </Container>
+          ))}
+        </Flex>
       </Container>
 
-      <Container padding="4" width="320" bg="grey.t05">
+      <Container padding="4">
         <Text textStyle="heading4" margin="0 0 4 0">
-          Ordered list:
+          Ordered:
         </Text>
-        <List type="ordered" textStyle="subtitle2">
-          <List.Item>First item</List.Item>
-          <List.Item>Second item</List.Item>
-          <List.Item>
-            <Text>
-              <b>Nested list</b>
-            </Text>
-            <List textStyle="body2" margin="3 0 0 0">
-              <List.Item>Hello</List.Item>
-              <List.Item>World</List.Item>
-              <List.Item>
-                <Text>
-                  <b>Nested again</b>
-                </Text>
-                <List margin="3 0 0 0">
-                  <List.Item>Deeply</List.Item>
-                  <List.Item>Nested</List.Item>
-                </List>
-              </List.Item>
-            </List>
-          </List.Item>
-        </List>
+        <Flex gutter="10" wrap>
+          {List.TEXT_STYLES.map(textStyle => (
+            <Container width="240" bg="grey.t10" key={textStyle}>
+              <List type="ordered" textStyle={textStyle}>
+                <List.Item>Short item</List.Item>
+                <List.Item>
+                  Very long item with a{" "}
+                  <Link href="#" newTab={false}>
+                    link
+                  </Link>{" "}
+                  and a <b>bold text</b> that demonstrates a multi-line
+                  paragraph.
+                  <Text textStyle="legal">
+                    {`Note that you can override List's textStyle.`}
+                  </Text>
+                </List.Item>
+                <List.Item>
+                  <strong>Nested list</strong>
+                  <List>
+                    <List.Item>First</List.Item>
+                    <List.Item>Second</List.Item>
+                    <List.Item>
+                      Another level of nesting:
+                      <List>
+                        <List.Item>More</List.Item>
+                        <List.Item>Nesting</List.Item>
+                        <List.Item>Last deeply nested</List.Item>
+                      </List>
+                    </List.Item>
+                    <List.Item>Last nested</List.Item>
+                  </List>
+                </List.Item>
+                <List.Item>Last item</List.Item>
+              </List>
+            </Container>
+          ))}
+        </Flex>
       </Container>
 
-      <Container padding="4" width="320">
+      <Container padding="4">
         <Text textStyle="heading4" margin="0 0 4 0">
-          Steps list:
+          Steps:
         </Text>
-        <List type="steps">
-          <List.Item>First item</List.Item>
-          <List.Item>Second item</List.Item>
-          <List.Item>
-            <Text>
-              <b>Nested list</b>
-            </Text>
-            <List margin="3 0 0 0">
-              <List.Item>Some</List.Item>
-              <List.Item>Nested</List.Item>
-              <List.Item>Items</List.Item>
-            </List>
-          </List.Item>
-        </List>
+        <Flex gutter="10" wrap>
+          {List.TEXT_STYLES.map(textStyle => (
+            <Container width="240" bg="grey.t10" key={textStyle}>
+              <List type="steps" textStyle={textStyle}>
+                <List.Item>Short item</List.Item>
+                <List.Item>
+                  Very long item with a{" "}
+                  <Link href="#" newTab={false}>
+                    link
+                  </Link>{" "}
+                  and a <b>bold text</b> that demonstrates a multi-line
+                  paragraph.
+                  <Text textStyle="legal">
+                    {`Note that you can override List's textStyle.`}
+                  </Text>
+                </List.Item>
+                <List.Item>
+                  <strong>Nested list</strong>
+                  <List>
+                    <List.Item>First</List.Item>
+                    <List.Item>Second</List.Item>
+                    <List.Item>Third</List.Item>
+                  </List>
+                </List.Item>
+                <List.Item>Last item</List.Item>
+              </List>
+            </Container>
+          ))}
+        </Flex>
       </Container>
     </Layout>
   );

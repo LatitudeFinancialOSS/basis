@@ -15,6 +15,7 @@ describe("List", () => {
             <List.Item>Nested Second Item</List.Item>
           </List>
         </List.Item>
+        <List.Item>Last Item</List.Item>
       </List>
     );
 
@@ -24,6 +25,7 @@ describe("List", () => {
     getByText("Second Item");
     getByText("Nested First Item");
     getByText("Nested Second Item");
+    getByText("Last Item");
   });
 
   it("ordered", () => {
@@ -37,6 +39,7 @@ describe("List", () => {
             <List.Item>Nested Second Item</List.Item>
           </List>
         </List.Item>
+        <List.Item>Last Item</List.Item>
       </List>
     );
 
@@ -46,6 +49,7 @@ describe("List", () => {
     getByText("Second Item");
     getByText("Nested First Item");
     getByText("Nested Second Item");
+    getByText("Last Item");
   });
 
   it("steps", () => {
@@ -59,20 +63,17 @@ describe("List", () => {
             <List.Item>Nested Second Item</List.Item>
           </List>
         </List.Item>
+        <List.Item>Last Item</List.Item>
       </List>
     );
 
     expect(container.firstChild.tagName).toBe("OL");
 
-    getByText("1");
-    getByText("2");
-    getByText("3");
-    getByText("a");
-    getByText("b");
     getByText("First Item");
     getByText("Second Item");
     getByText("Nested First Item");
     getByText("Nested Second Item");
+    getByText("Last Item");
   });
 
   it("ignores children that are not List.Item", () => {

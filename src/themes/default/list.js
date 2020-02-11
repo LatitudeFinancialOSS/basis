@@ -2,86 +2,73 @@ export default theme => ({
   list: {
     margin: 0
   },
-  listItemMarkerContainer: {
-    display: "flex",
-    alignItems: "center"
-  },
   // Unordered
   "list.unordered": {
-    padding: 0,
-    listStyleType: "none"
+    listStyleType: "none",
+    paddingLeft: "1.25em"
+  },
+  "list.unordered.nested": {
+    margin: "0.5em 0 1em"
   },
   "listItem.unordered": {
-    display: "flex",
-    alignItems: "flex-start"
+    position: "relative"
   },
-  "listItemMarker.unordered": {
+  "listItem.unordered:before": {
+    content: '""',
+    width: "0.5em",
+    height: "0.5em",
     backgroundColor: theme.colors.secondary.lightBlue.t100,
-    borderRadius: theme.radii[3]
-  },
-  "listItemContent.unordered": {
-    flexGrow: 1
+    borderRadius: theme.radii[3],
+    position: "absolute",
+    top: "0.5em",
+    left: "-1.25em"
   },
   // Ordered
   "list.ordered": {
-    listStyleType: "decimal"
+    listStyleType: "decimal",
+    paddingLeft: "1em"
   },
   "list.ordered.nested": {
-    listStyleType: "lower-alpha"
+    listStyleType: "lower-alpha",
+    margin: "0.5em 0 1em"
   },
   "list.ordered.nested.nested": {
     listStyleType: "lower-roman"
   },
-  "list.ordered.subtitle1": {
-    padding: `0 0 0 ${theme.space[6]}`
-  },
-  "list.ordered.subtitle2": {
-    padding: `0 0 0 ${theme.space[5]}`
-  },
-  "list.ordered.body1": {
-    padding: `0 0 0 ${theme.space[4]}`
-  },
-  "list.ordered.body2": {
-    padding: `0 0 0 ${theme.space[4]}`
-  },
-  "listItemContent.ordered.subtitle1": {
-    margin: `0 0 0 ${theme.space[2]}`
-  },
-  "listItemContent.ordered.subtitle2": {
-    margin: `0 0 0 ${theme.space[1]}`
-  },
-  "listItemContent.ordered.body1": {
-    margin: `0 0 0 ${theme.space[1]}`
-  },
-  "listItemContent.ordered.body2": {
-    margin: `0 0 0 ${theme.space[1]}`
-  },
   // Steps
   "list.steps": {
-    padding: 0,
-    listStyleType: "none"
+    listStyleType: "none",
+    counterReset: "steps",
+    padding: "0.25em 0 0.25em 2.5em"
+  },
+  "list.steps.nested": {
+    margin: "1em 0 1.25em"
   },
   "listItem.steps": {
-    display: "flex",
-    alignItems: "flex-start"
+    position: "relative",
+    counterIncrement: "steps",
+    marginBottom: "1.4em"
   },
-  "listItemMarker.steps": {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "32px",
-    height: "32px",
-    borderRadius: theme.radii[3],
+  "listItem.steps.last": {
+    marginBottom: 0
+  },
+  "listItem.steps:before": {
+    content: "counter(steps, decimal)",
+    width: "2em",
+    height: "2em",
+    lineHeight: "2em",
     color: theme.colors.white,
     backgroundColor: theme.colors.primary.blue.t100,
-    ...theme.textStyles.body2,
-    ...theme.textStyles["body2.bold"]
+    fontWeight: theme.fontWeights.medium,
+    textAlign: "center",
+    borderRadius: theme.radii[3],
+    position: "absolute",
+    top: "-0.25em",
+    left: "-2.5em"
   },
-  "listItemMarker.steps.nested": {
+  "listItem.steps.nested:before": {
+    content: "counter(steps, lower-alpha)",
     color: theme.colors.black,
     backgroundColor: theme.colors.secondary.lightBlue.t100
-  },
-  "listItemContent.steps": {
-    flexGrow: 1
   }
 });
