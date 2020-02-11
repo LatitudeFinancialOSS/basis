@@ -39,20 +39,57 @@ export const responsivePaddingType = responsivePropType(
   PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 );
 
-export const responsiveWidthType = responsivePropType(
-  "width",
-  PropTypes.string
-);
+const SIZE_PX_REGEX = /^\s*(\d+)(px)?\s*$/;
 
-export const responsiveHeightType = responsivePropType(
-  "height",
-  PropTypes.string
-);
+const responsiveSizeType = prop =>
+  responsivePropType(prop, (props, propName, componentName) => {
+    if (!hasOwnProperty(props, propName)) {
+      return;
+    }
 
-export const responsiveMaxWidthType = responsivePropType(
-  "maxWidth",
-  PropTypes.string
-);
+    if (typeof props[propName] !== "string") {
+      return new Error(
+        `${componentName}: ${propName} is expected to be a string. Found: ${typeof props[
+          propName
+        ]}.`
+      );
+    }
+
+    if (props[propName].trim() === "") {
+      return new Error(`${componentName}: ${propName} can't be empty.`);
+    }
+
+    if (props[propName].trim()[0] === "-") {
+      return new Error(`${componentName}: ${propName} can't be negative.`);
+    }
+
+    const match = props[propName].match(SIZE_PX_REGEX);
+
+    if (match === null) {
+      return;
+    }
+
+    const intValue = parseInt(match[1], 10);
+    const px = match[2] ?? "";
+
+    if (intValue % 4 !== 0) {
+      const n = Math.floor(intValue / 4);
+
+      return new Error(
+        `${componentName}: ${propName}="${
+          props[propName]
+        }". Please use a multiple of 4${px} (e.g. "${n * 4}${px}" or "${(n +
+          1) *
+          4}${px}").`
+      );
+    }
+  });
+
+export const responsiveWidthType = responsiveSizeType("width");
+
+export const responsiveHeightType = responsiveSizeType("height");
+
+export const responsiveMaxWidthType = responsiveSizeType("maxWidth");
 
 function useResponsiveProp(props, propName) {
   const theme = useTheme();
