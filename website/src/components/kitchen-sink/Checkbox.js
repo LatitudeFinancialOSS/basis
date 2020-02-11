@@ -7,7 +7,7 @@ function KitchenSinkCheckbox() {
   return (
     <Layout name="Checkbox">
       <Container padding="4">
-        <Container width="20">
+        <Container width="320">
           <Grid rowsGutter="8">
             <Checkbox color="grey.t05">Grey</Checkbox>
 
@@ -31,7 +31,7 @@ function KitchenSinkCheckbox() {
       </Container>
 
       <Container padding="4" bg="grey.t05">
-        <Container width="20">
+        <Container width="320">
           <Grid rowsGutter="8">
             <Checkbox>White</Checkbox>
 

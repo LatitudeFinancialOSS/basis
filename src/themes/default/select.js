@@ -6,7 +6,7 @@ export default theme => ({
     lineHeight: theme.lineHeights[2],
     fontFamily: theme.fonts.body,
     color: theme.colors.black,
-    height: theme.sizes[11],
+    height: "48px",
     paddingLeft: theme.space[4],
     paddingRight: theme.space[10],
     margin: 0,

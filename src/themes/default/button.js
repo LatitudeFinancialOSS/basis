@@ -7,7 +7,7 @@ export default theme => ({
     border: 0,
     borderRadius: theme.radii[1],
     padding: `0 ${theme.space[6]}`,
-    minHeight: theme.sizes[11],
+    minHeight: "48px",
     overflow: "hidden",
     transition: theme.transitions.button
   },

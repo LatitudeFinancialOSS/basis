@@ -72,7 +72,7 @@ const PlaygroundError = withLive(({ live }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        maxHeight: theme.sizes[19],
+        maxHeight: "224px",
         overflowY: "auto",
         padding: `${theme.space[4]} ${theme.space[8]}`,
         backgroundColor: theme.colors.white,
@@ -271,13 +271,13 @@ function PlaygroundSettings({ screens, setScreens }) {
         {screens.map(({ id, name, width }) => (
           <li key={id}>
             <input
-              css={{ width: 100 }}
+              css={{ width: "100px" }}
               type="text"
               value={name}
               onChange={e => onScreenChange(id, "name", e.target.value)}
             />
             <input
-              css={{ width: 50 }}
+              css={{ width: "50px" }}
               type="number"
               value={width}
               onChange={e =>
@@ -295,7 +295,7 @@ function PlaygroundSettings({ screens, setScreens }) {
         <li key={newScreen.id}>
           <form onSubmit={onScreenAdd}>
             <input
-              css={{ width: 100 }}
+              css={{ width: "100px" }}
               type="text"
               value={newScreen.name}
               placeholder="name"
@@ -307,7 +307,7 @@ function PlaygroundSettings({ screens, setScreens }) {
               }
             />
             <input
-              css={{ width: 50 }}
+              css={{ width: "50px" }}
               type="number"
               value={newScreen.width}
               placeholder="width"
@@ -585,7 +585,7 @@ function Playground({ location }) {
                     >
                       <Icon
                         name="select-object"
-                        size="6"
+                        size="24px"
                         color={
                           isInspectMode ? "highlight.blue.t100" : "grey.t75"
                         }
@@ -668,7 +668,7 @@ function Playground({ location }) {
                         top: 0,
                         bottom: 0,
                         right: 0,
-                        width: theme.sizes[20],
+                        width: "320px",
                         maxWidth: "100vw",
                         boxSizing: "border-box",
                         borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`

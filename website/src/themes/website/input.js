@@ -7,7 +7,7 @@ export default theme => ({
     fontFamily: theme.fonts.body,
     padding: `0 ${theme.space[2]}`,
     width: "100%",
-    height: theme.space[8],
+    height: "32px",
     margin: 0,
     borderRadius: theme.radii[1],
     borderWidth: theme.borderWidths[0],

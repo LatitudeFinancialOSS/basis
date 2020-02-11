@@ -5,7 +5,7 @@ import Layout from "./Layout";
 function KitchenSinkList() {
   return (
     <Layout name="List">
-      <Container padding="4" width="20">
+      <Container padding="4" width="320">
         <Text textStyle="heading4" margin="0 0 4 0">
           Unordered list:
         </Text>
@@ -38,7 +38,7 @@ function KitchenSinkList() {
         </List>
       </Container>
 
-      <Container padding="4" width="20" bg="grey.t05">
+      <Container padding="4" width="320" bg="grey.t05">
         <Text textStyle="heading4" margin="0 0 4 0">
           Ordered list:
         </Text>
@@ -66,7 +66,7 @@ function KitchenSinkList() {
         </List>
       </Container>
 
-      <Container padding="4" width="20">
+      <Container padding="4" width="320">
         <Text textStyle="heading4" margin="0 0 4 0">
           Steps list:
         </Text>

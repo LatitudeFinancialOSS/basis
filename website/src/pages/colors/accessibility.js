@@ -104,7 +104,7 @@ function MatrixCell({
           right: 0,
           borderTopLeftRadius: "4px",
           bottom: 0,
-          width: theme.sizes[9],
+          width: "36px",
           padding: `0 ${theme.space[1]}`,
           backgroundColor: rgba(theme.colors.black, 0.6)
         }}
@@ -158,9 +158,9 @@ function AccessibilityPage() {
         fontWeight > 400
       )
     : null;
-  const TEXT_COLOR_COLUMN_WIDTH = theme.sizes[18];
-  const CELL_WIDTH = theme.sizes[18];
-  const CELL_HEIGHT = theme.sizes[14];
+  const TEXT_COLOR_COLUMN_WIDTH = "160px";
+  const CELL_WIDTH = "160px";
+  const CELL_HEIGHT = "72px";
 
   return (
     <div css={{ display: "flex", height: "100%" }}>
@@ -184,7 +184,7 @@ function AccessibilityPage() {
                   justifyContent: "center",
                   flexShrink: 0,
                   width: CELL_WIDTH,
-                  height: theme.space[8],
+                  height: "32px",
                   marginLeft: theme.space[1]
                 }}
                 key={backgroundColor}
@@ -238,7 +238,7 @@ function AccessibilityPage() {
       <div
         css={{
           flexShrink: 0,
-          width: theme.sizes[19],
+          width: "224px",
           backgroundColor: theme.colors.grey.t05,
           padding: theme.space[6],
           boxSizing: "border-box",

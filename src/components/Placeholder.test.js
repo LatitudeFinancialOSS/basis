@@ -5,7 +5,7 @@ import Placeholder from "./Placeholder";
 
 describe("Placeholder", () => {
   it("with width", () => {
-    const { container } = render(<Placeholder width="15" />);
+    const { container } = render(<Placeholder width="80" />);
 
     expect(container.firstChild).toHaveStyle(`
       width: 80px;

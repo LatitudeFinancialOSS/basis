@@ -9,7 +9,7 @@ function ColorGroup({ title, subTitle, children }) {
 
   return (
     <Flex>
-      <Container width="18" padding="2 0 0 0">
+      <Container width="160" padding="2 0 0 0">
         {title && (
           <Text as="h3" textStyle="heading5" color="grey.t75">
             {title}
@@ -61,8 +61,8 @@ function Color({ name }) {
         flexDirection: "column",
         alignItems: "center",
         boxSizing: "border-box",
-        width: theme.sizes[16],
-        height: theme.sizes[16],
+        width: "96px",
+        height: "96px",
         padding: theme.space[3],
         backgroundColor: theme.getColor(name)
       }}

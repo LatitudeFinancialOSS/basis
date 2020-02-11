@@ -15,8 +15,7 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMargin,
   responsivePadding,
-  responsiveWidth,
-  responsiveHeight,
+  responsiveSize,
   responsiveTextAlign,
   mergeResponsiveCSS
 } from "../utils/css";
@@ -54,8 +53,8 @@ function Container(_props) {
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     padding: responsivePadding,
-    width: responsiveWidth,
-    height: responsiveHeight,
+    width: responsiveSize("width"),
+    height: responsiveSize("height"),
     textAlign: responsiveTextAlign
   });
   const responsiveCSS = hasBreakpointWidth

@@ -33,7 +33,7 @@ function IconPage() {
         css={{
           display: "flex",
           padding: `${theme.space[5]} ${theme.space[6]}`,
-          maxHeight: theme.sizes[19],
+          maxHeight: "224px",
           flexShrink: 0,
           overflowY: "auto"
         }}

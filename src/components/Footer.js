@@ -6,15 +6,15 @@ import Logo from "./internal/Logo";
 
 function HeaderLogo({ name, testId }) {
   return (
-    <Container height="12" height-lg="15" testId={testId}>
+    <Container height="56" height-lg="80" testId={testId}>
       <Flex fullHeight placeItems="left center">
         <Logo
           name={name}
           color="white"
-          height="9"
-          height-xs="10"
-          height-lg="11"
-          maxWidth="120px"
+          height="36"
+          height-xs="40"
+          height-lg="48"
+          maxWidth="120"
           maxWidth-xs="none"
         />
       </Flex>
@@ -30,7 +30,7 @@ HeaderLogo.propTypes = {
 function HeaderSocial({ children, testId }) {
   return (
     <Container
-      height="12"
+      height="56"
       width="100%"
       width-sm="auto"
       margin-sm="0 0 0 auto"

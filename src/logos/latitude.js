@@ -7,14 +7,14 @@ import {
   responsiveHeightType,
   responsiveMaxWidthType
 } from "../hooks/useResponsiveProp";
-import { responsiveHeight, responsiveMaxWidth } from "../utils/css";
+import { responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
 const COLORS = ["primary.blue.t100", "black", "white"];
 
 const DEFAULT_PROPS = {
   color: "primary.blue.t100",
-  height: "7"
+  height: "40px"
 };
 
 function LatitudeLogo(props) {
@@ -30,8 +30,8 @@ function LatitudeLogo(props) {
   });
   const { color, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    height: responsiveHeight,
-    maxWidth: responsiveMaxWidth
+    height: responsiveSize("height"),
+    maxWidth: responsiveSize("maxWidth")
   });
 
   return (

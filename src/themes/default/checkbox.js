@@ -8,7 +8,7 @@ export default theme => ({
     display: "inline-flex",
     alignItems: "flex-start",
     padding: `${theme.space[3]} ${theme.space[4]}`,
-    minHeight: theme.sizes[6],
+    minHeight: "24px",
     fontSize: theme.fontSizes[1],
     fontWeight: theme.fontWeights.light,
     lineHeight: theme.lineHeights[2],
@@ -31,8 +31,8 @@ export default theme => ({
   },
   checkboxIcon: {
     flexShrink: 0,
-    width: theme.sizes[6],
-    height: theme.sizes[6],
+    width: "24px",
+    height: "24px",
     marginRight: theme.space[3]
   },
   "checkboxIcon.secondary.lightBlue.t30": {

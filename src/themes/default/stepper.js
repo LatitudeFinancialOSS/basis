@@ -8,7 +8,7 @@ export default theme => ({
   },
   "stepper.itemLabelContainer": {
     display: "flex",
-    height: theme.sizes[5]
+    height: "20px"
   },
   "stepper.itemLabel": {
     position: "relative",
@@ -20,16 +20,16 @@ export default theme => ({
     position: "absolute",
     left: 0,
     width: "50%",
-    height: theme.sizes[2],
-    top: `calc(50% - ${parseInt(theme.sizes[2], 10) / 2}px)`,
+    height: "8px",
+    top: "calc(50% - 4px)",
     backgroundColor: theme.colors.white
   },
   "stepper.progress.right": {
     position: "absolute",
     left: "50%",
     width: "50%",
-    height: theme.sizes[2],
-    top: `calc(50% - ${parseInt(theme.sizes[2], 10) / 2}px)`,
+    height: "8px",
+    top: "calc(50% - 4px)",
     backgroundColor: theme.colors.white
   },
   "stepper.progress.completed": {
@@ -40,7 +40,7 @@ export default theme => ({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: theme.sizes[10],
+    height: "40px",
     marginTop: theme.space[2],
     position: "relative"
   },
@@ -48,8 +48,8 @@ export default theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: theme.sizes[10],
-    height: theme.sizes[10],
+    width: "40px",
+    height: "40px",
     borderRadius: theme.radii[3],
     backgroundColor: theme.colors.white,
     color: theme.colors.black,
@@ -58,8 +58,8 @@ export default theme => ({
     zIndex: 1
   },
   "stepper.itemCircle.minor": {
-    width: theme.sizes[5],
-    height: theme.sizes[5]
+    width: "20px",
+    height: "20px"
   },
   "stepper.itemCircle.current": {
     border: `${theme.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`

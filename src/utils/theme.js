@@ -43,22 +43,6 @@ function getTextStyleCSS(textStyle, theme) {
   };
 }
 
-function getSizeValue(size, theme) {
-  if (typeof size === "number") {
-    return theme.sizes[size] || null;
-  }
-
-  if (typeof size !== "string") {
-    return null;
-  }
-
-  if (size === "auto" || size === "100%") {
-    return size;
-  }
-
-  return theme.sizes[size] || null;
-}
-
 function getSpaceValue(space, theme) {
   if (typeof space === "number") {
     return theme.space[space] || "0px";
@@ -98,7 +82,6 @@ export function enhanceTheme(theme) {
     exclusiveMediaQueries: getExclusiveMediaQueries(theme.breakpoints),
     getColor: color => getColor(color, theme),
     getTextStyleCSS: textStyle => getTextStyleCSS(textStyle, theme),
-    getSizeValue: size => getSizeValue(size, theme),
     getSpaceValue: space => getSpaceValue(space, theme)
   };
 }

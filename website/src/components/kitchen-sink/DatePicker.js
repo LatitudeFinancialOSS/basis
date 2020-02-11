@@ -6,7 +6,7 @@ import { DatePicker } from "../optionally-controlled";
 function KitchenSinkDatePicker() {
   return (
     <Layout name="DatePicker">
-      <Container padding="4" width="20" bg="white">
+      <Container padding="4" width="320" bg="white">
         <Grid rowsGutter="8">
           <DatePicker label="Grey" />
 
@@ -24,7 +24,7 @@ function KitchenSinkDatePicker() {
         </Grid>
       </Container>
 
-      <Container padding="4" width="20" bg="grey.t05">
+      <Container padding="4" width="320" bg="grey.t05">
         <Grid rowsGutter="8">
           <DatePicker
             label="White"

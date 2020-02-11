@@ -7,7 +7,7 @@ function KitchenSinkSelect() {
   return (
     <Layout name="Select">
       <Container padding="4">
-        <Container width="20">
+        <Container width="320">
           <Grid rowsGutter="8">
             <Select label="Grey" color="grey.t05" />
 
@@ -22,7 +22,7 @@ function KitchenSinkSelect() {
       </Container>
 
       <Container padding="4" bg="grey.t05">
-        <Container width="20">
+        <Container width="320">
           <Grid rowsGutter="8">
             <Select
               label="Disabled with help text"

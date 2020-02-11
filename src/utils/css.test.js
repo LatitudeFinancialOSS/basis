@@ -6,9 +6,7 @@ import {
   isCSSinOrder,
   responsiveMargin,
   responsivePadding,
-  responsiveWidth,
-  responsiveHeight,
-  responsiveMaxWidth,
+  responsiveSize,
   responsiveTextAlign
 } from "./css";
 
@@ -236,61 +234,30 @@ describe("responsivePadding", () => {
   });
 });
 
-describe("responsiveWidth", () => {
-  it("valid width", () => {
-    expect(responsiveWidth({ width: "12" }, theme)).toStrictEqual({
-      width: "56px"
+describe("responsiveSize", () => {
+  it("valid value", () => {
+    expect(responsiveSize("width")({ width: "120" }, theme)).toStrictEqual({
+      width: "120px"
     });
-    expect(responsiveWidth({ width: "auto" }, theme)).toStrictEqual({
-      width: "auto"
-    });
-    expect(responsiveWidth({ width: "100%" }, theme)).toStrictEqual({
-      width: "100%"
-    });
-  });
-
-  it("invalid width", () => {
-    expect(responsiveWidth({ width: "" }, theme)).toStrictEqual({});
-  });
-});
-
-describe("responsiveHeight", () => {
-  it("valid height", () => {
-    expect(responsiveHeight({ height: "12" }, theme)).toStrictEqual({
-      height: "56px"
-    });
-    expect(responsiveHeight({ height: "auto" }, theme)).toStrictEqual({
-      height: "auto"
-    });
-    expect(responsiveHeight({ height: "100%" }, theme)).toStrictEqual({
-      height: "100%"
-    });
-  });
-
-  it("invalid height", () => {
-    expect(responsiveHeight({ height: "" }, theme)).toStrictEqual({});
-  });
-});
-
-describe("responsiveMaxWidth", () => {
-  it("valid maxWidth", () => {
-    expect(responsiveMaxWidth({ maxWidth: "120" }, theme)).toStrictEqual({
-      maxWidth: "120"
-    });
-    expect(responsiveMaxWidth({ maxWidth: "120px" }, theme)).toStrictEqual({
+    expect(
+      responsiveSize("maxWidth")({ maxWidth: "120px" }, theme)
+    ).toStrictEqual({
       maxWidth: "120px"
     });
-    expect(responsiveMaxWidth({ maxWidth: "auto" }, theme)).toStrictEqual({
-      maxWidth: "auto"
+    expect(responsiveSize("height")({ height: "100%" }, theme)).toStrictEqual({
+      height: "100%"
     });
-    expect(responsiveMaxWidth({ maxWidth: "100%" }, theme)).toStrictEqual({
-      maxWidth: "100%"
+    expect(responsiveSize("height")({ height: "auto" }, theme)).toStrictEqual({
+      height: "auto"
     });
   });
 
-  it("invalid maxWidth", () => {
-    expect(responsiveMaxWidth({ maxWidth: true }, theme)).toStrictEqual({});
-    expect(responsiveMaxWidth({ maxWidth: "" }, theme)).toStrictEqual({});
+  it("invalid value", () => {
+    expect(responsiveSize("width")({ width: "" }, theme)).toStrictEqual({});
+    expect(responsiveSize("maxWidth")({ width: "  " }, theme)).toStrictEqual(
+      {}
+    );
+    expect(responsiveSize("height")({ height: true }, theme)).toStrictEqual({});
   });
 });
 

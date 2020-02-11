@@ -35,7 +35,7 @@ describe("Container", () => {
   });
 
   it("with width", () => {
-    const { getByText } = render(<Container width="15">Hello World</Container>);
+    const { getByText } = render(<Container width="80">Hello World</Container>);
     const node = getByText("Hello World");
 
     expect(node).toHaveStyle(`
@@ -45,7 +45,7 @@ describe("Container", () => {
 
   it("with height", () => {
     const { getByText } = render(
-      <Container height="14">Hello World</Container>
+      <Container height="72px">Hello World</Container>
     );
     const node = getByText("Hello World");
 

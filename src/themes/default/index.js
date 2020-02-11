@@ -6,7 +6,6 @@ import grid from "./grid";
 import input from "./input";
 import link from "./link";
 import list from "./list";
-import loadingIcon from "./loadingIcon";
 import radioGroup from "./radioGroup";
 import select from "./select";
 import stepper from "./stepper";
@@ -230,7 +229,6 @@ export default {
   ...input(theme),
   ...link(theme),
   ...list(theme),
-  ...loadingIcon(theme),
   ...radioGroup(theme),
   ...select(theme),
   ...stepper(theme),
