@@ -15,7 +15,7 @@ const DEFAULT_PROPS = {
   type: "text",
   optional: false,
   disabled: false,
-  isPasteAllowed: true,
+  pasteAllowed: true,
   validation: [
     {
       condition: ({ optional }) => !optional,
@@ -49,7 +49,7 @@ function Input(props) {
     type: type => TYPES.includes(type),
     optional: optional => typeof optional === "boolean",
     disabled: disabled => typeof disabled === "boolean",
-    isPasteAllowed: isPasteAllowed => typeof isPasteAllowed === "boolean"
+    pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean"
   });
   const {
     color,
@@ -61,7 +61,7 @@ function Input(props) {
     onFocus,
     onBlur,
     disabled,
-    isPasteAllowed,
+    pasteAllowed,
     data,
     onChange,
     testId,
@@ -121,7 +121,7 @@ function Input(props) {
           onBlur && onBlur();
         }}
         onPaste={e => {
-          if (!isPasteAllowed) {
+          if (!pasteAllowed) {
             e.preventDefault();
           }
         }}
@@ -145,7 +145,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
   disabled: PropTypes.bool,
-  isPasteAllowed: PropTypes.bool,
+  pasteAllowed: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   validation: PropTypes.arrayOf(
