@@ -39,9 +39,9 @@ function StepperPage() {
           value: "About you"
         },
         {
-          prop: "isCurrent",
+          prop: "current",
           value: progress === 1,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.current,
           type: "boolean"
         }
       ])} />
@@ -59,9 +59,9 @@ function StepperPage() {
           value: "Address and identification"
         },
         {
-          prop: "isCurrent",
+          prop: "current",
           value: progress === 2,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.current,
           type: "boolean"
         },
         {
@@ -81,9 +81,9 @@ function StepperPage() {
           value: "Employment"
         },
         {
-          prop: "isCurrent",
+          prop: "current",
           value: progress === 3,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.current,
           type: "boolean"
         }
       ])} />        
@@ -93,9 +93,9 @@ function StepperPage() {
           value: "Expenses"
         },
         {
-          prop: "isCurrent",
+          prop: "current",
           value: progress === 4,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.current,
           type: "boolean"
         },
         {
@@ -115,9 +115,9 @@ function StepperPage() {
           value: "Verify details"
         },
         {
-          prop: "isCurrent",
+          prop: "current",
           value: progress === 5,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isCurrent,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.current,
           type: "boolean"
         }
       ])} />

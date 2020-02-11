@@ -9,14 +9,14 @@ import Icon from "./Icon";
 
 const DEFAULT_ITEM_PROPS = {
   minor: false,
-  isCurrent: false
+  current: false
 };
 
 Item.DEFAULT_PROPS = DEFAULT_ITEM_PROPS;
 
 function Item(_props) {
   const props = { ...DEFAULT_ITEM_PROPS, ..._props };
-  const { minor, isCurrent, index, total, isPrevious, majorStepNumber } = props;
+  const { minor, current, index, total, isPrevious, majorStepNumber } = props;
   const theme = useTheme();
   const label = useResponsiveProp(props, "label");
   const isFirst = index === 0;
@@ -34,7 +34,7 @@ function Item(_props) {
           {label && (
             <Text
               textStyle="body2"
-              color={isCurrent ? "primary.blue.t100" : "black"}
+              color={current ? "primary.blue.t100" : "black"}
               align="center"
             >
               <strong>{label}</strong>
@@ -47,7 +47,7 @@ function Item(_props) {
           <div
             css={{
               ...theme["stepper.progress.left"],
-              ...((isPrevious || isCurrent) &&
+              ...((isPrevious || current) &&
                 theme["stepper.progress.completed"])
             }}
           />
@@ -64,7 +64,7 @@ function Item(_props) {
           css={{
             ...theme["stepper.itemCircle"],
             ...(minor && theme["stepper.itemCircle.minor"]),
-            ...(isCurrent && theme["stepper.itemCircle.current"]),
+            ...(current && theme["stepper.itemCircle.current"]),
             ...(isPrevious && theme["stepper.itemCircle.previous"])
           }}
         >
@@ -83,7 +83,7 @@ function Item(_props) {
 Item.propTypes = {
   ...responsivePropType("label", PropTypes.node),
   minor: PropTypes.bool,
-  isCurrent: PropTypes.bool,
+  current: PropTypes.bool,
   index: PropTypes.number,
   total: PropTypes.number,
   isPrevious: PropTypes.bool,
@@ -104,9 +104,7 @@ function Stepper(_props) {
     // Ignore all children that aren't Step.Item
     child => child.type === Item
   );
-  const currentStepIndex = steps.findIndex(
-    step => step.props.isCurrent === true
-  );
+  const currentStepIndex = steps.findIndex(step => step.props.current === true);
 
   return (
     <div css={theme.stepper} data-testid={testId}>
