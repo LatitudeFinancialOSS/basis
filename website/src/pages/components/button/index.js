@@ -22,7 +22,7 @@ function ButtonPage() {
   const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [fullWidth, setFullWidth] = useState(DEFAULT_PROPS.fullWidth);
-  const [isDisabled, setIsDisabled] = useState(DEFAULT_PROPS.isDisabled);
+  const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const [type, setType] = useState(DEFAULT_PROPS.type);
   const code = formatCode(`<Button ${nonDefaultProps([
     {
@@ -42,9 +42,9 @@ function ButtonPage() {
       type: "boolean"
     },
     {
-      prop: "isDisabled",
-      value: isDisabled,
-      defaultValue: DEFAULT_PROPS.isDisabled,
+      prop: "disabled",
+      value: disabled,
+      defaultValue: DEFAULT_PROPS.disabled,
       type: "boolean"
     },
     {
@@ -91,7 +91,7 @@ function ButtonPage() {
           css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
-          selectedValue={isDisabled}
+          selectedValue={disabled}
           setSelectedValue={setIsDisabled}
           type="boolean"
         />

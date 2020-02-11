@@ -27,7 +27,7 @@ function KitchenSinkSelect() {
             <Select
               label="Disabled with help text"
               helpText="Help text goes here"
-              isDisabled={true}
+              disabled={true}
             />
 
             <Select

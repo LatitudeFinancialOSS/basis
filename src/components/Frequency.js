@@ -45,7 +45,7 @@ const DEFAULT_PROPS = {
   fortnightly: true,
   weekly: true,
   optional: false,
-  isDisabled: false,
+  disabled: false,
   selectPlaceholder: Select.DEFAULT_PROPS.placeholder,
   validation: [
     {
@@ -102,7 +102,7 @@ function Frequency(props) {
     fortnightly: fortnightly => typeof fortnightly === "boolean",
     weekly: weekly => typeof weekly === "boolean",
     optional: optional => typeof optional === "boolean",
-    isDisabled: isDisabled => typeof isDisabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean"
   });
   const {
     color,
@@ -112,7 +112,7 @@ function Frequency(props) {
     inputPlaceholder,
     selectPlaceholder,
     helpText,
-    isDisabled,
+    disabled,
     data,
     onChange,
     testId
@@ -136,7 +136,7 @@ function Frequency(props) {
       color={color}
       type="number"
       placeholder={inputPlaceholder}
-      isDisabled={isDisabled}
+      disabled={disabled}
       onFocus={() => {
         setIsTouched({
           ...isTouched,
@@ -170,7 +170,7 @@ function Frequency(props) {
   return (
     <Field
       optional={optional}
-      isDisabled={isDisabled}
+      disabled={disabled}
       label={label}
       labelId={labelId}
       auxId={auxId}
@@ -191,7 +191,7 @@ function Frequency(props) {
                 color={color}
                 options={frequencyOptions}
                 columns={2}
-                isDisabled={isDisabled}
+                disabled={disabled}
                 onFocus={() => {
                   setIsTouched({
                     ...isTouched,
@@ -224,7 +224,7 @@ function Frequency(props) {
                 color={color}
                 placeholder={selectPlaceholder}
                 options={frequencyOptions}
-                isDisabled={isDisabled}
+                disabled={disabled}
                 onFocus={() => {
                   setIsTouched({
                     ...isTouched,
@@ -267,7 +267,7 @@ Frequency.propTypes = {
   inputPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
       condition: PropTypes.func,

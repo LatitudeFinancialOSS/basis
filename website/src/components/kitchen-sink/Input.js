@@ -35,11 +35,7 @@ function KitchenSinkInput() {
               data={{ value: "With value" }}
             />
 
-            <Input
-              placeholder="Optional"
-              label="First name"
-              optional={true}
-            />
+            <Input placeholder="Optional" label="First name" optional={true} />
 
             <Input
               placeholder="With help text"
@@ -51,7 +47,7 @@ function KitchenSinkInput() {
               placeholder="Disabled"
               label="First name"
               helpText="Nickname is not allowed."
-              isDisabled={true}
+              disabled={true}
             />
 
             <Input

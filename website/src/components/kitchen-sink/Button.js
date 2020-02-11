@@ -46,7 +46,7 @@ function KitchenSinkButton() {
                   Keyboard focus
                 </Button>
 
-                <Button variant={variant} color={color} isDisabled={true}>
+                <Button variant={variant} color={color} disabled={true}>
                   Disabled
                 </Button>
               </Flex>

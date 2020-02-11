@@ -15,7 +15,7 @@ const DEFAULT_PROPS = {
   color: "grey.t05",
   showCircles: true,
   optional: false,
-  isDisabled: false,
+  disabled: false,
   validation: [
     {
       condition: ({ optional }) => !optional,
@@ -73,7 +73,7 @@ function Radio({
   name,
   label,
   isChecked,
-  isDisabled,
+  disabled,
   onFocus,
   onBlur,
   value,
@@ -96,7 +96,7 @@ function Radio({
           name={name}
           value={value}
           checked={isChecked}
-          disabled={isDisabled}
+          disabled={disabled}
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={e => {
@@ -137,7 +137,7 @@ Radio.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isChecked: PropTypes.bool.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   onFocus: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
@@ -156,7 +156,7 @@ function RadioGroup(props) {
     color: color => COLORS.includes(color),
     showCircles: showCircles => typeof showCircles === "boolean",
     optional: optional => typeof optional === "boolean",
-    isDisabled: isDisabled => typeof isDisabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean"
   });
   const {
     label,
@@ -166,7 +166,7 @@ function RadioGroup(props) {
     showCircles,
     optional,
     helpText,
-    isDisabled,
+    disabled,
     onFocus,
     onBlur,
     data,
@@ -198,7 +198,7 @@ function RadioGroup(props) {
   return (
     <Field
       optional={optional}
-      isDisabled={isDisabled}
+      disabled={disabled}
       label={label}
       labelId={labelId}
       auxId={auxId}
@@ -227,7 +227,7 @@ function RadioGroup(props) {
                 label={label}
                 value={value}
                 isChecked={value === checkedValue}
-                isDisabled={isDisabled}
+                disabled={disabled}
                 onFocus={onRadioFocus}
                 onBlur={onRadioBlur}
                 onChange={value => {
@@ -258,7 +258,7 @@ RadioGroup.propTypes = {
   showCircles: PropTypes.bool,
   optional: PropTypes.bool,
   helpText: PropTypes.string,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   validation: PropTypes.arrayOf(

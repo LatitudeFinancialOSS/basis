@@ -14,7 +14,7 @@ const DEFAULT_PROPS = {
   placeholder: "Please select",
   fullWidth: true,
   optional: false,
-  isDisabled: false,
+  disabled: false,
   validation: [
     {
       condition: ({ optional }) => !optional,
@@ -50,7 +50,7 @@ function Select(props) {
     color: color => COLORS.includes(color),
     fullWidth: fullWidth => typeof fullWidth === "boolean",
     optional: optional => typeof optional === "boolean",
-    isDisabled: isDisabled => typeof isDisabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean"
   });
   const {
     color,
@@ -62,7 +62,7 @@ function Select(props) {
     fullWidth,
     optional,
     helpText,
-    isDisabled,
+    disabled,
     data,
     onChange,
     testId,
@@ -85,7 +85,7 @@ function Select(props) {
     <Field
       fullWidth={fullWidth}
       optional={optional}
-      isDisabled={isDisabled}
+      disabled={disabled}
       label={label}
       labelFor={selectId}
       auxId={auxId}
@@ -107,10 +107,10 @@ function Select(props) {
             ...theme[`selectInput.${colorStr}:focus`]
           }),
           ":active": {
-            ...(!isDisabled && theme[`selectInput.${colorStr}:active`])
+            ...(!disabled && theme[`selectInput.${colorStr}:active`])
           },
           ":hover": {
-            ...(!isDisabled && theme[`selectInput.${colorStr}:hover`])
+            ...(!disabled && theme[`selectInput.${colorStr}:hover`])
           },
           // See: https://stackoverflow.com/a/19451423/247243
           ":-moz-focusring": {
@@ -121,7 +121,7 @@ function Select(props) {
         id={selectId}
         aria-invalid={errors ? "true" : null}
         aria-describedby={helpText || errors ? auxId : null}
-        disabled={isDisabled}
+        disabled={disabled}
         value={selectedValue}
         onFocus={() => {
           setIsTouched(true);
@@ -177,7 +177,7 @@ Select.propTypes = {
   optional: PropTypes.bool,
   helpText: PropTypes.string,
   errorMessage: PropTypes.string,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
       condition: PropTypes.func,

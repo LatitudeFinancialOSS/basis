@@ -603,7 +603,7 @@ function Playground({ location }) {
                   </Button>
                   <Button
                     variant="secondary"
-                    isDisabled={isShareSuccessful}
+                    disabled={isShareSuccessful}
                     onClick={copyShareUrlToClipboard}
                   >
                     {isShareSuccessful ? "Copied!" : "Share"}

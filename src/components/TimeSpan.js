@@ -14,7 +14,7 @@ const COLORS = ["grey.t05", "white"];
 const DEFAULT_PROPS = {
   color: "grey.t05",
   optional: false,
-  isDisabled: false,
+  disabled: false,
   validation: [
     {
       condition: ({ optional }) => !optional,
@@ -110,14 +110,14 @@ function TimeSpan(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     optional: optional => typeof optional === "boolean",
-    isDisabled: isDisabled => typeof isDisabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean"
   });
   const {
     color,
     label,
     optional,
     helpText: helpTextProp,
-    isDisabled,
+    disabled,
     data,
     onChange,
     testId,
@@ -145,7 +145,7 @@ function TimeSpan(props) {
   return (
     <Field
       optional={optional}
-      isDisabled={isDisabled}
+      disabled={disabled}
       label={label}
       labelId={labelId}
       auxId={auxId}
@@ -164,7 +164,7 @@ function TimeSpan(props) {
               color={color}
               type="number"
               placeholder="Years"
-              isDisabled={isDisabled}
+              disabled={disabled}
               onFocus={() => {
                 setIsTouched({
                   ...isTouched,
@@ -193,7 +193,7 @@ function TimeSpan(props) {
               color={color}
               type="number"
               placeholder="Months"
-              isDisabled={isDisabled}
+              disabled={disabled}
               onFocus={() => {
                 setIsTouched({
                   ...isTouched,
@@ -228,7 +228,7 @@ TimeSpan.propTypes = {
   label: PropTypes.string.isRequired,
   optional: PropTypes.bool,
   helpText: PropTypes.string,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
       condition: PropTypes.func,

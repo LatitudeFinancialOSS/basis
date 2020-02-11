@@ -10,7 +10,7 @@ function KitchenSinkRadioGroup() {
         <Grid rowsGutter="8">
           <RadioGroup
             label="Grey disabled"
-            isDisabled={true}
+            disabled={true}
             data={{ value: "option-2" }}
           />
 

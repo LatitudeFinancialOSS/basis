@@ -82,7 +82,7 @@ describe("Button", () => {
 
   it("disabled", () => {
     const { getByText } = render(
-      <Button isDisabled={true}>Find out more</Button>
+      <Button disabled={true}>Find out more</Button>
     );
     const button = getByText("Find out more");
 

@@ -25,7 +25,7 @@ function CheckboxPage() {
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
   );
-  const [isDisabled, setIsDisabled] = useState(DEFAULT_PROPS.isDisabled);
+  const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const code = formatCode(`
   function App() {
     const [agreedToTerms, setAgreedToTerms] = React.useState({
@@ -56,9 +56,9 @@ function CheckboxPage() {
           defaultValue: DEFAULT_PROPS.helpText
         },
         {
-          prop: "isDisabled",
-          value: isDisabled,
-          defaultValue: DEFAULT_PROPS.isDisabled,
+          prop: "disabled",
+          value: disabled,
+          defaultValue: DEFAULT_PROPS.disabled,
           type: "boolean"
         }
       ])}
@@ -114,7 +114,7 @@ function CheckboxPage() {
           css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
-          selectedValue={isDisabled}
+          selectedValue={disabled}
           setSelectedValue={setIsDisabled}
           type="boolean"
         />

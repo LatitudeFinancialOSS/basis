@@ -269,7 +269,7 @@ function AccessibilityPage() {
             label="Weight"
             placeholder={null}
             options={isBoldAllowed ? weightOptions : notApplicableOptions}
-            isDisabled={!isBoldAllowed}
+            disabled={!isBoldAllowed}
             data={weight}
             onChange={setWeight}
           />

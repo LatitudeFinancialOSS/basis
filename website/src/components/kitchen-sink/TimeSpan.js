@@ -35,7 +35,7 @@ function KitchenSinkTimeSpan() {
 
           <TimeSpan
             label="Disabled with help text"
-            isDisabled={true}
+            disabled={true}
             helpText="Help text goes here"
           />
         </Grid>

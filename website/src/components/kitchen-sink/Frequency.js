@@ -10,7 +10,7 @@ function KitchenSinkFrequency() {
         <Grid rowsGutter="8">
           <Frequency
             label="Grey disabled"
-            isDisabled={true}
+            disabled={true}
             data={{
               value: {
                 input: "726",

@@ -7,7 +7,7 @@ import useTheme from "../../hooks/useTheme";
 function Field({
   fullWidth = true,
   optional,
-  isDisabled,
+  disabled,
   label,
   labelId,
   labelFor,
@@ -24,7 +24,7 @@ function Field({
       css={{
         ...theme.field,
         ...(fullWidth && theme["field.fullWidth"]),
-        ...(isDisabled && theme["field.disabled"])
+        ...(disabled && theme["field.disabled"])
       }}
       data-testid={testId}
     >
@@ -63,7 +63,7 @@ function Field({
 Field.propTypes = {
   fullWidth: PropTypes.bool,
   optional: PropTypes.bool.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   labelId: PropTypes.string,
   labelFor: PropTypes.string,
   label: PropTypes.node,

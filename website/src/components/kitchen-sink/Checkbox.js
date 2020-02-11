@@ -63,7 +63,7 @@ function KitchenSinkCheckbox() {
             <Checkbox
               label="Accept terms and conditions"
               helpText="It's your responsibility to read the terms before accepting."
-              isDisabled={true}
+              disabled={true}
             >
               Disabled
             </Checkbox>

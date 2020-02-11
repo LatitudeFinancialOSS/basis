@@ -15,7 +15,7 @@ const DEFAULT_PROPS = {
   variant: "primary",
   color: "highlight.blue.t100",
   fullWidth: false,
-  isDisabled: false,
+  disabled: false,
   type: "button"
 };
 
@@ -36,14 +36,14 @@ function Button(props) {
     variant: variant => VARIANTS.includes(variant),
     color: color => COLORS.includes(color),
     fullWidth: fullWidth => typeof fullWidth === "boolean",
-    isDisabled: isDisabled => typeof isDisabled === "boolean",
+    disabled: disabled => typeof disabled === "boolean",
     type: type => TYPES.includes(type)
   });
   const {
     variant,
     color,
     fullWidth,
-    isDisabled,
+    disabled,
     type,
     onClick,
     children,
@@ -67,11 +67,11 @@ function Button(props) {
       ...theme["button:focus-visible"]
     }),
     ":hover": {
-      ...(!isDisabled && theme[`button.${variant}.${colorStr}:hover`])
+      ...(!disabled && theme[`button.${variant}.${colorStr}:hover`])
     },
     ...(__internal__hover && theme[`button.${variant}.${colorStr}:hover`]),
     ":active": {
-      ...(!isDisabled && theme[`button.${variant}.${colorStr}:active`])
+      ...(!disabled && theme[`button.${variant}.${colorStr}:active`])
     },
     ...(__internal__active && theme[`button.${variant}.${colorStr}:active`]),
     ":disabled": {
@@ -84,7 +84,7 @@ function Button(props) {
   return (
     <button
       css={css}
-      disabled={isDisabled}
+      disabled={disabled}
       type={type}
       onClick={onClick}
       data-testid={testId}
@@ -99,7 +99,7 @@ Button.propTypes = {
   variant: PropTypes.oneOf(VARIANTS),
   color: PropTypes.oneOf(COLORS),
   fullWidth: PropTypes.bool,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,
   children: PropTypes.node,

@@ -14,7 +14,7 @@ const DEFAULT_PROPS = {
   color: "grey.t05",
   type: "text",
   optional: false,
-  isDisabled: false,
+  disabled: false,
   isPasteAllowed: true,
   validation: [
     {
@@ -48,7 +48,7 @@ function Input(props) {
     color: color => COLORS.includes(color),
     type: type => TYPES.includes(type),
     optional: optional => typeof optional === "boolean",
-    isDisabled: isDisabled => typeof isDisabled === "boolean",
+    disabled: disabled => typeof disabled === "boolean",
     isPasteAllowed: isPasteAllowed => typeof isPasteAllowed === "boolean"
   });
   const {
@@ -60,7 +60,7 @@ function Input(props) {
     helpText,
     onFocus,
     onBlur,
-    isDisabled,
+    disabled,
     isPasteAllowed,
     data,
     onChange,
@@ -82,7 +82,7 @@ function Input(props) {
   return (
     <Field
       optional={optional}
-      isDisabled={isDisabled}
+      disabled={disabled}
       label={label}
       labelFor={inputId}
       auxId={auxId}
@@ -111,7 +111,7 @@ function Input(props) {
         spellCheck="false"
         aria-invalid={errors ? "true" : null}
         aria-describedby={helpText || errors ? auxId : null}
-        disabled={isDisabled}
+        disabled={disabled}
         onFocus={() => {
           setIsTouched(true);
           onFocus && onFocus();
@@ -144,7 +144,7 @@ Input.propTypes = {
   optional: PropTypes.bool,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   isPasteAllowed: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,

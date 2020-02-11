@@ -27,7 +27,7 @@ function RadioGroupPage() {
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
   );
-  const [isDisabled, setIsDisabled] = useState(DEFAULT_PROPS.isDisabled);
+  const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const code = formatCode(`
   const options = [
     { 
@@ -92,9 +92,9 @@ function RadioGroupPage() {
           defaultValue: DEFAULT_PROPS.helpText
         },
         {
-          prop: "isDisabled",
-          value: isDisabled,
-          defaultValue: DEFAULT_PROPS.isDisabled,
+          prop: "disabled",
+          value: disabled,
+          defaultValue: DEFAULT_PROPS.disabled,
           type: "boolean"
         }
       ])}
@@ -159,7 +159,7 @@ function RadioGroupPage() {
           css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
           options={isDisabledOptions}
-          selectedValue={isDisabled}
+          selectedValue={disabled}
           setSelectedValue={setIsDisabled}
           type="boolean"
         />
