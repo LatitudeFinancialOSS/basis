@@ -14,7 +14,7 @@ function KitchenSinkInput() {
             <Input
               placeholder="Grey focus"
               color="grey.t05"
-              __internal__focus={true}
+              __internal__focus
             />
           </Grid>
         </Container>
@@ -25,7 +25,7 @@ function KitchenSinkInput() {
           <Grid rowsGutter="8">
             <Input placeholder="White" />
 
-            <Input placeholder="White focus" __internal__focus={true} />
+            <Input placeholder="White focus" __internal__focus />
 
             <Input placeholder="With label" label="First name" />
 
@@ -35,7 +35,7 @@ function KitchenSinkInput() {
               data={{ value: "With value" }}
             />
 
-            <Input placeholder="Optional" label="First name" optional={true} />
+            <Input placeholder="Optional" label="First name" optional />
 
             <Input
               placeholder="With help text"
@@ -47,7 +47,7 @@ function KitchenSinkInput() {
               placeholder="Disabled"
               label="First name"
               helpText="Nickname is not allowed."
-              disabled={true}
+              disabled
             />
 
             <Input

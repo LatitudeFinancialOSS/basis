@@ -15,14 +15,14 @@ function KitchenSinkCheckbox() {
               Grey checked
             </Checkbox>
 
-            <Checkbox color="grey.t05" __internal__keyboardFocus={true}>
+            <Checkbox color="grey.t05" __internal__keyboardFocus>
               Grey focus
             </Checkbox>
 
             <Checkbox
               color="grey.t05"
               data={{ value: true }}
-              __internal__keyboardFocus={true}
+              __internal__keyboardFocus
             >
               Grey checked focus
             </Checkbox>
@@ -37,9 +37,9 @@ function KitchenSinkCheckbox() {
 
             <Checkbox data={{ value: true }}>White checked</Checkbox>
 
-            <Checkbox __internal__keyboardFocus={true}>White focus</Checkbox>
+            <Checkbox __internal__keyboardFocus>White focus</Checkbox>
 
-            <Checkbox data={{ value: true }} __internal__keyboardFocus={true}>
+            <Checkbox data={{ value: true }} __internal__keyboardFocus>
               White checked focus
             </Checkbox>
 
@@ -49,7 +49,7 @@ function KitchenSinkCheckbox() {
 
             <Checkbox label="Accept terms and conditions">With label</Checkbox>
 
-            <Checkbox label="Get occasional promotions" optional={true}>
+            <Checkbox label="Get occasional promotions" optional>
               Optional
             </Checkbox>
 
@@ -63,7 +63,7 @@ function KitchenSinkCheckbox() {
             <Checkbox
               label="Accept terms and conditions"
               helpText="It's your responsibility to read the terms before accepting."
-              disabled={true}
+              disabled
             >
               Disabled
             </Checkbox>

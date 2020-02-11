@@ -12,7 +12,7 @@ function KitchenSinkTimeSpan() {
 
           <TimeSpan
             label="Optional with errors"
-            optional={true}
+            optional
             data={{
               value: {
                 years: "100",
@@ -29,13 +29,13 @@ function KitchenSinkTimeSpan() {
 
       <Container padding="4" bg="grey.t05">
         <Grid rowsGutter="8">
-          <TimeSpan label="Years focus" __internal__yearsFocus={true} />
+          <TimeSpan label="Years focus" __internal__yearsFocus />
 
-          <TimeSpan label="Months focus" __internal__monthsFocus={true} />
+          <TimeSpan label="Months focus" __internal__monthsFocus />
 
           <TimeSpan
             label="Disabled with help text"
-            disabled={true}
+            disabled
             helpText="Help text goes here"
           />
         </Grid>

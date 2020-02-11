@@ -34,7 +34,7 @@ function KitchenSinkText() {
       ))}
 
       <Container padding="4" width="224" bg="grey.t03">
-        <Text wrap={true}>This text should wrap to the next line.</Text>
+        <Text wrap>This text should wrap to the next line.</Text>
       </Container>
 
       <Container padding="4" width="224" bg="grey.t05">

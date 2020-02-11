@@ -81,9 +81,7 @@ describe("Button", () => {
   });
 
   it("disabled", () => {
-    const { getByText } = render(
-      <Button disabled={true}>Find out more</Button>
-    );
+    const { getByText } = render(<Button disabled>Find out more</Button>);
     const button = getByText("Find out more");
 
     expect(button).toHaveStyle(`

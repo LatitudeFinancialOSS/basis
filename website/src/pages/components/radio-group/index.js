@@ -166,7 +166,7 @@ function RadioGroupPage() {
       </div>
       <ComponentContainer
         code={code}
-        noInline={true}
+        noInline
         scope={scope}
         width="md"
         backgroundColor={

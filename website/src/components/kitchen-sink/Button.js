@@ -22,31 +22,23 @@ function KitchenSinkButton() {
                   {variant} {color}
                 </Button>
 
-                <Button
-                  variant={variant}
-                  color={color}
-                  __internal__hover={true}
-                >
+                <Button variant={variant} color={color} __internal__hover>
                   Hover
                 </Button>
 
-                <Button
-                  variant={variant}
-                  color={color}
-                  __internal__active={true}
-                >
+                <Button variant={variant} color={color} __internal__active>
                   Active
                 </Button>
 
                 <Button
                   variant={variant}
                   color={color}
-                  __internal__keyboardFocus={true}
+                  __internal__keyboardFocus
                 >
                   Keyboard focus
                 </Button>
 
-                <Button variant={variant} color={color} disabled={true}>
+                <Button variant={variant} color={color} disabled>
                   Disabled
                 </Button>
               </Flex>

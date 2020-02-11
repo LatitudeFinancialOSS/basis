@@ -55,13 +55,7 @@ HeaderSocial.propTypes = {
 
 function SocialFacebook({ href, title, testId }) {
   return (
-    <Link
-      variant="icon"
-      href={href}
-      newTab={true}
-      title={title}
-      testId={testId}
-    >
+    <Link variant="icon" href={href} newTab title={title} testId={testId}>
       <Icon
         name="facebook"
         color="white"
@@ -79,13 +73,7 @@ SocialFacebook.propTypes = {
 
 function SocialYouTube({ href, title, testId }) {
   return (
-    <Link
-      variant="icon"
-      href={href}
-      newTab={true}
-      title={title}
-      testId={testId}
-    >
+    <Link variant="icon" href={href} newTab title={title} testId={testId}>
       <Icon name="youtube" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
@@ -99,13 +87,7 @@ SocialYouTube.propTypes = {
 
 function SocialTwitter({ href, title, testId }) {
   return (
-    <Link
-      variant="icon"
-      href={href}
-      newTab={true}
-      title={title}
-      testId={testId}
-    >
+    <Link variant="icon" href={href} newTab title={title} testId={testId}>
       <Icon name="twitter" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
@@ -119,13 +101,7 @@ SocialTwitter.propTypes = {
 
 function SocialInstagram({ href, title, testId }) {
   return (
-    <Link
-      variant="icon"
-      href={href}
-      newTab={true}
-      title={title}
-      testId={testId}
-    >
+    <Link variant="icon" href={href} newTab title={title} testId={testId}>
       <Icon
         name="instagram"
         color="white"
@@ -143,13 +119,7 @@ SocialInstagram.propTypes = {
 
 function SocialLinkedIn({ href, title, testId }) {
   return (
-    <Link
-      variant="icon"
-      href={href}
-      newTab={true}
-      title={title}
-      testId={testId}
-    >
+    <Link variant="icon" href={href} newTab title={title} testId={testId}>
       <Icon
         name="linkedin"
         color="white"
@@ -168,7 +138,7 @@ SocialLinkedIn.propTypes = {
 function Header({ children, testId }) {
   return (
     <Container bg="primary.blue.t100" testId={testId}>
-      <Container bg="primary.blue.t100" hasBreakpointWidth={true}>
+      <Container bg="primary.blue.t100" hasBreakpointWidth>
         <Flex direction="column" direction-sm="row" placeItems="left center">
           {children}
         </Flex>
@@ -216,7 +186,7 @@ LegalCopy.propTypes = {
 function Legal({ children, testId }) {
   return (
     <Container bg="secondary.lightBlue.t30" testId={testId}>
-      <Container hasBreakpointWidth={true} padding="9 0" textAlign="center">
+      <Container hasBreakpointWidth padding="9 0" textAlign="center">
         {children}
       </Container>
     </Container>

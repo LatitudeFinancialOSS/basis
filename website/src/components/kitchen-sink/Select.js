@@ -15,7 +15,7 @@ function KitchenSinkSelect() {
               label="Grey focus"
               color="grey.t05"
               data={{ value: "option-2" }}
-              __internal__focus={true}
+              __internal__focus
             />
           </Grid>
         </Container>
@@ -27,13 +27,13 @@ function KitchenSinkSelect() {
             <Select
               label="Disabled with help text"
               helpText="Help text goes here"
-              disabled={true}
+              disabled
             />
 
             <Select
               label="Optional with custom placeholder"
               placeholder="Select one..."
-              optional={true}
+              optional
             />
 
             <Select label="Natural width" fullWidth={false} />

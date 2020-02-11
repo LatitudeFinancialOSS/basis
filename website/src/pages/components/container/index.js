@@ -44,8 +44,8 @@ function ContainerPage() {
       <Flex direction="column" gutter="4">
         <Text as="h3" textStyle="heading3">Here goes anything you want.</Text>
         <Text>Here are some links:
-          <Link href="https://google.com" newTab={true}>Google</Link>{" "}
-          <Link href="https://facebook.com" newTab={true}>Facebook</Link>
+          <Link href="https://google.com" newTab>Google</Link>{" "}
+          <Link href="https://facebook.com" newTab>Facebook</Link>
         </Text>
         <Text>
           Here are some buttons:<br />

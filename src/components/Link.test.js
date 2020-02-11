@@ -29,7 +29,7 @@ describe("Link", () => {
 
   it("new tab", () => {
     const { getByText } = render(
-      <Link href="/terms" newTab={true} color="secondary.turquoise.t60">
+      <Link href="/terms" newTab color="secondary.turquoise.t60">
         Terms and Conditions
       </Link>
     );

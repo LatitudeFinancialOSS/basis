@@ -51,7 +51,7 @@ function Header(_props) {
       data-testid={testId}
     >
       <Container bg="white" height="56" height-lg="80" boxShadow="header">
-        <Container hasBreakpointWidth={true} height="100%">
+        <Container hasBreakpointWidth height="100%">
           <Flex fullHeight placeItems="left center">
             {children}
           </Flex>

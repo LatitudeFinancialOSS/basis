@@ -12,10 +12,10 @@ describe("Stepper", () => {
           label="Address"
           label-sm="Address and ID"
           label-md="Address and identification"
-          minor={true}
+          minor
         />
         <Stepper.Item label="Work" label-xs="Employment" />
-        <Stepper.Item label="Expenses" minor={true} />
+        <Stepper.Item label="Expenses" minor />
         <Stepper.Item label="Verify" label-xs="Verify details" />
       </Stepper>
     );

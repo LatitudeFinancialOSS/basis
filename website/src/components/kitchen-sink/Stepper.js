@@ -13,25 +13,25 @@ function KitchenSinkStepper() {
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              minor={true}
+              minor
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" minor={true} />
+            <Stepper.Item label="Expenses" minor />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
 
         <Section bg="grey.t05">
           <Stepper>
-            <Stepper.Item label="You" label-md="About you" current={true} />
+            <Stepper.Item label="You" label-md="About you" current />
             <Stepper.Item
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              minor={true}
+              minor
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" minor={true} />
+            <Stepper.Item label="Expenses" minor />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
@@ -43,25 +43,25 @@ function KitchenSinkStepper() {
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              minor={true}
+              minor
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" minor={true} current={true} />
+            <Stepper.Item label="Expenses" minor current />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
 
         <Section bg="grey.t05">
-          <Stepper completed={true}>
+          <Stepper completed>
             <Stepper.Item label="You" label-md="About you" />
             <Stepper.Item
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              minor={true}
+              minor
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" minor={true} />
+            <Stepper.Item label="Expenses" minor />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>

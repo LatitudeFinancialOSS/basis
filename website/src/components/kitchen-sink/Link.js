@@ -22,27 +22,17 @@ function KitchenSinkLink() {
               <Link href="#" newTab={false} color={color}>
                 {color}
               </Link>
-              <Link
-                href="#"
-                newTab={false}
-                color={color}
-                __internal__hover={true}
-              >
+              <Link href="#" newTab={false} color={color} __internal__hover>
                 Hover
               </Link>
-              <Link
-                href="#"
-                newTab={false}
-                color={color}
-                __internal__active={true}
-              >
+              <Link href="#" newTab={false} color={color} __internal__active>
                 Active
               </Link>
               <Link
                 href="#"
                 newTab={false}
                 color={color}
-                __internal__keyboardFocus={true}
+                __internal__keyboardFocus
               >
                 Keyboard focus
               </Link>

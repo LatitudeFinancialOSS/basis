@@ -31,7 +31,7 @@ function KitchenSinkContainer() {
           <Text>Right aligned</Text>
         </Container>
 
-        <Container hasBreakpointWidth={true} bg="primary.blue.t100">
+        <Container hasBreakpointWidth bg="primary.blue.t100">
           <Text>Has breakpoint width</Text>
         </Container>
 

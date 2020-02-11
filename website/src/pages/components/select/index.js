@@ -145,7 +145,7 @@ function SelectPage() {
       </div>
       <ComponentContainer
         code={code}
-        noInline={true}
+        noInline
         scope={scope}
         backgroundColor={
           color === "white" ? theme.colors.grey.t05 : theme.colors.white

@@ -39,37 +39,37 @@ function FooterPage() {
         <Footer.Legal.Links>
           <Link
             href="https://www.latitudefinancial.com.au/terms-and-conditions/"
-            newTab={true}
+            newTab
           >
             Terms and conditions
           </Link>
           <Link 
             href="https://www.latitudefinancial.com.au/privacy/" 
-            newTab={true}
+            newTab
           >
             Privacy and credit reporting policy
           </Link>
           <Link 
             href="https://www.latitudefinancial.com.au/security/" 
-            newTab={true}
+            newTab
           >
             Security
           </Link>
           <Link 
             href="https://www.latitudefinancial.com.au/complaints/" 
-            newTab={true}
+            newTab
           >
             Complaints
           </Link>
           <Link 
             href="https://www.latitudefinancial.com.au/hardship/" 
-            newTab={true}
+            newTab
           >
             Financial hardship
           </Link>
           <Link 
             href="https://www.latitudefinancial.com.au/sitemap/" 
-            newTab={true}
+            newTab
           >
             Site map
           </Link>
@@ -77,8 +77,8 @@ function FooterPage() {
         <Footer.Legal.Copy>
           <Text>
             The Latitude Group recommends that you read the 
-            <Link href="https://www.latitudefinancial.com.au/terms-and-conditions/" newTab={true}>Terms and conditions</Link> and 
-            <Link href="https://www.latitudefinancial.com.au/privacy/" newTab={true}>Privacy and Credit Reporting Policy</Link> of the website. 
+            <Link href="https://www.latitudefinancial.com.au/terms-and-conditions/" newTab>Terms and conditions</Link> and 
+            <Link href="https://www.latitudefinancial.com.au/privacy/" newTab>Privacy and Credit Reporting Policy</Link> of the website. 
             The Latitude Group is a leader in consumer finance in Australia and 
             New Zealand offering a range of services: including personal loans, car loans, 
             credit cards, personal insurance, interest free and promotional retail. In Australia, 

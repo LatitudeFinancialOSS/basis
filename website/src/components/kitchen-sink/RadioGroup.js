@@ -10,13 +10,13 @@ function KitchenSinkRadioGroup() {
         <Grid rowsGutter="8">
           <RadioGroup
             label="Grey disabled"
-            disabled={true}
+            disabled
             data={{ value: "option-2" }}
           />
 
           <RadioGroup
             label="Optional with error"
-            optional={true}
+            optional
             data={{
               value: "",
               errors: ["Please make a selection."]

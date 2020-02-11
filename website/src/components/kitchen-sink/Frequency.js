@@ -10,7 +10,7 @@ function KitchenSinkFrequency() {
         <Grid rowsGutter="8">
           <Frequency
             label="Grey disabled"
-            disabled={true}
+            disabled
             data={{
               value: {
                 input: "726",
@@ -21,7 +21,7 @@ function KitchenSinkFrequency() {
 
           <Frequency
             label="Optional with error"
-            optional={true}
+            optional
             data={{
               value: {
                 input: "-12.8",
@@ -37,7 +37,7 @@ function KitchenSinkFrequency() {
         <Grid rowsGutter="8">
           <Frequency
             label="White"
-            quarterly={true}
+            quarterly
             data={{
               value: {
                 input: "9822",
