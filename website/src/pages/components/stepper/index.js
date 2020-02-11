@@ -65,9 +65,9 @@ function StepperPage() {
           type: "boolean"
         },
         {
-          prop: "isMinor",
+          prop: "minor",
           value: true,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isMinor,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.minor,
           type: "boolean"
         }
       ])} />
@@ -99,9 +99,9 @@ function StepperPage() {
           type: "boolean"
         },
         {
-          prop: "isMinor",
+          prop: "minor",
           value: true,
-          defaultValue: Stepper.Item.DEFAULT_PROPS.isMinor,
+          defaultValue: Stepper.Item.DEFAULT_PROPS.minor,
           type: "boolean"
         }
       ])} />

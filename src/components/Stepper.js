@@ -8,7 +8,7 @@ import Text from "./Text";
 import Icon from "./Icon";
 
 const DEFAULT_ITEM_PROPS = {
-  isMinor: false,
+  minor: false,
   isCurrent: false
 };
 
@@ -16,14 +16,7 @@ Item.DEFAULT_PROPS = DEFAULT_ITEM_PROPS;
 
 function Item(_props) {
   const props = { ...DEFAULT_ITEM_PROPS, ..._props };
-  const {
-    isMinor,
-    isCurrent,
-    index,
-    total,
-    isPrevious,
-    majorStepNumber
-  } = props;
+  const { minor, isCurrent, index, total, isPrevious, majorStepNumber } = props;
   const theme = useTheme();
   const label = useResponsiveProp(props, "label");
   const isFirst = index === 0;
@@ -70,13 +63,13 @@ function Item(_props) {
         <div
           css={{
             ...theme["stepper.itemCircle"],
-            ...(isMinor && theme["stepper.itemCircle.minor"]),
+            ...(minor && theme["stepper.itemCircle.minor"]),
             ...(isCurrent && theme["stepper.itemCircle.current"]),
             ...(isPrevious && theme["stepper.itemCircle.previous"])
           }}
         >
-          {isPrevious && !isMinor && <Icon name="tick" color="white" />}
-          {!isPrevious && !isMinor && (
+          {isPrevious && !minor && <Icon name="tick" color="white" />}
+          {!isPrevious && !minor && (
             <Text textStyle="subtitle2" color={isPrevious ? "white" : "black"}>
               <strong>{majorStepNumber}</strong>
             </Text>
@@ -89,7 +82,7 @@ function Item(_props) {
 
 Item.propTypes = {
   ...responsivePropType("label", PropTypes.node),
-  isMinor: PropTypes.bool,
+  minor: PropTypes.bool,
   isCurrent: PropTypes.bool,
   index: PropTypes.number,
   total: PropTypes.number,
@@ -120,18 +113,18 @@ function Stepper(_props) {
       {
         steps.reduce(
           (acc, step, index) => {
-            const isMinor = step.props.isMinor === true;
+            const minor = step.props.minor === true;
 
             acc.items.push(
               React.cloneElement(step, {
                 index: index,
                 total: steps.length,
                 isPrevious: isCompleted || index < currentStepIndex,
-                majorStepNumber: isMinor ? null : acc.majorStepNumber
+                majorStepNumber: minor ? null : acc.majorStepNumber
               })
             );
 
-            if (!isMinor) {
+            if (!minor) {
               acc.majorStepNumber += 1;
             }
 

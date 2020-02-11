@@ -13,10 +13,10 @@ function KitchenSinkStepper() {
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              isMinor={true}
+              minor={true}
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" isMinor={true} />
+            <Stepper.Item label="Expenses" minor={true} />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
@@ -28,10 +28,10 @@ function KitchenSinkStepper() {
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              isMinor={true}
+              minor={true}
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" isMinor={true} />
+            <Stepper.Item label="Expenses" minor={true} />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
@@ -43,10 +43,10 @@ function KitchenSinkStepper() {
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              isMinor={true}
+              minor={true}
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" isMinor={true} isCurrent={true} />
+            <Stepper.Item label="Expenses" minor={true} isCurrent={true} />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
@@ -58,10 +58,10 @@ function KitchenSinkStepper() {
               label="Address"
               label-sm="Address and ID"
               label-md="Address and identification"
-              isMinor={true}
+              minor={true}
             />
             <Stepper.Item label="Work" label-xs="Employment" />
-            <Stepper.Item label="Expenses" isMinor={true} />
+            <Stepper.Item label="Expenses" minor={true} />
             <Stepper.Item label="Verify" label-xs="Verify details" />
           </Stepper>
         </Section>
