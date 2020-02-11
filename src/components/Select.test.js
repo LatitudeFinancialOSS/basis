@@ -83,7 +83,7 @@ describe("Select", () => {
 
   it("not full width", () => {
     const { getByDisplayValue } = render(
-      <App label="Relationship status" isFullWidth={false} />
+      <App label="Relationship status" fullWidth={false} />
     );
     const select = getByDisplayValue("Please select");
 

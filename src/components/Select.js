@@ -12,7 +12,7 @@ const COLORS = ["grey.t05", "white"];
 const DEFAULT_PROPS = {
   color: "grey.t05",
   placeholder: "Please select",
-  isFullWidth: true,
+  fullWidth: true,
   isOptional: false,
   isDisabled: false,
   validation: [
@@ -48,7 +48,7 @@ function Select(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    isFullWidth: isFullWidth => typeof isFullWidth === "boolean",
+    fullWidth: fullWidth => typeof fullWidth === "boolean",
     isOptional: isOptional => typeof isOptional === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean"
   });
@@ -59,7 +59,7 @@ function Select(props) {
     onFocus,
     onBlur,
     options,
-    isFullWidth,
+    fullWidth,
     isOptional,
     helpText,
     isDisabled,
@@ -83,7 +83,7 @@ function Select(props) {
 
   return (
     <Field
-      isFullWidth={isFullWidth}
+      fullWidth={fullWidth}
       isOptional={isOptional}
       isDisabled={isDisabled}
       label={label}
@@ -97,7 +97,7 @@ function Select(props) {
         css={{
           ...theme.selectInput,
           ...theme[`selectInput.${colorStr}`],
-          ...(isFullWidth && theme["selectInput.fullWidth"]),
+          ...(fullWidth && theme["selectInput.fullWidth"]),
           ":focus": {
             ...theme["selectInput:focus"],
             ...theme[`selectInput.${colorStr}:focus`]
@@ -173,7 +173,7 @@ Select.propTypes = {
       value: PropTypes.string.isRequired
     })
   ).isRequired,
-  isFullWidth: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   isOptional: PropTypes.bool,
   helpText: PropTypes.string,
   errorMessage: PropTypes.string,

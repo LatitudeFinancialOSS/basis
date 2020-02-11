@@ -36,7 +36,7 @@ function KitchenSinkSelect() {
               isOptional={true}
             />
 
-            <Select label="Natural width" isFullWidth={false} />
+            <Select label="Natural width" fullWidth={false} />
 
             <Select
               label="With error"

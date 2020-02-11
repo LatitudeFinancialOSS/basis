@@ -14,7 +14,7 @@ const TYPES = ["button", "submit"];
 const DEFAULT_PROPS = {
   variant: "primary",
   color: "highlight.blue.t100",
-  isFullWidth: false,
+  fullWidth: false,
   isDisabled: false,
   type: "button"
 };
@@ -35,14 +35,14 @@ function Button(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     variant: variant => VARIANTS.includes(variant),
     color: color => COLORS.includes(color),
-    isFullWidth: isFullWidth => typeof isFullWidth === "boolean",
+    fullWidth: fullWidth => typeof fullWidth === "boolean",
     isDisabled: isDisabled => typeof isDisabled === "boolean",
     type: type => TYPES.includes(type)
   });
   const {
     variant,
     color,
-    isFullWidth,
+    fullWidth,
     isDisabled,
     type,
     onClick,
@@ -58,7 +58,7 @@ function Button(props) {
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
     ...theme.button,
-    ...(isFullWidth && theme["button.fullWidth"]),
+    ...(fullWidth && theme["button.fullWidth"]),
     ...theme[`button.${variant}.${colorStr}`],
     ":focus": theme["button:focus"],
     ":focus-visible": theme["button:focus-visible"],
@@ -98,7 +98,7 @@ Button.propTypes = {
   ...responsiveMarginType,
   variant: PropTypes.oneOf(VARIANTS),
   color: PropTypes.oneOf(COLORS),
-  isFullWidth: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   isDisabled: PropTypes.bool,
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,

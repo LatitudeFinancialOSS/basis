@@ -13,7 +13,7 @@ const scope = allDesignSystem;
 
 const variantOptions = getRadioOptions(VARIANTS);
 const colorOptions = getRadioOptions(COLORS);
-const isFullWidthOptions = getCheckboxOptions();
+const fullWidthOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
 const typeOptions = getRadioOptions(TYPES);
 
@@ -21,7 +21,7 @@ function ButtonPage() {
   const theme = useTheme();
   const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
-  const [isFullWidth, setIsFullWidth] = useState(DEFAULT_PROPS.isFullWidth);
+  const [fullWidth, setFullWidth] = useState(DEFAULT_PROPS.fullWidth);
   const [isDisabled, setIsDisabled] = useState(DEFAULT_PROPS.isDisabled);
   const [type, setType] = useState(DEFAULT_PROPS.type);
   const code = formatCode(`<Button ${nonDefaultProps([
@@ -36,9 +36,9 @@ function ButtonPage() {
       defaultValue: DEFAULT_PROPS.color
     },
     {
-      prop: "isFullWidth",
-      value: isFullWidth,
-      defaultValue: DEFAULT_PROPS.isFullWidth,
+      prop: "fullWidth",
+      value: fullWidth,
+      defaultValue: DEFAULT_PROPS.fullWidth,
       type: "boolean"
     },
     {
@@ -82,9 +82,9 @@ function ButtonPage() {
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
           heading="Full Width"
-          options={isFullWidthOptions}
-          selectedValue={isFullWidth}
-          setSelectedValue={setIsFullWidth}
+          options={fullWidthOptions}
+          selectedValue={fullWidth}
+          setSelectedValue={setFullWidth}
           type="boolean"
         />
         <RadioGroupSetting

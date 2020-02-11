@@ -72,9 +72,7 @@ describe("Button", () => {
   });
 
   it("full width", () => {
-    const { getByText } = render(
-      <Button isFullWidth={true}>Find out more</Button>
-    );
+    const { getByText } = render(<Button fullWidth>Find out more</Button>);
     const button = getByText("Find out more");
 
     expect(button).toHaveStyle(`

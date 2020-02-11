@@ -20,10 +20,15 @@ export function nonDefaultProps(props) {
   return props
     .filter(({ value, defaultValue }) => value !== defaultValue && value !== "")
     .map(({ prop, value, type = "string" }) => {
-      if (
-        (type === "boolean" || type === "number") &&
-        value !== "Unspecified"
-      ) {
+      if (type === "number" && value !== "Unspecified") {
+        return `${prop}={${value}}`;
+      }
+
+      if (type === "boolean" && value === true) {
+        return prop;
+      }
+
+      if (type === "boolean" && value === false) {
         return `${prop}={${value}}`;
       }
 
