@@ -25,15 +25,29 @@ export default theme => ({
   },
   // Ordered
   "list.ordered": {
-    listStyleType: "decimal",
-    paddingLeft: "1em"
+    listStyleType: "none",
+    counterReset: "ordered",
+    paddingLeft: "1.25em"
   },
   "list.ordered.nested": {
-    listStyleType: "lower-alpha",
     margin: "0.5em 0 1em"
   },
-  "list.ordered.nested.nested": {
-    listStyleType: "lower-roman"
+  "list.ordered.nested.nested": {},
+  "listItem.ordered": {
+    position: "relative",
+    counterIncrement: "ordered"
+  },
+  "listItem.ordered:before": {
+    content: 'counter(ordered, decimal) ". "',
+    position: "absolute",
+    top: 0,
+    left: "-1.25em"
+  },
+  "listItem.ordered.nested:before": {
+    content: 'counter(ordered, lower-alpha) ". "'
+  },
+  "listItem.ordered.nested.nested:before": {
+    content: 'counter(ordered, lower-roman) ". "'
   },
   // Steps
   "list.steps": {
