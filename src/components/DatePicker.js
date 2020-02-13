@@ -15,19 +15,22 @@ import Grid from "./Grid";
 
 const COLORS = ["grey.t05", "white"];
 
+const DAY_REGEX = /^\d{1,2}$/;
+const MONTH_REGEX = /^\d{1,2}$/;
+const YEAR_REGEX = /^\d{1,4}$/;
+
 const DEFAULT_PROPS = {
   color: "grey.t05",
   optional: false,
   disabled: false,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ day }, { isTouched }) => {
-        if (!isTouched.day) {
+      validator: ({ day, month, year }, { optional }) => {
+        if (day === "" && month === "" && year === "" && optional) {
           return null;
         }
 
-        if (/^\d{1,2}$/.test(day) === false) {
+        if (DAY_REGEX.test(day) === false) {
           return "Day must be within 1-31.";
         }
 
@@ -41,13 +44,12 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ month }, { isTouched }) => {
-        if (!isTouched.month) {
+      validator: ({ day, month, year }, { optional }) => {
+        if (day === "" && month === "" && year === "" && optional) {
           return null;
         }
 
-        if (/^\d{1,2}$/.test(month) === false) {
+        if (MONTH_REGEX.test(month) === false) {
           return "Month must be within 1-12.";
         }
 
@@ -61,13 +63,12 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ year }, { isTouched }) => {
-        if (!isTouched.year) {
+      validator: ({ day, month, year }, { optional }) => {
+        if (day === "" && month === "" && year === "" && optional) {
           return null;
         }
 
-        if (/^\d{1,4}$/.test(year) === false) {
+        if (YEAR_REGEX.test(year) === false) {
           return "Year must be within 1800-2200.";
         }
 
@@ -81,10 +82,12 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ optional }, { previousErrors }) =>
-        !optional && previousErrors.every(error => error === null),
-      validator: ({ day, month, year }, { isTouched }) => {
-        if (!isTouched.day || !isTouched.month || !isTouched.year) {
+      validator: ({ day, month, year }, { optional }, { previousErrors }) => {
+        if (day === "" && month === "" && year === "" && optional) {
+          return null;
+        }
+
+        if (previousErrors.some(error => error !== null)) {
           return null;
         }
 
@@ -141,21 +144,14 @@ function DatePicker(props) {
   } = mergedProps;
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState({
-    day: false,
-    month: false,
-    year: false
-  });
   const { value, errors } = data;
   const helpText = useMemo(
     () => getHelpText(value.day, value.month, value.year, helpTextProp),
     [value.day, value.month, value.year, helpTextProp]
   );
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched
-    }
+    isEmpty: value.day === "" && value.month === "" && value.year === ""
   });
 
   return (
@@ -180,26 +176,30 @@ function DatePicker(props) {
               color={color}
               type="number"
               placeholder="DD"
+              optional={optional}
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  day: true
-                });
-              }}
-              onBlur={validate}
+              onFocus={onFocus}
+              onBlur={onBlur}
               validation={[]}
               data={{
                 value: value.day
               }}
               onChange={({ value: day }) => {
-                onChange({
+                const newData = {
                   ...data,
                   value: {
                     ...value,
                     day
                   }
-                });
+                };
+
+                onChange(newData);
+
+                if (errors?.length > 0) {
+                  validate({
+                    data: newData
+                  });
+                }
               }}
             />
           </Grid.Item>
@@ -208,26 +208,30 @@ function DatePicker(props) {
               color={color}
               type="number"
               placeholder="MM"
+              optional={optional}
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  month: true
-                });
-              }}
-              onBlur={validate}
+              onFocus={onFocus}
+              onBlur={onBlur}
               validation={[]}
               data={{
                 value: value.month
               }}
               onChange={({ value: month }) => {
-                onChange({
+                const newData = {
                   ...data,
                   value: {
                     ...value,
                     month
                   }
-                });
+                };
+
+                onChange(newData);
+
+                if (errors?.length > 0) {
+                  validate({
+                    data: newData
+                  });
+                }
               }}
             />
           </Grid.Item>
@@ -236,26 +240,30 @@ function DatePicker(props) {
               color={color}
               type="number"
               placeholder="YYYY"
+              optional={optional}
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  year: true
-                });
-              }}
-              onBlur={validate}
+              onFocus={onFocus}
+              onBlur={onBlur}
               validation={[]}
               data={{
                 value: value.year
               }}
               onChange={({ value: year }) => {
-                onChange({
+                const newData = {
                   ...data,
                   value: {
                     ...value,
                     year
                   }
-                });
+                };
+
+                onChange(newData);
+
+                if (errors?.length > 0) {
+                  validate({
+                    data: newData
+                  });
+                }
               }}
             />
           </Grid.Item>
@@ -273,7 +281,6 @@ DatePicker.propTypes = {
   disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

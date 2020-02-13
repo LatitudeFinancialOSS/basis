@@ -36,6 +36,13 @@ const ALL_FREQUENCY_OPTIONS = [
 const COLORS = ["grey.t05", "white"];
 const MODES = ["radio-group", "select"];
 
+function isFrequencySelected(frequency, props) {
+  return (
+    ALL_FREQUENCY_OPTIONS.findIndex(option => option.value === frequency) >
+      -1 && props[frequency] === true
+  );
+}
+
 const DEFAULT_PROPS = {
   color: "grey.t05",
   mode: "radio-group",
@@ -49,9 +56,10 @@ const DEFAULT_PROPS = {
   selectPlaceholder: Select.DEFAULT_PROPS.placeholder,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ input }, { isTouched }) => {
-        if (!isTouched.input) {
+      validator: ({ input, frequency }, props) => {
+        const frequencySelected = isFrequencySelected(frequency, props);
+
+        if (input === "" && !frequencySelected && props.optional) {
           return null;
         }
 
@@ -63,17 +71,14 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ frequency }, { isTouched, props }) => {
-        if (!isTouched.frequency) {
+      validator: ({ input, frequency }, props) => {
+        const frequencySelected = isFrequencySelected(frequency, props);
+
+        if (input === "" && !frequencySelected && props.optional) {
           return null;
         }
 
-        const selectedOption = ALL_FREQUENCY_OPTIONS.find(
-          option => option.value === frequency
-        );
-
-        if (!selectedOption || props[selectedOption.value] !== true) {
+        if (!frequencySelected) {
           return "Please select a frequency.";
         }
 
@@ -119,43 +124,42 @@ function Frequency(props) {
   } = mergedProps;
   const [labelId] = useState(() => `frequency-label-${nanoid()}`);
   const [auxId] = useState(() => `frequency-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState({
-    input: false,
-    frequency: false
-  });
   const { value, errors } = data;
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched,
-      props: mergedProps
-    }
+    isEmpty:
+      value.input === "" && !isFrequencySelected(value.frequency, mergedProps)
   });
+
   const inputComponent = (
     <Input
       color={color}
       type="number"
       placeholder={inputPlaceholder}
+      optional={optional}
       disabled={disabled}
-      onFocus={() => {
-        setIsTouched({
-          ...isTouched,
-          input: true
-        });
-      }}
-      onBlur={validate}
+      onFocus={onFocus}
+      onBlur={onBlur}
       validation={[]}
       data={{
         value: value.input
       }}
       onChange={({ value: input }) => {
-        onChange({
+        const newData = {
           ...data,
           value: {
             ...value,
             input
           }
-        });
+        };
+
+        onChange(newData);
+
+        if (errors?.length > 0) {
+          validate({
+            data: newData
+          });
+        }
       }}
     />
   );
@@ -189,28 +193,32 @@ function Frequency(props) {
             {frequencyOptions.length > 0 && (
               <RadioGroup
                 color={color}
+                optional={optional}
                 options={frequencyOptions}
                 columns={2}
                 disabled={disabled}
-                onFocus={() => {
-                  setIsTouched({
-                    ...isTouched,
-                    frequency: true
-                  });
-                }}
-                onBlur={validate}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 validation={[]}
                 data={{
                   value: value.frequency
                 }}
                 onChange={({ value: frequency }) => {
-                  onChange({
+                  const newData = {
                     ...data,
                     value: {
                       ...value,
                       frequency
                     }
-                  });
+                  };
+
+                  onChange(newData);
+
+                  if (errors?.length > 0) {
+                    validate({
+                      data: newData
+                    });
+                  }
                 }}
               />
             )}
@@ -222,28 +230,32 @@ function Frequency(props) {
             <Grid.Item colSpan="1">
               <Select
                 color={color}
+                optional={optional}
                 placeholder={selectPlaceholder}
                 options={frequencyOptions}
                 disabled={disabled}
-                onFocus={() => {
-                  setIsTouched({
-                    ...isTouched,
-                    frequency: true
-                  });
-                }}
-                onBlur={validate}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 validation={[]}
                 data={{
                   value: value.frequency
                 }}
                 onChange={({ value: frequency }) => {
-                  onChange({
+                  const newData = {
                     ...data,
                     value: {
                       ...value,
                       frequency
                     }
-                  });
+                  };
+
+                  onChange(newData);
+
+                  if (errors?.length > 0) {
+                    validate({
+                      data: newData
+                    });
+                  }
                 }}
               />
             </Grid.Item>
@@ -270,7 +282,6 @@ Frequency.propTypes = {
   disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

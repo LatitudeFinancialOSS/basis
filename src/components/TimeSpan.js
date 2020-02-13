@@ -17,9 +17,8 @@ const DEFAULT_PROPS = {
   disabled: false,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ years }, { isTouched }) => {
-        if (!isTouched.years || years === "") {
+      validator: ({ years }) => {
+        if (years === "") {
           return null;
         }
 
@@ -37,9 +36,8 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ months }, { isTouched }) => {
-        if (!isTouched.months || months === "") {
+      validator: ({ months }) => {
+        if (months === "") {
           return null;
         }
 
@@ -57,9 +55,8 @@ const DEFAULT_PROPS = {
       }
     },
     {
-      condition: ({ optional }) => !optional,
-      validator: ({ years, months }, { isTouched }) => {
-        if (!isTouched.years && !isTouched.months) {
+      validator: ({ years, months }, { optional }) => {
+        if (years === "" && months === "" && optional) {
           return null;
         }
 
@@ -126,20 +123,14 @@ function TimeSpan(props) {
   } = mergedProps;
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState({
-    years: false,
-    months: false
-  });
   const { value, errors } = data;
   const helpText = useMemo(
     () => getHelpText(value.years, value.months, helpTextProp),
     [value.years, value.months, helpTextProp]
   );
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched
-    }
+    isEmpty: value.years === "" && value.months === ""
   });
 
   return (
@@ -164,26 +155,30 @@ function TimeSpan(props) {
               color={color}
               type="number"
               placeholder="Years"
+              optional={optional}
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  years: true
-                });
-              }}
-              onBlur={validate}
+              onFocus={onFocus}
+              onBlur={onBlur}
               validation={[]}
               data={{
                 value: value.years
               }}
               onChange={({ value: years }) => {
-                onChange({
+                const newData = {
                   ...data,
                   value: {
                     ...value,
                     years
                   }
-                });
+                };
+
+                onChange(newData);
+
+                if (errors?.length > 0) {
+                  validate({
+                    data: newData
+                  });
+                }
               }}
               __internal__focus={__internal__yearsFocus}
             />
@@ -193,26 +188,30 @@ function TimeSpan(props) {
               color={color}
               type="number"
               placeholder="Months"
+              optional={optional}
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  months: true
-                });
-              }}
-              onBlur={validate}
+              onFocus={onFocus}
+              onBlur={onBlur}
               validation={[]}
               data={{
                 value: value.months
               }}
               onChange={({ value: months }) => {
-                onChange({
+                const newData = {
                   ...data,
                   value: {
                     ...value,
                     months
                   }
-                });
+                };
+
+                onChange(newData);
+
+                if (errors?.length > 0) {
+                  validate({
+                    data: newData
+                  });
+                }
               }}
               __internal__focus={__internal__monthsFocus}
             />
@@ -231,7 +230,6 @@ TimeSpan.propTypes = {
   disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

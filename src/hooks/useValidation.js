@@ -1,26 +1,72 @@
-function useValidation({ props, extraData }) {
-  const { validation, data, onChange } = props;
+import { useEffect, useCallback, useRef } from "react";
+import useForm from "./useForm";
 
-  return () => {
-    const errors = validation.reduce((acc, item) => {
-      const shouldValidate = item.condition
-        ? item.condition(props, { previousErrors: acc })
-        : true;
-      const error = shouldValidate
-        ? item.validator(data.value, extraData)
-        : null;
+function useValidation({ props, isEmpty }) {
+  const { validation, onChange } = props;
+  const formData = useForm();
+  const validate = useCallback(
+    ({ data = props.data } = {}) => {
+      const errors = validation.reduce((acc, item) => {
+        const auxData = {
+          previousErrors: acc
+        };
+        const error = item.validator(data.value, props, auxData);
 
-      if (error) {
-        acc.push(error);
-      }
+        if (error) {
+          acc.push(error);
+        }
 
-      return acc;
-    }, []);
+        return acc;
+      }, []);
 
-    onChange({
-      ...data,
-      errors: errors.length === 0 ? null : errors
-    });
+      const errorsCount = errors.length;
+
+      onChange({
+        ...data,
+        errors: errorsCount === 0 ? null : errors
+      });
+
+      return errorsCount;
+    },
+    [props, validation, onChange]
+  );
+  const isFocused = useRef(false);
+  const onFocus = () => {
+    isFocused.current = true;
+  };
+  const onBlur = () => {
+    isFocused.current = false;
+
+    if (!isEmpty) {
+      /* 
+        setTimeout is needed in order to wait and see if other inputs gets focused.
+        I found that if we wait less than 100ms, isFocused.current could still be false
+        even though we focused on another input.
+      */
+      setTimeout(() => {
+        if (!isFocused.current) {
+          validate();
+        }
+      }, 100);
+    }
+  };
+
+  useEffect(() => {
+    if (validation.length === 0) {
+      return;
+    }
+
+    formData?.registerValidation?.(validate);
+
+    return () => {
+      formData?.unregisterValidation?.(validate);
+    };
+  }, [validation, formData, validate]);
+
+  return {
+    validate,
+    onFocus,
+    onBlur
   };
 }
 

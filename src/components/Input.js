@@ -18,9 +18,8 @@ const DEFAULT_PROPS = {
   pasteAllowed: true,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched }) => {
-        if (!isTouched) {
+      validator: (value, { optional }) => {
+        if (optional) {
           return null;
         }
 
@@ -58,8 +57,6 @@ function Input(props) {
     optional,
     placeholder,
     helpText,
-    onFocus,
-    onBlur,
     disabled,
     pasteAllowed,
     data,
@@ -70,14 +67,19 @@ function Input(props) {
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
   const { value, errors } = data;
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched
-    }
+    isEmpty: value === ""
   });
+  const onInputFocus = () => {
+    onFocus();
+    mergedProps.onFocus?.();
+  };
+  const onInputBlur = () => {
+    onBlur();
+    mergedProps.onBlur?.();
+  };
 
   return (
     <Field
@@ -112,14 +114,8 @@ function Input(props) {
         aria-invalid={errors ? "true" : null}
         aria-describedby={helpText || errors ? auxId : null}
         disabled={disabled}
-        onFocus={() => {
-          setIsTouched(true);
-          onFocus && onFocus();
-        }}
-        onBlur={() => {
-          validate();
-          onBlur && onBlur();
-        }}
+        onFocus={onInputFocus}
+        onBlur={onInputBlur}
         onPaste={e => {
           if (!pasteAllowed) {
             e.preventDefault();
@@ -127,10 +123,18 @@ function Input(props) {
         }}
         value={value}
         onChange={e => {
-          onChange({
+          const newData = {
             ...data,
             value: e.target.value
-          });
+          };
+
+          onChange(newData);
+
+          if (errors?.length > 0) {
+            validate({
+              data: newData
+            });
+          }
         }}
       />
     </Field>
@@ -150,7 +154,6 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

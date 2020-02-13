@@ -71,12 +71,11 @@ describe("Frequency", () => {
 
     const inputsContainer = container.querySelector("[aria-labelledby]");
 
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
-
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
     expect(errorMessage).toHaveTextContent("Please enter a valid amount.");
+    expect(queryByText("Some help text")).not.toBeInTheDocument();
   });
 
   it("renders multiple error messages", () => {

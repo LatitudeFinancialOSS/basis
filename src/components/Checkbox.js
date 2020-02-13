@@ -16,9 +16,8 @@ const DEFAULT_PROPS = {
   disabled: false,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched }) => {
-        if (!isTouched) {
+      validator: (value, { optional }) => {
+        if (optional) {
           return null;
         }
 
@@ -96,13 +95,10 @@ function Checkbox(props) {
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [inputId] = useState(() => `checkbox-${nanoid()}`);
   const [auxId] = useState(() => `checkbox-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
   const { value: isChecked, errors } = data;
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched
-    }
+    isEmpty: !isChecked
   });
 
   return (
@@ -134,15 +130,21 @@ function Checkbox(props) {
             id={inputId}
             checked={isChecked}
             disabled={disabled}
-            onFocus={() => {
-              setIsTouched(true);
-            }}
-            onBlur={validate}
+            onFocus={onFocus}
+            onBlur={onBlur}
             onChange={e => {
-              onChange({
+              const newData = {
                 ...data,
                 value: e.target.checked
-              });
+              };
+
+              onChange(newData);
+
+              if (errors?.length > 0) {
+                validate({
+                  data: newData
+                });
+              }
             }}
           />
         </VisuallyHidden>
@@ -181,7 +183,6 @@ Checkbox.propTypes = {
   disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

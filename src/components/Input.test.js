@@ -72,12 +72,11 @@ describe("Input", () => {
     input.focus();
     input.blur();
 
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
-
     const describedBy = input.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
     expect(errorMessage).toHaveTextContent("Required");
+    expect(queryByText("Some help text")).not.toBeInTheDocument();
   });
 
   it("inside dark container", () => {

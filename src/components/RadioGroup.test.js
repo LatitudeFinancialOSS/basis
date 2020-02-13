@@ -68,13 +68,12 @@ describe("RadioGroup", () => {
     yesInput.focus();
     yesInput.blur();
 
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
-
     const radioGroup = getByRole("radiogroup");
     const describedBy = radioGroup.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
     expect(errorMessage).toHaveTextContent("Please make a selection.");
+    expect(queryByText("Some help text")).not.toBeInTheDocument();
   });
 
   it("inside dark container", () => {

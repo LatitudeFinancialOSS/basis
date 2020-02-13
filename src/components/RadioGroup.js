@@ -11,6 +11,10 @@ import VisuallyHidden from "./VisuallyHidden";
 
 const COLORS = ["grey.t05", "white"];
 
+function isOptionSelected(options, value) {
+  return options.findIndex(option => option.value === value) > -1;
+}
+
 const DEFAULT_PROPS = {
   color: "grey.t05",
   showCircles: true,
@@ -18,17 +22,12 @@ const DEFAULT_PROPS = {
   disabled: false,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched, props }) => {
-        if (!isTouched) {
+      validator: (value, { optional, options }) => {
+        if (optional) {
           return null;
         }
 
-        const selectedOption = props.options.find(
-          option => option.value === value
-        );
-
-        if (!selectedOption) {
+        if (!isOptionSelected(options, value)) {
           return "Please make a selection.";
         }
 
@@ -167,8 +166,6 @@ function RadioGroup(props) {
     optional,
     helpText,
     disabled,
-    onFocus,
-    onBlur,
     data,
     onChange,
     testId
@@ -176,22 +173,18 @@ function RadioGroup(props) {
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
   const [radioName] = useState(() => `radio-name-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
   const { value: checkedValue, errors } = data;
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched,
-      props: mergedProps
-    }
+    isEmpty: !isOptionSelected(options, checkedValue)
   });
   const onRadioFocus = () => {
-    setIsTouched(true);
-    onFocus && onFocus();
+    onFocus();
+    mergedProps.onFocus?.();
   };
   const onRadioBlur = () => {
-    validate();
-    onBlur && onBlur();
+    onBlur();
+    mergedProps.onBlur?.();
   };
   const cols = columns === undefined ? options.length : columns;
 
@@ -231,10 +224,18 @@ function RadioGroup(props) {
                 onFocus={onRadioFocus}
                 onBlur={onRadioBlur}
                 onChange={value => {
-                  onChange({
+                  const newData = {
                     ...data,
                     value
-                  });
+                  };
+
+                  onChange(newData);
+
+                  if (errors?.length > 0) {
+                    validate({
+                      data: newData
+                    });
+                  }
                 }}
               />
             </Grid.Item>
@@ -263,7 +264,6 @@ RadioGroup.propTypes = {
   onBlur: PropTypes.func,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

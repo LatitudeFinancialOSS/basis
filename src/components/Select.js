@@ -9,6 +9,10 @@ import Field from "./internal/Field";
 
 const COLORS = ["grey.t05", "white"];
 
+function isOptionSelected(options, value) {
+  return options.findIndex(option => option.value === value) > -1;
+}
+
 const DEFAULT_PROPS = {
   color: "grey.t05",
   placeholder: "Please select",
@@ -17,17 +21,12 @@ const DEFAULT_PROPS = {
   disabled: false,
   validation: [
     {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched, props }) => {
-        if (!isTouched) {
+      validator: (value, { optional, options }) => {
+        if (optional) {
           return null;
         }
 
-        const selectedOption = props.options.find(
-          option => option.value === value
-        );
-
-        if (!selectedOption) {
+        if (!isOptionSelected(options, value)) {
           return "Please make a selection.";
         }
 
@@ -56,8 +55,6 @@ function Select(props) {
     color,
     label,
     placeholder,
-    onFocus,
-    onBlur,
     options,
     fullWidth,
     optional,
@@ -71,15 +68,19 @@ function Select(props) {
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
   const { value: selectedValue, errors } = data;
-  const validate = useValidation({
+  const { validate, onFocus, onBlur } = useValidation({
     props: mergedProps,
-    extraData: {
-      isTouched,
-      props: mergedProps
-    }
+    isEmpty: !isOptionSelected(options, selectedValue)
   });
+  const onSelectFocus = () => {
+    onFocus();
+    mergedProps.onFocus?.();
+  };
+  const onSelectBlur = () => {
+    onBlur();
+    mergedProps.onBlur?.();
+  };
 
   return (
     <Field
@@ -123,19 +124,21 @@ function Select(props) {
         aria-describedby={helpText || errors ? auxId : null}
         disabled={disabled}
         value={selectedValue}
-        onFocus={() => {
-          setIsTouched(true);
-          onFocus && onFocus();
-        }}
-        onBlur={() => {
-          validate();
-          onBlur && onBlur();
-        }}
+        onFocus={onSelectFocus}
+        onBlur={onSelectBlur}
         onChange={e => {
-          onChange({
+          const newData = {
             ...data,
             value: e.target.value
-          });
+          };
+
+          onChange(newData);
+
+          if (errors?.length > 0) {
+            validate({
+              data: newData
+            });
+          }
         }}
       >
         {placeholder && (
@@ -180,7 +183,6 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   validation: PropTypes.arrayOf(
     PropTypes.shape({
-      condition: PropTypes.func,
       validator: PropTypes.func.isRequired
     })
   ),

@@ -96,14 +96,13 @@ describe("TimeSpan", () => {
 
     const inputsContainer = container.querySelector("[aria-labelledby]");
 
-    expect(
-      queryByText("Please be as accurate as possible.")
-    ).not.toBeInTheDocument();
-
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
     expect(errorMessage).toHaveTextContent("Must be at least 1 month.");
+    expect(
+      queryByText("Please be as accurate as possible.")
+    ).not.toBeInTheDocument();
   });
 
   it("inside dark container", () => {
