@@ -55,10 +55,10 @@
     "babel-loader": "8.0.6",
     "cross-env": "7.0.0",
     "eslint": "6.8.0",
-    "eslint-plugin-jest": "23.6.0",
+    "eslint-plugin-jest": "23.7.0",
     "eslint-plugin-react": "7.18.3",
     "eslint-plugin-react-hooks": "2.3.0",
-    "husky": "4.2.1",
+    "husky": "4.2.3",
     "jest": "25.1.0",
     "mq-polyfill": "1.1.8",
     "prettier": "1.19.1",
@@ -66,7 +66,7 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-test-renderer": "16.12.0",
-    "rimraf": "3.0.1"
+    "rimraf": "3.0.2"
   },
   "repository": {
     "type": "git",
