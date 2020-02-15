@@ -38,7 +38,7 @@
     "polished": "3.4.4",
     "prettier": "1.19.1",
     "prop-types": "15.7.2",
-    "query-string": "6.10.1",
+    "query-string": "6.11.0",
     "re-resizable": "6.2.0",
     "react": "16.12.0",
     "react-copy-to-clipboard": "5.0.2",
