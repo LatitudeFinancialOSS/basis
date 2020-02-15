@@ -51,7 +51,7 @@
     "wcag-contrast": "3.0.0"
   },
   "devDependencies": {
-    "rimraf": "3.0.1"
+    "rimraf": "3.0.2"
   },
   "repository": {
     "type": "git",
