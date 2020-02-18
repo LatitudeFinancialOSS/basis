@@ -1,56 +1,193 @@
-import React, { forwardRef, useMemo, useRef, useImperativeHandle } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
-import { FormProvider } from "../hooks/useForm";
+import { FormProvider } from "../hooks/internal/useForm";
+import { setPath } from "../utils/setPath";
 
-function Form({ onSubmit, testId, children }, ref) {
-  const validateFunctions = useRef([]);
-  const providerValue = useMemo(
-    () => ({
-      registerValidation: validate => {
-        if (!validateFunctions.current.includes(validate)) {
-          validateFunctions.current.push(validate);
-        }
-      },
-      unregisterValidation: validate => {
-        const index = validateFunctions.current.findIndex(
-          fn => fn === validate
-        );
+function getParentFieldName(name) {
+  return name.split(".")[0];
+}
 
-        if (index > -1) {
-          validateFunctions.current.splice(index, 1);
-        }
+function Form({ initialValues, onSubmit, debug = false, children, testId }) {
+  const [state, setState] = useState({
+    values: initialValues,
+    errors: {},
+    shouldValidateOnChange: false,
+    namesToValidate: null,
+    submitStatus: "READY"
+  });
+  const fields = useRef({});
+  const lastFocusedFieldName = useRef(null);
+  const onFocus = event => {
+    const { name } = event.target;
+    const parentName = getParentFieldName(name);
+
+    lastFocusedFieldName.current = parentName;
+
+    setState(state =>
+      setPath(
+        state,
+        "shouldValidateOnChange",
+        Array.isArray(state.errors[parentName])
+      )
+    );
+  };
+  const onBlur = event => {
+    const { target } = event;
+    const { name } = target;
+    const parentName = getParentFieldName(name);
+
+    lastFocusedFieldName.current = null;
+
+    /* 
+      We use setTimeout in order to differentiate between onBlur to another field within
+      the same parent (e.g. DatePicker) and onBlur out of the parent.
+    */
+    setTimeout(() => {
+      if (lastFocusedFieldName.current !== parentName) {
+        setState(state => setPath(state, "namesToValidate", [parentName]));
       }
-    }),
-    []
-  );
+    });
+  };
+  const onChange = event => {
+    const { target } = event;
+    const { name } = target;
+    const isCheckbox = target.type === "checkbox";
+    const value = isCheckbox ? target.checked : target.value;
 
-  useImperativeHandle(ref, () => ({
-    validateForm: () => {
-      let errorsCount = 0;
+    setState(state => {
+      let newState = setPath(state, `values.${name}`, value);
 
-      validateFunctions.current.forEach(validate => {
-        errorsCount += validate();
+      /*
+        Without validating the Checkbox on every change, we have the following unwanted behaviour.
+        When the Checkbox is not checked:
+          1. Click the Checkbox twice (it should be unchecked again).
+          2. Press the Checkbox without releasing it (validation error appears).
+          3. If you resease the Checkbox now, the validation error disappears.
+      */
+      if (state.shouldValidateOnChange || isCheckbox) {
+        newState = setPath(newState, "namesToValidate", [
+          getParentFieldName(name)
+        ]);
+      }
+
+      return newState;
+    });
+  };
+  const registerField = (name, field) => {
+    fields.current[name] = field;
+  };
+  const unregisterField = name => {
+    delete fields.current[name];
+  };
+  const providerValue = {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  };
+  const validateField = useCallback((state, name) => {
+    const value = state.values[name];
+    const field = fields.current[name];
+
+    if (
+      field.optional === true &&
+      typeof field.isEmpty === "function" &&
+      field.isEmpty(value) === true
+    ) {
+      return null;
+    }
+
+    if (typeof field.validate === "function") {
+      const errors = field.validate(value, {
+        isEmpty: field.isEmpty
       });
 
-      return errorsCount;
+      if (typeof errors === "string") {
+        return [errors];
+      }
+
+      if (Array.isArray(errors) && errors.length > 0) {
+        return errors;
+      }
     }
-  }));
+
+    return null;
+  }, []);
+  const getNewErrors = useCallback(
+    state => {
+      const names = state.namesToValidate;
+      const newErrors = { ...state.errors };
+
+      names.forEach(name => {
+        const errors = validateField(state, name);
+
+        if (errors === null) {
+          delete newErrors[name];
+        } else {
+          newErrors[name] = errors;
+        }
+      });
+
+      return newErrors;
+    },
+    [validateField]
+  );
+
+  useEffect(() => {
+    if (state.namesToValidate === null) {
+      return;
+    }
+
+    setState(state => {
+      let newState = setPath(state, "errors", getNewErrors(state));
+
+      if (state.submitStatus === "VALIDATE_THEN_SUBMIT") {
+        newState = setPath(newState, "submitStatus", "SUBMIT");
+      }
+
+      return newState;
+    });
+  }, [state.namesToValidate, getNewErrors]);
+
+  useEffect(() => {
+    if (state.submitStatus === "SUBMIT") {
+      onSubmit(state.errors, state.values);
+
+      setState(state => setPath(state, "submitStatus", "READY"));
+    }
+  }, [state.submitStatus, state.errors, state.values, onSubmit]);
 
   return (
     <FormProvider value={providerValue}>
-      <form method="POST" onSubmit={onSubmit} data-testid={testId}>
-        {children}
+      <form
+        method="POST"
+        action="#" // https://stackoverflow.com/a/45705325/247243
+        onSubmit={event => {
+          event.preventDefault();
+
+          setState(state => ({
+            ...state,
+            namesToValidate: Object.keys(state.values),
+            submitStatus: "VALIDATE_THEN_SUBMIT"
+          }));
+        }}
+        data-testid={testId}
+      >
+        {children({ state })}
       </form>
+      {debug && <pre>{JSON.stringify(state, null, 2)}</pre>}
     </FormProvider>
   );
 }
 
-Form = forwardRef(Form); // eslint-disable-line no-func-assign
-
 Form.propTypes = {
+  initialValues: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  testId: PropTypes.string,
-  children: PropTypes.node.isRequired
+  debug: PropTypes.bool,
+  children: PropTypes.func.isRequired,
+  testId: PropTypes.string
 };
 
 export default Form;

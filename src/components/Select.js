@@ -1,46 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
+import InternalSelect from "./internal/InternalSelect";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS, DEFAULT_COLOR } = InternalSelect;
 
 function isOptionSelected(options, value) {
   return options.findIndex(option => option.value === value) > -1;
 }
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
+  color: DEFAULT_COLOR,
   placeholder: "Please select",
   fullWidth: true,
   optional: false,
   disabled: false,
-  validation: [
-    {
-      validator: (value, { optional, options }) => {
-        if (optional) {
-          return null;
-        }
-
-        if (!isOptionSelected(options, value)) {
-          return "Please make a selection.";
-        }
-
-        return null;
-      }
+  validate: (value, { isEmpty }) => {
+    if (isEmpty(value)) {
+      return "Please make a selection.";
     }
-  ]
+
+    return null;
+  }
 };
 
 Select.COLORS = COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Select(props) {
-  const theme = useTheme();
   const { inputColor } = useBackground();
   const inheritedProps = {
     color: inputColor
@@ -52,6 +43,7 @@ function Select(props) {
     disabled: disabled => typeof disabled === "boolean"
   });
   const {
+    name,
     color,
     label,
     placeholder,
@@ -60,27 +52,35 @@ function Select(props) {
     optional,
     helpText,
     disabled,
-    data,
-    onChange,
+    validate,
     testId,
     __internal__focus
   } = mergedProps;
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
-  const { value: selectedValue, errors } = data;
-  const { validate, onFocus, onBlur } = useValidation({
-    props: mergedProps,
-    isEmpty: !isOptionSelected(options, selectedValue)
-  });
-  const onSelectFocus = () => {
-    onFocus();
-    mergedProps.onFocus?.();
-  };
-  const onSelectBlur = () => {
-    onBlur();
-    mergedProps.onBlur?.();
-  };
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      isEmpty: value => isOptionSelected(options, value) === false
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, options, optional, validate, registerField, unregisterField]);
 
   return (
     <Field
@@ -94,82 +94,32 @@ function Select(props) {
       errors={errors}
       testId={testId}
     >
-      <select
-        css={{
-          ...theme.selectInput,
-          ...theme[`selectInput.${colorStr}`],
-          ...(fullWidth && theme["selectInput.fullWidth"]),
-          ":focus": {
-            ...theme["selectInput:focus"],
-            ...theme[`selectInput.${colorStr}:focus`]
-          },
-          ...(__internal__focus && {
-            ...theme["selectInput:focus"],
-            ...theme[`selectInput.${colorStr}:focus`]
-          }),
-          ":active": {
-            ...(!disabled && theme[`selectInput.${colorStr}:active`])
-          },
-          ":hover": {
-            ...(!disabled && theme[`selectInput.${colorStr}:hover`])
-          },
-          // See: https://stackoverflow.com/a/19451423/247243
-          ":-moz-focusring": {
-            color: "transparent",
-            textShadow: "0 0 0 #000"
-          }
-        }}
+      <InternalSelect
         id={selectId}
-        aria-invalid={errors ? "true" : null}
-        aria-describedby={helpText || errors ? auxId : null}
+        name={name}
+        color={color}
+        placeholder={placeholder}
+        options={options}
+        fullWidth={fullWidth}
+        optional={optional}
         disabled={disabled}
-        value={selectedValue}
-        onFocus={onSelectFocus}
-        onBlur={onSelectBlur}
-        onChange={e => {
-          const newData = {
-            ...data,
-            value: e.target.value
-          };
-
-          onChange(newData);
-
-          if (errors?.length > 0) {
-            validate({
-              data: newData
-            });
-          }
-        }}
-      >
-        {placeholder && (
-          <option value="" disabled={!optional} hidden={!optional}>
-            {placeholder}
-          </option>
-        )}
-        {options.map(option => (
-          /* 
-            Note: We use `option.label` as the key here because users shouldn't have
-                  multiple options with the same label.
-                  They can have multiple options with the same value though!
-                  For example:
-                    <option value="us">USA</option>
-                    <option value="us">United States</option>
-          */
-          <option value={option.value} key={option.label}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        isValid={!hasErrors}
+        describedBy={helpText || hasErrors ? auxId : null}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        value={value}
+        onChange={onChange}
+        __internal__focus={__internal__focus}
+      />
     </Field>
   );
 }
 
 Select.propTypes = {
-  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   placeholder: PropTypes.string,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -179,18 +129,8 @@ Select.propTypes = {
   fullWidth: PropTypes.bool,
   optional: PropTypes.bool,
   helpText: PropTypes.string,
-  errorMessage: PropTypes.string,
   disabled: PropTypes.bool,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  validate: PropTypes.func,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

@@ -37,7 +37,7 @@ function Field({
         </label>
       )}
       {children}
-      {errors ? (
+      {Array.isArray(errors) && errors.length > 0 ? (
         <div css={theme["field.errors"]} id={auxId}>
           <Grid cols={1} rowsGutter={1}>
             {errors.map((error, index) => (

@@ -1,36 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
+import InternalInput from "./internal/InternalInput";
 
-const TYPES = ["text", "number"];
-const COLORS = ["grey.t05", "white"];
+const { TYPES, DEFAULT_TYPE, COLORS, DEFAULT_COLOR } = InternalInput;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  type: "text",
+  color: DEFAULT_COLOR,
+  type: DEFAULT_TYPE,
   optional: false,
   disabled: false,
   pasteAllowed: true,
-  validation: [
-    {
-      validator: (value, { optional }) => {
-        if (optional) {
-          return null;
-        }
-
-        if (value.trim() === "") {
-          return "Required";
-        }
-
-        return null;
-      }
+  validate: (value, { isEmpty }) => {
+    if (isEmpty(value)) {
+      return "Required";
     }
-  ]
+
+    return null;
+  }
 };
 
 Input.TYPES = TYPES;
@@ -38,7 +29,6 @@ Input.COLORS = COLORS;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Input(props) {
-  const theme = useTheme();
   const { inputColor } = useBackground();
   const inheritedProps = {
     color: inputColor
@@ -51,6 +41,7 @@ function Input(props) {
     pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean"
   });
   const {
+    name,
     color,
     type,
     label,
@@ -59,27 +50,35 @@ function Input(props) {
     helpText,
     disabled,
     pasteAllowed,
-    data,
-    onChange,
+    validate,
     testId,
     __internal__focus
   } = mergedProps;
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
-  const { value, errors } = data;
-  const { validate, onFocus, onBlur } = useValidation({
-    props: mergedProps,
-    isEmpty: value === ""
-  });
-  const onInputFocus = () => {
-    onFocus();
-    mergedProps.onFocus?.();
-  };
-  const onInputBlur = () => {
-    onBlur();
-    mergedProps.onBlur?.();
-  };
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      isEmpty: value => value.trim() === ""
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, optional, validate, registerField, unregisterField]);
 
   return (
     <Field
@@ -92,76 +91,37 @@ function Input(props) {
       errors={errors}
       testId={testId}
     >
-      <input
-        css={{
-          ...theme.input,
-          ...theme[`input.${colorStr}`],
-          ":focus": theme["input:focus"],
-          ...(__internal__focus && theme["input:focus"]),
-          ":hover": theme["input:hover"],
-          ...(type === "number" && {
-            "::-webkit-inner-spin-button, ::-webkit-outer-spin-button":
-              theme["input.webkitSpinButton"]
-          })
-        }}
+      <InternalInput
         id={label ? inputId : null}
+        name={name}
         type={type}
         placeholder={placeholder}
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck="false"
-        aria-invalid={errors ? "true" : null}
-        aria-describedby={helpText || errors ? auxId : null}
+        color={color}
         disabled={disabled}
-        onFocus={onInputFocus}
-        onBlur={onInputBlur}
-        onPaste={e => {
-          if (!pasteAllowed) {
-            e.preventDefault();
-          }
-        }}
+        pasteAllowed={pasteAllowed}
+        isValid={!hasErrors}
+        describedBy={helpText || hasErrors ? auxId : null}
+        onFocus={onFocus}
+        onBlur={onBlur}
         value={value}
-        onChange={e => {
-          const newData = {
-            ...data,
-            value: e.target.value
-          };
-
-          onChange(newData);
-
-          if (errors?.length > 0) {
-            validate({
-              data: newData
-            });
-          }
-        }}
+        onChange={onChange}
+        __internal__focus={__internal__focus}
       />
     </Field>
   );
 }
 
 Input.propTypes = {
+  name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   type: PropTypes.oneOf(TYPES),
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   optional: PropTypes.bool,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
   disabled: PropTypes.bool,
   pasteAllowed: PropTypes.bool,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  validate: PropTypes.func,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };
