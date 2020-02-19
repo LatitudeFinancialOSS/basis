@@ -59,56 +59,54 @@ function RadioGroupPage() {
       
       return (
         <Form initialValues={initialValues}>
-          {() => (
-            <RadioGroup ${nonDefaultProps([
-              {
-                prop: "name",
-                value: "hungry"
-              },
-              {
-                prop: "label",
-                value: "Are you hungry?"
-              },
-              {
-                prop: "color",
-                value: color,
-                defaultValue: DEFAULT_PROPS.color
-              },
-              {
-                prop: "columns",
-                value: columns,
-                defaultValue: "Unspecified",
-                type: "number"
-              },
-              {
-                prop: "showCircles",
-                value: showCircles,
-                defaultValue: DEFAULT_PROPS.showCircles,
-                type: "boolean"
-              },
-              {
-                prop: "optional",
-                value: optional,
-                defaultValue: DEFAULT_PROPS.optional,
-                type: "boolean"
-              },
-              {
-                prop: "helpText",
-                value: hasHelpText
-                  ? "Be true to yourself."
-                  : DEFAULT_PROPS.helpText,
-                defaultValue: DEFAULT_PROPS.helpText
-              },
-              {
-                prop: "disabled",
-                value: disabled,
-                defaultValue: DEFAULT_PROPS.disabled,
-                type: "boolean"
-              }
-            ])}
-              options={options}
-            />
-          )}
+          <RadioGroup ${nonDefaultProps([
+            {
+              prop: "name",
+              value: "hungry"
+            },
+            {
+              prop: "label",
+              value: "Are you hungry?"
+            },
+            {
+              prop: "color",
+              value: color,
+              defaultValue: DEFAULT_PROPS.color
+            },
+            {
+              prop: "columns",
+              value: columns,
+              defaultValue: "Unspecified",
+              type: "number"
+            },
+            {
+              prop: "showCircles",
+              value: showCircles,
+              defaultValue: DEFAULT_PROPS.showCircles,
+              type: "boolean"
+            },
+            {
+              prop: "optional",
+              value: optional,
+              defaultValue: DEFAULT_PROPS.optional,
+              type: "boolean"
+            },
+            {
+              prop: "helpText",
+              value: hasHelpText
+                ? "Be true to yourself."
+                : DEFAULT_PROPS.helpText,
+              defaultValue: DEFAULT_PROPS.helpText
+            },
+            {
+              prop: "disabled",
+              value: disabled,
+              defaultValue: DEFAULT_PROPS.disabled,
+              type: "boolean"
+            }
+          ])}
+            options={options}
+          />
         </Form>
       );
     }

@@ -191,7 +191,9 @@ function Form(_props) {
         onSubmit={onFormSubmit}
         data-testid={testId}
       >
-        {children({ state, submitForm })}
+        {typeof children === "function"
+          ? children({ state, submitForm })
+          : children}
       </form>
       {debug && <pre>{JSON.stringify(state, null, 2)}</pre>}
     </FormProvider>
@@ -203,7 +205,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func,
   fullWidth: PropTypes.bool,
   debug: PropTypes.bool,
-  children: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
   testId: PropTypes.string
 };
 

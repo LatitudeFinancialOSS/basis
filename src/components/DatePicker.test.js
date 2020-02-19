@@ -1,25 +1,30 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, wait } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import Form from "./Form";
 import DatePicker from "./DatePicker";
 import Container from "./Container";
 
-function App(props) {
-  const [date, setDate] = React.useState({
-    value: {
+function FormWithDatePicker(props) {
+  const initialValues = {
+    weddingDate: {
       day: "",
       month: "",
       year: ""
     }
-  });
+  };
 
-  return <DatePicker data={date} onChange={setDate} {...props} />;
+  return (
+    <Form initialValues={initialValues}>
+      <DatePicker name="weddingDate" {...props} />
+    </Form>
+  );
 }
 
 describe("DatePicker", () => {
   it("renders label and 3 fields", () => {
     const { container, getByText, getByPlaceholderText } = render(
-      <App label="Expiry date" />
+      <FormWithDatePicker label="Expiry date" />
     );
     const label = getByText("Expiry date");
     const inputsContainer = container.querySelector("[aria-labelledby]");
@@ -42,7 +47,7 @@ describe("DatePicker", () => {
 
   it("renders help text", () => {
     const { container } = render(
-      <App label="Expiry date" helpText="Some help text" />
+      <FormWithDatePicker label="Expiry date" helpText="Some help text" />
     );
     const inputsContainer = container.querySelector("[aria-labelledby]");
     const describedBy = inputsContainer.getAttribute("aria-describedby");
@@ -51,9 +56,9 @@ describe("DatePicker", () => {
     expect(errorMessage).toHaveTextContent("Some help text");
   });
 
-  it("renders error message", () => {
+  it("renders error messages", async () => {
     const { container, queryByText, getByPlaceholderText } = render(
-      <App label="Expiry date" helpText="Some help text" />
+      <FormWithDatePicker label="Expiry date" helpText="Some help text" />
     );
 
     const dayInput = getByPlaceholderText("DD");
@@ -62,41 +67,25 @@ describe("DatePicker", () => {
     dayInput.blur();
 
     const inputsContainer = container.querySelector("[aria-labelledby]");
-
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Day must be within 1-31.");
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
-  });
-
-  it("renders multiple error messages", () => {
-    const { container, getByPlaceholderText } = render(
-      <App label="Expiry date" helpText="Some help text" />
-    );
-
-    const monthInput = getByPlaceholderText("MM");
-    const yearInput = getByPlaceholderText("YYYY");
-
-    monthInput.focus();
-    monthInput.blur();
-
-    yearInput.focus();
-    yearInput.blur();
-
-    const inputsContainer = container.querySelector("[aria-labelledby]");
-    const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
-    expect(errorMessage).toHaveTextContent(
-      ["Month must be within 1-12.", "Year must be within 1800-2200."].join("")
-    );
+    await wait(() => {
+      expect(errorMessage).toHaveTextContent(
+        [
+          "Day must be within 1-31.",
+          "Month must be within 1-12.",
+          "Year must be within 1800-2200."
+        ].join("")
+      );
+      expect(queryByText("Some help text")).not.toBeInTheDocument();
+    });
   });
 
   it("inside dark container", () => {
     const { getByPlaceholderText } = render(
       <Container bg="primary.blue.t100">
-        <App label="Expiry date" />
+        <FormWithDatePicker label="Expiry date" />
       </Container>
     );
     const dayInput = getByPlaceholderText("DD");
@@ -116,10 +105,10 @@ describe("DatePicker", () => {
 
   it("with testId", () => {
     const { container } = render(
-      <App label="Expiry date" testId="my-date-picker" />
+      <FormWithDatePicker label="Expiry date" testId="my-date-picker" />
     );
 
-    expect(container.firstChild).toHaveAttribute(
+    expect(container.querySelector("form").firstChild).toHaveAttribute(
       "data-testid",
       "my-date-picker"
     );

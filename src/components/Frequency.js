@@ -101,7 +101,7 @@ function Frequency(props) {
     fortnightly,
     weekly,
     optional,
-    inputPlaceholder,
+    amountPlaceholder,
     selectPlaceholder,
     helpText,
     disabled,
@@ -177,7 +177,7 @@ function Frequency(props) {
       name={`${name}.amount`}
       color={color}
       type="number"
-      placeholder={inputPlaceholder}
+      placeholder={amountPlaceholder}
       disabled={disabled}
       onFocus={onFocus}
       onBlur={onBlur}
@@ -265,7 +265,7 @@ Frequency.propTypes = {
   monthly: PropTypes.bool,
   fortnightly: PropTypes.bool,
   weekly: PropTypes.bool,
-  inputPlaceholder: PropTypes.string,
+  amountPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,
   disabled: PropTypes.bool,

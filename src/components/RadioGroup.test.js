@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { render } from "../utils/test";
+import React from "react";
+import { render, wait } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import Form from "./Form";
 import RadioGroup from "./RadioGroup";
 import Container from "./Container";
 
@@ -19,24 +20,23 @@ const options = [
   }
 ];
 
-function App(props) {
-  const [hungry, setHungry] = useState({
-    value: ""
-  });
+function FormWithRadioGroup(props) {
+  const initialValues = {
+    hungry: ""
+  };
 
   return (
-    <RadioGroup
-      options={options}
-      data={hungry}
-      onChange={setHungry}
-      {...props}
-    />
+    <Form initialValues={initialValues}>
+      <RadioGroup name="hungry" options={options} {...props} />
+    </Form>
   );
 }
 
 describe("RadioGroup", () => {
   it("renders label that is connected to the radio group", () => {
-    const { getByText, getByRole } = render(<App label="Are you happy?" />);
+    const { getByText, getByRole } = render(
+      <FormWithRadioGroup label="Are you happy?" />
+    );
     const label = getByText("Are you happy?");
     const radioGroup = getByRole("radiogroup");
 
@@ -50,18 +50,18 @@ describe("RadioGroup", () => {
 
   it("renders help text that is connected to the radio group", () => {
     const { container, getByRole } = render(
-      <App label="Are you happy?" helpText="Some help text" />
+      <FormWithRadioGroup label="Are you happy?" helpText="Some help text" />
     );
     const radioGroup = getByRole("radiogroup");
     const describedBy = radioGroup.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
+    const helpText = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Some help text");
+    expect(helpText).toHaveTextContent("Some help text");
   });
 
-  it("renders error message", () => {
+  it("renders error message", async () => {
     const { container, queryByText, getByLabelText, getByRole } = render(
-      <App label="Are you happy?" helpText="Some help text" />
+      <FormWithRadioGroup label="Are you happy?" helpText="Some help text" />
     );
     const yesInput = getByLabelText("Yes");
 
@@ -72,14 +72,16 @@ describe("RadioGroup", () => {
     const describedBy = radioGroup.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Please make a selection.");
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
+    await wait(() => {
+      expect(errorMessage).toHaveTextContent("Please make a selection.");
+      expect(queryByText("Some help text")).not.toBeInTheDocument();
+    });
   });
 
   it("inside dark container", () => {
     const { getByText } = render(
       <Container bg="primary.blue.t100">
-        <App label="Are you happy?" />
+        <FormWithRadioGroup label="Are you happy?" />
       </Container>
     );
     const yesLabel = getByText("Yes");
@@ -91,10 +93,10 @@ describe("RadioGroup", () => {
 
   it("with testId", () => {
     const { container } = render(
-      <App label="Are you happy?" testId="my-radio-group" />
+      <FormWithRadioGroup label="Are you happy?" testId="my-radio-group" />
     );
 
-    expect(container.firstChild).toHaveAttribute(
+    expect(container.querySelector("form").firstChild).toHaveAttribute(
       "data-testid",
       "my-radio-group"
     );

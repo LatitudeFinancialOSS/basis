@@ -16,7 +16,7 @@ function FormWithFrequency({
     amount: "",
     frequency: ""
   },
-  inputPlaceholder,
+  amountPlaceholder,
   selectPlaceholder,
   disabled,
   submitOnMount
@@ -35,7 +35,7 @@ function FormWithFrequency({
         monthly={monthly}
         fortnightly={fortnightly}
         weekly={weekly}
-        inputPlaceholder={inputPlaceholder}
+        amountPlaceholder={amountPlaceholder}
         selectPlaceholder={selectPlaceholder}
         disabled={disabled}
       />
@@ -56,7 +56,7 @@ FormWithFrequency.propTypes = {
     amount: PropTypes.string.isRequired,
     frequency: PropTypes.string.isRequired
   }),
-  inputPlaceholder: PropTypes.string,
+  amountPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
   submitOnMount: PropTypes.bool
@@ -115,7 +115,7 @@ function KitchenSinkFrequency() {
             label="Custom placeholders"
             mode="select"
             quarterly={false}
-            inputPlaceholder="Type something"
+            amountPlaceholder="Type something"
             selectPlaceholder="Select something"
             initialValue={{
               amount: "",

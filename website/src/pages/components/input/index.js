@@ -36,50 +36,48 @@ function InputPage() {
       
       return (
         <Form initialValues={initialValues}>
-          {() => (
-            <Input ${nonDefaultProps([
-              {
-                prop: "name",
-                value: "name"
-              },
-              {
-                prop: "color",
-                value: color,
-                defaultValue: DEFAULT_PROPS.color
-              },
-              {
-                prop: "label",
-                value: "Name"
-              },
-              {
-                prop: "optional",
-                value: optional,
-                defaultValue: DEFAULT_PROPS.optional,
-                type: "boolean"
-              },
-              {
-                prop: "placeholder",
-                value: hasPlaceholder
-                  ? "e.g. David Smith"
-                  : DEFAULT_PROPS.placeholder,
-                defaultValue: DEFAULT_PROPS.placeholder
-              },
-              {
-                prop: "helpText",
-                value: hasHelpText
-                  ? "Nickname is fine too."
-                  : DEFAULT_PROPS.helpText,
-                defaultValue: DEFAULT_PROPS.helpText
-              },
-              {
-                prop: "disabled",
-                value: disabled,
-                defaultValue: DEFAULT_PROPS.disabled,
-                type: "boolean"
-              }
-            ])}
-            />
-          )}
+          <Input ${nonDefaultProps([
+            {
+              prop: "name",
+              value: "name"
+            },
+            {
+              prop: "color",
+              value: color,
+              defaultValue: DEFAULT_PROPS.color
+            },
+            {
+              prop: "label",
+              value: "Name"
+            },
+            {
+              prop: "optional",
+              value: optional,
+              defaultValue: DEFAULT_PROPS.optional,
+              type: "boolean"
+            },
+            {
+              prop: "placeholder",
+              value: hasPlaceholder
+                ? "e.g. David Smith"
+                : DEFAULT_PROPS.placeholder,
+              defaultValue: DEFAULT_PROPS.placeholder
+            },
+            {
+              prop: "helpText",
+              value: hasHelpText
+                ? "Nickname is fine too."
+                : DEFAULT_PROPS.helpText,
+              defaultValue: DEFAULT_PROPS.helpText
+            },
+            {
+              prop: "disabled",
+              value: disabled,
+              defaultValue: DEFAULT_PROPS.disabled,
+              type: "boolean"
+            }
+          ])}
+          />
         </Form>
       );
     }

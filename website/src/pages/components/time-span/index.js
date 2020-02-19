@@ -35,43 +35,41 @@ function TimeSpanPage() {
 
       return (
         <Form initialValues={initialValues}>
-          {() => (
-            <TimeSpan ${nonDefaultProps([
-              {
-                prop: "name",
-                value: "liveInCurrentAddress"
-              },
-              {
-                prop: "color",
-                value: color,
-                defaultValue: DEFAULT_PROPS.color
-              },
-              {
-                prop: "label",
-                value: "How long do you live in the current address?"
-              },
-              {
-                prop: "optional",
-                value: optional,
-                defaultValue: DEFAULT_PROPS.optional,
-                type: "boolean"
-              },
-              {
-                prop: "helpText",
-                value: hasHelpText
-                  ? "Please be as accurate as possible."
-                  : DEFAULT_PROPS.helpText,
-                defaultValue: DEFAULT_PROPS.helpText
-              },
-              {
-                prop: "disabled",
-                value: disabled,
-                defaultValue: DEFAULT_PROPS.disabled,
-                type: "boolean"
-              }
-            ])}
-            />
-          )}
+          <TimeSpan ${nonDefaultProps([
+            {
+              prop: "name",
+              value: "liveInCurrentAddress"
+            },
+            {
+              prop: "color",
+              value: color,
+              defaultValue: DEFAULT_PROPS.color
+            },
+            {
+              prop: "label",
+              value: "How long do you live in the current address?"
+            },
+            {
+              prop: "optional",
+              value: optional,
+              defaultValue: DEFAULT_PROPS.optional,
+              type: "boolean"
+            },
+            {
+              prop: "helpText",
+              value: hasHelpText
+                ? "Please be as accurate as possible."
+                : DEFAULT_PROPS.helpText,
+              defaultValue: DEFAULT_PROPS.helpText
+            },
+            {
+              prop: "disabled",
+              value: disabled,
+              defaultValue: DEFAULT_PROPS.disabled,
+              type: "boolean"
+            }
+          ])}
+          />
         </Form>
       );
     }

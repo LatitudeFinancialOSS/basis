@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { render } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import Form from "./Form";
 import Select from "./Select";
 import Container from "./Container";
 
@@ -19,25 +20,22 @@ const options = [
   }
 ];
 
-function App(props) {
-  const [relationshipStatus, setRelationshipStatus] = useState({
-    value: ""
-  });
+function FormWithSelect(props) {
+  const initialValues = {
+    relationshipStatus: ""
+  };
 
   return (
-    <Select
-      options={options}
-      data={relationshipStatus}
-      onChange={setRelationshipStatus}
-      {...props}
-    />
+    <Form initialValues={initialValues}>
+      <Select name="relationshipStatus" options={options} {...props} />
+    </Form>
   );
 }
 
 describe("Select", () => {
   it("renders label, placeholder and all options", () => {
     const { getByText, getByDisplayValue } = render(
-      <App label="Relationship status" />
+      <FormWithSelect label="Relationship status" />
     );
     const label = getByText("Relationship status");
 
@@ -76,25 +74,28 @@ describe("Select", () => {
       background-image: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' hei…1.495.802.874.874 0 01-.253.607z' fill='%23414141'%3E%3C/path%3E%3C/svg%3E);
       background-repeat: no-repeat;
       background-position: right 8px top 50%;
-      align-self: auto;
+      width: 100%;
       background-color: #f2f2f2;
     `);
   });
 
   it("not full width", () => {
     const { getByDisplayValue } = render(
-      <App label="Relationship status" fullWidth={false} />
+      <FormWithSelect label="Relationship status" fullWidth={false} />
     );
     const select = getByDisplayValue("Please select");
 
-    expect(select).toHaveStyle(`
-      align-self: flex-start;
+    expect(select).not.toHaveStyle(`
+      width: 100%;
     `);
   });
 
   it("custom placeholder", () => {
     const { queryByText, getByText } = render(
-      <App label="Relationship status" placeholder="Choose something" />
+      <FormWithSelect
+        label="Relationship status"
+        placeholder="Choose something"
+      />
     );
 
     expect(queryByText("Please select")).not.toBeInTheDocument();
@@ -105,7 +106,7 @@ describe("Select", () => {
   it("inside dark container", () => {
     const { getByDisplayValue } = render(
       <Container bg="primary.blue.t100">
-        <App label="Relationship status" />
+        <FormWithSelect label="Relationship status" />
       </Container>
     );
     const select = getByDisplayValue("Please select");
@@ -117,9 +118,12 @@ describe("Select", () => {
 
   it("with testId", () => {
     const { container } = render(
-      <App label="Relationship status" testId="my-select" />
+      <FormWithSelect label="Relationship status" testId="my-select" />
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-select");
+    expect(container.querySelector("form").firstChild).toHaveAttribute(
+      "data-testid",
+      "my-select"
+    );
   });
 });

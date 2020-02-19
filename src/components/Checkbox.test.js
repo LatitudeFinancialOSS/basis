@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { render } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import Form from "./Form";
 import Checkbox from "./Checkbox";
 import Container from "./Container";
 
-function App(props) {
-  const [data, onChange] = useState({
-    value: false
-  });
+function FormWithCheckbox(props) {
+  const initialValues = {
+    terms: false
+  };
 
-  return <Checkbox data={data} onChange={onChange} {...props} />;
+  return (
+    <Form initialValues={initialValues}>
+      <Checkbox name="terms" {...props} />
+    </Form>
+  );
 }
 
 describe("Checkbox", () => {
   it("renders label that is connected to checkbox", () => {
     const { container, getByText } = render(
-      <App label="Accept terms and conditions">I agree</App>
+      <FormWithCheckbox label="Accept terms and conditions">
+        I agree
+      </FormWithCheckbox>
     );
     const label = getByText("Accept terms and conditions");
     const checkboxContainer = container.querySelector("[aria-checked]");
@@ -51,7 +58,9 @@ describe("Checkbox", () => {
   it("inside dark container", () => {
     const { container } = render(
       <Container bg="primary.blue.t100">
-        <App label="Accept terms and conditions">I agree</App>
+        <FormWithCheckbox label="Accept terms and conditions">
+          I agree
+        </FormWithCheckbox>
       </Container>
     );
     const checkboxContainer = container.querySelector("[aria-checked]");
@@ -64,11 +73,17 @@ describe("Checkbox", () => {
 
   it("with testId", () => {
     const { container } = render(
-      <App label="Accept terms and conditions" testId="my-checkbox">
+      <FormWithCheckbox
+        label="Accept terms and conditions"
+        testId="my-checkbox"
+      >
         I agree
-      </App>
+      </FormWithCheckbox>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-checkbox");
+    expect(container.querySelector("form").firstChild).toHaveAttribute(
+      "data-testid",
+      "my-checkbox"
+    );
   });
 });

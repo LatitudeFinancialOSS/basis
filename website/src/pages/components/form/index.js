@@ -66,19 +66,17 @@ function FormPage() {
       return (
         <Container padding="8">
           <Form initialValues={initialValues} onSubmit={onSubmit}>
-            {() => (
-              <Grid rowsGutter="8">
-                <Text as="h2" textStyle="heading4">About you</Text>
-                <Input name="name" label="Name" />
-                <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
-                <Checkbox name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
-                <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
-                <Frequency name="salary" label="Salary" />
-                <DatePicker name="weddingDate" label="Wedding date" />
-                <TimeSpan name="age" label="Age" />
-                <Button type="submit">Submit</Button>
-              </Grid>
-            )}
+            <Grid rowsGutter="8">
+              <Text as="h2" textStyle="heading4">About you</Text>
+              <Input name="name" label="Name" />
+              <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
+              <Checkbox name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
+              <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
+              <Frequency name="salary" label="Salary" />
+              <DatePicker name="weddingDate" label="Wedding date" />
+              <TimeSpan name="age" label="Age" />
+              <Button type="submit">Submit</Button>
+            </Grid>
           </Form>
         </Container>
       );

@@ -34,46 +34,44 @@ function CheckboxPage() {
 
     return (
       <Form initialValues={initialValues}>
-        {() => (
-          <Checkbox ${nonDefaultProps([
-            {
-              prop: "name",
-              value: "agreedToTerms"
-            },
-            {
-              prop: "label",
-              value: hasLabel
-                ? "Accept terms and conditions"
-                : DEFAULT_PROPS.label,
-              defaultValue: DEFAULT_PROPS.label
-            },
-            {
-              prop: "color",
-              value: color,
-              defaultValue: DEFAULT_PROPS.color
-            },
-            {
-              prop: "optional",
-              value: optional,
-              defaultValue: DEFAULT_PROPS.optional,
-              type: "boolean"
-            },
-            {
-              prop: "helpText",
-              value: hasHelpText ? "Help text" : DEFAULT_PROPS.helpText,
-              defaultValue: DEFAULT_PROPS.helpText
-            },
-            {
-              prop: "disabled",
-              value: disabled,
-              defaultValue: DEFAULT_PROPS.disabled,
-              type: "boolean"
-            }
-          ])}
-          >
-            I agree
-          </Checkbox>
-        )}
+        <Checkbox ${nonDefaultProps([
+          {
+            prop: "name",
+            value: "agreedToTerms"
+          },
+          {
+            prop: "label",
+            value: hasLabel
+              ? "Accept terms and conditions"
+              : DEFAULT_PROPS.label,
+            defaultValue: DEFAULT_PROPS.label
+          },
+          {
+            prop: "color",
+            value: color,
+            defaultValue: DEFAULT_PROPS.color
+          },
+          {
+            prop: "optional",
+            value: optional,
+            defaultValue: DEFAULT_PROPS.optional,
+            type: "boolean"
+          },
+          {
+            prop: "helpText",
+            value: hasHelpText ? "Help text" : DEFAULT_PROPS.helpText,
+            defaultValue: DEFAULT_PROPS.helpText
+          },
+          {
+            prop: "disabled",
+            value: disabled,
+            defaultValue: DEFAULT_PROPS.disabled,
+            type: "boolean"
+          }
+        ])}
+        >
+          I agree
+        </Checkbox>
       </Form>
     );
   }
