@@ -3,11 +3,20 @@ import PropTypes from "prop-types";
 import { FormProvider } from "../hooks/internal/useForm";
 import { setPath } from "../utils/setPath";
 
+const DEFAULT_PROPS = {
+  fullWidth: true,
+  debug: false
+};
+
 function getParentFieldName(name) {
   return name.split(".")[0];
 }
 
-function Form({ initialValues, onSubmit, debug = false, children, testId }) {
+Form.DEFAULT_PROPS = DEFAULT_PROPS;
+
+function Form(_props) {
+  const props = { ...DEFAULT_PROPS, ..._props };
+  const { initialValues, onSubmit, fullWidth, debug, children, testId } = props;
   const [state, setState] = useState({
     values: initialValues,
     errors: {},
@@ -93,16 +102,14 @@ function Form({ initialValues, onSubmit, debug = false, children, testId }) {
 
     if (
       field.optional === true &&
-      typeof field.isEmpty === "function" &&
-      field.isEmpty(value) === true
+      typeof field.data?.isEmpty === "function" &&
+      field.data.isEmpty(value) === true
     ) {
       return null;
     }
 
     if (typeof field.validate === "function") {
-      const errors = field.validate(value, {
-        isEmpty: field.isEmpty
-      });
+      const errors = field.validate(value, field.data);
 
       if (typeof errors === "string") {
         return [errors];
@@ -134,6 +141,20 @@ function Form({ initialValues, onSubmit, debug = false, children, testId }) {
     },
     [validateField]
   );
+  const submitForm = useCallback(() => {
+    setState(state => ({
+      ...state,
+      namesToValidate: Object.keys(state.values),
+      submitStatus: "VALIDATE_THEN_SUBMIT"
+    }));
+  }, []);
+  const onFormSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      submitForm();
+    },
+    [submitForm]
+  );
 
   useEffect(() => {
     if (state.namesToValidate === null) {
@@ -153,7 +174,7 @@ function Form({ initialValues, onSubmit, debug = false, children, testId }) {
 
   useEffect(() => {
     if (state.submitStatus === "SUBMIT") {
-      onSubmit(state.errors, state.values);
+      onSubmit?.(state.errors, state.values);
 
       setState(state => setPath(state, "submitStatus", "READY"));
     }
@@ -162,20 +183,15 @@ function Form({ initialValues, onSubmit, debug = false, children, testId }) {
   return (
     <FormProvider value={providerValue}>
       <form
+        css={{
+          ...(fullWidth === true ? { width: "100%" } : {})
+        }}
         method="POST"
         action="#" // https://stackoverflow.com/a/45705325/247243
-        onSubmit={event => {
-          event.preventDefault();
-
-          setState(state => ({
-            ...state,
-            namesToValidate: Object.keys(state.values),
-            submitStatus: "VALIDATE_THEN_SUBMIT"
-          }));
-        }}
+        onSubmit={onFormSubmit}
         data-testid={testId}
       >
-        {children({ state })}
+        {children({ state, submitForm })}
       </form>
       {debug && <pre>{JSON.stringify(state, null, 2)}</pre>}
     </FormProvider>
@@ -184,7 +200,8 @@ function Form({ initialValues, onSubmit, debug = false, children, testId }) {
 
 Form.propTypes = {
   initialValues: PropTypes.object.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
+  fullWidth: PropTypes.bool,
   debug: PropTypes.bool,
   children: PropTypes.func.isRequired,
   testId: PropTypes.string

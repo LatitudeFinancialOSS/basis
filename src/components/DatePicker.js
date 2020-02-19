@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   parseISO,
@@ -13,16 +13,16 @@ import Field from "./internal/Field";
 import InternalInput from "./internal/InternalInput";
 import Grid from "./Grid";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS } = InternalInput;
 
 const DAY_REGEX = /^\d{1,2}$/;
 const MONTH_REGEX = /^\d{1,2}$/;
 const YEAR_REGEX = /^\d{1,4}$/;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  optional: false,
+  color: InternalInput.DEFAULT_PROPS.color,
   disabled: false,
+  optional: false,
   validate: ({ day, month, year }) => {
     const errors = [];
 
@@ -94,16 +94,16 @@ function DatePicker(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
     name,
     color,
     label,
-    optional,
     helpText: helpTextProp,
     disabled,
+    optional,
     validate,
     testId
   } = mergedProps;
@@ -120,6 +120,10 @@ function DatePicker(props) {
   const value = state.values[name];
   const errors = state.errors[name];
   const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => value.day === "" && value.month === "" && value.year === "",
+    []
+  );
   const helpText = useMemo(
     () => getHelpText(value.day, value.month, value.year, helpTextProp),
     [value.day, value.month, value.year, helpTextProp]
@@ -129,14 +133,15 @@ function DatePicker(props) {
     registerField(name, {
       optional,
       validate,
-      isEmpty: value =>
-        value.day === "" && value.month === "" && value.year === ""
+      data: {
+        isEmpty
+      }
     });
 
     return () => {
       unregisterField(name);
     };
-  }, [name, validate, optional, registerField, unregisterField]);
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -157,11 +162,11 @@ function DatePicker(props) {
         <Grid cols={4} colsGutter={1}>
           <Grid.Item colSpan={0}>
             <InternalInput
+              name={`${name}.day`}
               color={color}
               type="number"
               placeholder="DD"
               disabled={disabled}
-              name={`${name}.day`}
               onFocus={onFocus}
               onBlur={onBlur}
               value={value.day}
@@ -170,11 +175,11 @@ function DatePicker(props) {
           </Grid.Item>
           <Grid.Item colSpan={1}>
             <InternalInput
+              name={`${name}.month`}
               color={color}
               type="number"
               placeholder="MM"
               disabled={disabled}
-              name={`${name}.month`}
               onFocus={onFocus}
               onBlur={onBlur}
               value={value.month}
@@ -183,11 +188,11 @@ function DatePicker(props) {
           </Grid.Item>
           <Grid.Item colSpan="2-3">
             <InternalInput
+              name={`${name}.year`}
               color={color}
               type="number"
               placeholder="YYYY"
               disabled={disabled}
-              name={`${name}.year`}
               onFocus={onFocus}
               onBlur={onBlur}
               value={value.year}
@@ -204,10 +209,10 @@ DatePicker.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  validate: PropTypes.func,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string
 };
 

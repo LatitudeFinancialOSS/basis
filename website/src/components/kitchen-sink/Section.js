@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Section, Text } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkSection() {
   return (
-    <Layout name="Section">
+    <KitchenSinkLayout name="Section">
       <Container padding="6 0">
         {Section.BACKGROUNDS.map((bg, index) => (
           <Section bg={bg} padding={index * 2} key={bg}>
@@ -14,7 +14,7 @@ function KitchenSinkSection() {
           </Section>
         ))}
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

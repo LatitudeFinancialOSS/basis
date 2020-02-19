@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Text } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkContainer() {
   return (
-    <Layout name="Container">
+    <KitchenSinkLayout name="Container">
       <Container padding="6 0">
         <Container margin="4 8" bg="secondary.lightBlue.t30" textAlign="left">
           <Text>Left aligned</Text>
@@ -48,7 +48,7 @@ function KitchenSinkContainer() {
           </Container>
         ))}
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

@@ -3,30 +3,40 @@ import PropTypes from "prop-types";
 import useTheme from "../../hooks/useTheme";
 
 const COLORS = ["grey.t05", "white"];
-const DEFAULT_COLOR = "grey.t05";
+
+const DEFAULT_PROPS = {
+  color: "grey.t05",
+  placeholder: "Please select",
+  fullWidth: true,
+  disabled: false,
+  isValid: true,
+  __internal__focus: false
+};
 
 InternalSelect.COLORS = COLORS;
-InternalSelect.DEFAULT_COLOR = DEFAULT_COLOR;
+InternalSelect.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function InternalSelect({
-  name,
-  id,
-  color = DEFAULT_COLOR,
-  placeholder,
-  options,
-  fullWidth,
-  optional,
-  disabled = false,
-  isValid = true,
-  describedBy,
-  onFocus,
-  onBlur,
-  value,
-  onChange,
-  __internal__focus = false
-}) {
+function InternalSelect(_props) {
+  const props = { ...DEFAULT_PROPS, ..._props };
+  const {
+    name,
+    id,
+    color,
+    placeholder,
+    options,
+    fullWidth,
+    optional,
+    disabled,
+    isValid,
+    describedBy,
+    onFocus,
+    onBlur,
+    value,
+    onChange,
+    __internal__focus
+  } = props;
   const theme = useTheme();
-  const colorStr = color === DEFAULT_COLOR ? "default" : color;
+  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
 
   return (
     <select
@@ -87,8 +97,8 @@ function InternalSelect({
 }
 
 InternalSelect.propTypes = {
-  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  id: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
   placeholder: PropTypes.string,
   options: PropTypes.arrayOf(
@@ -97,7 +107,7 @@ InternalSelect.propTypes = {
       value: PropTypes.string.isRequired
     })
   ).isRequired,
-  fullWidth: PropTypes.bool.isRequired,
+  fullWidth: PropTypes.bool,
   optional: PropTypes.bool.isRequired,
   disabled: PropTypes.bool,
   isValid: PropTypes.bool,

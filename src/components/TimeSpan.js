@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
@@ -6,18 +6,18 @@ import useForm from "../hooks/internal/useForm";
 import { pluralize } from "../utils/string";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
-import InternalInput from "./internal/InternalInput";
 import Grid from "./Grid";
+import InternalInput from "./internal/InternalInput";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS } = InternalInput;
 
 const YEARS_REGEX = /^\d{1,2}$/;
 const MONTHS_REGEX = /^\d{1,2}$/;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  optional: false,
+  color: InternalInput.DEFAULT_PROPS.color,
   disabled: false,
+  optional: false,
   validate: ({ years, months }) => {
     const errors = [];
 
@@ -87,16 +87,16 @@ function TimeSpan(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
     name,
     color,
     label,
-    optional,
     helpText: helpTextProp,
     disabled,
+    optional,
     validate,
     testId,
     __internal__yearsFocus,
@@ -115,6 +115,10 @@ function TimeSpan(props) {
   const value = state.values[name];
   const errors = state.errors[name];
   const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => value.years === "" && value.months === "",
+    []
+  );
   const helpText = useMemo(
     () => getHelpText(value.years, value.months, helpTextProp),
     [value.years, value.months, helpTextProp]
@@ -124,13 +128,15 @@ function TimeSpan(props) {
     registerField(name, {
       optional,
       validate,
-      isEmpty: value => value.years === "" && value.months === ""
+      data: {
+        isEmpty
+      }
     });
 
     return () => {
       unregisterField(name);
     };
-  }, [name, validate, optional, registerField, unregisterField]);
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -151,11 +157,11 @@ function TimeSpan(props) {
         <Grid cols={2} colsGutter={1}>
           <Grid.Item colSpan="0">
             <InternalInput
+              name={`${name}.years`}
               color={color}
               type="number"
               placeholder="Years"
               disabled={disabled}
-              name={`${name}.years`}
               onFocus={onFocus}
               onBlur={onBlur}
               value={value.years}
@@ -165,11 +171,11 @@ function TimeSpan(props) {
           </Grid.Item>
           <Grid.Item colSpan="1">
             <InternalInput
+              name={`${name}.months`}
               color={color}
               type="number"
               placeholder="Months"
               disabled={disabled}
-              name={`${name}.months`}
               onFocus={onFocus}
               onBlur={onBlur}
               value={value.months}
@@ -187,10 +193,10 @@ TimeSpan.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  validate: PropTypes.func,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool

@@ -5,7 +5,14 @@ import VisuallyHidden from "../VisuallyHidden";
 
 const COLORS = ["grey.t05", "white"];
 
+const DEFAULT_PROPS = {
+  color: "grey.t05",
+  disabled: false,
+  __internal__keyboardFocus: false
+};
+
 InternalCheckbox.COLORS = COLORS;
+InternalCheckbox.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function CheckboxIcon({ color, isChecked }) {
   const theme = useTheme();
@@ -42,21 +49,23 @@ CheckboxIcon.propTypes = {
   isChecked: PropTypes.bool.isRequired
 };
 
-function InternalCheckbox({
-  name,
-  inputId,
-  color,
-  disabled,
-  isValid,
-  labelledBy,
-  describedBy,
-  onFocus,
-  onBlur,
-  value,
-  onChange,
-  children,
-  __internal__keyboardFocus
-}) {
+function InternalCheckbox(_props) {
+  const props = { ...DEFAULT_PROPS, ..._props };
+  const {
+    name,
+    inputId,
+    color,
+    disabled,
+    isValid,
+    labelledBy,
+    describedBy,
+    onFocus,
+    onBlur,
+    value,
+    onChange,
+    children,
+    __internal__keyboardFocus
+  } = props;
   const theme = useTheme();
 
   return (
@@ -114,7 +123,7 @@ InternalCheckbox.propTypes = {
   disabled: PropTypes.bool,
   isValid: PropTypes.bool.isRequired,
   labelledBy: PropTypes.string,
-  describedBy: PropTypes.string.isRequired,
+  describedBy: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
   value: PropTypes.bool.isRequired,

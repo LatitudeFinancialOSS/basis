@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
@@ -7,18 +7,18 @@ import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalSelect from "./internal/InternalSelect";
 
-const { COLORS, DEFAULT_COLOR } = InternalSelect;
+const { COLORS } = InternalSelect;
 
 function isOptionSelected(options, value) {
   return options.findIndex(option => option.value === value) > -1;
 }
 
 const DEFAULT_PROPS = {
-  color: DEFAULT_COLOR,
-  placeholder: "Please select",
-  fullWidth: true,
-  optional: false,
+  color: InternalSelect.DEFAULT_PROPS.color,
+  placeholder: InternalSelect.DEFAULT_PROPS.placeholder,
+  fullWidth: InternalSelect.DEFAULT_PROPS.fullWidth,
   disabled: false,
+  optional: false,
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Please make a selection.";
@@ -38,9 +38,11 @@ function Select(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
+    placeholder: placeholder => typeof placeholder === "string",
     fullWidth: fullWidth => typeof fullWidth === "boolean",
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    helpText: helpText => typeof helpText === "string",
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
     name,
@@ -49,9 +51,9 @@ function Select(props) {
     placeholder,
     options,
     fullWidth,
-    optional,
     helpText,
     disabled,
+    optional,
     validate,
     testId,
     __internal__focus
@@ -69,18 +71,24 @@ function Select(props) {
   const value = state.values[name];
   const errors = state.errors[name];
   const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => isOptionSelected(options, value) === false,
+    [options]
+  );
 
   useEffect(() => {
     registerField(name, {
       optional,
       validate,
-      isEmpty: value => isOptionSelected(options, value) === false
+      data: {
+        isEmpty
+      }
     });
 
     return () => {
       unregisterField(name);
     };
-  }, [name, options, optional, validate, registerField, unregisterField]);
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -127,10 +135,10 @@ Select.propTypes = {
     })
   ).isRequired,
   fullWidth: PropTypes.bool,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  validate: PropTypes.func,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

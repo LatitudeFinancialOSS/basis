@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Flex, Link } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkLink() {
   return (
-    <Layout name="Link">
+    <KitchenSinkLayout name="Link">
       <Container padding="6 0" bg="grey.t05">
         {Link.COLORS.map(color => (
           <Container
@@ -40,7 +40,7 @@ function KitchenSinkLink() {
           </Container>
         ))}
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

@@ -1,7 +1,16 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { rgba } from "polished";
-import { useTheme, Container, Grid, Text, Select, Input } from "basis";
+import {
+  useTheme,
+  Container,
+  Grid,
+  Form,
+  Flex,
+  Text,
+  Select,
+  Input
+} from "basis";
 
 import { colorContrast, accessibleContrast } from "../../utils/color";
 
@@ -129,154 +138,164 @@ MatrixCell.propTypes = {
   shouldPass: PropTypes.bool
 };
 
+const TEXT_COLOR_COLUMN_WIDTH = "160px";
+const CELL_WIDTH = "160px";
+const CELL_HEIGHT = "72px";
+
 function AccessibilityPage() {
   const theme = useTheme();
-  const [show, setShow] = useState({
-    value: "Pass AA"
-  });
-  const [textStyle, setTextStyle] = useState({
-    value: "body1"
-  });
-  const [weight, setWeight] = useState({
-    value: "regular"
-  });
-  const [text, setText] = useState({
-    value: "Text"
-  });
-  const isBoldAllowed = isBoldAllowedForTextStyle(textStyle.value);
-  const { fontSize, fontWeight } = {
-    ...theme.textStyles[textStyle],
-    ...(weight.value === "bold" && theme.textStyles[`${textStyle}.bold`])
+  const initialValues = {
+    show: "Pass AA",
+    textStyle: "body1",
+    weight: "regular",
+    text: "Text"
   };
-  const showParts = show.value.split(" ");
-  const shouldPass = showParts[0] === "All" ? null : showParts[0] === "Pass";
-  const accessibilityLevel = showParts[1] || null;
-  const minContrast = accessibilityLevel
-    ? accessibleContrast(
-        accessibilityLevel,
-        parseInt(fontSize, 10),
-        fontWeight > 400
-      )
-    : null;
-  const TEXT_COLOR_COLUMN_WIDTH = "160px";
-  const CELL_WIDTH = "160px";
-  const CELL_HEIGHT = "72px";
 
   return (
-    <div css={{ display: "flex", height: "100%" }}>
-      <div css={{ flexGrow: 1, overflow: "auto" }}>
-        <Text as="h3" textStyle="heading5" color="grey.t75" margin="6">
-          Color contrast matrix
-        </Text>
-        <div
-          css={{
-            marginBottom: theme.space[6],
-            padding: `0 ${theme.space[6]}`,
-            width: "min-content" // Otherwise, right padding is not visible when there is an overflow.
-          }}
-        >
-          <div css={{ display: "flex", paddingLeft: TEXT_COLOR_COLUMN_WIDTH }}>
-            {BACKGROUNDS.map(backgroundColor => (
+    <Flex direction="column" fullHeight>
+      <Form initialValues={initialValues} fullWidth>
+        {({ state }) => {
+          const { show, textStyle, weight, text } = state.values;
+          const isBoldAllowed = isBoldAllowedForTextStyle(textStyle);
+          const { fontSize, fontWeight } = {
+            ...theme.textStyles[textStyle],
+            ...(weight === "bold" && theme.textStyles[`${textStyle}.bold`])
+          };
+          const showParts = show.split(" ");
+          const shouldPass =
+            showParts[0] === "All" ? null : showParts[0] === "Pass";
+          const accessibilityLevel = showParts[1] || null;
+          const minContrast = accessibilityLevel
+            ? accessibleContrast(
+                accessibilityLevel,
+                parseInt(fontSize, 10),
+                fontWeight > 400
+              )
+            : null;
+
+          return (
+            <Flex fullHeight>
+              <div css={{ flexGrow: 1, overflow: "auto" }}>
+                <Text as="h3" textStyle="heading5" color="grey.t75" margin="6">
+                  Color contrast matrix
+                </Text>
+                <div
+                  css={{
+                    marginBottom: theme.space[6],
+                    padding: `0 ${theme.space[6]}`,
+                    width: "min-content" // Otherwise, right padding is not visible when there is an overflow.
+                  }}
+                >
+                  <div
+                    css={{
+                      display: "flex",
+                      paddingLeft: TEXT_COLOR_COLUMN_WIDTH
+                    }}
+                  >
+                    {BACKGROUNDS.map(backgroundColor => (
+                      <div
+                        css={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                          width: CELL_WIDTH,
+                          height: "32px",
+                          marginLeft: theme.space[1]
+                        }}
+                        key={backgroundColor}
+                      >
+                        <Text textStyle="body2">
+                          <strong>{backgroundColor}</strong>
+                        </Text>
+                      </div>
+                    ))}
+                  </div>
+                  {COLORS.map(color => (
+                    <div
+                      css={{
+                        display: "flex",
+                        marginTop: theme.space[1]
+                      }}
+                      key={color}
+                    >
+                      <div
+                        css={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexShrink: 0,
+                          width: TEXT_COLOR_COLUMN_WIDTH,
+                          paddingRight: theme.space[3],
+                          boxSizing: "border-box"
+                        }}
+                      >
+                        <Text textStyle="body2">
+                          <strong>{color}</strong>
+                        </Text>
+                      </div>
+                      {BACKGROUNDS.map(backgroundColor => (
+                        <MatrixCell
+                          width={CELL_WIDTH}
+                          height={CELL_HEIGHT}
+                          color={color}
+                          backgroundColor={backgroundColor}
+                          textStyle={textStyle}
+                          isBold={weight === "bold"}
+                          text={text}
+                          minContrast={minContrast}
+                          shouldPass={shouldPass}
+                          key={backgroundColor}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div
                 css={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                   flexShrink: 0,
-                  width: CELL_WIDTH,
-                  height: "32px",
-                  marginLeft: theme.space[1]
-                }}
-                key={backgroundColor}
-              >
-                <Text textStyle="body2">
-                  <strong>{backgroundColor}</strong>
-                </Text>
-              </div>
-            ))}
-          </div>
-          {COLORS.map(color => (
-            <div
-              css={{
-                display: "flex",
-                marginTop: theme.space[1]
-              }}
-              key={color}
-            >
-              <div
-                css={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexShrink: 0,
-                  width: TEXT_COLOR_COLUMN_WIDTH,
-                  paddingRight: theme.space[3],
-                  boxSizing: "border-box"
+                  width: "224px",
+                  height: "100%",
+                  backgroundColor: theme.colors.grey.t05,
+                  padding: theme.space[6],
+                  boxSizing: "border-box",
+                  overflow: "auto"
                 }}
               >
-                <Text textStyle="body2">
-                  <strong>{color}</strong>
-                </Text>
+                <Grid rowsGutter="7">
+                  <Select
+                    name="show"
+                    label="Show"
+                    options={showOptions}
+                    helpText={
+                      minContrast
+                        ? `${
+                            shouldPass ? "Min" : "Max"
+                          } contrast: ${minContrast}`
+                        : "Filter for AA or AAA here"
+                    }
+                  />
+                  <Select
+                    name="textStyle"
+                    label="Text Style"
+                    options={textStyleOptions}
+                  />
+                  <Select
+                    name="weight"
+                    label="Weight"
+                    options={
+                      isBoldAllowed ? weightOptions : notApplicableOptions
+                    }
+                    disabled={!isBoldAllowed}
+                  />
+                  <Input name="text" label="Text" validate={false} />
+                </Grid>
               </div>
-              {BACKGROUNDS.map(backgroundColor => (
-                <MatrixCell
-                  width={CELL_WIDTH}
-                  height={CELL_HEIGHT}
-                  color={color}
-                  backgroundColor={backgroundColor}
-                  textStyle={textStyle.value}
-                  isBold={weight.value === "bold"}
-                  text={text.value}
-                  minContrast={minContrast}
-                  shouldPass={shouldPass}
-                  key={backgroundColor}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div
-        css={{
-          flexShrink: 0,
-          width: "224px",
-          backgroundColor: theme.colors.grey.t05,
-          padding: theme.space[6],
-          boxSizing: "border-box",
-          overflow: "auto"
+            </Flex>
+          );
         }}
-      >
-        <Grid rowsGutter="7">
-          <Select
-            label="Show"
-            options={showOptions}
-            placeholder={null}
-            helpText={
-              minContrast
-                ? `${shouldPass ? "Min" : "Max"} contrast: ${minContrast}`
-                : "Filter for AA or AAA here"
-            }
-            data={show}
-            onChange={setShow}
-          />
-          <Select
-            label="Text Style"
-            options={textStyleOptions}
-            placeholder={null}
-            data={textStyle}
-            onChange={setTextStyle}
-          />
-          <Select
-            label="Weight"
-            placeholder={null}
-            options={isBoldAllowed ? weightOptions : notApplicableOptions}
-            disabled={!isBoldAllowed}
-            data={weight}
-            onChange={setWeight}
-          />
-          <Input label="Text" validation={[]} data={text} onChange={setText} />
-        </Grid>
-      </div>
-    </div>
+      </Form>
+    </Flex>
   );
 }
 

@@ -6,7 +6,11 @@
       "error",
       { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
     ],
-    "react/jsx-boolean-value": "error",
+    "react/jsx-boolean-value": [
+      "error",
+      "never",
+      { "always": ["initialValue"] }
+    ],
     "react/no-children-prop": 0,
     "react/react-in-jsx-scope": 0
   },

@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Footer, Link, Text } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkFooter() {
   return (
-    <Layout name="Footer">
+    <KitchenSinkLayout name="Footer">
       <Container padding="6 0" bg="grey.t05">
         <Footer>
           <Footer.Header>
@@ -102,7 +102,7 @@ function KitchenSinkFooter() {
           </Footer.Legal>
         </Footer>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

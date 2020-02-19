@@ -26,47 +26,53 @@ function TimeSpanPage() {
   const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const code = formatCode(`
     function App() {
-      const [currentAddressTimeSpan, setCurrentAddressTimeSpan] = React.useState({
-        value: {
+      const initialValues = {
+        liveInCurrentAddress: {
           years: "",
           months: ""
         }
-      });
+      };
 
       return (
-        <TimeSpan ${nonDefaultProps([
-          {
-            prop: "color",
-            value: color,
-            defaultValue: DEFAULT_PROPS.color
-          },
-          {
-            prop: "label",
-            value: "How long do you live in the current address?"
-          },
-          {
-            prop: "optional",
-            value: optional,
-            defaultValue: DEFAULT_PROPS.optional,
-            type: "boolean"
-          },
-          {
-            prop: "helpText",
-            value: hasHelpText
-              ? "Please be as accurate as possible."
-              : DEFAULT_PROPS.helpText,
-            defaultValue: DEFAULT_PROPS.helpText
-          },
-          {
-            prop: "disabled",
-            value: disabled,
-            defaultValue: DEFAULT_PROPS.disabled,
-            type: "boolean"
-          }
-        ])}
-          data={currentAddressTimeSpan}
-          onChange={setCurrentAddressTimeSpan}
-        />
+        <Form initialValues={initialValues}>
+          {() => (
+            <TimeSpan ${nonDefaultProps([
+              {
+                prop: "name",
+                value: "liveInCurrentAddress"
+              },
+              {
+                prop: "color",
+                value: color,
+                defaultValue: DEFAULT_PROPS.color
+              },
+              {
+                prop: "label",
+                value: "How long do you live in the current address?"
+              },
+              {
+                prop: "optional",
+                value: optional,
+                defaultValue: DEFAULT_PROPS.optional,
+                type: "boolean"
+              },
+              {
+                prop: "helpText",
+                value: hasHelpText
+                  ? "Please be as accurate as possible."
+                  : DEFAULT_PROPS.helpText,
+                defaultValue: DEFAULT_PROPS.helpText
+              },
+              {
+                prop: "disabled",
+                value: disabled,
+                defaultValue: DEFAULT_PROPS.disabled,
+                type: "boolean"
+              }
+            ])}
+            />
+          )}
+        </Form>
       );
     }
   `);

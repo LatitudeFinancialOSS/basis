@@ -13,6 +13,10 @@ function FormPage() {
         relationshipStatus: "",
         likeIceCream: false,
         hungry: "",
+        salary: {
+          amount: "",
+          frequency: ""
+        },
         weddingDate: {
           day: "",
           month: "",
@@ -69,6 +73,7 @@ function FormPage() {
                 <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
                 <Checkbox name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
                 <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
+                <Frequency name="salary" label="Salary" />
                 <DatePicker name="weddingDate" label="Wedding date" />
                 <TimeSpan name="age" label="Age" />
                 <Button type="submit">Submit</Button>
@@ -79,11 +84,6 @@ function FormPage() {
       );
     }
   `);
-
-  /*
-  <Frequency label="Salary" data={salary} onChange={setSalary} />
-  <DatePicker label="Wedding date" data={weddingDate} onChange={setWeddingDate} />
-  */
 
   return <ComponentContainer code={code} scope={scope} width="sm" />;
 }

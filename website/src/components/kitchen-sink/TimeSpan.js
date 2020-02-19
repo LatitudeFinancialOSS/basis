@@ -1,46 +1,105 @@
 import React from "react";
-import { Container, Grid } from "basis";
-import Layout from "./Layout";
-import { TimeSpan } from "../optionally-controlled";
+import PropTypes from "prop-types";
+import { Container, Grid, TimeSpan } from "basis";
+import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkForm from "./KitchenSinkForm";
+
+function FormWithTimeSpan({
+  label,
+  initialValue = {
+    years: "",
+    months: ""
+  },
+  disabled,
+  helpText,
+  optional,
+  __internal__yearsFocus,
+  __internal__monthsFocus,
+  submitOnMount
+}) {
+  return (
+    <KitchenSinkForm
+      initialValues={{ liveInCurrentAddress: initialValue }}
+      submitOnMount={submitOnMount}
+    >
+      <TimeSpan
+        name="liveInCurrentAddress"
+        label={label}
+        disabled={disabled}
+        helpText={helpText}
+        optional={optional}
+        __internal__yearsFocus={__internal__yearsFocus}
+        __internal__monthsFocus={__internal__monthsFocus}
+      />
+    </KitchenSinkForm>
+  );
+}
+
+FormWithTimeSpan.propTypes = {
+  label: PropTypes.string.isRequired,
+  initialValue: PropTypes.shape({
+    years: PropTypes.string.isRequired,
+    months: PropTypes.string.isRequired
+  }),
+  disabled: PropTypes.bool,
+  helpText: PropTypes.string,
+  optional: PropTypes.bool,
+  __internal__yearsFocus: PropTypes.bool,
+  __internal__monthsFocus: PropTypes.bool,
+  submitOnMount: PropTypes.bool
+};
 
 function KitchenSinkTimeSpan() {
   return (
-    <Layout name="TimeSpan">
-      <Container padding="4" bg="white">
+    <KitchenSinkLayout name="TimeSpan">
+      <Container width="320" padding="4" bg="white">
         <Grid rowsGutter="8">
-          <TimeSpan label="Grey" />
+          <FormWithTimeSpan label="Grey" />
 
-          <TimeSpan
-            label="Optional with errors"
-            optional
-            data={{
-              value: {
-                years: "100",
-                months: "12"
-              },
-              errors: [
-                "Years must be within 0-99.",
-                "Months must be within 0-11."
-              ]
+          <FormWithTimeSpan label="Optional" optional />
+
+          <FormWithTimeSpan
+            label="Years"
+            initialValue={{
+              years: "2",
+              months: ""
             }}
           />
+
+          <FormWithTimeSpan
+            label="Months"
+            initialValue={{
+              years: "",
+              months: "3"
+            }}
+          />
+
+          <FormWithTimeSpan
+            label="Years and months"
+            initialValue={{
+              years: "1",
+              months: "1"
+            }}
+          />
+
+          <FormWithTimeSpan label="With errors" submitOnMount />
         </Grid>
       </Container>
 
-      <Container padding="4" bg="grey.t05">
+      <Container width="320" padding="4" bg="grey.t05">
         <Grid rowsGutter="8">
-          <TimeSpan label="Years focus" __internal__yearsFocus />
+          <FormWithTimeSpan label="Years focus" __internal__yearsFocus />
 
-          <TimeSpan label="Months focus" __internal__monthsFocus />
+          <FormWithTimeSpan label="Months focus" __internal__monthsFocus />
 
-          <TimeSpan
+          <FormWithTimeSpan
             label="Disabled with help text"
-            disabled
             helpText="Help text goes here"
+            disabled
           />
         </Grid>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

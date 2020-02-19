@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Grid, Flex, Button } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkButton() {
   return (
-    <Layout name="Button">
+    <KitchenSinkLayout name="Button">
       <Grid>
         <Container padding="4">
           <Button>Default</Button>
@@ -50,7 +50,7 @@ function KitchenSinkButton() {
           <Button fullWidth>Full width</Button>
         </Container>
       </Grid>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

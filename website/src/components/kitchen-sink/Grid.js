@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Grid, Placeholder } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkGrid() {
   return (
-    <Layout name="Grid">
+    <KitchenSinkLayout name="Grid">
       <Container padding="4">
         <Grid preset="page" rowsGutter={4}>
           <Grid.Item colSpan="all">
@@ -55,7 +55,7 @@ function KitchenSinkGrid() {
           </Grid.Item>
         </Grid>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

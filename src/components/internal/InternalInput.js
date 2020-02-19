@@ -3,33 +3,41 @@ import PropTypes from "prop-types";
 import useTheme from "../../hooks/useTheme";
 
 const TYPES = ["text", "number"];
-const DEFAULT_TYPE = "text";
 const COLORS = ["grey.t05", "white"];
-const DEFAULT_COLOR = "grey.t05";
+
+const DEFAULT_PROPS = {
+  type: "text",
+  color: "grey.t05",
+  disabled: false,
+  pasteAllowed: true,
+  isValid: true,
+  __internal__focus: false
+};
 
 InternalInput.TYPES = TYPES;
-InternalInput.DEFAULT_TYPE = DEFAULT_TYPE;
 InternalInput.COLORS = COLORS;
-InternalInput.DEFAULT_COLOR = DEFAULT_COLOR;
+InternalInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function InternalInput({
-  name,
-  id,
-  placeholder,
-  type = DEFAULT_TYPE,
-  color = DEFAULT_COLOR,
-  disabled = false,
-  pasteAllowed = true,
-  isValid = true,
-  describedBy,
-  onFocus,
-  onBlur,
-  value,
-  onChange,
-  __internal__focus = false
-}) {
+function InternalInput(_props) {
+  const props = { ...DEFAULT_PROPS, ..._props };
+  const {
+    name,
+    id,
+    placeholder,
+    type,
+    color,
+    disabled,
+    pasteAllowed,
+    isValid,
+    describedBy,
+    onFocus,
+    onBlur,
+    value,
+    onChange,
+    __internal__focus
+  } = props;
   const theme = useTheme();
-  const colorStr = color === DEFAULT_COLOR ? "default" : color;
+  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const onPaste = useCallback(
     event => {
       if (!pasteAllowed) {

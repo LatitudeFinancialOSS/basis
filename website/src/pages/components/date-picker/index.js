@@ -26,48 +26,54 @@ function DatePickerPage() {
   const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const code = formatCode(`
     function App() {
-      const [weddingDate, setWeddingDate] = React.useState({
-        value: {
+      const initialValues = {
+        weddingDate: {
           day: "",
           month: "",
           year: ""
         }
-      });
+      };
 
       return (
-        <DatePicker ${nonDefaultProps([
-          {
-            prop: "color",
-            value: color,
-            defaultValue: DEFAULT_PROPS.color
-          },
-          {
-            prop: "label",
-            value: "Wedding date"
-          },
-          {
-            prop: "optional",
-            value: optional,
-            defaultValue: DEFAULT_PROPS.optional,
-            type: "boolean"
-          },
-          {
-            prop: "helpText",
-            value: hasHelpText
-              ? "Past or future is fine."
-              : DEFAULT_PROPS.helpText,
-            defaultValue: DEFAULT_PROPS.helpText
-          },
-          {
-            prop: "disabled",
-            value: disabled,
-            defaultValue: DEFAULT_PROPS.disabled,
-            type: "boolean"
-          }
-        ])}
-          data={weddingDate}
-          onChange={setWeddingDate}
-        />
+        <Form initialValues={initialValues}>
+          {() => (
+            <DatePicker ${nonDefaultProps([
+              {
+                prop: "name",
+                value: "weddingDate"
+              },
+              {
+                prop: "color",
+                value: color,
+                defaultValue: DEFAULT_PROPS.color
+              },
+              {
+                prop: "label",
+                value: "Wedding date"
+              },
+              {
+                prop: "optional",
+                value: optional,
+                defaultValue: DEFAULT_PROPS.optional,
+                type: "boolean"
+              },
+              {
+                prop: "helpText",
+                value: hasHelpText
+                  ? "Past or future is fine."
+                  : DEFAULT_PROPS.helpText,
+                defaultValue: DEFAULT_PROPS.helpText
+              },
+              {
+                prop: "disabled",
+                value: disabled,
+                defaultValue: DEFAULT_PROPS.disabled,
+                type: "boolean"
+              }
+            ])}
+            />
+          )}
+        </Form>
       );
     }
   `);

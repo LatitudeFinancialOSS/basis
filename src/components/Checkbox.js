@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
@@ -10,9 +10,10 @@ import InternalCheckbox from "./internal/InternalCheckbox";
 const { COLORS } = InternalCheckbox;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  optional: false,
+  color: InternalCheckbox.DEFAULT_PROPS.color,
   disabled: false,
+  __internal__keyboardFocus: false,
+  optional: false,
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Must be checked";
@@ -32,16 +33,16 @@ function Checkbox(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
     name,
     label,
     color,
-    optional,
     helpText,
     disabled,
+    optional,
     validate,
     children,
     testId,
@@ -61,18 +62,21 @@ function Checkbox(props) {
   const value = state.values[name];
   const errors = state.errors[name];
   const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(value => value === false, []);
 
   useEffect(() => {
     registerField(name, {
       optional,
       validate,
-      isEmpty: value => value === false
+      data: {
+        isEmpty
+      }
     });
 
     return () => {
       unregisterField(name);
     };
-  }, [name, optional, validate, registerField, unregisterField]);
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -109,10 +113,10 @@ Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  validate: PropTypes.func,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool

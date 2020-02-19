@@ -14,6 +14,9 @@ const DEFAULT_PROPS = {
   isValid: true
 };
 
+InternalRadioGroup.COLORS = COLORS;
+InternalRadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
+
 function RadioCircle({ color, isChecked }) {
   const theme = useTheme();
 
@@ -118,9 +121,6 @@ Radio.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-InternalRadioGroup.COLORS = COLORS;
-InternalRadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
-
 function InternalRadioGroup(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const {
@@ -176,8 +176,7 @@ function InternalRadioGroup(_props) {
 
 InternalRadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
-  labelId: PropTypes.string.isRequired,
-  auxId: PropTypes.string.isRequired,
+  labelId: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
