@@ -17,7 +17,7 @@ function FormPage() {
           amount: "",
           frequency: ""
         },
-        weddingDate: {
+        birthDate: {
           day: "",
           month: "",
           year: ""
@@ -73,7 +73,7 @@ function FormPage() {
               <Checkbox name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
               <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
               <Frequency name="salary" label="Salary" />
-              <DatePicker name="weddingDate" label="Wedding date" />
+              <DatePicker name="birthDate" label="Birth date" />
               <TimeSpan name="age" label="Age" />
               <Button type="submit">Submit</Button>
             </Grid>

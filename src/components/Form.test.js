@@ -68,7 +68,7 @@ function ComplexForm({ onSubmit }) {
       amount: "",
       frequency: ""
     },
-    weddingDate: {
+    birthDate: {
       day: "",
       month: "",
       year: ""
@@ -101,7 +101,7 @@ function ComplexForm({ onSubmit }) {
             options={hungryOptions}
           />
           <Frequency name="salary" label="Salary" />
-          <DatePicker name="weddingDate" label="Wedding date" />
+          <DatePicker name="birthDate" label="Birth date" />
           <TimeSpan name="age" label="Age" />
           <Button type="submit">Submit</Button>
         </Grid>
@@ -130,7 +130,7 @@ describe("Form", () => {
         name: ["Required"],
         relationshipStatus: ["Please make a selection."],
         salary: ["Please enter a valid amount.", "Please select a frequency."],
-        weddingDate: [
+        birthDate: [
           "Day must be within 1-31.",
           "Month must be within 1-12.",
           "Year must be within 1800-2200."
@@ -149,7 +149,7 @@ describe("Form", () => {
           amount: "",
           frequency: ""
         },
-        weddingDate: {
+        birthDate: {
           day: "",
           month: "",
           year: ""

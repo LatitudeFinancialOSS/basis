@@ -7,7 +7,7 @@ import Container from "./Container";
 
 function FormWithDatePicker(props) {
   const initialValues = {
-    weddingDate: {
+    birthDate: {
       day: "",
       month: "",
       year: ""
@@ -16,7 +16,7 @@ function FormWithDatePicker(props) {
 
   return (
     <Form initialValues={initialValues}>
-      <DatePicker name="weddingDate" {...props} />
+      <DatePicker name="birthDate" {...props} />
     </Form>
   );
 }

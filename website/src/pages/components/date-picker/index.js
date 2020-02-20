@@ -27,7 +27,7 @@ function DatePickerPage() {
   const code = formatCode(`
     function App() {
       const initialValues = {
-        weddingDate: {
+        birthDate: {
           day: "",
           month: "",
           year: ""
@@ -39,7 +39,7 @@ function DatePickerPage() {
           <DatePicker ${nonDefaultProps([
             {
               prop: "name",
-              value: "weddingDate"
+              value: "birthDate"
             },
             {
               prop: "color",
@@ -48,7 +48,7 @@ function DatePickerPage() {
             },
             {
               prop: "label",
-              value: "Wedding date"
+              value: "Birth date"
             },
             {
               prop: "optional",

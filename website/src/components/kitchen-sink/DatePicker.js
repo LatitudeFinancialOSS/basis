@@ -15,10 +15,10 @@ function FormWithDatePicker({
 }) {
   return (
     <KitchenSinkForm
-      initialValues={{ weddingDate: initialValue }}
+      initialValues={{ birthDate: initialValue }}
       submitOnMount={submitOnMount}
     >
-      <DatePicker name="weddingDate" label={label} />
+      <DatePicker name="birthDate" label={label} />
     </KitchenSinkForm>
   );
 }
