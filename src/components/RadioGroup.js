@@ -62,6 +62,7 @@ function RadioGroup(props) {
     onFocus,
     onBlur,
     onChange,
+    onMouseDown,
     registerField,
     unregisterField
   } = useForm();
@@ -111,6 +112,7 @@ function RadioGroup(props) {
         describedBy={helpText || hasErrors ? auxId : null}
         onFocus={onFocus}
         onBlur={onBlur}
+        onMouseDown={onMouseDown}
         value={value}
         onChange={onChange}
       />
@@ -134,6 +136,7 @@ RadioGroup.propTypes = {
   disabled: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
+  onMouseDown: PropTypes.func,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string

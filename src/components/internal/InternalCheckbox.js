@@ -63,6 +63,7 @@ function InternalCheckbox(_props) {
     onBlur,
     value,
     onChange,
+    onMouseDown,
     children,
     __internal__keyboardFocus
   } = props;
@@ -100,6 +101,7 @@ function InternalCheckbox(_props) {
           ...(__internal__keyboardFocus && theme["checkboxLabel.focus-visible"])
         }}
         htmlFor={inputId}
+        onMouseDown={onMouseDown}
       >
         <CheckboxIcon
           color={
@@ -128,6 +130,7 @@ InternalCheckbox.propTypes = {
   onBlur: PropTypes.func.isRequired,
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
+  onMouseDown: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   __internal__keyboardFocus: PropTypes.bool
 };

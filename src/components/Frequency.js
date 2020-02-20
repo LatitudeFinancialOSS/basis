@@ -115,6 +115,7 @@ function Frequency(props) {
     onFocus,
     onBlur,
     onChange,
+    onMouseDown,
     registerField,
     unregisterField
   } = useForm();
@@ -225,6 +226,7 @@ function Frequency(props) {
                 disabled={disabled}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                onMouseDown={onMouseDown}
                 value={value.frequency}
                 onChange={onChange}
               />

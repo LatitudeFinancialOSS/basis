@@ -55,6 +55,7 @@ function Radio({
   disabled,
   onFocus,
   onBlur,
+  onMouseDown,
   value,
   onChange
 }) {
@@ -90,6 +91,7 @@ function Radio({
             theme["radioGroupRadioLabel.oneLine.withoutCircle"])
         }}
         htmlFor={inputId}
+        onMouseDown={onMouseDown}
       >
         {showCircle && (
           <RadioCircle
@@ -117,6 +119,7 @@ Radio.propTypes = {
   disabled: PropTypes.bool.isRequired,
   onFocus: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
+  onMouseDown: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
@@ -135,6 +138,7 @@ function InternalRadioGroup(_props) {
     describedBy,
     onFocus,
     onBlur,
+    onMouseDown,
     value: checkedValue,
     onChange
   } = props;
@@ -165,6 +169,7 @@ function InternalRadioGroup(_props) {
               disabled={disabled}
               onFocus={onFocus}
               onBlur={onBlur}
+              onMouseDown={onMouseDown}
               onChange={onChange}
             />
           </Grid.Item>
@@ -189,8 +194,9 @@ InternalRadioGroup.propTypes = {
   disabled: PropTypes.bool,
   isValid: PropTypes.bool,
   describedBy: PropTypes.string,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
+  onFocus: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  onMouseDown: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };

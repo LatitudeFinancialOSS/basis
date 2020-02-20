@@ -26,6 +26,7 @@ function Form(_props) {
   });
   const fields = useRef({});
   const lastFocusedFieldName = useRef(null);
+  const lastMouseDownInputElement = useRef(null);
   const onFocus = event => {
     const { name } = event.target;
     const parentName = getParentFieldName(name);
@@ -47,12 +48,21 @@ function Form(_props) {
 
     lastFocusedFieldName.current = null;
 
+    if (target === lastMouseDownInputElement.current) {
+      lastMouseDownInputElement.current = null;
+    }
+
     /* 
       We use setTimeout in order to differentiate between onBlur to another field within
       the same parent (e.g. DatePicker) and onBlur out of the parent.
     */
     setTimeout(() => {
-      if (lastFocusedFieldName.current !== parentName) {
+      if (
+        parentName !== lastFocusedFieldName.current &&
+        (lastMouseDownInputElement.current === null ||
+          parentName !==
+            getParentFieldName(lastMouseDownInputElement.current.name))
+      ) {
         setState(state => setPath(state, "namesToValidate", [parentName]));
       }
     });
@@ -82,6 +92,13 @@ function Form(_props) {
       return newState;
     });
   };
+  const onMouseDown = event => {
+    const { target } = event;
+    const document = target.ownerDocument;
+    const inputElement = document.querySelector(`#${target.htmlFor}`);
+
+    lastMouseDownInputElement.current = inputElement;
+  };
   const registerField = (name, field) => {
     fields.current[name] = field;
   };
@@ -90,9 +107,10 @@ function Form(_props) {
   };
   const providerValue = {
     state,
-    onFocus,
-    onBlur,
-    onChange,
+    onFocus, // should be called by inputs
+    onBlur, // should be called by inputs
+    onChange, // should be called by inputs
+    onMouseDown, // should be called by input labels that have a "for" attribute
     registerField,
     unregisterField
   };

@@ -56,6 +56,7 @@ function Checkbox(props) {
     onFocus,
     onBlur,
     onChange,
+    onMouseDown,
     registerField,
     unregisterField
   } = useForm();
@@ -99,6 +100,7 @@ function Checkbox(props) {
         describedBy={helpText || hasErrors ? auxId : null}
         onFocus={onFocus}
         onBlur={onBlur}
+        onMouseDown={onMouseDown}
         value={value}
         onChange={onChange}
         __internal__keyboardFocus={__internal__keyboardFocus}
