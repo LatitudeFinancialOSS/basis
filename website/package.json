@@ -17,12 +17,12 @@
     "@react-hook/mouse-position": "3.0.4",
     "copy-to-clipboard": "3.2.1",
     "emotion-theming": "10.0.27",
-    "gatsby": "2.19.12",
-    "gatsby-image": "2.2.40",
+    "gatsby": "2.19.17",
+    "gatsby-image": "2.2.41",
     "gatsby-plugin-emotion": "4.1.22",
     "gatsby-plugin-layout": "1.1.22",
     "gatsby-plugin-manifest": "2.2.41",
-    "gatsby-plugin-mdx": "1.0.70",
+    "gatsby-plugin-mdx": "1.0.73",
     "gatsby-plugin-offline": "3.0.34",
     "gatsby-plugin-react-helmet": "3.1.22",
     "gatsby-plugin-robots-txt": "1.5.0",
@@ -38,7 +38,7 @@
     "polished": "3.4.4",
     "prettier": "1.19.1",
     "prop-types": "15.7.2",
-    "query-string": "6.10.1",
+    "query-string": "6.11.0",
     "re-resizable": "6.2.0",
     "react": "16.12.0",
     "react-copy-to-clipboard": "5.0.2",
@@ -51,7 +51,7 @@
     "wcag-contrast": "3.0.0"
   },
   "devDependencies": {
-    "rimraf": "3.0.1"
+    "rimraf": "3.0.2"
   },
   "repository": {
     "type": "git",
