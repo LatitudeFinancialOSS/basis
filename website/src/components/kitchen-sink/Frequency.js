@@ -1,81 +1,130 @@
 import React from "react";
-import { Container, Grid } from "basis";
-import Layout from "./Layout";
-import { Frequency } from "../optionally-controlled";
+import PropTypes from "prop-types";
+import { Container, Grid, Frequency } from "basis";
+import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkForm from "./KitchenSinkForm";
+
+function FormWithFrequency({
+  label,
+  optional,
+  annually,
+  quarterly,
+  monthly,
+  fortnightly,
+  weekly,
+  initialValue = {
+    amount: "",
+    frequency: ""
+  },
+  amountPlaceholder,
+  selectPlaceholder,
+  disabled,
+  submitOnMount
+}) {
+  return (
+    <KitchenSinkForm
+      initialValues={{ salary: initialValue }}
+      submitOnMount={submitOnMount}
+    >
+      <Frequency
+        name="salary"
+        label={label}
+        optional={optional}
+        annually={annually}
+        quarterly={quarterly}
+        monthly={monthly}
+        fortnightly={fortnightly}
+        weekly={weekly}
+        amountPlaceholder={amountPlaceholder}
+        selectPlaceholder={selectPlaceholder}
+        disabled={disabled}
+      />
+    </KitchenSinkForm>
+  );
+}
+
+FormWithFrequency.propTypes = {
+  label: PropTypes.string.isRequired,
+  optional: PropTypes.bool,
+  mode: PropTypes.oneOf(Frequency.MODES),
+  annually: PropTypes.bool,
+  quarterly: PropTypes.bool,
+  monthly: PropTypes.bool,
+  fortnightly: PropTypes.bool,
+  weekly: PropTypes.bool,
+  initialValue: PropTypes.shape({
+    amount: PropTypes.string.isRequired,
+    frequency: PropTypes.string.isRequired
+  }),
+  amountPlaceholder: PropTypes.string,
+  selectPlaceholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  submitOnMount: PropTypes.bool
+};
 
 function KitchenSinkFrequency() {
   return (
-    <Layout name="Frequency">
+    <KitchenSinkLayout name="Frequency">
       <Container padding="4" bg="white">
         <Grid rowsGutter="8">
-          <Frequency
+          <FormWithFrequency
             label="Grey disabled"
+            quarterly={false}
             disabled
-            data={{
-              value: {
-                input: "726",
-                frequency: "monthly"
-              }
+            initialValue={{
+              amount: "726",
+              frequency: "monthly"
             }}
           />
 
-          <Frequency
+          <FormWithFrequency
             label="Optional with error"
             optional
-            data={{
-              value: {
-                input: "-12.8",
-                frequency: "annually"
-              },
-              errors: ["Please enter a valid amount."]
+            quarterly={false}
+            initialValue={{
+              amount: "",
+              frequency: "annually"
             }}
+            submitOnMount
           />
         </Grid>
       </Container>
 
       <Container padding="4" bg="grey.t05">
         <Grid rowsGutter="8">
-          <Frequency
+          <FormWithFrequency
             label="White"
-            quarterly
-            data={{
-              value: {
-                input: "9822",
-                frequency: "weekly"
-              }
+            initialValue={{
+              amount: "9822",
+              frequency: "weekly"
             }}
           />
 
-          <Frequency
+          <FormWithFrequency
             label="Select with multiple errors"
             mode="select"
-            data={{
-              value: {
-                input: "",
-                frequency: ""
-              },
-              errors: [
-                "Please enter a valid amount.",
-                "Please select a frequency."
-              ]
+            quarterly={false}
+            initialValue={{
+              amount: "",
+              frequency: ""
             }}
+            submitOnMount
           />
 
-          <Frequency
+          <FormWithFrequency
             label="Custom placeholders"
             mode="select"
-            inputPlaceholder="Type something"
+            quarterly={false}
+            amountPlaceholder="Type something"
             selectPlaceholder="Select something"
-            data={{
-              value: {
-                input: "",
-                frequency: ""
-              }
+            initialValue={{
+              amount: "",
+              frequency: ""
             }}
           />
         </Grid>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

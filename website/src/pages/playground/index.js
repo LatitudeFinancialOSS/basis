@@ -11,7 +11,6 @@ import { Resizable } from "re-resizable";
 import { rgba } from "polished";
 import useMousePosition from "@react-hook/mouse-position";
 import * as allDesignSystem from "basis";
-import * as allOptionallyControlled from "../../components/optionally-controlled";
 import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../../utils/url";
 import {
   getReactLiveNoInline,
@@ -53,10 +52,7 @@ const defaultCode = prettify(`
   </Container>
 `);
 
-const scope = {
-  ...allDesignSystem,
-  ...allOptionallyControlled
-};
+const scope = allDesignSystem;
 
 const PlaygroundError = withLive(({ live }) => {
   const theme = useTheme();

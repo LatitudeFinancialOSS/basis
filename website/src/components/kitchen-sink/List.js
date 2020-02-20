@@ -1,17 +1,17 @@
 import React from "react";
 import { Container, Flex, List, Text, Link } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkList() {
   return (
-    <Layout name="List">
+    <KitchenSinkLayout name="List">
       <Container padding="4">
         <Text textStyle="heading4" margin="0 0 4 0">
           Unordered:
         </Text>
         <Flex gutter="10" wrap>
           {List.TEXT_STYLES.map(textStyle => (
-            <Container width="240" bg="grey.t10" key={textStyle}>
+            <Container width="240" bg="grey.t05" key={textStyle}>
               <List textStyle={textStyle}>
                 <List.Item>Short item</List.Item>
                 <List.Item>
@@ -46,7 +46,7 @@ function KitchenSinkList() {
         </Text>
         <Flex gutter="10" wrap>
           {List.TEXT_STYLES.map(textStyle => (
-            <Container width="240" bg="grey.t10" key={textStyle}>
+            <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="ordered" textStyle={textStyle}>
                 <List.Item>Short item</List.Item>
                 <List.Item>
@@ -89,7 +89,7 @@ function KitchenSinkList() {
         </Text>
         <Flex gutter="10" wrap>
           {List.TEXT_STYLES.map(textStyle => (
-            <Container width="240" bg="grey.t10" key={textStyle}>
+            <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="steps" textStyle={textStyle}>
                 <List.Item>Short item</List.Item>
                 <List.Item>
@@ -117,7 +117,7 @@ function KitchenSinkList() {
           ))}
         </Flex>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

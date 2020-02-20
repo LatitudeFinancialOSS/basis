@@ -20,10 +20,13 @@ module.exports = {
       Flex: {
         status: COMPONENT_STATUS.READY
       },
-      Frequency: {
+      Footer: {
         status: COMPONENT_STATUS.READY
       },
-      Footer: {
+      Form: {
+        status: COMPONENT_STATUS.READY
+      },
+      Frequency: {
         status: COMPONENT_STATUS.READY
       },
       Grid: {

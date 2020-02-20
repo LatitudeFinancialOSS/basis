@@ -5,6 +5,7 @@ import Frame, { FrameContextConsumer } from "react-frame-component";
 import { Global } from "@emotion/core";
 import { BasisProvider, defaultTheme } from "basis";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";
+import ErrorBoundary from "./ErrorBoundary";
 import "typeface-montserrat";
 import "typeface-roboto";
 
@@ -129,30 +130,32 @@ function ComponentPreview({
   highlightedComponents
 }) {
   return (
-    <Frame
-      title={iframeTitle}
-      initialContent={iframeHTML}
-      mountTarget="#component-preview"
-      style={iframeStyle}
-    >
-      <FrameContextConsumer>
-        {({ window, document }) => {
-          // CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
-          return (
-            <CacheProviderWithContainer container={document.head}>
-              <ComponentPreviewContent
-                window={window}
-                document={document}
-                hasBodyMargin={hasBodyMargin}
-                setDocument={setDocument}
-                containerRef={containerRef}
-                highlightedComponents={highlightedComponents}
-              />
-            </CacheProviderWithContainer>
-          );
-        }}
-      </FrameContextConsumer>
-    </Frame>
+    <ErrorBoundary>
+      <Frame
+        title={iframeTitle}
+        initialContent={iframeHTML}
+        mountTarget="#component-preview"
+        style={iframeStyle}
+      >
+        <FrameContextConsumer>
+          {({ window, document }) => {
+            // CacheProviderWithContainer injects design system styles into the iframe (e.g. Button styles).
+            return (
+              <CacheProviderWithContainer container={document.head}>
+                <ComponentPreviewContent
+                  window={window}
+                  document={document}
+                  hasBodyMargin={hasBodyMargin}
+                  setDocument={setDocument}
+                  containerRef={containerRef}
+                  highlightedComponents={highlightedComponents}
+                />
+              </CacheProviderWithContainer>
+            );
+          }}
+        </FrameContextConsumer>
+      </Frame>
+    </ErrorBoundary>
   );
 }
 

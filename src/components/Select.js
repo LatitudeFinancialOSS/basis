@@ -1,85 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
+import InternalSelect from "./internal/InternalSelect";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS } = InternalSelect;
+
+function isOptionSelected(options, value) {
+  return options.findIndex(option => option.value === value) > -1;
+}
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  placeholder: "Please select",
-  fullWidth: true,
-  optional: false,
+  color: InternalSelect.DEFAULT_PROPS.color,
+  placeholder: InternalSelect.DEFAULT_PROPS.placeholder,
+  fullWidth: InternalSelect.DEFAULT_PROPS.fullWidth,
   disabled: false,
-  validation: [
-    {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched, props }) => {
-        if (!isTouched) {
-          return null;
-        }
-
-        const selectedOption = props.options.find(
-          option => option.value === value
-        );
-
-        if (!selectedOption) {
-          return "Please make a selection.";
-        }
-
-        return null;
-      }
+  optional: false,
+  validate: (value, { isEmpty }) => {
+    if (isEmpty(value)) {
+      return "Please make a selection.";
     }
-  ]
+
+    return null;
+  }
 };
 
 Select.COLORS = COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Select(props) {
-  const theme = useTheme();
   const { inputColor } = useBackground();
   const inheritedProps = {
     color: inputColor
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
+    placeholder: placeholder => typeof placeholder === "string",
     fullWidth: fullWidth => typeof fullWidth === "boolean",
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    helpText: helpText => typeof helpText === "string",
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
+    name,
     color,
     label,
     placeholder,
-    onFocus,
-    onBlur,
     options,
     fullWidth,
-    optional,
     helpText,
     disabled,
-    data,
-    onChange,
+    optional,
+    validate,
     testId,
     __internal__focus
   } = mergedProps;
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
-  const { value: selectedValue, errors } = data;
-  const validate = useValidation({
-    props: mergedProps,
-    extraData: {
-      isTouched,
-      props: mergedProps
-    }
-  });
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => isOptionSelected(options, value) === false,
+    [options]
+  );
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      data: {
+        isEmpty
+      }
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -93,80 +102,32 @@ function Select(props) {
       errors={errors}
       testId={testId}
     >
-      <select
-        css={{
-          ...theme.selectInput,
-          ...theme[`selectInput.${colorStr}`],
-          ...(fullWidth && theme["selectInput.fullWidth"]),
-          ":focus": {
-            ...theme["selectInput:focus"],
-            ...theme[`selectInput.${colorStr}:focus`]
-          },
-          ...(__internal__focus && {
-            ...theme["selectInput:focus"],
-            ...theme[`selectInput.${colorStr}:focus`]
-          }),
-          ":active": {
-            ...(!disabled && theme[`selectInput.${colorStr}:active`])
-          },
-          ":hover": {
-            ...(!disabled && theme[`selectInput.${colorStr}:hover`])
-          },
-          // See: https://stackoverflow.com/a/19451423/247243
-          ":-moz-focusring": {
-            color: "transparent",
-            textShadow: "0 0 0 #000"
-          }
-        }}
+      <InternalSelect
         id={selectId}
-        aria-invalid={errors ? "true" : null}
-        aria-describedby={helpText || errors ? auxId : null}
+        name={name}
+        color={color}
+        placeholder={placeholder}
+        options={options}
+        fullWidth={fullWidth}
+        optional={optional}
         disabled={disabled}
-        value={selectedValue}
-        onFocus={() => {
-          setIsTouched(true);
-          onFocus && onFocus();
-        }}
-        onBlur={() => {
-          validate();
-          onBlur && onBlur();
-        }}
-        onChange={e => {
-          onChange({
-            ...data,
-            value: e.target.value
-          });
-        }}
-      >
-        {placeholder && (
-          <option value="" disabled={!optional} hidden={!optional}>
-            {placeholder}
-          </option>
-        )}
-        {options.map(option => (
-          /* 
-            Note: We use `option.label` as the key here because users shouldn't have
-                  multiple options with the same label.
-                  They can have multiple options with the same value though!
-                  For example:
-                    <option value="us">USA</option>
-                    <option value="us">United States</option>
-          */
-          <option value={option.value} key={option.label}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        isValid={!hasErrors}
+        describedBy={helpText || hasErrors ? auxId : null}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        value={value}
+        onChange={onChange}
+        __internal__focus={__internal__focus}
+      />
     </Field>
   );
 }
 
 Select.propTypes = {
-  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   placeholder: PropTypes.string,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -174,21 +135,10 @@ Select.propTypes = {
     })
   ).isRequired,
   fullWidth: PropTypes.bool,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
-  errorMessage: PropTypes.string,
   disabled: PropTypes.bool,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      condition: PropTypes.func,
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

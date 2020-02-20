@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import { render } from "../utils/test";
+import React from "react";
+import { render, wait } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import Form from "./Form";
 import Input from "./Input";
 import Container from "./Container";
 
-function App(props) {
-  const [name, setName] = useState({
-    value: ""
-  });
+function FormWithInput(props) {
+  const initialValues = {
+    name: ""
+  };
 
-  return <Input data={name} onChange={setName} {...props} />;
+  return (
+    <Form initialValues={initialValues}>
+      <Input name="name" {...props} />
+    </Form>
+  );
 }
 
 describe("Input", () => {
   it("renders label that is connected to the input", () => {
-    const { getByText, getByLabelText } = render(<App label="First name" />);
+    const { getByText, getByLabelText } = render(
+      <FormWithInput label="First name" />
+    );
     const label = getByText("First name");
     const input = getByLabelText("First name");
 
@@ -54,7 +61,7 @@ describe("Input", () => {
 
   it("renders help text that is connected to the input", () => {
     const { container, getByLabelText } = render(
-      <App label="First name" helpText="Some help text" />
+      <FormWithInput label="First name" helpText="Some help text" />
     );
     const input = getByLabelText("First name");
     const describedBy = input.getAttribute("aria-describedby");
@@ -63,27 +70,28 @@ describe("Input", () => {
     expect(errorMessage).toHaveTextContent("Some help text");
   });
 
-  it("renders error message", () => {
+  it("renders error message", async () => {
     const { container, queryByText, getByLabelText } = render(
-      <App label="First name" helpText="Some help text" />
+      <FormWithInput label="First name" helpText="Some help text" />
     );
     const input = getByLabelText("First name");
 
     input.focus();
     input.blur();
 
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
-
     const describedBy = input.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Required");
+    await wait(() => {
+      expect(errorMessage).toHaveTextContent("Required");
+      expect(queryByText("Some help text")).not.toBeInTheDocument();
+    });
   });
 
   it("inside dark container", () => {
     const { getByLabelText } = render(
       <Container bg="primary.blue.t100">
-        <App label="First name" />
+        <FormWithInput label="First name" />
       </Container>
     );
     const input = getByLabelText("First name");
@@ -94,8 +102,13 @@ describe("Input", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(<App label="First name" testId="my-input" />);
+    const { container } = render(
+      <FormWithInput label="First name" testId="my-input" />
+    );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-input");
+    expect(container.querySelector("form").firstChild).toHaveAttribute(
+      "data-testid",
+      "my-input"
+    );
   });
 });

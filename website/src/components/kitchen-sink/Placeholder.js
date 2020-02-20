@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Placeholder } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkPlaceholder() {
   return (
-    <Layout name="Placeholder">
+    <KitchenSinkLayout name="Placeholder">
       <Container padding="6">
         <Placeholder />
       </Container>
@@ -16,7 +16,7 @@ function KitchenSinkPlaceholder() {
       <Container padding="6">
         <Placeholder label="Custom size" width="320" height="112" />
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

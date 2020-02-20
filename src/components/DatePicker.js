@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   parseISO,
@@ -7,101 +7,69 @@ import {
 } from "date-fns";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
-import Input from "./Input";
+import InternalInput from "./internal/InternalInput";
 import Grid from "./Grid";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS } = InternalInput;
+
+const DAY_REGEX = /^\d{1,2}$/;
+const MONTH_REGEX = /^\d{1,2}$/;
+const YEAR_REGEX = /^\d{1,4}$/;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  optional: false,
+  color: InternalInput.DEFAULT_PROPS.color,
   disabled: false,
-  validation: [
-    {
-      condition: ({ optional }) => !optional,
-      validator: ({ day }, { isTouched }) => {
-        if (!isTouched.day) {
-          return null;
-        }
+  optional: false,
+  validate: ({ day, month, year }) => {
+    const errors = [];
 
-        if (/^\d{1,2}$/.test(day) === false) {
-          return "Day must be within 1-31.";
-        }
+    if (DAY_REGEX.test(day)) {
+      const dayInt = parseInt(day, 10);
 
-        const dayInt = parseInt(day, 10);
-
-        if (dayInt < 1 || dayInt > 31) {
-          return "Day must be within 1-31.";
-        }
-
-        return null;
+      if (dayInt < 1 || dayInt > 31) {
+        errors.push("Day must be within 1-31.");
       }
-    },
-    {
-      condition: ({ optional }) => !optional,
-      validator: ({ month }, { isTouched }) => {
-        if (!isTouched.month) {
-          return null;
-        }
+    } else {
+      errors.push("Day must be within 1-31.");
+    }
 
-        if (/^\d{1,2}$/.test(month) === false) {
-          return "Month must be within 1-12.";
-        }
+    if (MONTH_REGEX.test(month)) {
+      const monthInt = parseInt(month, 10);
 
-        const monthInt = parseInt(month, 10);
-
-        if (monthInt < 1 || monthInt > 12) {
-          return "Month must be within 1-12.";
-        }
-
-        return null;
+      if (monthInt < 1 || monthInt > 12) {
+        errors.push("Month must be within 1-12.");
       }
-    },
-    {
-      condition: ({ optional }) => !optional,
-      validator: ({ year }, { isTouched }) => {
-        if (!isTouched.year) {
-          return null;
-        }
+    } else {
+      errors.push("Month must be within 1-12.");
+    }
 
-        if (/^\d{1,4}$/.test(year) === false) {
-          return "Year must be within 1800-2200.";
-        }
+    if (YEAR_REGEX.test(year)) {
+      const yearInt = parseInt(year, 10);
 
-        const yearInt = parseInt(year, 10);
-
-        if (yearInt < 1800 || yearInt > 2200) {
-          return "Year must be within 1800-2200.";
-        }
-
-        return null;
+      if (yearInt < 1800 || yearInt > 2200) {
+        errors.push("Year must be within 1800-2200.");
       }
-    },
-    {
-      condition: ({ optional }, { previousErrors }) =>
-        !optional && previousErrors.every(error => error === null),
-      validator: ({ day, month, year }, { isTouched }) => {
-        if (!isTouched.day || !isTouched.month || !isTouched.year) {
-          return null;
-        }
+    } else {
+      errors.push("Year must be within 1800-2200.");
+    }
 
-        const twoDigitsDay = day.length === 1 ? `0${day}` : day;
-        const twoDigitsMonth = month.length === 1 ? `0${month}` : month;
+    if (errors.length === 0) {
+      const twoDigitsDay = day.length === 1 ? `0${day}` : day;
+      const twoDigitsMonth = month.length === 1 ? `0${month}` : month;
 
-        if (
-          isDateValid(parseISO(`${year}-${twoDigitsMonth}-${twoDigitsDay}`)) ===
-          false
-        ) {
-          return "Invalid date.";
-        }
-
-        return null;
+      if (
+        isDateValid(parseISO(`${year}-${twoDigitsMonth}-${twoDigitsDay}`)) ===
+        false
+      ) {
+        errors.push("Invalid date.");
       }
     }
-  ]
+
+    return errors;
+  }
 };
 
 DatePicker.COLORS = COLORS;
@@ -126,37 +94,54 @@ function DatePicker(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
+    name,
     color,
     label,
-    optional,
     helpText: helpTextProp,
     disabled,
-    data,
-    onChange,
+    optional,
+    validate,
     testId
   } = mergedProps;
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState({
-    day: false,
-    month: false,
-    year: false
-  });
-  const { value, errors } = data;
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => value.day === "" && value.month === "" && value.year === "",
+    []
+  );
   const helpText = useMemo(
     () => getHelpText(value.day, value.month, value.year, helpTextProp),
     [value.day, value.month, value.year, helpTextProp]
   );
-  const validate = useValidation({
-    props: mergedProps,
-    extraData: {
-      isTouched
-    }
-  });
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      data: {
+        isEmpty
+      }
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -170,93 +155,48 @@ function DatePicker(props) {
       testId={testId}
     >
       <div
-        aria-invalid={errors ? "true" : null}
+        aria-invalid={hasErrors ? "true" : null}
         aria-labelledby={labelId}
-        aria-describedby={helpText || errors ? auxId : null}
+        aria-describedby={helpText || hasErrors ? auxId : null}
       >
         <Grid cols={4} colsGutter={1}>
           <Grid.Item colSpan={0}>
-            <Input
+            <InternalInput
+              name={`${name}.day`}
               color={color}
               type="number"
               placeholder="DD"
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  day: true
-                });
-              }}
-              onBlur={validate}
-              validation={[]}
-              data={{
-                value: value.day
-              }}
-              onChange={({ value: day }) => {
-                onChange({
-                  ...data,
-                  value: {
-                    ...value,
-                    day
-                  }
-                });
-              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              value={value.day}
+              onChange={onChange}
             />
           </Grid.Item>
           <Grid.Item colSpan={1}>
-            <Input
+            <InternalInput
+              name={`${name}.month`}
               color={color}
               type="number"
               placeholder="MM"
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  month: true
-                });
-              }}
-              onBlur={validate}
-              validation={[]}
-              data={{
-                value: value.month
-              }}
-              onChange={({ value: month }) => {
-                onChange({
-                  ...data,
-                  value: {
-                    ...value,
-                    month
-                  }
-                });
-              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              value={value.month}
+              onChange={onChange}
             />
           </Grid.Item>
           <Grid.Item colSpan="2-3">
-            <Input
+            <InternalInput
+              name={`${name}.year`}
               color={color}
               type="number"
               placeholder="YYYY"
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  year: true
-                });
-              }}
-              onBlur={validate}
-              validation={[]}
-              data={{
-                value: value.year
-              }}
-              onChange={({ value: year }) => {
-                onChange({
-                  ...data,
-                  value: {
-                    ...value,
-                    year
-                  }
-                });
-              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              value={value.year}
+              onChange={onChange}
             />
           </Grid.Item>
         </Grid>
@@ -266,26 +206,13 @@ function DatePicker(props) {
 }
 
 DatePicker.propTypes = {
+  name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      condition: PropTypes.func,
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.shape({
-      day: PropTypes.string,
-      month: PropTypes.string,
-      year: PropTypes.string
-    }).isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string
 };
 

@@ -1,31 +1,75 @@
 import React from "react";
-import { Container, Grid } from "basis";
-import Layout from "./Layout";
-import { Checkbox } from "../optionally-controlled";
+import PropTypes from "prop-types";
+import { Container, Grid, Checkbox } from "basis";
+import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkForm from "./KitchenSinkForm";
+
+function FormWithCheckbox({
+  initialValue = false,
+  color,
+  label,
+  disabled,
+  helpText,
+  optional,
+  __internal__keyboardFocus,
+  children,
+  submitOnMount
+}) {
+  return (
+    <KitchenSinkForm
+      initialValues={{ agreedToTerms: initialValue }}
+      submitOnMount={submitOnMount}
+    >
+      <Checkbox
+        name="agreedToTerms"
+        color={color}
+        label={label}
+        disabled={disabled}
+        helpText={helpText}
+        optional={optional}
+        __internal__keyboardFocus={__internal__keyboardFocus}
+      >
+        {children}
+      </Checkbox>
+    </KitchenSinkForm>
+  );
+}
+
+FormWithCheckbox.propTypes = {
+  initialValue: PropTypes.bool,
+  color: PropTypes.oneOf(Checkbox.COLORS),
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  helpText: PropTypes.string,
+  optional: PropTypes.bool,
+  __internal__keyboardFocus: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  submitOnMount: PropTypes.bool
+};
 
 function KitchenSinkCheckbox() {
   return (
-    <Layout name="Checkbox">
+    <KitchenSinkLayout name="Checkbox">
       <Container padding="4">
         <Container width="320">
           <Grid rowsGutter="8">
-            <Checkbox color="grey.t05">Grey</Checkbox>
+            <FormWithCheckbox color="grey.t05">Grey</FormWithCheckbox>
 
-            <Checkbox color="grey.t05" data={{ value: true }}>
+            <FormWithCheckbox initialValue={true} color="grey.t05">
               Grey checked
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox color="grey.t05" __internal__keyboardFocus>
+            <FormWithCheckbox color="grey.t05" __internal__keyboardFocus>
               Grey focus
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox
+            <FormWithCheckbox
+              initialValue={true}
               color="grey.t05"
-              data={{ value: true }}
               __internal__keyboardFocus
             >
               Grey checked focus
-            </Checkbox>
+            </FormWithCheckbox>
           </Grid>
         </Container>
       </Container>
@@ -33,54 +77,54 @@ function KitchenSinkCheckbox() {
       <Container padding="4" bg="grey.t05">
         <Container width="320">
           <Grid rowsGutter="8">
-            <Checkbox>White</Checkbox>
+            <FormWithCheckbox>White</FormWithCheckbox>
 
-            <Checkbox data={{ value: true }}>White checked</Checkbox>
+            <FormWithCheckbox initialValue={true}>
+              White checked
+            </FormWithCheckbox>
 
-            <Checkbox __internal__keyboardFocus>White focus</Checkbox>
+            <FormWithCheckbox __internal__keyboardFocus>
+              White focus
+            </FormWithCheckbox>
 
-            <Checkbox data={{ value: true }} __internal__keyboardFocus>
+            <FormWithCheckbox initialValue={true} __internal__keyboardFocus>
               White checked focus
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox>
+            <FormWithCheckbox>
               This text spans multiple lines so you could see how it wraps.
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox label="Accept terms and conditions">With label</Checkbox>
+            <FormWithCheckbox label="Accept terms and conditions">
+              With label
+            </FormWithCheckbox>
 
-            <Checkbox label="Get occasional promotions" optional>
+            <FormWithCheckbox label="Get occasional promotions" optional>
               Optional
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox
+            <FormWithCheckbox
               label="Accept terms and conditions"
               helpText="It's your responsibility to read the terms before accepting."
             >
               With help text
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox
+            <FormWithCheckbox
               label="Accept terms and conditions"
               helpText="It's your responsibility to read the terms before accepting."
               disabled
             >
               Disabled
-            </Checkbox>
+            </FormWithCheckbox>
 
-            <Checkbox
-              label="Accept terms and conditions"
-              data={{
-                value: false,
-                errors: ["You must accept the terms before proceeding."]
-              }}
-            >
+            <FormWithCheckbox label="Accept terms and conditions" submitOnMount>
               With error
-            </Checkbox>
+            </FormWithCheckbox>
           </Grid>
         </Container>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

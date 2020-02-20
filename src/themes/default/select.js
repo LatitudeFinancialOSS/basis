@@ -19,7 +19,7 @@ export default theme => ({
     alignSelf: "flex-start"
   },
   "selectInput.fullWidth": {
-    alignSelf: "auto"
+    width: "100%"
   },
   "selectInput:focus": {
     outline: 0,

@@ -1,79 +1,57 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { pluralize } from "../utils/string";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
-import Input from "./Input";
 import Grid from "./Grid";
+import InternalInput from "./internal/InternalInput";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS } = InternalInput;
+
+const YEARS_REGEX = /^\d{1,2}$/;
+const MONTHS_REGEX = /^\d{1,2}$/;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  optional: false,
+  color: InternalInput.DEFAULT_PROPS.color,
   disabled: false,
-  validation: [
-    {
-      condition: ({ optional }) => !optional,
-      validator: ({ years }, { isTouched }) => {
-        if (!isTouched.years || years === "") {
-          return null;
-        }
+  optional: false,
+  validate: ({ years, months }) => {
+    const errors = [];
 
-        if (/^\d{1,2}$/.test(years) === false) {
-          return "Years must be within 0-99.";
-        }
+    if (YEARS_REGEX.test(years)) {
+      const yearsInt = parseInt(years, 10);
 
-        const yearsInt = parseInt(years, 10);
-
-        if (yearsInt < 0 || yearsInt > 99) {
-          return "Years must be within 0-99.";
-        }
-
-        return null;
+      if (yearsInt < 0 || yearsInt > 99) {
+        errors.push("Years must be within 0-99.");
       }
-    },
-    {
-      condition: ({ optional }) => !optional,
-      validator: ({ months }, { isTouched }) => {
-        if (!isTouched.months || months === "") {
-          return null;
-        }
+    } else if (years !== "") {
+      errors.push("Years must be within 0-99.");
+    }
 
-        if (/^\d{1,2}$/.test(months) === false) {
-          return "Months must be within 0-11.";
-        }
+    if (MONTHS_REGEX.test(months)) {
+      const monthsInt = parseInt(months, 10);
 
-        const monthsInt = parseInt(months, 10);
-
-        if (monthsInt < 0 || monthsInt > 11) {
-          return "Months must be within 0-11.";
-        }
-
-        return null;
+      if (monthsInt < 0 || monthsInt > 11) {
+        errors.push("Months must be within 0-11.");
       }
-    },
-    {
-      condition: ({ optional }) => !optional,
-      validator: ({ years, months }, { isTouched }) => {
-        if (!isTouched.years && !isTouched.months) {
-          return null;
-        }
+    } else if (months !== "") {
+      errors.push("Months must be within 0-11.");
+    }
 
-        const yearsInt = parseInt(years || "0", 10);
-        const monthsInt = parseInt(months || "0", 10);
+    if (errors.length === 0) {
+      const yearsInt = parseInt(years || "0", 10);
+      const monthsInt = parseInt(months || "0", 10);
 
-        if (yearsInt === 0 && monthsInt === 0) {
-          return "Must be at least 1 month.";
-        }
-
-        return null;
+      if (yearsInt === 0 && monthsInt === 0) {
+        errors.push("Must be at least 1 month.");
       }
     }
-  ]
+
+    return errors;
+  }
 };
 
 TimeSpan.COLORS = COLORS;
@@ -109,38 +87,56 @@ function TimeSpan(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
+    name,
     color,
     label,
-    optional,
     helpText: helpTextProp,
     disabled,
-    data,
-    onChange,
+    optional,
+    validate,
     testId,
     __internal__yearsFocus,
     __internal__monthsFocus
   } = mergedProps;
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState({
-    years: false,
-    months: false
-  });
-  const { value, errors } = data;
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => value.years === "" && value.months === "",
+    []
+  );
   const helpText = useMemo(
     () => getHelpText(value.years, value.months, helpTextProp),
     [value.years, value.months, helpTextProp]
   );
-  const validate = useValidation({
-    props: mergedProps,
-    extraData: {
-      isTouched
-    }
-  });
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      data: {
+        isEmpty
+      }
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -154,66 +150,36 @@ function TimeSpan(props) {
       testId={testId}
     >
       <div
-        aria-invalid={errors ? "true" : null}
+        aria-invalid={hasErrors ? "true" : null}
         aria-labelledby={labelId}
-        aria-describedby={helpText || errors ? auxId : null}
+        aria-describedby={helpText || hasErrors ? auxId : null}
       >
         <Grid cols={2} colsGutter={1}>
           <Grid.Item colSpan="0">
-            <Input
+            <InternalInput
+              name={`${name}.years`}
               color={color}
               type="number"
               placeholder="Years"
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  years: true
-                });
-              }}
-              onBlur={validate}
-              validation={[]}
-              data={{
-                value: value.years
-              }}
-              onChange={({ value: years }) => {
-                onChange({
-                  ...data,
-                  value: {
-                    ...value,
-                    years
-                  }
-                });
-              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              value={value.years}
+              onChange={onChange}
               __internal__focus={__internal__yearsFocus}
             />
           </Grid.Item>
           <Grid.Item colSpan="1">
-            <Input
+            <InternalInput
+              name={`${name}.months`}
               color={color}
               type="number"
               placeholder="Months"
               disabled={disabled}
-              onFocus={() => {
-                setIsTouched({
-                  ...isTouched,
-                  months: true
-                });
-              }}
-              onBlur={validate}
-              validation={[]}
-              data={{
-                value: value.months
-              }}
-              onChange={({ value: months }) => {
-                onChange({
-                  ...data,
-                  value: {
-                    ...value,
-                    months
-                  }
-                });
-              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              value={value.months}
+              onChange={onChange}
               __internal__focus={__internal__monthsFocus}
             />
           </Grid.Item>
@@ -224,25 +190,13 @@ function TimeSpan(props) {
 }
 
 TimeSpan.propTypes = {
+  name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      condition: PropTypes.func,
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.shape({
-      years: PropTypes.string,
-      months: PropTypes.string
-    }).isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool

@@ -1,18 +1,64 @@
 import React from "react";
-import { Container, Grid } from "basis";
-import Layout from "./Layout";
-import { Input } from "../optionally-controlled";
+import PropTypes from "prop-types";
+import { Container, Grid, Input } from "basis";
+import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkForm from "./KitchenSinkForm";
+
+function FormWithInput({
+  initialValue = "",
+  placeholder,
+  color,
+  type,
+  label,
+  disabled,
+  helpText,
+  optional,
+  __internal__focus,
+  submitOnMount
+}) {
+  return (
+    <KitchenSinkForm
+      initialValues={{ name: initialValue }}
+      submitOnMount={submitOnMount}
+    >
+      <Input
+        name="name"
+        placeholder={placeholder}
+        color={color}
+        type={type}
+        label={label}
+        disabled={disabled}
+        helpText={helpText}
+        optional={optional}
+        __internal__focus={__internal__focus}
+      />
+    </KitchenSinkForm>
+  );
+}
+
+FormWithInput.propTypes = {
+  initialValue: PropTypes.string,
+  placeholder: PropTypes.string,
+  color: PropTypes.oneOf(Input.COLORS),
+  type: PropTypes.oneOf(Input.TYPES),
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  helpText: PropTypes.string,
+  optional: PropTypes.bool,
+  __internal__focus: PropTypes.bool,
+  submitOnMount: PropTypes.bool
+};
 
 function KitchenSinkInput() {
   return (
-    <Layout name="Input">
+    <KitchenSinkLayout name="Input">
       <Container padding="4">
         <Container width="320">
           <Grid rowsGutter="8">
-            <Input placeholder="Grey" color="grey.t05" />
+            <FormWithInput label="Grey" color="grey.t05" />
 
-            <Input
-              placeholder="Grey focus"
+            <FormWithInput
+              label="Grey focus"
               color="grey.t05"
               __internal__focus
             />
@@ -23,74 +69,40 @@ function KitchenSinkInput() {
       <Container padding="4" bg="grey.t05">
         <Container width="320">
           <Grid rowsGutter="8">
-            <Input placeholder="White" />
+            <FormWithInput label="White" />
 
-            <Input placeholder="White focus" __internal__focus />
+            <FormWithInput label="White focus" __internal__focus />
 
-            <Input placeholder="With label" label="First name" />
+            <FormWithInput label="With placeholder" placeholder="Placeholder" />
 
-            <Input
-              placeholder="With value"
-              label="First name"
-              data={{ value: "With value" }}
-            />
+            <FormWithInput label="With value" initialValue="With value" />
 
-            <Input placeholder="Optional" label="First name" optional />
+            <FormWithInput label="Optional" optional />
 
-            <Input
-              placeholder="With help text"
-              label="First name"
+            <FormWithInput
+              label="With help text"
               helpText="Please enter your name exactly as it appears in your passport."
             />
 
-            <Input
-              placeholder="Disabled"
-              label="First name"
+            <FormWithInput
+              label="Disabled"
               helpText="Nickname is not allowed."
               disabled
             />
 
-            <Input
-              placeholder="Single error"
-              label="First name"
-              data={{ value: "", errors: ["Something is wrong"] }}
-            />
+            <FormWithInput label="With error" submitOnMount />
 
-            <Input
-              placeholder="Very long error"
-              label="First name"
-              data={{
-                value: "",
-                errors: [
-                  "Something is wrong and it's easy to fix, but I won't bother for now."
-                ]
-              }}
-            />
+            <FormWithInput label="Number type" type="number" />
 
-            <Input
-              placeholder="Multiple errors"
-              label="First name"
-              data={{
-                value: "",
-                errors: [
-                  "Something is wrong and it's easy to fix, but I won't bother for now.",
-                  "Another thing seems invalid here and you should be able to fix it easily without any help.",
-                  "Error 3"
-                ]
-              }}
-            />
-
-            <Input placeholder='type="number"' type="number" />
-
-            <Input
-              label="With number value"
+            <FormWithInput
+              label="Number type with value"
               type="number"
-              data={{ value: "10" }}
+              initialValue="10"
             />
           </Grid>
         </Container>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

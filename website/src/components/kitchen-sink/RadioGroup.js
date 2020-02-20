@@ -1,58 +1,106 @@
 import React from "react";
-import { Container, Grid } from "basis";
-import Layout from "./Layout";
-import { RadioGroup } from "../optionally-controlled";
+import PropTypes from "prop-types";
+import { Container, Grid, RadioGroup } from "basis";
+import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkForm from "./KitchenSinkForm";
+
+const options = [
+  {
+    label: "Option 1",
+    value: "option-1"
+  },
+  {
+    label: "Option 2",
+    value: "option-2"
+  },
+  {
+    label: "Option 3",
+    value: "option-3"
+  }
+];
+
+function FormWithRadioGroup({
+  label,
+  initialValue = "",
+  disabled,
+  helpText,
+  optional,
+  columns,
+  showCircles,
+  submitOnMount
+}) {
+  return (
+    <KitchenSinkForm
+      initialValues={{ hungry: initialValue }}
+      submitOnMount={submitOnMount}
+    >
+      <RadioGroup
+        name="hungry"
+        options={options}
+        label={label}
+        disabled={disabled}
+        helpText={helpText}
+        optional={optional}
+        columns={columns}
+        showCircles={showCircles}
+      />
+    </KitchenSinkForm>
+  );
+}
+
+FormWithRadioGroup.propTypes = {
+  label: PropTypes.string.isRequired,
+  initialValue: PropTypes.string,
+  disabled: PropTypes.bool,
+  helpText: PropTypes.string,
+  optional: PropTypes.bool,
+  columns: PropTypes.number,
+  showCircles: PropTypes.bool,
+  submitOnMount: PropTypes.bool
+};
 
 function KitchenSinkRadioGroup() {
   return (
-    <Layout name="RadioGroup">
+    <KitchenSinkLayout name="RadioGroup">
       <Container padding="4" bg="white">
         <Grid rowsGutter="8">
-          <RadioGroup
+          <FormWithRadioGroup
             label="Grey disabled"
+            initialValue="option-2"
             disabled
-            data={{ value: "option-2" }}
           />
 
-          <RadioGroup
-            label="Optional with error"
-            optional
-            data={{
-              value: "",
-              errors: ["Please make a selection."]
-            }}
-          />
+          <FormWithRadioGroup label="Optional" optional />
+
+          <FormWithRadioGroup label="With error" submitOnMount />
         </Grid>
       </Container>
 
       <Container padding="4" bg="grey.t05">
         <Grid rowsGutter="8">
-          <RadioGroup
+          <FormWithRadioGroup
             label="White one column with help text"
+            initialValue="option-1"
             columns={1}
-            data={{ value: "option-1" }}
             helpText="Help text goes here."
           />
 
-          <RadioGroup
+          <FormWithRadioGroup
             label="No circles centered"
-            showCircles={false}
+            initialValue="option-3"
             columns={3}
-            data={{ value: "option-3" }}
+            showCircles={false}
           />
 
-          <RadioGroup
-            label="No circles not centered with multiple errors"
-            showCircles={false}
+          <FormWithRadioGroup
+            label="No circles, 2 columns, with error"
             columns={2}
-            data={{
-              value: "",
-              errors: ["Please make a selection.", "Another error goes here."]
-            }}
+            showCircles={false}
+            submitOnMount
           />
         </Grid>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

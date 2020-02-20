@@ -1,5 +1,7 @@
 import * as components from "../../../src/components";
 
+const COMPONENT_NAME_REGEX = /^[A-Z][a-z]/;
+
 function getComponentNames(initialQueue) {
   const queue = initialQueue;
   const result = [];
@@ -10,7 +12,14 @@ function getComponentNames(initialQueue) {
     result.push(componentName);
 
     Object.keys(componentFunction).forEach(key => {
-      if (typeof componentFunction[key] === "function") {
+      if (
+        typeof componentFunction[key] === "function" &&
+        /*
+          We test against this regex because forwardRef, for example,
+          adds a "render" function onto the given component.
+        */
+        COMPONENT_NAME_REGEX.test(key)
+      ) {
         queue.push([`${componentName}.${key}`, componentFunction[key]]);
       }
     });

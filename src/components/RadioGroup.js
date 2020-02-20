@@ -1,147 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
-import Grid from "./Grid";
-import VisuallyHidden from "./VisuallyHidden";
+import InternalRadioGroup from "./internal/InternalRadioGroup";
 
-const COLORS = ["grey.t05", "white"];
+const { COLORS } = InternalRadioGroup;
+
+function isOptionSelected(options, value) {
+  return options.findIndex(option => option.value === value) > -1;
+}
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
+  color: InternalRadioGroup.DEFAULT_PROPS.color,
   showCircles: true,
-  optional: false,
   disabled: false,
-  validation: [
-    {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched, props }) => {
-        if (!isTouched) {
-          return null;
-        }
-
-        const selectedOption = props.options.find(
-          option => option.value === value
-        );
-
-        if (!selectedOption) {
-          return "Please make a selection.";
-        }
-
-        return null;
-      }
+  optional: false,
+  validate: (value, { isEmpty }) => {
+    if (isEmpty(value)) {
+      return "Please make a selection.";
     }
-  ]
-};
 
-function RadioCircle({ color, isChecked }) {
-  const theme = useTheme();
-
-  return (
-    <svg
-      css={theme.radioGroupRadioCircle}
-      viewBox="0 0 24 24"
-      focusable="false"
-      aria-hidden="true"
-    >
-      <circle
-        css={theme[`radioGroupRadioOuterCircle.${color}`]}
-        cx="12"
-        cy="12"
-        r="12"
-      />
-      {isChecked && (
-        <circle css={theme.radioGroupRadioInnerCircle} cx="12" cy="12" r="6" />
-      )}
-    </svg>
-  );
-}
-
-RadioCircle.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t30"]).isRequired,
-  isChecked: PropTypes.bool.isRequired
-};
-
-function Radio({
-  color,
-  isOneLine,
-  showCircle,
-  name,
-  label,
-  isChecked,
-  disabled,
-  onFocus,
-  onBlur,
-  value,
-  onChange
-}) {
-  const theme = useTheme();
-  const [inputId] = useState(() => `radio-input-${nanoid()}`);
-
-  return (
-    <div css={theme.radioGroupRadio} role="radio" aria-checked={isChecked}>
-      <VisuallyHidden>
-        <input
-          css={{
-            ":focus-visible + label":
-              theme["radioGroupRadioLabel.focus-visible"],
-            ":checked + label": theme["radioGroupRadioLabel.checked"]
-          }}
-          type="radio"
-          id={inputId}
-          name={name}
-          value={value}
-          checked={isChecked}
-          disabled={disabled}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChange={e => {
-            onChange(e.target.value);
-          }}
-        />
-      </VisuallyHidden>
-      <label
-        css={{
-          ...theme.radioGroupRadioLabel,
-          ...theme[`radioGroupRadioLabel.${color}`],
-          ...(isOneLine &&
-            !showCircle &&
-            theme["radioGroupRadioLabel.oneLine.withoutCircle"])
-        }}
-        htmlFor={inputId}
-      >
-        {showCircle && (
-          <RadioCircle
-            color={
-              color === "grey.t05" || isChecked
-                ? "white"
-                : "secondary.lightBlue.t30"
-            }
-            isChecked={isChecked}
-          />
-        )}
-        {label}
-      </label>
-    </div>
-  );
-}
-
-Radio.propTypes = {
-  color: PropTypes.oneOf(COLORS).isRequired,
-  isOneLine: PropTypes.bool.isRequired,
-  showCircle: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  isChecked: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+    return null;
+  }
 };
 
 RadioGroup.COLORS = COLORS;
@@ -155,45 +38,55 @@ function RadioGroup(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     showCircles: showCircles => typeof showCircles === "boolean",
-    optional: optional => typeof optional === "boolean",
-    disabled: disabled => typeof disabled === "boolean"
+    disabled: disabled => typeof disabled === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
+    name,
     label,
     options,
     columns,
     color,
     showCircles,
-    optional,
     helpText,
     disabled,
-    onFocus,
-    onBlur,
-    data,
-    onChange,
+    optional,
+    validate,
     testId
   } = mergedProps;
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
-  const [radioName] = useState(() => `radio-name-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
-  const { value: checkedValue, errors } = data;
-  const validate = useValidation({
-    props: mergedProps,
-    extraData: {
-      isTouched,
-      props: mergedProps
-    }
-  });
-  const onRadioFocus = () => {
-    setIsTouched(true);
-    onFocus && onFocus();
-  };
-  const onRadioBlur = () => {
-    validate();
-    onBlur && onBlur();
-  };
   const cols = columns === undefined ? options.length : columns;
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    onMouseDown,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(
+    value => isOptionSelected(options, value) === false,
+    [options]
+  );
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      data: {
+        isEmpty
+      }
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -206,47 +99,30 @@ function RadioGroup(props) {
       errors={errors}
       testId={testId}
     >
-      <div
-        role="radiogroup"
-        aria-invalid={errors ? "true" : null}
-        aria-labelledby={labelId}
-        aria-describedby={helpText || errors ? auxId : null}
-      >
-        <Grid cols={cols} colsGutter={1} rowsGutter={1}>
-          {options.map(({ label, value }, index) => (
-            <Grid.Item
-              colSpan={index % cols}
-              rowSpan={Math.floor(index / cols)}
-              key={value}
-            >
-              <Radio
-                color={color}
-                isOneLine={cols === options.length}
-                showCircle={showCircles}
-                name={radioName}
-                label={label}
-                value={value}
-                isChecked={value === checkedValue}
-                disabled={disabled}
-                onFocus={onRadioFocus}
-                onBlur={onRadioBlur}
-                onChange={value => {
-                  onChange({
-                    ...data,
-                    value
-                  });
-                }}
-              />
-            </Grid.Item>
-          ))}
-        </Grid>
-      </div>
+      <InternalRadioGroup
+        name={name}
+        labelId={labelId}
+        auxId={auxId}
+        options={options}
+        columns={cols}
+        color={color}
+        showCircles={showCircles}
+        disabled={disabled}
+        isValid={!hasErrors}
+        describedBy={helpText || hasErrors ? auxId : null}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseDown={onMouseDown}
+        value={value}
+        onChange={onChange}
+      />
     </Field>
   );
 }
 
 RadioGroup.propTypes = {
-  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -256,22 +132,13 @@ RadioGroup.propTypes = {
   columns: PropTypes.number,
   color: PropTypes.oneOf(COLORS),
   showCircles: PropTypes.bool,
-  optional: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      condition: PropTypes.func,
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  onMouseDown: PropTypes.func,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string
 };
 

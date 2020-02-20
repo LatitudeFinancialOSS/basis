@@ -1,37 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
-import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
-import useValidation from "../hooks/useValidation";
+import useForm from "../hooks/internal/useForm";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
+import InternalInput from "./internal/InternalInput";
 
-const TYPES = ["text", "number"];
-const COLORS = ["grey.t05", "white"];
+const { TYPES, COLORS } = InternalInput;
 
 const DEFAULT_PROPS = {
-  color: "grey.t05",
-  type: "text",
-  optional: false,
+  color: InternalInput.DEFAULT_PROPS.color,
+  type: InternalInput.DEFAULT_PROPS.type,
   disabled: false,
   pasteAllowed: true,
-  validation: [
-    {
-      condition: ({ optional }) => !optional,
-      validator: (value, { isTouched }) => {
-        if (!isTouched) {
-          return null;
-        }
-
-        if (value.trim() === "") {
-          return "Required";
-        }
-
-        return null;
-      }
+  optional: false,
+  validate: (value, { isEmpty }) => {
+    if (isEmpty(value)) {
+      return "Required";
     }
-  ]
+
+    return null;
+  }
 };
 
 Input.TYPES = TYPES;
@@ -39,7 +29,6 @@ Input.COLORS = COLORS;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Input(props) {
-  const theme = useTheme();
   const { inputColor } = useBackground();
   const inheritedProps = {
     color: inputColor
@@ -47,37 +36,52 @@ function Input(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     type: type => TYPES.includes(type),
-    optional: optional => typeof optional === "boolean",
     disabled: disabled => typeof disabled === "boolean",
-    pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean"
+    pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean",
+    optional: optional => typeof optional === "boolean"
   });
   const {
+    name,
     color,
     type,
     label,
-    optional,
     placeholder,
     helpText,
-    onFocus,
-    onBlur,
     disabled,
     pasteAllowed,
-    data,
-    onChange,
+    optional,
+    validate,
     testId,
     __internal__focus
   } = mergedProps;
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
-  const [isTouched, setIsTouched] = useState(false);
-  const { value, errors } = data;
-  const validate = useValidation({
-    props: mergedProps,
-    extraData: {
-      isTouched
-    }
-  });
+  const {
+    state,
+    onFocus,
+    onBlur,
+    onChange,
+    registerField,
+    unregisterField
+  } = useForm();
+  const value = state.values[name];
+  const errors = state.errors[name];
+  const hasErrors = Array.isArray(errors) && errors.length > 0;
+  const isEmpty = useCallback(value => value.trim() === "", []);
+
+  useEffect(() => {
+    registerField(name, {
+      optional,
+      validate,
+      data: {
+        isEmpty
+      }
+    });
+
+    return () => {
+      unregisterField(name);
+    };
+  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -90,75 +94,37 @@ function Input(props) {
       errors={errors}
       testId={testId}
     >
-      <input
-        css={{
-          ...theme.input,
-          ...theme[`input.${colorStr}`],
-          ":focus": theme["input:focus"],
-          ...(__internal__focus && theme["input:focus"]),
-          ":hover": theme["input:hover"],
-          ...(type === "number" && {
-            "::-webkit-inner-spin-button, ::-webkit-outer-spin-button":
-              theme["input.webkitSpinButton"]
-          })
-        }}
+      <InternalInput
         id={label ? inputId : null}
+        name={name}
         type={type}
         placeholder={placeholder}
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck="false"
-        aria-invalid={errors ? "true" : null}
-        aria-describedby={helpText || errors ? auxId : null}
+        color={color}
         disabled={disabled}
-        onFocus={() => {
-          setIsTouched(true);
-          onFocus && onFocus();
-        }}
-        onBlur={() => {
-          validate();
-          onBlur && onBlur();
-        }}
-        onPaste={e => {
-          if (!pasteAllowed) {
-            e.preventDefault();
-          }
-        }}
+        pasteAllowed={pasteAllowed}
+        isValid={!hasErrors}
+        describedBy={helpText || hasErrors ? auxId : null}
+        onFocus={onFocus}
+        onBlur={onBlur}
         value={value}
-        onChange={e => {
-          onChange({
-            ...data,
-            value: e.target.value
-          });
-        }}
+        onChange={onChange}
+        __internal__focus={__internal__focus}
       />
     </Field>
   );
 }
 
 Input.propTypes = {
+  name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   type: PropTypes.oneOf(TYPES),
-  label: PropTypes.string,
-  optional: PropTypes.bool,
+  label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
   disabled: PropTypes.bool,
   pasteAllowed: PropTypes.bool,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  validation: PropTypes.arrayOf(
-    PropTypes.shape({
-      condition: PropTypes.func,
-      validator: PropTypes.func.isRequired
-    })
-  ),
-  data: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    errors: PropTypes.arrayOf(PropTypes.node)
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

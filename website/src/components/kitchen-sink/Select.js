@@ -1,20 +1,78 @@
 import React from "react";
-import { Container, Grid } from "basis";
-import Layout from "./Layout";
-import { Select } from "../optionally-controlled";
+import PropTypes from "prop-types";
+import { Container, Grid, Select } from "basis";
+import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkForm from "./KitchenSinkForm";
+
+const options = [
+  {
+    label: "Option 1",
+    value: "option-1"
+  },
+  {
+    label: "Option 2",
+    value: "option-2"
+  },
+  {
+    label: "Option 3",
+    value: "option-3"
+  }
+];
+
+function FormWithSelect({
+  initialValue = "",
+  label,
+  placeholder,
+  disabled,
+  helpText,
+  optional,
+  fullWidth,
+  __internal__focus,
+  submitOnMount
+}) {
+  return (
+    <KitchenSinkForm
+      initialValues={{ status: initialValue }}
+      submitOnMount={submitOnMount}
+    >
+      <Select
+        name="status"
+        label={label}
+        placeholder={placeholder}
+        options={options}
+        disabled={disabled}
+        helpText={helpText}
+        optional={optional}
+        fullWidth={fullWidth}
+        __internal__focus={__internal__focus}
+      />
+    </KitchenSinkForm>
+  );
+}
+
+FormWithSelect.propTypes = {
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  initialValue: PropTypes.string,
+  disabled: PropTypes.bool,
+  helpText: PropTypes.string,
+  optional: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  __internal__focus: PropTypes.bool,
+  submitOnMount: PropTypes.bool
+};
 
 function KitchenSinkSelect() {
   return (
-    <Layout name="Select">
+    <KitchenSinkLayout name="Select">
       <Container padding="4">
-        <Container width="320">
+        <Container width="320" bg="white">
           <Grid rowsGutter="8">
-            <Select label="Grey" color="grey.t05" />
+            <FormWithSelect label="Grey" />
 
-            <Select
+            <FormWithSelect
               label="Grey focus"
-              color="grey.t05"
-              data={{ value: "option-2" }}
+              initialValue="option-2"
               __internal__focus
             />
           </Grid>
@@ -24,28 +82,25 @@ function KitchenSinkSelect() {
       <Container padding="4" bg="grey.t05">
         <Container width="320">
           <Grid rowsGutter="8">
-            <Select
+            <FormWithSelect
               label="Disabled with help text"
               helpText="Help text goes here"
               disabled
             />
 
-            <Select
+            <FormWithSelect
               label="Optional with custom placeholder"
               placeholder="Select one..."
               optional
             />
 
-            <Select label="Natural width" fullWidth={false} />
+            <FormWithSelect label="Natural width" fullWidth={false} />
 
-            <Select
-              label="With error"
-              data={{ value: "", errors: ["Please make a selection."] }}
-            />
+            <FormWithSelect label="With error" submitOnMount />
           </Grid>
         </Container>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

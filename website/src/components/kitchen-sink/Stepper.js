@@ -1,10 +1,10 @@
 import React from "react";
 import { Grid, Section, Stepper } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkStepper() {
   return (
-    <Layout name="Stepper">
+    <KitchenSinkLayout name="Stepper">
       <Grid rowsGutter="8">
         <Section bg="grey.t05">
           <Stepper>
@@ -66,7 +66,7 @@ function KitchenSinkStepper() {
           </Stepper>
         </Section>
       </Grid>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

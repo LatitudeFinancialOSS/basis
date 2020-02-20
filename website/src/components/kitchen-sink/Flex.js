@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Flex, Button, Text } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkFlex() {
   return (
-    <Layout name="Flex">
+    <KitchenSinkLayout name="Flex">
       <Container padding="4">
         <Flex gutter="10">
           <Button>Horizontal</Button>
@@ -42,7 +42,7 @@ function KitchenSinkFlex() {
           <Button>center</Button>
         </Flex>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

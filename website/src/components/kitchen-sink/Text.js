@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Text } from "basis";
-import Layout from "./Layout";
+import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkText() {
   return (
-    <Layout name="Text">
+    <KitchenSinkLayout name="Text">
       <Container padding="4">
         <Text>Default</Text>
       </Container>
@@ -40,7 +40,7 @@ function KitchenSinkText() {
       <Container padding="4" width="224" bg="grey.t05">
         <Text wrap={false}>This text should NOT wrap to the next line.</Text>
       </Container>
-    </Layout>
+    </KitchenSinkLayout>
   );
 }
 

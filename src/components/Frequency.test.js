@@ -1,24 +1,29 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, wait } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import Form from "./Form";
 import Frequency from "./Frequency";
 import Container from "./Container";
 
-function App(props) {
-  const [salary, setSalary] = React.useState({
-    value: {
-      input: "",
+function FormWithFrequency(props) {
+  const initialValues = {
+    salary: {
+      amount: "",
       frequency: ""
     }
-  });
+  };
 
-  return <Frequency data={salary} onChange={setSalary} {...props} />;
+  return (
+    <Form initialValues={initialValues}>
+      <Frequency name="salary" {...props} />
+    </Form>
+  );
 }
 
 describe("Frequency", () => {
-  it("renders label, input and frequency options", () => {
-    const { container, getByText, queryByText, getByPlaceholderText } = render(
-      <App label="Salary" inputPlaceholder="0.00" />
+  it("renders label, amount and frequency", () => {
+    const { container, getByText, getByPlaceholderText } = render(
+      <FormWithFrequency label="Salary" amountPlaceholder="0.00" />
     );
     const label = getByText("Salary");
     const inputsContainer = container.querySelector("[aria-labelledby]");
@@ -32,7 +37,7 @@ describe("Frequency", () => {
     expect(amountInput.getAttribute("type")).toBe("number");
 
     getByText("Annually");
-    expect(queryByText("Quarterly")).not.toBeInTheDocument();
+    getByText("Quarterly");
     getByText("Monthly");
     getByText("Fortnightly");
     getByText("Weekly");
@@ -40,7 +45,11 @@ describe("Frequency", () => {
 
   it("select mode", () => {
     const { getByText } = render(
-      <App label="Salary" mode="select" selectPlaceholder="Select frequency" />
+      <FormWithFrequency
+        label="Salary"
+        mode="select"
+        selectPlaceholder="Select frequency"
+      />
     );
 
     const placeholderOption = getByText("Select frequency");
@@ -50,18 +59,22 @@ describe("Frequency", () => {
 
   it("renders help text", () => {
     const { container } = render(
-      <App label="Salary" helpText="Some help text" />
+      <FormWithFrequency label="Salary" helpText="Some help text" />
     );
     const inputsContainer = container.querySelector("[aria-labelledby]");
     const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
+    const helpText = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Some help text");
+    expect(helpText).toHaveTextContent("Some help text");
   });
 
-  it("renders error message", () => {
+  it("renders error message", async () => {
     const { container, queryByText, getByPlaceholderText } = render(
-      <App label="Salary" inputPlaceholder="0.00" helpText="Some help text" />
+      <FormWithFrequency
+        label="Salary"
+        amountPlaceholder="0.00"
+        helpText="Some help text"
+      />
     );
 
     const amountInput = getByPlaceholderText("0.00");
@@ -71,42 +84,23 @@ describe("Frequency", () => {
 
     const inputsContainer = container.querySelector("[aria-labelledby]");
 
-    expect(queryByText("Some help text")).not.toBeInTheDocument();
-
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Please enter a valid amount.");
-  });
-
-  it("renders multiple error messages", () => {
-    const { container, getByPlaceholderText, getByDisplayValue } = render(
-      <App label="Salary" inputPlaceholder="0.00" />
-    );
-
-    const amountInput = getByPlaceholderText("0.00");
-    const annuallyInput = getByDisplayValue("annually");
-
-    amountInput.focus();
-    amountInput.blur();
-
-    annuallyInput.focus();
-    annuallyInput.blur();
-
-    const inputsContainer = container.querySelector("[aria-labelledby]");
-    const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
-    expect(errorMessage).toHaveTextContent(
-      ["Please enter a valid amount.", "Please select a frequency."].join("")
-    );
+    await wait(() => {
+      expect(errorMessage).toHaveTextContent(
+        ["Please enter a valid amount.", "Please select a frequency."].join("")
+      );
+      expect(queryByText("Some help text")).not.toBeInTheDocument();
+    });
   });
 
   it("hides options", () => {
     const { queryByText } = render(
-      <App
+      <FormWithFrequency
         label="Salary"
         annually={false}
+        quarterly={false}
         monthly={false}
         fortnightly={false}
         weekly={false}
@@ -114,6 +108,7 @@ describe("Frequency", () => {
     );
 
     expect(queryByText("Annually")).not.toBeInTheDocument();
+    expect(queryByText("Quarterly")).not.toBeInTheDocument();
     expect(queryByText("Monthly")).not.toBeInTheDocument();
     expect(queryByText("Fortnightly")).not.toBeInTheDocument();
     expect(queryByText("Weekly")).not.toBeInTheDocument();
@@ -122,7 +117,7 @@ describe("Frequency", () => {
   it("inside dark container", () => {
     const { getByPlaceholderText, getByText } = render(
       <Container bg="primary.blue.t100">
-        <App label="Salary" inputPlaceholder="0.00" />
+        <FormWithFrequency label="Salary" amountPlaceholder="0.00" />
       </Container>
     );
     const amountInput = getByPlaceholderText("0.00");
@@ -137,8 +132,13 @@ describe("Frequency", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(<App label="Salary" testId="my-frequency" />);
+    const { container } = render(
+      <FormWithFrequency label="Salary" testId="my-frequency" />
+    );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-frequency");
+    expect(container.querySelector("form").firstChild).toHaveAttribute(
+      "data-testid",
+      "my-frequency"
+    );
   });
 });
