@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import Grid from "./Grid";
@@ -110,18 +110,6 @@ function Frequency(props) {
   } = mergedProps;
   const [labelId] = useState(() => `frequency-label-${nanoid()}`);
   const [auxId] = useState(() => `frequency-aux-${nanoid()}`);
-  const {
-    state,
-    onFocus,
-    onBlur,
-    onChange,
-    onMouseDown,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
   const frequencyPropsMap = useMemo(
     () => ({
       annually,
@@ -131,6 +119,17 @@ function Frequency(props) {
       weekly
     }),
     [annually, quarterly, monthly, fortnightly, weekly]
+  );
+  const frequencyOptions = useMemo(
+    () =>
+      ALL_FREQUENCY_OPTIONS.reduce((acc, option) => {
+        if (frequencyPropsMap[option.value] === true) {
+          acc.push(option);
+        }
+
+        return acc;
+      }, []),
+    [frequencyPropsMap]
   );
   const isInputEmpty = useCallback(amount => {
     return amount === "";
@@ -147,32 +146,29 @@ function Frequency(props) {
     },
     [isInputEmpty, isFrequencyEmpty]
   );
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isInputEmpty,
-        isFrequencyEmpty,
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [
+  const data = useMemo(
+    () => ({
+      isInputEmpty,
+      isFrequencyEmpty,
+      isEmpty
+    }),
+    [isInputEmpty, isFrequencyEmpty, isEmpty]
+  );
+  const {
+    value,
+    errors,
+    hasErrors,
+    onFocus,
+    onBlur,
+    onChange,
+    onMouseDown
+  } = useField({
     name,
+    disabled,
     optional,
     validate,
-    isInputEmpty,
-    isFrequencyEmpty,
-    isEmpty,
-    registerField,
-    unregisterField
-  ]);
-
+    data
+  });
   const inputComponent = (
     <InternalInput
       name={`${name}.amount`}
@@ -185,17 +181,6 @@ function Frequency(props) {
       value={value.amount}
       onChange={onChange}
     />
-  );
-  const frequencyOptions = useMemo(
-    () =>
-      ALL_FREQUENCY_OPTIONS.reduce((acc, option) => {
-        if (frequencyPropsMap[option.value] === true) {
-          acc.push(option);
-        }
-
-        return acc;
-      }, []),
-    [frequencyPropsMap]
   );
 
   return (

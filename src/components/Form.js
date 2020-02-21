@@ -119,9 +119,10 @@ function Form(_props) {
     const field = fields.current[name];
 
     if (
-      field.optional === true &&
-      typeof field.data?.isEmpty === "function" &&
-      field.data.isEmpty(value) === true
+      field.disabled === true ||
+      (field.optional === true &&
+        typeof field.data?.isEmpty === "function" &&
+        field.data.isEmpty(value) === true)
     ) {
       return null;
     }

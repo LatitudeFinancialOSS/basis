@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { pluralize } from "../utils/string";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
@@ -104,39 +104,27 @@ function TimeSpan(props) {
   } = mergedProps;
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
-  const {
-    state,
-    onFocus,
-    onBlur,
-    onChange,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
   const isEmpty = useCallback(
     value => value.years === "" && value.months === "",
     []
   );
+  const data = useMemo(
+    () => ({
+      isEmpty
+    }),
+    [isEmpty]
+  );
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
+    name,
+    disabled,
+    optional,
+    validate,
+    data
+  });
   const helpText = useMemo(
     () => getHelpText(value.years, value.months, helpTextProp),
     [value.years, value.months, helpTextProp]
   );
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field

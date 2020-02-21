@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalRadioGroup from "./internal/InternalRadioGroup";
@@ -57,36 +57,31 @@ function RadioGroup(props) {
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
   const cols = columns === undefined ? options.length : columns;
-  const {
-    state,
-    onFocus,
-    onBlur,
-    onChange,
-    onMouseDown,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
   const isEmpty = useCallback(
     value => isOptionSelected(options, value) === false,
     [options]
   );
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
+  const data = useMemo(
+    () => ({
+      isEmpty
+    }),
+    [isEmpty]
+  );
+  const {
+    value,
+    errors,
+    hasErrors,
+    onFocus,
+    onBlur,
+    onChange,
+    onMouseDown
+  } = useField({
+    name,
+    disabled,
+    optional,
+    validate,
+    data
+  });
 
   return (
     <Field
