@@ -7,15 +7,15 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import { FormProvider } from "../hooks/internal/useForm";
-import { setPath } from "../utils/objectPath";
+import { getPath, setPath, deletePath } from "../utils/objectPath";
 
 const DEFAULT_PROPS = {
   fullWidth: true,
   debug: false
 };
 
-function getParentFieldName(name) {
-  return name.split(".")[0];
+function getParentFieldName(target) {
+  return target.dataset.parentName ?? target.name;
 }
 
 Form.DEFAULT_PROPS = DEFAULT_PROPS;
@@ -41,23 +41,21 @@ function Form(_props) {
   const lastFocusedFieldName = useRef(null);
   const lastMouseDownInputElement = useRef(null);
   const onFocus = event => {
-    const { name } = event.target;
-    const parentName = getParentFieldName(name);
+    const { target } = event;
+    const parentName = getParentFieldName(target);
 
     lastFocusedFieldName.current = parentName;
 
-    setState(state =>
-      setPath(
-        state,
-        "shouldValidateOnChange",
-        Array.isArray(state.errors[parentName])
-      )
-    );
+    setState(state => {
+      const errors = getPath(state.errors, parentName);
+      const hasErrors = Array.isArray(errors) && errors.length > 0;
+
+      return setPath(state, "shouldValidateOnChange", hasErrors);
+    });
   };
   const onBlur = event => {
     const { target } = event;
-    const { name } = target;
-    const parentName = getParentFieldName(name);
+    const parentName = getParentFieldName(target);
 
     lastFocusedFieldName.current = null;
 
@@ -73,8 +71,7 @@ function Form(_props) {
       if (
         parentName !== lastFocusedFieldName.current &&
         (lastMouseDownInputElement.current === null ||
-          parentName !==
-            getParentFieldName(lastMouseDownInputElement.current.name))
+          parentName !== getParentFieldName(lastMouseDownInputElement.current))
       ) {
         setState(state => setPath(state, "namesToValidate", [parentName]));
       }
@@ -98,7 +95,7 @@ function Form(_props) {
       */
       if (state.shouldValidateOnChange || isCheckbox) {
         newState = setPath(newState, "namesToValidate", [
-          getParentFieldName(name)
+          getParentFieldName(target)
         ]);
       }
 
@@ -127,8 +124,8 @@ function Form(_props) {
     registerField,
     unregisterField
   };
-  const validateField = useCallback((state, name) => {
-    const value = state.values[name];
+  const validateField = useCallback((values, name) => {
+    const value = getPath(values, name);
     const field = fields.current[name];
 
     if (
@@ -156,27 +153,22 @@ function Form(_props) {
   }, []);
   const getNewErrors = useCallback(
     state => {
-      const names = state.namesToValidate;
-      const newErrors = { ...state.errors };
+      const { namesToValidate, values } = state;
 
-      names.forEach(name => {
-        const errors = validateField(state, name);
+      return namesToValidate.reduce((acc, name) => {
+        const errors = validateField(values, name);
 
-        if (errors === null) {
-          delete newErrors[name];
-        } else {
-          newErrors[name] = errors;
-        }
-      });
-
-      return newErrors;
+        return errors === null
+          ? deletePath(acc, name)
+          : setPath(acc, name, errors);
+      }, state.errors);
     },
     [validateField]
   );
   const submitForm = useCallback(() => {
     setState(state => ({
       ...state,
-      namesToValidate: Object.keys(state.values),
+      namesToValidate: Object.keys(fields.current),
       submitStatus: "VALIDATE_THEN_SUBMIT"
     }));
   }, []);

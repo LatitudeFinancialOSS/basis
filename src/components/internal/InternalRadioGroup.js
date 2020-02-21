@@ -46,10 +46,11 @@ RadioCircle.propTypes = {
 };
 
 function Radio({
+  name,
+  parentName,
   color,
   isOneLine,
   showCircle,
-  name,
   label,
   isChecked,
   disabled,
@@ -74,6 +75,7 @@ function Radio({
           type="radio"
           id={inputId}
           name={name}
+          data-parent-name={parentName}
           value={value}
           checked={isChecked}
           disabled={disabled}
@@ -110,10 +112,11 @@ function Radio({
 }
 
 Radio.propTypes = {
+  name: PropTypes.string.isRequired,
+  parentName: PropTypes.string,
   color: PropTypes.oneOf(COLORS).isRequired,
   isOneLine: PropTypes.bool.isRequired,
   showCircle: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isChecked: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
@@ -128,6 +131,7 @@ function InternalRadioGroup(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const {
     name,
+    parentName,
     labelId,
     options,
     columns,
@@ -159,10 +163,11 @@ function InternalRadioGroup(_props) {
             key={value}
           >
             <Radio
+              name={name}
+              parentName={parentName}
               color={color}
               isOneLine={cols === options.length}
               showCircle={showCircles}
-              name={name}
               label={label}
               value={value}
               isChecked={value === checkedValue}
@@ -181,6 +186,7 @@ function InternalRadioGroup(_props) {
 
 InternalRadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
+  parentName: PropTypes.string,
   labelId: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({

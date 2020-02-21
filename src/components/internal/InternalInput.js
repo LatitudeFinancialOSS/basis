@@ -22,6 +22,7 @@ function InternalInput(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const {
     name,
+    parentName,
     id,
     placeholder,
     type,
@@ -65,6 +66,7 @@ function InternalInput(_props) {
       }}
       id={id}
       name={name}
+      data-parent-name={parentName}
       placeholder={placeholder}
       type={type}
       min={min}
@@ -88,6 +90,7 @@ function InternalInput(_props) {
 
 InternalInput.propTypes = {
   name: PropTypes.string.isRequired,
+  parentName: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.oneOf(TYPES),

@@ -39,3 +39,29 @@ export function setPath(obj, path, value) {
     [keys[0]]: result
   };
 }
+
+export function deletePath(obj, path) {
+  const lastDotIndex = path.lastIndexOf(".");
+
+  if (lastDotIndex === -1) {
+    const result = { ...obj };
+
+    delete result[path];
+
+    return result;
+  }
+
+  const pathExceptLast = path.substring(0, lastDotIndex);
+  const lastKey = path.substring(lastDotIndex + 1);
+  const objToDeleteFrom = getPath(obj, pathExceptLast);
+
+  if (typeof objToDeleteFrom === "undefined") {
+    return obj;
+  }
+
+  const objWithDeletedKey = { ...objToDeleteFrom };
+
+  delete objWithDeletedKey[lastKey];
+
+  return setPath(obj, pathExceptLast, objWithDeletedKey);
+}

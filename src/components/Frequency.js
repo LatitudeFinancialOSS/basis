@@ -174,6 +174,7 @@ function Frequency(props) {
   const inputComponent = (
     <InternalInput
       name={`${name}.amount`}
+      parentName={name}
       color={color}
       type="number"
       placeholder={amountPlaceholder}
@@ -207,6 +208,7 @@ function Frequency(props) {
             {frequencyOptions.length > 0 && (
               <InternalRadioGroup
                 name={`${name}.frequency`}
+                parentName={name}
                 color={color}
                 options={frequencyOptions}
                 columns={2}
@@ -226,6 +228,7 @@ function Frequency(props) {
             <Grid.Item colSpan="1">
               <InternalSelect
                 name={`${name}.frequency`}
+                parentName={name}
                 color={color}
                 optional={optional}
                 placeholder={selectPlaceholder}
@@ -260,7 +263,7 @@ Frequency.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.object,
+  validateData: PropTypes.any,
   testId: PropTypes.string
 };
 

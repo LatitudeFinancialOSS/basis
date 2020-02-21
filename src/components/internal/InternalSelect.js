@@ -20,6 +20,7 @@ function InternalSelect(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const {
     name,
+    parentName,
     id,
     color,
     placeholder,
@@ -66,6 +67,7 @@ function InternalSelect(_props) {
       }}
       id={id}
       name={name}
+      data-parent-name={parentName}
       aria-invalid={isValid ? null : "true"}
       aria-describedby={describedBy}
       disabled={disabled}
@@ -98,6 +100,7 @@ function InternalSelect(_props) {
 
 InternalSelect.propTypes = {
   name: PropTypes.string.isRequired,
+  parentName: PropTypes.string,
   id: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
   placeholder: PropTypes.string,

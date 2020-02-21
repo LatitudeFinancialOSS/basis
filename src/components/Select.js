@@ -129,7 +129,7 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.object,
+  validateData: PropTypes.any,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

@@ -136,7 +136,7 @@ RadioGroup.propTypes = {
   onMouseDown: PropTypes.func,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.object,
+  validateData: PropTypes.any,
   testId: PropTypes.string
 };
 

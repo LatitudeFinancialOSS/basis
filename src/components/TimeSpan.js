@@ -148,6 +148,7 @@ function TimeSpan(props) {
           <Grid.Item colSpan="0">
             <InternalInput
               name={`${name}.years`}
+              parentName={name}
               color={color}
               type="number"
               placeholder="Years"
@@ -162,6 +163,7 @@ function TimeSpan(props) {
           <Grid.Item colSpan="1">
             <InternalInput
               name={`${name}.months`}
+              parentName={name}
               color={color}
               type="number"
               placeholder="Months"
@@ -187,7 +189,7 @@ TimeSpan.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.object,
+  validateData: PropTypes.any,
   testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool

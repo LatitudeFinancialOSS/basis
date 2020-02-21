@@ -116,7 +116,7 @@ Checkbox.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.object,
+  validateData: PropTypes.any,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool

@@ -53,6 +53,7 @@ function InternalCheckbox(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const {
     name,
+    parentName,
     inputId,
     color,
     disabled,
@@ -87,6 +88,7 @@ function InternalCheckbox(_props) {
           type="checkbox"
           id={inputId}
           name={name}
+          data-parent-name={parentName}
           checked={value}
           disabled={disabled}
           onFocus={onFocus}
@@ -120,6 +122,7 @@ function InternalCheckbox(_props) {
 
 InternalCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
+  parentName: PropTypes.string,
   inputId: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,

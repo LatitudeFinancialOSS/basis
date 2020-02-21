@@ -153,6 +153,7 @@ function DatePicker(props) {
           <Grid.Item colSpan={0}>
             <InternalInput
               name={`${name}.day`}
+              parentName={name}
               color={color}
               type="number"
               placeholder="DD"
@@ -166,6 +167,7 @@ function DatePicker(props) {
           <Grid.Item colSpan={1}>
             <InternalInput
               name={`${name}.month`}
+              parentName={name}
               color={color}
               type="number"
               placeholder="MM"
@@ -179,6 +181,7 @@ function DatePicker(props) {
           <Grid.Item colSpan="2-3">
             <InternalInput
               name={`${name}.year`}
+              parentName={name}
               color={color}
               type="number"
               placeholder="YYYY"
@@ -203,7 +206,7 @@ DatePicker.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.object,
+  validateData: PropTypes.any,
   testId: PropTypes.string
 };
 
