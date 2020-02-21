@@ -25,6 +25,9 @@ function InternalInput(_props) {
     id,
     placeholder,
     type,
+    min,
+    max,
+    step,
     color,
     disabled,
     pasteAllowed,
@@ -64,6 +67,9 @@ function InternalInput(_props) {
       name={name}
       placeholder={placeholder}
       type={type}
+      min={min}
+      max={max}
+      step={step}
       disabled={disabled}
       onPaste={onPaste}
       autoComplete="off"
@@ -85,6 +91,9 @@ InternalInput.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.oneOf(TYPES),
+  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,
   pasteAllowed: PropTypes.bool,

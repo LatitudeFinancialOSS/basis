@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalCheckbox from "./internal/InternalCheckbox";
@@ -44,6 +44,7 @@ function Checkbox(props) {
     disabled,
     optional,
     validate,
+    validateData,
     children,
     testId,
     __internal__keyboardFocus
@@ -51,33 +52,29 @@ function Checkbox(props) {
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [inputId] = useState(() => `checkbox-${nanoid()}`);
   const [auxId] = useState(() => `checkbox-aux-${nanoid()}`);
+  const isEmpty = useCallback(value => value === false, []);
+  const data = useMemo(
+    () => ({
+      isEmpty,
+      data: validateData
+    }),
+    [isEmpty, validateData]
+  );
   const {
-    state,
+    value,
+    errors,
+    hasErrors,
     onFocus,
     onBlur,
     onChange,
-    onMouseDown,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
-  const isEmpty = useCallback(value => value === false, []);
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
+    onMouseDown
+  } = useField({
+    name,
+    disabled,
+    optional,
+    validate,
+    data
+  });
 
   return (
     <Field
@@ -119,6 +116,7 @@ Checkbox.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool

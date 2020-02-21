@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   parseISO,
@@ -7,7 +7,7 @@ import {
 } from "date-fns";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalInput from "./internal/InternalInput";
@@ -105,43 +105,33 @@ function DatePicker(props) {
     disabled,
     optional,
     validate,
+    validateData,
     testId
   } = mergedProps;
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
-  const {
-    state,
-    onFocus,
-    onBlur,
-    onChange,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
   const isEmpty = useCallback(
     value => value.day === "" && value.month === "" && value.year === "",
     []
   );
+  const data = useMemo(
+    () => ({
+      isEmpty,
+      data: validateData
+    }),
+    [isEmpty, validateData]
+  );
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
+    name,
+    disabled,
+    optional,
+    validate,
+    data
+  });
   const helpText = useMemo(
     () => getHelpText(value.day, value.month, value.year, helpTextProp),
     [value.day, value.month, value.year, helpTextProp]
   );
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -213,6 +203,7 @@ DatePicker.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string
 };
 

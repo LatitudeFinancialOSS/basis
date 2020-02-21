@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalInput from "./internal/InternalInput";
@@ -36,6 +36,15 @@ function Input(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     type: type => TYPES.includes(type),
+    min: min =>
+      props.type === "number" &&
+      (typeof min === "number" || typeof min === "string"),
+    max: max =>
+      props.type === "number" &&
+      (typeof max === "number" || typeof max === "string"),
+    step: step =>
+      props.type === "number" &&
+      (typeof step === "number" || typeof step === "string"),
     disabled: disabled => typeof disabled === "boolean",
     pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean",
     optional: optional => typeof optional === "boolean"
@@ -44,6 +53,9 @@ function Input(props) {
     name,
     color,
     type,
+    min,
+    max,
+    step,
     label,
     placeholder,
     helpText,
@@ -51,37 +63,27 @@ function Input(props) {
     pasteAllowed,
     optional,
     validate,
+    validateData,
     testId,
     __internal__focus
   } = mergedProps;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
-  const {
-    state,
-    onFocus,
-    onBlur,
-    onChange,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
   const isEmpty = useCallback(value => value.trim() === "", []);
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
+  const data = useMemo(
+    () => ({
+      isEmpty,
+      data: validateData
+    }),
+    [isEmpty, validateData]
+  );
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
+    name,
+    disabled,
+    optional,
+    validate,
+    data
+  });
 
   return (
     <Field
@@ -98,6 +100,9 @@ function Input(props) {
         id={label ? inputId : null}
         name={name}
         type={type}
+        min={min}
+        max={max}
+        step={step}
         placeholder={placeholder}
         color={color}
         disabled={disabled}
@@ -118,6 +123,9 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   type: PropTypes.oneOf(TYPES),
+  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
@@ -125,6 +133,7 @@ Input.propTypes = {
   pasteAllowed: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

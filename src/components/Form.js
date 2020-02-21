@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef
+} from "react";
 import PropTypes from "prop-types";
 import { FormProvider } from "../hooks/internal/useForm";
-import { setPath } from "../utils/setPath";
+import { setPath } from "../utils/objectPath";
 
 const DEFAULT_PROPS = {
   fullWidth: true,
@@ -24,6 +30,13 @@ function Form(_props) {
     namesToValidate: null,
     submitStatus: "READY"
   });
+  const exposedState = useMemo(
+    () => ({
+      values: state.values,
+      errors: state.errors
+    }),
+    [state.values, state.errors]
+  );
   const fields = useRef({});
   const lastFocusedFieldName = useRef(null);
   const lastMouseDownInputElement = useRef(null);
@@ -119,9 +132,10 @@ function Form(_props) {
     const field = fields.current[name];
 
     if (
-      field.optional === true &&
-      typeof field.data?.isEmpty === "function" &&
-      field.data.isEmpty(value) === true
+      field.disabled === true ||
+      (field.optional === true &&
+        typeof field.data?.isEmpty === "function" &&
+        field.data.isEmpty(value) === true)
     ) {
       return null;
     }
@@ -210,10 +224,13 @@ function Form(_props) {
         data-testid={testId}
       >
         {typeof children === "function"
-          ? children({ state, submitForm })
+          ? children({
+              state: exposedState,
+              submitForm
+            })
           : children}
       </form>
-      {debug && <pre>{JSON.stringify(state, null, 2)}</pre>}
+      {debug && <pre>{JSON.stringify(exposedState, null, 2)}</pre>}
     </FormProvider>
   );
 }

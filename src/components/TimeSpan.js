@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
-import useForm from "../hooks/internal/useForm";
+import useField from "../hooks/internal/useField";
 import { pluralize } from "../utils/string";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
@@ -98,45 +98,35 @@ function TimeSpan(props) {
     disabled,
     optional,
     validate,
+    validateData,
     testId,
     __internal__yearsFocus,
     __internal__monthsFocus
   } = mergedProps;
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
-  const {
-    state,
-    onFocus,
-    onBlur,
-    onChange,
-    registerField,
-    unregisterField
-  } = useForm();
-  const value = state.values[name];
-  const errors = state.errors[name];
-  const hasErrors = Array.isArray(errors) && errors.length > 0;
   const isEmpty = useCallback(
     value => value.years === "" && value.months === "",
     []
   );
+  const data = useMemo(
+    () => ({
+      isEmpty,
+      data: validateData
+    }),
+    [isEmpty, validateData]
+  );
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
+    name,
+    disabled,
+    optional,
+    validate,
+    data
+  });
   const helpText = useMemo(
     () => getHelpText(value.years, value.months, helpTextProp),
     [value.years, value.months, helpTextProp]
   );
-
-  useEffect(() => {
-    registerField(name, {
-      optional,
-      validate,
-      data: {
-        isEmpty
-      }
-    });
-
-    return () => {
-      unregisterField(name);
-    };
-  }, [name, optional, validate, isEmpty, registerField, unregisterField]);
 
   return (
     <Field
@@ -197,6 +187,7 @@ TimeSpan.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool
