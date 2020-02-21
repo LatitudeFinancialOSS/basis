@@ -1,4 +1,4 @@
-function getPath(obj, path) {
+export function getPath(obj, path) {
   let result = obj;
   const keys = path.split(".");
 

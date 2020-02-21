@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { FormProvider } from "../hooks/internal/useForm";
-import { setPath } from "../utils/setPath";
+import { setPath } from "../utils/objectPath";
 
 const DEFAULT_PROPS = {
   fullWidth: true,
