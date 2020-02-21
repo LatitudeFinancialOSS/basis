@@ -198,7 +198,10 @@ function Form(_props) {
 
   useEffect(() => {
     if (state.submitStatus === "SUBMIT") {
-      onSubmit?.(state.errors, state.values);
+      onSubmit?.({
+        errors: state.errors,
+        values: state.values
+      });
 
       setState(state => setPath(state, "submitStatus", "READY"));
     }
@@ -212,6 +215,7 @@ function Form(_props) {
         }}
         method="POST"
         action="#" // https://stackoverflow.com/a/45705325/247243
+        noValidate
         onSubmit={onFormSubmit}
         data-testid={testId}
       >

@@ -122,8 +122,8 @@ describe("Form", () => {
     const { getByText } = render(<ComplexForm onSubmit={onSubmit} />);
 
     fireEvent.click(getByText("Submit"));
-    expect(onSubmit).toBeCalledWith(
-      {
+    expect(onSubmit).toBeCalledWith({
+      errors: {
         age: ["Must be at least 1 month."],
         hungry: ["Please make a selection."],
         likeIceCream: ["Must be checked"],
@@ -136,7 +136,7 @@ describe("Form", () => {
           "Year must be within 1800-2200."
         ]
       },
-      {
+      values: {
         age: {
           months: "",
           years: ""
@@ -155,7 +155,7 @@ describe("Form", () => {
           year: ""
         }
       }
-    );
+    });
   });
 
   it("with testId", () => {

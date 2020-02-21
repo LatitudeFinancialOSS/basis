@@ -55,7 +55,7 @@ function FormPage() {
           value: "maybe"
         }
       ];
-      const onSubmit = (errors, values) => {
+      const onSubmit = ({ errors, values }) => {
         if (Object.keys(errors).length > 0) {
           console.log("Errors:", JSON.stringify(errors, null, 2));
         } else {
