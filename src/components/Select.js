@@ -55,6 +55,7 @@ function Select(props) {
     disabled,
     optional,
     validate,
+    validateData,
     testId,
     __internal__focus
   } = mergedProps;
@@ -66,9 +67,10 @@ function Select(props) {
   );
   const data = useMemo(
     () => ({
-      isEmpty
+      isEmpty,
+      data: validateData
     }),
-    [isEmpty]
+    [isEmpty, validateData]
   );
   const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
     name,
@@ -127,6 +129,7 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool
 };

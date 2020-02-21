@@ -106,6 +106,7 @@ function Frequency(props) {
     helpText,
     disabled,
     validate,
+    validateData,
     testId
   } = mergedProps;
   const [labelId] = useState(() => `frequency-label-${nanoid()}`);
@@ -150,9 +151,10 @@ function Frequency(props) {
     () => ({
       isInputEmpty,
       isFrequencyEmpty,
-      isEmpty
+      isEmpty,
+      data: validateData
     }),
-    [isInputEmpty, isFrequencyEmpty, isEmpty]
+    [isInputEmpty, isFrequencyEmpty, isEmpty, validateData]
   );
   const {
     value,
@@ -258,6 +260,7 @@ Frequency.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string
 };
 

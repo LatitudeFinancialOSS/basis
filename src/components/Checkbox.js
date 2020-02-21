@@ -44,6 +44,7 @@ function Checkbox(props) {
     disabled,
     optional,
     validate,
+    validateData,
     children,
     testId,
     __internal__keyboardFocus
@@ -54,9 +55,10 @@ function Checkbox(props) {
   const isEmpty = useCallback(value => value === false, []);
   const data = useMemo(
     () => ({
-      isEmpty
+      isEmpty,
+      data: validateData
     }),
-    [isEmpty]
+    [isEmpty, validateData]
   );
   const {
     value,
@@ -114,6 +116,7 @@ Checkbox.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool

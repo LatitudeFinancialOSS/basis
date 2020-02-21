@@ -52,6 +52,7 @@ function RadioGroup(props) {
     disabled,
     optional,
     validate,
+    validateData,
     testId
   } = mergedProps;
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
@@ -63,9 +64,10 @@ function RadioGroup(props) {
   );
   const data = useMemo(
     () => ({
-      isEmpty
+      isEmpty,
+      data: validateData
     }),
-    [isEmpty]
+    [isEmpty, validateData]
   );
   const {
     value,
@@ -134,6 +136,7 @@ RadioGroup.propTypes = {
   onMouseDown: PropTypes.func,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string
 };
 

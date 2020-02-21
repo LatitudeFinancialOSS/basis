@@ -98,6 +98,7 @@ function TimeSpan(props) {
     disabled,
     optional,
     validate,
+    validateData,
     testId,
     __internal__yearsFocus,
     __internal__monthsFocus
@@ -110,9 +111,10 @@ function TimeSpan(props) {
   );
   const data = useMemo(
     () => ({
-      isEmpty
+      isEmpty,
+      data: validateData
     }),
-    [isEmpty]
+    [isEmpty, validateData]
   );
   const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
     name,
@@ -185,6 +187,7 @@ TimeSpan.propTypes = {
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.object,
   testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool
