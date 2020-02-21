@@ -36,6 +36,15 @@ function Input(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
     type: type => TYPES.includes(type),
+    min: min =>
+      props.type === "number" &&
+      (typeof min === "number" || typeof min === "string"),
+    max: max =>
+      props.type === "number" &&
+      (typeof max === "number" || typeof max === "string"),
+    step: step =>
+      props.type === "number" &&
+      (typeof step === "number" || typeof step === "string"),
     disabled: disabled => typeof disabled === "boolean",
     pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean",
     optional: optional => typeof optional === "boolean"
@@ -44,6 +53,9 @@ function Input(props) {
     name,
     color,
     type,
+    min,
+    max,
+    step,
     label,
     placeholder,
     helpText,
@@ -86,6 +98,9 @@ function Input(props) {
         id={label ? inputId : null}
         name={name}
         type={type}
+        min={min}
+        max={max}
+        step={step}
         placeholder={placeholder}
         color={color}
         disabled={disabled}
@@ -106,6 +121,9 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   type: PropTypes.oneOf(TYPES),
+  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
