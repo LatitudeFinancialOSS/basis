@@ -40,28 +40,43 @@ export function setPath(obj, path, value) {
   };
 }
 
-export function deletePath(obj, path) {
-  const lastDotIndex = path.lastIndexOf(".");
+export function deletePath(obj, path, { deleteEmptyObjects = false } = {}) {
+  const keys = path.split(".");
+  const pathsArr = [obj];
+  let subPath = "";
+  let value = obj;
 
-  if (lastDotIndex === -1) {
-    const result = { ...obj };
+  for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
 
-    delete result[path];
+    subPath = `${subPath}${i === 0 ? "" : "."}${key}`;
+    value = value[key];
 
-    return result;
+    if (typeof value !== "object") {
+      return obj;
+    }
+
+    pathsArr.push(value);
   }
 
-  const pathExceptLast = path.substring(0, lastDotIndex);
-  const lastKey = path.substring(lastDotIndex + 1);
-  const objToDeleteFrom = getPath(obj, pathExceptLast);
+  let result = { ...pathsArr[pathsArr.length - 1] };
 
-  if (typeof objToDeleteFrom === "undefined") {
-    return obj;
+  delete result[keys[keys.length - 1]];
+
+  for (let i = pathsArr.length - 2; i >= 0; i--) {
+    if (deleteEmptyObjects === true && Object.keys(result).length === 0) {
+      result = {
+        ...pathsArr[i]
+      };
+
+      delete result[keys[i]];
+    } else {
+      result = {
+        ...pathsArr[i],
+        [keys[i]]: result
+      };
+    }
   }
 
-  const objWithDeletedKey = { ...objToDeleteFrom };
-
-  delete objWithDeletedKey[lastKey];
-
-  return setPath(obj, pathExceptLast, objWithDeletedKey);
+  return result;
 }

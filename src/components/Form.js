@@ -124,7 +124,7 @@ function Form(_props) {
     registerField,
     unregisterField
   };
-  const validateField = useCallback((values, name) => {
+  const getFieldErrors = useCallback((values, name) => {
     const value = getPath(values, name);
     const field = fields.current[name];
 
@@ -156,14 +156,36 @@ function Form(_props) {
       const { namesToValidate, values } = state;
 
       return namesToValidate.reduce((acc, name) => {
-        const errors = validateField(values, name);
+        const errors = getFieldErrors(values, name);
 
         return errors === null
-          ? deletePath(acc, name)
+          ? deletePath(acc, name, { deleteEmptyObjects: true })
           : setPath(acc, name, errors);
       }, state.errors);
     },
-    [validateField]
+    [getFieldErrors]
+  );
+  const validateField = useCallback(
+    name => {
+      if (fields.current[name]) {
+        setState(state => {
+          const errors = getFieldErrors(state.values, name);
+
+          return errors === null
+            ? deletePath(state, `errors.${name}`, { deleteEmptyObjects: true })
+            : setPath(state, `errors.${name}`, errors);
+        });
+      } else {
+        console.error(
+          `Can't validate field "${name}" because it's not found. Existing fields: ${Object.keys(
+            fields.current
+          )
+            .map(name => `"${name}"`)
+            .join(", ")}`
+        );
+      }
+    },
+    [getFieldErrors]
   );
   const submitForm = useCallback(() => {
     setState(state => ({
@@ -222,6 +244,7 @@ function Form(_props) {
         {typeof children === "function"
           ? children({
               state: exposedState,
+              validateField,
               submitForm
             })
           : children}
