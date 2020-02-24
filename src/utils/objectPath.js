@@ -1,3 +1,5 @@
+import { isObjectEmpty } from "./core";
+
 export function getPath(obj, path) {
   let result = obj;
   const keys = path.split(".");
@@ -64,16 +66,22 @@ export function deletePath(obj, path, { deleteEmptyObjects = false } = {}) {
   delete result[keys[keys.length - 1]];
 
   for (let i = pathsArr.length - 2; i >= 0; i--) {
-    if (deleteEmptyObjects === true && Object.keys(result).length === 0) {
+    const key = keys[i];
+    const shouldDeleteKey =
+      deleteEmptyObjects === true ||
+      (Array.isArray(deleteEmptyObjects) &&
+        deleteEmptyObjects.includes(key) === false);
+
+    if (shouldDeleteKey && isObjectEmpty(result)) {
       result = {
         ...pathsArr[i]
       };
 
-      delete result[keys[i]];
+      delete result[key];
     } else {
       result = {
         ...pathsArr[i],
-        [keys[i]]: result
+        [key]: result
       };
     }
   }

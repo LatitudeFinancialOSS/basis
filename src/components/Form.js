@@ -172,7 +172,9 @@ function Form(_props) {
           const errors = getFieldErrors(state.values, name);
 
           return errors === null
-            ? deletePath(state, `errors.${name}`, { deleteEmptyObjects: true })
+            ? deletePath(state, `errors.${name}`, {
+                deleteEmptyObjects: { except: ["errors"] }
+              })
             : setPath(state, `errors.${name}`, errors);
         });
       } else {
