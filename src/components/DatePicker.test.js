@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait } from "../utils/test";
+import { render, wait, userEvent } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import DatePicker from "./DatePicker";
@@ -19,6 +19,13 @@ function FormWithDatePicker(props) {
       <DatePicker name="birthDate" {...props} />
     </Form>
   );
+}
+
+function getHelpText(container) {
+  const inputsContainer = container.querySelector("[aria-labelledby]");
+  const describedBy = inputsContainer.getAttribute("aria-describedby");
+
+  return container.querySelector(`[id="${describedBy}"]`).textContent;
 }
 
 describe("DatePicker", () => {
@@ -45,15 +52,43 @@ describe("DatePicker", () => {
     expect(yearInput.getAttribute("type")).toBe("number");
   });
 
+  it("doesn't render the day field when day={false}", () => {
+    const { queryByPlaceholderText } = render(
+      <FormWithDatePicker label="Expiry date" day={false} />
+    );
+
+    expect(queryByPlaceholderText("DD")).not.toBeInTheDocument();
+  });
+
+  it("renders the date as help text", async () => {
+    const { container, getByPlaceholderText } = render(
+      <FormWithDatePicker label="Expiry date" />
+    );
+
+    await userEvent.type(getByPlaceholderText("DD"), "6");
+    await userEvent.type(getByPlaceholderText("MM"), "4");
+    await userEvent.type(getByPlaceholderText("YYYY"), "2017");
+
+    expect(getHelpText(container)).toBe("6 April, 2017");
+  });
+
+  it("renders the date as help text when day={false}", async () => {
+    const { container, getByPlaceholderText } = render(
+      <FormWithDatePicker label="Expiry date" day={false} />
+    );
+
+    await userEvent.type(getByPlaceholderText("MM"), "4");
+    await userEvent.type(getByPlaceholderText("YYYY"), "2017");
+
+    expect(getHelpText(container)).toBe("April, 2017");
+  });
+
   it("renders help text", () => {
     const { container } = render(
       <FormWithDatePicker label="Expiry date" helpText="Some help text" />
     );
-    const inputsContainer = container.querySelector("[aria-labelledby]");
-    const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Some help text");
+    expect(getHelpText(container)).toBe("Some help text");
   });
 
   it("renders error messages", async () => {

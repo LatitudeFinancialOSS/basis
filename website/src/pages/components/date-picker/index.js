@@ -12,6 +12,7 @@ const { COLORS, DEFAULT_PROPS } = DatePicker;
 const scope = allDesignSystem;
 
 const colorOptions = getRadioOptions(COLORS);
+const dayOptions = getCheckboxOptions();
 const isOptionalOptions = getCheckboxOptions();
 const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
@@ -19,6 +20,7 @@ const isDisabledOptions = getCheckboxOptions();
 function DatePickerPage() {
   const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
+  const [day, setDay] = useState(DEFAULT_PROPS.day);
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
@@ -49,6 +51,12 @@ function DatePickerPage() {
             {
               prop: "label",
               value: "Birth date"
+            },
+            {
+              prop: "day",
+              value: day,
+              defaultValue: DEFAULT_PROPS.day,
+              type: "boolean"
             },
             {
               prop: "optional",
@@ -90,6 +98,14 @@ function DatePickerPage() {
           options={colorOptions}
           selectedValue={color}
           setSelectedValue={setColor}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Day"
+          options={dayOptions}
+          selectedValue={day}
+          setSelectedValue={setDay}
+          type="boolean"
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}

@@ -152,7 +152,7 @@ function Frequency(props) {
       isInputEmpty,
       isFrequencyEmpty,
       isEmpty,
-      data: validateData
+      ...(validateData && { data: validateData })
     }),
     [isInputEmpty, isFrequencyEmpty, isEmpty, validateData]
   );
