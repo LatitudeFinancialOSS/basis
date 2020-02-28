@@ -6,6 +6,7 @@ import KitchenSinkForm from "./KitchenSinkForm";
 
 function FormWithDatePicker({
   label,
+  day,
   initialValue = {
     day: "",
     month: "",
@@ -18,13 +19,14 @@ function FormWithDatePicker({
       initialValues={{ birthDate: initialValue }}
       submitOnMount={submitOnMount}
     >
-      <DatePicker name="birthDate" label={label} />
+      <DatePicker name="birthDate" label={label} day={day} />
     </KitchenSinkForm>
   );
 }
 
 FormWithDatePicker.propTypes = {
   label: PropTypes.string,
+  day: PropTypes.bool,
   initialValue: PropTypes.shape({
     day: PropTypes.string.isRequired,
     month: PropTypes.string.isRequired,
@@ -39,6 +41,8 @@ function KitchenSinkDatePicker() {
       <Container padding="4" width="320" bg="white">
         <Grid rowsGutter="8">
           <FormWithDatePicker label="Grey" />
+
+          <FormWithDatePicker label="Without day" day={false} />
 
           <FormWithDatePicker
             label="With error"
@@ -60,6 +64,15 @@ function KitchenSinkDatePicker() {
               day: "1",
               month: "01",
               year: "2023"
+            }}
+          />
+
+          <FormWithDatePicker
+            label="Without day"
+            day={false}
+            initialValue={{
+              month: "2",
+              year: "1999"
             }}
           />
 

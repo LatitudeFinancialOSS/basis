@@ -21,19 +21,22 @@ const YEAR_REGEX = /^\d{1,4}$/;
 
 const DEFAULT_PROPS = {
   color: InternalInput.DEFAULT_PROPS.color,
+  day: true,
   disabled: false,
   optional: false,
-  validate: ({ day, month, year }) => {
+  validate: ({ day, month, year }, data) => {
     const errors = [];
 
-    if (DAY_REGEX.test(day)) {
-      const dayInt = parseInt(day, 10);
+    if (data.day) {
+      if (DAY_REGEX.test(day)) {
+        const dayInt = parseInt(day, 10);
 
-      if (dayInt < 1 || dayInt > 31) {
+        if (dayInt < 1 || dayInt > 31) {
+          errors.push("Day must be within 1-31.");
+        }
+      } else {
         errors.push("Day must be within 1-31.");
       }
-    } else {
-      errors.push("Day must be within 1-31.");
     }
 
     if (MONTH_REGEX.test(month)) {
@@ -56,7 +59,7 @@ const DEFAULT_PROPS = {
       errors.push("Year must be within 1800-2200.");
     }
 
-    if (errors.length === 0) {
+    if (data.day && errors.length === 0) {
       const twoDigitsDay = day.length === 1 ? `0${day}` : day;
       const twoDigitsMonth = month.length === 1 ? `0${month}` : month;
 
@@ -75,16 +78,19 @@ const DEFAULT_PROPS = {
 DatePicker.COLORS = COLORS;
 DatePicker.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function getHelpText(day, month, year, defaultHelpText) {
-  const dayInt = parseInt(day || "0", 10);
-  const monthInt = parseInt(month || "0", 10);
-  const yearInt = parseInt(year || "0", 10);
+function getHelpText(value, day, defaultHelpText) {
+  const dayInt = day ? parseInt(value.day || "0", 10) : 1;
+  const monthInt = parseInt(value.month || "0", 10);
+  const yearInt = parseInt(value.year || "0", 10);
 
-  if (dayInt === 0 || monthInt === 0 || yearInt === 0) {
+  if ((day && dayInt === 0) || monthInt === 0 || yearInt === 0) {
     return defaultHelpText;
   }
 
-  return formatDate(new Date(yearInt, monthInt - 1, dayInt), "d MMMM, yyyy");
+  return formatDate(
+    new Date(yearInt, monthInt - 1, dayInt),
+    day ? "d MMMM, yyyy" : "MMMM, yyyy"
+  );
 }
 
 function DatePicker(props) {
@@ -94,6 +100,7 @@ function DatePicker(props) {
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: color => COLORS.includes(color),
+    day: day => typeof day === "boolean",
     disabled: disabled => typeof disabled === "boolean",
     optional: optional => typeof optional === "boolean"
   });
@@ -101,6 +108,7 @@ function DatePicker(props) {
     name,
     color,
     label,
+    day,
     helpText: helpTextProp,
     disabled,
     optional,
@@ -111,15 +119,19 @@ function DatePicker(props) {
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
   const isEmpty = useCallback(
-    value => value.day === "" && value.month === "" && value.year === "",
-    []
+    value =>
+      (day === false || value.day === "") &&
+      value.month === "" &&
+      value.year === "",
+    [day]
   );
   const data = useMemo(
     () => ({
       isEmpty,
-      data: validateData
+      day,
+      ...(validateData && { data: validateData })
     }),
-    [isEmpty, validateData]
+    [isEmpty, day, validateData]
   );
   const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
     name,
@@ -128,10 +140,11 @@ function DatePicker(props) {
     validate,
     data
   });
-  const helpText = useMemo(
-    () => getHelpText(value.day, value.month, value.year, helpTextProp),
-    [value.day, value.month, value.year, helpTextProp]
-  );
+  const helpText = useMemo(() => getHelpText(value, day, helpTextProp), [
+    value,
+    day,
+    helpTextProp
+  ]);
 
   return (
     <Field
@@ -149,22 +162,24 @@ function DatePicker(props) {
         aria-labelledby={labelId}
         aria-describedby={helpText || hasErrors ? auxId : null}
       >
-        <Grid cols={4} colsGutter={1}>
-          <Grid.Item colSpan={0}>
-            <InternalInput
-              name={`${name}.day`}
-              parentName={name}
-              color={color}
-              type="number"
-              placeholder="DD"
-              disabled={disabled}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              value={value.day}
-              onChange={onChange}
-            />
-          </Grid.Item>
-          <Grid.Item colSpan={1}>
+        <Grid cols={day ? 4 : 3} colsGutter={1}>
+          {day && (
+            <Grid.Item colSpan={0}>
+              <InternalInput
+                name={`${name}.day`}
+                parentName={name}
+                color={color}
+                type="number"
+                placeholder="DD"
+                disabled={disabled}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                value={value.day}
+                onChange={onChange}
+              />
+            </Grid.Item>
+          )}
+          <Grid.Item colSpan={day ? 1 : 0}>
             <InternalInput
               name={`${name}.month`}
               parentName={name}
@@ -178,7 +193,7 @@ function DatePicker(props) {
               onChange={onChange}
             />
           </Grid.Item>
-          <Grid.Item colSpan="2-3">
+          <Grid.Item colSpan={day ? "2-3" : "1-2"}>
             <InternalInput
               name={`${name}.year`}
               parentName={name}
@@ -202,6 +217,7 @@ DatePicker.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
+  day: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
   optional: PropTypes.bool,

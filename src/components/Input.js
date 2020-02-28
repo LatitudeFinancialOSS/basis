@@ -73,7 +73,7 @@ function Input(props) {
   const data = useMemo(
     () => ({
       isEmpty,
-      data: validateData
+      ...(validateData && { data: validateData })
     }),
     [isEmpty, validateData]
   );

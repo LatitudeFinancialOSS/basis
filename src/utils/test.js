@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "regenerator-runtime/runtime";
 import matchMediaPolyfill from "mq-polyfill";
 import { BasisProvider, defaultTheme } from "..";
@@ -29,3 +30,5 @@ export * from "@testing-library/react";
 
 // override render method
 export { customRender as render };
+
+export { userEvent };
