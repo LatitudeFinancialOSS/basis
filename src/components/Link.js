@@ -79,7 +79,7 @@ function Link(props) {
   const newTabProps = newTab
     ? {
         target: "_blank",
-        rel: "noopener" // See: https://developers.google.com/web/tools/lighthouse/audits/noopener
+        rel: "noopener" // See: https://twitter.com/addyosmani/status/1234055782896979968?s=20, https://developers.google.com/web/tools/lighthouse/audits/noopener
       }
     : {};
 

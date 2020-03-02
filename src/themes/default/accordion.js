@@ -1,0 +1,59 @@
+import textStyles from "./textStyles";
+
+export default theme => ({
+  "accordionItem.small": {
+    ":not(:first-of-type)": {
+      marginTop: "1px"
+    }
+  },
+  "accordionItem.large": {
+    ":not(:first-of-type)": {
+      marginTop: "4px"
+    }
+  },
+  accordionHeader: {
+    margin: 0
+  },
+  accordionHeaderButton: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    border: 0,
+    boxSizing: "border-box",
+    padding: `${theme.space[3]} ${theme.space[4]} ${theme.space[3]} ${theme.space[6]}`,
+    textAlign: "left",
+    ...textStyles(theme)["subtitle2"],
+    ...textStyles(theme)["subtitle2.bold"],
+    position: "relative", // Without this, when the Accordion.Item is open, the box shadow is covered by Accordion.Item.Content.
+    ":focus": {
+      outline: 0,
+      boxShadow: theme.shadows.focus
+    },
+    ":focus:not(:focus-visible)": {
+      boxShadow: "none"
+    },
+    ":focus-visible": {
+      boxShadow: theme.shadows.focus
+    }
+  },
+  accordionHeaderContent: {
+    display: "flex",
+    alignItems: "center",
+    flexGrow: 1
+  },
+  accordionHeaderIcon: {
+    display: "flex",
+    marginRight: theme.space[2]
+  },
+  accordionHeaderChevron: {
+    display: "flex",
+    transformOrigin: "50% 50%",
+    transition: "transform .25s ease"
+  },
+  "accordionHeaderChevron.open": {
+    transform: "translateZ(0) rotate(180deg)"
+  },
+  accordionContent: {
+    padding: `${theme.space[4]} ${theme.space[11]} ${theme.space[4]} ${theme.space[6]}`
+  }
+});
