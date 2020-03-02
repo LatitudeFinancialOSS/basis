@@ -28,7 +28,7 @@ export function nonDefaultProps(props) {
         return prop;
       }
 
-      if (type === "boolean" && value === false) {
+      if ((type === "boolean" && value === false) || type === "function") {
         return `${prop}={${value}}`;
       }
 
