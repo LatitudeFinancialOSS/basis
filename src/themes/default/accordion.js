@@ -3,12 +3,12 @@ import textStyles from "./textStyles";
 export default theme => ({
   "accordionItem.small": {
     ":not(:first-of-type)": {
-      marginTop: "1px"
+      marginTop: "1px" // This is an exception to our space scale
     }
   },
   "accordionItem.large": {
     ":not(:first-of-type)": {
-      marginTop: "4px"
+      marginTop: theme.space[1]
     }
   },
   accordionHeader: {
