@@ -4,6 +4,9 @@ export default theme => ({
     flexDirection: "column",
     flex: 1
   },
+  checkboxInput: {
+    ...theme.focusStyles.focusVisibleAdjacentLabel
+  },
   checkboxLabel: {
     display: "inline-flex",
     alignItems: "flex-start",
@@ -13,10 +16,7 @@ export default theme => ({
     fontWeight: theme.fontWeights.light,
     lineHeight: theme.lineHeights[2],
     fontFamily: theme.fonts.body,
-    color: theme.colors.black
-  },
-  "checkboxLabel.focus-visible": {
-    boxShadow: theme.shadows.focus,
+    color: theme.colors.black,
     borderRadius: theme.radii[0]
   },
   "checkboxLabel.checked": {

@@ -196,6 +196,46 @@ theme.shadows = {
   focus: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`
 };
 
+theme.focusStyles = {
+  // https://github.com/WICG/focus-visible#backwards-compatibility
+  focusVisible: {
+    // Provide basic, default focus styles.
+    ":focus": {
+      outline: 0,
+      boxShadow: theme.shadows.focus
+    },
+    // Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform.
+    ":focus:not(:focus-visible)": {
+      boxShadow: "none"
+    },
+    // If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus.
+    ":focus-visible": {
+      boxShadow: theme.shadows.focus
+    }
+  },
+  focusVisibleAdjacentLabel: {
+    ":focus + label": {
+      boxShadow: theme.shadows.focus
+    },
+    ":focus:not(:focus-visible) + label": {
+      boxShadow: "none"
+    },
+    ":focus-visible + label": {
+      boxShadow: theme.shadows.focus
+    }
+  }
+};
+
+theme.focusStyles.__keyboardFocus = {
+  ...theme.focusStyles.focusVisible[":focus"],
+  ...theme.focusStyles.focusVisible[":focus-visible"]
+};
+
+theme.focusStyles.__keyboardFocusAdjacentLabel = {
+  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus + label"],
+  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus-visible + label"]
+};
+
 export default {
   ...theme,
   ...accordion(theme),

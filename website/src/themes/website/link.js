@@ -1,14 +1,9 @@
 export default theme => ({
   link: {
     display: "inline-block",
-    textDecoration: "none"
-  },
-  "link:focus": {
-    outline: 0
-  },
-  "link:focus-visible": {
+    textDecoration: "none",
     borderRadius: theme.radii[0],
-    boxShadow: theme.shadows.focus
+    ...theme.focusStyles.focusVisible
   },
   "link.text": {
     fontFamily: "inherit",

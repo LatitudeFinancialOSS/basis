@@ -64,12 +64,7 @@ function Link(props) {
     ...theme.link,
     ...theme[`link.${variant}`],
     ...theme[`link.${variant}.${colorStr}`],
-    ":focus": theme["link:focus"],
-    ":focus-visible": theme["link:focus-visible"],
-    ...(__internal__keyboardFocus && {
-      ...theme["link:focus"],
-      ...theme["link:focus-visible"]
-    }),
+    ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
     ":hover": theme[`link.${variant}.${colorStr}:hover`],
     ...(__internal__hover && theme[`link.${variant}.${colorStr}:hover`]),
     ":active": theme[`link.${variant}.${colorStr}:active`],

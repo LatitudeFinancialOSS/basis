@@ -68,8 +68,7 @@ function Radio({
       <VisuallyHidden>
         <input
           css={{
-            ":focus-visible + label":
-              theme["radioGroupRadioLabel.focus-visible"],
+            ...theme.radioGroupRadioInput,
             ":checked + label": theme["radioGroupRadioLabel.checked"]
           }}
           type="radio"
