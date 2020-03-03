@@ -3,6 +3,9 @@ export default theme => ({
     display: "flex",
     flexDirection: "column"
   },
+  radioGroupRadioInput: {
+    ...theme.focusStyles.focusVisibleAdjacentLabel
+  },
   radioGroupRadioLabel: {
     display: "inline-flex",
     alignItems: "center",
@@ -14,10 +17,7 @@ export default theme => ({
     lineHeight: theme.lineHeights[2],
     fontFamily: theme.fonts.body,
     color: theme.colors.black,
-    overflow: "hidden"
-  },
-  "radioGroupRadioLabel.focus-visible": {
-    boxShadow: theme.shadows.focus,
+    overflow: "hidden",
     borderRadius: theme.radii[0]
   },
   "radioGroupRadioLabel.checked": {

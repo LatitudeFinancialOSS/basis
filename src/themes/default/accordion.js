@@ -25,16 +25,7 @@ export default theme => ({
     ...textStyles(theme)["subtitle2"],
     ...textStyles(theme)["subtitle2.bold"],
     position: "relative", // Without this, when the Accordion.Item is open, the box shadow is covered by Accordion.Item.Content.
-    ":focus": {
-      outline: 0,
-      boxShadow: theme.shadows.focus
-    },
-    ":focus:not(:focus-visible)": {
-      boxShadow: "none"
-    },
-    ":focus-visible": {
-      boxShadow: theme.shadows.focus
-    }
+    ...theme.focusStyles.focusVisible
   },
   accordionHeaderContent: {
     display: "flex",

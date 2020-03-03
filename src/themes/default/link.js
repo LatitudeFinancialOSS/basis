@@ -2,14 +2,9 @@ import { rgba } from "polished";
 
 export default theme => ({
   link: {
-    textDecoration: "none"
-  },
-  "link:focus": {
-    outline: 0
-  },
-  "link:focus-visible": {
+    textDecoration: "none",
     borderRadius: theme.radii[0],
-    boxShadow: theme.shadows.focus
+    ...theme.focusStyles.focusVisible
   },
   "link.text": {
     fontFamily: theme.fonts.body,

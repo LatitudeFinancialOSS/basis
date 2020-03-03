@@ -28,7 +28,7 @@ FormWithDatePicker.propTypes = {
   label: PropTypes.string,
   day: PropTypes.bool,
   initialValue: PropTypes.shape({
-    day: PropTypes.string.isRequired,
+    day: PropTypes.string,
     month: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired
   }),
