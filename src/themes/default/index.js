@@ -1,3 +1,4 @@
+import accordion from "./accordion";
 import button from "./button";
 import checkbox from "./checkbox";
 import container from "./container";
@@ -197,6 +198,7 @@ theme.shadows = {
 
 export default {
   ...theme,
+  ...accordion(theme),
   ...button(theme),
   ...checkbox(theme),
   ...container(theme),
