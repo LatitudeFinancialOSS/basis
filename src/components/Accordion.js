@@ -28,7 +28,7 @@ Accordion.ITEM_GAP = ITEM_GAP;
 Accordion.ITEM_HEADER_AS = ITEM_HEADER_AS;
 Accordion.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Header({ children }) {
+function Header({ children, testId }) {
   const theme = useTheme();
   const { color, textColor, itemHeaderAs: HeadingComponent } = useAccordion();
   const {
@@ -42,7 +42,7 @@ function Header({ children }) {
   }, [toggleAccordionItem]);
 
   return (
-    <HeadingComponent css={theme.accordionHeader}>
+    <HeadingComponent css={theme.accordionHeader} data-testid={testId}>
       <button
         id={headerId}
         css={{
@@ -69,25 +69,27 @@ function Header({ children }) {
 }
 
 Header.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
-function HeaderIcon({ name }) {
+function HeaderIcon({ name, testId }) {
   const theme = useTheme();
   const { textColor } = useAccordion();
 
   return (
-    <div css={theme.accordionHeaderIcon}>
+    <div css={theme.accordionHeaderIcon} data-testid={testId}>
       <Icon name={name} color={textColor} />
     </div>
   );
 }
 
 HeaderIcon.propTypes = {
-  name: PropTypes.oneOf(Icon.NAMES).isRequired
+  name: PropTypes.oneOf(Icon.NAMES).isRequired,
+  testId: PropTypes.string
 };
 
-function Content({ children }) {
+function Content({ children, testId }) {
   const theme = useTheme();
   const { color } = useAccordion();
   const backgroundColor =
@@ -109,6 +111,7 @@ function Content({ children }) {
         role="region"
         aria-labelledby={headerId}
         hidden={!isOpen}
+        data-testid={testId}
       >
         {children}
       </div>
@@ -117,7 +120,8 @@ function Content({ children }) {
 }
 
 Content.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 const DEFAULT_ITEM_PROPS = {
@@ -139,7 +143,7 @@ function Item(props) {
       initiallyOpen: initiallyOpen => typeof initiallyOpen === "boolean"
     }
   );
-  const { initiallyOpen, children } = mergedProps;
+  const { initiallyOpen, children, testId } = mergedProps;
   const [isOpen, setIsOpen] = useState(initiallyOpen);
   const toggleAccordionItem = useCallback(() => {
     setIsOpen(isOpen => !isOpen);
@@ -151,14 +155,17 @@ function Item(props) {
 
   return (
     <AccordionItemProvider value={accordionItemInfo}>
-      <div css={theme[`accordionItem.${itemGap}`]}>{children}</div>
+      <div css={theme[`accordionItem.${itemGap}`]} data-testid={testId}>
+        {children}
+      </div>
     </AccordionItemProvider>
   );
 }
 
 Item.propTypes = {
   initiallyOpen: PropTypes.bool,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 function Accordion(props) {
@@ -174,7 +181,14 @@ function Accordion(props) {
     itemGap: itemGap => ITEM_GAP.includes(itemGap),
     itemHeaderAs: itemHeaderAs => ITEM_HEADER_AS.includes(itemHeaderAs)
   });
-  const { color, textColor, itemHeaderAs, itemGap, children } = mergedProps;
+  const {
+    color,
+    textColor,
+    itemHeaderAs,
+    itemGap,
+    children,
+    testId
+  } = mergedProps;
   const accordionInfo = useMemo(
     () => ({
       color,
@@ -186,7 +200,9 @@ function Accordion(props) {
   );
 
   return (
-    <AccordionProvider value={accordionInfo}>{children}</AccordionProvider>
+    <AccordionProvider value={accordionInfo}>
+      <div data-testid={testId}>{children}</div>
+    </AccordionProvider>
   );
 }
 
@@ -195,7 +211,8 @@ Accordion.propTypes = {
   textColor: PropTypes.oneOf(TEXT_COLORS),
   itemGap: PropTypes.oneOf(ITEM_GAP),
   itemHeaderAs: PropTypes.oneOf(ITEM_HEADER_AS),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string
 };
 
 Header.Icon = HeaderIcon;

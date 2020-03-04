@@ -30,11 +30,11 @@ describe("Frequency", () => {
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
-    expect(inputsContainer.getAttribute("aria-labelledby")).toBe(labelId);
+    expect(inputsContainer).toHaveAttribute("aria-labelledby", labelId);
 
     const amountInput = getByPlaceholderText("0.00");
 
-    expect(amountInput.getAttribute("type")).toBe("number");
+    expect(amountInput).toHaveAttribute("type", "number");
 
     getByText("Annually");
     getByText("Quarterly");
