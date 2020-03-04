@@ -262,7 +262,7 @@ function AccessibilityPage() {
                   overflow: "auto"
                 }}
               >
-                <Grid rowsGutter="7">
+                <Grid rowsGap="7">
                   <Select
                     name="show"
                     label="Show"

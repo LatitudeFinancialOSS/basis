@@ -14,7 +14,7 @@ describe("Flex", () => {
 
   it("with testId", () => {
     const { container } = render(
-      <Flex gutter="2" testId="my-flex">
+      <Flex gap="2" testId="my-flex">
         Content goes here
       </Flex>
     );

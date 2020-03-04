@@ -5,7 +5,7 @@ import KitchenSinkLayout from "./KitchenSinkLayout";
 function KitchenSinkStepper() {
   return (
     <KitchenSinkLayout name="Stepper">
-      <Grid rowsGutter="8">
+      <Grid rowsGap="8">
         <Section bg="grey.t05">
           <Stepper>
             <Stepper.Item label="You" label-md="About you" />

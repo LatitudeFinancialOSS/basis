@@ -18,7 +18,7 @@ function KitchenSinkLink() {
       <Container padding="6 0">
         {backgrounds.map(bg => (
           <Container padding="4" bg={bg} key={bg}>
-            <Flex gutter="8">
+            <Flex gap="8">
               <Link href="#" newTab={false}>
                 {bg}
               </Link>

@@ -82,7 +82,7 @@ function ComplexForm({ onSubmit }) {
   return (
     <Form initialValues={initialValues} onSubmit={onSubmit}>
       {() => (
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <Text as="h2" textStyle="heading4">
             About you
           </Text>

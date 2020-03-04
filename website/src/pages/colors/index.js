@@ -97,7 +97,7 @@ function ColorsPage() {
 
   return (
     <Container padding="6">
-      <Flex direction="column" gutter="10">
+      <Flex direction="column" gap="10">
         <ColorGroup title="Greys">
           <Color name="black" />
           {Object.keys(theme.colors.grey).map(t => (
@@ -110,7 +110,7 @@ function ColorsPage() {
             <Color name={`primary.blue.${t}`} key={t} />
           ))}
         </ColorGroup>
-        <Flex direction="column" gutter="6">
+        <Flex direction="column" gap="6">
           <ColorGroup title="Secondary" subTitle="Light Blue">
             {Object.keys(theme.colors.secondary.lightBlue).map(t => (
               <Color name={`secondary.lightBlue.${t}`} key={t} />
@@ -132,7 +132,7 @@ function ColorsPage() {
             ))}
           </ColorGroup>
         </Flex>
-        <Flex direction="column" gutter="6">
+        <Flex direction="column" gap="6">
           <ColorGroup title="Highlight" subTitle="Blue">
             {Object.keys(theme.colors.highlight.blue).map(t => (
               <Color name={`highlight.blue.${t}`} key={t} />
@@ -149,7 +149,7 @@ function ColorsPage() {
             ))}
           </ColorGroup>
         </Flex>
-        <Flex direction="column" gutter="6">
+        <Flex direction="column" gap="6">
           <ColorGroup title="Conditional" subTitle="Positive">
             {Object.keys(theme.colors.conditional.positive).map(t => (
               <Color name={`conditional.positive.${t}`} key={t} />

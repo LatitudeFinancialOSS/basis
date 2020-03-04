@@ -154,7 +154,7 @@ function InternalRadioGroup(_props) {
       aria-labelledby={labelId}
       aria-describedby={describedBy}
     >
-      <Grid cols={cols} colsGutter={1} rowsGutter={1}>
+      <Grid cols={cols} colsGap={1} rowsGap={1}>
         {options.map(({ label, value }, index) => (
           <Grid.Item
             colSpan={index % cols}
