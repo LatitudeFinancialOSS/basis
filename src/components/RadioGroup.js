@@ -6,6 +6,7 @@ import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalRadioGroup from "./internal/InternalRadioGroup";
+import { ERROR_STRINGS } from "../utils/error";
 
 const { COLORS } = InternalRadioGroup;
 
@@ -55,6 +56,11 @@ function RadioGroup(props) {
     validateData,
     testId
   } = mergedProps;
+
+  if (!Array.isArray(options)) {
+    throw new Error(ERROR_STRINGS.FIELD.NO_OPTIONS("Radio group"));
+  }
+
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
   const cols = columns === undefined ? options.length : columns;

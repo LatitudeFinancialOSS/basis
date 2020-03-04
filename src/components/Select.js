@@ -6,6 +6,7 @@ import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalSelect from "./internal/InternalSelect";
+import { ERROR_STRINGS } from "../utils/error";
 
 const { COLORS } = InternalSelect;
 
@@ -59,6 +60,11 @@ function Select(props) {
     testId,
     __internal__focus
   } = mergedProps;
+
+  if (!Array.isArray(options)) {
+    throw new Error(ERROR_STRINGS.FIELD.NO_OPTIONS("Select"));
+  }
+
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
   const isEmpty = useCallback(
