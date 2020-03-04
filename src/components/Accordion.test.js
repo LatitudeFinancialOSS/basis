@@ -33,8 +33,8 @@ describe("Accordion", () => {
     );
     const item1 = getByTestId(container, "accordion-item-1");
     const item1header = getByTestId(item1, "accordion-item-1-header");
-    const item1headerButton = item1header.querySelector("[aria-controls]");
-    const item1content = item1.querySelector(`[role="region"]`);
+    const item1HeaderButton = item1header.querySelector("[aria-controls]");
+    const item1Content = item1.querySelector(`[role="region"]`);
     const item2 = getByTestId(container, "accordion-item-2");
     const item3 = getByTestId(container, "accordion-item-3");
 
@@ -43,11 +43,11 @@ describe("Accordion", () => {
     `);
     expect(item1header.tagName).toBe("H3");
     expect(item1header).toHaveTextContent("Header 1");
-    expect(item1headerButton).toHaveStyle(`
+    expect(item1HeaderButton).toHaveStyle(`
       background-color: #ececec;
       color: #000000;
     `);
-    expect(item1content).toHaveTextContent("Content 1");
+    expect(item1Content).toHaveTextContent("Content 1");
 
     expect(item2).toHaveStyle(`
       margin-top: 4px;
@@ -80,6 +80,24 @@ describe("Accordion", () => {
     expect(content).toHaveAttribute("hidden");
   });
 
+  it("initiallyOpen", () => {
+    const { container } = render(
+      <Accordion>
+        <Accordion.Item initiallyOpen>
+          <Accordion.Item.Header>My header</Accordion.Item.Header>
+          <Accordion.Item.Content>
+            <Text>My content</Text>
+          </Accordion.Item.Content>
+        </Accordion.Item>
+      </Accordion>
+    );
+    const itemHeaderButton = container.querySelector("[aria-controls]");
+    const content = container.querySelector(`[role="region"]`);
+
+    expect(itemHeaderButton).toHaveAttribute("aria-expanded", "true");
+    expect(content).not.toHaveAttribute("hidden");
+  });
+
   it("opening and closing", () => {
     const { container } = render(
       <Accordion>
@@ -105,6 +123,37 @@ describe("Accordion", () => {
 
     expect(itemHeaderButton).toHaveAttribute("aria-expanded", "false");
     expect(content).toHaveAttribute("hidden");
+  });
+
+  it("doesn't autoclose", () => {
+    const { container } = render(
+      <Accordion>
+        <Accordion.Item testId="accordion-item-1">
+          <Accordion.Item.Header>Header 1</Accordion.Item.Header>
+          <Accordion.Item.Content>
+            <Text>Content 1</Text>
+          </Accordion.Item.Content>
+        </Accordion.Item>
+        <Accordion.Item testId="accordion-item-2">
+          <Accordion.Item.Header>Header 2</Accordion.Item.Header>
+          <Accordion.Item.Content>
+            <Text>Content 2</Text>
+          </Accordion.Item.Content>
+        </Accordion.Item>
+      </Accordion>
+    );
+    const item1 = getByTestId(container, "accordion-item-1");
+    const item2 = getByTestId(container, "accordion-item-2");
+    const item1HeaderButton = item1.querySelector("[aria-controls]");
+    const item2HeaderButton = item2.querySelector("[aria-controls]");
+
+    // Open item 1
+    userEvent.click(item1HeaderButton);
+
+    // Open item 2
+    userEvent.click(item2HeaderButton);
+
+    expect(item1HeaderButton).toHaveAttribute("aria-expanded", "true");
   });
 
   it("with color", () => {
