@@ -1,54 +1,69 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions,
   getCheckboxOptions
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { useTheme, Link } = allDesignSystem;
-const { VARIANTS, DEFAULT_PROPS } = Link;
+const { useTheme } = allDesignSystem;
 const scope = allDesignSystem;
 
-const variantOptions = getRadioOptions(VARIANTS);
 const newTabOptions = getCheckboxOptions();
 
 function LinkPage() {
   const theme = useTheme();
-  const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [newTab, setNewTab] = useState(false);
-  const code = formatCode(
-    `<Link ${nonDefaultProps([
-      {
-        prop: "href",
-        value: "/terms"
-      },
-      {
-        prop: "variant",
-        value: variant,
-        defaultValue: DEFAULT_PROPS.variant
-      },
-      {
-        prop: "newTab",
-        value: newTab,
-        type: "boolean"
-      }
-    ])}
->
-  ${
-    variant === "icon"
-      ? `
-          <Icon
-            name="facebook"
-            color="white"
-            hoverColor="secondary.lightBlue.t60"
-          />
-        `
-      : "Terms and Conditions"
-  }
-</Link>`
-  );
+  const linkProps = nonDefaultProps([
+    {
+      prop: "href",
+      value: "/terms"
+    },
+    {
+      prop: "newTab",
+      value: newTab,
+      type: "boolean"
+    }
+  ]);
+  const code = formatCode(`
+    <>
+      <Container padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="grey.t03" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="grey.t05" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="grey.t07" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="secondary.lightBlue.t15" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="secondary.lightBlue.t25" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="primary.blue.t100" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+    </>
+  `);
 
   return (
     <>
@@ -60,13 +75,6 @@ function LinkPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Variant"
-          options={variantOptions}
-          selectedValue={variant}
-          setSelectedValue={setVariant}
-        />
-        <RadioGroupSetting
-          css={{ marginLeft: theme.space[13] }}
           heading="New Tab"
           options={newTabOptions}
           selectedValue={newTab}
@@ -74,17 +82,7 @@ function LinkPage() {
           type="boolean"
         />
       </div>
-      <ComponentContainer
-        code={code}
-        scope={scope}
-        backgroundColor={
-          ["dark-bg", "icon"].includes(variant)
-            ? theme.colors.primary.blue.t100
-            : variant === "medium-bg"
-            ? theme.colors.secondary.lightBlue.t25
-            : null
-        }
-      />
+      <ComponentContainer code={code} scope={scope} />
     </>
   );
 }
