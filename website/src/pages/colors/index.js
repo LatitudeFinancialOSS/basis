@@ -32,12 +32,21 @@ ColorGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+const BLACK_REGEX = /^b(\d{2,3})$/;
 const TINT_REGEX = /^t(\d{2,3})$/;
 
 function getNiceColorName(colorName) {
   const parts = colorName.split(".");
   const lastPart = parts[parts.length - 1];
-  const match = lastPart.match(TINT_REGEX);
+  let match = lastPart.match(BLACK_REGEX);
+
+  if (match) {
+    const black = parseInt(match[1], 10);
+
+    return `${black}% Black`;
+  }
+
+  match = lastPart.match(TINT_REGEX);
 
   if (match) {
     const tint = parseInt(match[1], 10);

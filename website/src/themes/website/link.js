@@ -5,20 +5,14 @@ export default theme => ({
     borderRadius: theme.radii[0],
     ...theme.focusStyles.focusVisible
   },
-  "link.text": {
+  "link.light-bg": {
     fontFamily: "inherit",
-    fontWeight: "inherit"
-  },
-  "link.text.default": {
+    fontWeight: "inherit",
     color: "inherit",
-    borderBottomColor: "inherit"
-  },
-  "link.text.default:hover": {
-    color: "inherit",
-    borderBottomColor: "inherit"
-  },
-  "link.text.default:active": {
-    color: "inherit",
-    borderBottomColor: "inherit"
+    borderBottomColor: "inherit",
+    ":hover, :active": {
+      color: "inherit",
+      borderBottomColor: "inherit"
+    }
   }
 });

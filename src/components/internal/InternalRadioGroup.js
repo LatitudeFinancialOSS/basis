@@ -41,7 +41,7 @@ function RadioCircle({ color, isChecked }) {
 }
 
 RadioCircle.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t30"]).isRequired,
+  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
   isChecked: PropTypes.bool.isRequired
 };
 
@@ -99,7 +99,7 @@ function Radio({
             color={
               color === "grey.t05" || isChecked
                 ? "white"
-                : "secondary.lightBlue.t30"
+                : "secondary.lightBlue.t25"
             }
             isChecked={isChecked}
           />

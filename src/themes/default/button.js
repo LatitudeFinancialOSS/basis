@@ -38,11 +38,11 @@ export default theme => ({
     color: theme.colors.highlight.blue.t100
   },
   "button.primary.white:hover": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   "button.primary.white:active": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   // Secondary default

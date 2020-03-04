@@ -185,7 +185,7 @@ LegalCopy.propTypes = {
 
 function Legal({ children, testId }) {
   return (
-    <Container bg="secondary.lightBlue.t30" testId={testId}>
+    <Container bg="secondary.lightBlue.t25" testId={testId}>
       <Container hasBreakpointWidth padding="9 0" textAlign="center">
         {children}
       </Container>

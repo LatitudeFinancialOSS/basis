@@ -8,15 +8,15 @@ import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, Link } = allDesignSystem;
-const { COLORS, DEFAULT_PROPS } = Link;
+const { VARIANTS, DEFAULT_PROPS } = Link;
 const scope = allDesignSystem;
 
-const colorOptions = getRadioOptions(COLORS);
+const variantOptions = getRadioOptions(VARIANTS);
 const newTabOptions = getCheckboxOptions();
 
 function LinkPage() {
   const theme = useTheme();
-  const [color, setColor] = useState(DEFAULT_PROPS.color);
+  const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [newTab, setNewTab] = useState(false);
   const code = formatCode(
     `<Link ${nonDefaultProps([
@@ -25,9 +25,9 @@ function LinkPage() {
         value: "/terms"
       },
       {
-        prop: "color",
-        value: color,
-        defaultValue: DEFAULT_PROPS.color
+        prop: "variant",
+        value: variant,
+        defaultValue: DEFAULT_PROPS.variant
       },
       {
         prop: "newTab",
@@ -36,7 +36,17 @@ function LinkPage() {
       }
     ])}
 >
-  Terms and Conditions
+  ${
+    variant === "icon"
+      ? `
+          <Icon
+            name="facebook"
+            color="white"
+            hoverColor="secondary.lightBlue.t60"
+          />
+        `
+      : "Terms and Conditions"
+  }
 </Link>`
   );
 
@@ -50,10 +60,10 @@ function LinkPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Color"
-          options={colorOptions}
-          selectedValue={color}
-          setSelectedValue={setColor}
+          heading="Variant"
+          options={variantOptions}
+          selectedValue={variant}
+          setSelectedValue={setVariant}
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
@@ -68,10 +78,10 @@ function LinkPage() {
         code={code}
         scope={scope}
         backgroundColor={
-          color === "secondary.turquoise.t60"
+          ["dark-bg", "icon"].includes(variant)
             ? theme.colors.primary.blue.t100
-            : color === "secondary.lightBlue.t100"
-            ? theme.colors.black
+            : variant === "medium-bg"
+            ? theme.colors.secondary.lightBlue.t25
             : null
         }
       />

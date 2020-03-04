@@ -1,6 +1,6 @@
 import React from "react";
-import { render } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import { render } from "../utils/test";
 import Link from "./Link";
 import Container from "./Container";
 
@@ -20,16 +20,16 @@ describe("Link", () => {
       text-decoration: none;
       border-bottom-width: 1px;
       border-bottom-style: solid;
-      border-bottom-color: rgba(0,70,170,0.5);
       transition: background-color 200ms ease-out,border-bottom-color 200ms ease-out;
-      color: #0046aa;
       font-family: 'Roboto',sans-serif;
+      color: #0046aa;
+      border-bottom-color: rgba(0,70,170,0.5);
     `);
   });
 
   it("new tab", () => {
     const { getByText } = render(
-      <Link href="/terms" newTab color="secondary.turquoise.t60">
+      <Link href="/terms" newTab>
         Terms and Conditions
       </Link>
     );
@@ -39,35 +39,21 @@ describe("Link", () => {
     expect(link).toHaveAttribute("rel", "noopener");
   });
 
-  it("secondary.turquoise.t60", () => {
+  it("with variant", () => {
     const { getByText } = render(
-      <Link href="/terms" newTab={false} color="secondary.turquoise.t60">
+      <Link href="/terms" newTab={false} variant="dark-bg">
         Terms and Conditions
       </Link>
     );
     const link = getByText("Terms and Conditions");
 
     expect(link).toHaveStyle(`
-      color: #87edf9;
-      border-bottom-color: rgba(135,237,249,0.5);
+      color: #d8edff;
+      border-bottom-color: rgba(216,237,255,0.5);
     `);
   });
 
-  it("secondary.lightBlue.t100", () => {
-    const { getByText } = render(
-      <Link href="/terms" newTab={false} color="secondary.lightBlue.t100">
-        Terms and Conditions
-      </Link>
-    );
-    const link = getByText("Terms and Conditions");
-
-    expect(link).toHaveStyle(`
-      color: #63b8ff;
-      border-bottom-color: rgba(99,184,255,0.5);
-    `);
-  });
-
-  it("inside dark container", () => {
+  it("inherits variant based on background", () => {
     const { getByText } = render(
       <Container bg="primary.blue.t100">
         <Link href="/terms" newTab={false}>
@@ -78,8 +64,8 @@ describe("Link", () => {
     const link = getByText("Terms and Conditions");
 
     expect(link).toHaveStyle(`
-      color: #87edf9;
-      border-bottom-color: rgba(135,237,249,0.5);
+      color: #d8edff;
+      border-bottom-color: rgba(216,237,255,0.5);
     `);
   });
 

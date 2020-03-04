@@ -33,9 +33,37 @@ function KitchenSinkAccordion() {
 
       <Container padding="4" width="320">
         <Text textStyle="heading4" margin="0 0 4 0">
+          Keyboard focus
+        </Text>
+        <Accordion>
+          <Accordion.Item>
+            <Accordion.Item.Header>First header</Accordion.Item.Header>
+            <Accordion.Item.Content>
+              <Text>First content</Text>
+            </Accordion.Item.Content>
+          </Accordion.Item>
+          <Accordion.Item>
+            <Accordion.Item.Header __internal__keyboardFocus>
+              Second header
+            </Accordion.Item.Header>
+            <Accordion.Item.Content>
+              <Text>Second content</Text>
+            </Accordion.Item.Content>
+          </Accordion.Item>
+          <Accordion.Item>
+            <Accordion.Item.Header>Third header</Accordion.Item.Header>
+            <Accordion.Item.Content>
+              <Text>Third content</Text>
+            </Accordion.Item.Content>
+          </Accordion.Item>
+        </Accordion>
+      </Container>
+
+      <Container padding="4" width="320">
+        <Text textStyle="heading4" margin="0 0 4 0">
           With icon
         </Text>
-        <Accordion color="secondary.lightBlue.t30">
+        <Accordion color="secondary.lightBlue.t25">
           <Accordion.Item>
             <Accordion.Item.Header>
               <Accordion.Item.Header.Icon name="calculator" />
@@ -97,7 +125,7 @@ function KitchenSinkAccordion() {
           Initially open
         </Text>
         <Accordion
-          color="secondary.lightBlue.t30"
+          color="secondary.lightBlue.t25"
           textColor="primary.blue.t100"
         >
           <Accordion.Item>

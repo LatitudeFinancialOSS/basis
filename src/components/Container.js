@@ -25,7 +25,9 @@ const BACKGROUNDS = [
   "white",
   "grey.t03",
   "grey.t05",
-  "secondary.lightBlue.t30",
+  "grey.t07",
+  "secondary.lightBlue.t15",
+  "secondary.lightBlue.t25",
   "primary.blue.t100"
 ];
 

@@ -16,7 +16,10 @@ const DEFAULT_PROPS = {
   color: "highlight.blue.t100",
   fullWidth: false,
   disabled: false,
-  type: "button"
+  type: "button",
+  __internal__keyboardFocus: false,
+  __internal__hover: false,
+  __internal__active: false
 };
 
 Button.VARIANTS = VARIANTS;
