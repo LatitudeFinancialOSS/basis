@@ -1,6 +1,7 @@
 import React from "react";
 import { BasisProvider, defaultTheme } from "basis";
 import {
+  Accordion,
   Button,
   Checkbox,
   Container,
@@ -27,6 +28,7 @@ import "typeface-roboto";
 function KitchenSink() {
   return (
     <BasisProvider theme={defaultTheme}>
+      <Accordion />
       <Button />
       <Checkbox />
       <Container />
