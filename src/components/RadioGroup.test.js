@@ -45,7 +45,7 @@ describe("RadioGroup", () => {
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
-    expect(radioGroup.getAttribute("aria-labelledby")).toBe(labelId);
+    expect(radioGroup).toHaveAttribute("aria-labelledby", labelId);
   });
 
   it("renders help text that is connected to the radio group", () => {

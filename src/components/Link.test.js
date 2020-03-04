@@ -14,8 +14,8 @@ describe("Link", () => {
     const link = getByText("Terms and Conditions");
 
     expect(link.tagName).toBe("A");
-    expect(link.getAttribute("target")).toBe(null);
-    expect(link.getAttribute("href")).toBe("/terms");
+    expect(link).not.toHaveAttribute("target");
+    expect(link).toHaveAttribute("href", "/terms");
     expect(link).toHaveStyle(`
       text-decoration: none;
       border-bottom-width: 1px;
@@ -35,8 +35,8 @@ describe("Link", () => {
     );
     const link = getByText("Terms and Conditions");
 
-    expect(link.getAttribute("target")).toBe("_blank");
-    expect(link.getAttribute("rel")).toBe("noopener");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener");
   });
 
   it("secondary.turquoise.t60", () => {
