@@ -4,6 +4,10 @@ import generate from "@babel/generator";
 import * as t from "@babel/types";
 import { allComponentNames } from "./meta";
 
+function wrapCodeInFragment(code) {
+  return `<React.Fragment>${code}</React.Fragment>`;
+}
+
 function getASTfromCode(code) {
   try {
     return parse(code, { plugins: ["jsx"] });
@@ -40,8 +44,7 @@ export function getReactLiveNoInline(code) {
 }
 
 export function annotateCodeForPlayground(code) {
-  const ast = getASTfromCode(code);
-
+  const ast = getASTfromCode(wrapCodeInFragment(code));
   if (ast === null) {
     return code;
   }
