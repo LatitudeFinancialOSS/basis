@@ -40,7 +40,7 @@ function HeaderSocial({ children, testId }) {
         <Text margin="0" margin-sm="0 4 0 0">
           <strong>Connect with us</strong>
         </Text>
-        <Flex gutter="3" margin="0 0 0 auto" margin-sm="0">
+        <Flex gap="3" margin="0 0 0 auto" margin-sm="0">
           {children}
         </Flex>
       </Flex>
@@ -159,7 +159,7 @@ function LegalLinks({ children, testId }) {
   );
 
   return (
-    <Flex gutter="3 4" wrap placeItems="top center" testId={testId}>
+    <Flex gap="3 4" wrap placeItems="top center" testId={testId}>
       {links}
     </Flex>
   );

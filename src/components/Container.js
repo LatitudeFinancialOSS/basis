@@ -62,7 +62,7 @@ function Container(_props) {
   const responsiveCSS = hasBreakpointWidth
     ? mergeResponsiveCSS(
         {
-          marginLeft: "15px", // This is half of our special 30px columns gutter.
+          marginLeft: "15px", // This is half of our special 30px columns gap.
           marginRight: "15px",
           // Note: the order of these media queries is important (because they are not exclusive).
           [theme.minMediaQueries.sm]: {

@@ -7,13 +7,7 @@ import { render } from "../utils/test";
 describe("Grid", () => {
   it("with testId", () => {
     const { container } = render(
-      <Grid
-        cols={4}
-        cols-md={12}
-        rowsGutter={4}
-        colsGutter="30px"
-        testId="my-grid"
-      >
+      <Grid cols={4} cols-md={12} rowsGap={4} colsGap="30px" testId="my-grid">
         <Grid.Item colSpan="all" colSpan-md="0-3">
           First
         </Grid.Item>

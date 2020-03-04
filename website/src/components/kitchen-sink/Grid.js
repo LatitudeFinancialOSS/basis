@@ -6,7 +6,7 @@ function KitchenSinkGrid() {
   return (
     <KitchenSinkLayout name="Grid">
       <Container padding="4">
-        <Grid preset="page" rowsGutter={4}>
+        <Grid preset="page" rowsGap={4}>
           <Grid.Item colSpan="all">
             <Placeholder label="Header" height="32" />
           </Grid.Item>

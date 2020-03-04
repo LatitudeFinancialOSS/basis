@@ -571,7 +571,7 @@ function Playground({ location }) {
                   borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                 }}
               >
-                <Flex gutter="4">
+                <Flex gap="4">
                   {isCanary && (
                     <Button
                       variant="icon"

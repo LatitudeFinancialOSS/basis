@@ -21,7 +21,7 @@ function GridPage() {
       value: "page"
     },
     {
-      prop: "rowsGutter",
+      prop: "rowsGap",
       value: 4,
       type: "number"
     },

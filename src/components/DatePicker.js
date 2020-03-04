@@ -162,7 +162,7 @@ function DatePicker(props) {
         aria-labelledby={labelId}
         aria-describedby={helpText || hasErrors ? auxId : null}
       >
-        <Grid cols={day ? 4 : 3} colsGutter={1}>
+        <Grid cols={day ? 4 : 3} colsGap={1}>
           {day && (
             <Grid.Item colSpan={0}>
               <InternalInput
