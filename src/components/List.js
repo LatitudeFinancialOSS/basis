@@ -26,13 +26,13 @@ List.DEFAULT_PROPS = DEFAULT_PROPS;
 function Item({ children, testId }) {
   const theme = useTheme();
   const { type } = useListType();
+  const { textStyle } = useTextStyle();
 
   return (
     <li
       css={{
         ...theme[`listItem.${type}`],
-        "&:last-of-type": theme[`listItem.${type}.last`],
-        "&:before": theme[`listItem.${type}:before`],
+        ...theme[`listItem.${type}.${textStyle}`],
         "& ul, & ol": theme[`list.${type}.nested`],
         "& ol li:before": theme[`listItem.${type}.nested:before`],
         "& ol ol": theme[`list.${type}.nested.nested`],
