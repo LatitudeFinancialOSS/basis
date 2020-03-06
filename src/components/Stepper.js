@@ -100,10 +100,17 @@ function Stepper(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { completed, children, testId } = props;
   const theme = useTheme();
-  const steps = React.Children.toArray(children).filter(
-    // Ignore all children that aren't Step.Item
-    child => child.type === Item
-  );
+  const steps = React.Children.toArray(children);
+
+  /*
+    This stopped working at some point, so filtering here would result in [].
+  
+    .filter(
+      // Ignore all children that aren't Step.Item
+      child => child.type === Item
+    );
+  */
+
   const currentStepIndex = steps.findIndex(step => step.props.current === true);
 
   return (
