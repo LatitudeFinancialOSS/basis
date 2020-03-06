@@ -32,7 +32,7 @@ function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
     <div
       css={{
         position: "relative",
-        minHeight: "100vh"
+        height: "100vh"
       }}
       ref={containerRef}
     >

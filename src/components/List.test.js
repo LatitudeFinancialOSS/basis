@@ -76,21 +76,6 @@ describe("List", () => {
     getByText("Last Item");
   });
 
-  it("ignores children that are not List.Item", () => {
-    const { queryByText } = render(
-      <List>
-        <p>Hello</p>
-        <List.Item>First Item</List.Item>
-        <List.Item>Second Item</List.Item>
-        <div>World</div>
-        <List.Item>Third Item</List.Item>
-      </List>
-    );
-
-    expect(queryByText("Hello")).not.toBeInTheDocument();
-    expect(queryByText("World")).not.toBeInTheDocument();
-  });
-
   it("with testId", () => {
     const { container } = render(
       <List testId="my-list">
