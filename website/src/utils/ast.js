@@ -4,8 +4,8 @@ import generate from "@babel/generator";
 import * as t from "@babel/types";
 import { allComponentNames } from "./meta";
 
-function codeContainsClassOrFunction(code) {
-  const trimmedCode = typeof code === "string" && code.trim();
+function isClassOrFunction(code) {
+  const trimmedCode = code.trim();
 
   return (
     trimmedCode.startsWith("class") ||
@@ -15,7 +15,7 @@ function codeContainsClassOrFunction(code) {
 }
 
 function wrapCodeInFragment(code) {
-  return `<React.Fragment>${code}</React.Fragment>`;
+  return `<>${code}</>`;
 }
 
 function getASTfromCode(code) {
@@ -54,9 +54,7 @@ export function getReactLiveNoInline(code) {
 }
 
 export function annotateCodeForPlayground(code) {
-  var codeToParse = codeContainsClassOrFunction(code)
-    ? code
-    : wrapCodeInFragment(code);
+  const codeToParse = isClassOrFunction(code) ? code : wrapCodeInFragment(code);
 
   const ast = getASTfromCode(codeToParse);
   if (ast === null) {
