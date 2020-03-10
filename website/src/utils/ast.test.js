@@ -1,4 +1,4 @@
-import { getReactLiveNoInline } from "./ast";
+import { getReactLiveNoInline, annotateCodeForPlayground } from "./ast";
 
 describe("getReactLiveNoInline", () => {
   it("invalid code", () => {
@@ -102,5 +102,46 @@ describe("getReactLiveNoInline", () => {
 
     `)
     ).toBe(true);
+  });
+});
+
+describe("annotateCodeForPlayground", () => {
+  it("wraps code in Fragment", () => {
+    const plainJsx = annotateCodeForPlayground("<Button>Button</Button>");
+    const emptyString = annotateCodeForPlayground("");
+
+    expect(plainJsx.startsWith("<React.Fragment>")).toBe(true);
+    expect(plainJsx.endsWith("</React.Fragment>;")).toBe(true);
+
+    expect(emptyString.startsWith("<React.Fragment>")).toBe(true);
+    expect(emptyString.endsWith("</React.Fragment>;")).toBe(true);
+  });
+
+  it("does not wrap code in Fragment", () => {
+    const functionShorthand = annotateCodeForPlayground(
+      "() => <Button>Button</Button>"
+    );
+    const functionLonghand = annotateCodeForPlayground(
+      "function App() { <Button>Button</Button> }"
+    );
+    const classComponent = annotateCodeForPlayground(
+      `class ButtonTest extends React.Component {
+      
+        render() {
+          return (
+            <Button>Button</Button>
+          )
+        }
+      }`
+    );
+
+    expect(functionShorthand.startsWith("<React.Fragment>")).toBe(false);
+    expect(functionShorthand.endsWith("</React.Fragment>;")).toBe(false);
+
+    expect(functionLonghand.startsWith("<React.Fragment>")).toBe(false);
+    expect(functionLonghand.endsWith("</React.Fragment>;")).toBe(false);
+
+    expect(classComponent.startsWith("<React.Fragment>")).toBe(false);
+    expect(classComponent.endsWith("</React.Fragment>;")).toBe(false);
   });
 });
