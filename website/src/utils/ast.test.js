@@ -145,7 +145,7 @@ describe("annotateCodeForPlayground", () => {
   });
 
   it("does not wrap code starting with 'function' Fragment", () => {
-    const functionLonghand = "function App() { <Button>Apply</Button> }";
+    const functionLonghand = "function App() { return <Button>Apply</Button> }";
 
     expect(annotateCodeForPlayground(functionLonghand).startsWith("<>")).toBe(
       false
