@@ -203,7 +203,7 @@ function Frequency(props) {
         aria-describedby={helpText || hasErrors ? auxId : null}
       >
         {mode === "radio-group" && (
-          <Grid cols={1} rowsGutter={1}>
+          <Grid cols={1} rowsGap={1}>
             {inputComponent}
             {frequencyOptions.length > 0 && (
               <InternalRadioGroup
@@ -223,7 +223,7 @@ function Frequency(props) {
           </Grid>
         )}
         {mode === "select" && (
-          <Grid cols={2} colsGutter={1}>
+          <Grid cols={2} colsGap={1}>
             <Grid.Item colSpan="0">{inputComponent}</Grid.Item>
             <Grid.Item colSpan="1">
               <InternalSelect

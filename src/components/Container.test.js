@@ -95,12 +95,12 @@ describe("Container", () => {
 
   it("with background color", () => {
     const { getByText } = render(
-      <Container bg="secondary.lightBlue.t30">Hello World</Container>
+      <Container bg="secondary.lightBlue.t25">Hello World</Container>
     );
     const node = getByText("Hello World");
 
     expect(node).toHaveStyle(`
-      background-color: #d0e9ff;
+      background-color: #d8edff;
     `);
   });
 

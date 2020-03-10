@@ -89,6 +89,7 @@ const theme = {
     white: "#ffffff",
     primary: {
       blue: {
+        b40: "#002a66",
         t100: "#0046aa",
         t80: "#336bbb",
         t60: "#7fa2d4",
@@ -101,7 +102,7 @@ const theme = {
         t100: "#63b8ff",
         t80: "#82c6ff",
         t60: "#b1dbff",
-        t30: "#d0e9ff",
+        t25: "#d8edff",
         t15: "#eff7ff"
       },
       pink: {

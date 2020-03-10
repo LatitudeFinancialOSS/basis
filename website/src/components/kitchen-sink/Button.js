@@ -17,7 +17,7 @@ function KitchenSinkButton() {
               bg={color === "white" ? "primary.blue.t100" : null}
               key={color}
             >
-              <Flex gutter="6">
+              <Flex gap="6">
                 <Button variant={variant} color={color}>
                   {variant} {color}
                 </Button>

@@ -11,40 +11,40 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveMargin, responsivePadding } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
-const VARIANTS = ["text", "icon"];
-const COLORS = [
-  "primary.blue.t100",
-  "secondary.turquoise.t60",
-  "secondary.lightBlue.t100"
-];
+const VARIANTS = ["light-bg", "medium-bg", "dark-bg", "icon"];
 
 const DEFAULT_PROPS = {
-  variant: "text",
-  color: "primary.blue.t100"
+  variant: "light-bg",
+  __internal__keyboardFocus: false,
+  __internal__hover: false,
+  __internal__active: false
 };
 
 Link.VARIANTS = VARIANTS;
-Link.COLORS = COLORS;
 Link.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Link(props) {
   const theme = useTheme();
   const { background } = useBackground();
-  const inheritedColor =
+  const inheritedVariant =
     background === "primary.blue.t100"
-      ? "secondary.turquoise.t60"
-      : "primary.blue.t100";
+      ? "dark-bg"
+      : [
+          "grey.t07",
+          "secondary.lightBlue.t15",
+          "secondary.lightBlue.t25"
+        ].includes(background)
+      ? "medium-bg"
+      : "light-bg";
   const inheritedProps = {
-    color: inheritedColor
+    variant: inheritedVariant
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     variant: variant => VARIANTS.includes(variant),
-    color: color => COLORS.includes(color),
     newTab: newTab => typeof newTab === "boolean"
   });
   const {
     variant,
-    color,
     href,
     newTab,
     title,
@@ -59,16 +59,12 @@ function Link(props) {
     margin: responsiveMargin,
     padding: responsivePadding
   });
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
     ...theme.link,
     ...theme[`link.${variant}`],
-    ...theme[`link.${variant}.${colorStr}`],
     ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-    ":hover": theme[`link.${variant}.${colorStr}:hover`],
-    ...(__internal__hover && theme[`link.${variant}.${colorStr}:hover`]),
-    ":active": theme[`link.${variant}.${colorStr}:active`],
-    ...(__internal__active && theme[`link.${variant}.${colorStr}:active`]),
+    ...(__internal__hover && theme[`link.${variant}`][":hover"]),
+    ...(__internal__active && theme[`link.${variant}`][":active"]),
     ...responsivePropsCSS
   };
   const newTabProps = newTab
@@ -114,7 +110,6 @@ Link.propTypes = {
   ...responsiveMarginType,
   ...responsivePaddingType,
   variant: PropTypes.oneOf(VARIANTS),
-  color: PropTypes.oneOf(COLORS),
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,
   title: PropTypes.string,

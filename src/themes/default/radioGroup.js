@@ -21,7 +21,7 @@ export default theme => ({
     borderRadius: theme.radii[0]
   },
   "radioGroupRadioLabel.checked": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   "radioGroupRadioLabel.grey.t05": {
@@ -42,8 +42,8 @@ export default theme => ({
   "radioGroupRadioOuterCircle.white": {
     fill: theme.colors.white
   },
-  "radioGroupRadioOuterCircle.secondary.lightBlue.t30": {
-    fill: theme.colors.secondary.lightBlue.t30
+  "radioGroupRadioOuterCircle.secondary.lightBlue.t25": {
+    fill: theme.colors.secondary.lightBlue.t25
   },
   radioGroupRadioInnerCircle: {
     fill: theme.colors.primary.blue.t100

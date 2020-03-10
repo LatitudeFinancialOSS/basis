@@ -2,38 +2,33 @@ import React from "react";
 import { Container, Flex, Link } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
 
+const backgrounds = [
+  "white",
+  "grey.t03",
+  "grey.t05",
+  "grey.t07",
+  "secondary.lightBlue.t15",
+  "secondary.lightBlue.t25",
+  "primary.blue.t100"
+];
+
 function KitchenSinkLink() {
   return (
     <KitchenSinkLayout name="Link">
-      <Container padding="6 0" bg="grey.t05">
-        {Link.COLORS.map(color => (
-          <Container
-            padding="4"
-            bg={
-              color === "secondary.turquoise.t60"
-                ? "primary.blue.t100"
-                : color === "secondary.lightBlue.t100"
-                ? "__exception__:black"
-                : "white"
-            }
-            key={color}
-          >
-            <Flex gutter="8">
-              <Link href="#" newTab={false} color={color}>
-                {color}
+      <Container padding="6 0">
+        {backgrounds.map(bg => (
+          <Container padding="4" bg={bg} key={bg}>
+            <Flex gap="8">
+              <Link href="#" newTab={false}>
+                {bg}
               </Link>
-              <Link href="#" newTab={false} color={color} __internal__hover>
+              <Link href="#" newTab={false} __internal__hover>
                 Hover
               </Link>
-              <Link href="#" newTab={false} color={color} __internal__active>
+              <Link href="#" newTab={false} __internal__active>
                 Active
               </Link>
-              <Link
-                href="#"
-                newTab={false}
-                color={color}
-                __internal__keyboardFocus
-              >
+              <Link href="#" newTab={false} __internal__keyboardFocus>
                 Keyboard focus
               </Link>
             </Flex>
