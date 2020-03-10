@@ -41,7 +41,7 @@ function ContainerPage() {
       }
     ])}
     >
-      <Flex direction="column" gutter="4">
+      <Flex direction="column" gap="4">
         <Text as="h3" textStyle="heading3">Here goes anything you want.</Text>
         <Text>Here are some links:
           <Link href="https://google.com" newTab>Google</Link>{" "}

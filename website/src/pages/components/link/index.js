@@ -1,44 +1,69 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions,
   getCheckboxOptions
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { useTheme, Link } = allDesignSystem;
-const { COLORS, DEFAULT_PROPS } = Link;
+const { useTheme } = allDesignSystem;
 const scope = allDesignSystem;
 
-const colorOptions = getRadioOptions(COLORS);
 const newTabOptions = getCheckboxOptions();
 
 function LinkPage() {
   const theme = useTheme();
-  const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [newTab, setNewTab] = useState(false);
-  const code = formatCode(
-    `<Link ${nonDefaultProps([
-      {
-        prop: "href",
-        value: "/terms"
-      },
-      {
-        prop: "color",
-        value: color,
-        defaultValue: DEFAULT_PROPS.color
-      },
-      {
-        prop: "newTab",
-        value: newTab,
-        type: "boolean"
-      }
-    ])}
->
-  Terms and Conditions
-</Link>`
-  );
+  const linkProps = nonDefaultProps([
+    {
+      prop: "href",
+      value: "/terms"
+    },
+    {
+      prop: "newTab",
+      value: newTab,
+      type: "boolean"
+    }
+  ]);
+  const code = formatCode(`
+    <>
+      <Container padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="grey.t03" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="grey.t05" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="grey.t07" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="secondary.lightBlue.t15" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="secondary.lightBlue.t25" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+      <Container bg="primary.blue.t100" padding="4">
+        <Link ${linkProps}>
+          Terms and Conditions
+        </Link>
+      </Container>
+    </>
+  `);
 
   return (
     <>
@@ -50,13 +75,6 @@ function LinkPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Color"
-          options={colorOptions}
-          selectedValue={color}
-          setSelectedValue={setColor}
-        />
-        <RadioGroupSetting
-          css={{ marginLeft: theme.space[13] }}
           heading="New Tab"
           options={newTabOptions}
           selectedValue={newTab}
@@ -64,17 +82,7 @@ function LinkPage() {
           type="boolean"
         />
       </div>
-      <ComponentContainer
-        code={code}
-        scope={scope}
-        backgroundColor={
-          color === "secondary.turquoise.t60"
-            ? theme.colors.primary.blue.t100
-            : color === "secondary.lightBlue.t100"
-            ? theme.colors.black
-            : null
-        }
-      />
+      <ComponentContainer code={code} scope={scope} />
     </>
   );
 }

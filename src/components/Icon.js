@@ -50,6 +50,7 @@ const NAMES = [
 ];
 const SIZES = ["24px", "32px"];
 const COLORS = [
+  "black",
   "grey.t75",
   "primary.blue.t100",
   "highlight.blue.t100",

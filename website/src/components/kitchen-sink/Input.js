@@ -54,7 +54,7 @@ function KitchenSinkInput() {
     <KitchenSinkLayout name="Input">
       <Container padding="4">
         <Container width="320">
-          <Grid rowsGutter="8">
+          <Grid rowsGap="8">
             <FormWithInput label="Grey" color="grey.t05" />
 
             <FormWithInput
@@ -68,7 +68,7 @@ function KitchenSinkInput() {
 
       <Container padding="4" bg="grey.t05">
         <Container width="320">
-          <Grid rowsGutter="8">
+          <Grid rowsGap="8">
             <FormWithInput label="White" />
 
             <FormWithInput label="White focus" __internal__focus />

@@ -31,7 +31,7 @@ describe("Input", () => {
     const inputId = input.getAttribute("id");
 
     expect(inputId).toBeTruthy();
-    expect(label.getAttribute("for")).toBe(inputId);
+    expect(label).toHaveAttribute("for", inputId);
 
     expect(input).toHaveStyle(`
       box-sizing: border-box;

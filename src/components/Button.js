@@ -16,7 +16,10 @@ const DEFAULT_PROPS = {
   color: "highlight.blue.t100",
   fullWidth: false,
   disabled: false,
-  type: "button"
+  type: "button",
+  __internal__keyboardFocus: false,
+  __internal__hover: false,
+  __internal__active: false
 };
 
 Button.VARIANTS = VARIANTS;
@@ -60,12 +63,7 @@ function Button(props) {
     ...theme.button,
     ...(fullWidth && theme["button.fullWidth"]),
     ...theme[`button.${variant}.${colorStr}`],
-    ":focus": theme["button:focus"],
-    ":focus-visible": theme["button:focus-visible"],
-    ...(__internal__keyboardFocus && {
-      ...theme["button:focus"],
-      ...theme["button:focus-visible"]
-    }),
+    ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
     ":hover": {
       ...(!disabled && theme[`button.${variant}.${colorStr}:hover`])
     },

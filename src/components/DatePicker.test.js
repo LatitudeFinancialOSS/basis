@@ -1,6 +1,6 @@
 import React from "react";
-import { render, wait, userEvent } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import { render, wait, userEvent } from "../utils/test";
 import Form from "./Form";
 import DatePicker from "./DatePicker";
 import Container from "./Container";
@@ -41,15 +41,15 @@ describe("DatePicker", () => {
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
-    expect(inputsContainer.getAttribute("aria-labelledby")).toBe(labelId);
+    expect(inputsContainer).toHaveAttribute("aria-labelledby", labelId);
 
     const dayInput = getByPlaceholderText("DD");
     const monthInput = getByPlaceholderText("MM");
     const yearInput = getByPlaceholderText("YYYY");
 
-    expect(dayInput.getAttribute("type")).toBe("number");
-    expect(monthInput.getAttribute("type")).toBe("number");
-    expect(yearInput.getAttribute("type")).toBe("number");
+    expect(dayInput).toHaveAttribute("type", "number");
+    expect(monthInput).toHaveAttribute("type", "number");
+    expect(yearInput).toHaveAttribute("type", "number");
   });
 
   it("doesn't render the day field when day={false}", () => {

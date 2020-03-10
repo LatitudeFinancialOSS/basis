@@ -45,7 +45,7 @@ function CheckboxIcon({ color, isChecked }) {
 }
 
 CheckboxIcon.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t30"]).isRequired,
+  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
   isChecked: PropTypes.bool.isRequired
 };
 
@@ -82,7 +82,7 @@ function InternalCheckbox(_props) {
       <VisuallyHidden>
         <input
           css={{
-            ":focus-visible + label": theme["checkboxLabel.focus-visible"],
+            ...theme.checkboxInput,
             ":checked + label": theme["checkboxLabel.checked"]
           }}
           type="checkbox"
@@ -100,14 +100,15 @@ function InternalCheckbox(_props) {
         css={{
           ...theme.checkboxLabel,
           ...theme[`checkboxLabel.${color}`],
-          ...(__internal__keyboardFocus && theme["checkboxLabel.focus-visible"])
+          ...(__internal__keyboardFocus &&
+            theme.focusStyles.__keyboardFocusAdjacentLabel)
         }}
         htmlFor={inputId}
         onMouseDown={onMouseDown}
       >
         <CheckboxIcon
           color={
-            color === "grey.t05" || value ? "white" : "secondary.lightBlue.t30"
+            color === "grey.t05" || value ? "white" : "secondary.lightBlue.t25"
           }
           isChecked={value}
         />

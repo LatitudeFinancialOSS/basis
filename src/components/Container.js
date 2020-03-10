@@ -25,7 +25,9 @@ const BACKGROUNDS = [
   "white",
   "grey.t03",
   "grey.t05",
-  "secondary.lightBlue.t30",
+  "grey.t07",
+  "secondary.lightBlue.t15",
+  "secondary.lightBlue.t25",
   "primary.blue.t100"
 ];
 
@@ -60,7 +62,7 @@ function Container(_props) {
   const responsiveCSS = hasBreakpointWidth
     ? mergeResponsiveCSS(
         {
-          marginLeft: "15px", // This is half of our special 30px columns gutter.
+          marginLeft: "15px", // This is half of our special 30px columns gap.
           marginRight: "15px",
           // Note: the order of these media queries is important (because they are not exclusive).
           [theme.minMediaQueries.sm]: {

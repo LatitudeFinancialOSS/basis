@@ -45,7 +45,7 @@ describe("Select", () => {
     const selectId = select.getAttribute("id");
 
     expect(selectId).toBeTruthy();
-    expect(label.getAttribute("for")).toBe(selectId);
+    expect(label).toHaveAttribute("for", selectId);
 
     const placeholder = getByText("Please select");
 

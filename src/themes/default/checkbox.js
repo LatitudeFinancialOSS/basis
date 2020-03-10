@@ -4,6 +4,9 @@ export default theme => ({
     flexDirection: "column",
     flex: 1
   },
+  checkboxInput: {
+    ...theme.focusStyles.focusVisibleAdjacentLabel
+  },
   checkboxLabel: {
     display: "inline-flex",
     alignItems: "flex-start",
@@ -13,14 +16,11 @@ export default theme => ({
     fontWeight: theme.fontWeights.light,
     lineHeight: theme.lineHeights[2],
     fontFamily: theme.fonts.body,
-    color: theme.colors.black
-  },
-  "checkboxLabel.focus-visible": {
-    boxShadow: theme.shadows.focus,
+    color: theme.colors.black,
     borderRadius: theme.radii[0]
   },
   "checkboxLabel.checked": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   "checkboxLabel.grey.t05": {
@@ -35,8 +35,8 @@ export default theme => ({
     height: "24px",
     marginRight: theme.space[3]
   },
-  "checkboxIcon.secondary.lightBlue.t30": {
-    fill: theme.colors.secondary.lightBlue.t30
+  "checkboxIcon.secondary.lightBlue.t25": {
+    fill: theme.colors.secondary.lightBlue.t25
   },
   "checkboxIcon.white": {
     fill: theme.colors.white

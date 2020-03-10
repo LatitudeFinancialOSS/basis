@@ -28,7 +28,7 @@ FormWithDatePicker.propTypes = {
   label: PropTypes.string,
   day: PropTypes.bool,
   initialValue: PropTypes.shape({
-    day: PropTypes.string.isRequired,
+    day: PropTypes.string,
     month: PropTypes.string.isRequired,
     year: PropTypes.string.isRequired
   }),
@@ -39,7 +39,7 @@ function KitchenSinkDatePicker() {
   return (
     <KitchenSinkLayout name="DatePicker">
       <Container padding="4" width="320" bg="white">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithDatePicker label="Grey" />
 
           <FormWithDatePicker label="Without day" day={false} />
@@ -57,7 +57,7 @@ function KitchenSinkDatePicker() {
       </Container>
 
       <Container padding="4" width="320" bg="grey.t05">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithDatePicker
             label="White"
             initialValue={{

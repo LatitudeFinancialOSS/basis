@@ -30,13 +30,13 @@ describe("TimeSpan", () => {
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
-    expect(inputsContainer.getAttribute("aria-labelledby")).toBe(labelId);
+    expect(inputsContainer).toHaveAttribute("aria-labelledby", labelId);
 
     const yearsInput = getByPlaceholderText("Years");
     const monthsInput = getByPlaceholderText("Months");
 
-    expect(yearsInput.getAttribute("type")).toBe("number");
-    expect(monthsInput.getAttribute("type")).toBe("number");
+    expect(yearsInput).toHaveAttribute("type", "number");
+    expect(monthsInput).toHaveAttribute("type", "number");
   });
 
   it("renders default help text", () => {

@@ -53,7 +53,7 @@ function KitchenSinkTimeSpan() {
   return (
     <KitchenSinkLayout name="TimeSpan">
       <Container width="320" padding="4" bg="white">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithTimeSpan label="Grey" />
 
           <FormWithTimeSpan label="Optional" optional />
@@ -87,7 +87,7 @@ function KitchenSinkTimeSpan() {
       </Container>
 
       <Container width="320" padding="4" bg="grey.t05">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithTimeSpan label="Years focus" __internal__yearsFocus />
 
           <FormWithTimeSpan label="Months focus" __internal__monthsFocus />

@@ -6,22 +6,22 @@ function KitchenSinkFlex() {
   return (
     <KitchenSinkLayout name="Flex">
       <Container padding="4">
-        <Flex gutter="10">
+        <Flex gap="10">
           <Button>Horizontal</Button>
           <Button>Stack</Button>
           <Button>With</Button>
           <Button>Large</Button>
-          <Button>Gutter</Button>
+          <Button>Gap</Button>
         </Flex>
       </Container>
 
       <Container padding="4" bg="grey.t05">
-        <Flex direction="column" gutter="1">
+        <Flex direction="column" gap="1">
           <Text>Vertical</Text>
           <Text>Stack</Text>
           <Text>With</Text>
           <Text>Small</Text>
-          <Text>Gutter</Text>
+          <Text>Gap</Text>
         </Flex>
       </Container>
 

@@ -6,7 +6,7 @@ function KitchenSinkContainer() {
   return (
     <KitchenSinkLayout name="Container">
       <Container padding="6 0">
-        <Container margin="4 8" bg="secondary.lightBlue.t30" textAlign="left">
+        <Container margin="4 8" bg="secondary.lightBlue.t25" textAlign="left">
           <Text>Left aligned</Text>
         </Container>
 
