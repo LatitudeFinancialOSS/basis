@@ -67,7 +67,7 @@ function KitchenSinkSelect() {
     <KitchenSinkLayout name="Select">
       <Container padding="4">
         <Container width="320" bg="white">
-          <Grid rowsGutter="8">
+          <Grid rowsGap="8">
             <FormWithSelect label="Grey" />
 
             <FormWithSelect
@@ -81,7 +81,7 @@ function KitchenSinkSelect() {
 
       <Container padding="4" bg="grey.t05">
         <Container width="320">
-          <Grid rowsGutter="8">
+          <Grid rowsGap="8">
             <FormWithSelect
               label="Disabled with help text"
               helpText="Help text goes here"

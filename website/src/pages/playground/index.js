@@ -45,7 +45,7 @@ const prettify = code =>
   });
 
 const defaultCode = prettify(`
-  <Container bg="secondary.lightBlue.t30" padding="2 4" padding-sm="3 5" padding-md="5 7">
+  <Container bg="secondary.lightBlue.t25" padding="2 4" padding-sm="3 5" padding-md="5 7">
     <Text as="h1" textStyle="heading5" textStyle-sm="heading3" textStyle-md="heading2">
       Hello World
     </Text>
@@ -571,7 +571,7 @@ function Playground({ location }) {
                   borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                 }}
               >
-                <Flex gutter="4">
+                <Flex gap="4">
                   {isCanary && (
                     <Button
                       variant="icon"

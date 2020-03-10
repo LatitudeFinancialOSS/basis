@@ -66,7 +66,7 @@ function FormPage() {
       return (
         <Container padding="8">
           <Form initialValues={initialValues} onSubmit={onSubmit}>
-            <Grid rowsGutter="8">
+            <Grid rowsGap="8">
               <Text as="h2" textStyle="heading4">About you</Text>
               <Input name="name" label="Name" />
               <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />

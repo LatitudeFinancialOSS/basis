@@ -10,7 +10,7 @@ import useAccordionItem, {
 import { mergeProps } from "../utils/component";
 import Icon from "./Icon";
 
-const COLORS = ["grey.t07", "secondary.lightBlue.t30", "white"];
+const COLORS = ["grey.t07", "secondary.lightBlue.t25", "white"];
 const TEXT_COLORS = ["black", "primary.blue.t100"];
 const ITEM_GAP = ["small", "large"];
 const ITEM_HEADER_AS = ["h2", "h3", "h4", "h5", "h6"];
@@ -28,7 +28,7 @@ Accordion.ITEM_GAP = ITEM_GAP;
 Accordion.ITEM_HEADER_AS = ITEM_HEADER_AS;
 Accordion.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Header({ children, testId }) {
+function Header({ children, testId, __internal__keyboardFocus = false }) {
   const theme = useTheme();
   const { color, textColor, itemHeaderAs: HeadingComponent } = useAccordion();
   const {
@@ -47,6 +47,7 @@ function Header({ children, testId }) {
         id={headerId}
         css={{
           ...theme.accordionHeaderButton,
+          ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
           backgroundColor: theme.getColor(color),
           color: theme.getColor(textColor)
         }}
@@ -70,7 +71,8 @@ function Header({ children, testId }) {
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
+  __internal__keyboardFocus: PropTypes.bool
 };
 
 function HeaderIcon({ name, testId }) {
@@ -95,7 +97,7 @@ function Content({ children, testId }) {
   const backgroundColor =
     color === "grey.t07"
       ? "grey.t03"
-      : color === "secondary.lightBlue.t30"
+      : color === "secondary.lightBlue.t25"
       ? "secondary.lightBlue.t15"
       : "white";
   const { headerId, contentId, isOpen } = useAccordionItem();
@@ -149,7 +151,12 @@ function Item(props) {
     setIsOpen(isOpen => !isOpen);
   }, []);
   const accordionItemInfo = useMemo(
-    () => ({ headerId, contentId, isOpen, toggleAccordionItem }),
+    () => ({
+      headerId,
+      contentId,
+      isOpen,
+      toggleAccordionItem
+    }),
     [headerId, contentId, isOpen, toggleAccordionItem]
   );
 

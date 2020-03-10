@@ -52,7 +52,7 @@ function KitchenSinkCheckbox() {
     <KitchenSinkLayout name="Checkbox">
       <Container padding="4">
         <Container width="320">
-          <Grid rowsGutter="8">
+          <Grid rowsGap="8">
             <FormWithCheckbox color="grey.t05">Grey</FormWithCheckbox>
 
             <FormWithCheckbox initialValue={true} color="grey.t05">
@@ -76,7 +76,7 @@ function KitchenSinkCheckbox() {
 
       <Container padding="4" bg="grey.t05">
         <Container width="320">
-          <Grid rowsGutter="8">
+          <Grid rowsGap="8">
             <FormWithCheckbox>White</FormWithCheckbox>
 
             <FormWithCheckbox initialValue={true}>

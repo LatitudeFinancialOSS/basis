@@ -45,7 +45,7 @@ function CheckboxIcon({ color, isChecked }) {
 }
 
 CheckboxIcon.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t30"]).isRequired,
+  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
   isChecked: PropTypes.bool.isRequired
 };
 
@@ -108,7 +108,7 @@ function InternalCheckbox(_props) {
       >
         <CheckboxIcon
           color={
-            color === "grey.t05" || value ? "white" : "secondary.lightBlue.t30"
+            color === "grey.t05" || value ? "white" : "secondary.lightBlue.t25"
           }
           isChecked={value}
         />

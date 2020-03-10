@@ -8,7 +8,7 @@ import {
 import {
   responsiveMargin,
   responsiveFlexDirection,
-  responsiveFlexGutter,
+  responsiveFlexGap,
   responsiveFlexPlaceItems
 } from "../utils/css";
 import { isObjectEmpty } from "../utils/core";
@@ -56,12 +56,12 @@ function Flex(_props) {
     margin: responsiveMargin
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    gutter: responsiveFlexGutter("items-container"),
+    gap: responsiveFlexGap("items-container"),
     placeItems: responsiveFlexPlaceItems,
     direction: responsiveFlexDirection
   });
   const flexItemCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    gutter: responsiveFlexGutter("item")
+    gap: responsiveFlexGap("item")
   });
 
   return (
@@ -98,7 +98,7 @@ Flex.propTypes = {
   ...responsiveMarginType,
   ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
   ...responsivePropType(
-    "gutter",
+    "gap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   fullHeight: PropTypes.bool,

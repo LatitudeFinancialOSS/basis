@@ -20,7 +20,7 @@ export default theme => ({
     borderRadius: theme.radii[0]
   },
   "checkboxLabel.checked": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   "checkboxLabel.grey.t05": {
@@ -35,8 +35,8 @@ export default theme => ({
     height: "24px",
     marginRight: theme.space[3]
   },
-  "checkboxIcon.secondary.lightBlue.t30": {
-    fill: theme.colors.secondary.lightBlue.t30
+  "checkboxIcon.secondary.lightBlue.t25": {
+    fill: theme.colors.secondary.lightBlue.t25
   },
   "checkboxIcon.white": {
     fill: theme.colors.white

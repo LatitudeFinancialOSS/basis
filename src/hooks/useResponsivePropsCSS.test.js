@@ -8,14 +8,14 @@ import useResponsivePropsCSS, {
 } from "./useResponsivePropsCSS";
 import {
   getGridTemplateColumns,
-  getGutterPx,
+  getGapPx,
   getGridLines,
   isCSSinOrder,
   responsiveMargin,
   responsivePadding,
   responsiveTextStyle,
   responsiveFlexDirection,
-  responsiveFlexGutter,
+  responsiveFlexGap,
   responsiveFlexPlaceItems
 } from "../utils/css";
 import { TestWrapper } from "../utils/test";
@@ -26,55 +26,55 @@ describe("getBreakpointToPropsMap", () => {
     const props = {
       direction: "row",
       "direction-sm": "column",
-      "gutter-lg": 6,
+      "gap-lg": 6,
       placeItems: "center",
       "placeItems-md": "bottom right",
       width: "40",
       "foo-xll": true
     };
     const defaultProps = {
-      gutter: 2
+      gap: 2
     };
 
     expect(getBreakpointToPropsMap(theme, props, defaultProps)).toStrictEqual({
       default: {
         direction: "row",
-        gutter: 2,
+        gap: 2,
         placeItems: "center",
         width: "40",
         "foo-xll": true
       },
       xs: {
         direction: "row",
-        gutter: 2,
+        gap: 2,
         placeItems: "center",
         width: "40",
         "foo-xll": true
       },
       sm: {
         direction: "column",
-        gutter: 2,
+        gap: 2,
         placeItems: "center",
         width: "40",
         "foo-xll": true
       },
       md: {
         direction: "column",
-        gutter: 2,
+        gap: 2,
         placeItems: "bottom right",
         width: "40",
         "foo-xll": true
       },
       lg: {
         direction: "column",
-        gutter: 6,
+        gap: 6,
         placeItems: "bottom right",
         width: "40",
         "foo-xll": true
       },
       xl: {
         direction: "column",
-        gutter: 6,
+        gap: 6,
         placeItems: "bottom right",
         width: "40",
         "foo-xll": true
@@ -132,10 +132,10 @@ describe("useResponsivePropsCSS", () => {
       "cols-xs": "2",
       "cols-md": "40px",
       "cols-xl": "repeat(240px, 1fr)",
-      colsGutter: 5,
-      "colsGutter-lg": "30px",
-      rowsGutter: "0",
-      "rowsGutter-lg": "7"
+      colsGap: 5,
+      "colsGap-lg": "30px",
+      rowsGap: "0",
+      "rowsGap-lg": "7"
     };
     const { result } = renderHook(
       () =>
@@ -145,14 +145,14 @@ describe("useResponsivePropsCSS", () => {
               gridTemplateColumns: getGridTemplateColumns(cols)
             };
           },
-          colsGutter: ({ colsGutter }) => {
+          colsGap: ({ colsGap }) => {
             return {
-              gridColumnGap: getGutterPx(colsGutter, theme)
+              gridColumnGap: getGapPx(colsGap, theme)
             };
           },
-          rowsGutter: ({ rowsGutter }) => {
+          rowsGap: ({ rowsGap }) => {
             return {
-              gridRowGap: getGutterPx(rowsGutter, theme)
+              gridRowGap: getGapPx(rowsGap, theme)
             };
           }
         }),
@@ -318,7 +318,7 @@ describe("useResponsivePropsCSS", () => {
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gutter: responsiveFlexDirection
+          gap: responsiveFlexDirection
         }),
       {
         wrapper: TestWrapper
@@ -337,17 +337,17 @@ describe("useResponsivePropsCSS", () => {
     expect(isCSSinOrder(result.current)).toBe(true);
   });
 
-  it("Flex - gutter", () => {
+  it("Flex - gap", () => {
     const props = {
       height: "100%",
       direction: "column",
-      gutter: "6 2",
+      gap: "6 2",
       placeItems: "top center"
     };
     const { result: itemResult } = renderHook(
       () =>
         useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gutter: responsiveFlexGutter("item")
+          gap: responsiveFlexGap("item")
         }),
       {
         wrapper: TestWrapper
@@ -363,7 +363,7 @@ describe("useResponsivePropsCSS", () => {
     const { result: itemsContainerResult } = renderHook(
       () =>
         useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gutter: responsiveFlexGutter("items-container")
+          gap: responsiveFlexGap("items-container")
         }),
       {
         wrapper: TestWrapper

@@ -158,7 +158,7 @@ describe("Accordion", () => {
 
   it("with color", () => {
     const { container } = render(
-      <Accordion color="secondary.lightBlue.t30">
+      <Accordion color="secondary.lightBlue.t25">
         <Accordion.Item>
           <Accordion.Item.Header testId="my-accordion-item-header">
             My header
@@ -169,7 +169,7 @@ describe("Accordion", () => {
     const itemHeaderButton = container.querySelector("[aria-controls]");
 
     expect(itemHeaderButton).toHaveStyle(`
-      background-color: #d0e9ff;
+      background-color: #d8edff;
     `);
   });
 

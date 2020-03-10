@@ -19,6 +19,7 @@ export default theme => ({
     alignItems: "center",
     width: "100%",
     border: 0,
+    borderRadius: theme.radii[0],
     boxSizing: "border-box",
     padding: `${theme.space[3]} ${theme.space[4]} ${theme.space[3]} ${theme.space[6]}`,
     textAlign: "left",

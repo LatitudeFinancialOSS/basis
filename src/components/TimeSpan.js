@@ -147,7 +147,7 @@ function TimeSpan(props) {
         aria-labelledby={labelId}
         aria-describedby={helpText || hasErrors ? auxId : null}
       >
-        <Grid cols={2} colsGutter={1}>
+        <Grid cols={2} colsGap={1}>
           <Grid.Item colSpan="0">
             <InternalInput
               name={`${name}.years`}
