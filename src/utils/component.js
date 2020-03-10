@@ -28,12 +28,13 @@ export function mergeProps(props, defaultProps, inheritedProps, validations) {
 
 export function areOptionsValid(options) {
   var isValid = true;
-  options.forEach(option => {
+
+  for (const option of options) {
     if (notStringOrEmpty(option.label) || notStringOrEmpty(option.value)) {
       isValid = false;
-      return;
+      break;
     }
-  });
+  }
 
   return isValid;
 }
