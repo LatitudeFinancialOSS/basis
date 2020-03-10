@@ -1,25 +1,82 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useTheme from "../hooks/useTheme";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsivePropType } from "../hooks/useResponsiveProp";
+import useResponsiveProp, {
+  responsivePropType
+} from "../hooks/useResponsiveProp";
 import { mergeProps } from "../utils/component";
-import { getGapPx } from "../utils/css";
+import { getGapValues } from "../utils/css";
+
+const DIRECTIONS = ["vertical", "horizontal"];
+const ALIGNMENTS = ["left", "center", "right"];
 
 const DEFAULT_PROPS = {
+  direction: "vertical",
+  align: "left",
   gap: "0"
 };
 
+Stack.DIRECTIONS = DIRECTIONS;
+Stack.ALIGNMENTS = ALIGNMENTS;
 Stack.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Stack(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS);
   const { children, testId } = mergedProps;
-  const theme = useTheme();
-  const childCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    gap: ({ gap }) => {
+  const direction = useResponsiveProp(mergedProps, "direction");
+  const flexWrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    gap: ({ gap }, theme) => {
+      const gapValues = getGapValues(gap, theme);
+
+      if (gapValues === null) {
+        return {};
+      }
+
+      const { rowGap } = gapValues;
+
       return {
-        marginTop: getGapPx(gap, theme)
+        marginTop: `-${parseInt(rowGap, 10) + 1}px`
+      };
+    }
+  });
+  const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    align: ({ direction, align }) => {
+      return {
+        [direction === "horizontal" ? "justifyContent" : "alignItems"]:
+          align === "center"
+            ? "center"
+            : align === "right"
+            ? "flex-end"
+            : "flex-start"
+      };
+    },
+    gap: ({ gap }, theme) => {
+      const gapValues = getGapValues(gap, theme);
+
+      if (gapValues === null) {
+        return {};
+      }
+
+      const { columnsGap } = gapValues;
+
+      return {
+        marginLeft: `-${columnsGap}`
+      };
+    }
+  });
+  const childCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    gap: ({ gap }, theme) => {
+      const gapValues = getGapValues(gap, theme);
+
+      if (gapValues === null) {
+        return {};
+      }
+
+      const { rowGap, columnsGap } = gapValues;
+
+      return {
+        marginTop: rowGap,
+        marginLeft: columnsGap
       };
     }
   });
@@ -27,21 +84,36 @@ function Stack(props) {
   return (
     <div
       css={{
-        display: "flex",
-        flexDirection: "column"
+        paddingTop: "1px",
+        ":before": {
+          content: '""',
+          display: "block",
+          ...flexWrapperCSS
+        }
       }}
       data-testid={testId}
     >
-      {children.map((child, index) => (
-        <div css={index > 0 && childCSS} key={index}>
-          {child}
-        </div>
-      ))}
+      <div
+        css={{
+          display: "flex",
+          flexDirection: direction === "horizontal" ? null : "column",
+          flexWrap: direction === "horizontal" ? "wrap" : null,
+          ...flexCSS
+        }}
+      >
+        {children.map((child, index) => (
+          <div css={childCSS} key={index}>
+            {child}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 Stack.propTypes = {
+  ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
+  ...responsivePropType("align", PropTypes.oneOf(ALIGNMENTS)),
   ...responsivePropType(
     "gap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])

@@ -6,7 +6,7 @@ const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
 export const EXCEPTION_PREFIX = "__exception__:";
 
-function getGapValues(gap, theme) {
+export function getGapValues(gap, theme) {
   if (typeof gap === "number") {
     gap = String(gap);
   }
@@ -331,3 +331,18 @@ export function responsiveFlexPlaceItems({ direction, placeItems }) {
       direction === "row" ? horizontalAlignment : verticalAlignment
   };
 }
+
+export const responsiveStackGap = ({ gap }, theme) => {
+  const gapValues = getGapValues(gap, theme);
+
+  if (gapValues === null) {
+    return {};
+  }
+
+  const { rowGap, columnsGap } = gapValues;
+
+  return {
+    marginTop: rowGap,
+    marginLeft: columnsGap
+  };
+};
