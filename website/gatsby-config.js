@@ -5,6 +5,9 @@ module.exports = {
   siteMetadata: {
     siteUrl: "https://basis.now.sh",
     components: {
+      Accordion: {
+        status: COMPONENT_STATUS.READY
+      },
       Button: {
         status: COMPONENT_STATUS.READY
       },

@@ -27,14 +27,14 @@ function SectionPage() {
     >
       <Grid preset="page">
         <Grid.Item colSpan="0-1" colSpan-sm="0-2" colSpan-lg="0-4">
-          <Container bg="secondary.lightBlue.t30" margin="5 0 0 0" padding="5">
+          <Container bg="secondary.lightBlue.t25" margin="5 0 0 0" padding="5">
             <Container bg="white" padding="6">
               <Text>Some content goes here.</Text>
             </Container>
           </Container>
         </Grid.Item>
         <Grid.Item colSpan="2-3" colSpan-sm="3-7" colSpan-lg="5-11">
-          <Container bg="secondary.lightBlue.t30" padding="5" margin="10 0 7 0">
+          <Container bg="secondary.lightBlue.t25" padding="5" margin="10 0 7 0">
             <Container bg="white" padding="6">
               <Text>
                 More content<br />

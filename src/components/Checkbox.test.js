@@ -27,17 +27,19 @@ describe("Checkbox", () => {
     const label = getByText("Accept terms and conditions");
     const checkboxContainer = container.querySelector("[aria-checked]");
 
-    expect(label.getAttribute("id")).toBe(
+    expect(label).toHaveAttribute(
+      "id",
       checkboxContainer.getAttribute("aria-labelledby")
     );
-    expect(checkboxContainer.getAttribute("aria-checked")).toBe("false");
+    expect(checkboxContainer).toHaveAttribute("aria-checked", "false");
 
     const checkboxInput = checkboxContainer.querySelector(
       'input[type="checkbox"]'
     );
     const checkboxInputLabel = checkboxContainer.querySelector("label");
 
-    expect(checkboxInputLabel.getAttribute("for")).toBe(
+    expect(checkboxInputLabel).toHaveAttribute(
+      "for",
       checkboxInput.getAttribute("id")
     );
 

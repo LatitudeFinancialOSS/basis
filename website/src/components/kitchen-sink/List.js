@@ -9,7 +9,7 @@ function KitchenSinkList() {
         <Text textStyle="heading4" margin="0 0 4 0">
           Unordered:
         </Text>
-        <Flex gutter="10" wrap>
+        <Flex gap="10" wrap>
           {List.TEXT_STYLES.map(textStyle => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List textStyle={textStyle}>
@@ -44,7 +44,7 @@ function KitchenSinkList() {
         <Text textStyle="heading4" margin="0 0 4 0">
           Ordered:
         </Text>
-        <Flex gutter="10" wrap>
+        <Flex gap="10" wrap>
           {List.TEXT_STYLES.map(textStyle => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="ordered" textStyle={textStyle}>
@@ -87,7 +87,7 @@ function KitchenSinkList() {
         <Text textStyle="heading4" margin="0 0 4 0">
           Steps:
         </Text>
-        <Flex gutter="10" wrap>
+        <Flex gap="10" wrap>
           {List.TEXT_STYLES.map(textStyle => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="steps" textStyle={textStyle}>

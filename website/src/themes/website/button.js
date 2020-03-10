@@ -9,13 +9,8 @@ export default theme => ({
     minHeight: "32px",
     overflow: "hidden",
     transition:
-      "transform 100ms ease, color 100ms ease, border-color 100ms ease"
-  },
-  "button:focus": {
-    outline: 0
-  },
-  "button:focus-visible": {
-    boxShadow: theme.shadows.focus
+      "transform 100ms ease, color 100ms ease, border-color 100ms ease",
+    ...theme.focusStyles.focusVisible
   },
   "button:disabled": {
     opacity: 0.4,

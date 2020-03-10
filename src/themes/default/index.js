@@ -1,3 +1,4 @@
+import accordion from "./accordion";
 import button from "./button";
 import checkbox from "./checkbox";
 import container from "./container";
@@ -88,6 +89,7 @@ const theme = {
     white: "#ffffff",
     primary: {
       blue: {
+        b40: "#002a66",
         t100: "#0046aa",
         t80: "#336bbb",
         t60: "#7fa2d4",
@@ -100,7 +102,7 @@ const theme = {
         t100: "#63b8ff",
         t80: "#82c6ff",
         t60: "#b1dbff",
-        t30: "#d0e9ff",
+        t25: "#d8edff",
         t15: "#eff7ff"
       },
       pink: {
@@ -195,8 +197,49 @@ theme.shadows = {
   focus: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`
 };
 
+theme.focusStyles = {
+  // https://github.com/WICG/focus-visible#backwards-compatibility
+  focusVisible: {
+    // Provide basic, default focus styles.
+    ":focus": {
+      outline: 0,
+      boxShadow: theme.shadows.focus
+    },
+    // Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform.
+    ":focus:not(:focus-visible)": {
+      boxShadow: "none"
+    },
+    // If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus.
+    ":focus-visible": {
+      boxShadow: theme.shadows.focus
+    }
+  },
+  focusVisibleAdjacentLabel: {
+    ":focus + label": {
+      boxShadow: theme.shadows.focus
+    },
+    ":focus:not(:focus-visible) + label": {
+      boxShadow: "none"
+    },
+    ":focus-visible + label": {
+      boxShadow: theme.shadows.focus
+    }
+  }
+};
+
+theme.focusStyles.__keyboardFocus = {
+  ...theme.focusStyles.focusVisible[":focus"],
+  ...theme.focusStyles.focusVisible[":focus-visible"]
+};
+
+theme.focusStyles.__keyboardFocusAdjacentLabel = {
+  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus + label"],
+  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus-visible + label"]
+};
+
 export default {
   ...theme,
+  ...accordion(theme),
   ...button(theme),
   ...checkbox(theme),
   ...container(theme),

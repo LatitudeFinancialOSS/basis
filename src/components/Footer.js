@@ -40,7 +40,7 @@ function HeaderSocial({ children, testId }) {
         <Text margin="0" margin-sm="0 4 0 0">
           <strong>Connect with us</strong>
         </Text>
-        <Flex gutter="3" margin="0 0 0 auto" margin-sm="0">
+        <Flex gap="3" margin="0 0 0 auto" margin-sm="0">
           {children}
         </Flex>
       </Flex>
@@ -153,13 +153,19 @@ Header.propTypes = {
 };
 
 function LegalLinks({ children, testId }) {
-  const links = React.Children.toArray(children).filter(
-    // Ignore all children that aren't a Link
-    child => child.type === Link
-  );
+  const links = React.Children.toArray(children);
+
+  /*
+    This stopped working at some point, so filtering here would result in [].
+  
+    .filter(
+      // Ignore all children that aren't a Link
+      child => child.type === Link
+    );
+  */
 
   return (
-    <Flex gutter="3 4" wrap placeItems="top center" testId={testId}>
+    <Flex gap="3 4" wrap placeItems="top center" testId={testId}>
       {links}
     </Flex>
   );
@@ -185,7 +191,7 @@ LegalCopy.propTypes = {
 
 function Legal({ children, testId }) {
   return (
-    <Container bg="secondary.lightBlue.t30" testId={testId}>
+    <Container bg="secondary.lightBlue.t25" testId={testId}>
       <Container hasBreakpointWidth padding="9 0" textAlign="center">
         {children}
       </Container>

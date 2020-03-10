@@ -1,6 +1,6 @@
 import React from "react";
-import { render } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
+import { render } from "../utils/test";
 import Button from "./Button";
 import Container from "./Container";
 
@@ -10,7 +10,7 @@ describe("Button", () => {
     const button = getByText("Find out more");
 
     expect(button.tagName).toBe("BUTTON");
-    expect(button.getAttribute("type")).toBe("button");
+    expect(button).toHaveAttribute("type", "button");
     expect(button).toHaveStyle(`
       font-size: 18px;
       line-height: 28px;
@@ -96,7 +96,7 @@ describe("Button", () => {
     const { getByText } = render(<Button type="submit">Find out more</Button>);
     const button = getByText("Find out more");
 
-    expect(button.getAttribute("type")).toBe("submit");
+    expect(button).toHaveAttribute("type", "submit");
   });
 
   it("inside dark container", () => {

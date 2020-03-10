@@ -41,7 +41,7 @@ function RadioCircle({ color, isChecked }) {
 }
 
 RadioCircle.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t30"]).isRequired,
+  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
   isChecked: PropTypes.bool.isRequired
 };
 
@@ -68,8 +68,7 @@ function Radio({
       <VisuallyHidden>
         <input
           css={{
-            ":focus-visible + label":
-              theme["radioGroupRadioLabel.focus-visible"],
+            ...theme.radioGroupRadioInput,
             ":checked + label": theme["radioGroupRadioLabel.checked"]
           }}
           type="radio"
@@ -100,7 +99,7 @@ function Radio({
             color={
               color === "grey.t05" || isChecked
                 ? "white"
-                : "secondary.lightBlue.t30"
+                : "secondary.lightBlue.t25"
             }
             isChecked={isChecked}
           />
@@ -155,7 +154,7 @@ function InternalRadioGroup(_props) {
       aria-labelledby={labelId}
       aria-describedby={describedBy}
     >
-      <Grid cols={cols} colsGutter={1} rowsGutter={1}>
+      <Grid cols={cols} colsGap={1} rowsGap={1}>
         {options.map(({ label, value }, index) => (
           <Grid.Item
             colSpan={index % cols}

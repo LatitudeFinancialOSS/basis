@@ -5,20 +5,15 @@ export default theme => ({
     fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.medium,
     border: 0,
-    borderRadius: theme.radii[1],
     padding: `0 ${theme.space[6]}`,
     minHeight: "48px",
     overflow: "hidden",
-    transition: theme.transitions.button
+    transition: theme.transitions.button,
+    borderRadius: theme.radii[1],
+    ...theme.focusStyles.focusVisible
   },
   "button.fullWidth": {
     width: "100%"
-  },
-  "button:focus": {
-    outline: 0
-  },
-  "button:focus-visible": {
-    boxShadow: theme.shadows.focus
   },
   "button:disabled": {
     backgroundColor: theme.colors.grey.t30,
@@ -43,11 +38,11 @@ export default theme => ({
     color: theme.colors.highlight.blue.t100
   },
   "button.primary.white:hover": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   "button.primary.white:active": {
-    backgroundColor: theme.colors.secondary.lightBlue.t30,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100
   },
   // Secondary default

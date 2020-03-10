@@ -63,7 +63,7 @@ function KitchenSinkRadioGroup() {
   return (
     <KitchenSinkLayout name="RadioGroup">
       <Container padding="4" bg="white">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithRadioGroup
             label="Grey disabled"
             initialValue="option-2"
@@ -77,7 +77,7 @@ function KitchenSinkRadioGroup() {
       </Container>
 
       <Container padding="4" bg="grey.t05">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithRadioGroup
             label="White one column with help text"
             initialValue="option-1"

@@ -6,28 +6,28 @@ const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
 export const EXCEPTION_PREFIX = "__exception__:";
 
-function getGutterValues(gutter, theme) {
-  if (typeof gutter === "number") {
-    gutter = String(gutter);
+function getGapValues(gap, theme) {
+  if (typeof gap === "number") {
+    gap = String(gap);
   }
 
-  if (typeof gutter !== "string") {
+  if (typeof gap !== "string") {
     return null;
   }
 
-  const parts = gutter.split(/\s+/).filter(Boolean);
+  const parts = gap.split(/\s+/).filter(Boolean);
 
   if (parts.length < 1 || parts.length > 2) {
     return null;
   }
 
-  const rowGutterPx = theme.space[parts[0]] || "0px";
-  const columnGutterPx =
-    parts.length === 2 ? theme.space[parts[1]] || "0px" : rowGutterPx;
+  const rowGapPx = theme.space[parts[0]] || "0px";
+  const columnsGapPx =
+    parts.length === 2 ? theme.space[parts[1]] || "0px" : rowGapPx;
 
   return {
-    rowGutter: rowGutterPx,
-    columnGutter: columnGutterPx
+    rowGap: rowGapPx,
+    columnsGap: columnsGapPx
   };
 }
 
@@ -66,13 +66,13 @@ export function getGridLines(span, { allAllowed = false } = {}) {
   return [start + 1, end + 2];
 }
 
-export function getGutterPx(gutter, theme) {
+export function getGapPx(gap, theme) {
   // Exception to our space scale
-  if (gutter === "30px") {
-    return gutter;
+  if (gap === "30px") {
+    return gap;
   }
 
-  return theme.space[gutter] || "0px";
+  return theme.space[gap] || "0px";
 }
 
 export function getGridTemplateColumns(cols) {
@@ -255,26 +255,26 @@ export function responsiveFlexDirection({ direction }) {
   };
 }
 
-export const responsiveFlexGutter = whatFor => ({ gutter }, theme) => {
-  const gutterValues = getGutterValues(gutter, theme);
+export const responsiveFlexGap = whatFor => ({ gap }, theme) => {
+  const gapValues = getGapValues(gap, theme);
 
-  if (gutterValues === null) {
+  if (gapValues === null) {
     return {};
   }
 
-  const { rowGutter, columnGutter } = gutterValues;
+  const { rowGap, columnsGap } = gapValues;
 
   if (whatFor === "items-container") {
     return {
-      marginTop: `-${rowGutter}`,
-      marginLeft: `-${columnGutter}`
+      marginTop: `-${rowGap}`,
+      marginLeft: `-${columnsGap}`
     };
   }
 
   if (whatFor === "item") {
     return {
-      marginTop: rowGutter,
-      marginLeft: columnGutter
+      marginTop: rowGap,
+      marginLeft: columnsGap
     };
   }
 

@@ -5,11 +5,7 @@ import useTheme from "../hooks/useTheme";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsivePropType } from "../hooks/useResponsiveProp";
 import { range } from "../utils/array";
-import {
-  getGridTemplateColumns,
-  getGridLines,
-  getGutterPx
-} from "../utils/css";
+import { getGridTemplateColumns, getGridLines, getGapPx } from "../utils/css";
 
 const DEFAULT_GRID_ITEM_PROPS = {};
 
@@ -74,7 +70,7 @@ const presetsMap = {
     cols: 4,
     "cols-sm": 8,
     "cols-lg": 12,
-    colsGutter: "30px"
+    colsGap: "30px"
   }
 };
 
@@ -103,14 +99,14 @@ function Grid(_props) {
           gridTemplateColumns: getGridTemplateColumns(cols)
         };
       },
-      colsGutter: ({ colsGutter }) => {
+      colsGap: ({ colsGap }) => {
         return {
-          gridColumnGap: getGutterPx(colsGutter, theme)
+          gridColumnGap: getGapPx(colsGap, theme)
         };
       },
-      rowsGutter: ({ rowsGutter }) => {
+      rowsGap: ({ rowsGap }) => {
         return {
-          gridRowGap: getGutterPx(rowsGutter, theme)
+          gridRowGap: getGapPx(rowsGap, theme)
         };
       }
     }
@@ -161,11 +157,11 @@ function Grid(_props) {
 Grid.propTypes = {
   ...responsivePropType("cols", PropTypes.number),
   ...responsivePropType(
-    "colsGutter",
+    "colsGap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   ...responsivePropType(
-    "rowsGutter",
+    "rowsGap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   preset: PropTypes.oneOf(PRESETS),

@@ -66,7 +66,7 @@ function KitchenSinkFrequency() {
   return (
     <KitchenSinkLayout name="Frequency">
       <Container padding="4" bg="white">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithFrequency
             label="Grey disabled"
             quarterly={false}
@@ -91,7 +91,7 @@ function KitchenSinkFrequency() {
       </Container>
 
       <Container padding="4" bg="grey.t05">
-        <Grid rowsGutter="8">
+        <Grid rowsGap="8">
           <FormWithFrequency
             label="White"
             initialValue={{

@@ -39,7 +39,7 @@ function Field({
       {children}
       {Array.isArray(errors) && errors.length > 0 ? (
         <div css={theme["field.errors"]} id={auxId}>
-          <Grid cols={1} rowsGutter={1}>
+          <Grid cols={1} rowsGap={1}>
             {errors.map((error, index) => (
               <Text
                 textStyle="body2"
