@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import useForm from "./useForm";
 import { getPath } from "../../utils/objectPath";
-import { ERROR_STRINGS } from "../../utils/error";
+import { notStringOrEmpty } from "../../utils/string";
 
-function useField({ name, disabled, optional, validate, data }) {
-  if (!name || name.trim() === "") {
-    throw new Error(ERROR_STRINGS.FIELD.NAME_REQUIRED);
+function useField(componentName, { name, disabled, optional, validate, data }) {
+  if (notStringOrEmpty(name)) {
+    throw new Error(`${componentName} component is missing a name prop`);
   }
 
   const {
@@ -16,16 +16,16 @@ function useField({ name, disabled, optional, validate, data }) {
     onMouseDown,
     registerField,
     unregisterField
-  } = useForm();
+  } = useForm(componentName);
 
   if (typeof state.values === "undefined") {
-    throw new Error(ERROR_STRINGS.FIELD.NO_INITIAL_VALUE);
+    throw new Error("Form is missing initialValues");
   }
 
   const value = getPath(state.values, name);
 
   if (typeof value === "undefined") {
-    throw new Error(ERROR_STRINGS.FIELD.NO_INITIAL_VALUE);
+    throw new Error(`${name} is missing in Form's initialValues`);
   }
 
   const errors = getPath(state.errors, name);

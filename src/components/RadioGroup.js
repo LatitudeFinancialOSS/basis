@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
+import { mergeProps, areOptionsValid } from "../utils/component";
 import Field from "./internal/Field";
 import InternalRadioGroup from "./internal/InternalRadioGroup";
-import { ERROR_STRINGS } from "../utils/error";
 
 const { COLORS } = InternalRadioGroup;
 
@@ -40,7 +39,8 @@ function RadioGroup(props) {
     color: color => COLORS.includes(color),
     showCircles: showCircles => typeof showCircles === "boolean",
     disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean"
+    optional: optional => typeof optional === "boolean",
+    options: options => areOptionsValid(options)
   });
   const {
     name,
@@ -57,8 +57,10 @@ function RadioGroup(props) {
     testId
   } = mergedProps;
 
-  if (!Array.isArray(options)) {
-    throw new Error(ERROR_STRINGS.FIELD.NO_OPTIONS("Radio group"));
+  if (!options) {
+    throw new Error(
+      `RadioGroup options should have the following format: [{ label: "option-label", value: "option-value" }, ...]`
+    );
   }
 
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
@@ -83,7 +85,7 @@ function RadioGroup(props) {
     onBlur,
     onChange,
     onMouseDown
-  } = useField({
+  } = useField("RadioGroup", {
     name,
     disabled,
     optional,

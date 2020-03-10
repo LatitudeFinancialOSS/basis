@@ -164,7 +164,7 @@ function Frequency(props) {
     onBlur,
     onChange,
     onMouseDown
-  } = useField({
+  } = useField("Frequency", {
     name,
     disabled,
     optional,

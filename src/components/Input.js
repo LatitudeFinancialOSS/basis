@@ -77,13 +77,16 @@ function Input(props) {
     }),
     [isEmpty, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
-    name,
-    disabled,
-    optional,
-    validate,
-    data
-  });
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
+    "Input",
+    {
+      name,
+      disabled,
+      optional,
+      validate,
+      data
+    }
+  );
 
   return (
     <Field

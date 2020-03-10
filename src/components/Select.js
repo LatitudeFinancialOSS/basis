@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
+import { mergeProps, areOptionsValid } from "../utils/component";
 import Field from "./internal/Field";
 import InternalSelect from "./internal/InternalSelect";
-import { ERROR_STRINGS } from "../utils/error";
 
 const { COLORS } = InternalSelect;
 
@@ -43,7 +42,8 @@ function Select(props) {
     fullWidth: fullWidth => typeof fullWidth === "boolean",
     helpText: helpText => typeof helpText === "string",
     disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean"
+    optional: optional => typeof optional === "boolean",
+    options: options => areOptionsValid(options)
   });
   const {
     name,
@@ -61,8 +61,10 @@ function Select(props) {
     __internal__focus
   } = mergedProps;
 
-  if (!Array.isArray(options)) {
-    throw new Error(ERROR_STRINGS.FIELD.NO_OPTIONS("Select"));
+  if (!options) {
+    throw new Error(
+      `Select options should have the following format: [{ label: "option-label", value: "option-value" }, ...]`
+    );
   }
 
   const [selectId] = useState(() => `select-${nanoid()}`);
@@ -78,13 +80,16 @@ function Select(props) {
     }),
     [isEmpty, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
-    name,
-    disabled,
-    optional,
-    validate,
-    data
-  });
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
+    "Select",
+    {
+      name,
+      disabled,
+      optional,
+      validate,
+      data
+    }
+  );
 
   return (
     <Field

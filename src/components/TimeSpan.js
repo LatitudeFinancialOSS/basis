@@ -116,13 +116,16 @@ function TimeSpan(props) {
     }),
     [isEmpty, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
-    name,
-    disabled,
-    optional,
-    validate,
-    data
-  });
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
+    "TimeSpan",
+    {
+      name,
+      disabled,
+      optional,
+      validate,
+      data
+    }
+  );
   const helpText = useMemo(
     () => getHelpText(value.years, value.months, helpTextProp),
     [value.years, value.months, helpTextProp]

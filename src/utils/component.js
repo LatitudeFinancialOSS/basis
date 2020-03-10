@@ -1,3 +1,5 @@
+import { notStringOrEmpty } from "./string";
+
 function filterValidProps(props, validations = {}) {
   const result = {};
 
@@ -22,4 +24,16 @@ export function mergeProps(props, defaultProps, inheritedProps, validations) {
     ...filterValidProps(inheritedProps, validations),
     ...filterValidProps(props, validations)
   };
+}
+
+export function areOptionsValid(options) {
+  var isValid = true;
+  options.forEach(option => {
+    if (notStringOrEmpty(option.label) || notStringOrEmpty(option.value)) {
+      isValid = false;
+      return;
+    }
+  });
+
+  return isValid;
 }
