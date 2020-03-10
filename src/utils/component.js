@@ -27,8 +27,11 @@ export function mergeProps(props, defaultProps, inheritedProps, validations) {
 }
 
 export function areOptionsValid(options) {
-  var isValid = true;
+  if (!options || options.length === 0) {
+    return false;
+  }
 
+  var isValid = true;
   for (const option of options) {
     if (notStringOrEmpty(option.label) || notStringOrEmpty(option.value)) {
       isValid = false;
