@@ -27,17 +27,15 @@ export function mergeProps(props, defaultProps, inheritedProps, validations) {
 }
 
 export function areOptionsValid(options) {
-  if (!options || options.length === 0) {
+  if (!Array.isArray(options) || options.length === 0) {
     return false;
   }
 
-  var isValid = true;
   for (const option of options) {
     if (notStringOrEmpty(option.label) || notStringOrEmpty(option.value)) {
-      isValid = false;
-      break;
+      return false;
     }
   }
 
-  return isValid;
+  return true;
 }
