@@ -4,7 +4,8 @@ const { siteMetadata } = require("./gatsby-config");
 
 const alias = {
   react: path.resolve("./node_modules/react"), // Resolves to [REPO_LOCATION]/website/node_modules/react
-  "@emotion": path.resolve("./node_modules/@emotion")
+  "@emotion": path.resolve("./node_modules/@emotion"),
+  "react-error-overlay": path.resolve("./react-error-overlay") // For react-error-overlay disabling see: https://github.com/gatsbyjs/gatsby/issues/20420
 };
 
 /*
