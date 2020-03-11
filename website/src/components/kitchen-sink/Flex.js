@@ -1,30 +1,10 @@
 import React from "react";
-import { Container, Flex, Button, Text } from "basis";
+import { Container, Flex, Button } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkFlex() {
   return (
     <KitchenSinkLayout name="Flex">
-      <Container padding="4">
-        <Flex gap="10">
-          <Button>Horizontal</Button>
-          <Button>Stack</Button>
-          <Button>With</Button>
-          <Button>Large</Button>
-          <Button>Gap</Button>
-        </Flex>
-      </Container>
-
-      <Container padding="4" bg="grey.t05">
-        <Flex direction="column" gap="1">
-          <Text>Vertical</Text>
-          <Text>Stack</Text>
-          <Text>With</Text>
-          <Text>Small</Text>
-          <Text>Gap</Text>
-        </Flex>
-      </Container>
-
       <Container padding="4" height="160">
         <Flex fullHeight placeItems="top center">
           <Button>top center</Button>

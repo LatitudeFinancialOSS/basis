@@ -65,6 +65,9 @@ module.exports = {
       Select: {
         status: COMPONENT_STATUS.READY
       },
+      Stack: {
+        status: COMPONENT_STATUS.READY
+      },
       Stepper: {
         status: COMPONENT_STATUS.READY
       },

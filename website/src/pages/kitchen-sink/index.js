@@ -18,6 +18,7 @@ import {
   RadioGroup,
   Section,
   Select,
+  Stack,
   Stepper,
   Text,
   TimeSpan
@@ -45,6 +46,7 @@ function KitchenSink() {
       <RadioGroup />
       <Section />
       <Select />
+      <Stack />
       <Stepper />
       <Text />
       <TimeSpan />

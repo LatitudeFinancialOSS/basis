@@ -6,7 +6,7 @@ const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
 export const EXCEPTION_PREFIX = "__exception__:";
 
-function getGapValues(gap, theme) {
+export function getGapValues(gap, theme) {
   if (typeof gap === "number") {
     gap = String(gap);
   }
@@ -22,12 +22,12 @@ function getGapValues(gap, theme) {
   }
 
   const rowGapPx = theme.space[parts[0]] || "0px";
-  const columnsGapPx =
+  const columnGapPx =
     parts.length === 2 ? theme.space[parts[1]] || "0px" : rowGapPx;
 
   return {
     rowGap: rowGapPx,
-    columnsGap: columnsGapPx
+    columnGap: columnGapPx
   };
 }
 
@@ -254,32 +254,6 @@ export function responsiveFlexDirection({ direction }) {
     flexDirection: direction
   };
 }
-
-export const responsiveFlexGap = whatFor => ({ gap }, theme) => {
-  const gapValues = getGapValues(gap, theme);
-
-  if (gapValues === null) {
-    return {};
-  }
-
-  const { rowGap, columnsGap } = gapValues;
-
-  if (whatFor === "items-container") {
-    return {
-      marginTop: `-${rowGap}`,
-      marginLeft: `-${columnsGap}`
-    };
-  }
-
-  if (whatFor === "item") {
-    return {
-      marginTop: rowGap,
-      marginLeft: columnsGap
-    };
-  }
-
-  return {};
-};
 
 export function responsiveFlexPlaceItems({ direction, placeItems }) {
   if (!FLEX_PLACE_ITEMS.includes(placeItems)) {

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Container from "./Container";
-import { Flex, Text, Link, Icon } from "..";
+import { Container, Stack, Flex, Text, Link, Icon } from "..";
 import Logo from "./internal/Logo";
 
 function HeaderLogo({ name, testId }) {
@@ -40,9 +39,11 @@ function HeaderSocial({ children, testId }) {
         <Text margin="0" margin-sm="0 4 0 0">
           <strong>Connect with us</strong>
         </Text>
-        <Flex gap="3" margin="0 0 0 auto" margin-sm="0">
-          {children}
-        </Flex>
+        <Container margin="0 0 0 auto" margin-sm="0">
+          <Stack direction="horizontal" gap="3">
+            {children}
+          </Stack>
+        </Container>
       </Flex>
     </Container>
   );
@@ -165,9 +166,16 @@ function LegalLinks({ children, testId }) {
   */
 
   return (
-    <Flex gap="3 4" wrap placeItems="top center" testId={testId}>
-      {links}
-    </Flex>
+    <Container padding="0 4" padding-lg="0">
+      <Stack
+        direction-lg="horizontal"
+        align-lg="center"
+        gap="3 4"
+        testId={testId}
+      >
+        {links}
+      </Stack>
+    </Container>
   );
 }
 
