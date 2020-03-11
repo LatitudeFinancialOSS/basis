@@ -8,10 +8,8 @@ import {
 import {
   responsiveMargin,
   responsiveFlexDirection,
-  responsiveFlexGap,
   responsiveFlexPlaceItems
 } from "../utils/css";
-import { isObjectEmpty } from "../utils/core";
 
 const DIRECTIONS = ["row", "column"];
 const PLACE_ITEMS = [
@@ -40,7 +38,6 @@ const PLACE_ITEMS = [
 const DEFAULT_PROPS = {
   direction: "row",
   fullHeight: false,
-  wrap: false,
   placeItems: "top left"
 };
 
@@ -50,18 +47,14 @@ Flex.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Flex(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { fullHeight, wrap, children, testId } = props;
+  const { fullHeight, children, testId } = props;
   const childrenArray = React.Children.toArray(children);
   const wrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    gap: responsiveFlexGap("items-container"),
     placeItems: responsiveFlexPlaceItems,
     direction: responsiveFlexDirection
-  });
-  const flexItemCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    gap: responsiveFlexGap("item")
   });
 
   return (
@@ -78,17 +71,10 @@ function Flex(_props) {
           display: "flex",
           width: "100%",
           height: "100%",
-          flexWrap: wrap === true ? "wrap" : "nowrap",
           ...flexCSS
         }}
       >
-        {isObjectEmpty(flexItemCSS)
-          ? childrenArray
-          : childrenArray.map((child, index) => (
-              <div css={flexItemCSS} key={index}>
-                {child}
-              </div>
-            ))}
+        {childrenArray}
       </div>
     </div>
   );
@@ -97,12 +83,7 @@ function Flex(_props) {
 Flex.propTypes = {
   ...responsiveMarginType,
   ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
-  ...responsivePropType(
-    "gap",
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  ),
   fullHeight: PropTypes.bool,
-  wrap: PropTypes.bool,
   ...responsivePropType("placeItems", PropTypes.oneOf(PLACE_ITEMS)),
   children: PropTypes.node.isRequired,
   testId: PropTypes.string

@@ -57,10 +57,10 @@ function Stack(props) {
         return {};
       }
 
-      const { columnsGap } = gapValues;
+      const { columnGap } = gapValues;
 
       return {
-        marginLeft: `-${columnsGap}`
+        marginLeft: `-${columnGap}`
       };
     }
   });
@@ -72,11 +72,11 @@ function Stack(props) {
         return {};
       }
 
-      const { rowGap, columnsGap } = gapValues;
+      const { rowGap, columnGap } = gapValues;
 
       return {
         marginTop: rowGap,
-        marginLeft: columnsGap
+        marginLeft: columnGap
       };
     }
   });

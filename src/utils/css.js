@@ -22,12 +22,12 @@ export function getGapValues(gap, theme) {
   }
 
   const rowGapPx = theme.space[parts[0]] || "0px";
-  const columnsGapPx =
+  const columnGapPx =
     parts.length === 2 ? theme.space[parts[1]] || "0px" : rowGapPx;
 
   return {
     rowGap: rowGapPx,
-    columnsGap: columnsGapPx
+    columnGap: columnGapPx
   };
 }
 
@@ -255,32 +255,6 @@ export function responsiveFlexDirection({ direction }) {
   };
 }
 
-export const responsiveFlexGap = whatFor => ({ gap }, theme) => {
-  const gapValues = getGapValues(gap, theme);
-
-  if (gapValues === null) {
-    return {};
-  }
-
-  const { rowGap, columnsGap } = gapValues;
-
-  if (whatFor === "items-container") {
-    return {
-      marginTop: `-${rowGap}`,
-      marginLeft: `-${columnsGap}`
-    };
-  }
-
-  if (whatFor === "item") {
-    return {
-      marginTop: rowGap,
-      marginLeft: columnsGap
-    };
-  }
-
-  return {};
-};
-
 export function responsiveFlexPlaceItems({ direction, placeItems }) {
   if (!FLEX_PLACE_ITEMS.includes(placeItems)) {
     return {};
@@ -331,18 +305,3 @@ export function responsiveFlexPlaceItems({ direction, placeItems }) {
       direction === "row" ? horizontalAlignment : verticalAlignment
   };
 }
-
-export const responsiveStackGap = ({ gap }, theme) => {
-  const gapValues = getGapValues(gap, theme);
-
-  if (gapValues === null) {
-    return {};
-  }
-
-  const { rowGap, columnsGap } = gapValues;
-
-  return {
-    marginTop: rowGap,
-    marginLeft: columnsGap
-  };
-};
