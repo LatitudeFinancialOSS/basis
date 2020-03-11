@@ -106,53 +106,37 @@ describe("getReactLiveNoInline", () => {
 });
 
 describe("annotateCodeForPlayground", () => {
-  it("wraps plain jsx code in Fragment", () => {
-    expect(
-      annotateCodeForPlayground("<Button>Apply</Button>").startsWith("<>")
-    ).toBe(true);
-    expect(
-      annotateCodeForPlayground("<Button>Apply</Button>").endsWith("</>;")
-    ).toBe(true);
-  });
+  // checks if the passed code variable is surrounded by a react fragment <>{code}</>
+  function isFragment(code) {
+    return /^<>.*<\/>;$/.test(code);
+  }
 
-  it("wraps ajacent jsx code in Fragment", () => {
+  it("wraps plain adjacent jsx code in Fragment", () => {
     expect(
-      annotateCodeForPlayground(
-        "<Button>Apply</Button><Button>Back</Button>"
-      ).startsWith("<>")
-    ).toBe(true);
-    expect(
-      annotateCodeForPlayground(
-        "<Button>Apply</Button><Button>Back</Button>"
-      ).endsWith("</>;")
+      isFragment(
+        annotateCodeForPlayground("<Button>Apply</Button><Button>Back</Button>")
+      )
     ).toBe(true);
   });
 
   it("wraps plain empty string code in Fragment", () => {
-    expect(annotateCodeForPlayground("").startsWith("<>")).toBe(true);
-    expect(annotateCodeForPlayground("").endsWith("</>;")).toBe(true);
+    expect(isFragment(annotateCodeForPlayground(""))).toBe(true);
   });
 
   it("does not wrap code starting with '()' in Fragment", () => {
-    const functionShorthand = "() => <Button>Apply</Button>";
-
-    expect(annotateCodeForPlayground(functionShorthand).startsWith("<>")).toBe(
-      false
-    );
-    expect(annotateCodeForPlayground(functionShorthand).endsWith("</>;")).toBe(
-      false
-    );
+    expect(
+      isFragment(annotateCodeForPlayground("() => <Button>Apply</Button>"))
+    ).toBe(false);
   });
 
   it("does not wrap code starting with 'function' Fragment", () => {
-    const functionLonghand = "function App() { return <Button>Apply</Button> }";
-
-    expect(annotateCodeForPlayground(functionLonghand).startsWith("<>")).toBe(
-      false
-    );
-    expect(annotateCodeForPlayground(functionLonghand).endsWith("</>;")).toBe(
-      false
-    );
+    expect(
+      isFragment(
+        annotateCodeForPlayground(
+          "function App() { return <Button>Apply</Button> }"
+        )
+      )
+    ).toBe(false);
   });
 
   it("does not wrap code starting with 'class' in Fragment", () => {
@@ -165,11 +149,6 @@ describe("annotateCodeForPlayground", () => {
         }
       }`;
 
-    expect(annotateCodeForPlayground(classComponent).startsWith("<>")).toBe(
-      false
-    );
-    expect(annotateCodeForPlayground(classComponent).endsWith("</>;")).toBe(
-      false
-    );
+    expect(isFragment(annotateCodeForPlayground(classComponent))).toBe(false);
   });
 });
