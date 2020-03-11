@@ -22,6 +22,7 @@ import { getComponentsAtPoint } from "../../utils/playground";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useCanary from "../../hooks/useCanary";
+import useDebounce from "../../hooks/useDebounce";
 import ComponentPreview from "../../components/ComponentPreview";
 
 import "../../utils/meta";
@@ -342,6 +343,7 @@ function Playground({ location }) {
   const theme = useTheme();
   const isCanary = useCanary();
   const [code, setCode] = useState("");
+  const debouncedCode = useDebounce(code, 500);
   const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
   const [height, setHeight] = useLocalStorage(
     "playground-code-panel-height",
@@ -470,7 +472,7 @@ function Playground({ location }) {
   return (
     <div css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <LiveProvider
-        code={code}
+        code={debouncedCode}
         transformCode={annotateCodeForPlayground}
         noInline={noInline}
         scope={scope}
