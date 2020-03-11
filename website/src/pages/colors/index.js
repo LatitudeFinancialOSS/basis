@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { pascalCase } from "pascal-case";
 import { hex } from "wcag-contrast";
-import { useTheme, Container, Flex, Text } from "basis";
+import { useTheme, Container, Stack, Flex, Text } from "basis";
 
 function ColorGroup({ title, subTitle, children }) {
   const theme = useTheme();
@@ -97,7 +97,7 @@ function ColorsPage() {
 
   return (
     <Container padding="6">
-      <Flex direction="column" gap="10">
+      <Stack gap="10">
         <ColorGroup title="Greys">
           <Color name="black" />
           {Object.keys(theme.colors.grey).map(t => (
@@ -110,7 +110,7 @@ function ColorsPage() {
             <Color name={`primary.blue.${t}`} key={t} />
           ))}
         </ColorGroup>
-        <Flex direction="column" gap="6">
+        <Stack gap="6">
           <ColorGroup title="Secondary" subTitle="Light Blue">
             {Object.keys(theme.colors.secondary.lightBlue).map(t => (
               <Color name={`secondary.lightBlue.${t}`} key={t} />
@@ -131,8 +131,8 @@ function ColorsPage() {
               <Color name={`secondary.turquoise.${t}`} key={t} />
             ))}
           </ColorGroup>
-        </Flex>
-        <Flex direction="column" gap="6">
+        </Stack>
+        <Stack gap="6">
           <ColorGroup title="Highlight" subTitle="Blue">
             {Object.keys(theme.colors.highlight.blue).map(t => (
               <Color name={`highlight.blue.${t}`} key={t} />
@@ -148,8 +148,8 @@ function ColorsPage() {
               <Color name={`highlight.purple.${t}`} key={t} />
             ))}
           </ColorGroup>
-        </Flex>
-        <Flex direction="column" gap="6">
+        </Stack>
+        <Stack gap="6">
           <ColorGroup title="Conditional" subTitle="Positive">
             {Object.keys(theme.colors.conditional.positive).map(t => (
               <Color name={`conditional.positive.${t}`} key={t} />
@@ -165,8 +165,8 @@ function ColorsPage() {
               <Color name={`conditional.negative.${t}`} key={t} />
             ))}
           </ColorGroup>
-        </Flex>
-      </Flex>
+        </Stack>
+      </Stack>
     </Container>
   );
 }

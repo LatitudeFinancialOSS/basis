@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Flex, List, Text, Link } from "basis";
+import { Container, Stack, List, Text, Link } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkList() {
@@ -9,7 +9,7 @@ function KitchenSinkList() {
         <Text textStyle="heading4" margin="0 0 4 0">
           Unordered:
         </Text>
-        <Flex gap="10" wrap>
+        <Stack direction="horizontal" gap="10">
           {List.TEXT_STYLES.map(textStyle => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List textStyle={textStyle}>
@@ -37,14 +37,14 @@ function KitchenSinkList() {
               </List>
             </Container>
           ))}
-        </Flex>
+        </Stack>
       </Container>
 
       <Container padding="4">
         <Text textStyle="heading4" margin="0 0 4 0">
           Ordered:
         </Text>
-        <Flex gap="10" wrap>
+        <Stack direction="horizontal" gap="10">
           {List.TEXT_STYLES.map(textStyle => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="ordered" textStyle={textStyle}>
@@ -80,14 +80,14 @@ function KitchenSinkList() {
               </List>
             </Container>
           ))}
-        </Flex>
+        </Stack>
       </Container>
 
       <Container padding="4">
         <Text textStyle="heading4" margin="0 0 4 0">
           Steps:
         </Text>
-        <Flex gap="10" wrap>
+        <Stack direction="horizontal" gap="10">
           {List.TEXT_STYLES.map(textStyle => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="steps" textStyle={textStyle}>
@@ -115,7 +115,7 @@ function KitchenSinkList() {
               </List>
             </Container>
           ))}
-        </Flex>
+        </Stack>
       </Container>
     </KitchenSinkLayout>
   );

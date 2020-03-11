@@ -41,7 +41,7 @@ function ContainerPage() {
       }
     ])}
     >
-      <Flex direction="column" gap="4">
+      <Stack gap="4">
         <Text as="h3" textStyle="heading3">Here goes anything you want.</Text>
         <Text>Here are some links:
           <Link href="https://google.com" newTab>Google</Link>{" "}
@@ -56,7 +56,7 @@ function ContainerPage() {
         <Container bg="primary.blue.t100" padding="6" textAlign-md="center">
           <Text>Text color is white here. Magic!</Text>
         </Container>
-      </Flex>
+      </Stack>
     </Container>
   `);
 

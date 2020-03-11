@@ -26,7 +26,7 @@ import ComponentPreview from "../../components/ComponentPreview";
 
 import "../../utils/meta";
 
-const { useTheme, Flex, VisuallyHidden, Text, Button, Icon } = allDesignSystem;
+const { useTheme, Stack, VisuallyHidden, Text, Button, Icon } = allDesignSystem;
 
 const topOnly = {
   top: true,
@@ -571,7 +571,7 @@ function Playground({ location }) {
                   borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
                 }}
               >
-                <Flex gap="4">
+                <Stack direction="horizontal" gap="4">
                   {isCanary && (
                     <Button
                       variant="icon"
@@ -604,7 +604,7 @@ function Playground({ location }) {
                   >
                     {isShareSuccessful ? "Copied!" : "Share"}
                   </Button>
-                </Flex>
+                </Stack>
                 <Button
                   margin="0 0 0 auto"
                   variant="secondary"
