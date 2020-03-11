@@ -68,7 +68,7 @@ function Checkbox(props) {
     onBlur,
     onChange,
     onMouseDown
-  } = useField({
+  } = useField("Checkbox", {
     name,
     disabled,
     optional,
