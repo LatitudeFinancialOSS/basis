@@ -166,9 +166,16 @@ function LegalLinks({ children, testId }) {
   */
 
   return (
-    <Stack direction="horizontal" align="center" gap="3 4" testId={testId}>
-      {links}
-    </Stack>
+    <Container padding="0 4" padding-lg="0">
+      <Stack
+        direction-lg="horizontal"
+        align-lg="center"
+        gap="3 4"
+        testId={testId}
+      >
+        {links}
+      </Stack>
+    </Container>
   );
 }
 
