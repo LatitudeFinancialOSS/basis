@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Flex, Link } from "basis";
+import { Container, Stack, Link } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
 
 const backgrounds = [
@@ -18,7 +18,7 @@ function KitchenSinkLink() {
       <Container padding="6 0">
         {backgrounds.map(bg => (
           <Container padding="4" bg={bg} key={bg}>
-            <Flex gap="8">
+            <Stack direction="horizontal" gap="8">
               <Link href="#" newTab={false}>
                 {bg}
               </Link>
@@ -31,7 +31,7 @@ function KitchenSinkLink() {
               <Link href="#" newTab={false} __internal__keyboardFocus>
                 Keyboard focus
               </Link>
-            </Flex>
+            </Stack>
           </Container>
         ))}
       </Container>
