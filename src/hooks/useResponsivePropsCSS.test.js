@@ -15,7 +15,6 @@ import {
   responsivePadding,
   responsiveTextStyle,
   responsiveFlexDirection,
-  responsiveFlexGap,
   responsiveFlexPlaceItems
 } from "../utils/css";
 import { TestWrapper } from "../utils/test";
@@ -335,46 +334,6 @@ describe("useResponsivePropsCSS", () => {
       }
     });
     expect(isCSSinOrder(result.current)).toBe(true);
-  });
-
-  it("Flex - gap", () => {
-    const props = {
-      height: "100%",
-      direction: "column",
-      gap: "6 2",
-      placeItems: "top center"
-    };
-    const { result: itemResult } = renderHook(
-      () =>
-        useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gap: responsiveFlexGap("item")
-        }),
-      {
-        wrapper: TestWrapper
-      }
-    );
-
-    expect(itemResult.current).toStrictEqual({
-      marginTop: "24px",
-      marginLeft: "8px"
-    });
-    expect(isCSSinOrder(itemResult.current)).toBe(true);
-
-    const { result: itemsContainerResult } = renderHook(
-      () =>
-        useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gap: responsiveFlexGap("items-container")
-        }),
-      {
-        wrapper: TestWrapper
-      }
-    );
-
-    expect(itemsContainerResult.current).toStrictEqual({
-      marginTop: "-24px",
-      marginLeft: "-8px"
-    });
-    expect(isCSSinOrder(itemsContainerResult.current)).toBe(true);
   });
 
   it("Flex - placeItems with direction change", () => {
