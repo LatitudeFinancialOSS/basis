@@ -33,6 +33,8 @@ exports.onCreatePage = ({ page, actions }) => {
     page.context.layout = "empty";
   } else if (page.path.startsWith("/colors/")) {
     page.context.header = "Colors";
+  } else if (page.path.startsWith("/spacing/")) {
+    page.context.header = "Spacing";
   } else {
     const match = page.path.match(COMPONENT_PAGE_REGEX);
 

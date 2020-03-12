@@ -3,11 +3,19 @@ import lzString from "lz-string";
 import queryString from "query-string";
 
 function getTabNames(parts) {
-  if (parts[0] === "colors") {
-    return ["Palettes", "Accessibility", "Resources"];
-  }
+  switch (parts[0]) {
+    case "colors": {
+      return ["Palettes", "Accessibility", "Resources"];
+    }
 
-  return ["Playground", "Usage", "Resources"];
+    case "spacing": {
+      return ["Overview", "Usage"];
+    }
+
+    default: {
+      return ["Playground", "Usage", "Resources"];
+    }
+  }
 }
 
 export function getTabsUrls(location) {

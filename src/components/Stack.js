@@ -101,11 +101,13 @@ function Stack(props) {
           ...flexCSS
         }}
       >
-        {React.Children.map(children, (child, index) => (
-          <div css={childCSS} key={index}>
-            {child}
-          </div>
-        ))}
+        {React.Children.toArray(children)
+          .filter(child => child != null)
+          .map((child, index) => (
+            <div css={childCSS} key={index}>
+              {child}
+            </div>
+          ))}
       </div>
     </div>
   );
