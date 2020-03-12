@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Flex, Button } from "basis";
+import { Container, Grid, Stack, Button } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkButton() {
@@ -17,7 +17,7 @@ function KitchenSinkButton() {
               bg={color === "white" ? "primary.blue.t100" : null}
               key={color}
             >
-              <Flex gap="6">
+              <Stack direction="horizontal" gap="6">
                 <Button variant={variant} color={color}>
                   {variant} {color}
                 </Button>
@@ -41,7 +41,7 @@ function KitchenSinkButton() {
                 <Button variant={variant} color={color} disabled>
                   Disabled
                 </Button>
-              </Flex>
+              </Stack>
             </Container>
           ))
         )}

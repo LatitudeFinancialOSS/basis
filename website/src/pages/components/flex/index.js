@@ -8,20 +8,6 @@ const scope = allDesignSystem;
 function FlexPage() {
   const code = formatCode(`
     <Container>
-      <Text as="h4" textStyle="heading4" margin="0 0 3">Horizontal stack:</Text>
-      <Flex gap="2">
-        <Button>First</Button>
-        <Button>Second</Button>
-        <Button>Third</Button>
-      </Flex>
-
-      <Text as="h4" textStyle="heading4" margin="10 0 3">Vertical stack:</Text>
-      <Flex direction="column" gap="4">
-        <Button>First</Button>
-        <Button>Second</Button>
-        <Button>Third</Button>
-      </Flex>
-
       <Text as="h4" textStyle="heading4" margin="10 0 3">Horizontal centering:</Text>
       <Container bg="grey.t05" height="96">
         <Flex fullHeight placeItems="top center">
@@ -40,27 +26,6 @@ function FlexPage() {
       <Container bg="grey.t05" height="96">
         <Flex fullHeight placeItems="center">
           <Button>Button</Button>
-        </Flex>
-      </Container>
-
-      <Text as="h4" textStyle="heading4" margin="10 0 3">Wrapping items:</Text>
-      <Container bg="grey.t05" width="320" height="96">
-        <Flex fullHeight wrap gap="4 10">
-          <Container bg="secondary.lightBlue.t25" padding="1 3">
-            <Text textStyle="body2">Item 1</Text>
-          </Container>
-          <Container bg="secondary.lightBlue.t25" padding="1 3">
-            <Text textStyle="body2">Item 2</Text>
-          </Container>
-          <Container bg="secondary.lightBlue.t25" padding="1 3">
-            <Text textStyle="body2">Item 3</Text>
-          </Container>
-          <Container bg="secondary.lightBlue.t25" padding="1 3">
-            <Text textStyle="body2">Item 4</Text>
-          </Container>
-          <Container bg="secondary.lightBlue.t25" padding="1 3">
-            <Text textStyle="body2">Item 5</Text>
-          </Container>
         </Flex>
       </Container>
     </Container>

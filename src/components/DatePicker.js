@@ -133,13 +133,16 @@ function DatePicker(props) {
     }),
     [isEmpty, day, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField({
-    name,
-    disabled,
-    optional,
-    validate,
-    data
-  });
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
+    "DatePicker",
+    {
+      name,
+      disabled,
+      optional,
+      validate,
+      data
+    }
+  );
   const helpText = useMemo(() => getHelpText(value, day, helpTextProp), [
     value,
     day,
