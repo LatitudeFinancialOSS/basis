@@ -15,6 +15,21 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
       alias
+    },
+    /**
+     * Inspiration from https://github.com/gatsbyjs/gatsby/issues/10965. There seems to be an issue where a couple dependecies are duplicated
+     * across each page component and not properly split out into commons chunks (prettier, babel parser are the main ones)
+     */
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            name: `commons`,
+            chunks: `all`,
+            minChunks: 2
+          }
+        }
+      }
     }
   });
 };
