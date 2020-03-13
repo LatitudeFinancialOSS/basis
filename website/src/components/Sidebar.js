@@ -118,6 +118,9 @@ function Sidebar() {
                 </Item>
               </Section>
               <Section heading="Foundation">
+                <Item location={location} href="/typography">
+                  Typography
+                </Item>
                 <Item location={location} href="/spacing">
                   Spacing
                 </Item>

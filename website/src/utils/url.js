@@ -4,12 +4,16 @@ import queryString from "query-string";
 
 function getTabNames(parts) {
   switch (parts[0]) {
-    case "colors": {
-      return ["Palettes", "Accessibility", "Resources"];
+    case "typography": {
+      return ["Overview", "Usage"];
     }
 
     case "spacing": {
       return ["Overview", "Usage"];
+    }
+
+    case "colors": {
+      return ["Palettes", "Accessibility", "Resources"];
     }
 
     default: {

@@ -82,5 +82,31 @@ export default theme => ({
   },
   "button.secondary.white:disabled": {
     backgroundColor: theme.colors.grey.t30
+  },
+  // Icon default
+  "button.icon.default": {
+    display: "flex",
+    alignItems: "center",
+    padding: `0 ${theme.space[2]}`,
+    backgroundColor: "transparent"
+  },
+  "button.icon.default:hover": {
+    backgroundColor: theme.colors.grey.t10
+  },
+  "button.icon.default:active": {
+    backgroundColor: theme.colors.grey.t10
+  },
+  // Icon white
+  "button.icon.white": {
+    display: "flex",
+    alignItems: "center",
+    padding: `0 ${theme.space[2]}`,
+    backgroundColor: "transparent"
+  },
+  "button.icon.white:hover": {
+    backgroundColor: theme.colors.grey.t10
+  },
+  "button.icon.white:active": {
+    backgroundColor: theme.colors.grey.t10
   }
 });

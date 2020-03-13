@@ -54,7 +54,7 @@ function ButtonPage() {
     }
   ])}
 >
-  Button
+  ${variant === "icon" ? `<Icon name="cross" />` : "Button"}
 </Button>`);
 
   return (
