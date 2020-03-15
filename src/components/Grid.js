@@ -155,7 +155,10 @@ function Grid(_props) {
 }
 
 Grid.propTypes = {
-  ...responsivePropType("cols", PropTypes.number),
+  ...responsivePropType(
+    "cols",
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ),
   ...responsivePropType(
     "colsGap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Stack, Button } from "basis";
+import { Container, Grid, Stack, Button, Icon } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
 
 function KitchenSinkButton() {
@@ -19,15 +19,19 @@ function KitchenSinkButton() {
             >
               <Stack direction="horizontal" gap="6">
                 <Button variant={variant} color={color}>
-                  {variant} {color}
+                  {variant === "icon" ? (
+                    <Icon name="cross" />
+                  ) : (
+                    `${variant} ${color}`
+                  )}
                 </Button>
 
                 <Button variant={variant} color={color} __internal__hover>
-                  Hover
+                  {variant === "icon" ? <Icon name="cross" /> : "Hover"}
                 </Button>
 
                 <Button variant={variant} color={color} __internal__active>
-                  Active
+                  {variant === "icon" ? <Icon name="cross" /> : "Active"}
                 </Button>
 
                 <Button
@@ -35,11 +39,15 @@ function KitchenSinkButton() {
                   color={color}
                   __internal__keyboardFocus
                 >
-                  Keyboard focus
+                  {variant === "icon" ? (
+                    <Icon name="cross" />
+                  ) : (
+                    "Keyboard focus"
+                  )}
                 </Button>
 
                 <Button variant={variant} color={color} disabled>
-                  Disabled
+                  {variant === "icon" ? <Icon name="cross" /> : "Disabled"}
                 </Button>
               </Stack>
             </Container>

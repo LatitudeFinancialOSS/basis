@@ -59,10 +59,12 @@ exports.onCreatePage = ({ page, actions }) => {
   } else if (page.path.startsWith("/kitchen-sink/")) {
     page.context.header = "Kitchen Sink";
     page.context.layout = "empty";
-  } else if (page.path.startsWith("/colors/")) {
-    page.context.header = "Colors";
+  } else if (page.path.startsWith("/typography/")) {
+    page.context.header = "Typography";
   } else if (page.path.startsWith("/spacing/")) {
     page.context.header = "Spacing";
+  } else if (page.path.startsWith("/colors/")) {
+    page.context.header = "Colors";
   } else {
     const match = page.path.match(COMPONENT_PAGE_REGEX);
 
