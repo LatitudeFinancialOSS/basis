@@ -93,7 +93,7 @@ module.exports = {
         basis: path.join(__dirname, "../src")
       }
     },
-    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-react-helmet-async`,
     /*
       Note: 
       The order of the `gatsby-source-filesystem` objects matter!

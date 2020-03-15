@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Helmet from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function SEO({ title, description = "Basis Design System" }) {
   return (
-    <Helmet htmlAttributes={{ lang: "en" }}>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-    </Helmet>
+    <HelmetProvider>
+      <Helmet htmlAttributes={{ lang: "en" }}>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Helmet>
+    </HelmetProvider>
   );
 }
 
