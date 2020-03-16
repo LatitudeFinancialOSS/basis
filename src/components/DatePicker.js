@@ -87,10 +87,13 @@ function getHelpText(value, day, defaultHelpText) {
     return defaultHelpText;
   }
 
-  return formatDate(
-    new Date(yearInt, monthInt - 1, dayInt),
-    day ? "d MMMM, yyyy" : "MMMM, yyyy"
-  );
+  const date = new Date(yearInt, monthInt - 1, dayInt);
+
+  if (isNaN(date)) {
+    return defaultHelpText;
+  }
+
+  return formatDate(date, day ? "d MMMM, yyyy" : "MMMM, yyyy");
 }
 
 function DatePicker(props) {

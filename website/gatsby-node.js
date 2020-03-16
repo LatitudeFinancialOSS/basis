@@ -2,9 +2,13 @@ const path = require("path");
 const { pascalCase } = require("pascal-case");
 const { siteMetadata } = require("./gatsby-config");
 
-const alias = {
+const prodAlias = {
   react: path.resolve("./node_modules/react"), // Resolves to [REPO_LOCATION]/website/node_modules/react
-  "@emotion": path.resolve("./node_modules/@emotion"),
+  "@emotion": path.resolve("./node_modules/@emotion")
+};
+
+const devAlias = {
+  "react-dom": "@hot-loader/react-dom", // https://github.com/gatsbyjs/gatsby/issues/11934
   "react-error-overlay": path.resolve("./react-error-overlay") // For react-error-overlay disabling see: https://github.com/gatsbyjs/gatsby/issues/20420
 };
 
@@ -12,7 +16,16 @@ const alias = {
   See: https://github.com/facebook/react/issues/13991#issuecomment-435587809
        https://stackoverflow.com/a/57538055/247243
 */
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ actions, stage }) => {
+  let alias = prodAlias;
+
+  if (stage.startsWith("develop")) {
+    alias = {
+      ...alias,
+      ...devAlias
+    };
+  }
+
   actions.setWebpackConfig({
     resolve: {
       alias
