@@ -20,6 +20,7 @@ import {
   Select,
   Stack,
   Stepper,
+  Sticky,
   Text,
   TimeSpan
 } from "../../components/kitchen-sink";
@@ -48,6 +49,7 @@ function KitchenSink() {
       <Select />
       <Stack />
       <Stepper />
+      <Sticky />
       <Text />
       <TimeSpan />
     </BasisProvider>

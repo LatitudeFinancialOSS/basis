@@ -6,7 +6,7 @@ function KitchenSinkHeader() {
   return (
     <KitchenSinkLayout name="Header">
       <Container padding="6 0" bg="grey.t05">
-        <Header __internal__notFixed>
+        <Header>
           <Header.Logo name="gem" />
         </Header>
       </Container>

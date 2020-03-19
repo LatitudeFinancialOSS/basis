@@ -5,6 +5,13 @@ import Header from "./Header";
 import { render } from "../utils/test";
 
 describe("Header", () => {
+  it("exposes HEIGHT_MAP", () => {
+    expect(Header.HEIGHT_MAP).toStrictEqual({
+      default: 56,
+      lg: 80
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <Header testId="my-header">

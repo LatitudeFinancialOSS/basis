@@ -4,8 +4,7 @@ import useTheme from "../hooks/useTheme";
 import useResponsiveProp, {
   responsivePropType
 } from "../hooks/useResponsiveProp";
-import Text from "./Text";
-import Icon from "./Icon";
+import { Section, Text, Icon } from ".";
 
 const DEFAULT_ITEM_PROPS = {
   minor: false,
@@ -95,53 +94,51 @@ const DEFAULT_PROPS = {
 };
 
 Stepper.DEFAULT_PROPS = DEFAULT_PROPS;
+Stepper.HEIGHT_MAP = {
+  default: 100
+};
 
 function Stepper(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { completed, children, testId } = props;
   const theme = useTheme();
-  const steps = React.Children.toArray(children);
-
-  /*
-    This stopped working at some point, so filtering here would result in [].
-  
-    .filter(
-      // Ignore all children that aren't Step.Item
-      child => child.type === Item
-    );
-  */
-
+  const steps = React.Children.toArray(children).filter(
+    // Ignore all children that aren't Step.Item
+    child => child.type === Item
+  );
   const currentStepIndex = steps.findIndex(step => step.props.current === true);
 
   return (
-    <div css={theme.stepper} data-testid={testId}>
-      {
-        steps.reduce(
-          (acc, step, index) => {
-            const minor = step.props.minor === true;
+    <Section bg="grey.t07" testId={testId}>
+      <div css={theme.stepper}>
+        {
+          steps.reduce(
+            (acc, step, index) => {
+              const minor = step.props.minor === true;
 
-            acc.items.push(
-              React.cloneElement(step, {
-                index: index,
-                total: steps.length,
-                isPrevious: completed || index < currentStepIndex,
-                majorStepNumber: minor ? null : acc.majorStepNumber
-              })
-            );
+              acc.items.push(
+                React.cloneElement(step, {
+                  index: index,
+                  total: steps.length,
+                  isPrevious: completed || index < currentStepIndex,
+                  majorStepNumber: minor ? null : acc.majorStepNumber
+                })
+              );
 
-            if (!minor) {
-              acc.majorStepNumber += 1;
+              if (!minor) {
+                acc.majorStepNumber += 1;
+              }
+
+              return acc;
+            },
+            {
+              items: [],
+              majorStepNumber: 1
             }
-
-            return acc;
-          },
-          {
-            items: [],
-            majorStepNumber: 1
-          }
-        ).items
-      }
-    </div>
+          ).items
+        }
+      </div>
+    </Section>
   );
 }
 

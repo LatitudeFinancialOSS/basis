@@ -147,7 +147,6 @@ function StepperPage() {
         scope={scope}
         width="md"
         hasBodyMargin={false}
-        backgroundColor={theme.colors.grey.t07}
       />
     </>
   );

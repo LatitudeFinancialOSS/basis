@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait } from "../utils/test";
+import { render, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import RadioGroup from "./RadioGroup";
@@ -72,7 +72,7 @@ describe("RadioGroup", () => {
     const describedBy = radioGroup.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(errorMessage).toHaveTextContent("Please make a selection.");
       expect(queryByText("Some help text")).not.toBeInTheDocument();
     });

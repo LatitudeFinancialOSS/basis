@@ -24,7 +24,7 @@ module.exports = {
         status: COMPONENT_STATUS.READY
       },
       Footer: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.DRAFT
       },
       Form: {
         status: COMPONENT_STATUS.READY
@@ -69,6 +69,9 @@ module.exports = {
         status: COMPONENT_STATUS.READY
       },
       Stepper: {
+        status: COMPONENT_STATUS.READY
+      },
+      Sticky: {
         status: COMPONENT_STATUS.READY
       },
       Text: {
