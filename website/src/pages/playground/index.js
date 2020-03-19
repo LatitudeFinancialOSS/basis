@@ -587,7 +587,9 @@ function Playground({ location }) {
                         color={
                           isInspectMode ? "highlight.blue.t100" : "grey.t75"
                         }
-                        hoverColor="black"
+                        hoverColor={
+                          isInspectMode ? "highlight.blue.t100" : "black"
+                        }
                       />
                     </Button>
                   )}

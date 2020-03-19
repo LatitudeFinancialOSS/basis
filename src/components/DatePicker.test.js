@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, wait, userEvent } from "../utils/test";
+import { render, waitFor, userEvent } from "../utils/test";
 import Form from "./Form";
 import DatePicker from "./DatePicker";
 import Container from "./Container";
@@ -105,7 +105,7 @@ describe("DatePicker", () => {
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(errorMessage).toHaveTextContent(
         [
           "Day must be within 1-31.",

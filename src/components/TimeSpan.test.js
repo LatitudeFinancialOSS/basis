@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, wait } from "../utils/test";
+import { render, fireEvent, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import TimeSpan from "./TimeSpan";
@@ -97,7 +97,7 @@ describe("TimeSpan", () => {
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(errorMessage).toHaveTextContent("Must be at least 1 month.");
       expect(
         queryByText("Please be as accurate as possible.")

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
 import Flex from "./Flex";
 import Logo from "./internal/Logo";
-import useTheme from "../hooks/useTheme";
+import { getPropsFromMap } from "../utils/component";
 
 function HeaderLogo({ name, testId }) {
   return (
@@ -24,33 +24,25 @@ HeaderLogo.propTypes = {
   testId: PropTypes.string
 };
 
-const DEFAULT_PROPS = {
-  __internal__notFixed: false
-};
+const DEFAULT_PROPS = {};
 
 Header.DEFAULT_PROPS = DEFAULT_PROPS;
+Header.HEIGHT_MAP = {
+  default: 56,
+  lg: 80
+};
 
 function Header(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { children, testId, __internal__notFixed } = props;
-  const theme = useTheme();
+  const { children, testId } = props;
+  const heightMap = Header.HEIGHT_MAP;
+  const heightProps = useMemo(() => getPropsFromMap("height", heightMap), [
+    heightMap
+  ]);
 
   return (
-    <header
-      css={
-        __internal__notFixed
-          ? null
-          : {
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              zIndex: theme.zIndices.header
-            }
-      }
-      data-testid={testId}
-    >
-      <Container bg="white" height="56" height-lg="80" boxShadow="header">
+    <header data-testid={testId}>
+      <Container bg="white" {...heightProps} boxShadow="header">
         <Container hasBreakpointWidth height="100%">
           <Flex fullHeight placeItems="left center">
             {children}
@@ -63,8 +55,7 @@ function Header(_props) {
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string,
-  __internal__notFixed: PropTypes.bool
+  testId: PropTypes.string
 };
 
 Header.Logo = HeaderLogo;

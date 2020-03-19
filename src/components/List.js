@@ -67,15 +67,10 @@ function List(props) {
     margin: responsiveMargin
   });
   const ListComponent = type === "unordered" ? "ul" : "ol";
-  const items = React.Children.toArray(children);
-  /*
-    This stopped working at some point, so filtering here would result in [].
-  
-    .filter(
-      // Ignore all children that aren't List.Item
-      child => child.type === Item
-    );
-  */
+  const items = React.Children.toArray(children).filter(
+    // Ignore all children that aren't List.Item
+    child => child.type === Item
+  );
 
   let list = (
     <ListComponent

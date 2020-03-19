@@ -154,19 +154,18 @@ Header.propTypes = {
 };
 
 function LegalLinks({ children, testId }) {
-  const links = React.Children.toArray(children);
-
-  /*
-    This stopped working at some point, so filtering here would result in [].
-  
-    .filter(
-      // Ignore all children that aren't a Link
-      child => child.type === Link
-    );
-  */
+  const links = React.Children.toArray(children).filter(
+    // Ignore all children that aren't a Link
+    child => child.type === Link
+  );
 
   return (
-    <Container padding="0 4" padding-lg="0">
+    <Container
+      padding="0 4"
+      padding-lg="0"
+      textAlign="left"
+      textAlign-lg="center"
+    >
       <Stack
         direction-lg="horizontal"
         align-lg="center"

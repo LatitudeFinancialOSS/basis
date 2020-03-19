@@ -184,9 +184,6 @@ const theme = {
     button: "background-color 150ms ease, color 150ms ease",
     link: "background-color 200ms ease-out, border-bottom-color 200ms ease-out",
     icon: "fill 200ms ease-out"
-  },
-  zIndices: {
-    header: 1000
   }
 };
 

@@ -1,4 +1,5 @@
 import { notStringOrEmpty } from "./string";
+import { DEFAULT_BREAKPOINT } from "./css";
 
 function filterValidProps(props, validations = {}) {
   const result = {};
@@ -38,4 +39,16 @@ export function areOptionsValid(options) {
   }
 
   return true;
+}
+
+export function getPropsFromMap(prop, map) {
+  const result = {};
+
+  for (const bp in map) {
+    const propName = bp === DEFAULT_BREAKPOINT ? prop : `${prop}-${bp}`;
+
+    result[propName] = String(map[bp]);
+  }
+
+  return result;
 }
