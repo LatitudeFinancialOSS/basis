@@ -10,7 +10,7 @@
     "build": "gatsby build"
   },
   "dependencies": {
-    "@babel/parser": "7.9.2",
+    "@babel/parser": "7.9.3",
     "@emotion/core": "10.0.28",
     "@mdx-js/mdx": "1.5.7",
     "@mdx-js/react": "1.5.7",
