@@ -3,7 +3,7 @@ import React, {
   useEffect,
   useCallback,
   useMemo,
-  useRef
+  useRef,
 } from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, withLive } from "react-live";
@@ -14,7 +14,7 @@ import * as allDesignSystem from "basis";
 import { getPlaygroundUrl, getPlaygroundDataFromUrl } from "../../utils/url";
 import {
   getReactLiveNoInline,
-  annotateCodeForPlayground
+  annotateCodeForPlayground,
 } from "../../utils/ast";
 import { formatCode } from "../../utils/formatting";
 import { reactLiveEditorTheme } from "../../utils/constants";
@@ -37,12 +37,12 @@ const topOnly = {
   topRight: false,
   bottomRight: false,
   bottomLeft: false,
-  topLeft: false
+  topLeft: false,
 };
 
-const prettify = code =>
+const prettify = (code) =>
   formatCode(code, {
-    printWidth: 81
+    printWidth: 81,
   });
 
 const defaultCode = prettify(`
@@ -76,8 +76,8 @@ const PlaygroundError = withLive(({ live }) => {
         borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
         color: theme.colors.conditional.negative.text,
         "> pre": {
-          margin: 0
-        }
+          margin: 0,
+        },
       }}
     >
       <LiveError />
@@ -92,11 +92,11 @@ function PlaygroundScreen({
   isInspectMode,
   onInspectMouseMove,
   onMouseLeave,
-  highlightedComponents
+  highlightedComponents,
 }) {
   const theme = useTheme();
   const _setDocument = useCallback(
-    document => {
+    (document) => {
       setDocument(id, document);
     },
     [setDocument, id]
@@ -131,7 +131,7 @@ function PlaygroundScreen({
         width: "100%",
         backgroundColor: theme.colors.white,
         boxShadow:
-          "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+          "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
       }}
       onMouseLeave={onMouseLeave}
     >
@@ -153,7 +153,7 @@ PlaygroundScreen.propTypes = {
   isInspectMode: PropTypes.bool.isRequired,
   onInspectMouseMove: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
-  highlightedComponents: PropTypes.object.isRequired
+  highlightedComponents: PropTypes.object.isRequired,
 };
 
 function PlaygroundSettings({ screens, setScreens }) {
@@ -161,12 +161,12 @@ function PlaygroundSettings({ screens, setScreens }) {
   const [newScreen, setNewScreen] = useState({
     id: "new-screen",
     name: "",
-    width: ""
+    width: "",
   });
   const [newScreenError, setNewScreenError] = useState(null);
   const onScreenChange = (id, key, value) => {
-    setScreens(screens => {
-      const screenIndex = screens.findIndex(screen => screen.id === id);
+    setScreens((screens) => {
+      const screenIndex = screens.findIndex((screen) => screen.id === id);
 
       if (screenIndex === -1) {
         return;
@@ -175,16 +175,16 @@ function PlaygroundSettings({ screens, setScreens }) {
       const before = screens.slice(0, screenIndex);
       const updatedScreen = {
         ...screens[screenIndex],
-        [key]: value
+        [key]: value,
       };
       const after = screens.slice(screenIndex + 1);
 
       return before.concat(updatedScreen, after);
     });
   };
-  const onScreenRemove = id => {
-    setScreens(screens => {
-      const screenIndex = screens.findIndex(screen => screen.id === id);
+  const onScreenRemove = (id) => {
+    setScreens((screens) => {
+      const screenIndex = screens.findIndex((screen) => screen.id === id);
 
       if (screenIndex === -1) {
         return;
@@ -196,7 +196,7 @@ function PlaygroundSettings({ screens, setScreens }) {
       return before.concat(after);
     });
   };
-  const onScreenAdd = e => {
+  const onScreenAdd = (e) => {
     e.preventDefault();
 
     const { name, width } = newScreen;
@@ -207,7 +207,7 @@ function PlaygroundSettings({ screens, setScreens }) {
       return;
     }
 
-    if (screens.find(screen => screen.name === cleanName)) {
+    if (screens.find((screen) => screen.name === cleanName)) {
       setNewScreenError(
         <>
           <strong>{cleanName}</strong> already exists
@@ -228,7 +228,7 @@ function PlaygroundSettings({ screens, setScreens }) {
       return;
     }
 
-    if (screens.find(screen => screen.width === widthInt)) {
+    if (screens.find((screen) => screen.width === widthInt)) {
       setNewScreenError(
         <>
           <strong>{widthInt}px</strong> already exists
@@ -241,14 +241,14 @@ function PlaygroundSettings({ screens, setScreens }) {
       screens.concat({
         id: cleanName,
         name: cleanName,
-        width: widthInt
+        width: widthInt,
       })
     );
 
-    setNewScreen(newScreen => ({
+    setNewScreen((newScreen) => ({
       ...newScreen,
       name: "",
-      width: ""
+      width: "",
     }));
 
     setNewScreenError(null);
@@ -260,7 +260,7 @@ function PlaygroundSettings({ screens, setScreens }) {
         height: "100%",
         boxSizing: "border-box",
         padding: `${theme.space[4]} ${theme.space[8]}`,
-        backgroundColor: theme.colors.grey.t03
+        backgroundColor: theme.colors.grey.t03,
       }}
     >
       <label>Screens</label>
@@ -271,13 +271,13 @@ function PlaygroundSettings({ screens, setScreens }) {
               css={{ width: "100px" }}
               type="text"
               value={name}
-              onChange={e => onScreenChange(id, "name", e.target.value)}
+              onChange={(e) => onScreenChange(id, "name", e.target.value)}
             />
             <input
               css={{ width: "50px" }}
               type="number"
               value={width}
-              onChange={e =>
+              onChange={(e) =>
                 onScreenChange(id, "width", Number(e.target.value))
               }
             />
@@ -296,10 +296,10 @@ function PlaygroundSettings({ screens, setScreens }) {
               type="text"
               value={newScreen.name}
               placeholder="name"
-              onChange={e =>
+              onChange={(e) =>
                 setNewScreen({
                   ...newScreen,
-                  name: e.target.value
+                  name: e.target.value,
                 })
               }
             />
@@ -308,10 +308,10 @@ function PlaygroundSettings({ screens, setScreens }) {
               type="number"
               value={newScreen.width}
               placeholder="width"
-              onChange={e =>
+              onChange={(e) =>
                 setNewScreen({
                   ...newScreen,
-                  width: Number(e.target.value)
+                  width: Number(e.target.value),
                 })
               }
             />
@@ -333,10 +333,10 @@ PlaygroundSettings.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      width: PropTypes.number.isRequired
+      width: PropTypes.number.isRequired,
     })
   ).isRequired,
-  setScreens: PropTypes.func.isRequired
+  setScreens: PropTypes.func.isRequired,
 };
 
 function Playground({ location }) {
@@ -355,11 +355,11 @@ function Playground({ location }) {
   const [screens, setScreens] = useState([]);
   const [inspectInfo, setInspectInfo] = useState({
     screenId: null,
-    componentsAtMouse: {}
+    componentsAtMouse: {},
   });
   const setScreenDocument = useCallback((screenId, document) => {
-    setScreens(screens => {
-      const screenIndex = screens.findIndex(screen => screen.id === screenId);
+    setScreens((screens) => {
+      const screenIndex = screens.findIndex((screen) => screen.id === screenId);
 
       if (screenIndex === -1) {
         return;
@@ -368,7 +368,7 @@ function Playground({ location }) {
       const before = screens.slice(0, screenIndex);
       const updatedScreen = {
         ...screens[screenIndex],
-        document
+        document,
       };
       const after = screens.slice(screenIndex + 1);
 
@@ -377,7 +377,7 @@ function Playground({ location }) {
   }, []);
   const onInspectMouseMove = useCallback(
     (screenId, { x, y }) => {
-      const screenIndex = screens.findIndex(screen => screen.id === screenId);
+      const screenIndex = screens.findIndex((screen) => screen.id === screenId);
 
       if (screenIndex === -1) {
         return;
@@ -388,14 +388,14 @@ function Playground({ location }) {
       const componentsAtMouse = getComponentsAtPoint(
         {
           x: x - scrollX,
-          y: y - scrollY
+          y: y - scrollY,
         },
         screen.componentsLocation
       );
 
       setInspectInfo({
         screenId,
-        componentsAtMouse
+        componentsAtMouse,
       });
     },
     [screens]
@@ -404,13 +404,13 @@ function Playground({ location }) {
     getPlaygroundUrl(location, {
       code: prettify(code),
       settings: {
-        screens: screens.map(({ name, width }) => [name, width])
-      }
+        screens: screens.map(({ name, width }) => [name, width]),
+      },
     })
   );
   const calculateComponentsLocation = () => {
-    setScreens(screens =>
-      screens.map(screen => {
+    setScreens((screens) =>
+      screens.map((screen) => {
         const { document } = screen;
         const { scrollX, scrollY } = document.defaultView;
         const components = document.querySelectorAll(
@@ -418,25 +418,25 @@ function Playground({ location }) {
         );
         const componentsLocation = {};
 
-        components.forEach(component => {
+        components.forEach((component) => {
           const {
             left,
             top,
             right,
-            bottom
+            bottom,
           } = component.getBoundingClientRect();
 
           componentsLocation[component.dataset.testid] = {
             left: left + scrollX,
             top: top + scrollY,
             right: right + scrollX,
-            bottom: bottom + scrollY
+            bottom: bottom + scrollY,
           };
         });
 
         return {
           ...screen,
-          componentsLocation
+          componentsLocation,
         };
       })
     );
@@ -453,7 +453,7 @@ function Playground({ location }) {
       initialScreens.map(([bp, width]) => ({
         id: bp,
         name: bp,
-        width: parseInt(width, 10)
+        width: parseInt(width, 10),
       }))
     );
   }, [location, theme.breakpoints]);
@@ -461,7 +461,7 @@ function Playground({ location }) {
   useEffect(() => {
     setInspectInfo({
       screenId: null,
-      componentsAtMouse: {}
+      componentsAtMouse: {},
     });
 
     if (isInspectMode) {
@@ -484,14 +484,14 @@ function Playground({ location }) {
             display: "flex",
             position: "relative",
             overflowX: "auto",
-            backgroundColor: theme.colors.grey.t03
+            backgroundColor: theme.colors.grey.t03,
           }}
         >
           <div
             css={{
               display: "flex",
               padding: theme.space[8],
-              width: "min-content" // Without it, right padding is not visible.
+              width: "min-content", // Without it, right padding is not visible.
             }}
           >
             {screens.map(({ id, name, width }, index) => (
@@ -500,7 +500,7 @@ function Playground({ location }) {
                   display: "flex",
                   flexDirection: "column",
                   marginLeft: index === 0 ? null : theme.space[8],
-                  width
+                  width,
                 }}
                 key={id}
               >
@@ -515,7 +515,7 @@ function Playground({ location }) {
                       if (isInspectMode) {
                         setInspectInfo({
                           screenId: null,
-                          componentsAtMouse: {}
+                          componentsAtMouse: {},
                         });
                       }
                     }}
@@ -537,21 +537,23 @@ function Playground({ location }) {
         {height && (
           <Resizable
             style={{
-              flexShrink: 0
+              flexShrink: 0,
             }}
             enable={topOnly}
             minHeight="10vh"
             maxHeight="90vh"
             size={{
               width: "100%",
-              height
+              height,
             }}
             onResizeStop={(_e, _direction, _ref, d) => {
               setHeight(
-                `${(((parseInt(height, 10) / 100) * window.innerHeight +
-                  d.height) /
-                  window.innerHeight) *
-                  100}vh`
+                `${
+                  (((parseInt(height, 10) / 100) * window.innerHeight +
+                    d.height) /
+                    window.innerHeight) *
+                  100
+                }vh`
               );
             }}
           >
@@ -560,7 +562,7 @@ function Playground({ location }) {
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                boxSizing: "border-box"
+                boxSizing: "border-box",
               }}
             >
               <div
@@ -570,7 +572,7 @@ function Playground({ location }) {
                   padding: `${theme.space[2]} ${theme.space[8]}`,
                   backgroundColor: theme.colors.grey.t05,
                   borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
-                  borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
+                  borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
                 }}
               >
                 <Stack direction="horizontal" gap="4">
@@ -578,7 +580,7 @@ function Playground({ location }) {
                     <Button
                       variant="icon"
                       onClick={() => {
-                        setIsInspectMode(isInspectMode => !isInspectMode);
+                        setIsInspectMode((isInspectMode) => !isInspectMode);
                       }}
                     >
                       <Icon
@@ -624,7 +626,7 @@ function Playground({ location }) {
                   display: "flex",
                   position: "relative",
                   flexGrow: 1,
-                  minHeight: 0
+                  minHeight: 0,
                 }}
               >
                 <div
@@ -633,8 +635,8 @@ function Playground({ location }) {
                     width: "100%",
                     overflow: "auto",
                     "textarea:focus": {
-                      outline: "none"
-                    }
+                      outline: "none",
+                    },
                   }}
                 >
                   <VisuallyHidden>
@@ -654,9 +656,9 @@ function Playground({ location }) {
                       top: 0,
                       right: 0,
                       bottom: 0,
-                      backgroundColor: rgba(theme.colors.white, 0.7)
+                      backgroundColor: rgba(theme.colors.white, 0.7),
                     }}
-                    onClick={e => {
+                    onClick={(e) => {
                       if (!settingsRef.current.contains(e.target)) {
                         setAreSettingsOpen(false);
                       }
@@ -671,7 +673,7 @@ function Playground({ location }) {
                         width: "320px",
                         maxWidth: "100vw",
                         boxSizing: "border-box",
-                        borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`
+                        borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
                       }}
                       ref={settingsRef}
                     >
@@ -694,8 +696,8 @@ function Playground({ location }) {
 Playground.propTypes = {
   location: PropTypes.shape({
     href: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired
-  }).isRequired
+    search: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Playground;

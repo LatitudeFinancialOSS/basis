@@ -14,7 +14,7 @@ function FormWithInput({
   helpText,
   optional,
   __internal__focus,
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -46,7 +46,7 @@ FormWithInput.propTypes = {
   helpText: PropTypes.string,
   optional: PropTypes.bool,
   __internal__focus: PropTypes.bool,
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkInput() {

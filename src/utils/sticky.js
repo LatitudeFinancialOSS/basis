@@ -43,7 +43,7 @@ export function getStickyItemInfo(children, theme) {
   }
 
   const heightMap = {
-    [DEFAULT_BREAKPOINT]: height
+    [DEFAULT_BREAKPOINT]: height,
   };
   let lastHeight = height;
 
@@ -64,13 +64,13 @@ export function getStickyItemInfo(children, theme) {
 
   return {
     id,
-    heightMap
+    heightMap,
   };
 }
 
 export function getStickyItemCSS({ heightMap, offsetMap, theme }) {
   let result = {
-    position: "sticky"
+    position: "sticky",
   };
   let lastHeight = null;
   let lastOffset = null;

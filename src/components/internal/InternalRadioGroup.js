@@ -11,7 +11,7 @@ const DEFAULT_PROPS = {
   color: "grey.t05",
   showCircles: true,
   disabled: false,
-  isValid: true
+  isValid: true,
 };
 
 InternalRadioGroup.COLORS = COLORS;
@@ -42,7 +42,7 @@ function RadioCircle({ color, isChecked }) {
 
 RadioCircle.propTypes = {
   color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
-  isChecked: PropTypes.bool.isRequired
+  isChecked: PropTypes.bool.isRequired,
 };
 
 function Radio({
@@ -58,7 +58,7 @@ function Radio({
   onBlur,
   onMouseDown,
   value,
-  onChange
+  onChange,
 }) {
   const theme = useTheme();
   const [inputId] = useState(() => `radio-input-${nanoid()}`);
@@ -69,7 +69,7 @@ function Radio({
         <input
           css={{
             ...theme.radioGroupRadioInput,
-            ":checked + label": theme["radioGroupRadioLabel.checked"]
+            ":checked + label": theme["radioGroupRadioLabel.checked"],
           }}
           type="radio"
           id={inputId}
@@ -89,7 +89,7 @@ function Radio({
           ...theme[`radioGroupRadioLabel.${color}`],
           ...(isOneLine &&
             !showCircle &&
-            theme["radioGroupRadioLabel.oneLine.withoutCircle"])
+            theme["radioGroupRadioLabel.oneLine.withoutCircle"]),
         }}
         htmlFor={inputId}
         onMouseDown={onMouseDown}
@@ -123,7 +123,7 @@ Radio.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 function InternalRadioGroup(_props) {
@@ -143,7 +143,7 @@ function InternalRadioGroup(_props) {
     onBlur,
     onMouseDown,
     value: checkedValue,
-    onChange
+    onChange,
   } = props;
   const cols = columns === undefined ? options.length : columns;
 
@@ -190,7 +190,7 @@ InternalRadioGroup.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.string.isRequired,
     })
   ).isRequired,
   columns: PropTypes.number,
@@ -203,7 +203,7 @@ InternalRadioGroup.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default InternalRadioGroup;

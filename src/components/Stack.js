@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useResponsiveProp, {
-  responsivePropType
+  responsivePropType,
 } from "../hooks/useResponsiveProp";
 import { mergeProps } from "../utils/component";
 import { getGapValues } from "../utils/css";
@@ -13,7 +13,7 @@ const ALIGNMENTS = ["left", "center", "right"];
 const DEFAULT_PROPS = {
   direction: "vertical",
   align: "left",
-  gap: "0"
+  gap: "0",
 };
 
 Stack.DIRECTIONS = DIRECTIONS;
@@ -35,9 +35,9 @@ function Stack(props) {
       const { rowGap } = gapValues;
 
       return {
-        marginTop: `-${parseInt(rowGap, 10) + 1}px`
+        marginTop: `-${parseInt(rowGap, 10) + 1}px`,
       };
-    }
+    },
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     align: ({ direction, align }) => {
@@ -47,7 +47,7 @@ function Stack(props) {
             ? "center"
             : align === "right"
             ? "flex-end"
-            : "flex-start"
+            : "flex-start",
       };
     },
     gap: ({ gap }, theme) => {
@@ -60,9 +60,9 @@ function Stack(props) {
       const { columnGap } = gapValues;
 
       return {
-        marginLeft: `-${columnGap}`
+        marginLeft: `-${columnGap}`,
       };
-    }
+    },
   });
   const childCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     gap: ({ gap }, theme) => {
@@ -76,9 +76,9 @@ function Stack(props) {
 
       return {
         marginTop: rowGap,
-        marginLeft: columnGap
+        marginLeft: columnGap,
       };
-    }
+    },
   });
 
   return (
@@ -88,8 +88,8 @@ function Stack(props) {
         ":before": {
           content: '""',
           display: "block",
-          ...flexWrapperCSS
-        }
+          ...flexWrapperCSS,
+        },
       }}
       data-testid={testId}
     >
@@ -98,11 +98,11 @@ function Stack(props) {
           display: "flex",
           flexDirection: direction === "horizontal" ? null : "column",
           flexWrap: direction === "horizontal" ? "wrap" : null,
-          ...flexCSS
+          ...flexCSS,
         }}
       >
         {React.Children.toArray(children)
-          .filter(child => child != null)
+          .filter((child) => child != null)
           .map((child, index) => (
             <div css={childCSS} key={index}>
               {child}
@@ -121,7 +121,7 @@ Stack.propTypes = {
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Stack;

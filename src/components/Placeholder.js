@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import {
   responsiveWidthType,
-  responsiveHeightType
+  responsiveHeightType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveSize } from "../utils/css";
@@ -13,7 +13,7 @@ import Text from "./Text";
 
 const DEFAULT_PROPS = {
   height: "72px",
-  label: "Placeholder"
+  label: "Placeholder",
 };
 
 function Placeholder(props) {
@@ -23,13 +23,13 @@ function Placeholder(props) {
     DEFAULT_PROPS,
     {},
     {
-      label: label => typeof label === "string" && label.trim().length > 0
+      label: (label) => typeof label === "string" && label.trim().length > 0,
     }
   );
   const { label, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
-    height: responsiveSize("height")
+    height: responsiveSize("height"),
   });
 
   return (
@@ -38,7 +38,7 @@ function Placeholder(props) {
         ...responsivePropsCSS,
         backgroundColor: theme.getColor("grey.t07"),
         border: `${theme.borderWidths[1]} solid ${theme.getColor("grey.t30")}`,
-        boxSizing: "border-box"
+        boxSizing: "border-box",
       }}
       data-testid={testId}
     >
@@ -53,7 +53,7 @@ Placeholder.propTypes = {
   ...responsiveWidthType,
   ...responsiveHeightType,
   label: PropTypes.string,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Placeholder;

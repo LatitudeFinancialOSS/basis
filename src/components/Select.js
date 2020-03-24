@@ -10,7 +10,7 @@ import InternalSelect from "./internal/InternalSelect";
 const { COLORS } = InternalSelect;
 
 function isOptionSelected(options, value) {
-  return options.findIndex(option => option.value === value) > -1;
+  return options.findIndex((option) => option.value === value) > -1;
 }
 
 const DEFAULT_PROPS = {
@@ -25,7 +25,7 @@ const DEFAULT_PROPS = {
     }
 
     return null;
-  }
+  },
 };
 
 Select.COLORS = COLORS;
@@ -34,16 +34,16 @@ Select.DEFAULT_PROPS = DEFAULT_PROPS;
 function Select(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    placeholder: placeholder => typeof placeholder === "string",
-    fullWidth: fullWidth => typeof fullWidth === "boolean",
-    helpText: helpText => typeof helpText === "string",
-    disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean",
-    options: options => areOptionsValid(options)
+    color: (color) => COLORS.includes(color),
+    placeholder: (placeholder) => typeof placeholder === "string",
+    fullWidth: (fullWidth) => typeof fullWidth === "boolean",
+    helpText: (helpText) => typeof helpText === "string",
+    disabled: (disabled) => typeof disabled === "boolean",
+    optional: (optional) => typeof optional === "boolean",
+    options: (options) => areOptionsValid(options),
   });
   const {
     name,
@@ -58,7 +58,7 @@ function Select(props) {
     validate,
     validateData,
     testId,
-    __internal__focus
+    __internal__focus,
   } = mergedProps;
 
   if (!options) {
@@ -70,13 +70,13 @@ function Select(props) {
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
   const isEmpty = useCallback(
-    value => isOptionSelected(options, value) === false,
+    (value) => isOptionSelected(options, value) === false,
     [options]
   );
   const data = useMemo(
     () => ({
       isEmpty,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isEmpty, validateData]
   );
@@ -87,7 +87,7 @@ function Select(props) {
       disabled,
       optional,
       validate,
-      data
+      data,
     }
   );
 
@@ -132,7 +132,7 @@ Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.string.isRequired,
     })
   ).isRequired,
   fullWidth: PropTypes.bool,
@@ -142,7 +142,7 @@ Select.propTypes = {
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
   testId: PropTypes.string,
-  __internal__focus: PropTypes.bool
+  __internal__focus: PropTypes.bool,
 };
 
 export default Select;

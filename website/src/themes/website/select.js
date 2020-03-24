@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   selectInput: {
     display: "inline-block",
     fontSize: theme.fontSizes[0],
@@ -17,29 +17,29 @@ export default theme => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: `right 0 top 50%`,
     alignSelf: "flex-start",
-    transition: "color 100ms ease, border-color 100ms ease"
+    transition: "color 100ms ease, border-color 100ms ease",
   },
   "selectInput.fullWidth": {
-    alignSelf: "auto"
+    alignSelf: "auto",
   },
   "selectInput:focus": {
-    outline: 0
+    outline: 0,
   },
   "selectInput.default": {
     color: theme.colors.grey.t65,
     backgroundColor: "transparent",
-    borderColor: theme.colors.grey.t30
+    borderColor: theme.colors.grey.t30,
   },
   "selectInput.default:focus": {
     color: theme.colors.black,
-    borderColor: theme.colors.black
+    borderColor: theme.colors.black,
   },
   "selectInput.default:hover": {
     color: theme.colors.black,
-    borderColor: theme.colors.black
+    borderColor: theme.colors.black,
   },
   "selectInput.default:active": {
     color: theme.colors.black,
-    borderColor: theme.colors.black
-  }
+    borderColor: theme.colors.black,
+  },
 });

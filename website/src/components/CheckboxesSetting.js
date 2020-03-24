@@ -12,7 +12,7 @@ function Checkbox({ value, checked, label, onChange }) {
       css={{
         paddingTop: theme.space[1],
         paddingBottom: theme.space[1],
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
       }}
     >
       <input
@@ -36,7 +36,7 @@ Checkbox.propTypes = {
   value: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 function CheckboxesSetting({
@@ -44,12 +44,12 @@ function CheckboxesSetting({
   heading,
   options,
   selectedValues,
-  setSelectedValues
+  setSelectedValues,
 }) {
-  const onChange = e => {
+  const onChange = (e) => {
     setSelectedValues({
       ...selectedValues,
-      [e.target.value]: !selectedValues[e.target.value]
+      [e.target.value]: !selectedValues[e.target.value],
     });
   };
 
@@ -77,11 +77,11 @@ CheckboxesSetting.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.exact({
       value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired
+      label: PropTypes.string.isRequired,
     })
   ).isRequired,
   selectedValues: PropTypes.objectOf(PropTypes.bool).isRequired,
-  setSelectedValues: PropTypes.func.isRequired
+  setSelectedValues: PropTypes.func.isRequired,
 };
 
 export default CheckboxesSetting;

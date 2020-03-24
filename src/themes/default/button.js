@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   button: {
     fontSize: theme.fontSizes[2],
     lineHeight: theme.lineHeights[3],
@@ -10,40 +10,40 @@ export default theme => ({
     overflow: "hidden",
     transition: theme.transitions.button,
     borderRadius: theme.radii[1],
-    ...theme.focusStyles.focusVisible
+    ...theme.focusStyles.focusVisible,
   },
   "button.fullWidth": {
-    width: "100%"
+    width: "100%",
   },
   "button:disabled": {
     backgroundColor: theme.colors.grey.t30,
     color: theme.colors.grey.t75,
     opacity: 0.7,
-    cursor: "not-allowed"
+    cursor: "not-allowed",
   },
   // Primary blue
   "button.primary.default": {
     backgroundColor: theme.colors.highlight.blue.t100,
-    color: theme.colors.white
+    color: theme.colors.white,
   },
   "button.primary.default:hover": {
-    backgroundColor: theme.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100,
   },
   "button.primary.default:active": {
-    backgroundColor: theme.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100,
   },
   // Primary white
   "button.primary.white": {
     backgroundColor: theme.colors.white,
-    color: theme.colors.highlight.blue.t100
+    color: theme.colors.highlight.blue.t100,
   },
   "button.primary.white:hover": {
     backgroundColor: theme.colors.secondary.lightBlue.t25,
-    color: theme.colors.primary.blue.t100
+    color: theme.colors.primary.blue.t100,
   },
   "button.primary.white:active": {
     backgroundColor: theme.colors.secondary.lightBlue.t25,
-    color: theme.colors.primary.blue.t100
+    color: theme.colors.primary.blue.t100,
   },
   // Secondary default
   "button.secondary.default": {
@@ -51,18 +51,18 @@ export default theme => ({
     color: theme.colors.highlight.blue.t100,
     borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
-    borderColor: theme.colors.highlight.blue.t100
+    borderColor: theme.colors.highlight.blue.t100,
   },
   "button.secondary.default:hover": {
     backgroundColor: theme.colors.highlight.blue.t100,
-    color: theme.colors.white
+    color: theme.colors.white,
   },
   "button.secondary.default:active": {
     backgroundColor: theme.colors.highlight.blue.t100,
-    color: theme.colors.white
+    color: theme.colors.white,
   },
   "button.secondary.default:disabled": {
-    borderColor: theme.colors.grey.t65
+    borderColor: theme.colors.grey.t65,
   },
   // Secondary white
   "button.secondary.white": {
@@ -70,43 +70,43 @@ export default theme => ({
     color: theme.colors.white,
     borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
-    borderColor: theme.colors.white
+    borderColor: theme.colors.white,
   },
   "button.secondary.white:hover": {
     backgroundColor: theme.colors.white,
-    color: theme.colors.highlight.blue.t100
+    color: theme.colors.highlight.blue.t100,
   },
   "button.secondary.white:active": {
     backgroundColor: theme.colors.white,
-    color: theme.colors.highlight.blue.t100
+    color: theme.colors.highlight.blue.t100,
   },
   "button.secondary.white:disabled": {
-    backgroundColor: theme.colors.grey.t30
+    backgroundColor: theme.colors.grey.t30,
   },
   // Icon default
   "button.icon.default": {
     display: "flex",
     alignItems: "center",
     padding: `0 ${theme.space[2]}`,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   "button.icon.default:hover": {
-    backgroundColor: theme.colors.grey.t10
+    backgroundColor: theme.colors.grey.t10,
   },
   "button.icon.default:active": {
-    backgroundColor: theme.colors.grey.t10
+    backgroundColor: theme.colors.grey.t10,
   },
   // Icon white
   "button.icon.white": {
     display: "flex",
     alignItems: "center",
     padding: `0 ${theme.space[2]}`,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   "button.icon.white:hover": {
-    backgroundColor: theme.colors.grey.t10
+    backgroundColor: theme.colors.grey.t10,
   },
   "button.icon.white:active": {
-    backgroundColor: theme.colors.grey.t10
-  }
+    backgroundColor: theme.colors.grey.t10,
+  },
 });

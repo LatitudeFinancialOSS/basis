@@ -3,7 +3,7 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
@@ -62,48 +62,48 @@ function RadioGroupPage() {
           <RadioGroup ${nonDefaultProps([
             {
               prop: "name",
-              value: "hungry"
+              value: "hungry",
             },
             {
               prop: "label",
-              value: "Are you hungry?"
+              value: "Are you hungry?",
             },
             {
               prop: "color",
               value: color,
-              defaultValue: DEFAULT_PROPS.color
+              defaultValue: DEFAULT_PROPS.color,
             },
             {
               prop: "columns",
               value: columns,
               defaultValue: "Unspecified",
-              type: "number"
+              type: "number",
             },
             {
               prop: "showCircles",
               value: showCircles,
               defaultValue: DEFAULT_PROPS.showCircles,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "optional",
               value: optional,
               defaultValue: DEFAULT_PROPS.optional,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "helpText",
               value: hasHelpText
                 ? "Be true to yourself."
                 : DEFAULT_PROPS.helpText,
-              defaultValue: DEFAULT_PROPS.helpText
+              defaultValue: DEFAULT_PROPS.helpText,
             },
             {
               prop: "disabled",
               value: disabled,
               defaultValue: DEFAULT_PROPS.disabled,
-              type: "boolean"
-            }
+              type: "boolean",
+            },
           ])}
             options={options}
           />
@@ -120,7 +120,7 @@ function RadioGroupPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

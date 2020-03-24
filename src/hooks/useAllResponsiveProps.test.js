@@ -11,7 +11,7 @@ describe("useAllResponsiveProps", () => {
       "padding-md": "6",
       "padding-lg": "1 2 3",
       "padding-xl": "0 8",
-      anotherProp: "some value"
+      anotherProp: "some value",
     };
     const { result } = renderHook(
       () => useAllResponsiveProps(props, "padding"),
@@ -24,7 +24,7 @@ describe("useAllResponsiveProps", () => {
       "padding-sm": "0",
       "padding-md": "6",
       "padding-lg": "1 2 3",
-      "padding-xl": "0 8"
+      "padding-xl": "0 8",
     });
   });
 
@@ -32,7 +32,7 @@ describe("useAllResponsiveProps", () => {
     const props = {
       "padding-xs": 5,
       "padding-md": "6",
-      anotherProp: "some value"
+      anotherProp: "some value",
     };
     const { result } = renderHook(
       () => useAllResponsiveProps(props, "padding"),
@@ -41,7 +41,7 @@ describe("useAllResponsiveProps", () => {
 
     expect(result.current).toStrictEqual({
       "padding-xs": 5,
-      "padding-md": "6"
+      "padding-md": "6",
     });
   });
 });

@@ -7,16 +7,16 @@ import KitchenSinkForm from "./KitchenSinkForm";
 const options = [
   {
     label: "Option 1",
-    value: "option-1"
+    value: "option-1",
   },
   {
     label: "Option 2",
-    value: "option-2"
+    value: "option-2",
   },
   {
     label: "Option 3",
-    value: "option-3"
-  }
+    value: "option-3",
+  },
 ];
 
 function FormWithSelect({
@@ -28,7 +28,7 @@ function FormWithSelect({
   optional,
   fullWidth,
   __internal__focus,
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -59,7 +59,7 @@ FormWithSelect.propTypes = {
   optional: PropTypes.bool,
   fullWidth: PropTypes.bool,
   __internal__focus: PropTypes.bool,
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkSelect() {

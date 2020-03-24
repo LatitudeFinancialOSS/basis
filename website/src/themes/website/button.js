@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   button: {
     fontSize: theme.fontSizes[0],
     lineHeight: theme.lineHeights[0],
@@ -10,11 +10,11 @@ export default theme => ({
     overflow: "hidden",
     transition:
       "transform 100ms ease, color 100ms ease, border-color 100ms ease",
-    ...theme.focusStyles.focusVisible
+    ...theme.focusStyles.focusVisible,
   },
   "button:disabled": {
     opacity: 0.4,
-    cursor: "not-allowed"
+    cursor: "not-allowed",
   },
   // Secondary default
   "button.secondary.default": {
@@ -22,16 +22,16 @@ export default theme => ({
     backgroundColor: "transparent",
     borderWidth: theme.borderWidths[0],
     borderStyle: "solid",
-    borderColor: theme.colors.grey.t30
+    borderColor: theme.colors.grey.t30,
   },
   "button.secondary.default:hover": {
     color: theme.colors.black,
-    borderColor: theme.colors.black
+    borderColor: theme.colors.black,
   },
   "button.secondary.default:active": {
     color: theme.colors.black,
     borderColor: theme.colors.black,
-    transform: "scale(0.95)"
+    transform: "scale(0.95)",
   },
   // Icon default
   "button.icon.default": {
@@ -39,9 +39,9 @@ export default theme => ({
     padding: `0 ${theme.space[1]}`,
     color: theme.colors.grey.t65,
     backgroundColor: "transparent",
-    border: 0
+    border: 0,
   },
   "button.icon.default:hover": {
-    color: theme.colors.black
-  }
+    color: theme.colors.black,
+  },
 });

@@ -23,7 +23,7 @@ function Stopwatch({ size, primaryColor, testId }) {
 Stopwatch.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Stopwatch;

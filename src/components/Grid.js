@@ -23,7 +23,7 @@ function Item(props) {
 
         return gridLines
           ? {
-              gridColumn: `${gridLines[0]} / ${gridLines[1]}`
+              gridColumn: `${gridLines[0]} / ${gridLines[1]}`,
             }
           : {};
       },
@@ -32,15 +32,15 @@ function Item(props) {
 
         return gridLines
           ? {
-              gridRow: `${gridLines[0]} / ${gridLines[1]}`
+              gridRow: `${gridLines[0]} / ${gridLines[1]}`,
             }
           : {};
-      }
+      },
     }
   );
   const itemCSS = {
     ...theme.gridItem,
-    ...responsivePropsCSS
+    ...responsivePropsCSS,
   };
 
   return (
@@ -60,7 +60,7 @@ Item.propTypes = {
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 const PRESETS = ["page"];
@@ -70,12 +70,12 @@ const presetsMap = {
     cols: 4,
     "cols-sm": 8,
     "cols-lg": 12,
-    colsGap: "30px"
-  }
+    colsGap: "30px",
+  },
 };
 
 const DEFAULT_GRID_PROPS = {
-  debug: false
+  debug: false,
 };
 
 Grid.PRESETS = PRESETS;
@@ -88,7 +88,7 @@ function Grid(_props) {
   const [resizeListener, sizes] = useResizeAware();
   const parsedProps = {
     ...presetsMap[preset],
-    ...props
+    ...props,
   };
   const responsivePropsCSS = useResponsivePropsCSS(
     parsedProps,
@@ -96,19 +96,19 @@ function Grid(_props) {
     {
       cols: ({ cols }) => {
         return {
-          gridTemplateColumns: getGridTemplateColumns(cols)
+          gridTemplateColumns: getGridTemplateColumns(cols),
         };
       },
       colsGap: ({ colsGap }) => {
         return {
-          gridColumnGap: getGapPx(colsGap, theme)
+          gridColumnGap: getGapPx(colsGap, theme),
         };
       },
       rowsGap: ({ rowsGap }) => {
         return {
-          gridRowGap: getGapPx(rowsGap, theme)
+          gridRowGap: getGapPx(rowsGap, theme),
         };
-      }
+      },
     }
   );
   const gridRef = useRef();
@@ -125,7 +125,7 @@ function Grid(_props) {
       gridTemplateColumns,
       columnsCount: gridTemplateColumns.split(" ").length,
       gridTemplateRows,
-      rowsCount: gridTemplateRows.split(" ").length
+      rowsCount: gridTemplateRows.split(" ").length,
     });
   }, [sizes.width, children]);
 
@@ -142,10 +142,10 @@ function Grid(_props) {
           css={{
             ...theme.gridOverlay,
             gridTemplateColumns: gridInfo.gridTemplateColumns,
-            gridTemplateRows: gridInfo.gridTemplateRows
+            gridTemplateRows: gridInfo.gridTemplateRows,
           }}
         >
-          {range(gridInfo.columnsCount * gridInfo.rowsCount).map(i => (
+          {range(gridInfo.columnsCount * gridInfo.rowsCount).map((i) => (
             <div css={theme.gridOverlayItem} key={i} />
           ))}
         </div>
@@ -170,7 +170,7 @@ Grid.propTypes = {
   preset: PropTypes.oneOf(PRESETS),
   debug: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 Grid.Item = Item;

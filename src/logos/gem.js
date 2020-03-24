@@ -11,7 +11,7 @@ const COLORS = ["primary.blue.t100", "black", "white"];
 
 const DEFAULT_PROPS = {
   color: "primary.blue.t100",
-  height: "40px"
+  height: "40px",
 };
 
 function GemLogo(props) {
@@ -20,21 +20,21 @@ function GemLogo(props) {
   const inheritedColor =
     background === "primary.blue.t100" ? "white" : "primary.blue.t100";
   const inheritedProps = {
-    color: inheritedColor
+    color: inheritedColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color)
+    color: (color) => COLORS.includes(color),
   });
   const { color, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    height: responsiveSize("height")
+    height: responsiveSize("height"),
   });
 
   return (
     <svg
       css={{
         display: "flex",
-        ...responsivePropsCSS
+        ...responsivePropsCSS,
       }}
       viewBox="0 0 113 48"
       focusable="false"
@@ -53,7 +53,7 @@ function GemLogo(props) {
 GemLogo.propTypes = {
   color: PropTypes.oneOf(COLORS),
   ...responsiveHeightType,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default GemLogo;

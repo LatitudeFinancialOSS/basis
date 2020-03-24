@@ -10,9 +10,9 @@ function FormWithDatePicker({
   initialValue = {
     day: "",
     month: "",
-    year: ""
+    year: "",
   },
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -30,9 +30,9 @@ FormWithDatePicker.propTypes = {
   initialValue: PropTypes.shape({
     day: PropTypes.string,
     month: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired
+    year: PropTypes.string.isRequired,
   }),
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkDatePicker() {
@@ -49,7 +49,7 @@ function KitchenSinkDatePicker() {
             initialValue={{
               day: "17",
               month: "13",
-              year: "1934"
+              year: "1934",
             }}
             submitOnMount
           />
@@ -63,7 +63,7 @@ function KitchenSinkDatePicker() {
             initialValue={{
               day: "1",
               month: "01",
-              year: "2023"
+              year: "2023",
             }}
           />
 
@@ -72,7 +72,7 @@ function KitchenSinkDatePicker() {
             day={false}
             initialValue={{
               month: "2",
-              year: "1999"
+              year: "1999",
             }}
           />
 

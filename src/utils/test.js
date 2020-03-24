@@ -16,13 +16,13 @@ export function TestWrapper({ children }) {
 }
 
 TestWrapper.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 const customRender = (ui, options) =>
   render(ui, {
     wrapper: TestWrapper,
-    ...options
+    ...options,
   });
 
 // re-export everything

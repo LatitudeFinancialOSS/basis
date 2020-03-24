@@ -23,7 +23,7 @@ function Time({ size, primaryColor, testId }) {
 Time.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Time;

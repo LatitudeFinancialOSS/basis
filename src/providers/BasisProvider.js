@@ -11,7 +11,7 @@ function BasisProvider({
   window,
   InternalLink,
   isLinkInternal,
-  children
+  children,
 }) {
   const enhancedTheme = useMemo(() => enhanceTheme(theme), [theme]);
 
@@ -34,7 +34,7 @@ BasisProvider.propTypes = {
   window: PropTypes.object,
   InternalLink: PropTypes.elementType,
   isLinkInternal: PropTypes.func,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default BasisProvider;

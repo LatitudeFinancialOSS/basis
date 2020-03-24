@@ -10,7 +10,7 @@ const DEFAULT_PROPS = {
   fullWidth: true,
   disabled: false,
   isValid: true,
-  __internal__focus: false
+  __internal__focus: false,
 };
 
 InternalSelect.COLORS = COLORS;
@@ -34,7 +34,7 @@ function InternalSelect(_props) {
     onBlur,
     value,
     onChange,
-    __internal__focus
+    __internal__focus,
   } = props;
   const theme = useTheme();
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
@@ -47,23 +47,23 @@ function InternalSelect(_props) {
         ...(fullWidth && theme["selectInput.fullWidth"]),
         ":focus": {
           ...theme["selectInput:focus"],
-          ...theme[`selectInput.${colorStr}:focus`]
+          ...theme[`selectInput.${colorStr}:focus`],
         },
         ...(__internal__focus && {
           ...theme["selectInput:focus"],
-          ...theme[`selectInput.${colorStr}:focus`]
+          ...theme[`selectInput.${colorStr}:focus`],
         }),
         ":active": {
-          ...(!disabled && theme[`selectInput.${colorStr}:active`])
+          ...(!disabled && theme[`selectInput.${colorStr}:active`]),
         },
         ":hover": {
-          ...(!disabled && theme[`selectInput.${colorStr}:hover`])
+          ...(!disabled && theme[`selectInput.${colorStr}:hover`]),
         },
         // See: https://stackoverflow.com/a/19451423/247243
         ":-moz-focusring": {
           color: "transparent",
-          textShadow: "0 0 0 #000"
-        }
+          textShadow: "0 0 0 #000",
+        },
       }}
       id={id}
       name={name}
@@ -81,7 +81,7 @@ function InternalSelect(_props) {
           {placeholder}
         </option>
       )}
-      {options.map(option => (
+      {options.map((option) => (
         /* 
             Note: We use `option.label` as the key here because users shouldn't have
                   multiple options with the same label.
@@ -107,7 +107,7 @@ InternalSelect.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.string.isRequired,
     })
   ).isRequired,
   fullWidth: PropTypes.bool,
@@ -119,7 +119,7 @@ InternalSelect.propTypes = {
   onBlur: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  __internal__focus: PropTypes.bool
+  __internal__focus: PropTypes.bool,
 };
 
 export default InternalSelect;

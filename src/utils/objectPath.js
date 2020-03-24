@@ -32,13 +32,13 @@ export function setPath(obj, path, value) {
 
     result = {
       ...value,
-      [keys[i]]: result
+      [keys[i]]: result,
     };
   }
 
   return {
     ...obj,
-    [keys[0]]: result
+    [keys[0]]: result,
   };
 }
 
@@ -74,14 +74,14 @@ export function deletePath(obj, path, { deleteEmptyObjects = false } = {}) {
 
     if (shouldDeleteKey && isObjectEmpty(result)) {
       result = {
-        ...pathsArr[i]
+        ...pathsArr[i],
       };
 
       delete result[key];
     } else {
       result = {
         ...pathsArr[i],
-        [key]: result
+        [key]: result,
       };
     }
   }

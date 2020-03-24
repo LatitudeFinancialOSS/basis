@@ -1,20 +1,20 @@
-export default theme => ({
+export default (theme) => ({
   stepper: {
-    display: "flex"
+    display: "flex",
   },
   "stepper.item": {
     paddingTop: theme.space[4],
-    paddingBottom: theme.space[4]
+    paddingBottom: theme.space[4],
   },
   "stepper.itemLabelContainer": {
     display: "flex",
-    height: "20px"
+    height: "20px",
   },
   "stepper.itemLabel": {
     position: "relative",
     left: "50%",
     transform: "translateX(-50%)",
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
   },
   "stepper.progress.left": {
     position: "absolute",
@@ -22,7 +22,7 @@ export default theme => ({
     width: "50%",
     height: "8px",
     top: "calc(50% - 4px)",
-    backgroundColor: theme.colors.white
+    backgroundColor: theme.colors.white,
   },
   "stepper.progress.right": {
     position: "absolute",
@@ -30,10 +30,10 @@ export default theme => ({
     width: "50%",
     height: "8px",
     top: "calc(50% - 4px)",
-    backgroundColor: theme.colors.white
+    backgroundColor: theme.colors.white,
   },
   "stepper.progress.completed": {
-    backgroundColor: theme.colors.primary.blue.t100
+    backgroundColor: theme.colors.primary.blue.t100,
   },
   "stepper.itemContent": {
     display: "flex",
@@ -42,7 +42,7 @@ export default theme => ({
     width: "100%",
     height: "40px",
     marginTop: theme.space[2],
-    position: "relative"
+    position: "relative",
   },
   "stepper.itemCircle": {
     display: "flex",
@@ -55,16 +55,16 @@ export default theme => ({
     color: theme.colors.black,
     boxSizing: "border-box",
     flexShrink: 0,
-    zIndex: 1
+    zIndex: 1,
   },
   "stepper.itemCircle.minor": {
     width: "20px",
-    height: "20px"
+    height: "20px",
   },
   "stepper.itemCircle.current": {
-    border: `${theme.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`
+    border: `${theme.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`,
   },
   "stepper.itemCircle.previous": {
-    backgroundColor: theme.colors.primary.blue.t100
-  }
+    backgroundColor: theme.colors.primary.blue.t100,
+  },
 });

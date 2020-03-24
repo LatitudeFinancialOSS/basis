@@ -5,7 +5,7 @@ import useListType, { ListTypeProvider } from "../hooks/useListType";
 import useTextStyle, { TextStyleProvider } from "../hooks/useTextStyle";
 import {
   responsiveMarginType,
-  responsivePropType
+  responsivePropType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../utils/component";
@@ -16,7 +16,7 @@ const TEXT_STYLES = ["subtitle1", "subtitle2", "body1", "body2"];
 
 const DEFAULT_PROPS = {
   type: "unordered",
-  textStyle: "body1"
+  textStyle: "body1",
 };
 
 List.TYPES = TYPES;
@@ -36,7 +36,7 @@ function Item({ children, testId }) {
         "& ul, & ol": theme[`list.${type}.nested`],
         "& ol li:before": theme[`listItem.${type}.nested:before`],
         "& ol ol": theme[`list.${type}.nested.nested`],
-        "& ol ol li:before": theme[`listItem.${type}.nested.nested:before`]
+        "& ol ol li:before": theme[`listItem.${type}.nested.nested:before`],
       }}
       data-testid={testId}
     >
@@ -47,7 +47,7 @@ function Item({ children, testId }) {
 
 Item.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function List(props) {
@@ -56,20 +56,20 @@ function List(props) {
   const { textStyle: inheritedTextStyle } = useTextStyle();
   const inheritedProps = {
     type: inheritedListType,
-    textStyle: inheritedTextStyle
+    textStyle: inheritedTextStyle,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    type: type => TYPES.includes(type),
-    textStyle: textStyle => TEXT_STYLES.includes(textStyle)
+    type: (type) => TYPES.includes(type),
+    textStyle: (textStyle) => TEXT_STYLES.includes(textStyle),
   });
   const { type, textStyle, children, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    margin: responsiveMargin
+    margin: responsiveMargin,
   });
   const ListComponent = type === "unordered" ? "ul" : "ol";
   const items = React.Children.toArray(children).filter(
     // Ignore all children that aren't List.Item
-    child => child.type === Item
+    (child) => child.type === Item
   );
 
   let list = (
@@ -78,7 +78,7 @@ function List(props) {
         ...theme.list,
         ...theme[`list.${type}`],
         ...theme.getTextStyleCSS(textStyle),
-        ...responsivePropsCSS
+        ...responsivePropsCSS,
       }}
       data-testid={testId}
     >
@@ -98,7 +98,7 @@ List.propTypes = {
   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
   type: PropTypes.oneOf(TYPES),
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 List.Item = Item;

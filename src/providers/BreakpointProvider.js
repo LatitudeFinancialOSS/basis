@@ -34,7 +34,7 @@ function BreakpointProvider(props) {
 
     for (const bp in mediaQueryListMap) {
       const mediaQueryList = mediaQueryListMap[bp];
-      const listener = event => {
+      const listener = (event) => {
         if (event.matches && mounted) {
           setBreakpoint(bp);
         }
@@ -50,7 +50,7 @@ function BreakpointProvider(props) {
     return () => {
       mounted = false;
 
-      removeListeners.forEach(fn => {
+      removeListeners.forEach((fn) => {
         fn();
       });
     };
@@ -65,7 +65,7 @@ function BreakpointProvider(props) {
 
 BreakpointProvider.propTypes = {
   window: PropTypes.object,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default BreakpointProvider;

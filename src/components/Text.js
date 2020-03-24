@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import {
   responsivePropType,
-  responsiveMarginType
+  responsiveMarginType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useTextStyle from "../hooks/useTextStyle";
@@ -25,7 +25,7 @@ const TEXT_STYLES = [
   "body1",
   "body2",
   "legal",
-  "overline"
+  "overline",
 ];
 const COLORS = [
   "black",
@@ -34,7 +34,7 @@ const COLORS = [
   "primary.blue.t100",
   "highlight.blue.t100",
   "conditional.positive.text",
-  "conditional.negative.text"
+  "conditional.negative.text",
 ];
 const ALIGNS = ["inherit", "left", "center", "right"];
 
@@ -47,9 +47,9 @@ const allowedColors = [
       "heading3",
       "heading4",
       "heading5",
-      "heading6"
+      "heading6",
     ],
-    allowedColors: ["black", "white", "primary.blue.t100"]
+    allowedColors: ["black", "white", "primary.blue.t100"],
   },
   {
     textStyles: ["subtitle1", "subtitle2", "body1", "body2", "legal"],
@@ -60,8 +60,8 @@ const allowedColors = [
       "primary.blue.t100",
       "highlight.blue.t100",
       "conditional.positive.text",
-      "conditional.negative.text"
-    ]
+      "conditional.negative.text",
+    ],
   },
   {
     textStyles: ["overline"],
@@ -70,9 +70,9 @@ const allowedColors = [
       "white",
       "grey.t75",
       "primary.blue.t100",
-      "highlight.blue.t100"
-    ]
-  }
+      "highlight.blue.t100",
+    ],
+  },
 ];
 
 const DEFAULT_PROPS = {
@@ -80,7 +80,7 @@ const DEFAULT_PROPS = {
   textStyle: "body1",
   color: "black",
   align: "inherit",
-  wrap: true
+  wrap: true,
 };
 
 Text.AS = AS;
@@ -97,19 +97,19 @@ function Text(props) {
   const inheritedColor = background === "primary.blue.t100" ? "white" : "black";
   const inheritedProps = {
     textStyle: inheritedTextStyle,
-    color: inheritedColor
+    color: inheritedColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    as: as => AS.includes(as),
-    textStyle: textStyle => TEXT_STYLES.includes(textStyle),
-    color: color => COLORS.includes(color),
-    align: align => ALIGNS.includes(align),
-    wrap: wrap => typeof wrap === "boolean"
+    as: (as) => AS.includes(as),
+    textStyle: (textStyle) => TEXT_STYLES.includes(textStyle),
+    color: (color) => COLORS.includes(color),
+    align: (align) => ALIGNS.includes(align),
+    wrap: (wrap) => typeof wrap === "boolean",
   });
   const { as, color, align, wrap, children, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
-    textStyle: responsiveTextStyle
+    textStyle: responsiveTextStyle,
   });
   const Component = as;
   const css = {
@@ -117,7 +117,7 @@ function Text(props) {
     ...(!wrap && theme["text.noWrap"]),
     ...responsivePropsCSS,
     textAlign: align,
-    color: theme.getColor(color)
+    color: theme.getColor(color),
   };
 
   return (
@@ -131,7 +131,7 @@ Text.propTypes = {
   ...responsiveMarginType,
   as: PropTypes.oneOf(AS),
   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
-  color: props => {
+  color: (props) => {
     allowedColors.forEach(({ textStyles, allowedColors }) => {
       if (
         textStyles.includes(props.textStyle) &&
@@ -140,7 +140,7 @@ Text.propTypes = {
         return new Error(
           `Text: color="${props.color}" is not allowed for textStyle="${
             props.textStyle
-          }". Must be one of: ${allowedColors.map(c => `"${c}"`).join(", ")}`
+          }". Must be one of: ${allowedColors.map((c) => `"${c}"`).join(", ")}`
         );
       }
     });
@@ -148,7 +148,7 @@ Text.propTypes = {
   align: PropTypes.oneOf(ALIGNS),
   wrap: PropTypes.bool,
   children: PropTypes.node,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Text;

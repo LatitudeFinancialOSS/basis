@@ -10,7 +10,7 @@ function KitchenSinkList() {
           Unordered:
         </Text>
         <Stack direction="horizontal" gap="10">
-          {List.TEXT_STYLES.map(textStyle => (
+          {List.TEXT_STYLES.map((textStyle) => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List textStyle={textStyle}>
                 <List.Item>Short item</List.Item>
@@ -45,7 +45,7 @@ function KitchenSinkList() {
           Ordered:
         </Text>
         <Stack direction="horizontal" gap="10">
-          {List.TEXT_STYLES.map(textStyle => (
+          {List.TEXT_STYLES.map((textStyle) => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="ordered" textStyle={textStyle}>
                 <List.Item>Short item</List.Item>
@@ -88,7 +88,7 @@ function KitchenSinkList() {
           Steps:
         </Text>
         <Stack direction="horizontal" gap="10">
-          {List.TEXT_STYLES.map(textStyle => (
+          {List.TEXT_STYLES.map((textStyle) => (
             <Container width="240" bg="grey.t05" key={textStyle}>
               <List type="steps" textStyle={textStyle}>
                 <List.Item>Short item</List.Item>

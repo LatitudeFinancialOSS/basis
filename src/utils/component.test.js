@@ -11,11 +11,11 @@ describe("areOptionsValid", () => {
       [{ label: "label", value: "   " }],
       [
         { label: "label", value: "value" },
-        { label: "label2", value: "" }
-      ]
+        { label: "label2", value: "" },
+      ],
     ];
 
-    invalidOptions.forEach(option => {
+    invalidOptions.forEach((option) => {
       expect(areOptionsValid(option)).toBe(false);
     });
   });
@@ -25,11 +25,11 @@ describe("areOptionsValid", () => {
       [{ label: "label", value: "value" }],
       [
         { label: "label", value: "value" },
-        { label: "label2", value: "value2" }
-      ]
+        { label: "label2", value: "value2" },
+      ],
     ];
 
-    validOptions.forEach(option => {
+    validOptions.forEach((option) => {
       expect(areOptionsValid(option)).toBe(true);
     });
   });

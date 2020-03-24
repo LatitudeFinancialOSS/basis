@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -28,30 +28,30 @@ function ButtonPage() {
     {
       prop: "variant",
       value: variant,
-      defaultValue: DEFAULT_PROPS.variant
+      defaultValue: DEFAULT_PROPS.variant,
     },
     {
       prop: "color",
       value: color,
-      defaultValue: DEFAULT_PROPS.color
+      defaultValue: DEFAULT_PROPS.color,
     },
     {
       prop: "fullWidth",
       value: fullWidth,
       defaultValue: DEFAULT_PROPS.fullWidth,
-      type: "boolean"
+      type: "boolean",
     },
     {
       prop: "disabled",
       value: disabled,
       defaultValue: DEFAULT_PROPS.disabled,
-      type: "boolean"
+      type: "boolean",
     },
     {
       prop: "type",
       value: type,
-      defaultValue: DEFAULT_PROPS.type
-    }
+      defaultValue: DEFAULT_PROPS.type,
+    },
   ])}
 >
   ${variant === "icon" ? `<Icon name="cross" />` : "Button"}
@@ -63,7 +63,7 @@ function ButtonPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

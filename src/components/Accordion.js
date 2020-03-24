@@ -5,7 +5,7 @@ import useTheme from "../hooks/useTheme";
 import useBackground, { BackgroundProvider } from "../hooks/useBackground";
 import useAccordion, { AccordionProvider } from "../hooks/useAccordion";
 import useAccordionItem, {
-  AccordionItemProvider
+  AccordionItemProvider,
 } from "../hooks/useAccordionItem";
 import { mergeProps } from "../utils/component";
 import Icon from "./Icon";
@@ -19,7 +19,7 @@ const DEFAULT_PROPS = {
   color: "grey.t07",
   textColor: "black",
   itemHeaderAs: "h3",
-  itemGap: "large"
+  itemGap: "large",
 };
 
 Accordion.COLORS = COLORS;
@@ -35,7 +35,7 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
     headerId,
     contentId,
     isOpen,
-    toggleAccordionItem
+    toggleAccordionItem,
   } = useAccordionItem();
   const onClick = useCallback(() => {
     toggleAccordionItem();
@@ -49,7 +49,7 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
           ...theme.accordionHeaderButton,
           ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
           backgroundColor: theme.getColor(color),
-          color: theme.getColor(textColor)
+          color: theme.getColor(textColor),
         }}
         aria-controls={contentId}
         aria-expanded={isOpen ? "true" : "false"}
@@ -59,7 +59,7 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
         <div
           css={{
             ...theme.accordionHeaderChevron,
-            ...(isOpen && theme["accordionHeaderChevron.open"])
+            ...(isOpen && theme["accordionHeaderChevron.open"]),
           }}
         >
           <Icon name="chevron-down" color={textColor} />
@@ -72,7 +72,7 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
-  __internal__keyboardFocus: PropTypes.bool
+  __internal__keyboardFocus: PropTypes.bool,
 };
 
 function HeaderIcon({ name, testId }) {
@@ -88,7 +88,7 @@ function HeaderIcon({ name, testId }) {
 
 HeaderIcon.propTypes = {
   name: PropTypes.oneOf(Icon.NAMES).isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function Content({ children, testId }) {
@@ -108,7 +108,7 @@ function Content({ children, testId }) {
         id={contentId}
         css={{
           ...theme.accordionContent,
-          backgroundColor: theme.getColor(backgroundColor)
+          backgroundColor: theme.getColor(backgroundColor),
         }}
         role="region"
         aria-labelledby={headerId}
@@ -123,11 +123,11 @@ function Content({ children, testId }) {
 
 Content.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 const DEFAULT_ITEM_PROPS = {
-  initiallyOpen: false
+  initiallyOpen: false,
 };
 
 Item.DEFAULT_PROPS = DEFAULT_ITEM_PROPS;
@@ -142,20 +142,20 @@ function Item(props) {
     DEFAULT_ITEM_PROPS,
     {},
     {
-      initiallyOpen: initiallyOpen => typeof initiallyOpen === "boolean"
+      initiallyOpen: (initiallyOpen) => typeof initiallyOpen === "boolean",
     }
   );
   const { initiallyOpen, children, testId } = mergedProps;
   const [isOpen, setIsOpen] = useState(initiallyOpen);
   const toggleAccordionItem = useCallback(() => {
-    setIsOpen(isOpen => !isOpen);
+    setIsOpen((isOpen) => !isOpen);
   }, []);
   const accordionItemInfo = useMemo(
     () => ({
       headerId,
       contentId,
       isOpen,
-      toggleAccordionItem
+      toggleAccordionItem,
     }),
     [headerId, contentId, isOpen, toggleAccordionItem]
   );
@@ -172,7 +172,7 @@ function Item(props) {
 Item.propTypes = {
   initiallyOpen: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function Accordion(props) {
@@ -180,13 +180,13 @@ function Accordion(props) {
   const inheritedColor =
     background === "primary.blue.t100" ? "white" : DEFAULT_PROPS.color;
   const inheritedProps = {
-    color: inheritedColor
+    color: inheritedColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    textColor: textColor => TEXT_COLORS.includes(textColor),
-    itemGap: itemGap => ITEM_GAP.includes(itemGap),
-    itemHeaderAs: itemHeaderAs => ITEM_HEADER_AS.includes(itemHeaderAs)
+    color: (color) => COLORS.includes(color),
+    textColor: (textColor) => TEXT_COLORS.includes(textColor),
+    itemGap: (itemGap) => ITEM_GAP.includes(itemGap),
+    itemHeaderAs: (itemHeaderAs) => ITEM_HEADER_AS.includes(itemHeaderAs),
   });
   const {
     color,
@@ -194,14 +194,14 @@ function Accordion(props) {
     itemHeaderAs,
     itemGap,
     children,
-    testId
+    testId,
   } = mergedProps;
   const accordionInfo = useMemo(
     () => ({
       color,
       textColor,
       itemGap,
-      itemHeaderAs
+      itemHeaderAs,
     }),
     [color, textColor, itemGap, itemHeaderAs]
   );
@@ -219,7 +219,7 @@ Accordion.propTypes = {
   itemGap: PropTypes.oneOf(ITEM_GAP),
   itemHeaderAs: PropTypes.oneOf(ITEM_HEADER_AS),
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 Header.Icon = HeaderIcon;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions
+  getRadioOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
@@ -20,7 +20,7 @@ function IconPage() {
   const code = formatCode(
     name === "all"
       ? "<>" +
-          NAMES.map(name => `<Icon name="${name}" color="${color}" />`).join(
+          NAMES.map((name) => `<Icon name="${name}" color="${color}" />`).join(
             ""
           ) +
           "</>"
@@ -35,7 +35,7 @@ function IconPage() {
           padding: `${theme.space[5]} ${theme.space[6]}`,
           maxHeight: "224px",
           flexShrink: 0,
-          overflowY: "auto"
+          overflowY: "auto",
         }}
       >
         <RadioGroupSetting

@@ -23,7 +23,7 @@ function ChevronDown({ size, primaryColor, testId }) {
 ChevronDown.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default ChevronDown;

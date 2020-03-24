@@ -5,10 +5,10 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/core";
 
 // Inspired by: https://github.com/emotion-js/emotion/issues/760#issuecomment-404353706
-const memoizedCreateCacheWithContainer = weakMemoize(container => {
+const memoizedCreateCacheWithContainer = weakMemoize((container) => {
   return createCache({
     key: "basis", // This key must exist! See: https://emotion.sh/docs/@emotion/cache#key
-    container
+    container,
   });
 });
 
@@ -20,7 +20,7 @@ function CacheProviderWithContainer({ container, children }) {
 
 CacheProviderWithContainer.propTypes = {
   container: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default CacheProviderWithContainer;

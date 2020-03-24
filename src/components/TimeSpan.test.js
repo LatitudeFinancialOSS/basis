@@ -9,8 +9,8 @@ function FormWithTimeSpan(props) {
   const initialValues = {
     age: {
       years: "",
-      months: ""
-    }
+      months: "",
+    },
   };
 
   return (

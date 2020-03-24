@@ -9,7 +9,7 @@ import {
   responsivePaddingType,
   responsiveWidthType,
   responsiveHeightType,
-  responsivePropType
+  responsivePropType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
@@ -17,7 +17,7 @@ import {
   responsivePadding,
   responsiveSize,
   responsiveTextAlign,
-  mergeResponsiveCSS
+  mergeResponsiveCSS,
 } from "../utils/css";
 import { EXCEPTION_PREFIX } from "../utils/css";
 
@@ -28,13 +28,13 @@ const BACKGROUNDS = [
   "grey.t07",
   "secondary.lightBlue.t15",
   "secondary.lightBlue.t25",
-  "primary.blue.t100"
+  "primary.blue.t100",
 ];
 
 const BOX_SHADOWS = ["header"];
 
 const DEFAULT_PROPS = {
-  hasBreakpointWidth: false
+  hasBreakpointWidth: false,
 };
 
 Container.BACKGROUNDS = BACKGROUNDS;
@@ -49,7 +49,7 @@ function Container(_props) {
     hasBreakpointWidth,
     textStyle,
     children,
-    testId
+    testId,
   } = props;
   const theme = useTheme();
   const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
@@ -57,7 +57,7 @@ function Container(_props) {
     padding: responsivePadding,
     width: responsiveSize("width"),
     height: responsiveSize("height"),
-    textAlign: responsiveTextAlign
+    textAlign: responsiveTextAlign,
   });
   const responsiveCSS = hasBreakpointWidth
     ? mergeResponsiveCSS(
@@ -68,17 +68,17 @@ function Container(_props) {
           [theme.minMediaQueries.sm]: {
             maxWidth: theme.breakpointMaxWidths.sm,
             marginLeft: "auto",
-            marginRight: "auto"
+            marginRight: "auto",
           },
           [theme.minMediaQueries.md]: {
-            maxWidth: theme.breakpointMaxWidths.md
+            maxWidth: theme.breakpointMaxWidths.md,
           },
           [theme.minMediaQueries.lg]: {
-            maxWidth: theme.breakpointMaxWidths.lg
+            maxWidth: theme.breakpointMaxWidths.lg,
           },
           [theme.minMediaQueries.xl]: {
-            maxWidth: theme.breakpointMaxWidths.xl
-          }
+            maxWidth: theme.breakpointMaxWidths.xl,
+          },
         },
         responsivePropsCSS
       )
@@ -90,7 +90,7 @@ function Container(_props) {
         backgroundColor: theme.getColor(bg),
         ...responsiveCSS,
         ...theme[`container.${boxShadow}`],
-        "::after": theme[`container.${boxShadow}::after`]
+        "::after": theme[`container.${boxShadow}::after`],
       }}
       data-testid={testId}
     >
@@ -112,7 +112,7 @@ function Container(_props) {
 }
 
 Container.propTypes = {
-  bg: props => {
+  bg: (props) => {
     if (!props.bg || BACKGROUNDS.includes(props.bg)) {
       return;
     }
@@ -136,7 +136,7 @@ Container.propTypes = {
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
   hasBreakpointWidth: PropTypes.bool,
   children: PropTypes.node,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Container;

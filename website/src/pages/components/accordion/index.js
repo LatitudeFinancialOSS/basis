@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions
+  getRadioOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -12,7 +12,7 @@ const {
   TEXT_COLORS,
   ITEM_GAP,
   ITEM_HEADER_AS,
-  DEFAULT_PROPS
+  DEFAULT_PROPS,
 } = Accordion;
 const scope = allDesignSystem;
 
@@ -32,23 +32,23 @@ function AccordionPage() {
       {
         prop: "color",
         value: color,
-        defaultValue: DEFAULT_PROPS.color
+        defaultValue: DEFAULT_PROPS.color,
       },
       {
         prop: "textColor",
         value: textColor,
-        defaultValue: DEFAULT_PROPS.textColor
+        defaultValue: DEFAULT_PROPS.textColor,
       },
       {
         prop: "itemGap",
         value: itemGap,
-        defaultValue: DEFAULT_PROPS.itemGap
+        defaultValue: DEFAULT_PROPS.itemGap,
       },
       {
         prop: "itemHeaderAs",
         value: itemHeaderAs,
-        defaultValue: DEFAULT_PROPS.itemHeaderAs
-      }
+        defaultValue: DEFAULT_PROPS.itemHeaderAs,
+      },
     ])}>
       <Accordion.Item>
         <Accordion.Item.Header>
@@ -99,7 +99,7 @@ function AccordionPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

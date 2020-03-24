@@ -1,16 +1,16 @@
-export default theme => ({
+export default (theme) => ({
   field: {
     display: "inline-flex",
     flexDirection: "column",
-    position: "relative"
+    position: "relative",
   },
   "field.fullWidth": {
     display: "flex",
     width: "100%",
-    minWidth: 0 // See: https://stackoverflow.com/a/36247448/247243
+    minWidth: 0, // See: https://stackoverflow.com/a/36247448/247243
   },
   "field.disabled": {
-    opacity: 0.5
+    opacity: 0.5,
   },
   "field.label": {
     display: "flex",
@@ -19,7 +19,7 @@ export default theme => ({
     fontWeight: theme.fontWeights.medium,
     lineHeight: theme.lineHeights[2],
     color: theme.colors.grey.t75,
-    marginBottom: theme.space[2]
+    marginBottom: theme.space[2],
   },
   "field.label.optional": {
     alignSelf: "flex-end",
@@ -30,14 +30,14 @@ export default theme => ({
     border: `${theme.borderWidths[1]} solid ${theme.colors.grey.t75}`,
     borderRadius: theme.radii[2],
     opacity: 0.66,
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
   "field.helpText": {
-    paddingTop: theme.space[2]
+    paddingTop: theme.space[2],
   },
   "field.errors": {
     paddingTop: theme.space[1],
     borderTop: `${theme.borderWidths[2]} solid ${theme.colors.conditional.negative.graphics}`,
-    zIndex: 1
-  }
+    zIndex: 1,
+  },
 });

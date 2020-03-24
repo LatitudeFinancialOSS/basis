@@ -3,7 +3,7 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
@@ -38,36 +38,36 @@ function TimeSpanPage() {
           <TimeSpan ${nonDefaultProps([
             {
               prop: "name",
-              value: "liveInCurrentAddress"
+              value: "liveInCurrentAddress",
             },
             {
               prop: "color",
               value: color,
-              defaultValue: DEFAULT_PROPS.color
+              defaultValue: DEFAULT_PROPS.color,
             },
             {
               prop: "label",
-              value: "How long do you live in the current address?"
+              value: "How long do you live in the current address?",
             },
             {
               prop: "optional",
               value: optional,
               defaultValue: DEFAULT_PROPS.optional,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "helpText",
               value: hasHelpText
                 ? "Please be as accurate as possible."
                 : DEFAULT_PROPS.helpText,
-              defaultValue: DEFAULT_PROPS.helpText
+              defaultValue: DEFAULT_PROPS.helpText,
             },
             {
               prop: "disabled",
               value: disabled,
               defaultValue: DEFAULT_PROPS.disabled,
-              type: "boolean"
-            }
+              type: "boolean",
+            },
           ])}
           />
         </Form>
@@ -81,7 +81,7 @@ function TimeSpanPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

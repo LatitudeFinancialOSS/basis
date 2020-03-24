@@ -1,11 +1,11 @@
-export default theme => ({
+export default (theme) => ({
   checkboxLabelContainer: {
     display: "flex",
     flexDirection: "column",
-    flex: 1
+    flex: 1,
   },
   checkboxInput: {
-    ...theme.focusStyles.focusVisibleAdjacentLabel
+    ...theme.focusStyles.focusVisibleAdjacentLabel,
   },
   checkboxLabel: {
     display: "inline-flex",
@@ -17,31 +17,31 @@ export default theme => ({
     lineHeight: theme.lineHeights[2],
     fontFamily: theme.fonts.body,
     color: theme.colors.black,
-    borderRadius: theme.radii[0]
+    borderRadius: theme.radii[0],
   },
   "checkboxLabel.checked": {
     backgroundColor: theme.colors.secondary.lightBlue.t25,
-    color: theme.colors.primary.blue.t100
+    color: theme.colors.primary.blue.t100,
   },
   "checkboxLabel.grey.t05": {
-    backgroundColor: theme.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05,
   },
   "checkboxLabel.white": {
-    backgroundColor: theme.colors.white
+    backgroundColor: theme.colors.white,
   },
   checkboxIcon: {
     flexShrink: 0,
     width: "24px",
     height: "24px",
-    marginRight: theme.space[3]
+    marginRight: theme.space[3],
   },
   "checkboxIcon.secondary.lightBlue.t25": {
-    fill: theme.colors.secondary.lightBlue.t25
+    fill: theme.colors.secondary.lightBlue.t25,
   },
   "checkboxIcon.white": {
-    fill: theme.colors.white
+    fill: theme.colors.white,
   },
   checkboxIconMark: {
-    stroke: theme.colors.primary.blue.t100
-  }
+    stroke: theme.colors.primary.blue.t100,
+  },
 });

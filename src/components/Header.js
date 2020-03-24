@@ -21,7 +21,7 @@ function HeaderLogo({ name, testId }) {
 
 HeaderLogo.propTypes = {
   name: PropTypes.oneOf(Logo.NAMES).isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 const DEFAULT_PROPS = {};
@@ -30,7 +30,7 @@ Header.DEFAULT_PROPS = DEFAULT_PROPS;
 Header.ID = "Header";
 Header.HEIGHT_MAP = {
   default: 56,
-  lg: 80
+  lg: 80,
 };
 
 function Header(_props) {
@@ -38,7 +38,7 @@ function Header(_props) {
   const { children, testId } = props;
   const heightMap = Header.HEIGHT_MAP;
   const heightProps = useMemo(() => getPropsFromMap("height", heightMap), [
-    heightMap
+    heightMap,
   ]);
 
   return (
@@ -56,7 +56,7 @@ function Header(_props) {
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 Header.Logo = HeaderLogo;

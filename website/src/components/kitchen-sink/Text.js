@@ -10,14 +10,14 @@ function KitchenSinkText() {
       </Container>
 
       <Container padding="4">
-        {Text.TEXT_STYLES.map(textStyle => (
+        {Text.TEXT_STYLES.map((textStyle) => (
           <Text textStyle={textStyle} key={textStyle}>
             {textStyle} <strong>bold</strong>
           </Text>
         ))}
       </Container>
 
-      {Text.COLORS.map(color => (
+      {Text.COLORS.map((color) => (
         <Container
           bg={color === "white" ? "primary.blue.t100" : null}
           padding="4"
@@ -27,7 +27,7 @@ function KitchenSinkText() {
         </Container>
       ))}
 
-      {Text.ALIGNS.map(align => (
+      {Text.ALIGNS.map((align) => (
         <Container padding="4" key={align}>
           <Text align={align}>{align}</Text>
         </Container>

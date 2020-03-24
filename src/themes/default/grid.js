@@ -1,14 +1,14 @@
-export default theme => ({
+export default (theme) => ({
   grid: {
     display: "grid",
-    position: "relative"
+    position: "relative",
   },
   gridItem: {
     /* 
       Don't add overflow: hidden here because it will hide the focus style 
       of the components that use Grid (e.g. TimeSpan, Frequency).
     */
-    minWidth: 0 // This helps the RadioGroup items to shrink on narrow screens
+    minWidth: 0, // This helps the RadioGroup items to shrink on narrow screens
   },
   gridOverlay: {
     position: "absolute",
@@ -18,9 +18,9 @@ export default theme => ({
     right: 0,
     bottom: 0,
     gridGap: "inherit",
-    pointerEvents: "none"
+    pointerEvents: "none",
   },
   gridOverlayItem: {
-    border: `${theme.borderWidths[0]} dotted`
-  }
+    border: `${theme.borderWidths[0]} dotted`,
+  },
 });

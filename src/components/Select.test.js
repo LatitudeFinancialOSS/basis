@@ -8,21 +8,21 @@ import Container from "./Container";
 const options = [
   {
     label: "Single",
-    value: "single"
+    value: "single",
   },
   {
     label: "Married",
-    value: "married"
+    value: "married",
   },
   {
     label: "Other",
-    value: "other"
-  }
+    value: "other",
+  },
 ];
 
 function FormWithSelect(props) {
   const initialValues = {
-    relationshipStatus: ""
+    relationshipStatus: "",
   };
 
   return (

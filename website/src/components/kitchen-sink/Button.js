@@ -10,8 +10,8 @@ function KitchenSinkButton() {
           <Button>Default</Button>
         </Container>
 
-        {Button.VARIANTS.map(variant =>
-          Button.COLORS.map(color => (
+        {Button.VARIANTS.map((variant) =>
+          Button.COLORS.map((color) => (
             <Container
               padding="4"
               bg={color === "white" ? "primary.blue.t100" : null}
