@@ -16,6 +16,7 @@ describe("Sticky", () => {
       );
     }
 
+    MyStickyNav.ID = "MyStickyNav";
     MyStickyNav.HEIGHT_MAP = {
       default: 120,
       lg: 60

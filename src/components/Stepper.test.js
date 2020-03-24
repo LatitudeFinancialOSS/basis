@@ -4,6 +4,16 @@ import "@testing-library/jest-dom/extend-expect";
 import Stepper from "./Stepper";
 
 describe("Stepper", () => {
+  it("exposes an ID", () => {
+    expect(Stepper.ID).toBe("Stepper");
+  });
+
+  it("exposes a HEIGHT_MAP", () => {
+    expect(Stepper.HEIGHT_MAP).toStrictEqual({
+      default: 100
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <Stepper testId="my-stepper">

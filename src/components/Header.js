@@ -27,6 +27,7 @@ HeaderLogo.propTypes = {
 const DEFAULT_PROPS = {};
 
 Header.DEFAULT_PROPS = DEFAULT_PROPS;
+Header.ID = "Header";
 Header.HEIGHT_MAP = {
   default: 56,
   lg: 80
