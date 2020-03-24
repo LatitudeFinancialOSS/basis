@@ -106,7 +106,7 @@ describe("Link", () => {
   });
 
   it("with analyticsClassName", () => {
-    const { container } = render(
+    const { getByText } = render(
       <Link
         href="/terms"
         newTab={false}
@@ -116,6 +116,8 @@ describe("Link", () => {
       </Link>
     );
 
-    expect(container.firstChild).toHaveClass("trackcustomanalytics");
+    const link = getByText("Terms and Conditions");
+
+    expect(link).toHaveClass("trackcustomanalytics");
   });
 });

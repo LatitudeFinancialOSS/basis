@@ -83,7 +83,6 @@ function Link(props) {
         - It gets a `to` prop, which gets mapped to <a>'s `href` prop.
         - It gets a `title` prop which is set on the rendered <a>.
         - It gets a `data-testid` prop which is set on the rendered <a>.
-        - It gets a `analyticsClassName` prop which is set as a `className` on the rendered <a>.
         - It gets a `children` prop, which gets rendered as <a>'s `children`.
 
       Example: Gatsby `Link` component.
