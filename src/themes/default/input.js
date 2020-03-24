@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   input: {
     boxSizing: "border-box",
     fontSize: theme.fontSizes[1],
@@ -11,20 +11,20 @@ export default theme => ({
     height: "48px",
     border: 0,
     margin: 0,
-    MozAppearance: "textfield" // Hides the input="number" spin buttons in Firefox
+    MozAppearance: "textfield", // Hides the input="number" spin buttons in Firefox
   },
   "input:focus": {
     outline: 0,
     borderRadius: theme.radii[0],
-    boxShadow: theme.shadows.focus
+    boxShadow: theme.shadows.focus,
   },
   "input.webkitSpinButton": {
-    display: "none" // Hides the input="number" spin buttons in Chrome
+    display: "none", // Hides the input="number" spin buttons in Chrome
   },
   "input.default": {
-    backgroundColor: theme.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05,
   },
   "input.white": {
-    backgroundColor: theme.colors.white
-  }
+    backgroundColor: theme.colors.white,
+  },
 });

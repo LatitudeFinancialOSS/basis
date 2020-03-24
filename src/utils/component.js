@@ -23,7 +23,7 @@ export function mergeProps(props, defaultProps, inheritedProps, validations) {
   return {
     ...defaultProps,
     ...filterValidProps(inheritedProps, validations),
-    ...filterValidProps(props, validations)
+    ...filterValidProps(props, validations),
   };
 }
 

@@ -3,7 +3,7 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
@@ -37,37 +37,37 @@ function CheckboxPage() {
         <Checkbox ${nonDefaultProps([
           {
             prop: "name",
-            value: "agreedToTerms"
+            value: "agreedToTerms",
           },
           {
             prop: "label",
             value: hasLabel
               ? "Accept terms and conditions"
               : DEFAULT_PROPS.label,
-            defaultValue: DEFAULT_PROPS.label
+            defaultValue: DEFAULT_PROPS.label,
           },
           {
             prop: "color",
             value: color,
-            defaultValue: DEFAULT_PROPS.color
+            defaultValue: DEFAULT_PROPS.color,
           },
           {
             prop: "optional",
             value: optional,
             defaultValue: DEFAULT_PROPS.optional,
-            type: "boolean"
+            type: "boolean",
           },
           {
             prop: "helpText",
             value: hasHelpText ? "Help text" : DEFAULT_PROPS.helpText,
-            defaultValue: DEFAULT_PROPS.helpText
+            defaultValue: DEFAULT_PROPS.helpText,
           },
           {
             prop: "disabled",
             value: disabled,
             defaultValue: DEFAULT_PROPS.disabled,
-            type: "boolean"
-          }
+            type: "boolean",
+          },
         ])}
         >
           I agree
@@ -83,7 +83,7 @@ function CheckboxPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

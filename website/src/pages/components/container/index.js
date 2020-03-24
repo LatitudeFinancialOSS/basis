@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -12,7 +12,7 @@ const { BACKGROUNDS, DEFAULT_PROPS } = Container;
 const scope = allDesignSystem;
 
 const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
-  emptyLabel: "No background"
+  emptyLabel: "No background",
 });
 const hasBreakpointWidthOptions = getCheckboxOptions();
 
@@ -27,18 +27,18 @@ function ContainerPage() {
       {
         prop: "bg",
         value: bg,
-        defaultValue: DEFAULT_PROPS.bg
+        defaultValue: DEFAULT_PROPS.bg,
       },
       {
         prop: "padding",
-        value: "6 8"
+        value: "6 8",
       },
       {
         prop: "hasBreakpointWidth",
         value: hasBreakpointWidth,
         defaultValue: DEFAULT_PROPS.hasBreakpointWidth,
-        type: "boolean"
-      }
+        type: "boolean",
+      },
     ])}
     >
       <Stack gap="4">
@@ -66,7 +66,7 @@ function ContainerPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

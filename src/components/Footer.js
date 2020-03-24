@@ -23,7 +23,7 @@ function HeaderLogo({ name, testId }) {
 
 HeaderLogo.propTypes = {
   name: PropTypes.oneOf(Logo.NAMES).isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function HeaderSocial({ children, testId }) {
@@ -51,7 +51,7 @@ function HeaderSocial({ children, testId }) {
 
 HeaderSocial.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function SocialFacebook({ href, title, testId }) {
@@ -69,7 +69,7 @@ function SocialFacebook({ href, title, testId }) {
 SocialFacebook.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function SocialYouTube({ href, title, testId }) {
@@ -83,7 +83,7 @@ function SocialYouTube({ href, title, testId }) {
 SocialYouTube.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function SocialTwitter({ href, title, testId }) {
@@ -97,7 +97,7 @@ function SocialTwitter({ href, title, testId }) {
 SocialTwitter.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function SocialInstagram({ href, title, testId }) {
@@ -115,7 +115,7 @@ function SocialInstagram({ href, title, testId }) {
 SocialInstagram.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function SocialLinkedIn({ href, title, testId }) {
@@ -133,7 +133,7 @@ function SocialLinkedIn({ href, title, testId }) {
 SocialLinkedIn.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function Header({ children, testId }) {
@@ -150,13 +150,13 @@ function Header({ children, testId }) {
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function LegalLinks({ children, testId }) {
   const links = React.Children.toArray(children).filter(
     // Ignore all children that aren't a Link
-    child => child.type === Link
+    (child) => child.type === Link
   );
 
   return (
@@ -180,7 +180,7 @@ function LegalLinks({ children, testId }) {
 
 LegalLinks.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function LegalCopy({ children, testId }) {
@@ -193,7 +193,7 @@ function LegalCopy({ children, testId }) {
 
 LegalCopy.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function Legal({ children, testId }) {
@@ -208,7 +208,7 @@ function Legal({ children, testId }) {
 
 Legal.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function Footer({ children, testId }) {
@@ -217,7 +217,7 @@ function Footer({ children, testId }) {
 
 Footer.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 Footer.Header = Header;

@@ -8,21 +8,21 @@ import Container from "./Container";
 const options = [
   {
     label: "Yes",
-    value: "yes"
+    value: "yes",
   },
   {
     label: "No",
-    value: "no"
+    value: "no",
   },
   {
     label: "Maybe",
-    value: "maybe"
-  }
+    value: "maybe",
+  },
 ];
 
 function FormWithRadioGroup(props) {
   const initialValues = {
-    hungry: ""
+    hungry: "",
   };
 
   return (

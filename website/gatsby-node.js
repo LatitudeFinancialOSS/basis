@@ -4,12 +4,12 @@ const { siteMetadata } = require("./gatsby-config");
 
 const prodAlias = {
   react: path.resolve("./node_modules/react"), // Resolves to [REPO_LOCATION]/website/node_modules/react
-  "@emotion": path.resolve("./node_modules/@emotion")
+  "@emotion": path.resolve("./node_modules/@emotion"),
 };
 
 const devAlias = {
   "react-dom": "@hot-loader/react-dom", // https://github.com/gatsbyjs/gatsby/issues/11934
-  "react-error-overlay": path.resolve("./react-error-overlay") // For react-error-overlay disabling see: https://github.com/gatsbyjs/gatsby/issues/20420
+  "react-error-overlay": path.resolve("./react-error-overlay"), // For react-error-overlay disabling see: https://github.com/gatsbyjs/gatsby/issues/20420
 };
 
 /*
@@ -22,13 +22,13 @@ exports.onCreateWebpackConfig = ({ actions, stage }) => {
   if (stage.startsWith("develop")) {
     alias = {
       ...alias,
-      ...devAlias
+      ...devAlias,
     };
   }
 
   actions.setWebpackConfig({
     resolve: {
-      alias
+      alias,
     },
     /**
      * Inspiration from https://github.com/gatsbyjs/gatsby/issues/10965. There seems to be an issue where a couple dependecies are duplicated
@@ -40,11 +40,11 @@ exports.onCreateWebpackConfig = ({ actions, stage }) => {
           commons: {
             name: `commons`,
             chunks: `all`,
-            minChunks: 2
-          }
-        }
-      }
-    }
+            minChunks: 2,
+          },
+        },
+      },
+    },
   });
 };
 

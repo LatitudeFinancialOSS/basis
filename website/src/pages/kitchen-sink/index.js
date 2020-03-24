@@ -22,7 +22,7 @@ import {
   Stepper,
   Sticky,
   Text,
-  TimeSpan
+  TimeSpan,
 } from "../../components/kitchen-sink";
 import "typeface-montserrat";
 import "typeface-roboto";

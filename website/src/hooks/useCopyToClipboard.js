@@ -24,7 +24,7 @@ function useCopyToClipboard(getTextToCopy) {
       const didCopy = copyToClipboard(getTextToCopy());
 
       setIsCopied(didCopy);
-    }
+    },
   ];
 }
 

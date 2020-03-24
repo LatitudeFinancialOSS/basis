@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions
+  getRadioOptions,
 } from "../../../components/RadioGroupSetting";
 import RangeSetting from "../../../components/RangeSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
@@ -26,12 +26,12 @@ function StackPage() {
         {
           prop: "direction",
           value: direction,
-          defaultValue: DEFAULT_PROPS.direction
+          defaultValue: DEFAULT_PROPS.direction,
         },
         {
           prop: "align",
           value: align,
-          defaultValue: DEFAULT_PROPS.align
+          defaultValue: DEFAULT_PROPS.align,
         },
         {
           prop: "gap",
@@ -39,8 +39,8 @@ function StackPage() {
             direction === "horizontal" && verticalGap !== horizontalGap
               ? `${verticalGap} ${horizontalGap}`
               : `${verticalGap}`,
-          defaultValue: DEFAULT_PROPS.gap
-        }
+          defaultValue: DEFAULT_PROPS.gap,
+        },
       ])}>
         <Placeholder label="1" height="40" width="100" />
         <Placeholder label="2" height="40" width="40" />
@@ -58,7 +58,7 @@ function StackPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

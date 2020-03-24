@@ -23,7 +23,7 @@ function ChevronUp({ size, primaryColor, testId }) {
 ChevronUp.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default ChevronUp;

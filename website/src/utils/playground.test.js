@@ -7,20 +7,20 @@ describe("getComponentsAtPoint", () => {
         left: 20,
         top: 80,
         right: 60,
-        bottom: 100
+        bottom: 100,
       },
       bar: {
         left: 30,
         top: 100,
         right: 40,
-        bottom: 120
+        bottom: 120,
       },
       baz: {
         left: 10,
         top: 70,
         right: 50,
-        bottom: 90
-      }
+        bottom: 90,
+      },
     };
 
     expect(
@@ -30,14 +30,14 @@ describe("getComponentsAtPoint", () => {
         left: 20,
         top: 80,
         right: 60,
-        bottom: 100
+        bottom: 100,
       },
       baz: {
         left: 10,
         top: 70,
         right: 50,
-        bottom: 90
-      }
+        bottom: 90,
+      },
     });
   });
 });

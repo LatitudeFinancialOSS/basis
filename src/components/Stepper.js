@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import useResponsiveProp, {
-  responsivePropType
+  responsivePropType,
 } from "../hooks/useResponsiveProp";
 import { Section, Text, Icon } from ".";
 
 const DEFAULT_ITEM_PROPS = {
   minor: false,
-  current: false
+  current: false,
 };
 
 Item.DEFAULT_PROPS = DEFAULT_ITEM_PROPS;
@@ -25,7 +25,7 @@ function Item(_props) {
     <div
       css={{
         ...theme["stepper.item"],
-        width: `${100 / total}%`
+        width: `${100 / total}%`,
       }}
     >
       <div css={theme["stepper.itemLabelContainer"]}>
@@ -47,7 +47,7 @@ function Item(_props) {
             css={{
               ...theme["stepper.progress.left"],
               ...((isPrevious || current) &&
-                theme["stepper.progress.completed"])
+                theme["stepper.progress.completed"]),
             }}
           />
         )}
@@ -55,7 +55,7 @@ function Item(_props) {
           <div
             css={{
               ...theme["stepper.progress.right"],
-              ...(isPrevious && theme["stepper.progress.completed"])
+              ...(isPrevious && theme["stepper.progress.completed"]),
             }}
           />
         )}
@@ -64,7 +64,7 @@ function Item(_props) {
             ...theme["stepper.itemCircle"],
             ...(minor && theme["stepper.itemCircle.minor"]),
             ...(current && theme["stepper.itemCircle.current"]),
-            ...(isPrevious && theme["stepper.itemCircle.previous"])
+            ...(isPrevious && theme["stepper.itemCircle.previous"]),
           }}
         >
           {isPrevious && !minor && <Icon name="tick" color="white" />}
@@ -86,17 +86,17 @@ Item.propTypes = {
   index: PropTypes.number,
   total: PropTypes.number,
   isPrevious: PropTypes.bool,
-  majorStepNumber: PropTypes.number
+  majorStepNumber: PropTypes.number,
 };
 
 const DEFAULT_PROPS = {
-  completed: false
+  completed: false,
 };
 
 Stepper.DEFAULT_PROPS = DEFAULT_PROPS;
 Stepper.ID = "Stepper";
 Stepper.HEIGHT_MAP = {
-  default: 100
+  default: 100,
 };
 
 function Stepper(_props) {
@@ -105,9 +105,11 @@ function Stepper(_props) {
   const theme = useTheme();
   const steps = React.Children.toArray(children).filter(
     // Ignore all children that aren't Step.Item
-    child => child.type === Item
+    (child) => child.type === Item
   );
-  const currentStepIndex = steps.findIndex(step => step.props.current === true);
+  const currentStepIndex = steps.findIndex(
+    (step) => step.props.current === true
+  );
 
   return (
     <Section bg="grey.t07" testId={testId}>
@@ -122,7 +124,7 @@ function Stepper(_props) {
                   index: index,
                   total: steps.length,
                   isPrevious: completed || index < currentStepIndex,
-                  majorStepNumber: minor ? null : acc.majorStepNumber
+                  majorStepNumber: minor ? null : acc.majorStepNumber,
                 })
               );
 
@@ -134,7 +136,7 @@ function Stepper(_props) {
             },
             {
               items: [],
-              majorStepNumber: 1
+              majorStepNumber: 1,
             }
           ).items
         }
@@ -146,7 +148,7 @@ function Stepper(_props) {
 Stepper.propTypes = {
   completed: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 Stepper.Item = Item;

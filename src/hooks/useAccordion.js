@@ -10,14 +10,14 @@ function useAccordion() {
     color: "grey.t07",
     textColor: "black",
     itemHeaderAs: "h3",
-    itemGap: "large"
+    itemGap: "large",
   };
 
   return {
     color,
     textColor,
     itemHeaderAs,
-    itemGap
+    itemGap,
   };
 }
 

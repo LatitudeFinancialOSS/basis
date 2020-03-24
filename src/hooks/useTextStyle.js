@@ -11,7 +11,7 @@ function useTextStyle() {
 
   return {
     textStyle,
-    textStyleCSS: theme.getTextStyleCSS(textStyle)
+    textStyleCSS: theme.getTextStyleCSS(textStyle),
   };
 }
 

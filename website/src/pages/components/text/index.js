@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -32,7 +32,7 @@ function TextPage() {
   const [align, setAlign] = useState(DEFAULT_PROPS.align);
   const colorOptions = getRadioOptions(getAllowedColorsForTextStyle(textStyle));
   const [wrap, setWrap] = useState(DEFAULT_PROPS.wrap);
-  const setTextStyleAndResetValues = textStyle => {
+  const setTextStyleAndResetValues = (textStyle) => {
     setTextStyle(textStyle);
 
     if (!getAllowedColorsForTextStyle(textStyle).includes(color)) {
@@ -44,29 +44,29 @@ function TextPage() {
       {
         prop: "as",
         value: as,
-        defaultValue: DEFAULT_PROPS.as
+        defaultValue: DEFAULT_PROPS.as,
       },
       {
         prop: "textStyle",
         value: textStyle,
-        defaultValue: DEFAULT_PROPS.textStyle
+        defaultValue: DEFAULT_PROPS.textStyle,
       },
       {
         prop: "color",
         value: color,
-        defaultValue: DEFAULT_PROPS.color
+        defaultValue: DEFAULT_PROPS.color,
       },
       {
         prop: "align",
         value: align,
-        defaultValue: DEFAULT_PROPS.align
+        defaultValue: DEFAULT_PROPS.align,
       },
       {
         prop: "wrap",
         value: wrap,
         defaultValue: DEFAULT_PROPS.wrap,
-        type: "boolean"
-      }
+        type: "boolean",
+      },
     ])}
 >
   The <strong>quick</strong> brown fox jumps over the lazy dog.
@@ -80,7 +80,7 @@ function TextPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

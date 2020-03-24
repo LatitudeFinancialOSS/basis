@@ -17,7 +17,7 @@ function KitchenSinkLayout({ name, children }) {
 
 KitchenSinkLayout.propTypes = {
   name: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default KitchenSinkLayout;

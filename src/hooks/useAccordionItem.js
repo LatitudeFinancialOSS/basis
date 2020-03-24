@@ -10,19 +10,19 @@ function useAccordionItem() {
     headerId,
     contentId,
     isOpen,
-    toggleAccordionItem
+    toggleAccordionItem,
   } = accordionItemInfo ?? {
     headerId: null,
     contentId: null,
     isOpen: false,
-    toggleAccordionItem: () => {}
+    toggleAccordionItem: () => {},
   };
 
   return {
     headerId,
     contentId,
     isOpen,
-    toggleAccordionItem
+    toggleAccordionItem,
   };
 }
 

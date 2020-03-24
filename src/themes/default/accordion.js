@@ -1,18 +1,18 @@
 import textStyles from "./textStyles";
 
-export default theme => ({
+export default (theme) => ({
   "accordionItem.small": {
     ":not(:first-of-type)": {
-      marginTop: "1px" // This is an exception to our space scale
-    }
+      marginTop: "1px", // This is an exception to our space scale
+    },
   },
   "accordionItem.large": {
     ":not(:first-of-type)": {
-      marginTop: theme.space[1]
-    }
+      marginTop: theme.space[1],
+    },
   },
   accordionHeader: {
-    margin: 0
+    margin: 0,
   },
   accordionHeaderButton: {
     display: "flex",
@@ -26,26 +26,26 @@ export default theme => ({
     ...textStyles(theme)["subtitle2"],
     ...textStyles(theme)["subtitle2.bold"],
     position: "relative", // Without this, when the Accordion.Item is open, the box shadow is covered by Accordion.Item.Content.
-    ...theme.focusStyles.focusVisible
+    ...theme.focusStyles.focusVisible,
   },
   accordionHeaderContent: {
     display: "flex",
     alignItems: "center",
-    flexGrow: 1
+    flexGrow: 1,
   },
   accordionHeaderIcon: {
     display: "flex",
-    marginRight: theme.space[2]
+    marginRight: theme.space[2],
   },
   accordionHeaderChevron: {
     display: "flex",
     transformOrigin: "50% 50%",
-    transition: "transform .25s ease"
+    transition: "transform .25s ease",
   },
   "accordionHeaderChevron.open": {
-    transform: "translateZ(0) rotate(180deg)"
+    transform: "translateZ(0) rotate(180deg)",
   },
   accordionContent: {
-    padding: `${theme.space[4]} ${theme.space[11]} ${theme.space[4]} ${theme.space[6]}`
-  }
+    padding: `${theme.space[4]} ${theme.space[11]} ${theme.space[4]} ${theme.space[6]}`,
+  },
 });

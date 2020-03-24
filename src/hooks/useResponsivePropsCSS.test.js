@@ -4,7 +4,7 @@ import Grid from "../components/Grid";
 import Flex from "../components/Flex";
 import Text from "../components/Text";
 import useResponsivePropsCSS, {
-  getBreakpointToPropsMap
+  getBreakpointToPropsMap,
 } from "./useResponsivePropsCSS";
 import {
   getGridTemplateColumns,
@@ -15,7 +15,7 @@ import {
   responsivePadding,
   responsiveTextStyle,
   responsiveFlexDirection,
-  responsiveFlexPlaceItems
+  responsiveFlexPlaceItems,
 } from "../utils/css";
 import { TestWrapper } from "../utils/test";
 import { defaultTheme as theme } from "..";
@@ -29,10 +29,10 @@ describe("getBreakpointToPropsMap", () => {
       placeItems: "center",
       "placeItems-md": "bottom right",
       width: "40",
-      "foo-xll": true
+      "foo-xll": true,
     };
     const defaultProps = {
-      gap: 2
+      gap: 2,
     };
 
     expect(getBreakpointToPropsMap(theme, props, defaultProps)).toStrictEqual({
@@ -41,43 +41,43 @@ describe("getBreakpointToPropsMap", () => {
         gap: 2,
         placeItems: "center",
         width: "40",
-        "foo-xll": true
+        "foo-xll": true,
       },
       xs: {
         direction: "row",
         gap: 2,
         placeItems: "center",
         width: "40",
-        "foo-xll": true
+        "foo-xll": true,
       },
       sm: {
         direction: "column",
         gap: 2,
         placeItems: "center",
         width: "40",
-        "foo-xll": true
+        "foo-xll": true,
       },
       md: {
         direction: "column",
         gap: 2,
         placeItems: "bottom right",
         width: "40",
-        "foo-xll": true
+        "foo-xll": true,
       },
       lg: {
         direction: "column",
         gap: 6,
         placeItems: "bottom right",
         width: "40",
-        "foo-xll": true
+        "foo-xll": true,
       },
       xl: {
         direction: "column",
         gap: 6,
         placeItems: "bottom right",
         width: "40",
-        "foo-xll": true
-      }
+        "foo-xll": true,
+      },
     });
   });
 });
@@ -93,13 +93,13 @@ describe("useResponsivePropsCSS", () => {
       "padding-xs": 5,
       "padding-sm": "6",
       "padding-xl": "0 8",
-      anotherProp: "some value"
+      anotherProp: "some value",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Container.DEFAULT_PROPS, {
           margin: responsiveMargin,
-          padding: responsivePadding
+          padding: responsivePadding,
         }),
       { wrapper: TestWrapper }
     );
@@ -109,18 +109,18 @@ describe("useResponsivePropsCSS", () => {
       padding: "16px",
       "@media (min-width: 375px)": {
         margin: "auto 16px 24px auto",
-        padding: "20px"
+        padding: "20px",
       },
       "@media (min-width: 576px)": {
         margin: "16px 24px",
-        padding: "24px"
+        padding: "24px",
       },
       "@media (min-width: 992px)": {
-        margin: "8px 12px 0px"
+        margin: "8px 12px 0px",
       },
       "@media (min-width: 1200px)": {
-        padding: "0px 32px"
-      }
+        padding: "0px 32px",
+      },
     });
     expect(isCSSinOrder(result.current)).toBe(true);
   });
@@ -134,26 +134,26 @@ describe("useResponsivePropsCSS", () => {
       colsGap: 5,
       "colsGap-lg": "30px",
       rowsGap: "0",
-      "rowsGap-lg": "7"
+      "rowsGap-lg": "7",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Grid.DEFAULT_PROPS, {
           cols: ({ cols }) => {
             return {
-              gridTemplateColumns: getGridTemplateColumns(cols)
+              gridTemplateColumns: getGridTemplateColumns(cols),
             };
           },
           colsGap: ({ colsGap }) => {
             return {
-              gridColumnGap: getGapPx(colsGap, theme)
+              gridColumnGap: getGapPx(colsGap, theme),
             };
           },
           rowsGap: ({ rowsGap }) => {
             return {
-              gridRowGap: getGapPx(rowsGap, theme)
+              gridRowGap: getGapPx(rowsGap, theme),
             };
-          }
+          },
         }),
       { wrapper: TestWrapper }
     );
@@ -163,18 +163,18 @@ describe("useResponsivePropsCSS", () => {
       gridColumnGap: "20px",
       gridRowGap: "0px",
       "@media (min-width: 375px)": {
-        gridTemplateColumns: "repeat(2, 1fr)"
+        gridTemplateColumns: "repeat(2, 1fr)",
       },
       "@media (min-width: 768px)": {
-        gridTemplateColumns: "40px"
+        gridTemplateColumns: "40px",
       },
       "@media (min-width: 992px)": {
         gridColumnGap: "30px",
-        gridRowGap: "28px"
+        gridRowGap: "28px",
       },
       "@media (min-width: 1200px)": {
-        gridTemplateColumns: "repeat(240px, 1fr)"
-      }
+        gridTemplateColumns: "repeat(240px, 1fr)",
+      },
     });
     expect(isCSSinOrder(result.current)).toBe(true);
   });
@@ -188,7 +188,7 @@ describe("useResponsivePropsCSS", () => {
       "colSpan-xl": "foo",
       rowSpan: true,
       "rowSpan-xs": "1-2-3",
-      "rowSpan-lg": "2-3"
+      "rowSpan-lg": "2-3",
     };
     const { result } = renderHook(
       () =>
@@ -198,7 +198,7 @@ describe("useResponsivePropsCSS", () => {
 
             return gridLines
               ? {
-                  gridColumn: `${gridLines[0]} / ${gridLines[1]}`
+                  gridColumn: `${gridLines[0]} / ${gridLines[1]}`,
                 }
               : {};
           },
@@ -207,10 +207,10 @@ describe("useResponsivePropsCSS", () => {
 
             return gridLines
               ? {
-                  gridRow: `${gridLines[0]} / ${gridLines[1]}`
+                  gridRow: `${gridLines[0]} / ${gridLines[1]}`,
                 }
               : {};
-          }
+          },
         }),
       { wrapper: TestWrapper }
     );
@@ -218,15 +218,15 @@ describe("useResponsivePropsCSS", () => {
     expect(result.current).toStrictEqual({
       gridColumn: "1 / -1",
       "@media (min-width: 576px)": {
-        gridColumn: "9 / 10"
+        gridColumn: "9 / 10",
       },
       "@media (min-width: 768px)": {
-        gridColumn: "5 / 6"
+        gridColumn: "5 / 6",
       },
       "@media (min-width: 992px)": {
         gridColumn: "1 / 4",
-        gridRow: "3 / 5"
-      }
+        gridRow: "3 / 5",
+      },
     });
     expect(isCSSinOrder(result.current)).toBe(true);
   });
@@ -237,16 +237,16 @@ describe("useResponsivePropsCSS", () => {
       textStyle: "heading4",
       "textStyle-sm": "heading3",
       "textStyle-lg": "heading2",
-      margin: "5"
+      margin: "5",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Text.DEFAULT_PROPS, {
           margin: responsiveMargin,
-          textStyle: responsiveTextStyle
+          textStyle: responsiveTextStyle,
         }),
       {
-        wrapper: TestWrapper
+        wrapper: TestWrapper,
       }
     );
 
@@ -258,37 +258,37 @@ describe("useResponsivePropsCSS", () => {
       lineHeight: "28px",
       margin: "20px",
       "& b": {
-        fontWeight: 600
+        fontWeight: 600,
       },
       "& strong": {
-        fontWeight: 600
+        fontWeight: 600,
       },
       "@media (min-width: 576px)": {
         fontSize: "32px",
         letterSpacing: "-0.7px",
-        lineHeight: "36px"
+        lineHeight: "36px",
       },
       "@media (min-width: 992px)": {
         fontSize: "40px",
         letterSpacing: "-0.88px",
-        lineHeight: "48px"
-      }
+        lineHeight: "48px",
+      },
     });
     expect(isCSSinOrder(result.current)).toBe(true);
   });
 
   it("Text - paragraph", () => {
     const props = {
-      textStyle: "body2"
+      textStyle: "body2",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Text.DEFAULT_PROPS, {
           margin: responsiveMargin,
-          textStyle: responsiveTextStyle
+          textStyle: responsiveTextStyle,
         }),
       {
-        wrapper: TestWrapper
+        wrapper: TestWrapper,
       }
     );
 
@@ -299,11 +299,11 @@ describe("useResponsivePropsCSS", () => {
       letterSpacing: "0px",
       lineHeight: "20px",
       "& b": {
-        fontWeight: 500
+        fontWeight: 500,
       },
       "& strong": {
-        fontWeight: 500
-      }
+        fontWeight: 500,
+      },
     });
   });
 
@@ -312,26 +312,26 @@ describe("useResponsivePropsCSS", () => {
       height: "80px",
       "direction-md": "column",
       "direction-large": "row",
-      "direction-xl": "row"
+      "direction-xl": "row",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          gap: responsiveFlexDirection
+          gap: responsiveFlexDirection,
         }),
       {
-        wrapper: TestWrapper
+        wrapper: TestWrapper,
       }
     );
 
     expect(result.current).toStrictEqual({
       flexDirection: "row",
       "@media (min-width: 768px)": {
-        flexDirection: "column"
+        flexDirection: "column",
       },
       "@media (min-width: 1200px)": {
-        flexDirection: "row"
-      }
+        flexDirection: "row",
+      },
     });
     expect(isCSSinOrder(result.current)).toBe(true);
   });
@@ -343,15 +343,15 @@ describe("useResponsivePropsCSS", () => {
       "direction-xl": "column",
       "placeItems-xs": "bottom left",
       "placeItems-sm": "center right",
-      "placeItems-xl": "center"
+      "placeItems-xl": "center",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Flex.DEFAULT_PROPS, {
-          placeItems: responsiveFlexPlaceItems
+          placeItems: responsiveFlexPlaceItems,
         }),
       {
-        wrapper: TestWrapper
+        wrapper: TestWrapper,
       }
     );
 
@@ -359,23 +359,23 @@ describe("useResponsivePropsCSS", () => {
       alignItems: "flex-start",
       justifyContent: "flex-start",
       "@media (min-width: 375px)": {
-        alignItems: "flex-end"
+        alignItems: "flex-end",
       },
       "@media (min-width: 576px)": {
         alignItems: "center",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
       },
       "@media (min-width: 768px)": {
         alignItems: "flex-end",
-        justifyContent: "center"
+        justifyContent: "center",
       },
       "@media (min-width: 992px)": {
         alignItems: "center",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
       },
       "@media (min-width: 1200px)": {
-        justifyContent: "center"
-      }
+        justifyContent: "center",
+      },
     });
     expect(isCSSinOrder(result.current)).toBe(true);
   });

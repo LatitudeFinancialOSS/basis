@@ -30,7 +30,7 @@ const theme = {
     "48px", // 11
     "56px", // 12
     "64px", // 13
-    "72px" // 14
+    "72px", // 14
   ],
   fontSizes: [
     "14px", // 0
@@ -41,7 +41,7 @@ const theme = {
     "32px", // 5
     "40px", // 6
     "48px", // 7
-    "104px" // 8
+    "104px", // 8
   ],
   lineHeights: [
     "20px", // 0
@@ -51,7 +51,7 @@ const theme = {
     "36px", // 4
     "48px", // 5
     "56px", // 6
-    "120px" // 7
+    "120px", // 7
   ],
   letterSpacings: {
     hero: "-2.28px",
@@ -62,17 +62,17 @@ const theme = {
     heading5: "-0.44px",
     heading6: "-0.35px",
     body: "0px",
-    overline: "2.6px"
+    overline: "2.6px",
   },
   fonts: {
     heading: "'Montserrat', sans-serif",
-    body: "'Roboto', sans-serif"
+    body: "'Roboto', sans-serif",
   },
   fontWeights: {
     light: 300,
     medium: 500,
     semiBold: 600,
-    bold: 700
+    bold: 700,
   },
   colors: {
     black: "#000000",
@@ -84,7 +84,7 @@ const theme = {
       t10: "#e5e5e5",
       t07: "#ececec",
       t05: "#f2f2f2",
-      t03: "#f8f8f8"
+      t03: "#f8f8f8",
     },
     white: "#ffffff",
     primary: {
@@ -94,8 +94,8 @@ const theme = {
         t80: "#336bbb",
         t60: "#7fa2d4",
         t30: "#b2c7e5",
-        t10: "#e5ecf6"
-      }
+        t10: "#e5ecf6",
+      },
     },
     secondary: {
       lightBlue: {
@@ -103,29 +103,29 @@ const theme = {
         t80: "#82c6ff",
         t60: "#b1dbff",
         t25: "#d8edff",
-        t15: "#eff7ff"
+        t15: "#eff7ff",
       },
       pink: {
         t100: "#ff94ca",
         t80: "#ffa9d5",
         t60: "#ffc9e4",
         t30: "#ffdeef",
-        t15: "#fff4f9"
+        t15: "#fff4f9",
       },
       purple: {
         t100: "#aba7f6",
         t80: "#bcb9f8",
         t60: "#d5d3fa",
         t30: "#e5e4fc",
-        t15: "#f6f6fe"
+        t15: "#f6f6fe",
       },
       turquoise: {
         t100: "#0fdbf3",
         t80: "#3fe2f5",
         t60: "#87edf9",
         t30: "#b7f4fb",
-        t10: "#e7fbfd"
-      }
+        t10: "#e7fbfd",
+      },
     },
     highlight: {
       blue: {
@@ -133,37 +133,37 @@ const theme = {
         t80: "#337ef8",
         t50: "#4693fa",
         t30: "#52a0fb",
-        t15: "#54acff"
+        t15: "#54acff",
       },
       pink: {
         t100: "#c31b6c",
         t80: "#cf337f",
         t50: "#e1589b",
         t30: "#ed6fae",
-        t15: "#f682bc"
+        t15: "#f682bc",
       },
       purple: {
         t100: "#7a65d4",
         t80: "#8472db",
         t50: "#9386e5",
         t30: "#9c93ec",
-        t15: "#a49df1"
-      }
+        t15: "#a49df1",
+      },
     },
     conditional: {
       positive: {
         graphics: "#1a8450",
-        text: "#1b633c"
+        text: "#1b633c",
       },
       attention: {
         graphics: "#f9b845",
-        text: "#414141"
+        text: "#414141",
       },
       negative: {
         graphics: "#cf000f",
-        text: "#b3000c"
-      }
-    }
+        text: "#b3000c",
+      },
+    },
   },
   borderWidths: ["1px", "2px", "4px"],
   radii: ["1px", "4px", "12px", "50%"],
@@ -172,26 +172,26 @@ const theme = {
     sm: "576px",
     md: "768px",
     lg: "992px",
-    xl: "1200px"
+    xl: "1200px",
   },
   breakpointMaxWidths: {
     sm: "540px",
     md: "720px",
     lg: "960px",
-    xl: "1140px"
+    xl: "1140px",
   },
   transitions: {
     button: "background-color 150ms ease, color 150ms ease",
     link: "background-color 200ms ease-out, border-bottom-color 200ms ease-out",
-    icon: "fill 200ms ease-out"
-  }
+    icon: "fill 200ms ease-out",
+  },
 };
 
 theme.textStyles = textStyles(theme);
 
 theme.shadows = {
   header: `inset 0 ${theme.borderWidths[1]} 0 0 rgba(0, 0, 0, .05)`,
-  focus: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`
+  focus: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`,
 };
 
 theme.focusStyles = {
@@ -200,38 +200,38 @@ theme.focusStyles = {
     // Provide basic, default focus styles.
     ":focus": {
       outline: 0,
-      boxShadow: theme.shadows.focus
+      boxShadow: theme.shadows.focus,
     },
     // Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform.
     ":focus:not(:focus-visible)": {
-      boxShadow: "none"
+      boxShadow: "none",
     },
     // If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus.
     ":focus-visible": {
-      boxShadow: theme.shadows.focus
-    }
+      boxShadow: theme.shadows.focus,
+    },
   },
   focusVisibleAdjacentLabel: {
     ":focus + label": {
-      boxShadow: theme.shadows.focus
+      boxShadow: theme.shadows.focus,
     },
     ":focus:not(:focus-visible) + label": {
-      boxShadow: "none"
+      boxShadow: "none",
     },
     ":focus-visible + label": {
-      boxShadow: theme.shadows.focus
-    }
-  }
+      boxShadow: theme.shadows.focus,
+    },
+  },
 };
 
 theme.focusStyles.__keyboardFocus = {
   ...theme.focusStyles.focusVisible[":focus"],
-  ...theme.focusStyles.focusVisible[":focus-visible"]
+  ...theme.focusStyles.focusVisible[":focus-visible"],
 };
 
 theme.focusStyles.__keyboardFocusAdjacentLabel = {
   ...theme.focusStyles.focusVisibleAdjacentLabel[":focus + label"],
-  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus-visible + label"]
+  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus-visible + label"],
 };
 
 export default {
@@ -248,5 +248,5 @@ export default {
   ...radioGroup(theme),
   ...select(theme),
   ...stepper(theme),
-  ...text(theme)
+  ...text(theme),
 };

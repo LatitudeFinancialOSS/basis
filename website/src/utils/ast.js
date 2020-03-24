@@ -64,7 +64,7 @@ export function annotateCodeForPlayground(code) {
   let count = 0;
 
   traverse(ast, {
-    JSXOpeningElement: path => {
+    JSXOpeningElement: (path) => {
       const componentName = path.node.name.name;
 
       if (!allComponentNames.includes(componentName)) {
@@ -79,7 +79,7 @@ export function annotateCodeForPlayground(code) {
       );
 
       count++;
-    }
+    },
   });
 
   return generate(ast).code;

@@ -21,7 +21,7 @@ const DEFAULT_PROPS = {
     }
 
     return null;
-  }
+  },
 };
 
 Input.TYPES = TYPES;
@@ -31,23 +31,23 @@ Input.DEFAULT_PROPS = DEFAULT_PROPS;
 function Input(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    type: type => TYPES.includes(type),
-    min: min =>
+    color: (color) => COLORS.includes(color),
+    type: (type) => TYPES.includes(type),
+    min: (min) =>
       props.type === "number" &&
       (typeof min === "number" || typeof min === "string"),
-    max: max =>
+    max: (max) =>
       props.type === "number" &&
       (typeof max === "number" || typeof max === "string"),
-    step: step =>
+    step: (step) =>
       props.type === "number" &&
       (typeof step === "number" || typeof step === "string"),
-    disabled: disabled => typeof disabled === "boolean",
-    pasteAllowed: pasteAllowed => typeof pasteAllowed === "boolean",
-    optional: optional => typeof optional === "boolean"
+    disabled: (disabled) => typeof disabled === "boolean",
+    pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
+    optional: (optional) => typeof optional === "boolean",
   });
   const {
     name,
@@ -65,15 +65,15 @@ function Input(props) {
     validate,
     validateData,
     testId,
-    __internal__focus
+    __internal__focus,
   } = mergedProps;
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
-  const isEmpty = useCallback(value => value.trim() === "", []);
+  const isEmpty = useCallback((value) => value.trim() === "", []);
   const data = useMemo(
     () => ({
       isEmpty,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isEmpty, validateData]
   );
@@ -84,7 +84,7 @@ function Input(props) {
       disabled,
       optional,
       validate,
-      data
+      data,
     }
   );
 
@@ -138,7 +138,7 @@ Input.propTypes = {
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
   testId: PropTypes.string,
-  __internal__focus: PropTypes.bool
+  __internal__focus: PropTypes.bool,
 };
 
 export default Input;

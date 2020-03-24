@@ -6,7 +6,7 @@ export function formatCode(code, { printWidth = 56 } = {}) {
     parser: "babel",
     plugins: [babel],
     printWidth,
-    semi: false
+    semi: false,
   });
 
   if (formattedCode[0] === ";") {

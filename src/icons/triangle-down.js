@@ -23,7 +23,7 @@ function TriangleDown({ size, primaryColor, testId }) {
 TriangleDown.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default TriangleDown;

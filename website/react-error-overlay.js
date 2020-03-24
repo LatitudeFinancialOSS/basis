@@ -10,5 +10,5 @@ module.exports = {
   dismissBuildError: () => {},
   startReportingRuntimeErrors: () => {},
   dismissRuntimeErrors: () => {},
-  stopReportingRuntimeErrors: () => {}
+  stopReportingRuntimeErrors: () => {},
 };

@@ -13,7 +13,7 @@ function FormWithCheckbox({
   optional,
   __internal__keyboardFocus,
   children,
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -44,7 +44,7 @@ FormWithCheckbox.propTypes = {
   optional: PropTypes.bool,
   __internal__keyboardFocus: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkCheckbox() {

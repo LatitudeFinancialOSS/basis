@@ -7,16 +7,16 @@ import KitchenSinkForm from "./KitchenSinkForm";
 const options = [
   {
     label: "Option 1",
-    value: "option-1"
+    value: "option-1",
   },
   {
     label: "Option 2",
-    value: "option-2"
+    value: "option-2",
   },
   {
     label: "Option 3",
-    value: "option-3"
-  }
+    value: "option-3",
+  },
 ];
 
 function FormWithRadioGroup({
@@ -27,7 +27,7 @@ function FormWithRadioGroup({
   optional,
   columns,
   showCircles,
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -56,7 +56,7 @@ FormWithRadioGroup.propTypes = {
   optional: PropTypes.bool,
   columns: PropTypes.number,
   showCircles: PropTypes.bool,
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkRadioGroup() {

@@ -19,7 +19,7 @@ const DEFAULT_PROPS = {
   type: "button",
   __internal__keyboardFocus: false,
   __internal__hover: false,
-  __internal__active: false
+  __internal__active: false,
 };
 
 Button.VARIANTS = VARIANTS;
@@ -33,14 +33,14 @@ function Button(props) {
   const inheritedColor =
     background === "primary.blue.t100" ? "white" : "highlight.blue.t100";
   const inheritedProps = {
-    color: inheritedColor
+    color: inheritedColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    variant: variant => VARIANTS.includes(variant),
-    color: color => COLORS.includes(color),
-    fullWidth: fullWidth => typeof fullWidth === "boolean",
-    disabled: disabled => typeof disabled === "boolean",
-    type: type => TYPES.includes(type)
+    variant: (variant) => VARIANTS.includes(variant),
+    color: (color) => COLORS.includes(color),
+    fullWidth: (fullWidth) => typeof fullWidth === "boolean",
+    disabled: (disabled) => typeof disabled === "boolean",
+    type: (type) => TYPES.includes(type),
   });
   const {
     variant,
@@ -53,10 +53,10 @@ function Button(props) {
     testId,
     __internal__keyboardFocus,
     __internal__hover,
-    __internal__active
+    __internal__active,
   } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    margin: responsiveMargin
+    margin: responsiveMargin,
   });
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
@@ -65,18 +65,18 @@ function Button(props) {
     ...theme[`button.${variant}.${colorStr}`],
     ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
     ":hover": {
-      ...(!disabled && theme[`button.${variant}.${colorStr}:hover`])
+      ...(!disabled && theme[`button.${variant}.${colorStr}:hover`]),
     },
     ...(__internal__hover && theme[`button.${variant}.${colorStr}:hover`]),
     ":active": {
-      ...(!disabled && theme[`button.${variant}.${colorStr}:active`])
+      ...(!disabled && theme[`button.${variant}.${colorStr}:active`]),
     },
     ...(__internal__active && theme[`button.${variant}.${colorStr}:active`]),
     ":disabled": {
       ...theme["button:disabled"],
-      ...theme[`button.${variant}.${colorStr}:disabled`]
+      ...theme[`button.${variant}.${colorStr}:disabled`],
     },
-    ...responsivePropsCSS
+    ...responsivePropsCSS,
   };
 
   return (
@@ -104,7 +104,7 @@ Button.propTypes = {
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
   __internal__hover: PropTypes.bool,
-  __internal__active: PropTypes.bool
+  __internal__active: PropTypes.bool,
 };
 
 export default Button;

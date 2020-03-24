@@ -9,7 +9,7 @@ import {
   Flex,
   Text,
   Select,
-  Input
+  Input,
 } from "basis";
 
 import { colorContrast, accessibleContrast } from "../../utils/color";
@@ -20,38 +20,38 @@ const { TEXT_STYLES, COLORS } = Text;
 const showOptions = [
   {
     label: "All",
-    value: "All"
+    value: "All",
   },
   {
     label: "Pass AA",
-    value: "Pass AA" // We parse the value to extract AA or AAA.
+    value: "Pass AA", // We parse the value to extract AA or AAA.
   },
   {
     label: "Pass AAA",
-    value: "Pass AAA"
+    value: "Pass AAA",
   },
   {
     label: "Fail AA",
-    value: "Fail AA"
+    value: "Fail AA",
   },
   {
     label: "Fail AAA",
-    value: "Fail AAA"
-  }
+    value: "Fail AAA",
+  },
 ];
-const textStyleOptions = TEXT_STYLES.map(textStyle => ({
+const textStyleOptions = TEXT_STYLES.map((textStyle) => ({
   label: textStyle,
-  value: textStyle
+  value: textStyle,
 }));
-const weightOptions = ["regular", "bold"].map(weight => ({
+const weightOptions = ["regular", "bold"].map((weight) => ({
   label: weight,
-  value: weight
+  value: weight,
 }));
 const notApplicableOptions = [
   {
     label: "Not applicable",
-    value: ""
-  }
+    value: "",
+  },
 ];
 
 function isBoldAllowedForTextStyle(textStyle) {
@@ -69,7 +69,7 @@ function MatrixCell({
   isBold,
   text,
   minContrast,
-  shouldPass
+  shouldPass,
 }) {
   const theme = useTheme();
   const contrast = useMemo(
@@ -100,7 +100,7 @@ function MatrixCell({
         overflow: "hidden",
         position: "relative",
         opacity: isVisible ? 1 : 0,
-        transition: "opacity .2s"
+        transition: "opacity .2s",
       }}
       aria-hidden={isVisible ? null : "true"}
     >
@@ -115,7 +115,7 @@ function MatrixCell({
           bottom: 0,
           width: "36px",
           padding: `0 ${theme.space[1]}`,
-          backgroundColor: rgba(theme.colors.black, 0.6)
+          backgroundColor: rgba(theme.colors.black, 0.6),
         }}
       >
         <Text textStyle="body2" color="white" align="center">
@@ -135,7 +135,7 @@ MatrixCell.propTypes = {
   isBold: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   minContrast: PropTypes.number,
-  shouldPass: PropTypes.bool
+  shouldPass: PropTypes.bool,
 };
 
 const TEXT_COLOR_COLUMN_WIDTH = "160px";
@@ -148,7 +148,7 @@ function AccessibilityPage() {
     show: "Pass AA",
     textStyle: "body1",
     weight: "regular",
-    text: "Text"
+    text: "Text",
   };
 
   return (
@@ -159,7 +159,7 @@ function AccessibilityPage() {
           const isBoldAllowed = isBoldAllowedForTextStyle(textStyle);
           const { fontSize, fontWeight } = {
             ...theme.textStyles[textStyle],
-            ...(weight === "bold" && theme.textStyles[`${textStyle}.bold`])
+            ...(weight === "bold" && theme.textStyles[`${textStyle}.bold`]),
           };
           const showParts = show.split(" ");
           const shouldPass =
@@ -183,16 +183,16 @@ function AccessibilityPage() {
                   css={{
                     marginBottom: theme.space[6],
                     padding: `0 ${theme.space[6]}`,
-                    width: "min-content" // Otherwise, right padding is not visible when there is an overflow.
+                    width: "min-content", // Otherwise, right padding is not visible when there is an overflow.
                   }}
                 >
                   <div
                     css={{
                       display: "flex",
-                      paddingLeft: TEXT_COLOR_COLUMN_WIDTH
+                      paddingLeft: TEXT_COLOR_COLUMN_WIDTH,
                     }}
                   >
-                    {BACKGROUNDS.map(backgroundColor => (
+                    {BACKGROUNDS.map((backgroundColor) => (
                       <div
                         css={{
                           display: "flex",
@@ -201,7 +201,7 @@ function AccessibilityPage() {
                           flexShrink: 0,
                           width: CELL_WIDTH,
                           height: "32px",
-                          marginLeft: theme.space[1]
+                          marginLeft: theme.space[1],
                         }}
                         key={backgroundColor}
                       >
@@ -211,11 +211,11 @@ function AccessibilityPage() {
                       </div>
                     ))}
                   </div>
-                  {COLORS.map(color => (
+                  {COLORS.map((color) => (
                     <div
                       css={{
                         display: "flex",
-                        marginTop: theme.space[1]
+                        marginTop: theme.space[1],
                       }}
                       key={color}
                     >
@@ -226,14 +226,14 @@ function AccessibilityPage() {
                           flexShrink: 0,
                           width: TEXT_COLOR_COLUMN_WIDTH,
                           paddingRight: theme.space[3],
-                          boxSizing: "border-box"
+                          boxSizing: "border-box",
                         }}
                       >
                         <Text textStyle="body2">
                           <strong>{color}</strong>
                         </Text>
                       </div>
-                      {BACKGROUNDS.map(backgroundColor => (
+                      {BACKGROUNDS.map((backgroundColor) => (
                         <MatrixCell
                           width={CELL_WIDTH}
                           height={CELL_HEIGHT}
@@ -259,7 +259,7 @@ function AccessibilityPage() {
                   backgroundColor: theme.colors.grey.t05,
                   padding: theme.space[6],
                   boxSizing: "border-box",
-                  overflow: "auto"
+                  overflow: "auto",
                 }}
               >
                 <Grid rowsGap="7">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
@@ -18,19 +18,19 @@ function GridPage() {
   const gridProps = nonDefaultProps([
     {
       prop: "preset",
-      value: "page"
+      value: "page",
     },
     {
       prop: "rowsGap",
       value: 4,
-      type: "number"
+      type: "number",
     },
     {
       prop: "debug",
       value: debug,
       defaultValue: DEFAULT_PROPS.debug,
-      type: "boolean"
-    }
+      type: "boolean",
+    },
   ]);
   const code = formatCode(`
     <Grid ${gridProps}>
@@ -61,7 +61,7 @@ function GridPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

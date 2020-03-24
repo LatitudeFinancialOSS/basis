@@ -10,7 +10,7 @@ function RangeSetting({
   selectedValue,
   setSelectedValue,
   selectedValueText,
-  selectedValueAuxText
+  selectedValueAuxText,
 }) {
   const theme = useTheme();
 
@@ -25,7 +25,7 @@ function RangeSetting({
           min={min}
           max={max}
           value={selectedValue}
-          onChange={e => {
+          onChange={(e) => {
             setSelectedValue(Number(e.target.value));
           }}
         />
@@ -51,7 +51,7 @@ RangeSetting.propTypes = {
     .isRequired,
   setSelectedValue: PropTypes.func.isRequired,
   selectedValueText: PropTypes.string,
-  selectedValueAuxText: PropTypes.string
+  selectedValueAuxText: PropTypes.string,
 };
 
 export default RangeSetting;

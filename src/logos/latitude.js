@@ -5,7 +5,7 @@ import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveHeightType,
-  responsiveMaxWidthType
+  responsiveMaxWidthType,
 } from "../hooks/useResponsiveProp";
 import { responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
@@ -14,7 +14,7 @@ const COLORS = ["primary.blue.t100", "black", "white"];
 
 const DEFAULT_PROPS = {
   color: "primary.blue.t100",
-  height: "40px"
+  height: "40px",
 };
 
 function LatitudeLogo(props) {
@@ -23,22 +23,22 @@ function LatitudeLogo(props) {
   const inheritedColor =
     background === "primary.blue.t100" ? "white" : "primary.blue.t100";
   const inheritedProps = {
-    color: inheritedColor
+    color: inheritedColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color)
+    color: (color) => COLORS.includes(color),
   });
   const { color, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     height: responsiveSize("height"),
-    maxWidth: responsiveSize("maxWidth")
+    maxWidth: responsiveSize("maxWidth"),
   });
 
   return (
     <svg
       css={{
         display: "flex",
-        ...responsivePropsCSS
+        ...responsivePropsCSS,
       }}
       viewBox="0 0 203 48"
       focusable="false"
@@ -59,7 +59,7 @@ LatitudeLogo.propTypes = {
   color: PropTypes.oneOf(COLORS),
   ...responsiveHeightType,
   ...responsiveMaxWidthType,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default LatitudeLogo;

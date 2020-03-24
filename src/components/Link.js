@@ -5,7 +5,7 @@ import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
 import {
   responsiveMarginType,
-  responsivePaddingType
+  responsivePaddingType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveMargin, responsivePadding } from "../utils/css";
@@ -17,7 +17,7 @@ const DEFAULT_PROPS = {
   variant: "light-bg",
   __internal__keyboardFocus: false,
   __internal__hover: false,
-  __internal__active: false
+  __internal__active: false,
 };
 
 Link.VARIANTS = VARIANTS;
@@ -32,16 +32,16 @@ function Link(props) {
       : [
           "grey.t07",
           "secondary.lightBlue.t15",
-          "secondary.lightBlue.t25"
+          "secondary.lightBlue.t25",
         ].includes(background)
       ? "medium-bg"
       : "light-bg";
   const inheritedProps = {
-    variant: inheritedVariant
+    variant: inheritedVariant,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    variant: variant => VARIANTS.includes(variant),
-    newTab: newTab => typeof newTab === "boolean"
+    variant: (variant) => VARIANTS.includes(variant),
+    newTab: (newTab) => typeof newTab === "boolean",
   });
   const {
     variant,
@@ -52,12 +52,12 @@ function Link(props) {
     testId,
     __internal__keyboardFocus,
     __internal__hover,
-    __internal__active
+    __internal__active,
   } = mergedProps;
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
-    padding: responsivePadding
+    padding: responsivePadding,
   });
   const css = {
     ...theme.link,
@@ -65,12 +65,12 @@ function Link(props) {
     ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
     ...(__internal__hover && theme[`link.${variant}`][":hover"]),
     ...(__internal__active && theme[`link.${variant}`][":active"]),
-    ...responsivePropsCSS
+    ...responsivePropsCSS,
   };
   const newTabProps = newTab
     ? {
         target: "_blank",
-        rel: "noopener" // See: https://twitter.com/addyosmani/status/1234055782896979968?s=20, https://developers.google.com/web/tools/lighthouse/audits/noopener
+        rel: "noopener", // See: https://twitter.com/addyosmani/status/1234055782896979968?s=20, https://developers.google.com/web/tools/lighthouse/audits/noopener
       }
     : {};
 
@@ -117,7 +117,7 @@ Link.propTypes = {
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
   __internal__hover: PropTypes.bool,
-  __internal__active: PropTypes.bool
+  __internal__active: PropTypes.bool,
 };
 
 export default Link;

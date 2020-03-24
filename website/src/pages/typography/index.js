@@ -12,16 +12,16 @@ const fontWeightsMap = {
   600: "semi-bold",
   700: "bold",
   800: "extra-bold",
-  900: "black"
+  900: "black",
 };
 
 function getFontWeights(textStyles) {
-  const fontWeights = textStyles.map(textStyle => textStyle.fontWeight);
+  const fontWeights = textStyles.map((textStyle) => textStyle.fontWeight);
 
   fontWeights.sort();
 
   return [...new Set(fontWeights)]
-    .map(fontWeight =>
+    .map((fontWeight) =>
       upperCaseFirst(`${fontWeightsMap[fontWeight]} ${fontWeight}`)
     )
     .join(" / ");
@@ -44,7 +44,7 @@ function Cell({ textStyle, children }) {
     <div
       css={{
         padding: `${theme.space[3]} 0`,
-        borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t16}`
+        borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t16}`,
       }}
     >
       <Flex fullHeight placeItems="center left">
@@ -56,7 +56,7 @@ function Cell({ textStyle, children }) {
 
 Cell.propTypes = {
   textStyle: PropTypes.oneOf(Text.TEXT_STYLES),
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 function HeaderCell({ children }) {
@@ -66,7 +66,7 @@ function HeaderCell({ children }) {
     <div
       css={{
         paddingBottom: theme.space[2],
-        borderBottom: `${theme.borderWidths[1]} solid ${theme.colors.grey.t30}`
+        borderBottom: `${theme.borderWidths[1]} solid ${theme.colors.grey.t30}`,
       }}
     >
       <Text textStyle="subtitle2">
@@ -77,7 +77,7 @@ function HeaderCell({ children }) {
 }
 
 HeaderCell.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 function TypographyPage() {
@@ -97,19 +97,19 @@ function TypographyPage() {
         <HeaderCell>Letter Spacing</HeaderCell>
 
         {Object.keys(textStylesMap)
-          .filter(textStyleName => !textStyleName.endsWith(".bold"))
-          .map(textStyleName => {
+          .filter((textStyleName) => !textStyleName.endsWith(".bold"))
+          .map((textStyleName) => {
             const textStyle = textStylesMap[textStyleName];
             const fontFamily = getFontFamily(textStyle);
             const fontWeights = getFontWeights([
               textStyle,
-              textStylesMap[`${textStyleName}.bold`]
+              textStylesMap[`${textStyleName}.bold`],
             ]);
             const {
               fontSize,
               lineHeight,
               letterSpacing,
-              textTransform
+              textTransform,
             } = textStyle;
             const case_ =
               textTransform === "uppercase" ? "Uppercase" : "Sentence";

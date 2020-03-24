@@ -17,13 +17,13 @@ function useSticky({ id, heightMap }) {
   const css = getStickyItemCSS({
     heightMap,
     offsetMap: stickyInfo.offsetMap,
-    theme
+    theme,
   });
 
   stickyInfo.updateOffsetMap(id, heightMap);
 
   return {
-    css
+    css,
   };
 }
 

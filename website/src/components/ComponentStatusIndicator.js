@@ -6,7 +6,7 @@ import { useTheme } from "basis";
 const statusDescriptions = {
   DRAFT:
     "We started working on this component, but it's not ready for consumption yet.",
-  READY: "You can use this component today."
+  READY: "You can use this component today.",
 };
 
 function ComponentStatusIndicator({ status }) {
@@ -24,7 +24,7 @@ function ComponentStatusIndicator({ status }) {
             ? theme.colors.conditional.negative.graphics
             : theme.colors.grey.t05,
         color: theme.colors.white,
-        cursor: "default"
+        cursor: "default",
       }}
       title={statusDescriptions[status]}
     >
@@ -34,7 +34,7 @@ function ComponentStatusIndicator({ status }) {
 }
 
 ComponentStatusIndicator.propTypes = {
-  status: PropTypes.oneOf(Object.values(COMPONENT_STATUS))
+  status: PropTypes.oneOf(Object.values(COMPONENT_STATUS)),
 };
 
 export default ComponentStatusIndicator;

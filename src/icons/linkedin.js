@@ -13,8 +13,8 @@ function LinkedIn({ size, primaryColor, hoverColor, testId }) {
         fill: primaryColor,
         transition: hoverColor ? theme.transitions.icon : null,
         ":hover": {
-          ...(hoverColor && { fill: hoverColor })
-        }
+          ...(hoverColor && { fill: hoverColor }),
+        },
       }}
       viewBox="0 0 32 32"
       focusable="false"
@@ -34,7 +34,7 @@ LinkedIn.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   hoverColor: PropTypes.string,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default LinkedIn;

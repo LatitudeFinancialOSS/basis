@@ -8,7 +8,7 @@ const COLORS = ["grey.t05", "white"];
 const DEFAULT_PROPS = {
   color: "grey.t05",
   disabled: false,
-  __internal__keyboardFocus: false
+  __internal__keyboardFocus: false,
 };
 
 InternalCheckbox.COLORS = COLORS;
@@ -46,7 +46,7 @@ function CheckboxIcon({ color, isChecked }) {
 
 CheckboxIcon.propTypes = {
   color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
-  isChecked: PropTypes.bool.isRequired
+  isChecked: PropTypes.bool.isRequired,
 };
 
 function InternalCheckbox(_props) {
@@ -66,7 +66,7 @@ function InternalCheckbox(_props) {
     onChange,
     onMouseDown,
     children,
-    __internal__keyboardFocus
+    __internal__keyboardFocus,
   } = props;
   const theme = useTheme();
 
@@ -83,7 +83,7 @@ function InternalCheckbox(_props) {
         <input
           css={{
             ...theme.checkboxInput,
-            ":checked + label": theme["checkboxLabel.checked"]
+            ":checked + label": theme["checkboxLabel.checked"],
           }}
           type="checkbox"
           id={inputId}
@@ -101,7 +101,7 @@ function InternalCheckbox(_props) {
           ...theme.checkboxLabel,
           ...theme[`checkboxLabel.${color}`],
           ...(__internal__keyboardFocus &&
-            theme.focusStyles.__keyboardFocusAdjacentLabel)
+            theme.focusStyles.__keyboardFocusAdjacentLabel),
         }}
         htmlFor={inputId}
         onMouseDown={onMouseDown}
@@ -136,7 +136,7 @@ InternalCheckbox.propTypes = {
   onChange: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  __internal__keyboardFocus: PropTypes.bool
+  __internal__keyboardFocus: PropTypes.bool,
 };
 
 export default InternalCheckbox;

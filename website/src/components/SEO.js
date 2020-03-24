@@ -15,7 +15,7 @@ function SEO({ title, description = "Basis Design System" }) {
 
 SEO.propTypes = {
   title: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
 };
 
 export default SEO;

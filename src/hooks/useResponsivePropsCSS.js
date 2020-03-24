@@ -28,7 +28,7 @@ function getResponsiveProps(props, breakpoints) {
 }
 
 function hasAnyBreakpoint(prop, breakpoints) {
-  return breakpoints.some(bp => prop.endsWith(`-${bp}`));
+  return breakpoints.some((bp) => prop.endsWith(`-${bp}`));
 }
 
 function getDefaultBreakpointProps(props, breakpoints) {
@@ -54,14 +54,14 @@ export function getBreakpointToPropsMap(theme, props, defaultProps) {
   const result = {
     [DEFAULT_BREAKPOINT]: {
       ...defaultProps,
-      ...lastBreakpointProps
-    }
+      ...lastBreakpointProps,
+    },
   };
 
-  breakpoints.forEach(bp => {
+  breakpoints.forEach((bp) => {
     result[bp] = {
       ...defaultProps,
-      ...lastBreakpointProps
+      ...lastBreakpointProps,
     };
 
     for (const prop in nonBreakpointProps) {
@@ -84,7 +84,7 @@ function getCSSforBreakpoint(responsiveProps, propsAtBreakpoint, theme) {
   for (const prop in responsiveProps) {
     result = {
       ...result,
-      ...responsiveProps[prop](propsAtBreakpoint, theme)
+      ...responsiveProps[prop](propsAtBreakpoint, theme),
     };
   }
 
@@ -139,7 +139,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
       breakpoints
         .slice(0, i)
         .map(
-          bp =>
+          (bp) =>
             theme.minMediaQueries[bp] ||
             DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER
         )
@@ -183,7 +183,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
   */
   result = {
     ...result[DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER],
-    ...result
+    ...result,
   };
 
   delete result[DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER];

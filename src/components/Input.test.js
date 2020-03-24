@@ -7,7 +7,7 @@ import Container from "./Container";
 
 function FormWithInput(props) {
   const initialValues = {
-    name: ""
+    name: "",
   };
 
   return (

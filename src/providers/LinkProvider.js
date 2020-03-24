@@ -11,7 +11,7 @@ function defaultIsLinkInternal(href) {
 function LinkProvider({
   InternalLink,
   isLinkInternal = defaultIsLinkInternal,
-  children
+  children,
 }) {
   return (
     <LinkContext.Provider value={{ InternalLink, isLinkInternal }}>
@@ -23,7 +23,7 @@ function LinkProvider({
 LinkProvider.propTypes = {
   InternalLink: PropTypes.elementType,
   isLinkInternal: PropTypes.func,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default LinkProvider;

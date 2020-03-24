@@ -12,7 +12,7 @@ describe("Header", () => {
   it("exposes a HEIGHT_MAP", () => {
     expect(Header.HEIGHT_MAP).toStrictEqual({
       default: 56,
-      lg: 80
+      lg: 80,
     });
   });
 

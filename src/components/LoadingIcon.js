@@ -8,13 +8,13 @@ const COLORS = ["highlight.blue.t100", "white"];
 
 const DEFAULT_PROPS = {
   size: "small",
-  color: "highlight.blue.t100"
+  color: "highlight.blue.t100",
 };
 
 const circleRadiusMap = {
   small: 4,
   medium: 8,
-  large: 12
+  large: 12,
 };
 
 LoadingIcon.SIZES = SIZES;
@@ -39,31 +39,31 @@ function LoadingIcon(_props) {
   const svgSize = 5 * radius;
 
   const start = {
-    transform: `translate3d(0, 0, 0)`
+    transform: `translate3d(0, 0, 0)`,
   };
   const right = {
-    transform: `translate3d(${stepPx}, 0, 0)`
+    transform: `translate3d(${stepPx}, 0, 0)`,
   };
   const bottom = {
-    transform: `translate3d(0, ${stepPx}, 0)`
+    transform: `translate3d(0, ${stepPx}, 0)`,
   };
   const left = {
-    transform: `translate3d(-${stepPx}, 0, 0)`
+    transform: `translate3d(-${stepPx}, 0, 0)`,
   };
   const up = {
-    transform: `translate3d(0, -${stepPx}, 0)`
+    transform: `translate3d(0, -${stepPx}, 0)`,
   };
   const rightAndBottom = {
-    transform: `translate3d(${stepPx}, ${stepPx}, 0)`
+    transform: `translate3d(${stepPx}, ${stepPx}, 0)`,
   };
   const upAndRight = {
-    transform: `translate3d(${stepPx}, -${stepPx}, 0)`
+    transform: `translate3d(${stepPx}, -${stepPx}, 0)`,
   };
   const leftAndUp = {
-    transform: `translate3d(-${stepPx}, -${stepPx}, 0)`
+    transform: `translate3d(-${stepPx}, -${stepPx}, 0)`,
   };
 
-  const getKeyframes = steps =>
+  const getKeyframes = (steps) =>
     keyframes(
       steps.reduce((acc, step, index) => {
         acc[`${index * percantagePerFrame}%`] = step;
@@ -84,7 +84,7 @@ function LoadingIcon(_props) {
       bottom,
       bottom,
       start,
-      start
+      start,
     ]),
     getKeyframes([
       start,
@@ -98,7 +98,7 @@ function LoadingIcon(_props) {
       right,
       right,
       right,
-      start
+      start,
     ]),
     getKeyframes([
       start,
@@ -112,10 +112,10 @@ function LoadingIcon(_props) {
       leftAndUp,
       up,
       up,
-      up
-    ])
-  ].map(animation => ({
-    animation: `${animation} ${duration}s ease infinite`
+      up,
+    ]),
+  ].map((animation) => ({
+    animation: `${animation} ${duration}s ease infinite`,
   }));
 
   return (
@@ -156,7 +156,7 @@ function LoadingIcon(_props) {
 LoadingIcon.propTypes = {
   size: PropTypes.oneOf(SIZES),
   color: PropTypes.oneOf(COLORS),
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default LoadingIcon;

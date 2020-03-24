@@ -3,7 +3,7 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
@@ -41,42 +41,42 @@ function DatePickerPage() {
           <DatePicker ${nonDefaultProps([
             {
               prop: "name",
-              value: "birthDate"
+              value: "birthDate",
             },
             {
               prop: "color",
               value: color,
-              defaultValue: DEFAULT_PROPS.color
+              defaultValue: DEFAULT_PROPS.color,
             },
             {
               prop: "label",
-              value: "Birth date"
+              value: "Birth date",
             },
             {
               prop: "day",
               value: day,
               defaultValue: DEFAULT_PROPS.day,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "optional",
               value: optional,
               defaultValue: DEFAULT_PROPS.optional,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "helpText",
               value: hasHelpText
                 ? "Past or future is fine."
                 : DEFAULT_PROPS.helpText,
-              defaultValue: DEFAULT_PROPS.helpText
+              defaultValue: DEFAULT_PROPS.helpText,
             },
             {
               prop: "disabled",
               value: disabled,
               defaultValue: DEFAULT_PROPS.disabled,
-              type: "boolean"
-            }
+              type: "boolean",
+            },
           ])}
           />
         </Form>
@@ -90,7 +90,7 @@ function DatePickerPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

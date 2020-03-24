@@ -23,7 +23,7 @@ function Comparison({ size, primaryColor, testId }) {
 Comparison.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Comparison;

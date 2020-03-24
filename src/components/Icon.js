@@ -46,7 +46,7 @@ const NAMES = [
   "triangle-down",
   "triangle-up",
   "twitter",
-  "youtube"
+  "youtube",
 ];
 const SIZES = ["24px", "32px"];
 const COLORS = [
@@ -56,7 +56,7 @@ const COLORS = [
   "highlight.blue.t100",
   "conditional.positive.graphics",
   "conditional.negative.graphics",
-  "white"
+  "white",
 ];
 const HOVER_COLORS = ["black", "secondary.lightBlue.t60"];
 const SECONDARY_COLORS = ["highlight.blue.t100"];
@@ -64,7 +64,7 @@ const SECONDARY_COLORS = ["highlight.blue.t100"];
 const DEFAULT_PROPS = {
   size: "32px",
   color: "grey.t75",
-  secondaryColor: "highlight.blue.t100"
+  secondaryColor: "highlight.blue.t100",
 };
 
 Icon.NAMES = NAMES;
@@ -102,7 +102,7 @@ Icon.propTypes = {
   color: PropTypes.oneOf(COLORS),
   hoverColor: PropTypes.oneOf(HOVER_COLORS),
   secondaryColor: PropTypes.oneOf(SECONDARY_COLORS),
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Icon;

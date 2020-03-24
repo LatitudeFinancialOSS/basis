@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {
   parseISO,
   isValid as isDateValid,
-  format as formatDate
+  format as formatDate,
 } from "date-fns";
 import nanoid from "nanoid";
 import useBackground from "../hooks/useBackground";
@@ -72,7 +72,7 @@ const DEFAULT_PROPS = {
     }
 
     return errors;
-  }
+  },
 };
 
 DatePicker.COLORS = COLORS;
@@ -99,13 +99,13 @@ function getHelpText(value, day, defaultHelpText) {
 function DatePicker(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    day: day => typeof day === "boolean",
-    disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean"
+    color: (color) => COLORS.includes(color),
+    day: (day) => typeof day === "boolean",
+    disabled: (disabled) => typeof disabled === "boolean",
+    optional: (optional) => typeof optional === "boolean",
   });
   const {
     name,
@@ -117,12 +117,12 @@ function DatePicker(props) {
     optional,
     validate,
     validateData,
-    testId
+    testId,
   } = mergedProps;
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
   const isEmpty = useCallback(
-    value =>
+    (value) =>
       (day === false || value.day === "") &&
       value.month === "" &&
       value.year === "",
@@ -132,7 +132,7 @@ function DatePicker(props) {
     () => ({
       isEmpty,
       day,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isEmpty, day, validateData]
   );
@@ -143,13 +143,13 @@ function DatePicker(props) {
       disabled,
       optional,
       validate,
-      data
+      data,
     }
   );
   const helpText = useMemo(() => getHelpText(value, day, helpTextProp), [
     value,
     day,
-    helpTextProp
+    helpTextProp,
   ]);
 
   return (
@@ -229,7 +229,7 @@ DatePicker.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default DatePicker;

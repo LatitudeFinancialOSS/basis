@@ -25,7 +25,7 @@ NotificationNew.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
   secondaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default NotificationNew;

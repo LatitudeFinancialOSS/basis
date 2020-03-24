@@ -3,7 +3,7 @@ import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import RadioGroupSetting, {
   getRadioOptions,
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
@@ -52,42 +52,42 @@ function SelectPage() {
           <Select ${nonDefaultProps([
             {
               prop: "name",
-              value: "relationshipStatus"
+              value: "relationshipStatus",
             },
             {
               prop: "label",
-              value: "Relationship status"
+              value: "Relationship status",
             },
             {
               prop: "color",
               value: color,
-              defaultValue: DEFAULT_PROPS.color
+              defaultValue: DEFAULT_PROPS.color,
             },
             {
               prop: "fullWidth",
               value: fullWidth,
               defaultValue: DEFAULT_PROPS.fullWidth,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "optional",
               value: optional,
               defaultValue: DEFAULT_PROPS.optional,
-              type: "boolean"
+              type: "boolean",
             },
             {
               prop: "helpText",
               value: hasHelpText
                 ? "We use this to recommend more relevant deals."
                 : DEFAULT_PROPS.helpText,
-              defaultValue: DEFAULT_PROPS.helpText
+              defaultValue: DEFAULT_PROPS.helpText,
             },
             {
               prop: "disabled",
               value: disabled,
               defaultValue: DEFAULT_PROPS.disabled,
-              type: "boolean"
-            }
+              type: "boolean",
+            },
           ])}
             placeholder="Please select"
             options={options}
@@ -105,7 +105,7 @@ function SelectPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

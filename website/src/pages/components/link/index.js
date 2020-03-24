@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getCheckboxOptions
+  getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -17,13 +17,13 @@ function LinkPage() {
   const linkProps = nonDefaultProps([
     {
       prop: "href",
-      value: "/terms"
+      value: "/terms",
     },
     {
       prop: "newTab",
       value: newTab,
-      type: "boolean"
-    }
+      type: "boolean",
+    },
   ]);
   const code = formatCode(`
     <>
@@ -71,7 +71,7 @@ function LinkPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

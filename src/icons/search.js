@@ -23,7 +23,7 @@ function Search({ size, primaryColor, testId }) {
 Search.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Search;
