@@ -104,4 +104,18 @@ describe("Link", () => {
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-link");
   });
+
+  it("with analyticsClassName", () => {
+    const { container } = render(
+      <Link
+        href="/terms"
+        newTab={false}
+        analyticsClassName="trackcustomanalytics"
+      >
+        Terms and Conditions
+      </Link>
+    );
+
+    expect(container.firstChild).toHaveClass("trackcustomanalytics");
+  });
 });
