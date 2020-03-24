@@ -185,6 +185,9 @@ const theme = {
     link: "background-color 200ms ease-out, border-bottom-color 200ms ease-out",
     icon: "fill 200ms ease-out",
   },
+  zIndices: {
+    stickyItem: 100,
+  },
 };
 
 theme.textStyles = textStyles(theme);

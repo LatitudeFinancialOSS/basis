@@ -70,6 +70,14 @@ export function getStickyItemInfo(children, theme) {
 
 export function getStickyItemCSS({ heightMap, offsetMap, theme }) {
   let result = {
+    /*
+      We want to ensure that Sticky.Items are painted above normal content.
+      Is normal content has `position: relative` (like Grid does), it would be 
+      painted on top of the Sticky.Item if the Sticky.Item doesn't have z-index > 0.
+      That's why we define a z-index on Sticky.Items.
+      See: https://stackoverflow.com/q/60825826/247243
+    */
+    zIndex: theme.zIndices.stickyItem,
     position: "sticky",
   };
   let lastHeight = null;
