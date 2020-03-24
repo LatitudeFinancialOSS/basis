@@ -50,6 +50,7 @@ function Link(props) {
     title,
     children,
     testId,
+    analyticsClassName,
     __internal__keyboardFocus,
     __internal__hover,
     __internal__active,
@@ -87,7 +88,13 @@ function Link(props) {
       Example: Gatsby `Link` component.
     */
     return (
-      <InternalLink css={css} to={href} title={title} data-testid={testId}>
+      <InternalLink
+        className={analyticsClassName}
+        css={css}
+        to={href}
+        title={title}
+        data-testid={testId}
+      >
         {children}
       </InternalLink>
     );
@@ -95,6 +102,7 @@ function Link(props) {
 
   return (
     <a
+      className={analyticsClassName}
       css={css}
       href={href}
       title={title}
@@ -115,6 +123,7 @@ Link.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
   testId: PropTypes.string,
+  analyticsClassName: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
   __internal__hover: PropTypes.bool,
   __internal__active: PropTypes.bool,
