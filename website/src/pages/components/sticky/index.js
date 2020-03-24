@@ -13,7 +13,8 @@ function StickyPage() {
       );
     }
 
-    // Custom components must define a HEIGHT_MAP.
+    // Custom components must define a unique ID and a HEIGHT_MAP.
+    StickyNav.ID = "StickyNav";
     StickyNav.HEIGHT_MAP = {
       default: 60
     };
