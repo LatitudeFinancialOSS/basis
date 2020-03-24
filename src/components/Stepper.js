@@ -94,6 +94,7 @@ const DEFAULT_PROPS = {
 };
 
 Stepper.DEFAULT_PROPS = DEFAULT_PROPS;
+Stepper.ID = "Stepper";
 Stepper.HEIGHT_MAP = {
   default: 100
 };

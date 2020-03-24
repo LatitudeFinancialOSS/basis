@@ -21,6 +21,7 @@ function KitchenSinkSticky() {
       );
     }
     
+    FirstSticky.ID = "FirstSticky";
     FirstSticky.HEIGHT_MAP = {
       default: 24,
       xs: 80,
@@ -39,6 +40,7 @@ function KitchenSinkSticky() {
       );
     }
     
+    SecondSticky.ID = "SecondSticky";
     SecondSticky.HEIGHT_MAP = {
       default: 80,
       sm: 32,
@@ -49,6 +51,7 @@ function KitchenSinkSticky() {
       return <Placeholder label="Third Sticky" height="60" height-lg="80" />;
     }
     
+    ThirdSticky.ID = "ThirdSticky";
     ThirdSticky.HEIGHT_MAP = {
       default: 60,
       lg: 80
@@ -148,7 +151,7 @@ function KitchenSinkSticky() {
       </Container>
 
       <Container bg="grey.t05" padding="6 0">
-        <Container width="375" height="600" margin="0 auto" bg="white">
+        <Container width="376" height="600" margin="0 auto" bg="white">
           <LiveProvider code={code} scope={scope} noInline>
             <ComponentPreview hasBodyMargin={false} />
           </LiveProvider>

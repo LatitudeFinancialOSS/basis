@@ -2,8 +2,8 @@ import React from "react";
 import { setPath } from "./objectPath";
 import { DEFAULT_BREAKPOINT } from "./css";
 
-export function getStickyItemHeightMap(item, theme) {
-  const childrenArray = React.Children.toArray(item.props.children);
+export function getStickyItemInfo(children, theme) {
+  const childrenArray = React.Children.toArray(children);
 
   if (childrenArray.length === 0) {
     throw new Error("Sticky.Item cannot be empty.");
@@ -13,19 +13,28 @@ export function getStickyItemHeightMap(item, theme) {
     throw new Error("Sticky.Item must have a single child.");
   }
 
-  const heightMap = childrenArray[0].type.HEIGHT_MAP;
+  const component = childrenArray[0].type;
+  const id = component.ID;
 
-  if (!heightMap || typeof heightMap !== "object") {
+  if (!id || typeof id !== "string") {
+    throw new Error(
+      'Sticky.Item\'s child must expose a unique ID, e.g.: MyChild.ID = "MyChild";'
+    );
+  }
+
+  const componentHeightMap = component.HEIGHT_MAP;
+
+  if (!componentHeightMap || typeof componentHeightMap !== "object") {
     throw new Error("Sticky.Item's child must expose a HEIGHT_MAP object.");
   }
 
-  if (typeof heightMap[DEFAULT_BREAKPOINT] === "undefined") {
+  if (typeof componentHeightMap[DEFAULT_BREAKPOINT] === "undefined") {
     throw new Error(
       `Sticky.Item's child exposes a HEIGHT_MAP object, but the object is missing a \`${DEFAULT_BREAKPOINT}\` property.`
     );
   }
 
-  let height = heightMap[DEFAULT_BREAKPOINT];
+  let height = componentHeightMap[DEFAULT_BREAKPOINT];
 
   if (typeof height !== "number" || height <= 0) {
     throw new Error(
@@ -33,18 +42,18 @@ export function getStickyItemHeightMap(item, theme) {
     );
   }
 
-  const result = {
+  const heightMap = {
     [DEFAULT_BREAKPOINT]: height
   };
   let lastHeight = height;
 
   for (const bp in theme.breakpoints) {
-    height = heightMap[bp];
+    height = componentHeightMap[bp];
 
     if (typeof height === "undefined") {
-      result[bp] = lastHeight;
+      heightMap[bp] = lastHeight;
     } else if (typeof height === "number" && height > 0) {
-      result[bp] = height;
+      heightMap[bp] = height;
       lastHeight = height;
     } else {
       throw new Error(
@@ -53,10 +62,13 @@ export function getStickyItemHeightMap(item, theme) {
     }
   }
 
-  return result;
+  return {
+    id,
+    heightMap
+  };
 }
 
-function getStickyItemCSS({ heightMap, offsetMap, theme }) {
+export function getStickyItemCSS({ heightMap, offsetMap, theme }) {
   let result = {
     position: "sticky"
   };
@@ -88,37 +100,6 @@ function getStickyItemCSS({ heightMap, offsetMap, theme }) {
         bp === DEFAULT_BREAKPOINT ? "top" : `${theme.minMediaQueries[bp]}.top`,
         top
       );
-    }
-  }
-
-  return result;
-}
-
-export function getStickyItemsCSS(heightMaps, theme) {
-  if (heightMaps.length === 0) {
-    return [];
-  }
-
-  const result = [];
-  const offsetMap = {};
-
-  for (const bp in heightMaps[0]) {
-    offsetMap[bp] = 0;
-  }
-
-  for (let i = 0; i < heightMaps.length; i++) {
-    const heightMap = heightMaps[i];
-
-    result.push(
-      getStickyItemCSS({
-        heightMap,
-        offsetMap,
-        theme
-      })
-    );
-
-    for (const bp in heightMap) {
-      offsetMap[bp] += heightMap[bp];
     }
   }
 

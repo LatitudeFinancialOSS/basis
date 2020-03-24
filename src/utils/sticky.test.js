@@ -1,35 +1,39 @@
 import React from "react";
 import { theme } from "./test";
-import { getStickyItemHeightMap, getStickyItemsCSS } from "./sticky";
-import { Sticky, Text } from "..";
+import { getStickyItemInfo } from "./sticky";
+import { Text } from "..";
 
-describe("getStickyItemHeightMap", () => {
+describe("getStickyItemInfo", () => {
   it("empty item", () => {
-    expect(() =>
-      getStickyItemHeightMap(<Sticky.Item></Sticky.Item>, theme)
-    ).toThrowError(/cannot be empty/);
+    expect(() => getStickyItemInfo(undefined, theme)).toThrowError(
+      /cannot be empty/
+    );
   });
 
   it("multiple children", () => {
     expect(() =>
-      getStickyItemHeightMap(
-        <Sticky.Item>
-          <Text>Hello</Text>
-          <Text>World</Text>
-        </Sticky.Item>,
+      getStickyItemInfo(
+        [<Text key="0">Hello</Text>, <Text key="1">World</Text>],
         theme
       )
     ).toThrowError(/must have a single child/);
   });
 
+  it("doesn't expose an ID", () => {
+    expect(() => getStickyItemInfo(<Text>Hello</Text>, theme)).toThrowError(
+      /must expose a unique ID/
+    );
+  });
+
   it("doesn't expose a HEIGHT_MAP object", () => {
+    function HeroText(children) {
+      return <Text textStyle="hero">{children}</Text>;
+    }
+
+    HeroText.ID = "HeroText";
+
     expect(() =>
-      getStickyItemHeightMap(
-        <Sticky.Item>
-          <Text>Hello</Text>
-        </Sticky.Item>,
-        theme
-      )
+      getStickyItemInfo(<HeroText>Hello</HeroText>, theme)
     ).toThrowError(/must expose a HEIGHT_MAP object/);
   });
 
@@ -38,15 +42,11 @@ describe("getStickyItemHeightMap", () => {
       return <Text textStyle="hero">{children}</Text>;
     }
 
+    HeroText.ID = "HeroText";
     HeroText.HEIGHT_MAP = {};
 
     expect(() =>
-      getStickyItemHeightMap(
-        <Sticky.Item>
-          <HeroText>Hello</HeroText>
-        </Sticky.Item>,
-        theme
-      )
+      getStickyItemInfo(<HeroText>Hello</HeroText>, theme)
     ).toThrowError(/the object is missing a `default` property/);
   });
 
@@ -55,17 +55,13 @@ describe("getStickyItemHeightMap", () => {
       return <Text textStyle="hero">{children}</Text>;
     }
 
+    HeroText.ID = "HeroText";
     HeroText.HEIGHT_MAP = {
       default: "80" // must be a number
     };
 
     expect(() =>
-      getStickyItemHeightMap(
-        <Sticky.Item>
-          <HeroText>Hello</HeroText>
-        </Sticky.Item>,
-        theme
-      )
+      getStickyItemInfo(<HeroText>Hello</HeroText>, theme)
     ).toThrowError(/object's `default` value is not a positive integer/);
   });
 
@@ -74,109 +70,39 @@ describe("getStickyItemHeightMap", () => {
       return <Text textStyle="hero">{children}</Text>;
     }
 
+    HeroText.ID = "HeroText";
     HeroText.HEIGHT_MAP = {
       default: 80,
       lg: "100" // must be a number
     };
 
     expect(() =>
-      getStickyItemHeightMap(
-        <Sticky.Item>
-          <HeroText>Hello</HeroText>
-        </Sticky.Item>,
-        theme
-      )
+      getStickyItemInfo(<HeroText>Hello</HeroText>, theme)
     ).toThrowError(/object's `lg` value is not a positive integer/);
   });
 
-  it("HEIGHT_MAP is valid", () => {
+  it("ID and HEIGHT_MAP are valid", () => {
     function HeroText(children) {
       return <Text textStyle="hero">{children}</Text>;
     }
 
+    HeroText.ID = "HeroText";
     HeroText.HEIGHT_MAP = {
       default: 80,
       md: 100,
       xl: 120
     };
 
-    expect(
-      getStickyItemHeightMap(
-        <Sticky.Item>
-          <HeroText>Hello</HeroText>
-        </Sticky.Item>,
-        theme
-      )
-    ).toStrictEqual({
-      default: 80,
-      xs: 80,
-      sm: 80,
-      md: 100,
-      lg: 100,
-      xl: 120
-    });
-  });
-});
-
-describe("getStickyItemsCSS", () => {
-  it("calculates CSS for all items", () => {
-    expect(
-      getStickyItemsCSS(
-        [
-          {
-            default: 80,
-            xs: 80,
-            sm: 80,
-            md: 100,
-            lg: 100,
-            xl: 120
-          },
-          {
-            default: 20,
-            xs: 40,
-            sm: 60,
-            md: 20,
-            lg: 20,
-            xl: 120
-          },
-          {
-            default: 120,
-            xs: 80,
-            sm: 80,
-            md: 80,
-            lg: 40,
-            xl: 60
-          }
-        ],
-        theme
-      )
-    ).toStrictEqual([
-      {
-        height: "80px",
-        position: "sticky",
-        top: "0px",
-        "@media (min-width: 768px)": { height: "100px" },
-        "@media (min-width: 1200px)": { height: "120px" }
-      },
-      {
-        height: "20px",
-        position: "sticky",
-        top: "80px",
-        "@media (min-width: 375px)": { height: "40px" },
-        "@media (min-width: 576px)": { height: "60px" },
-        "@media (min-width: 768px)": { height: "20px", top: "100px" },
-        "@media (min-width: 1200px)": { height: "120px", top: "120px" }
-      },
-      {
-        height: "120px",
-        position: "sticky",
-        top: "100px",
-        "@media (min-width: 375px)": { height: "80px", top: "120px" },
-        "@media (min-width: 576px)": { top: "140px" },
-        "@media (min-width: 768px)": { top: "120px" },
-        "@media (min-width: 992px)": { height: "40px" },
-        "@media (min-width: 1200px)": { height: "60px", top: "240px" }
+    expect(getStickyItemInfo(<HeroText>Hello</HeroText>, theme)).toStrictEqual({
+      id: "HeroText",
+      heightMap: {
+        default: 80,
+        xs: 80,
+        sm: 80,
+        md: 100,
+        lg: 100,
+        xl: 120
       }
-    ]);
+    });
   });
 });
