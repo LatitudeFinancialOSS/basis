@@ -35,10 +35,10 @@
     "react-resize-aware": "3.0.0"
   },
   "peerDependencies": {
-    "@emotion/core": "10.0.28",
-    "prop-types": "15.7.2",
-    "react": "16.13.0",
-    "react-dom": "16.13.0"
+    "@emotion/core": "^10.0.28",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
