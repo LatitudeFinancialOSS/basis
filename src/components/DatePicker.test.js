@@ -10,8 +10,8 @@ function FormWithDatePicker(props) {
     birthDate: {
       day: "",
       month: "",
-      year: ""
-    }
+      year: "",
+    },
   };
 
   return (
@@ -110,7 +110,7 @@ describe("DatePicker", () => {
         [
           "Day must be within 1-31.",
           "Month must be within 1-12.",
-          "Year must be within 1800-2200."
+          "Year must be within 1800-2200.",
         ].join("")
       );
       expect(queryByText("Some help text")).not.toBeInTheDocument();

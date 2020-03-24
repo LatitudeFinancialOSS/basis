@@ -13,24 +13,24 @@ import InternalSelect from "./internal/InternalSelect";
 const ALL_FREQUENCY_OPTIONS = [
   {
     label: "Annually",
-    value: "annually"
+    value: "annually",
   },
   {
     label: "Quarterly",
-    value: "quarterly"
+    value: "quarterly",
   },
   {
     label: "Monthly",
-    value: "monthly"
+    value: "monthly",
   },
   {
     label: "Fortnightly",
-    value: "fortnightly"
+    value: "fortnightly",
   },
   {
     label: "Weekly",
-    value: "weekly"
-  }
+    value: "weekly",
+  },
 ];
 
 const { COLORS } = InternalInput;
@@ -38,7 +38,7 @@ const MODES = ["radio-group", "select"];
 
 function isFrequencySelected(frequency, frequencyPropsMap) {
   return (
-    ALL_FREQUENCY_OPTIONS.findIndex(option => option.value === frequency) >
+    ALL_FREQUENCY_OPTIONS.findIndex((option) => option.value === frequency) >
       -1 && frequencyPropsMap[frequency] === true
   );
 }
@@ -66,7 +66,7 @@ const DEFAULT_PROPS = {
     }
 
     return errors;
-  }
+  },
 };
 
 Frequency.ALL_FREQUENCY_OPTIONS = ALL_FREQUENCY_OPTIONS;
@@ -77,18 +77,18 @@ Frequency.DEFAULT_PROPS = DEFAULT_PROPS;
 function Frequency(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    mode: mode => MODES.includes(mode),
-    annually: annually => typeof annually === "boolean",
-    quarterly: quarterly => typeof quarterly === "boolean",
-    monthly: monthly => typeof monthly === "boolean",
-    fortnightly: fortnightly => typeof fortnightly === "boolean",
-    weekly: weekly => typeof weekly === "boolean",
-    disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean"
+    color: (color) => COLORS.includes(color),
+    mode: (mode) => MODES.includes(mode),
+    annually: (annually) => typeof annually === "boolean",
+    quarterly: (quarterly) => typeof quarterly === "boolean",
+    monthly: (monthly) => typeof monthly === "boolean",
+    fortnightly: (fortnightly) => typeof fortnightly === "boolean",
+    weekly: (weekly) => typeof weekly === "boolean",
+    disabled: (disabled) => typeof disabled === "boolean",
+    optional: (optional) => typeof optional === "boolean",
   });
   const {
     name,
@@ -107,7 +107,7 @@ function Frequency(props) {
     disabled,
     validate,
     validateData,
-    testId
+    testId,
   } = mergedProps;
   const [labelId] = useState(() => `frequency-label-${nanoid()}`);
   const [auxId] = useState(() => `frequency-aux-${nanoid()}`);
@@ -117,7 +117,7 @@ function Frequency(props) {
       quarterly,
       monthly,
       fortnightly,
-      weekly
+      weekly,
     }),
     [annually, quarterly, monthly, fortnightly, weekly]
   );
@@ -132,11 +132,11 @@ function Frequency(props) {
       }, []),
     [frequencyPropsMap]
   );
-  const isInputEmpty = useCallback(amount => {
+  const isInputEmpty = useCallback((amount) => {
     return amount === "";
   }, []);
   const isFrequencyEmpty = useCallback(
-    frequency => {
+    (frequency) => {
       return isFrequencySelected(frequency, frequencyPropsMap) === false;
     },
     [frequencyPropsMap]
@@ -152,7 +152,7 @@ function Frequency(props) {
       isInputEmpty,
       isFrequencyEmpty,
       isEmpty,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isInputEmpty, isFrequencyEmpty, isEmpty, validateData]
   );
@@ -163,13 +163,13 @@ function Frequency(props) {
     onFocus,
     onBlur,
     onChange,
-    onMouseDown
+    onMouseDown,
   } = useField("Frequency", {
     name,
     disabled,
     optional,
     validate,
-    data
+    data,
   });
   const inputComponent = (
     <InternalInput
@@ -264,7 +264,7 @@ Frequency.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Frequency;

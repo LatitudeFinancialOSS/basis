@@ -17,7 +17,7 @@ function Resources({ children }) {
 }
 
 Resources.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Resources;

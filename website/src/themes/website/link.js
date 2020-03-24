@@ -1,9 +1,9 @@
-export default theme => ({
+export default (theme) => ({
   link: {
     display: "inline-block",
     textDecoration: "none",
     borderRadius: theme.radii[0],
-    ...theme.focusStyles.focusVisible
+    ...theme.focusStyles.focusVisible,
   },
   "link.light-bg": {
     fontFamily: "inherit",
@@ -12,7 +12,7 @@ export default theme => ({
     borderBottomColor: "inherit",
     ":hover, :active": {
       color: "inherit",
-      borderBottomColor: "inherit"
-    }
-  }
+      borderBottomColor: "inherit",
+    },
+  },
 });

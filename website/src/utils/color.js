@@ -2,13 +2,13 @@ function str2rgb(str) {
   return {
     r: parseInt(str.slice(1, 3), 16),
     g: parseInt(str.slice(3, 5), 16),
-    b: parseInt(str.slice(5, 7), 16)
+    b: parseInt(str.slice(5, 7), 16),
   };
 }
 
 // http://www.w3.org/WAI/GL/wiki/Relative_luminance
 function relativeLuminance({ r, g, b }) {
-  [r, g, b] = [r, g, b].map(c => {
+  [r, g, b] = [r, g, b].map((c) => {
     c = c / 255;
 
     if (c <= 0.03928) {

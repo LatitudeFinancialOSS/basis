@@ -23,7 +23,7 @@ function Hamburger({ size, primaryColor, testId }) {
 Hamburger.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Hamburger;

@@ -11,7 +11,7 @@ function useBackground() {
 
   return {
     background,
-    inputColor
+    inputColor,
   };
 }
 

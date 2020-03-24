@@ -23,7 +23,7 @@ function SpacingPage() {
                   width: "24px",
                   height: spacePx,
                   margin: "12px auto",
-                  backgroundColor: theme.colors.grey.t75
+                  backgroundColor: theme.colors.grey.t75,
                 }}
               />
               <Text>{spacePx}</Text>

@@ -7,7 +7,7 @@ import Container from "./Container";
 
 function FormWithCheckbox(props) {
   const initialValues = {
-    terms: false
+    terms: false,
   };
 
   return (

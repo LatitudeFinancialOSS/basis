@@ -9,8 +9,8 @@ function FormWithFrequency(props) {
   const initialValues = {
     salary: {
       amount: "",
-      frequency: ""
-    }
+      frequency: "",
+    },
   };
 
   return (

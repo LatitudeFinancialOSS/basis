@@ -1,10 +1,10 @@
-export default theme => ({
+export default (theme) => ({
   radioGroupRadio: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   radioGroupRadioInput: {
-    ...theme.focusStyles.focusVisibleAdjacentLabel
+    ...theme.focusStyles.focusVisibleAdjacentLabel,
   },
   radioGroupRadioLabel: {
     display: "inline-flex",
@@ -18,34 +18,34 @@ export default theme => ({
     fontFamily: theme.fonts.body,
     color: theme.colors.black,
     overflow: "hidden",
-    borderRadius: theme.radii[0]
+    borderRadius: theme.radii[0],
   },
   "radioGroupRadioLabel.checked": {
     backgroundColor: theme.colors.secondary.lightBlue.t25,
-    color: theme.colors.primary.blue.t100
+    color: theme.colors.primary.blue.t100,
   },
   "radioGroupRadioLabel.grey.t05": {
-    backgroundColor: theme.colors.grey.t05
+    backgroundColor: theme.colors.grey.t05,
   },
   "radioGroupRadioLabel.white": {
-    backgroundColor: theme.colors.white
+    backgroundColor: theme.colors.white,
   },
   "radioGroupRadioLabel.oneLine.withoutCircle": {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   radioGroupRadioCircle: {
     flexShrink: 0,
     width: "24px",
     height: "24px",
-    marginRight: theme.space[3]
+    marginRight: theme.space[3],
   },
   "radioGroupRadioOuterCircle.white": {
-    fill: theme.colors.white
+    fill: theme.colors.white,
   },
   "radioGroupRadioOuterCircle.secondary.lightBlue.t25": {
-    fill: theme.colors.secondary.lightBlue.t25
+    fill: theme.colors.secondary.lightBlue.t25,
   },
   radioGroupRadioInnerCircle: {
-    fill: theme.colors.primary.blue.t100
-  }
+    fill: theme.colors.primary.blue.t100,
+  },
 });

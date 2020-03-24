@@ -11,7 +11,7 @@ function getComponentNames(initialQueue) {
 
     result.push(componentName);
 
-    Object.keys(componentFunction).forEach(key => {
+    Object.keys(componentFunction).forEach((key) => {
       if (
         typeof componentFunction[key] === "function" &&
         /*

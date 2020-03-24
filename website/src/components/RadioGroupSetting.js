@@ -4,14 +4,14 @@ import nanoid from "nanoid";
 import { useTheme, Text } from "basis";
 
 export const getRadioOptions = (values, { emptyLabel } = {}) =>
-  values.map(value => ({
+  values.map((value) => ({
     value,
-    label: value === "" ? emptyLabel : String(value)
+    label: value === "" ? emptyLabel : String(value),
   }));
 
 export const getCheckboxOptions = () => [
   { value: false, label: "no" },
-  { value: true, label: "yes" }
+  { value: true, label: "yes" },
 ];
 
 function Option({ value, name, checked, label, onChange }) {
@@ -23,7 +23,7 @@ function Option({ value, name, checked, label, onChange }) {
       css={{
         paddingTop: theme.space[1],
         paddingBottom: theme.space[1],
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
       }}
     >
       <input
@@ -49,7 +49,7 @@ Option.propTypes = {
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 function RadioGroupSetting({
@@ -58,9 +58,9 @@ function RadioGroupSetting({
   options,
   selectedValue,
   setSelectedValue,
-  type = "string"
+  type = "string",
 }) {
-  const onChange = e => {
+  const onChange = (e) => {
     if (type === "boolean") {
       setSelectedValue(e.target.value === "true");
     } else if (type === "number") {
@@ -101,18 +101,18 @@ RadioGroupSetting.propTypes = {
       value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
-        PropTypes.bool
+        PropTypes.bool,
       ]).isRequired,
-      label: PropTypes.string.isRequired
+      label: PropTypes.string.isRequired,
     })
   ).isRequired,
   selectedValue: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.bool
+    PropTypes.bool,
   ]).isRequired,
   setSelectedValue: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(["string", "number", "boolean"])
+  type: PropTypes.oneOf(["string", "number", "boolean"]),
 };
 
 export default RadioGroupSetting;

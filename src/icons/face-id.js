@@ -23,7 +23,7 @@ function FaceID({ size, primaryColor, testId }) {
 FaceID.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default FaceID;

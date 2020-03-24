@@ -14,12 +14,12 @@ function FormWithFrequency({
   weekly,
   initialValue = {
     amount: "",
-    frequency: ""
+    frequency: "",
   },
   amountPlaceholder,
   selectPlaceholder,
   disabled,
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -54,12 +54,12 @@ FormWithFrequency.propTypes = {
   weekly: PropTypes.bool,
   initialValue: PropTypes.shape({
     amount: PropTypes.string.isRequired,
-    frequency: PropTypes.string.isRequired
+    frequency: PropTypes.string.isRequired,
   }),
   amountPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkFrequency() {
@@ -73,7 +73,7 @@ function KitchenSinkFrequency() {
             disabled
             initialValue={{
               amount: "726",
-              frequency: "monthly"
+              frequency: "monthly",
             }}
           />
 
@@ -83,7 +83,7 @@ function KitchenSinkFrequency() {
             quarterly={false}
             initialValue={{
               amount: "",
-              frequency: "annually"
+              frequency: "annually",
             }}
             submitOnMount
           />
@@ -96,7 +96,7 @@ function KitchenSinkFrequency() {
             label="White"
             initialValue={{
               amount: "9822",
-              frequency: "weekly"
+              frequency: "weekly",
             }}
           />
 
@@ -106,7 +106,7 @@ function KitchenSinkFrequency() {
             quarterly={false}
             initialValue={{
               amount: "",
-              frequency: ""
+              frequency: "",
             }}
             submitOnMount
           />
@@ -119,7 +119,7 @@ function KitchenSinkFrequency() {
             selectPlaceholder="Select something"
             initialValue={{
               amount: "",
-              frequency: ""
+              frequency: "",
             }}
           />
         </Grid>

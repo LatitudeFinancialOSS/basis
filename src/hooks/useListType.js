@@ -9,7 +9,7 @@ function useListType() {
   const { type } = listInfo ?? { type: null };
 
   return {
-    type
+    type,
   };
 }
 

@@ -10,7 +10,7 @@ import InternalRadioGroup from "./internal/InternalRadioGroup";
 const { COLORS } = InternalRadioGroup;
 
 function isOptionSelected(options, value) {
-  return options.findIndex(option => option.value === value) > -1;
+  return options.findIndex((option) => option.value === value) > -1;
 }
 
 const DEFAULT_PROPS = {
@@ -24,7 +24,7 @@ const DEFAULT_PROPS = {
     }
 
     return null;
-  }
+  },
 };
 
 RadioGroup.COLORS = COLORS;
@@ -33,14 +33,14 @@ RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 function RadioGroup(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    showCircles: showCircles => typeof showCircles === "boolean",
-    disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean",
-    options: options => areOptionsValid(options)
+    color: (color) => COLORS.includes(color),
+    showCircles: (showCircles) => typeof showCircles === "boolean",
+    disabled: (disabled) => typeof disabled === "boolean",
+    optional: (optional) => typeof optional === "boolean",
+    options: (options) => areOptionsValid(options),
   });
   const {
     name,
@@ -54,7 +54,7 @@ function RadioGroup(props) {
     optional,
     validate,
     validateData,
-    testId
+    testId,
   } = mergedProps;
 
   if (!options) {
@@ -67,13 +67,13 @@ function RadioGroup(props) {
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
   const cols = columns === undefined ? options.length : columns;
   const isEmpty = useCallback(
-    value => isOptionSelected(options, value) === false,
+    (value) => isOptionSelected(options, value) === false,
     [options]
   );
   const data = useMemo(
     () => ({
       isEmpty,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isEmpty, validateData]
   );
@@ -84,13 +84,13 @@ function RadioGroup(props) {
     onFocus,
     onBlur,
     onChange,
-    onMouseDown
+    onMouseDown,
   } = useField("RadioGroup", {
     name,
     disabled,
     optional,
     validate,
-    data
+    data,
   });
 
   return (
@@ -131,7 +131,7 @@ RadioGroup.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      value: PropTypes.string.isRequired,
     })
   ).isRequired,
   columns: PropTypes.number,
@@ -145,7 +145,7 @@ RadioGroup.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default RadioGroup;

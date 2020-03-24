@@ -23,7 +23,7 @@ function Cross({ size, primaryColor, testId }) {
 Cross.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Cross;

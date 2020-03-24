@@ -1,7 +1,7 @@
 import {
   EXCEPTION_PREFIX,
   getMinMediaQueries,
-  getExclusiveMediaQueries
+  getExclusiveMediaQueries,
 } from "./css";
 
 function getColor(colorName, theme) {
@@ -38,8 +38,8 @@ function getTextStyleCSS(textStyle, theme) {
     ...theme.textStyles[textStyle],
     ...(boldCSS && {
       "& strong": boldCSS,
-      "& b": boldCSS
-    })
+      "& b": boldCSS,
+    }),
   };
 }
 
@@ -59,7 +59,7 @@ function getSpaceValue(space, theme) {
   }
 
   return parts
-    .map(n => {
+    .map((n) => {
       if (n === "auto") {
         return n;
       }
@@ -80,8 +80,8 @@ export function enhanceTheme(theme) {
     ...theme,
     minMediaQueries: getMinMediaQueries(theme.breakpoints),
     exclusiveMediaQueries: getExclusiveMediaQueries(theme.breakpoints),
-    getColor: color => getColor(color, theme),
-    getTextStyleCSS: textStyle => getTextStyleCSS(textStyle, theme),
-    getSpaceValue: space => getSpaceValue(space, theme)
+    getColor: (color) => getColor(color, theme),
+    getTextStyleCSS: (textStyle) => getTextStyleCSS(textStyle, theme),
+    getSpaceValue: (space) => getSpaceValue(space, theme),
   };
 }

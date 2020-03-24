@@ -14,13 +14,13 @@ function VisuallyHidden({ children }) {
       overflow: "hidden",
       whiteSpace: "nowrap",
       clip: "rect(0 0 0 0)",
-      clipPath: "inset(50%)"
-    }
+      clipPath: "inset(50%)",
+    },
   });
 }
 
 VisuallyHidden.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default VisuallyHidden;

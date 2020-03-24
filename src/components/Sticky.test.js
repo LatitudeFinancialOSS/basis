@@ -19,7 +19,7 @@ describe("Sticky", () => {
     MyStickyNav.ID = "MyStickyNav";
     MyStickyNav.HEIGHT_MAP = {
       default: 120,
-      lg: 60
+      lg: 60,
     };
 
     const { container } = render(

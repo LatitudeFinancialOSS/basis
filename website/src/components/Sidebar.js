@@ -21,7 +21,7 @@ function Section({ heading, children }) {
 
 Section.propTypes = {
   heading: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 function Item({ location, href, children }) {
@@ -41,8 +41,8 @@ function Item({ location, href, children }) {
           backgroundColor: isCurrent ? theme.colors.grey.t16 : null,
           fontWeight: isCurrent ? theme.fontWeights.medium : null,
           ":hover": {
-            backgroundColor: theme.colors.grey.t16
-          }
+            backgroundColor: theme.colors.grey.t16,
+          },
         }}
         to={href}
       >
@@ -54,10 +54,10 @@ function Item({ location, href, children }) {
 
 Item.propTypes = {
   location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
   }).isRequired,
   href: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 function Sidebar() {
@@ -81,7 +81,7 @@ function Sidebar() {
 
     return {
       componentName: pascalCase(relativeDirectory.split("/")[1]),
-      href: `/${relativeDirectory}`
+      href: `/${relativeDirectory}`,
     };
   });
 
@@ -91,7 +91,7 @@ function Sidebar() {
         css={{
           padding: `${theme.space[5]} ${theme.space[6]}`,
           borderBottom: `1px solid ${theme.colors.grey.t10}`,
-          backgroundColor: theme.colors.grey.t05
+          backgroundColor: theme.colors.grey.t05,
         }}
       >
         <Link to="/">
@@ -106,7 +106,7 @@ function Sidebar() {
           flexDirection: "column",
           flexGrow: 1,
           overflowY: "auto",
-          backgroundColor: theme.colors.grey.t05
+          backgroundColor: theme.colors.grey.t05,
         }}
       >
         <Location>
@@ -144,7 +144,7 @@ function Sidebar() {
             padding: `${theme.space[4]} ${theme.space[6]}`,
             fontSize: "10px",
             color: theme.colors.grey.t65,
-            borderTop: `1px solid ${theme.colors.grey.t10}`
+            borderTop: `1px solid ${theme.colors.grey.t10}`,
           }}
         >
           Version {version}

@@ -24,7 +24,7 @@ const iframeHTML = `
 const iframeStyle = {
   width: "100%",
   height: "100%",
-  border: 0
+  border: 0,
 };
 
 function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
@@ -32,7 +32,7 @@ function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
     <div
       css={{
         position: "relative",
-        height: "100vh"
+        height: "100vh",
       }}
       ref={containerRef}
     >
@@ -45,10 +45,10 @@ function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
             top: 0,
             right: 0,
             bottom: 0,
-            cursor: "default"
+            cursor: "default",
           }}
         >
-          {Object.keys(highlightedComponents).map(testId => {
+          {Object.keys(highlightedComponents).map((testId) => {
             const { left, top, right, bottom } = highlightedComponents[testId];
 
             return (
@@ -59,7 +59,7 @@ function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
                   top,
                   width: right - left,
                   height: bottom - top,
-                  backgroundColor: "rgba(255, 0, 0, 0.2)"
+                  backgroundColor: "rgba(255, 0, 0, 0.2)",
                 }}
                 key={testId}
               >
@@ -76,7 +76,7 @@ function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
 LivePreviewWrapper.propTypes = {
   children: PropTypes.node,
   containerRef: PropTypes.func,
-  highlightedComponents: PropTypes.object
+  highlightedComponents: PropTypes.object,
 };
 
 function ComponentPreviewContent({
@@ -85,7 +85,7 @@ function ComponentPreviewContent({
   hasBodyMargin,
   setDocument,
   containerRef,
-  highlightedComponents
+  highlightedComponents,
 }) {
   useEffect(() => {
     if (setDocument) {
@@ -99,8 +99,8 @@ function ComponentPreviewContent({
         <Global
           styles={{
             body: {
-              margin: 0
-            }
+              margin: 0,
+            },
           }}
         />
       )}
@@ -119,7 +119,7 @@ ComponentPreviewContent.propTypes = {
   hasBodyMargin: PropTypes.bool.isRequired,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,
-  highlightedComponents: PropTypes.object
+  highlightedComponents: PropTypes.object,
 };
 
 function ComponentPreview({
@@ -127,7 +127,7 @@ function ComponentPreview({
   hasBodyMargin = true,
   setDocument,
   containerRef,
-  highlightedComponents
+  highlightedComponents,
 }) {
   return (
     <ErrorBoundary>
@@ -164,7 +164,7 @@ ComponentPreview.propTypes = {
   hasBodyMargin: PropTypes.bool,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,
-  highlightedComponents: PropTypes.object
+  highlightedComponents: PropTypes.object,
 };
 
 export default ComponentPreview;

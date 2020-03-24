@@ -23,7 +23,7 @@ function Calculator({ size, primaryColor, testId }) {
 Calculator.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Calculator;

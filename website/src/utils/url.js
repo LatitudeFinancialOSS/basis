@@ -42,7 +42,7 @@ export function getTabsUrls(location) {
     return {
       name: tabName,
       href: tabIndex === 0 ? basePath : `${basePath}/${slug}`,
-      isCurrent: tabIndex === 0 ? isDefaultPath : lastPart === slug
+      isCurrent: tabIndex === 0 ? isDefaultPath : lastPart === slug,
     };
   });
 }
@@ -54,7 +54,7 @@ export function getPlaygroundUrl(location, data) {
 
   return `${url}?${queryString.stringify({
     ...query,
-    data: dataStr
+    data: dataStr,
   })}`;
 }
 

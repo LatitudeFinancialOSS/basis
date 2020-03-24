@@ -51,7 +51,7 @@ const DEFAULT_PROPS = {
     }
 
     return errors;
-  }
+  },
 };
 
 TimeSpan.COLORS = COLORS;
@@ -68,12 +68,12 @@ function getHelpText(years, months, defaultHelpText) {
   return [
     {
       count: yearsInt,
-      word: "year"
+      word: "year",
     },
     {
       count: monthsInt,
-      word: "month"
-    }
+      word: "month",
+    },
   ]
     .filter(({ count }) => count > 0)
     .map(({ count, word }) => pluralize(count, word))
@@ -83,12 +83,12 @@ function getHelpText(years, months, defaultHelpText) {
 function TimeSpan(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean"
+    color: (color) => COLORS.includes(color),
+    disabled: (disabled) => typeof disabled === "boolean",
+    optional: (optional) => typeof optional === "boolean",
   });
   const {
     name,
@@ -101,18 +101,18 @@ function TimeSpan(props) {
     validateData,
     testId,
     __internal__yearsFocus,
-    __internal__monthsFocus
+    __internal__monthsFocus,
   } = mergedProps;
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
   const isEmpty = useCallback(
-    value => value.years === "" && value.months === "",
+    (value) => value.years === "" && value.months === "",
     []
   );
   const data = useMemo(
     () => ({
       isEmpty,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isEmpty, validateData]
   );
@@ -123,7 +123,7 @@ function TimeSpan(props) {
       disabled,
       optional,
       validate,
-      data
+      data,
     }
   );
   const helpText = useMemo(
@@ -195,7 +195,7 @@ TimeSpan.propTypes = {
   validateData: PropTypes.any,
   testId: PropTypes.string,
   __internal__yearsFocus: PropTypes.bool,
-  __internal__monthsFocus: PropTypes.bool
+  __internal__monthsFocus: PropTypes.bool,
 };
 
 export default TimeSpan;

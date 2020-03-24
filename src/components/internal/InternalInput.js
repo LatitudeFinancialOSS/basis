@@ -11,7 +11,7 @@ const DEFAULT_PROPS = {
   disabled: false,
   pasteAllowed: true,
   isValid: true,
-  __internal__focus: false
+  __internal__focus: false,
 };
 
 InternalInput.TYPES = TYPES;
@@ -38,12 +38,12 @@ function InternalInput(_props) {
     onBlur,
     value,
     onChange,
-    __internal__focus
+    __internal__focus,
   } = props;
   const theme = useTheme();
   const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const onPaste = useCallback(
-    event => {
+    (event) => {
       if (!pasteAllowed) {
         event.preventDefault();
       }
@@ -61,8 +61,8 @@ function InternalInput(_props) {
         ":hover": theme["input:hover"],
         ...(type === "number" && {
           "::-webkit-inner-spin-button, ::-webkit-outer-spin-button":
-            theme["input.webkitSpinButton"]
-        })
+            theme["input.webkitSpinButton"],
+        }),
       }}
       id={id}
       name={name}
@@ -106,7 +106,7 @@ InternalInput.propTypes = {
   onBlur: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  __internal__focus: PropTypes.bool
+  __internal__focus: PropTypes.bool,
 };
 
 export default InternalInput;

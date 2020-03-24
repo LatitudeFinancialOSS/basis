@@ -7,7 +7,7 @@ import {
   responsiveMargin,
   responsivePadding,
   responsiveSize,
-  responsiveTextAlign
+  responsiveTextAlign,
 } from "./css";
 
 describe("getMinMediaQueries", () => {
@@ -23,14 +23,14 @@ describe("getMinMediaQueries", () => {
         sm: "576px",
         md: "768px",
         lg: "992px",
-        xl: "1200px"
+        xl: "1200px",
       })
     ).toStrictEqual({
       xs: "@media (min-width: 375px)",
       sm: "@media (min-width: 576px)",
       md: "@media (min-width: 768px)",
       lg: "@media (min-width: 992px)",
-      xl: "@media (min-width: 1200px)"
+      xl: "@media (min-width: 1200px)",
     });
   });
 });
@@ -44,11 +44,11 @@ describe("getExclusiveMediaQueries", () => {
   it("1 breakpoint", () => {
     expect(
       getExclusiveMediaQueries({
-        md: "768px"
+        md: "768px",
       })
     ).toStrictEqual({
       default: "(max-width: 767px)",
-      md: "(min-width: 768px)"
+      md: "(min-width: 768px)",
     });
   });
 
@@ -59,7 +59,7 @@ describe("getExclusiveMediaQueries", () => {
         sm: "576px",
         md: "768px",
         lg: "992px",
-        xl: "1200px"
+        xl: "1200px",
       })
     ).toStrictEqual({
       default: "(max-width: 374px)",
@@ -67,7 +67,7 @@ describe("getExclusiveMediaQueries", () => {
       sm: "(min-width: 576px) and (max-width: 767px)",
       md: "(min-width: 768px) and (max-width: 991px)",
       lg: "(min-width: 992px) and (max-width: 1199px)",
-      xl: "(min-width: 1200px)"
+      xl: "(min-width: 1200px)",
     });
   });
 });
@@ -81,19 +81,19 @@ describe("mergeResponsiveCSS", () => {
           "@media (min-width: 576px)": {
             maxWidth: "540px",
             marginLeft: "auto",
-            marginRight: "auto"
-          }
+            marginRight: "auto",
+          },
         },
         {
           padding: "12px",
           margin: "0px",
           "@media (min-width: 576px)": {
-            padding: "0px"
+            padding: "0px",
           },
           "@media (min-width: 768px)": {
             margin: "32px",
-            padding: "16px 48px"
-          }
+            padding: "16px 48px",
+          },
         }
       )
     ).toStrictEqual({
@@ -103,12 +103,12 @@ describe("mergeResponsiveCSS", () => {
         maxWidth: "540px",
         marginLeft: "auto",
         marginRight: "auto",
-        padding: "0px"
+        padding: "0px",
       },
       "@media (min-width: 768px)": {
         margin: "32px",
-        padding: "16px 48px"
-      }
+        padding: "16px 48px",
+      },
     });
   });
 });
@@ -119,7 +119,7 @@ describe("isCSSinOrder", () => {
       isCSSinOrder({
         width: "100%",
         fontSize: "14px",
-        height: "12px"
+        height: "12px",
       })
     ).toBe(true);
   });
@@ -128,14 +128,14 @@ describe("isCSSinOrder", () => {
     expect(
       isCSSinOrder({
         "@media (min-width: 375px)": {
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 768px)": {
-          fontSize: "21px"
+          fontSize: "21px",
         },
         "@media (min-width: 1200px)": {
-          height: "200px"
-        }
+          height: "200px",
+        },
       })
     ).toBe(true);
   });
@@ -146,19 +146,19 @@ describe("isCSSinOrder", () => {
         width: "100%",
         height: "12px",
         "@media (min-width: 375px)": {
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 576px)": {
           width: "100px",
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 768px)": {
-          fontSize: "21px"
+          fontSize: "21px",
         },
         "@media (min-width: 992px)": {},
         "@media (min-width: 1200px)": {
-          height: "200px"
-        }
+          height: "200px",
+        },
       })
     ).toBe(true);
   });
@@ -168,20 +168,20 @@ describe("isCSSinOrder", () => {
       isCSSinOrder({
         width: "100%",
         "@media (min-width: 375px)": {
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 576px)": {
           width: "100px",
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 768px)": {
-          fontSize: "21px"
+          fontSize: "21px",
         },
         height: "12px",
         "@media (min-width: 992px)": {},
         "@media (min-width: 1200px)": {
-          height: "200px"
-        }
+          height: "200px",
+        },
       })
     ).toBe(false);
   });
@@ -192,19 +192,19 @@ describe("isCSSinOrder", () => {
         width: "100%",
         height: "12px",
         "@media (min-width: 375px)": {
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 576px)": {
           width: "100px",
-          height: "24px"
+          height: "24px",
         },
         "@media (min-width: 992px)": {},
         "@media (min-width: 768px)": {
-          fontSize: "21px"
+          fontSize: "21px",
         },
         "@media (min-width: 1200px)": {
-          height: "200px"
-        }
+          height: "200px",
+        },
       })
     ).toBe(false);
   });
@@ -213,7 +213,7 @@ describe("isCSSinOrder", () => {
 describe("responsiveMargin", () => {
   it("valid margin", () => {
     expect(responsiveMargin({ margin: "4 -5 1 -8" }, theme)).toStrictEqual({
-      margin: "16px -20px 4px -32px"
+      margin: "16px -20px 4px -32px",
     });
   });
 
@@ -225,7 +225,7 @@ describe("responsiveMargin", () => {
 describe("responsivePadding", () => {
   it("valid padding", () => {
     expect(responsivePadding({ padding: "1" }, theme)).toStrictEqual({
-      padding: "4px"
+      padding: "4px",
     });
   });
 
@@ -237,18 +237,18 @@ describe("responsivePadding", () => {
 describe("responsiveSize", () => {
   it("valid value", () => {
     expect(responsiveSize("width")({ width: "120" }, theme)).toStrictEqual({
-      width: "120px"
+      width: "120px",
     });
     expect(
       responsiveSize("maxWidth")({ maxWidth: "120px" }, theme)
     ).toStrictEqual({
-      maxWidth: "120px"
+      maxWidth: "120px",
     });
     expect(responsiveSize("height")({ height: "100%" }, theme)).toStrictEqual({
-      height: "100%"
+      height: "100%",
     });
     expect(responsiveSize("height")({ height: "auto" }, theme)).toStrictEqual({
-      height: "auto"
+      height: "auto",
     });
   });
 
@@ -264,16 +264,16 @@ describe("responsiveSize", () => {
 describe("responsiveTextAlign", () => {
   it("valid textAlign", () => {
     expect(responsiveTextAlign({ textAlign: "inherit" }, theme)).toStrictEqual({
-      textAlign: "inherit"
+      textAlign: "inherit",
     });
     expect(responsiveTextAlign({ textAlign: "left" }, theme)).toStrictEqual({
-      textAlign: "left"
+      textAlign: "left",
     });
     expect(responsiveTextAlign({ textAlign: "center" }, theme)).toStrictEqual({
-      textAlign: "center"
+      textAlign: "center",
     });
     expect(responsiveTextAlign({ textAlign: "right" }, theme)).toStrictEqual({
-      textAlign: "right"
+      textAlign: "right",
     });
   });
 

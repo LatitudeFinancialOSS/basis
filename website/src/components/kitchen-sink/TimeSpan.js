@@ -8,14 +8,14 @@ function FormWithTimeSpan({
   label,
   initialValue = {
     years: "",
-    months: ""
+    months: "",
   },
   disabled,
   helpText,
   optional,
   __internal__yearsFocus,
   __internal__monthsFocus,
-  submitOnMount
+  submitOnMount,
 }) {
   return (
     <KitchenSinkForm
@@ -39,14 +39,14 @@ FormWithTimeSpan.propTypes = {
   label: PropTypes.string.isRequired,
   initialValue: PropTypes.shape({
     years: PropTypes.string.isRequired,
-    months: PropTypes.string.isRequired
+    months: PropTypes.string.isRequired,
   }),
   disabled: PropTypes.bool,
   helpText: PropTypes.string,
   optional: PropTypes.bool,
   __internal__yearsFocus: PropTypes.bool,
   __internal__monthsFocus: PropTypes.bool,
-  submitOnMount: PropTypes.bool
+  submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkTimeSpan() {
@@ -62,7 +62,7 @@ function KitchenSinkTimeSpan() {
             label="Years"
             initialValue={{
               years: "2",
-              months: ""
+              months: "",
             }}
           />
 
@@ -70,7 +70,7 @@ function KitchenSinkTimeSpan() {
             label="Months"
             initialValue={{
               years: "",
-              months: "3"
+              months: "3",
             }}
           />
 
@@ -78,7 +78,7 @@ function KitchenSinkTimeSpan() {
             label="Years and months"
             initialValue={{
               years: "1",
-              months: "1"
+              months: "1",
             }}
           />
 

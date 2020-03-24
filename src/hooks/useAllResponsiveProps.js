@@ -11,7 +11,7 @@ function useAllResponsiveProps(props, propName) {
     result[propName] = props[propName];
   }
 
-  breakpoints.forEach(bp => {
+  breakpoints.forEach((bp) => {
     const prop = getPropName(propName, bp);
 
     if (hasOwnProperty(props, prop)) {

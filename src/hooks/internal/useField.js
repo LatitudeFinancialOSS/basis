@@ -15,7 +15,7 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     onChange,
     onMouseDown,
     registerField,
-    unregisterField
+    unregisterField,
   } = useForm(componentName);
 
   if (typeof state.values === "undefined") {
@@ -36,7 +36,7 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
       disabled,
       optional,
       validate,
-      data
+      data,
     });
 
     return () => {
@@ -49,7 +49,7 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     validate,
     data,
     registerField,
-    unregisterField
+    unregisterField,
   ]);
 
   return {
@@ -59,7 +59,7 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     onFocus,
     onBlur,
     onChange,
-    onMouseDown
+    onMouseDown,
   };
 }
 

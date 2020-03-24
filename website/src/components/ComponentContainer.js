@@ -15,7 +15,7 @@ const rightOnly = {
   topRight: false,
   bottomRight: false,
   bottomLeft: false,
-  topLeft: false
+  topLeft: false,
 };
 
 function ComponentContainer(props) {
@@ -24,7 +24,7 @@ function ComponentContainer(props) {
     noInline = false,
     scope,
     hasBodyMargin,
-    backgroundColor
+    backgroundColor,
   } = props;
   const theme = useTheme();
   const spaceBetween = parseInt(theme.space[11], 10);
@@ -60,13 +60,13 @@ function ComponentContainer(props) {
             style={{
               flexShrink: 0,
               marginRight: spaceBetween,
-              borderRight: `${borderWidthPx} solid ${theme.colors.grey.t10}`
+              borderRight: `${borderWidthPx} solid ${theme.colors.grey.t10}`,
             }}
             enable={rightOnly}
             minWidth={minWidth}
             size={{
               width,
-              height: "100%"
+              height: "100%",
             }}
             onResizeStop={(_e, _direction, _ref, d) => {
               setWidth(width + d.width);
@@ -84,7 +84,7 @@ function ComponentContainer(props) {
                 top: 0,
                 backgroundColor: theme.colors.grey.t10,
                 fontSize: theme.fontSizes[0],
-                padding: `0 ${theme.space[1]}`
+                padding: `0 ${theme.space[1]}`,
               }}
             >
               {resizeWidth}px
@@ -95,7 +95,7 @@ function ComponentContainer(props) {
                 boxSizing: "border-box",
                 padding: spaceAroundIframe,
                 backgroundColor,
-                overflowY: "auto"
+                overflowY: "auto",
               }}
             >
               <ComponentPreview hasBodyMargin={hasBodyMargin} />
@@ -117,7 +117,7 @@ ComponentContainer.propTypes = {
   scope: PropTypes.object.isRequired,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hasBodyMargin: PropTypes.bool,
-  backgroundColor: PropTypes.string
+  backgroundColor: PropTypes.string,
 };
 
 export default ComponentContainer;

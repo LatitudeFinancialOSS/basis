@@ -11,7 +11,7 @@ export function getPropName(name, breakpoint) {
 
 export function responsivePropType(propName, propType) {
   const result = {
-    [propName]: propType
+    [propName]: propType,
   };
 
   /*
@@ -41,7 +41,7 @@ export const responsivePaddingType = responsivePropType(
 
 const SIZE_PX_REGEX = /^\s*(\d+)(px)?\s*$/;
 
-const responsiveSizeType = prop =>
+const responsiveSizeType = (prop) =>
   responsivePropType(prop, (props, propName, componentName) => {
     if (!hasOwnProperty(props, propName)) {
       return;
@@ -78,9 +78,9 @@ const responsiveSizeType = prop =>
       return new Error(
         `${componentName}: ${propName}="${
           props[propName]
-        }". Please use a multiple of 4${px} (e.g. "${n * 4}${px}" or "${(n +
-          1) *
-          4}${px}").`
+        }". Please use a multiple of 4${px} (e.g. "${n * 4}${px}" or "${
+          (n + 1) * 4
+        }${px}").`
       );
     }
   });

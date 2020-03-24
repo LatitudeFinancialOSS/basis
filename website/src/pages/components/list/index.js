@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions
+  getRadioOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -22,13 +22,13 @@ function ListPage() {
     {
       prop: "type",
       value: type,
-      defaultValue: DEFAULT_PROPS.type
+      defaultValue: DEFAULT_PROPS.type,
     },
     {
       prop: "textStyle",
       value: textStyle,
-      defaultValue: DEFAULT_PROPS.textStyle
-    }
+      defaultValue: DEFAULT_PROPS.textStyle,
+    },
   ])}
   >
     <List.Item>
@@ -58,7 +58,7 @@ function ListPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

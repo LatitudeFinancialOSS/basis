@@ -23,7 +23,7 @@ function ChevronRight({ size, primaryColor, testId }) {
 ChevronRight.propTypes = {
   size: PropTypes.string.isRequired,
   primaryColor: PropTypes.string.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default ChevronRight;

@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMarginType,
-  responsivePropType
+  responsivePropType,
 } from "../hooks/useResponsiveProp";
 import {
   responsiveMargin,
   responsiveFlexDirection,
-  responsiveFlexPlaceItems
+  responsiveFlexPlaceItems,
 } from "../utils/css";
 
 const DIRECTIONS = ["row", "column"];
@@ -32,13 +32,13 @@ const PLACE_ITEMS = [
   "center bottom",
   "right bottom",
 
-  "center"
+  "center",
 ];
 
 const DEFAULT_PROPS = {
   direction: "row",
   fullHeight: false,
-  placeItems: "top left"
+  placeItems: "top left",
 };
 
 Flex.DIRECTIONS = DIRECTIONS;
@@ -50,11 +50,11 @@ function Flex(_props) {
   const { fullHeight, children, testId } = props;
   const childrenArray = React.Children.toArray(children);
   const wrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    margin: responsiveMargin
+    margin: responsiveMargin,
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     placeItems: responsiveFlexPlaceItems,
-    direction: responsiveFlexDirection
+    direction: responsiveFlexDirection,
   });
 
   return (
@@ -62,7 +62,7 @@ function Flex(_props) {
       css={{
         display: "flex", // Without it, parent and child margins collapse. See: https://stackoverflow.com/a/19719427/247243
         ...(fullHeight === true ? { height: "100%" } : {}),
-        ...wrapperCSS
+        ...wrapperCSS,
       }}
       data-testid={testId}
     >
@@ -71,7 +71,7 @@ function Flex(_props) {
           display: "flex",
           width: "100%",
           height: "100%",
-          ...flexCSS
+          ...flexCSS,
         }}
       >
         {childrenArray}
@@ -86,7 +86,7 @@ Flex.propTypes = {
   fullHeight: PropTypes.bool,
   ...responsivePropType("placeItems", PropTypes.oneOf(PLACE_ITEMS)),
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Flex;

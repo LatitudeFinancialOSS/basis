@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions
+  getRadioOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -11,7 +11,7 @@ const { BACKGROUNDS } = Section;
 const scope = allDesignSystem;
 
 const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
-  emptyLabel: "No background"
+  emptyLabel: "No background",
 });
 
 function SectionPage() {
@@ -21,8 +21,8 @@ function SectionPage() {
     <Section ${nonDefaultProps([
       {
         prop: "bg",
-        value: bg
-      }
+        value: bg,
+      },
     ])}
     >
       <Grid preset="page">
@@ -54,7 +54,7 @@ function SectionPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

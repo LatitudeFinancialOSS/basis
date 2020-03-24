@@ -26,12 +26,12 @@ function Page({ pageContext, children }) {
             fontFamily: theme.fonts.body,
             fontSize: theme.fontSizes[1],
             lineHeight: theme.lineHeights[2],
-            color: theme.colors.black
+            color: theme.colors.black,
           },
           a: {
             color: "inherit",
-            textDecoration: "none"
-          }
+            textDecoration: "none",
+          },
         }}
       />
       <SEO title={title} />
@@ -42,7 +42,7 @@ function Page({ pageContext, children }) {
           css={{
             height: "100vh",
             display: "grid",
-            gridTemplateColumns: "224px 1fr"
+            gridTemplateColumns: "224px 1fr",
           }}
         >
           <Sidebar />
@@ -51,19 +51,19 @@ function Page({ pageContext, children }) {
               minHeight: 0,
               display: "flex",
               flexDirection: "column",
-              overflow: "auto"
+              overflow: "auto",
             }}
           >
             {header && (
               <div
                 css={{
-                  borderBottom: `1px solid ${theme.colors.grey.t16}`
+                  borderBottom: `1px solid ${theme.colors.grey.t16}`,
                 }}
               >
                 <div
                   css={{
                     display: "flex",
-                    padding: `${theme.space[5]} ${theme.space[6]} 0`
+                    padding: `${theme.space[5]} ${theme.space[6]} 0`,
                   }}
                 >
                   <Text as="h1" textStyle="heading4">
@@ -84,7 +84,7 @@ function Page({ pageContext, children }) {
                         css={{
                           display: "flex",
                           margin: `${theme.space[6]} 0 0`,
-                          padding: 0
+                          padding: 0,
                         }}
                       >
                         {urls.map(({ name, href, isCurrent }) => (
@@ -100,9 +100,9 @@ function Page({ pageContext, children }) {
                                   display: "block",
                                   height: theme.borderWidths[1],
                                   margin: `0 ${theme.space[6]}`,
-                                  backgroundColor: theme.colors.black
-                                }
-                              })
+                                  backgroundColor: theme.colors.black,
+                                },
+                              }),
                             }}
                             key={name}
                           >
@@ -123,7 +123,7 @@ function Page({ pageContext, children }) {
                 flexDirection: "column",
                 flexGrow: 1,
                 minHeight: 0,
-                overflowY: "auto"
+                overflowY: "auto",
               }}
             >
               {children}
@@ -139,9 +139,9 @@ Page.propTypes = {
   pageContext: PropTypes.shape({
     header: PropTypes.string,
     status: PropTypes.oneOf(Object.values(COMPONENT_STATUS)),
-    layout: PropTypes.string
+    layout: PropTypes.string,
   }).isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default Page;

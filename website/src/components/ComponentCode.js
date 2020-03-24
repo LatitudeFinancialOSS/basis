@@ -13,8 +13,8 @@ function ComponentCode({ className, code }) {
       css={{
         padding: `${theme.space[3]} ${theme.space[5]}`,
         "textarea:focus": {
-          outline: "none"
-        }
+          outline: "none",
+        },
       }}
     >
       <LiveEditor />
@@ -27,7 +27,7 @@ function ComponentCode({ className, code }) {
 
 ComponentCode.propTypes = {
   className: PropTypes.string,
-  code: PropTypes.string.isRequired
+  code: PropTypes.string.isRequired,
 };
 
 export default ComponentCode;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
-  getRadioOptions
+  getRadioOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
@@ -22,13 +22,13 @@ function LoadingIconPage() {
       {
         prop: "size",
         value: size,
-        defaultValue: DEFAULT_PROPS.size
+        defaultValue: DEFAULT_PROPS.size,
       },
       {
         prop: "color",
         value: color,
-        defaultValue: DEFAULT_PROPS.color
-      }
+        defaultValue: DEFAULT_PROPS.color,
+      },
     ])} />
   `);
 
@@ -38,7 +38,7 @@ function LoadingIconPage() {
         css={{
           display: "flex",
           flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`
+          padding: `${theme.space[5]} ${theme.space[6]}`,
         }}
       >
         <RadioGroupSetting

@@ -11,43 +11,43 @@ import {
   Frequency,
   RadioGroup,
   Select,
-  Button
+  Button,
 } from ".";
 import { render, fireEvent } from "../utils/test";
 
 const relationshipStatusOptions = [
   {
     label: "Single",
-    value: "single"
+    value: "single",
   },
   {
     label: "Married",
-    value: "married"
+    value: "married",
   },
   {
     label: "Other",
-    value: "other"
-  }
+    value: "other",
+  },
 ];
 const hungryOptions = [
   {
     label: "Yes",
-    value: "yes"
+    value: "yes",
   },
   {
     label: "No",
-    value: "no"
+    value: "no",
   },
   {
     label: "Maybe",
-    value: "maybe"
-  }
+    value: "maybe",
+  },
 ];
 
 // eslint-disable-next-line react/prop-types
 function SimpleForm({ testId }) {
   const initialValues = {
-    name: ""
+    name: "",
   };
 
   return (
@@ -66,17 +66,17 @@ function ComplexForm({ onSubmit }) {
     hungry: "",
     salary: {
       amount: "",
-      frequency: ""
+      frequency: "",
     },
     birthDate: {
       day: "",
       month: "",
-      year: ""
+      year: "",
     },
     age: {
       years: "",
-      months: ""
-    }
+      months: "",
+    },
   };
 
   return (
@@ -133,13 +133,13 @@ describe("Form", () => {
         birthDate: [
           "Day must be within 1-31.",
           "Month must be within 1-12.",
-          "Year must be within 1800-2200."
-        ]
+          "Year must be within 1800-2200.",
+        ],
       },
       values: {
         age: {
           months: "",
-          years: ""
+          years: "",
         },
         hungry: "",
         likeIceCream: false,
@@ -147,14 +147,14 @@ describe("Form", () => {
         relationshipStatus: "",
         salary: {
           amount: "",
-          frequency: ""
+          frequency: "",
         },
         birthDate: {
           day: "",
           month: "",
-          year: ""
-        }
-      }
+          year: "",
+        },
+      },
     });
   });
 

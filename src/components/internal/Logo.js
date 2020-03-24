@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   responsiveHeightType,
-  responsiveMaxWidthType
+  responsiveMaxWidthType,
 } from "../../hooks/useResponsiveProp";
 import useAllResponsiveProps from "../../hooks/useAllResponsiveProps";
 
@@ -30,7 +30,7 @@ function Logo(_props) {
     color,
     ...heightProps,
     ...maxWidthProps,
-    testId
+    testId,
   };
 
   return <LogoComponent {...logoProps} />;
@@ -41,7 +41,7 @@ Logo.propTypes = {
   color: PropTypes.oneOf(COLORS),
   ...responsiveHeightType,
   ...responsiveMaxWidthType,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Logo;

@@ -9,14 +9,14 @@ const backgrounds = [
   "grey.t07",
   "secondary.lightBlue.t15",
   "secondary.lightBlue.t25",
-  "primary.blue.t100"
+  "primary.blue.t100",
 ];
 
 function KitchenSinkLink() {
   return (
     <KitchenSinkLayout name="Link">
       <Container padding="6 0">
-        {backgrounds.map(bg => (
+        {backgrounds.map((bg) => (
           <Container padding="4" bg={bg} key={bg}>
             <Stack direction="horizontal" gap="8">
               <Link href="#" newTab={false}>

@@ -10,7 +10,7 @@ function FormContent({ onMount, children }) {
 
 FormContent.propTypes = {
   onMount: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 function KitchenSinkForm({ initialValues, submitOnMount, children }) {
@@ -34,7 +34,7 @@ function KitchenSinkForm({ initialValues, submitOnMount, children }) {
 KitchenSinkForm.propTypes = {
   initialValues: PropTypes.object.isRequired,
   submitOnMount: PropTypes.bool,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default KitchenSinkForm;

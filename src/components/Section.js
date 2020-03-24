@@ -24,7 +24,7 @@ Section.propTypes = {
   bg: PropTypes.oneOf(BACKGROUNDS),
   ...responsivePaddingType,
   children: PropTypes.node,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 export default Section;

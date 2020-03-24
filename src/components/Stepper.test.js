@@ -10,7 +10,7 @@ describe("Stepper", () => {
 
   it("exposes a HEIGHT_MAP", () => {
     expect(Stepper.HEIGHT_MAP).toStrictEqual({
-      default: 100
+      default: 100,
     });
   });
 

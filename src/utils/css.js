@@ -27,7 +27,7 @@ export function getGapValues(gap, theme) {
 
   return {
     rowGap: rowGapPx,
-    columnGap: columnGapPx
+    columnGap: columnGapPx,
   };
 }
 
@@ -112,7 +112,7 @@ export function getExclusiveMediaQueries(breakpoints) {
 
   const entries = Object.entries(breakpoints).map(([bp, px]) => ({
     bp,
-    px: parseInt(px, 10)
+    px: parseInt(px, 10),
   }));
 
   if (!entries[0]) {
@@ -120,14 +120,14 @@ export function getExclusiveMediaQueries(breakpoints) {
   }
 
   const result = {
-    [DEFAULT_BREAKPOINT]: `(max-width: ${entries[0].px - 1}px)`
+    [DEFAULT_BREAKPOINT]: `(max-width: ${entries[0].px - 1}px)`,
   };
   let i, len;
 
   for (i = 0, len = entries.length - 1; i < len; i++) {
-    result[entries[i].bp] = `(min-width: ${
-      entries[i].px
-    }px) and (max-width: ${entries[i + 1].px - 1}px)`;
+    result[entries[i].bp] = `(min-width: ${entries[i].px}px) and (max-width: ${
+      entries[i + 1].px - 1
+    }px)`;
   }
 
   result[entries[i].bp] = `(min-width: ${entries[i].px}px)`;
@@ -152,7 +152,7 @@ export function mergeResponsiveCSS(css1, css2) {
         // merge with css1
         result[key] = {
           ...result[key],
-          ...css2[key]
+          ...css2[key],
         };
       } else {
         result[key] = css2[key];
@@ -223,7 +223,7 @@ function addPxIfNeeded(str) {
   return str;
 }
 
-export const responsiveSize = prop => propsAtBreakpoint => {
+export const responsiveSize = (prop) => (propsAtBreakpoint) => {
   const value =
     typeof propsAtBreakpoint[prop] === "string" &&
     propsAtBreakpoint[prop].trim() !== ""
@@ -251,7 +251,7 @@ export function responsiveFlexDirection({ direction }) {
   }
 
   return {
-    flexDirection: direction
+    flexDirection: direction,
   };
 }
 
@@ -266,7 +266,7 @@ export function responsiveFlexPlaceItems({ direction, placeItems }) {
     if (parts[0] === "center") {
       return {
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       };
     }
 
@@ -280,7 +280,7 @@ export function responsiveFlexPlaceItems({ direction, placeItems }) {
   if (parts[0] === "center" && parts[1] === "center") {
     return {
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
     };
   }
 
@@ -302,6 +302,6 @@ export function responsiveFlexPlaceItems({ direction, placeItems }) {
   return {
     alignItems: direction === "row" ? verticalAlignment : horizontalAlignment,
     justifyContent:
-      direction === "row" ? horizontalAlignment : verticalAlignment
+      direction === "row" ? horizontalAlignment : verticalAlignment,
   };
 }

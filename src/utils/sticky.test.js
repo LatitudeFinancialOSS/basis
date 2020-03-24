@@ -57,7 +57,7 @@ describe("getStickyItemInfo", () => {
 
     HeroText.ID = "HeroText";
     HeroText.HEIGHT_MAP = {
-      default: "80" // must be a number
+      default: "80", // must be a number
     };
 
     expect(() =>
@@ -73,7 +73,7 @@ describe("getStickyItemInfo", () => {
     HeroText.ID = "HeroText";
     HeroText.HEIGHT_MAP = {
       default: 80,
-      lg: "100" // must be a number
+      lg: "100", // must be a number
     };
 
     expect(() =>
@@ -90,7 +90,7 @@ describe("getStickyItemInfo", () => {
     HeroText.HEIGHT_MAP = {
       default: 80,
       md: 100,
-      xl: 120
+      xl: 120,
     };
 
     expect(getStickyItemInfo(<HeroText>Hello</HeroText>, theme)).toStrictEqual({
@@ -101,8 +101,8 @@ describe("getStickyItemInfo", () => {
         sm: 80,
         md: 100,
         lg: 100,
-        xl: 120
-      }
+        xl: 120,
+      },
     });
   });
 });

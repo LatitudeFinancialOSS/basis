@@ -35,7 +35,7 @@ function KitchenSinkContainer() {
           <Text>Has breakpoint width</Text>
         </Container>
 
-        {Container.BOX_SHADOWS.map(boxShadow => (
+        {Container.BOX_SHADOWS.map((boxShadow) => (
           <Container
             boxShadow={boxShadow}
             bg="white"

@@ -20,7 +20,7 @@ const DEFAULT_PROPS = {
     }
 
     return null;
-  }
+  },
 };
 
 Checkbox.COLORS = COLORS;
@@ -29,12 +29,12 @@ Checkbox.DEFAULT_PROPS = DEFAULT_PROPS;
 function Checkbox(props) {
   const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inputColor
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: color => COLORS.includes(color),
-    disabled: disabled => typeof disabled === "boolean",
-    optional: optional => typeof optional === "boolean"
+    color: (color) => COLORS.includes(color),
+    disabled: (disabled) => typeof disabled === "boolean",
+    optional: (optional) => typeof optional === "boolean",
   });
   const {
     name,
@@ -47,16 +47,16 @@ function Checkbox(props) {
     validateData,
     children,
     testId,
-    __internal__keyboardFocus
+    __internal__keyboardFocus,
   } = mergedProps;
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [inputId] = useState(() => `checkbox-${nanoid()}`);
   const [auxId] = useState(() => `checkbox-aux-${nanoid()}`);
-  const isEmpty = useCallback(value => value === false, []);
+  const isEmpty = useCallback((value) => value === false, []);
   const data = useMemo(
     () => ({
       isEmpty,
-      ...(validateData && { data: validateData })
+      ...(validateData && { data: validateData }),
     }),
     [isEmpty, validateData]
   );
@@ -67,13 +67,13 @@ function Checkbox(props) {
     onFocus,
     onBlur,
     onChange,
-    onMouseDown
+    onMouseDown,
   } = useField("Checkbox", {
     name,
     disabled,
     optional,
     validate,
-    data
+    data,
   });
 
   return (
@@ -119,7 +119,7 @@ Checkbox.propTypes = {
   validateData: PropTypes.any,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
-  __internal__keyboardFocus: PropTypes.bool
+  __internal__keyboardFocus: PropTypes.bool,
 };
 
 export default Checkbox;

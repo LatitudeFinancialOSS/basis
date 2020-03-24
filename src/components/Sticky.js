@@ -20,7 +20,7 @@ function Item({ children, testId }) {
 Item.propTypes = {
   ...responsiveHeightType,
   children: PropTypes.node,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 function Sticky(props) {
@@ -28,7 +28,7 @@ function Sticky(props) {
   const theme = useTheme();
   const initialOffsetMap = useMemo(() => {
     const result = {
-      [DEFAULT_BREAKPOINT]: 0
+      [DEFAULT_BREAKPOINT]: 0,
     };
 
     for (const bp in theme.breakpoints) {
@@ -62,7 +62,7 @@ function Sticky(props) {
 
 Sticky.propTypes = {
   children: PropTypes.node.isRequired,
-  testId: PropTypes.string
+  testId: PropTypes.string,
 };
 
 Sticky.Item = Item;

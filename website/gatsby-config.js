@@ -6,95 +6,95 @@ module.exports = {
     siteUrl: "https://basis.now.sh",
     components: {
       Accordion: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Button: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Checkbox: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Container: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       DatePicker: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Flex: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Footer: {
-        status: COMPONENT_STATUS.DRAFT
+        status: COMPONENT_STATUS.DRAFT,
       },
       Form: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Frequency: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Grid: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Header: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Icon: {
-        status: COMPONENT_STATUS.DRAFT
+        status: COMPONENT_STATUS.DRAFT,
       },
       Input: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Link: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       List: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       LoadingIcon: {
-        status: COMPONENT_STATUS.DRAFT
+        status: COMPONENT_STATUS.DRAFT,
       },
       Placeholder: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       RadioGroup: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Section: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Select: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Stack: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Stepper: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Sticky: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       Text: {
-        status: COMPONENT_STATUS.READY
+        status: COMPONENT_STATUS.READY,
       },
       TimeSpan: {
-        status: COMPONENT_STATUS.READY
-      }
-    }
+        status: COMPONENT_STATUS.READY,
+      },
+    },
   },
   plugins: [
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-        component: `${__dirname}/src/layouts/Page.js`
-      }
+        component: `${__dirname}/src/layouts/Page.js`,
+      },
     },
     `gatsby-plugin-emotion`,
     {
       resolve: "gatsby-plugin-root-import",
       options: {
-        basis: path.join(__dirname, "../src")
-      }
+        basis: path.join(__dirname, "../src"),
+      },
     },
     `gatsby-plugin-react-helmet-async`,
     /*
@@ -106,46 +106,46 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`
-      }
+        path: `${__dirname}/src/images`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `usage`,
         path: `${__dirname}/src/pages`,
-        ignore: [`**/!(usage).mdx`]
-      }
+        ignore: [`**/!(usage).mdx`],
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `resources`,
         path: `${__dirname}/src/pages`,
-        ignore: [`**/!(resources).mdx`]
-      }
+        ignore: [`**/!(resources).mdx`],
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/pages`
-      }
+        path: `${__dirname}/src/pages`,
+      },
     },
     {
       // This is required by gatsby-plugin-mdx.
       resolve: "gatsby-plugin-page-creator",
       options: {
-        path: `${__dirname}/src/pages`
-      }
+        path: `${__dirname}/src/pages`,
+      },
     },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
           usage: `${__dirname}/src/layouts/Usage.js`,
-          resources: `${__dirname}/src/layouts/Resources.js`
-        }
-      }
+          resources: `${__dirname}/src/layouts/Resources.js`,
+        },
+      },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -154,13 +154,13 @@ module.exports = {
       options: {
         env: {
           development: {
-            policy: [{ userAgent: "*", disallow: ["/"] }]
+            policy: [{ userAgent: "*", disallow: ["/"] }],
           },
           production: {
-            policy: [{ userAgent: "*", allow: "/" }]
-          }
-        }
-      }
+            policy: [{ userAgent: "*", allow: "/" }],
+          },
+        },
+      },
     },
     `gatsby-plugin-sitemap`,
     {
@@ -172,11 +172,11 @@ module.exports = {
         background_color: `#0046AA`,
         theme_color: `#0046AA`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
-      }
-    }
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-  ]
+  ],
 };
