@@ -1,10 +1,10 @@
 import prettier from "prettier/standalone";
-import babylon from "prettier/parser-babylon";
+import babel from "prettier/parser-babel";
 
 export function formatCode(code, { printWidth = 56 } = {}) {
   const formattedCode = prettier.format(code.trim(), {
     parser: "babel",
-    plugins: [babylon],
+    plugins: [babel],
     printWidth,
     semi: false
   });
