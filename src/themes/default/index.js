@@ -186,6 +186,7 @@ const theme = {
     icon: "fill 200ms ease-out",
   },
   zIndices: {
+    aboveNormalFlow: 1,
     stickyItem: 100,
   },
 };
@@ -204,25 +205,41 @@ theme.focusStyles = {
     ":focus": {
       outline: 0,
       boxShadow: theme.shadows.focus,
+      // Make sure that the focus style sits above the surrounding elements with normal page flow
+      position: "relative",
+      zIndex: theme.zIndices.aboveNormalFlow,
     },
     // Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform.
     ":focus:not(:focus-visible)": {
       boxShadow: "none",
+      position: "initial",
+      zIndex: "initial",
     },
     // If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus.
     ":focus-visible": {
       boxShadow: theme.shadows.focus,
+      // Make sure that the focus style sits above the surrounding elements with normal page flow
+      position: "relative",
+      zIndex: theme.zIndices.aboveNormalFlow,
     },
   },
   focusVisibleAdjacentLabel: {
     ":focus + label": {
       boxShadow: theme.shadows.focus,
+      // Make sure that the focus style sits above the surrounding elements with normal page flow
+      position: "relative",
+      zIndex: theme.zIndices.aboveNormalFlow,
     },
     ":focus:not(:focus-visible) + label": {
       boxShadow: "none",
+      position: "initial",
+      zIndex: "initial",
     },
     ":focus-visible + label": {
       boxShadow: theme.shadows.focus,
+      // Make sure that the focus style sits above the surrounding elements with normal page flow
+      position: "relative",
+      zIndex: theme.zIndices.aboveNormalFlow,
     },
   },
 };

@@ -7,7 +7,7 @@ const scope = allDesignSystem;
 
 function PlaceholderPage() {
   const code = formatCode(`
-    <Placeholder />
+    <Placeholder label="Image goes here" width="320" height="160" />
   `);
 
   return <ComponentContainer code={code} scope={scope} width="md" />;

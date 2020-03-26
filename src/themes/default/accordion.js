@@ -25,7 +25,6 @@ export default (theme) => ({
     textAlign: "left",
     ...textStyles(theme)["subtitle2"],
     ...textStyles(theme)["subtitle2.bold"],
-    position: "relative", // Without this, when the Accordion.Item is open, the box shadow is covered by Accordion.Item.Content.
     ...theme.focusStyles.focusVisible,
   },
   accordionHeaderContent: {
