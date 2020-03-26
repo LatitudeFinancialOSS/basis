@@ -78,7 +78,7 @@ describe("Footer", () => {
               Link 10
             </Link>
             <Link href="#" newTab>
-              Link 11
+              Link 11 test
             </Link>
           </Footer.Legal.Links>
           <Footer.Legal.Copy testId="my-footer-legal-copy">
