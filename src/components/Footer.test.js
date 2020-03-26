@@ -39,8 +39,8 @@ describe("Footer", () => {
             />
           </Footer.Header.Social>
         </Footer.Header>
-        <Footer.Legal testId="my-footer-legal">
-          <Footer.Legal.Links testId="my-footer-legal-links">
+        <Footer.Links testId="my-footer-links">
+          <Footer.Links.Section title="Section 1" testId="my-footer-section-1">
             <Link href="#" newTab>
               Link 1
             </Link>
@@ -49,6 +49,36 @@ describe("Footer", () => {
             </Link>
             <Link href="#" newTab>
               Link 3
+            </Link>
+            <Link href="#" newTab>
+              Link 4
+            </Link>
+          </Footer.Links.Section>
+          <Footer.Links.Section title="Section 2" testId="my-footer-section-2">
+            <Link href="#" newTab>
+              Link 5
+            </Link>
+            <Link href="#" newTab>
+              Link 6
+            </Link>
+            <Link href="#" newTab>
+              Link 7
+            </Link>
+            <Link href="#" newTab>
+              Link 8
+            </Link>
+          </Footer.Links.Section>
+        </Footer.Links>
+        <Footer.Legal testId="my-footer-legal">
+          <Footer.Legal.Links testId="my-footer-legal-links">
+            <Link href="#" newTab>
+              Link 9
+            </Link>
+            <Link href="#" newTab>
+              Link 10
+            </Link>
+            <Link href="#" newTab>
+              Link 11
             </Link>
           </Footer.Legal.Links>
           <Footer.Legal.Copy testId="my-footer-legal-copy">
@@ -72,6 +102,10 @@ describe("Footer", () => {
     getByTestId(footerHeaderSocial, "my-footer-header-social-twitter");
     getByTestId(footerHeaderSocial, "my-footer-header-social-instagram");
     getByTestId(footerHeaderSocial, "my-footer-header-social-linkedin");
+
+    const footerLinks = getByTestId(container, "my-footer-links");
+    getByTestId(footerLinks, "my-footer-section-1");
+    getByTestId(footerLinks, "my-footer-section-2");
 
     const footerLegal = getByTestId(container, "my-footer-legal");
     getByTestId(footerLegal, "my-footer-legal-links");

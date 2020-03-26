@@ -91,6 +91,22 @@ export function getGridTemplateColumns(cols) {
 
 export const DEFAULT_BREAKPOINT = "default";
 
+export function compareBreakpoints(bp1, bp2, theme) {
+  const breakpoints = [DEFAULT_BREAKPOINT, ...Object.keys(theme.breakpoints)];
+  const index1 = breakpoints.indexOf(bp1);
+  const index2 = breakpoints.indexOf(bp2);
+
+  if (index1 === -1 || index2 === -1) {
+    return null;
+  }
+
+  if (index1 === index2) {
+    return 0;
+  }
+
+  return index1 < index2 ? -1 : 1;
+}
+
 export function getMinMediaQueries(breakpoints) {
   if (!breakpoints) {
     return {};

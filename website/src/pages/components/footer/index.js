@@ -35,6 +35,35 @@ function FooterPage() {
           />
         </Footer.Header.Social>
       </Footer.Header>
+      <Footer.Links>
+        <Footer.Links.Section title="Latitude">
+          <Link href="https://www.latitudefinancial.com.au/about-us/" newTab={false}>About us</Link>
+          <Link href="https://www.latitudefinancial.com.au/contact-us/" newTab={false}>Contact us</Link>
+          <Link href="https://www.latitudefinancial.com.au/careers/" newTab={false}>Careers</Link>
+          <Link href="https://www.latitudefinancial.com.au/investor-relations/" newTab={false}>Investor relations</Link>
+        </Footer.Links.Section>
+        <Footer.Links.Section title="Our offering">
+          <Link href="https://www.latitudefinancial.com.au/loans/" newTab={false}>Personal loans</Link>
+          <Link href="https://www.latitudefinancial.com.au/credit-cards/" newTab={false}>Credit cards</Link>
+          <Link href="https://www.latitudefinancial.com.au/insurance/" newTab={false}>Insurance</Link>
+          <Link href="https://www.latitudefinancial.com.au/brokers/" newTab={false}>Brokers</Link>
+        </Footer.Links.Section>
+        <Footer.Links.Section title="Loan types">
+          <Link href="https://www.latitudefinancial.com.au/loans/personal-loan/" newTab={false}>Personal loan</Link>
+          <Link href="https://www.latitudefinancial.com.au/loans/new-and-used-car-loan/" newTab={false}>New and used car loan</Link>
+          <Link href="https://www.latitudefinancial.com.au/loans/debt-consolidation-loans/" newTab={false}>Debt consolidation loans</Link>
+          <Link href="https://www.latitudefinancial.com.au/loans/home-renovation-loans/" newTab={false}>Home renovation loans</Link>
+          <Link href="https://www.latitudefinancial.com.au/loans/travel-loans/" newTab={false}>Travel loans</Link>
+        </Footer.Links.Section>
+        <Footer.Links.Section title="Discover">
+          <Link href="https://www.latitudefinancial.com.au/loans/calculators-and-tools/" newTab={false}>Calculators and tools</Link>
+          <Link href="https://www.latitudefinancial.com.au/life-done-better/" newTab={false}>Life done better</Link>
+          <Link href="https://www.latitudefinancial.com.au/forms/" newTab={false}>Useful card forms</Link>
+          <Link href="https://documents.latitudefinancial.com.au/?_ga=2.26420989.1567887025.1585009056-1237673400.1570406907" newTab={false}>Secure documents</Link>
+          <Link href="https://www.latitudefinancial.com.au/mobile-app/" newTab={false}>Latitude app</Link>
+          <Link href="https://www.latitudefinancial.com.au/lets/" newTab={false}>Explore Let's</Link>
+        </Footer.Links.Section>
+      </Footer.Links>
       <Footer.Legal>
         <Footer.Legal.Links>
           <Link

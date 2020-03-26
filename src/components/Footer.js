@@ -1,7 +1,21 @@
-import React from "react";
+import React, { Children } from "react";
 import PropTypes from "prop-types";
-import { Container, Stack, Flex, Text, Link, Icon } from "..";
+import {
+  Section,
+  Container,
+  Accordion,
+  Stack,
+  Flex,
+  Text,
+  Link,
+  Icon,
+  useTheme,
+  useBreakpoint,
+} from "..";
 import Logo from "./internal/Logo";
+import useFooterLinks, { FooterLinksProvider } from "../hooks/useFooterLinks";
+import { compareBreakpoints } from "../utils/css";
+import { mergeProps } from "../utils/component";
 
 function HeaderLogo({ name, testId }) {
   return (
@@ -153,6 +167,84 @@ Header.propTypes = {
   testId: PropTypes.string,
 };
 
+const SECTION_TITLES_AS = ["h2", "h3", "h4", "h5", "h6"];
+const LINKS_DEFAULT_PROPS = {
+  sectionTitlesAs: "h5",
+  switchLayoutAt: "md",
+};
+
+Links.SECTION_TITLES_AS = SECTION_TITLES_AS;
+Links.DEFAULT_PROPS = LINKS_DEFAULT_PROPS;
+
+function Links(props) {
+  const mergedProps = mergeProps(props, LINKS_DEFAULT_PROPS);
+  const { sectionTitlesAs, switchLayoutAt, children, testId } = mergedProps;
+  const theme = useTheme();
+  const bp = useBreakpoint();
+  const result = compareBreakpoints(bp, switchLayoutAt, theme);
+  const isColumnsLayout = result >= 0;
+
+  return (
+    <FooterLinksProvider value={{ sectionTitlesAs }}>
+      <Section
+        bg={isColumnsLayout ? "white" : "primary.blue.t100"}
+        padding={isColumnsLayout ? "8 0" : "8 0 0 0"}
+        testId={testId}
+      >
+        {isColumnsLayout ? (
+          <div
+            css={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {children}
+          </div>
+        ) : (
+          <Accordion itemGap="small">
+            {Children.map(children, (child, index) => (
+              <Accordion.Item key={index}>
+                <Accordion.Item.Header>
+                  {child.props.title}
+                </Accordion.Item.Header>
+                <Accordion.Item.Content>
+                  <Stack gap="5">{child.props.children}</Stack>
+                </Accordion.Item.Content>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+        )}
+      </Section>
+    </FooterLinksProvider>
+  );
+}
+
+Links.propTypes = {
+  sectionTitlesAs: PropTypes.oneOf(SECTION_TITLES_AS),
+  switchLayoutAt: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string,
+};
+
+function LinksSection({ title, children, testId }) {
+  const { sectionTitlesAs } = useFooterLinks();
+
+  return (
+    <div data-testid={testId}>
+      <Text as={sectionTitlesAs} textStyle="subtitle2" margin="0 0 4 0">
+        <strong>{title}</strong>
+      </Text>
+      <Stack gap="5">{children}</Stack>
+    </div>
+  );
+}
+
+LinksSection.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  testId: PropTypes.string,
+};
+
 function LegalLinks({ children, testId }) {
   const links = React.Children.toArray(children).filter(
     // Ignore all children that aren't a Link
@@ -160,18 +252,8 @@ function LegalLinks({ children, testId }) {
   );
 
   return (
-    <Container
-      padding="0 4"
-      padding-lg="0"
-      textAlign="left"
-      textAlign-lg="center"
-    >
-      <Stack
-        direction-lg="horizontal"
-        align-lg="center"
-        gap="3 4"
-        testId={testId}
-      >
+    <Container padding="0 4" padding-lg="0" textAlign="center">
+      <Stack direction="horizontal" align="center" gap="3 4" testId={testId}>
         {links}
       </Stack>
     </Container>
@@ -228,6 +310,9 @@ Footer.Header.Social.YouTube = SocialYouTube;
 Footer.Header.Social.Twitter = SocialTwitter;
 Footer.Header.Social.Instagram = SocialInstagram;
 Footer.Header.Social.LinkedIn = SocialLinkedIn;
+
+Footer.Links = Links;
+Footer.Links.Section = LinksSection;
 
 Footer.Legal = Legal;
 Footer.Legal.Links = LegalLinks;

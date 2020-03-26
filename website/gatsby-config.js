@@ -24,7 +24,7 @@ module.exports = {
         status: COMPONENT_STATUS.READY,
       },
       Footer: {
-        status: COMPONENT_STATUS.DRAFT,
+        status: COMPONENT_STATUS.READY,
       },
       Form: {
         status: COMPONENT_STATUS.READY,
