@@ -14,13 +14,16 @@ function useSticky({ id, heightMap }) {
     throw new Error("Sticky.Item must be placed inside Sticky.");
   }
 
+  const calculatedOffsetMap = stickyInfo.offsetMap[id];
   const css = getStickyItemCSS({
     heightMap,
-    offsetMap: stickyInfo.offsetMap,
+    offsetMap: calculatedOffsetMap ?? stickyInfo.accumulativeOffsetMap,
     theme,
   });
 
-  stickyInfo.updateOffsetMap(id, heightMap);
+  if (!calculatedOffsetMap) {
+    stickyInfo.updateOffsetMap(id, heightMap);
+  }
 
   return {
     css,

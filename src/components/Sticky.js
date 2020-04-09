@@ -37,15 +37,15 @@ function Sticky(props) {
 
     return result;
   }, [theme]);
-  const offsetMap = useRef(initialOffsetMap);
-  const offsetMapUpdates = useRef({});
+  const accumulativeOffsetMap = useRef(initialOffsetMap);
+  const offsetMap = useRef({});
   const updateOffsetMap = (id, heightMap) => {
-    if (typeof offsetMapUpdates.current[id] === "undefined") {
-      for (const bp in heightMap) {
-        offsetMap.current[bp] += heightMap[bp];
-      }
+    if (!offsetMap.current[id]) {
+      offsetMap.current[id] = { ...accumulativeOffsetMap.current }; // Spread is important here since `accumulativeOffsetMap.current` is updated below.
 
-      offsetMapUpdates.current[id] = true;
+      for (const bp in heightMap) {
+        accumulativeOffsetMap.current[bp] += heightMap[bp];
+      }
     }
   };
 
@@ -54,7 +54,13 @@ function Sticky(props) {
     If the parent ends up having `height: 100vh`, for example, the sticky items won't stick. 
   */
   return (
-    <StickyProvider value={{ offsetMap: offsetMap.current, updateOffsetMap }}>
+    <StickyProvider
+      value={{
+        accumulativeOffsetMap: accumulativeOffsetMap.current,
+        offsetMap: offsetMap.current,
+        updateOffsetMap,
+      }}
+    >
       <div data-testid={testId}>{children}</div>
     </StickyProvider>
   );
