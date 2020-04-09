@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 import useTheme from "../../hooks/useTheme";
 import Grid from "../Grid";
 import VisuallyHidden from "../VisuallyHidden";

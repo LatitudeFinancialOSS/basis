@@ -5,7 +5,7 @@ import {
   isValid as isDateValid,
   format as formatDate,
 } from "date-fns";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";

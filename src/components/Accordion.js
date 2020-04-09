@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 import useTheme from "../hooks/useTheme";
 import useBackground, { BackgroundProvider } from "../hooks/useBackground";
 import useAccordion, { AccordionProvider } from "../hooks/useAccordion";
