@@ -1,3 +1,5 @@
+![CI](https://github.com/moroshko/basis/workflows/CI/badge.svg)
+
 # Basis Design System
 
 ## Installation
