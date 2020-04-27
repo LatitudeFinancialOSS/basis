@@ -176,11 +176,9 @@ Item.propTypes = {
 };
 
 function Accordion(props) {
-  const { background } = useBackground();
-  const inheritedColor =
-    background === "primary.blue.t100" ? "white" : DEFAULT_PROPS.color;
+  const { inputColor } = useBackground();
   const inheritedProps = {
-    color: inheritedColor,
+    color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     color: (color) => COLORS.includes(color),
