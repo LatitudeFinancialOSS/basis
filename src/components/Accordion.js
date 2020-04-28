@@ -51,6 +51,7 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
           backgroundColor: theme.getColor(color),
           color: theme.getColor(textColor),
         }}
+        type="button"
         aria-controls={contentId}
         aria-expanded={isOpen ? "true" : "false"}
         onClick={onClick}

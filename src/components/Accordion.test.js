@@ -47,6 +47,7 @@ describe("Accordion", () => {
       background-color: #ececec;
       color: #000000;
     `);
+    expect(item1HeaderButton).toHaveAttribute("type", "button");
     expect(item1Content).toHaveTextContent("Content 1");
 
     expect(item2).toHaveStyle(`
