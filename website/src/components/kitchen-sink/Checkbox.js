@@ -53,17 +53,31 @@ function KitchenSinkCheckbox() {
       <Container padding="4">
         <Container width="320">
           <Grid rowsGap="8">
-            <FormWithCheckbox color="grey.t05">Grey</FormWithCheckbox>
+            <FormWithCheckbox label="Grey" hideLabel color="grey.t05">
+              Grey
+            </FormWithCheckbox>
 
-            <FormWithCheckbox initialValue={true} color="grey.t05">
+            <FormWithCheckbox
+              label="Grey checked"
+              hideLabel
+              initialValue={true}
+              color="grey.t05"
+            >
               Grey checked
             </FormWithCheckbox>
 
-            <FormWithCheckbox color="grey.t05" __internal__keyboardFocus>
+            <FormWithCheckbox
+              label="Grey focus"
+              hideLabel
+              color="grey.t05"
+              __internal__keyboardFocus
+            >
               Grey focus
             </FormWithCheckbox>
 
             <FormWithCheckbox
+              label="Grey checked focus"
+              hideLabel
               initialValue={true}
               color="grey.t05"
               __internal__keyboardFocus
@@ -77,21 +91,36 @@ function KitchenSinkCheckbox() {
       <Container padding="4" bg="grey.t05">
         <Container width="320">
           <Grid rowsGap="8">
-            <FormWithCheckbox>White</FormWithCheckbox>
+            <FormWithCheckbox label="White" hideLabel>
+              White
+            </FormWithCheckbox>
 
-            <FormWithCheckbox initialValue={true}>
+            <FormWithCheckbox
+              label="White checked"
+              hideLabel
+              initialValue={true}
+            >
               White checked
             </FormWithCheckbox>
 
-            <FormWithCheckbox __internal__keyboardFocus>
+            <FormWithCheckbox
+              label="White focus"
+              hideLabel
+              __internal__keyboardFocus
+            >
               White focus
             </FormWithCheckbox>
 
-            <FormWithCheckbox initialValue={true} __internal__keyboardFocus>
+            <FormWithCheckbox
+              label="White checked focus"
+              hideLabel
+              initialValue={true}
+              __internal__keyboardFocus
+            >
               White checked focus
             </FormWithCheckbox>
 
-            <FormWithCheckbox>
+            <FormWithCheckbox label="With wrap" hideLabel>
               This text spans multiple lines so you could see how it wraps.
             </FormWithCheckbox>
 

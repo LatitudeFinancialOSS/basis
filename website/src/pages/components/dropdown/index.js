@@ -1,0 +1,186 @@
+import React, { useState } from "react";
+import * as allDesignSystem from "basis";
+import ComponentContainer from "../../../components/ComponentContainer";
+import RadioGroupSetting, {
+  getRadioOptions,
+  getCheckboxOptions,
+} from "../../../components/RadioGroupSetting";
+import { formatCode, nonDefaultProps } from "../../../utils/formatting";
+
+const { useTheme, Dropdown } = allDesignSystem;
+const { COLORS, DEFAULT_PROPS } = Dropdown;
+const scope = allDesignSystem;
+
+const hideLabelOptions = getCheckboxOptions();
+const colorOptions = getRadioOptions(COLORS);
+const hasHelpTextOptions = getCheckboxOptions();
+const isDisabledOptions = getCheckboxOptions();
+
+function DropdownPage() {
+  const theme = useTheme();
+  const [hideLabel, setHideLabel] = useState(DEFAULT_PROPS.hideLabel);
+  const [color, setColor] = useState(DEFAULT_PROPS.color);
+  const [hasHelpText, setHasHelpText] = useState(
+    Boolean(DEFAULT_PROPS.helpText)
+  );
+  const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
+  const code = formatCode(`
+    const options = [
+      { 
+        data: {
+          name: "28 Degrees Platinum Mastercard",
+          description: "Shop with less obstacles."
+        },
+        value: "28-degrees-platinum-mastercard"
+      },
+      {
+        data: {
+          name: "Latitude Mastercard",
+          description: "Choose what you want, when you want it."
+        },
+        value: "latitude-mastercard"
+      },
+      { 
+        data: {
+          name: "Gem Visa",
+          description: "6 months interest free shopping."
+        },
+        value: "gem-visa"
+      },
+      { 
+        data: {
+          name: "GO Mastercard",
+          description: "Flexible repayment options to suit your budget."
+        },
+        value: "go-mastercard"
+      }
+    ];
+
+    function renderOption({ data }) {
+      const { name, description } = data;
+
+      return (
+        <Stack direction="horizontal" gap="5">
+          <Placeholder label="Image" width="100" height="48" />
+          <Stack gap="1">
+            <Text color="primary.blue.t100">
+              <strong>{name}</strong>
+            </Text>
+            <Text textStyle="body2" color="grey.t75">
+              {description}
+            </Text>
+          </Stack>
+        </Stack>
+      );
+    };
+
+    function optionToString(option) {
+      return option.data.name;
+    }
+    
+    function App() {
+      const initialValues = {
+        account: ""
+      };
+
+      return (
+        <Form initialValues={initialValues}>
+          <Dropdown ${nonDefaultProps([
+            {
+              prop: "name",
+              value: "account",
+            },
+            {
+              prop: "label",
+              value: "Account",
+            },
+            {
+              prop: "hideLabel",
+              value: hideLabel,
+              defaultValue: DEFAULT_PROPS.hideLabel,
+              type: "boolean",
+            },
+            {
+              prop: "color",
+              value: color,
+              defaultValue: DEFAULT_PROPS.color,
+            },
+            {
+              prop: "helpText",
+              value: hasHelpText
+                ? "Direct debit will go into this account."
+                : DEFAULT_PROPS.helpText,
+              defaultValue: DEFAULT_PROPS.helpText,
+            },
+            {
+              prop: "disabled",
+              value: disabled,
+              defaultValue: DEFAULT_PROPS.disabled,
+              type: "boolean",
+            },
+          ])}
+            options={options}
+            renderOption={renderOption}
+            optionToString={optionToString}
+          />
+        </Form>
+      );
+    }
+
+    render(<App />);
+  `);
+
+  return (
+    <>
+      <div
+        css={{
+          display: "flex",
+          flexShrink: 0,
+          padding: `${theme.space[5]} ${theme.space[6]}`,
+        }}
+      >
+        <RadioGroupSetting
+          heading="Hide Label"
+          options={hideLabelOptions}
+          selectedValue={hideLabel}
+          setSelectedValue={setHideLabel}
+          type="boolean"
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Color"
+          options={colorOptions}
+          selectedValue={color}
+          setSelectedValue={setColor}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Help Text"
+          options={hasHelpTextOptions}
+          selectedValue={hasHelpText}
+          setSelectedValue={setHasHelpText}
+          type="boolean"
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Disabled"
+          options={isDisabledOptions}
+          selectedValue={disabled}
+          setSelectedValue={setIsDisabled}
+          type="boolean"
+        />
+      </div>
+      <ComponentContainer
+        code={code}
+        noInline
+        scope={scope}
+        width="sm"
+        backgroundColor={
+          color === "white" ? theme.colors.grey.t05 : theme.colors.white
+        }
+      />
+    </>
+  );
+}
+
+export default DropdownPage;

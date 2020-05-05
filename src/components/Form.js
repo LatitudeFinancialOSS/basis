@@ -81,10 +81,10 @@ function Form(_props) {
     const { target } = event;
     const { name } = target;
     const isCheckbox = target.type === "checkbox";
-    const value = isCheckbox ? target.checked : target.value;
+    const newValue = isCheckbox ? target.checked : event.value ?? target.value;
 
     setState((state) => {
-      let newState = setPath(state, `values.${name}`, value);
+      let newState = setPath(state, `values.${name}`, newValue);
 
       /*
         Without validating the Checkbox on every change, we have the following unwanted behaviour.

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
+import useWindow from "../hooks/useWindow";
 
 export const BreakpointContext = React.createContext();
 
 function BreakpointProvider(props) {
   const { children } = props;
   const theme = useTheme();
-  const windowObj =
-    props.window || (typeof window === "undefined" ? null : window);
+  const windowObj = useWindow();
   const [mediaQueryListMap, setMediaQueryListMap] = useState(null);
   const [breakpoint, setBreakpoint] = useState(null);
 
@@ -64,7 +64,6 @@ function BreakpointProvider(props) {
 }
 
 BreakpointProvider.propTypes = {
-  window: PropTypes.object,
   children: PropTypes.node.isRequired,
 };
 

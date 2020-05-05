@@ -11,7 +11,7 @@ const { useTheme, Checkbox } = allDesignSystem;
 const { COLORS, DEFAULT_PROPS } = Checkbox;
 const scope = allDesignSystem;
 
-const hasLabelOptions = getCheckboxOptions();
+const hideLabelOptions = getCheckboxOptions();
 const colorOptions = getRadioOptions(COLORS);
 const isOptionalOptions = getCheckboxOptions();
 const hasHelpTextOptions = getCheckboxOptions();
@@ -19,7 +19,7 @@ const isDisabledOptions = getCheckboxOptions();
 
 function CheckboxPage() {
   const theme = useTheme();
-  const [hasLabel, setHasLabel] = useState(true);
+  const [hideLabel, setHideLabel] = useState(DEFAULT_PROPS.hideLabel);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasHelpText, setHasHelpText] = useState(
@@ -41,10 +41,13 @@ function CheckboxPage() {
           },
           {
             prop: "label",
-            value: hasLabel
-              ? "Accept terms and conditions"
-              : DEFAULT_PROPS.label,
-            defaultValue: DEFAULT_PROPS.label,
+            value: "Accept terms and conditions",
+          },
+          {
+            prop: "hideLabel",
+            value: hideLabel,
+            defaultValue: DEFAULT_PROPS.hideLabel,
+            type: "boolean",
           },
           {
             prop: "color",
@@ -87,10 +90,10 @@ function CheckboxPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Label"
-          options={hasLabelOptions}
-          selectedValue={hasLabel}
-          setSelectedValue={setHasLabel}
+          heading="Hide Label"
+          options={hideLabelOptions}
+          selectedValue={hideLabel}
+          setSelectedValue={setHideLabel}
           type="boolean"
         />
         <RadioGroupSetting

@@ -92,7 +92,12 @@ function ComplexForm({ onSubmit }) {
             label="Relationship status"
             options={relationshipStatusOptions}
           />
-          <Checkbox name="likeIceCream" helpText="You MUST like it!">
+          <Checkbox
+            label="Do you like ice cream?"
+            hideLabel
+            name="likeIceCream"
+            helpText="You MUST like it!"
+          >
             I like ice cream
           </Checkbox>
           <RadioGroup

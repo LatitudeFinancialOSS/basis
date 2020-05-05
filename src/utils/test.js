@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { matcherHint, printReceived } from "jest-matcher-utils";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "regenerator-runtime/runtime";
@@ -32,3 +33,51 @@ export * from "@testing-library/react";
 export { customRender as render };
 
 export { userEvent };
+
+// custom matchers
+expect.extend({
+  toBeVisuallyHidden(element) {
+    const { getComputedStyle } = element.ownerDocument.defaultView;
+    const {
+      position,
+      width,
+      height,
+      overflow,
+      whiteSpace,
+      clip,
+      clipPath,
+    } = getComputedStyle(element);
+    const isVisuallyHidden =
+      position === "absolute" &&
+      width === "1px" &&
+      height === "1px" &&
+      overflow === "hidden" &&
+      whiteSpace === "nowrap" &&
+      clip === "rect(0px, 0px, 0px, 0px)" &&
+      clipPath === "inset(50%)";
+
+    return {
+      pass: isVisuallyHidden,
+      message: () => {
+        const is = isVisuallyHidden ? "is" : "is not";
+
+        return [
+          matcherHint(
+            `${this.isNot ? ".not" : ""}.toBeVisuallyHidden`,
+            "element",
+            ""
+          ),
+          "",
+          `Received element ${is} currently visually hidden:`,
+          `  ${printReceived(element.cloneNode(false))}`,
+          "",
+          JSON.stringify(
+            { position, width, height, overflow, whiteSpace, clip, clipPath },
+            null,
+            2
+          ),
+        ].join("\n");
+      },
+    };
+  },
+});

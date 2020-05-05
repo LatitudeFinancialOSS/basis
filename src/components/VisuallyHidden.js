@@ -13,7 +13,7 @@ function VisuallyHidden({ children }) {
       height: "1px",
       overflow: "hidden",
       whiteSpace: "nowrap",
-      clip: "rect(0 0 0 0)",
+      clip: "rect(0, 0, 0, 0)",
       clipPath: "inset(50%)",
     },
   });

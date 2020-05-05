@@ -2,6 +2,7 @@ import accordion from "./accordion";
 import button from "./button";
 import checkbox from "./checkbox";
 import container from "./container";
+import dropdown from "./dropdown";
 import field from "./field";
 import grid from "./grid";
 import input from "./input";
@@ -188,6 +189,7 @@ const theme = {
   zIndices: {
     aboveNormalFlow: 1,
     stickyItem: 100,
+    dropdown: 700,
   },
 };
 
@@ -260,6 +262,7 @@ export default {
   ...button(theme),
   ...checkbox(theme),
   ...container(theme),
+  ...dropdown(theme),
   ...field(theme),
   ...grid(theme),
   ...input(theme),
