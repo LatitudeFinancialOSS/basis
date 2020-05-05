@@ -4,7 +4,7 @@ import { WindowContext } from "../providers/WindowProvider";
 function useWindow() {
   const windowFromContext = useContext(WindowContext);
 
-  return windowFromContext ?? window;
+  return windowFromContext ?? (typeof window === "undefined" ? null : window);
 }
 
 export default useWindow;
