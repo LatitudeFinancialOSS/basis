@@ -8,6 +8,7 @@ function FormWithCheckbox({
   initialValue = false,
   color,
   label,
+  hideLabel,
   disabled,
   helpText,
   optional,
@@ -24,6 +25,7 @@ function FormWithCheckbox({
         name="agreedToTerms"
         color={color}
         label={label}
+        hideLabel={hideLabel}
         disabled={disabled}
         helpText={helpText}
         optional={optional}
@@ -39,6 +41,7 @@ FormWithCheckbox.propTypes = {
   initialValue: PropTypes.bool,
   color: PropTypes.oneOf(Checkbox.COLORS),
   label: PropTypes.string,
+  hideLabel: PropTypes.bool,
   disabled: PropTypes.bool,
   helpText: PropTypes.string,
   optional: PropTypes.bool,

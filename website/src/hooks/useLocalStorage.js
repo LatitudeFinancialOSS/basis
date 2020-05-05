@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(null);
-  const setInitialValue = () => {
+  const setInitialValue = useCallback(() => {
     const value = localStorage?.getItem(key);
 
     // value is undefined when localStorage doesn't exist, and null when the key doesn't exist.
@@ -17,10 +17,12 @@ function useLocalStorage(key, initialValue) {
 
       setValue(initialValue);
     }
-  };
+  }, [key, initialValue]);
 
   // We set the initial value here to make sure that server and client render the same thing.
-  useEffect(setInitialValue, [setInitialValue]);
+  useEffect(() => {
+    setInitialValue();
+  }, [setInitialValue]);
 
   useEffect(() => {
     try {

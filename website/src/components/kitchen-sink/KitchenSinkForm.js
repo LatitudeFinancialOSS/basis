@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { Form } from "basis";
 
 function FormContent({ onMount, children }) {
-  useEffect(onMount, [onMount]);
+  useEffect(() => {
+    onMount?.();
+  }, [onMount]);
 
   return children;
 }
 
 FormContent.propTypes = {
-  onMount: PropTypes.func.isRequired,
+  onMount: PropTypes.func,
   children: PropTypes.node.isRequired,
 };
 
@@ -17,13 +19,7 @@ function KitchenSinkForm({ initialValues, submitOnMount, children }) {
   return (
     <Form initialValues={initialValues}>
       {({ submitForm }) => (
-        <FormContent
-          onMount={() => {
-            if (submitOnMount === true) {
-              submitForm();
-            }
-          }}
-        >
+        <FormContent onMount={submitOnMount ? submitForm : null}>
           {children}
         </FormContent>
       )}
