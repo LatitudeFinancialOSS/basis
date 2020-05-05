@@ -73,6 +73,17 @@ describe("Checkbox", () => {
     `);
   });
 
+  it("with hideLabel", () => {
+    const { getByText } = render(
+      <FormWithCheckbox label="Accept terms and conditions" hideLabel>
+        I agree
+      </FormWithCheckbox>
+    );
+    const label = getByText("Accept terms and conditions");
+
+    expect(label).toBeVisuallyHidden();
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithCheckbox

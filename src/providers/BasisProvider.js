@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
+import WindowProvider from "./WindowProvider";
 import BreakpointProvider from "./BreakpointProvider";
 import LinkProvider from "./LinkProvider";
 import { enhanceTheme } from "../utils/theme";
@@ -17,14 +18,16 @@ function BasisProvider({
 
   return (
     <ThemeContext.Provider value={enhancedTheme}>
-      <BreakpointProvider window={window}>
-        <LinkProvider
-          InternalLink={InternalLink}
-          isLinkInternal={isLinkInternal}
-        >
-          {children}
-        </LinkProvider>
-      </BreakpointProvider>
+      <WindowProvider window={window}>
+        <BreakpointProvider>
+          <LinkProvider
+            InternalLink={InternalLink}
+            isLinkInternal={isLinkInternal}
+          >
+            {children}
+          </LinkProvider>
+        </BreakpointProvider>
+      </WindowProvider>
     </ThemeContext.Provider>
   );
 }

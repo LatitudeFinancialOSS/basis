@@ -10,6 +10,7 @@ import InternalCheckbox from "./internal/InternalCheckbox";
 const { COLORS } = InternalCheckbox;
 
 const DEFAULT_PROPS = {
+  hideLabel: false,
   color: InternalCheckbox.DEFAULT_PROPS.color,
   disabled: false,
   __internal__keyboardFocus: false,
@@ -32,6 +33,7 @@ function Checkbox(props) {
     color: inputColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    hideLabel: (hideLabel) => typeof hideLabel === "boolean",
     color: (color) => COLORS.includes(color),
     disabled: (disabled) => typeof disabled === "boolean",
     optional: (optional) => typeof optional === "boolean",
@@ -39,6 +41,7 @@ function Checkbox(props) {
   const {
     name,
     label,
+    hideLabel,
     color,
     helpText,
     disabled,
@@ -81,6 +84,7 @@ function Checkbox(props) {
       optional={optional}
       disabled={disabled}
       label={label}
+      hideLabel={hideLabel}
       labelId={labelId}
       auxId={auxId}
       helpText={helpText}
@@ -110,7 +114,8 @@ function Checkbox(props) {
 
 Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  hideLabel: PropTypes.bool,
   color: PropTypes.oneOf(COLORS),
   helpText: PropTypes.string,
   disabled: PropTypes.bool,

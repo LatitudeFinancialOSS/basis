@@ -3,6 +3,7 @@ export { default as Button } from "./Button";
 export { default as Checkbox } from "./Checkbox";
 export { default as Container } from "./Container";
 export { default as DatePicker } from "./DatePicker";
+export { default as Dropdown } from "./Dropdown";
 export { default as Flex } from "./Flex";
 export { default as Form } from "./Form";
 export { default as Footer } from "./Footer";

@@ -41,6 +41,20 @@ export function areOptionsValid(options) {
   return true;
 }
 
+export function areDropdownOptionsValid(options) {
+  if (!Array.isArray(options) || options.length === 0) {
+    return false;
+  }
+
+  for (const option of options) {
+    if (typeof option.data !== "object" || notStringOrEmpty(option.value)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function getPropsFromMap(prop, map) {
   const result = {};
 

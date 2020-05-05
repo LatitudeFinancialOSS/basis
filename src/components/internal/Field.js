@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Grid from "../Grid";
 import Text from "../Text";
+import VisuallyHidden from "../VisuallyHidden";
 import useTheme from "../../hooks/useTheme";
 
 function Field({
@@ -9,6 +10,7 @@ function Field({
   optional,
   disabled,
   label,
+  hideLabel = false,
   labelId,
   labelFor,
   auxId,
@@ -18,6 +20,17 @@ function Field({
   testId,
 }) {
   const theme = useTheme();
+  const labelElement = (
+    <label css={theme["field.label"]} id={labelId} htmlFor={labelFor}>
+      {label}
+      {optional && <span css={theme["field.label.optional"]}>Optional</span>}
+    </label>
+  );
+  const labelToRender = hideLabel ? (
+    <VisuallyHidden>{labelElement}</VisuallyHidden>
+  ) : (
+    labelElement
+  );
 
   return (
     <div
@@ -28,14 +41,7 @@ function Field({
       }}
       data-testid={testId}
     >
-      {label && (
-        <label css={theme["field.label"]} id={labelId} htmlFor={labelFor}>
-          {label}
-          {optional && (
-            <span css={theme["field.label.optional"]}>Optional</span>
-          )}
-        </label>
-      )}
+      {labelToRender}
       {children}
       {Array.isArray(errors) && errors.length > 0 ? (
         <div css={theme["field.errors"]} id={auxId}>
@@ -67,6 +73,7 @@ Field.propTypes = {
   labelId: PropTypes.string,
   labelFor: PropTypes.string,
   label: PropTypes.node,
+  hideLabel: PropTypes.bool,
   auxId: PropTypes.string.isRequired,
   helpText: PropTypes.node,
   errors: PropTypes.arrayOf(PropTypes.node),
