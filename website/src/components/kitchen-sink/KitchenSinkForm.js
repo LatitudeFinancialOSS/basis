@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Form } from "basis";
 
 function FormContent({ onMount, children }) {
-  useEffect(onMount, []);
+  useEffect(onMount, [onMount]);
 
   return children;
 }

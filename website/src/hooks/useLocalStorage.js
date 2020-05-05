@@ -20,7 +20,7 @@ function useLocalStorage(key, initialValue) {
   };
 
   // We set the initial value here to make sure that server and client render the same thing.
-  useEffect(setInitialValue, []);
+  useEffect(setInitialValue, [setInitialValue]);
 
   useEffect(() => {
     try {
