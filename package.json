@@ -1,6 +1,6 @@
 {
   "name": "basis",
-  "version": "1.20.4",
+  "version": "1.21.0",
   "description": "Basis Design System",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
