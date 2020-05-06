@@ -8,6 +8,7 @@ export default (theme) => ({
     boxSizing: "border-box",
     padding: theme.space[4],
     width: "100%",
+    color: theme.colors.black,
     textAlign: "left",
     border: 0,
     borderRadius: theme.radii[0],
