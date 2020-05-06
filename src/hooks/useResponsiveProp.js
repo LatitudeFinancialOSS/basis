@@ -86,10 +86,9 @@ const responsiveSizeType = (prop) =>
   });
 
 export const responsiveWidthType = responsiveSizeType("width");
-
 export const responsiveHeightType = responsiveSizeType("height");
-
 export const responsiveMaxWidthType = responsiveSizeType("maxWidth");
+export const responsiveMaxHeightType = responsiveSizeType("maxHeight");
 
 function useResponsiveProp(props, propName) {
   const theme = useTheme();

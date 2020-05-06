@@ -10,6 +10,7 @@ export default (theme) => ({
     width: "100%",
     color: theme.colors.black,
     textAlign: "left",
+    margin: 0,
     border: 0,
     borderRadius: theme.radii[0],
     ...theme.textStyles.body1,
@@ -44,6 +45,7 @@ export default (theme) => ({
     padding: 0,
     backgroundColor: theme.colors.white,
     boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)",
+    overflowY: "auto",
     zIndex: theme.zIndices.dropdown,
   },
   "dropdownOptions:focus": {
@@ -56,6 +58,6 @@ export default (theme) => ({
     cursor: "default",
   },
   dropdownOptionHighlighted: {
-    backgroundColor: theme.colors.grey.t05,
+    backgroundColor: theme.colors.secondary.lightBlue.t25,
   },
 });

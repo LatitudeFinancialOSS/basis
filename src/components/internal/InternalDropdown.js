@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "..";
 import useTheme from "../../hooks/useTheme";
+import { responsiveMaxHeightType } from "../../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
+import { responsiveSize } from "../../utils/css";
 
 const COLORS = ["grey.t05", "white"];
 
@@ -10,6 +13,7 @@ const DEFAULT_PROPS = {
   renderPlaceholder: () => "Please select",
   disabled: false,
   isValid: true,
+  maxHeight: "600",
   __internal__focus: false,
   __internal__open: false,
 };
@@ -43,6 +47,9 @@ function InternalDropdown(_props) {
     "data-parent-name": parentName ?? name,
     onFocus,
   });
+  const dropdownOptionsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    maxHeight: responsiveSize("maxHeight"),
+  });
 
   return (
     <div css={theme.dropdownContainer}>
@@ -52,6 +59,10 @@ function InternalDropdown(_props) {
           ...theme[`dropdownButton.${colorStr}`],
           ...(!selectedOption && theme.dropdownButtonPlaceholder),
           ...(__internal__focus && theme.focusStyles.__keyboardFocus),
+          // See: https://stackoverflow.com/a/199319/247243
+          "::-moz-focus-inner": {
+            border: 0,
+          },
         }}
         type="button"
         name={name}
@@ -75,6 +86,7 @@ function InternalDropdown(_props) {
         css={{
           ...theme.dropdownOptions,
           ":focus": theme["dropdownOptions:focus"],
+          ...dropdownOptionsCSS,
         }}
         {...menuProps}
       >
@@ -119,6 +131,7 @@ InternalDropdown.propTypes = {
   getItemProps: PropTypes.func.isRequired,
   highlightedIndex: PropTypes.number.isRequired,
   onFocus: PropTypes.func.isRequired,
+  ...responsiveMaxHeightType,
   __internal__focus: PropTypes.bool,
   __internal__open: PropTypes.bool,
   __internal__highlightedIndex: PropTypes.number,

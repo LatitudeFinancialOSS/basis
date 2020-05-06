@@ -5,6 +5,8 @@ import { useSelect } from "downshift";
 import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import useWindow from "../hooks/useWindow";
+import { responsiveMaxHeightType } from "../hooks/useResponsiveProp";
+import useAllResponsiveProps from "../hooks/useAllResponsiveProps";
 import { mergeProps, areDropdownOptionsValid } from "../utils/component";
 import Field from "./internal/Field";
 import InternalDropdown from "./internal/InternalDropdown";
@@ -132,6 +134,7 @@ function Dropdown(props) {
     "aria-describedby": describedBy,
     ref: buttonRef,
   });
+  const maxHeightProps = useAllResponsiveProps(props, "maxHeight");
 
   return (
     <Field
@@ -158,6 +161,7 @@ function Dropdown(props) {
         getItemProps={getItemProps}
         highlightedIndex={highlightedIndex}
         onFocus={onFocus}
+        {...maxHeightProps}
         __internal__focus={__internal__focus}
         __internal__open={__internal__open}
         __internal__highlightedIndex={__internal__highlightedIndex}
@@ -182,6 +186,7 @@ Dropdown.propTypes = {
   ).isRequired,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
+  ...responsiveMaxHeightType,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
   testId: PropTypes.string,
