@@ -35,9 +35,6 @@ export default (theme) => ({
     transformOrigin: "50% 50%",
     transition: "transform .25s ease",
   },
-  "dropdownButtonChevron.open": {
-    transform: "translateZ(0) rotate(180deg)",
-  },
   dropdownOptions: {
     position: "absolute",
     width: "100%",

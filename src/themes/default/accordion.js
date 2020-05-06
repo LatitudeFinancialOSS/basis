@@ -21,7 +21,7 @@ export default (theme) => ({
     border: 0,
     borderRadius: theme.radii[0],
     boxSizing: "border-box",
-    padding: `${theme.space[3]} ${theme.space[4]} ${theme.space[3]} ${theme.space[6]}`,
+    padding: `${theme.space[3]} ${theme.space[4]}`,
     textAlign: "left",
     ...textStyles(theme)["subtitle2"],
     ...textStyles(theme)["subtitle2.bold"],

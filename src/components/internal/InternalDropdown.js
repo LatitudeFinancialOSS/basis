@@ -72,14 +72,8 @@ function InternalDropdown(_props) {
         <div css={theme.dropdownButtonContent}>
           {selectedOption ? renderOption(selectedOption) : renderPlaceholder()}
         </div>
-        <div
-          css={{
-            ...theme.dropdownButtonChevron,
-            ...((isOpen || __internal__open) &&
-              theme["dropdownButtonChevron.open"]),
-          }}
-        >
-          <Icon name="chevron-down" color="black" />
+        <div css={theme.dropdownButtonChevron}>
+          <Icon name="triangle-down" color="black" />
         </div>
       </button>
       <ul
