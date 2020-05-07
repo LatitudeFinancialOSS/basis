@@ -87,7 +87,7 @@ function Dropdown(props) {
     }),
     [isEmpty, validateData]
   );
-  const { errors, hasErrors, onFocus, onBlur, onChange } = useField(
+  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
     "Dropdown",
     {
       name,
@@ -105,6 +105,7 @@ function Dropdown(props) {
     },
     [optionToString]
   );
+  const initialSelectedItem = options.find((option) => option.value === value);
   const {
     isOpen,
     selectedItem: selectedOption,
@@ -115,6 +116,7 @@ function Dropdown(props) {
   } = useSelect({
     items: options,
     itemToString,
+    initialSelectedItem,
     onSelectedItemChange: ({ selectedItem: selectedOption }) => {
       onChange({
         target: buttonRef.current,
