@@ -20,7 +20,7 @@ function isOptionSelected(options, value) {
 const DEFAULT_PROPS = {
   hideLabel: false,
   color: InternalDropdown.DEFAULT_PROPS.color,
-  renderPlaceholder: InternalDropdown.DEFAULT_PROPS.renderPlaceholder,
+  placeholderComponent: InternalDropdown.DEFAULT_PROPS.placeholderComponent,
   disabled: false,
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
@@ -42,10 +42,10 @@ function Dropdown(props) {
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     hideLabel: (hideLabel) => typeof hideLabel === "boolean",
     color: (color) => COLORS.includes(color),
-    renderPlaceholder: (renderPlaceholder) =>
-      typeof renderPlaceholder === "function",
-    renderOption: (renderOption) => typeof renderOption === "function",
+    placeholderComponent: (placeholderComponent) =>
+      typeof placeholderComponent === "function",
     optionToString: (optionToString) => typeof optionToString === "function",
+    optionComponent: (optionComponent) => typeof optionComponent === "function",
     helpText: (helpText) => typeof helpText === "string",
     disabled: (disabled) => typeof disabled === "boolean",
     options: (options) => areDropdownOptionsValid(options),
@@ -55,9 +55,9 @@ function Dropdown(props) {
     color,
     label,
     hideLabel,
-    renderPlaceholder,
-    renderOption,
+    placeholderComponent,
     optionToString,
+    optionComponent,
     options,
     helpText,
     disabled,
@@ -108,9 +108,9 @@ function Dropdown(props) {
   const {
     isOpen,
     selectedItem: selectedOption,
+    highlightedIndex,
     getToggleButtonProps,
     getMenuProps,
-    highlightedIndex,
     getItemProps,
   } = useSelect({
     items: options,
@@ -125,15 +125,27 @@ function Dropdown(props) {
   });
   const isValid = !hasErrors;
   const describedBy = helpText || hasErrors ? auxId : null;
-  const toggleButtonProps = getToggleButtonProps({
-    onFocus,
-    onBlur,
-    onChange,
-    disabled,
-    "aria-invalid": isValid ? null : "true",
-    "aria-describedby": describedBy,
-    ref: buttonRef,
-  });
+  const toggleButtonProps = useMemo(
+    () =>
+      getToggleButtonProps({
+        onFocus,
+        onBlur,
+        onChange,
+        disabled,
+        "aria-invalid": isValid ? null : "true",
+        "aria-describedby": describedBy,
+        ref: buttonRef,
+      }),
+    [
+      getToggleButtonProps,
+      onFocus,
+      onBlur,
+      onChange,
+      disabled,
+      isValid,
+      describedBy,
+    ]
+  );
   const maxHeightProps = useAllResponsiveProps(props, "maxHeight");
 
   return (
@@ -151,8 +163,8 @@ function Dropdown(props) {
       <InternalDropdown
         name={name}
         color={color}
-        renderPlaceholder={renderPlaceholder}
-        renderOption={renderOption}
+        placeholderComponent={placeholderComponent}
+        optionComponent={optionComponent}
         options={options}
         selectedOption={selectedOption}
         isOpen={isOpen}
@@ -175,9 +187,9 @@ Dropdown.propTypes = {
   label: PropTypes.string.isRequired,
   hideLabel: PropTypes.bool,
   color: PropTypes.oneOf(COLORS),
-  renderPlaceholder: PropTypes.func,
-  renderOption: PropTypes.func.isRequired,
+  placeholderComponent: PropTypes.func,
   optionToString: PropTypes.func.isRequired,
+  optionComponent: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       data: PropTypes.object.isRequired,

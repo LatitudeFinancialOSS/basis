@@ -25,7 +25,7 @@ function DropdownPage() {
   );
   const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const code = formatCode(`
-    const options = [
+    const accountOptions = [
       { 
         data: {
           name: "28 Degrees Platinum Mastercard",
@@ -56,33 +56,37 @@ function DropdownPage() {
       }
     ];
 
-    function renderOption({ data }) {
+    function accountOptionToString({ data }) {
+      return data.name;
+    }
+
+    function AccountOption({ data }) {
       const { name, description } = data;
 
       return (
-        <Stack direction="horizontal" gap="5">
-          <Placeholder label="Image" width="100" height="48" />
-          <Stack gap="1">
+        <Grid cols="100px 1fr" colsGap="5">
+          <Grid.Item colSpan="0" rowSpan="0-1">
+            <Placeholder label="Image" width="100%" height="100%" />
+          </Grid.Item>
+          <Grid.Item colSpan="1" rowSpan="0">
             <Text color="primary.blue.t100">
               <strong>{name}</strong>
             </Text>
+          </Grid.Item>
+          <Grid.Item colSpan="1" rowSpan="1">
             <Text textStyle="body2" color="grey.t75">
               {description}
             </Text>
-          </Stack>
-        </Stack>
+          </Grid.Item>
+        </Grid>
       );
     };
 
-    function optionToString(option) {
-      return option.data.name;
-    }
+    const initialValues = {
+      account: ""
+    };
     
     function App() {
-      const initialValues = {
-        account: ""
-      };
-
       return (
         <Form initialValues={initialValues}>
           <Dropdown ${nonDefaultProps([
@@ -119,9 +123,9 @@ function DropdownPage() {
               type: "boolean",
             },
           ])}
-            options={options}
-            renderOption={renderOption}
-            optionToString={optionToString}
+            options={accountOptions}
+            optionToString={accountOptionToString}
+            optionComponent={AccountOption}
           />
         </Form>
       );

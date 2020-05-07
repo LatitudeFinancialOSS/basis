@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon } from "..";
+import { Icon, Text } from "..";
 import useTheme from "../../hooks/useTheme";
 import { responsiveMaxHeightType } from "../../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
@@ -8,9 +8,13 @@ import { responsiveSize } from "../../utils/css";
 
 const COLORS = ["grey.t05", "white"];
 
+function DropdownDefaultPlaceholder() {
+  return <Text>Please select</Text>;
+}
+
 const DEFAULT_PROPS = {
   color: "grey.t05",
-  renderPlaceholder: () => "Please select",
+  placeholderComponent: DropdownDefaultPlaceholder,
   disabled: false,
   isValid: true,
   maxHeight: "600",
@@ -27,8 +31,8 @@ function InternalDropdown(_props) {
     name,
     parentName,
     color,
-    renderPlaceholder,
-    renderOption,
+    placeholderComponent: PlaceholderComponent,
+    optionComponent: OptionComponent,
     options,
     selectedOption,
     isOpen,
@@ -70,7 +74,11 @@ function InternalDropdown(_props) {
         {...toggleButtonProps}
       >
         <div css={theme.dropdownButtonContent}>
-          {selectedOption ? renderOption(selectedOption) : renderPlaceholder()}
+          {selectedOption ? (
+            <OptionComponent {...selectedOption} />
+          ) : (
+            <PlaceholderComponent />
+          )}
         </div>
         <div css={theme.dropdownButtonChevron}>
           <Icon name="triangle-down" color="black" />
@@ -95,7 +103,7 @@ function InternalDropdown(_props) {
               {...getItemProps({ item: option, index })}
               key={index}
             >
-              {renderOption(option)}
+              <OptionComponent {...option} />
             </li>
           ))}
       </ul>
@@ -107,8 +115,8 @@ InternalDropdown.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string, // While Dropdown doesn't pass a parentName, a composite component that contains an InternalDropdown would.
   color: PropTypes.oneOf(COLORS),
-  renderPlaceholder: PropTypes.func,
-  renderOption: PropTypes.func.isRequired,
+  PlaceholderComponent: PropTypes.func,
+  optionComponent: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       data: PropTypes.object.isRequired,
