@@ -7,8 +7,15 @@
   ],
   "plugins": ["react-hooks", "jest"],
   "rules": {
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "react/jsx-boolean-value": "error",
+    "no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
+    ],
+    "react/jsx-boolean-value": [
+      "error",
+      "never",
+      { "always": ["initialValue"] }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error"
   },
