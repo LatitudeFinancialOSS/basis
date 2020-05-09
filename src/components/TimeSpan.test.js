@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "../utils/test";
+import { render, screen, userEvent, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import TimeSpan from "./TimeSpan";
@@ -57,7 +57,7 @@ describe("TimeSpan", () => {
     );
   });
 
-  it("renders help text that describes the input", () => {
+  it("renders help text that describes the input", async () => {
     const { container } = render(
       <FormWithTimeSpan
         label="How long do you live in the current address?"
@@ -71,13 +71,14 @@ describe("TimeSpan", () => {
     const monthsInput = screen.getByPlaceholderText("Months");
 
     yearsInput.focus();
-    fireEvent.change(yearsInput, { target: { value: "1" } });
+
+    await userEvent.type(yearsInput, "1");
 
     expect(helpText).toHaveTextContent("1 year");
 
     yearsInput.blur();
     monthsInput.focus();
-    fireEvent.change(monthsInput, { target: { value: "11" } });
+    await userEvent.type(monthsInput, "11");
 
     expect(helpText).toHaveTextContent("1 year and 11 months");
   });

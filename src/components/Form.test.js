@@ -13,7 +13,7 @@ import {
   Select,
   Button,
 } from ".";
-import { render, screen, fireEvent } from "../utils/test";
+import { render, screen, userEvent, waitFor } from "../utils/test";
 
 const relationshipStatusOptions = [
   {
@@ -122,46 +122,51 @@ describe("Form", () => {
     expect(container.firstChild.tagName).toBe("FORM");
   });
 
-  it("calls onSubmit with the right params", () => {
+  it("calls onSubmit with the right params", async () => {
     const onSubmit = jest.fn();
 
     render(<ComplexForm onSubmit={onSubmit} />);
 
-    fireEvent.click(screen.getByText("Submit"));
-    expect(onSubmit).toBeCalledWith({
-      errors: {
-        age: ["Must be at least 1 month."],
-        hungry: ["Please make a selection."],
-        likeIceCream: ["Must be checked"],
-        name: ["Required"],
-        relationshipStatus: ["Please make a selection."],
-        salary: ["Please enter a valid amount.", "Please select a frequency."],
-        birthDate: [
-          "Day must be within 1-31.",
-          "Month must be within 1-12.",
-          "Year must be within 1800-2200.",
-        ],
-      },
-      values: {
-        age: {
-          months: "",
-          years: "",
+    userEvent.click(screen.getByText("Submit"));
+    await waitFor(() =>
+      expect(onSubmit).toBeCalledWith({
+        errors: {
+          age: ["Must be at least 1 month."],
+          hungry: ["Please make a selection."],
+          likeIceCream: ["Must be checked"],
+          name: ["Required"],
+          relationshipStatus: ["Please make a selection."],
+          salary: [
+            "Please enter a valid amount.",
+            "Please select a frequency.",
+          ],
+          birthDate: [
+            "Day must be within 1-31.",
+            "Month must be within 1-12.",
+            "Year must be within 1800-2200.",
+          ],
         },
-        hungry: "",
-        likeIceCream: false,
-        name: "",
-        relationshipStatus: "",
-        salary: {
-          amount: "",
-          frequency: "",
+        values: {
+          age: {
+            months: "",
+            years: "",
+          },
+          hungry: "",
+          likeIceCream: false,
+          name: "",
+          relationshipStatus: "",
+          salary: {
+            amount: "",
+            frequency: "",
+          },
+          birthDate: {
+            day: "",
+            month: "",
+            year: "",
+          },
         },
-        birthDate: {
-          day: "",
-          month: "",
-          year: "",
-        },
-      },
-    });
+      })
+    );
   });
 
   it("with testId", () => {
