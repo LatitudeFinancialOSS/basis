@@ -10,6 +10,7 @@ import {
 import { range } from "../utils/array";
 import {
   getGridTemplateColumns,
+  getGridTemplateRows,
   getGridLines,
   getGapPx,
   responsiveMargin,
@@ -108,6 +109,11 @@ function Grid(_props) {
           gridTemplateColumns: getGridTemplateColumns(cols),
         };
       },
+      rows: ({ rows }) => {
+        return {
+          gridTemplateRows: getGridTemplateRows(rows),
+        };
+      },
       colsGap: ({ colsGap }) => {
         return {
           gridColumnGap: getGapPx(colsGap, theme),
@@ -166,6 +172,10 @@ function Grid(_props) {
 Grid.propTypes = {
   ...responsivePropType(
     "cols",
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ),
+  ...responsivePropType(
+    "rows",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   ...responsivePropType(

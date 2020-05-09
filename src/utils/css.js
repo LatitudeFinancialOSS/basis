@@ -89,6 +89,8 @@ export function getGridTemplateColumns(cols) {
   return null;
 }
 
+export const getGridTemplateRows = getGridTemplateColumns;
+
 export const DEFAULT_BREAKPOINT = "default";
 
 export function compareBreakpoints(bp1, bp2, theme) {
