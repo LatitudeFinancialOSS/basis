@@ -4,22 +4,24 @@ import Grid from "./Grid";
 import { render, screen } from "../utils/test";
 
 describe("Grid", () => {
+  it("with margin", () => {
+    render(<Grid margin="6 0 0 0">Hello</Grid>);
+
+    expect(screen.getByText("Hello")).toHaveStyle(`
+      margin: "24px 0 0 0"
+    `);
+  });
+
   it("with testId", () => {
-    const { container } = render(
-      <Grid cols={4} cols-md={12} rowsGap={4} colsGap="30px" testId="my-grid">
-        <Grid.Item colSpan="all" colSpan-md="0-3">
-          First
-        </Grid.Item>
-        <Grid.Item colSpan="all" colSpan-md="4-7" testId="my-grid-item">
-          Second
-        </Grid.Item>
-        <Grid.Item colSpan="all" colSpan-md="8-11">
-          Third
-        </Grid.Item>
+    render(
+      <Grid testId="my-grid">
+        <Grid.Item testId="my-grid-item">Hello</Grid.Item>
       </Grid>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-grid");
-    screen.getByTestId("my-grid-item");
+    const gridItem = screen.getByText("Hello");
+
+    expect(gridItem).toHaveAttribute("data-testid", "my-grid-item");
+    expect(gridItem.parentElement).toHaveAttribute("data-testid", "my-grid");
   });
 });

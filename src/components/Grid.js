@@ -3,9 +3,17 @@ import PropTypes from "prop-types";
 import useResizeAware from "react-resize-aware";
 import useTheme from "../hooks/useTheme";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsivePropType } from "../hooks/useResponsiveProp";
+import {
+  responsivePropType,
+  responsiveMarginType,
+} from "../hooks/useResponsiveProp";
 import { range } from "../utils/array";
-import { getGridTemplateColumns, getGridLines, getGapPx } from "../utils/css";
+import {
+  getGridTemplateColumns,
+  getGridLines,
+  getGapPx,
+  responsiveMargin,
+} from "../utils/css";
 
 const DEFAULT_GRID_ITEM_PROPS = {};
 
@@ -36,6 +44,7 @@ function Item(props) {
             }
           : {};
       },
+      margin: responsiveMargin,
     }
   );
   const itemCSS = {
@@ -167,6 +176,7 @@ Grid.propTypes = {
     "rowsGap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
+  ...responsiveMarginType,
   preset: PropTypes.oneOf(PRESETS),
   debug: PropTypes.bool,
   children: PropTypes.node.isRequired,
