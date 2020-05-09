@@ -83,9 +83,9 @@ describe("Dropdown", () => {
 
     userEvent.click(button);
 
-    expect(screen.queryByText("Movie 1")).toBeInTheDocument();
-    expect(screen.queryByText("Movie 2")).toBeInTheDocument();
-    expect(screen.queryByText("Movie 3")).toBeInTheDocument();
+    expect(screen.getByText("Movie 1")).toBeInTheDocument();
+    expect(screen.getByText("Movie 2")).toBeInTheDocument();
+    expect(screen.getByText("Movie 3")).toBeInTheDocument();
   });
 
   it("hides options", async () => {
