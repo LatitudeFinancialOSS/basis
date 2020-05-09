@@ -1,13 +1,14 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Text from "./Text";
 import Container from "./Container";
 
 describe("Text", () => {
   it("default", () => {
-    const { getByText } = render(<Text>Hello World</Text>);
-    const node = getByText("Hello World");
+    render(<Text>Hello World</Text>);
+
+    const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("P");
     expect(node).toHaveStyle(`
@@ -23,12 +24,13 @@ describe("Text", () => {
   });
 
   it("h1", () => {
-    const { getByText } = render(
+    render(
       <Text as="h1" textStyle="heading1">
         Hello World
       </Text>
     );
-    const node = getByText("Hello World");
+
+    const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H1");
     expect(node).toHaveStyle(`
@@ -42,12 +44,13 @@ describe("Text", () => {
   });
 
   it(`h1 with textStyle="heading2"`, () => {
-    const { getByText } = render(
+    render(
       <Text as="h1" textStyle="heading2">
         Hello World
       </Text>
     );
-    const node = getByText("Hello World");
+
+    const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H1");
     expect(node).toHaveStyle(`
@@ -61,12 +64,13 @@ describe("Text", () => {
   });
 
   it("h2 and center aligned", () => {
-    const { getByText } = render(
+    render(
       <Text as="h2" textStyle="heading2" align="center">
         Hello World
       </Text>
     );
-    const node = getByText("Hello World");
+
+    const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H2");
     expect(node).toHaveStyle(`
@@ -80,12 +84,13 @@ describe("Text", () => {
   });
 
   it("h3 and primary.blue.t100", () => {
-    const { getByText } = render(
+    render(
       <Text as="h3" textStyle="heading3" color="primary.blue.t100">
         Hello World
       </Text>
     );
-    const node = getByText("Hello World");
+
+    const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H3");
     expect(node).toHaveStyle(`
@@ -99,12 +104,13 @@ describe("Text", () => {
   });
 
   it("inside dark container", () => {
-    const { getByText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <Text>Hello World</Text>
       </Container>
     );
-    const node = getByText("Hello World");
+
+    const node = screen.getByText("Hello World");
 
     expect(node).toHaveStyle(`
       color: #ffffff;
@@ -112,8 +118,9 @@ describe("Text", () => {
   });
 
   it("with margin", () => {
-    const { getByText } = render(<Text margin="1 2 3 4">Hello World</Text>);
-    const node = getByText("Hello World");
+    render(<Text margin="1 2 3 4">Hello World</Text>);
+
+    const node = screen.getByText("Hello World");
 
     expect(node).toHaveStyle(`
       margin: 4px 8px 12px 16px;

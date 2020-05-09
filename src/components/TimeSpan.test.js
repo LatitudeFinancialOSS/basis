@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "../utils/test";
+import { render, screen, fireEvent, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import TimeSpan from "./TimeSpan";
@@ -22,18 +22,20 @@ function FormWithTimeSpan(props) {
 
 describe("TimeSpan", () => {
   it("renders label and 2 fields", () => {
-    const { container, getByText, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithTimeSpan label="How long do you live in the current address?" />
     );
-    const label = getByText("How long do you live in the current address?");
+    const label = screen.getByText(
+      "How long do you live in the current address?"
+    );
     const inputsContainer = container.querySelector("[aria-labelledby]");
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
     expect(inputsContainer).toHaveAttribute("aria-labelledby", labelId);
 
-    const yearsInput = getByPlaceholderText("Years");
-    const monthsInput = getByPlaceholderText("Months");
+    const yearsInput = screen.getByPlaceholderText("Years");
+    const monthsInput = screen.getByPlaceholderText("Months");
 
     expect(yearsInput).toHaveAttribute("type", "number");
     expect(monthsInput).toHaveAttribute("type", "number");
@@ -56,7 +58,7 @@ describe("TimeSpan", () => {
   });
 
   it("renders help text that describes the input", () => {
-    const { container, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithTimeSpan
         label="How long do you live in the current address?"
         helpText="Please be as accurate as possible."
@@ -65,8 +67,8 @@ describe("TimeSpan", () => {
     const inputsContainer = container.querySelector("[aria-labelledby]");
     const describedBy = inputsContainer.getAttribute("aria-describedby");
     const helpText = container.querySelector(`[id="${describedBy}"]`);
-    const yearsInput = getByPlaceholderText("Years");
-    const monthsInput = getByPlaceholderText("Months");
+    const yearsInput = screen.getByPlaceholderText("Years");
+    const monthsInput = screen.getByPlaceholderText("Months");
 
     yearsInput.focus();
     fireEvent.change(yearsInput, { target: { value: "1" } });
@@ -81,14 +83,14 @@ describe("TimeSpan", () => {
   });
 
   it("renders error message", async () => {
-    const { container, queryByText, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithTimeSpan
         label="How long do you live in the current address?"
         helpText="Please be as accurate as possible."
       />
     );
 
-    const yearsInput = getByPlaceholderText("Years");
+    const yearsInput = screen.getByPlaceholderText("Years");
 
     yearsInput.focus();
     yearsInput.blur();
@@ -100,19 +102,20 @@ describe("TimeSpan", () => {
     await waitFor(() => {
       expect(errorMessage).toHaveTextContent("Must be at least 1 month.");
       expect(
-        queryByText("Please be as accurate as possible.")
+        screen.queryByText("Please be as accurate as possible.")
       ).not.toBeInTheDocument();
     });
   });
 
   it("inside dark container", () => {
-    const { getByPlaceholderText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <FormWithTimeSpan label="How long do you live in the current address?" />
       </Container>
     );
-    const yearsInput = getByPlaceholderText("Years");
-    const monthsInput = getByPlaceholderText("Months");
+
+    const yearsInput = screen.getByPlaceholderText("Years");
+    const monthsInput = screen.getByPlaceholderText("Months");
 
     expect(yearsInput).toHaveStyle(`
       background-color: #ffffff;

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, waitFor } from "../utils/test";
+import { render, screen, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import RadioGroup from "./RadioGroup";
@@ -34,11 +34,10 @@ function FormWithRadioGroup(props) {
 
 describe("RadioGroup", () => {
   it("renders label that is connected to the radio group", () => {
-    const { getByText, getByRole } = render(
-      <FormWithRadioGroup label="Are you happy?" />
-    );
-    const label = getByText("Are you happy?");
-    const radioGroup = getByRole("radiogroup");
+    render(<FormWithRadioGroup label="Are you happy?" />);
+
+    const label = screen.getByText("Are you happy?");
+    const radioGroup = screen.getByRole("radiogroup");
 
     expect(label.tagName).toBe("LABEL");
 
@@ -49,10 +48,10 @@ describe("RadioGroup", () => {
   });
 
   it("renders help text that is connected to the radio group", () => {
-    const { container, getByRole } = render(
+    const { container } = render(
       <FormWithRadioGroup label="Are you happy?" helpText="Some help text" />
     );
-    const radioGroup = getByRole("radiogroup");
+    const radioGroup = screen.getByRole("radiogroup");
     const describedBy = radioGroup.getAttribute("aria-describedby");
     const helpText = container.querySelector(`[id="${describedBy}"]`);
 
@@ -60,31 +59,32 @@ describe("RadioGroup", () => {
   });
 
   it("renders error message", async () => {
-    const { container, queryByText, getByLabelText, getByRole } = render(
+    const { container } = render(
       <FormWithRadioGroup label="Are you happy?" helpText="Some help text" />
     );
-    const yesInput = getByLabelText("Yes");
+    const yesInput = screen.getByLabelText("Yes");
 
     yesInput.focus();
     yesInput.blur();
 
-    const radioGroup = getByRole("radiogroup");
+    const radioGroup = screen.getByRole("radiogroup");
     const describedBy = radioGroup.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
     await waitFor(() => {
       expect(errorMessage).toHaveTextContent("Please make a selection.");
-      expect(queryByText("Some help text")).not.toBeInTheDocument();
+      expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });
 
   it("inside dark container", () => {
-    const { getByText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <FormWithRadioGroup label="Are you happy?" />
       </Container>
     );
-    const yesLabel = getByText("Yes");
+
+    const yesLabel = screen.getByText("Yes");
 
     expect(yesLabel).toHaveStyle(`
       background-color: #ffffff;

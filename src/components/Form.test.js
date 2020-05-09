@@ -13,7 +13,7 @@ import {
   Select,
   Button,
 } from ".";
-import { render, fireEvent } from "../utils/test";
+import { render, screen, fireEvent } from "../utils/test";
 
 const relationshipStatusOptions = [
   {
@@ -124,9 +124,10 @@ describe("Form", () => {
 
   it("calls onSubmit with the right params", () => {
     const onSubmit = jest.fn();
-    const { getByText } = render(<ComplexForm onSubmit={onSubmit} />);
 
-    fireEvent.click(getByText("Submit"));
+    render(<ComplexForm onSubmit={onSubmit} />);
+
+    fireEvent.click(screen.getByText("Submit"));
     expect(onSubmit).toBeCalledWith({
       errors: {
         age: ["Must be at least 1 month."],

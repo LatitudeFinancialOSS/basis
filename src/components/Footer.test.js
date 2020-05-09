@@ -1,9 +1,8 @@
 import React from "react";
-import { getByTestId } from "@testing-library/dom";
 import "@testing-library/jest-dom/extend-expect";
 import Footer from "./Footer";
 import Link from "./Link";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 
 describe("Footer", () => {
   it("with testId", () => {
@@ -90,25 +89,22 @@ describe("Footer", () => {
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-footer");
 
-    const footerHeader = getByTestId(container, "my-footer-header");
-    getByTestId(footerHeader, "my-footer-header-logo");
+    screen.getByTestId("my-footer-header");
+    screen.getByTestId("my-footer-header-logo");
 
-    const footerHeaderSocial = getByTestId(
-      footerHeader,
-      "my-footer-header-social"
-    );
-    getByTestId(footerHeaderSocial, "my-footer-header-social-facebook");
-    getByTestId(footerHeaderSocial, "my-footer-header-social-youtube");
-    getByTestId(footerHeaderSocial, "my-footer-header-social-twitter");
-    getByTestId(footerHeaderSocial, "my-footer-header-social-instagram");
-    getByTestId(footerHeaderSocial, "my-footer-header-social-linkedin");
+    screen.getByTestId("my-footer-header-social");
+    screen.getByTestId("my-footer-header-social-facebook");
+    screen.getByTestId("my-footer-header-social-youtube");
+    screen.getByTestId("my-footer-header-social-twitter");
+    screen.getByTestId("my-footer-header-social-instagram");
+    screen.getByTestId("my-footer-header-social-linkedin");
 
-    const footerLinks = getByTestId(container, "my-footer-links");
-    getByTestId(footerLinks, "my-footer-section-1");
-    getByTestId(footerLinks, "my-footer-section-2");
+    screen.getByTestId("my-footer-links");
+    screen.getByTestId("my-footer-section-1");
+    screen.getByTestId("my-footer-section-2");
 
-    const footerLegal = getByTestId(container, "my-footer-legal");
-    getByTestId(footerLegal, "my-footer-legal-links");
-    getByTestId(footerLegal, "my-footer-legal-copy");
+    screen.getByTestId("my-footer-legal");
+    screen.getByTestId("my-footer-legal-links");
+    screen.getByTestId("my-footer-legal-copy");
   });
 });

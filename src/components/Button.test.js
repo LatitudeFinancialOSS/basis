@@ -1,13 +1,14 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 import Button from "./Button";
 import Container from "./Container";
 
 describe("Button", () => {
   it("default", () => {
-    const { getByText } = render(<Button>Find out more</Button>);
-    const button = getByText("Find out more");
+    render(<Button>Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button.tagName).toBe("BUTTON");
     expect(button).toHaveAttribute("type", "button");
@@ -30,10 +31,9 @@ describe("Button", () => {
   });
 
   it("secondary", () => {
-    const { getByText } = render(
-      <Button variant="secondary">Find out more</Button>
-    );
-    const button = getByText("Find out more");
+    render(<Button variant="secondary">Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       background-color: transparent;
@@ -45,8 +45,9 @@ describe("Button", () => {
   });
 
   it("primary white", () => {
-    const { getByText } = render(<Button color="white">Find out more</Button>);
-    const button = getByText("Find out more");
+    render(<Button color="white">Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       background-color: #ffffff;
@@ -55,12 +56,13 @@ describe("Button", () => {
   });
 
   it("secondary white", () => {
-    const { getByText } = render(
+    render(
       <Button variant="secondary" color="white">
         Find out more
       </Button>
     );
-    const button = getByText("Find out more");
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       background-color: transparent;
@@ -72,8 +74,9 @@ describe("Button", () => {
   });
 
   it("full width", () => {
-    const { getByText } = render(<Button fullWidth>Find out more</Button>);
-    const button = getByText("Find out more");
+    render(<Button fullWidth>Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       width: 100%;
@@ -81,8 +84,9 @@ describe("Button", () => {
   });
 
   it("disabled", () => {
-    const { getByText } = render(<Button disabled>Find out more</Button>);
-    const button = getByText("Find out more");
+    render(<Button disabled>Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       background-color: #b2b2b2;
@@ -93,19 +97,21 @@ describe("Button", () => {
   });
 
   it('type="submit"', () => {
-    const { getByText } = render(<Button type="submit">Find out more</Button>);
-    const button = getByText("Find out more");
+    render(<Button type="submit">Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveAttribute("type", "submit");
   });
 
   it("inside dark container", () => {
-    const { getByText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <Button>Find out more</Button>
       </Container>
     );
-    const button = getByText("Find out more");
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       background-color: #ffffff;
@@ -114,8 +120,9 @@ describe("Button", () => {
   });
 
   it("with margin", () => {
-    const { getByText } = render(<Button margin="2 4">Find out more</Button>);
-    const button = getByText("Find out more");
+    render(<Button margin="2 4">Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
 
     expect(button).toHaveStyle(`
       margin: 8px 16px;

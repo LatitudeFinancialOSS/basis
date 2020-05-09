@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Checkbox from "./Checkbox";
@@ -19,12 +19,12 @@ function FormWithCheckbox(props) {
 
 describe("Checkbox", () => {
   it("renders label that is connected to checkbox", () => {
-    const { container, getByText } = render(
+    const { container } = render(
       <FormWithCheckbox label="Accept terms and conditions">
         I agree
       </FormWithCheckbox>
     );
-    const label = getByText("Accept terms and conditions");
+    const label = screen.getByText("Accept terms and conditions");
     const checkboxContainer = container.querySelector("[aria-checked]");
 
     expect(label).toHaveAttribute(
@@ -74,12 +74,13 @@ describe("Checkbox", () => {
   });
 
   it("with hideLabel", () => {
-    const { getByText } = render(
+    render(
       <FormWithCheckbox label="Accept terms and conditions" hideLabel>
         I agree
       </FormWithCheckbox>
     );
-    const label = getByText("Accept terms and conditions");
+
+    const label = screen.getByText("Accept terms and conditions");
 
     expect(label).toBeVisuallyHidden();
   });

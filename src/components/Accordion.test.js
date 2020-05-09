@@ -1,13 +1,12 @@
 import React from "react";
-import { getByTestId } from "@testing-library/dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render, userEvent } from "../utils/test";
+import { render, screen, userEvent } from "../utils/test";
 import Accordion from "./Accordion";
 import Text from "./Text";
 
 describe("Accordion", () => {
   it("default", () => {
-    const { container } = render(
+    render(
       <Accordion>
         <Accordion.Item testId="accordion-item-1">
           <Accordion.Item.Header testId="accordion-item-1-header">
@@ -31,12 +30,13 @@ describe("Accordion", () => {
         </Accordion.Item>
       </Accordion>
     );
-    const item1 = getByTestId(container, "accordion-item-1");
-    const item1header = getByTestId(item1, "accordion-item-1-header");
+
+    const item1 = screen.getByTestId("accordion-item-1");
+    const item1header = screen.getByTestId("accordion-item-1-header");
     const item1HeaderButton = item1header.querySelector("[aria-controls]");
     const item1Content = item1.querySelector(`[role="region"]`);
-    const item2 = getByTestId(container, "accordion-item-2");
-    const item3 = getByTestId(container, "accordion-item-3");
+    const item2 = screen.getByTestId("accordion-item-2");
+    const item3 = screen.getByTestId("accordion-item-3");
 
     expect(item1).not.toHaveStyle(`
       margin-top: 4px;
@@ -127,7 +127,7 @@ describe("Accordion", () => {
   });
 
   it("doesn't autoclose", () => {
-    const { container } = render(
+    render(
       <Accordion>
         <Accordion.Item testId="accordion-item-1">
           <Accordion.Item.Header>Header 1</Accordion.Item.Header>
@@ -143,8 +143,9 @@ describe("Accordion", () => {
         </Accordion.Item>
       </Accordion>
     );
-    const item1 = getByTestId(container, "accordion-item-1");
-    const item2 = getByTestId(container, "accordion-item-2");
+
+    const item1 = screen.getByTestId("accordion-item-1");
+    const item2 = screen.getByTestId("accordion-item-2");
     const item1HeaderButton = item1.querySelector("[aria-controls]");
     const item2HeaderButton = item2.querySelector("[aria-controls]");
 
@@ -192,7 +193,7 @@ describe("Accordion", () => {
   });
 
   it("with itemHeaderAs", () => {
-    const { container } = render(
+    render(
       <Accordion itemHeaderAs="h2">
         <Accordion.Item>
           <Accordion.Item.Header testId="my-accordion-item-header">
@@ -201,16 +202,14 @@ describe("Accordion", () => {
         </Accordion.Item>
       </Accordion>
     );
-    const accordionItemHeader = getByTestId(
-      container,
-      "my-accordion-item-header"
-    );
+
+    const accordionItemHeader = screen.getByTestId("my-accordion-item-header");
 
     expect(accordionItemHeader.tagName).toBe("H2");
   });
 
   it("with itemGap", () => {
-    const { container } = render(
+    render(
       <Accordion itemGap="small">
         <Accordion.Item testId="accordion-item-1">
           <Accordion.Item.Header>Header 1</Accordion.Item.Header>
@@ -223,9 +222,10 @@ describe("Accordion", () => {
         </Accordion.Item>
       </Accordion>
     );
-    const item1 = getByTestId(container, "accordion-item-1");
-    const item2 = getByTestId(container, "accordion-item-2");
-    const item3 = getByTestId(container, "accordion-item-3");
+
+    const item1 = screen.getByTestId("accordion-item-1");
+    const item2 = screen.getByTestId("accordion-item-2");
+    const item3 = screen.getByTestId("accordion-item-3");
 
     expect(item1).not.toHaveStyle(`
       margin-top: 1px;
@@ -288,13 +288,10 @@ describe("Accordion", () => {
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-accordion");
 
-    const accordionItem = getByTestId(container, "my-accordion-item");
-    const accordionItemHeader = getByTestId(
-      accordionItem,
-      "my-accordion-item-header"
-    );
+    screen.getByTestId("my-accordion-item");
+    screen.getByTestId("my-accordion-item-header");
 
-    getByTestId(accordionItem, "my-accordion-item-content");
-    getByTestId(accordionItemHeader, "my-accordion-item-header-icon");
+    screen.getByTestId("my-accordion-item-content");
+    screen.getByTestId("my-accordion-item-header-icon");
   });
 });

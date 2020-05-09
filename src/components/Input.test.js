@@ -1,5 +1,5 @@
 import React from "react";
-import { render, waitFor } from "../utils/test";
+import { render, screen, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Input from "./Input";
@@ -19,11 +19,10 @@ function FormWithInput(props) {
 
 describe("Input", () => {
   it("renders label that is connected to the input", () => {
-    const { getByText, getByLabelText } = render(
-      <FormWithInput label="First name" />
-    );
-    const label = getByText("First name");
-    const input = getByLabelText("First name");
+    render(<FormWithInput label="First name" />);
+
+    const label = screen.getByText("First name");
+    const input = screen.getByLabelText("First name");
 
     expect(label.tagName).toBe("LABEL");
     expect(input.tagName).toBe("INPUT");
@@ -60,10 +59,10 @@ describe("Input", () => {
   });
 
   it("renders help text that is connected to the input", () => {
-    const { container, getByLabelText } = render(
+    const { container } = render(
       <FormWithInput label="First name" helpText="Some help text" />
     );
-    const input = getByLabelText("First name");
+    const input = screen.getByLabelText("First name");
     const describedBy = input.getAttribute("aria-describedby");
     const errorMessage = container.querySelector(`[id="${describedBy}"]`);
 
@@ -71,10 +70,10 @@ describe("Input", () => {
   });
 
   it("renders error message", async () => {
-    const { container, queryByText, getByLabelText } = render(
+    const { container } = render(
       <FormWithInput label="First name" helpText="Some help text" />
     );
-    const input = getByLabelText("First name");
+    const input = screen.getByLabelText("First name");
 
     input.focus();
     input.blur();
@@ -84,17 +83,18 @@ describe("Input", () => {
 
     await waitFor(() => {
       expect(errorMessage).toHaveTextContent("Required");
-      expect(queryByText("Some help text")).not.toBeInTheDocument();
+      expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });
 
   it("inside dark container", () => {
-    const { getByLabelText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <FormWithInput label="First name" />
       </Container>
     );
-    const input = getByLabelText("First name");
+
+    const input = screen.getByLabelText("First name");
 
     expect(input).toHaveStyle(`
       background-color: #ffffff;

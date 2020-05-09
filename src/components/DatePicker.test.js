@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor, userEvent } from "../utils/test";
+import { render, screen, waitFor, userEvent } from "../utils/test";
 import Form from "./Form";
 import DatePicker from "./DatePicker";
 import Container from "./Container";
@@ -30,10 +30,8 @@ function getHelpText(container) {
 
 describe("DatePicker", () => {
   it("renders label and 3 fields", () => {
-    const { container, getByText, getByPlaceholderText } = render(
-      <FormWithDatePicker label="Expiry date" />
-    );
-    const label = getByText("Expiry date");
+    const { container } = render(<FormWithDatePicker label="Expiry date" />);
+    const label = screen.getByText("Expiry date");
     const inputsContainer = container.querySelector("[aria-labelledby]");
 
     expect(label.tagName).toBe("LABEL");
@@ -43,9 +41,9 @@ describe("DatePicker", () => {
     expect(labelId).toBeTruthy();
     expect(inputsContainer).toHaveAttribute("aria-labelledby", labelId);
 
-    const dayInput = getByPlaceholderText("DD");
-    const monthInput = getByPlaceholderText("MM");
-    const yearInput = getByPlaceholderText("YYYY");
+    const dayInput = screen.getByPlaceholderText("DD");
+    const monthInput = screen.getByPlaceholderText("MM");
+    const yearInput = screen.getByPlaceholderText("YYYY");
 
     expect(dayInput).toHaveAttribute("type", "number");
     expect(monthInput).toHaveAttribute("type", "number");
@@ -53,32 +51,28 @@ describe("DatePicker", () => {
   });
 
   it("doesn't render the day field when day={false}", () => {
-    const { queryByPlaceholderText } = render(
-      <FormWithDatePicker label="Expiry date" day={false} />
-    );
+    render(<FormWithDatePicker label="Expiry date" day={false} />);
 
-    expect(queryByPlaceholderText("DD")).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText("DD")).not.toBeInTheDocument();
   });
 
   it("renders the date as help text", async () => {
-    const { container, getByPlaceholderText } = render(
-      <FormWithDatePicker label="Expiry date" />
-    );
+    const { container } = render(<FormWithDatePicker label="Expiry date" />);
 
-    await userEvent.type(getByPlaceholderText("DD"), "6");
-    await userEvent.type(getByPlaceholderText("MM"), "4");
-    await userEvent.type(getByPlaceholderText("YYYY"), "2017");
+    await userEvent.type(screen.getByPlaceholderText("DD"), "6");
+    await userEvent.type(screen.getByPlaceholderText("MM"), "4");
+    await userEvent.type(screen.getByPlaceholderText("YYYY"), "2017");
 
     expect(getHelpText(container)).toBe("6 April, 2017");
   });
 
   it("renders the date as help text when day={false}", async () => {
-    const { container, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithDatePicker label="Expiry date" day={false} />
     );
 
-    await userEvent.type(getByPlaceholderText("MM"), "4");
-    await userEvent.type(getByPlaceholderText("YYYY"), "2017");
+    await userEvent.type(screen.getByPlaceholderText("MM"), "4");
+    await userEvent.type(screen.getByPlaceholderText("YYYY"), "2017");
 
     expect(getHelpText(container)).toBe("April, 2017");
   });
@@ -92,11 +86,11 @@ describe("DatePicker", () => {
   });
 
   it("renders error messages", async () => {
-    const { container, queryByText, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithDatePicker label="Expiry date" helpText="Some help text" />
     );
 
-    const dayInput = getByPlaceholderText("DD");
+    const dayInput = screen.getByPlaceholderText("DD");
 
     dayInput.focus();
     dayInput.blur();
@@ -113,19 +107,20 @@ describe("DatePicker", () => {
           "Year must be within 1800-2200.",
         ].join("")
       );
-      expect(queryByText("Some help text")).not.toBeInTheDocument();
+      expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });
 
   it("inside dark container", () => {
-    const { getByPlaceholderText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <FormWithDatePicker label="Expiry date" />
       </Container>
     );
-    const dayInput = getByPlaceholderText("DD");
-    const monthInput = getByPlaceholderText("MM");
-    const yearInput = getByPlaceholderText("YYYY");
+
+    const dayInput = screen.getByPlaceholderText("DD");
+    const monthInput = screen.getByPlaceholderText("MM");
+    const yearInput = screen.getByPlaceholderText("YYYY");
 
     expect(dayInput).toHaveStyle(`
       background-color: #ffffff;

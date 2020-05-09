@@ -1,8 +1,7 @@
 import React from "react";
-import { getByTestId } from "@testing-library/dom";
 import "@testing-library/jest-dom/extend-expect";
 import Header from "./Header";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 
 describe("Header", () => {
   it("exposes an ID", () => {
@@ -24,6 +23,6 @@ describe("Header", () => {
     );
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-header");
-    getByTestId(container, "my-header-logo");
+    screen.getByTestId("my-header-logo");
   });
 });

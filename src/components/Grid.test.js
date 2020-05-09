@@ -1,8 +1,7 @@
 import React from "react";
-import { getByTestId } from "@testing-library/dom";
 import "@testing-library/jest-dom/extend-expect";
 import Grid from "./Grid";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 
 describe("Grid", () => {
   it("with testId", () => {
@@ -21,6 +20,6 @@ describe("Grid", () => {
     );
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-grid");
-    getByTestId(container, "my-grid-item");
+    screen.getByTestId("my-grid-item");
   });
 });

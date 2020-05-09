@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Placeholder from "./Placeholder";
 
@@ -21,11 +21,9 @@ describe("Placeholder", () => {
   });
 
   it("with label", () => {
-    const { getByText } = render(
-      <Placeholder label="Navigation placeholder" />
-    );
+    render(<Placeholder label="Navigation placeholder" />);
 
-    expect(getByText("Navigation placeholder")).toBeInTheDocument();
+    expect(screen.getByText("Navigation placeholder")).toBeInTheDocument();
   });
 
   it("with testId", () => {

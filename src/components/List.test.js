@@ -1,11 +1,11 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import List from "./List";
 
 describe("List", () => {
   it("unordered", () => {
-    const { container, getByText } = render(
+    const { container } = render(
       <List>
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -21,15 +21,15 @@ describe("List", () => {
 
     expect(container.firstChild.tagName).toBe("UL");
 
-    getByText("First Item");
-    getByText("Second Item");
-    getByText("Nested First Item");
-    getByText("Nested Second Item");
-    getByText("Last Item");
+    screen.getByText("First Item");
+    screen.getByText("Second Item");
+    screen.getByText("Nested First Item");
+    screen.getByText("Nested Second Item");
+    screen.getByText("Last Item");
   });
 
   it("ordered", () => {
-    const { container, getByText } = render(
+    const { container } = render(
       <List type="ordered">
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -45,15 +45,15 @@ describe("List", () => {
 
     expect(container.firstChild.tagName).toBe("OL");
 
-    getByText("First Item");
-    getByText("Second Item");
-    getByText("Nested First Item");
-    getByText("Nested Second Item");
-    getByText("Last Item");
+    screen.getByText("First Item");
+    screen.getByText("Second Item");
+    screen.getByText("Nested First Item");
+    screen.getByText("Nested Second Item");
+    screen.getByText("Last Item");
   });
 
   it("steps", () => {
-    const { container, getByText } = render(
+    const { container } = render(
       <List type="steps">
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -69,11 +69,11 @@ describe("List", () => {
 
     expect(container.firstChild.tagName).toBe("OL");
 
-    getByText("First Item");
-    getByText("Second Item");
-    getByText("Nested First Item");
-    getByText("Nested Second Item");
-    getByText("Last Item");
+    screen.getByText("First Item");
+    screen.getByText("Second Item");
+    screen.getByText("Nested First Item");
+    screen.getByText("Nested Second Item");
+    screen.getByText("Last Item");
   });
 
   it("with testId", () => {

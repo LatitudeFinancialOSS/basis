@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Select from "./Select";
@@ -34,12 +34,11 @@ function FormWithSelect(props) {
 
 describe("Select", () => {
   it("renders label, placeholder and all options", () => {
-    const { getByText, getByDisplayValue } = render(
-      <FormWithSelect label="Relationship status" />
-    );
-    const label = getByText("Relationship status");
+    render(<FormWithSelect label="Relationship status" />);
 
-    const select = getByDisplayValue("Please select");
+    const label = screen.getByText("Relationship status");
+
+    const select = screen.getByDisplayValue("Please select");
     expect(select.tagName).toBe("SELECT");
 
     const selectId = select.getAttribute("id");
@@ -47,15 +46,15 @@ describe("Select", () => {
     expect(selectId).toBeTruthy();
     expect(label).toHaveAttribute("for", selectId);
 
-    const placeholder = getByText("Please select");
+    const placeholder = screen.getByText("Please select");
 
     expect(placeholder.tagName).toBe("OPTION");
     expect(placeholder.value).toBe("");
     expect(placeholder).toBeDisabled();
 
-    expect(getByText("Single").tagName).toBe("OPTION");
-    expect(getByText("Married").tagName).toBe("OPTION");
-    expect(getByText("Other").tagName).toBe("OPTION");
+    expect(screen.getByText("Single").tagName).toBe("OPTION");
+    expect(screen.getByText("Married").tagName).toBe("OPTION");
+    expect(screen.getByText("Other").tagName).toBe("OPTION");
 
     expect(select).toHaveStyle(`
       display: inline-block;
@@ -80,10 +79,9 @@ describe("Select", () => {
   });
 
   it("not full width", () => {
-    const { getByDisplayValue } = render(
-      <FormWithSelect label="Relationship status" fullWidth={false} />
-    );
-    const select = getByDisplayValue("Please select");
+    render(<FormWithSelect label="Relationship status" fullWidth={false} />);
+
+    const select = screen.getByDisplayValue("Please select");
 
     expect(select).not.toHaveStyle(`
       width: 100%;
@@ -91,25 +89,26 @@ describe("Select", () => {
   });
 
   it("custom placeholder", () => {
-    const { queryByText, getByText } = render(
+    render(
       <FormWithSelect
         label="Relationship status"
         placeholder="Choose something"
       />
     );
 
-    expect(queryByText("Please select")).not.toBeInTheDocument();
+    expect(screen.queryByText("Please select")).not.toBeInTheDocument();
 
-    getByText("Choose something");
+    screen.getByText("Choose something");
   });
 
   it("inside dark container", () => {
-    const { getByDisplayValue } = render(
+    render(
       <Container bg="primary.blue.t100">
         <FormWithSelect label="Relationship status" />
       </Container>
     );
-    const select = getByDisplayValue("Please select");
+
+    const select = screen.getByDisplayValue("Please select");
 
     expect(select).toHaveStyle(`
       background-color: #ffffff;

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, waitFor } from "../utils/test";
+import { render, screen, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Frequency from "./Frequency";
@@ -22,29 +22,29 @@ function FormWithFrequency(props) {
 
 describe("Frequency", () => {
   it("renders label, amount and frequency", () => {
-    const { container, getByText, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithFrequency label="Salary" amountPlaceholder="0.00" />
     );
-    const label = getByText("Salary");
+    const label = screen.getByText("Salary");
     const inputsContainer = container.querySelector("[aria-labelledby]");
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
     expect(inputsContainer).toHaveAttribute("aria-labelledby", labelId);
 
-    const amountInput = getByPlaceholderText("0.00");
+    const amountInput = screen.getByPlaceholderText("0.00");
 
     expect(amountInput).toHaveAttribute("type", "number");
 
-    getByText("Annually");
-    getByText("Quarterly");
-    getByText("Monthly");
-    getByText("Fortnightly");
-    getByText("Weekly");
+    screen.getByText("Annually");
+    screen.getByText("Quarterly");
+    screen.getByText("Monthly");
+    screen.getByText("Fortnightly");
+    screen.getByText("Weekly");
   });
 
   it("select mode", () => {
-    const { getByText } = render(
+    render(
       <FormWithFrequency
         label="Salary"
         mode="select"
@@ -52,7 +52,7 @@ describe("Frequency", () => {
       />
     );
 
-    const placeholderOption = getByText("Select frequency");
+    const placeholderOption = screen.getByText("Select frequency");
 
     expect(placeholderOption.parentNode.tagName).toBe("SELECT");
   });
@@ -69,7 +69,7 @@ describe("Frequency", () => {
   });
 
   it("renders error message", async () => {
-    const { container, queryByText, getByPlaceholderText } = render(
+    const { container } = render(
       <FormWithFrequency
         label="Salary"
         amountPlaceholder="0.00"
@@ -77,7 +77,7 @@ describe("Frequency", () => {
       />
     );
 
-    const amountInput = getByPlaceholderText("0.00");
+    const amountInput = screen.getByPlaceholderText("0.00");
 
     amountInput.focus();
     amountInput.blur();
@@ -91,12 +91,12 @@ describe("Frequency", () => {
       expect(errorMessage).toHaveTextContent(
         ["Please enter a valid amount.", "Please select a frequency."].join("")
       );
-      expect(queryByText("Some help text")).not.toBeInTheDocument();
+      expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });
 
   it("hides options", () => {
-    const { queryByText } = render(
+    render(
       <FormWithFrequency
         label="Salary"
         annually={false}
@@ -107,21 +107,22 @@ describe("Frequency", () => {
       />
     );
 
-    expect(queryByText("Annually")).not.toBeInTheDocument();
-    expect(queryByText("Quarterly")).not.toBeInTheDocument();
-    expect(queryByText("Monthly")).not.toBeInTheDocument();
-    expect(queryByText("Fortnightly")).not.toBeInTheDocument();
-    expect(queryByText("Weekly")).not.toBeInTheDocument();
+    expect(screen.queryByText("Annually")).not.toBeInTheDocument();
+    expect(screen.queryByText("Quarterly")).not.toBeInTheDocument();
+    expect(screen.queryByText("Monthly")).not.toBeInTheDocument();
+    expect(screen.queryByText("Fortnightly")).not.toBeInTheDocument();
+    expect(screen.queryByText("Weekly")).not.toBeInTheDocument();
   });
 
   it("inside dark container", () => {
-    const { getByPlaceholderText, getByText } = render(
+    render(
       <Container bg="primary.blue.t100">
         <FormWithFrequency label="Salary" amountPlaceholder="0.00" />
       </Container>
     );
-    const amountInput = getByPlaceholderText("0.00");
-    const annuallyLabel = getByText("Annually");
+
+    const amountInput = screen.getByPlaceholderText("0.00");
+    const annuallyLabel = screen.getByText("Annually");
 
     expect(amountInput).toHaveStyle(`
       background-color: #ffffff;

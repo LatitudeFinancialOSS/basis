@@ -1,8 +1,7 @@
 import React from "react";
-import { getByTestId } from "@testing-library/dom";
 import "@testing-library/jest-dom/extend-expect";
 import { Section, Container, Sticky, Header, Stepper, Text } from ".";
-import { render } from "../utils/test";
+import { render, screen } from "../utils/test";
 
 describe("Sticky", () => {
   it("applies the right CSS to sticky items", () => {
@@ -22,7 +21,7 @@ describe("Sticky", () => {
       lg: 60,
     };
 
-    const { container } = render(
+    render(
       <Sticky testId="my-sticky">
         <Sticky.Item testId="my-header">
           <Header>
@@ -44,9 +43,10 @@ describe("Sticky", () => {
         </Sticky.Item>
       </Sticky>
     );
-    const header = getByTestId(container, "my-header");
-    const stepper = getByTestId(container, "my-stepper");
-    const stickyNav = getByTestId(container, "my-sticky-nav");
+
+    const header = screen.getByTestId("my-header");
+    const stepper = screen.getByTestId("my-stepper");
+    const stickyNav = screen.getByTestId("my-sticky-nav");
 
     expect(header).toHaveStyle(`
       position: sticky;
@@ -77,6 +77,6 @@ describe("Sticky", () => {
     );
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-sticky");
-    getByTestId(container, "my-sticky-item");
+    screen.getByTestId("my-sticky-item");
   });
 });
