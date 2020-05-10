@@ -31,7 +31,7 @@ describe("Checkbox", () => {
       "id",
       checkboxContainer.getAttribute("aria-labelledby")
     );
-    expect(checkboxContainer).toHaveAttribute("aria-checked", "false");
+    expect(checkboxContainer).not.toBeChecked();
 
     const checkboxInput = checkboxContainer.querySelector(
       'input[type="checkbox"]'

@@ -3,9 +3,12 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "plugin:testing-library/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
   ],
-  "plugins": ["react-hooks", "jest"],
+  "plugins": ["react-hooks", "jest", "testing-library", "jest-dom"],
   "rules": {
     "no-unused-vars": [
       "error",
