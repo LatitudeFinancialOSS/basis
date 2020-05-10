@@ -89,22 +89,32 @@ describe("Footer", () => {
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-footer");
 
-    screen.getByTestId("my-footer-header");
-    screen.getByTestId("my-footer-header-logo");
+    expect(screen.getByTestId("my-footer-header")).toBeInTheDocument();
+    expect(screen.getByTestId("my-footer-header-logo")).toBeInTheDocument();
 
-    screen.getByTestId("my-footer-header-social");
-    screen.getByTestId("my-footer-header-social-facebook");
-    screen.getByTestId("my-footer-header-social-youtube");
-    screen.getByTestId("my-footer-header-social-twitter");
-    screen.getByTestId("my-footer-header-social-instagram");
-    screen.getByTestId("my-footer-header-social-linkedin");
+    expect(screen.getByTestId("my-footer-header-social")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("my-footer-header-social-facebook")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("my-footer-header-social-youtube")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("my-footer-header-social-twitter")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("my-footer-header-social-instagram")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("my-footer-header-social-linkedin")
+    ).toBeInTheDocument();
 
-    screen.getByTestId("my-footer-links");
-    screen.getByTestId("my-footer-section-1");
-    screen.getByTestId("my-footer-section-2");
+    expect(screen.getByTestId("my-footer-links")).toBeInTheDocument();
+    expect(screen.getByTestId("my-footer-section-1")).toBeInTheDocument();
+    expect(screen.getByTestId("my-footer-section-2")).toBeInTheDocument();
 
-    screen.getByTestId("my-footer-legal");
-    screen.getByTestId("my-footer-legal-links");
-    screen.getByTestId("my-footer-legal-copy");
+    expect(screen.getByTestId("my-footer-legal")).toBeInTheDocument();
+    expect(screen.getByTestId("my-footer-legal-links")).toBeInTheDocument();
+    expect(screen.getByTestId("my-footer-legal-copy")).toBeInTheDocument();
   });
 });

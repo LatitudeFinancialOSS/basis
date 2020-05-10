@@ -86,7 +86,7 @@ describe("DatePicker", () => {
   });
 
   it("renders error messages", async () => {
-    const { container } = render(
+    render(
       <FormWithDatePicker label="Expiry date" helpText="Some help text" />
     );
 
@@ -95,18 +95,10 @@ describe("DatePicker", () => {
     dayInput.focus();
     dayInput.blur();
 
-    const inputsContainer = container.querySelector("[aria-labelledby]");
-    const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
+    await screen.findByText("Day must be within 1-31.");
+    await screen.findByText("Month must be within 1-12.");
+    await screen.findByText("Year must be within 1800-2200.");
     await waitFor(() => {
-      expect(errorMessage).toHaveTextContent(
-        [
-          "Day must be within 1-31.",
-          "Month must be within 1-12.",
-          "Year must be within 1800-2200.",
-        ].join("")
-      );
       expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });

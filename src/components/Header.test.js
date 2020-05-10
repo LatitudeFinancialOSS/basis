@@ -23,6 +23,6 @@ describe("Header", () => {
     );
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-header");
-    screen.getByTestId("my-header-logo");
+    expect(screen.getByTestId("my-header-logo")).toBeInTheDocument();
   });
 });

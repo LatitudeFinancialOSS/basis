@@ -59,7 +59,7 @@ describe("RadioGroup", () => {
   });
 
   it("renders error message", async () => {
-    const { container } = render(
+    render(
       <FormWithRadioGroup label="Are you happy?" helpText="Some help text" />
     );
     const yesInput = screen.getByLabelText("Yes");
@@ -67,12 +67,8 @@ describe("RadioGroup", () => {
     yesInput.focus();
     yesInput.blur();
 
-    const radioGroup = screen.getByRole("radiogroup");
-    const describedBy = radioGroup.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
+    await screen.findByText("Please make a selection.");
     await waitFor(() => {
-      expect(errorMessage).toHaveTextContent("Please make a selection.");
       expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });

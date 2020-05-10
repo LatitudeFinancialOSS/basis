@@ -84,7 +84,7 @@ describe("TimeSpan", () => {
   });
 
   it("renders error message", async () => {
-    const { container } = render(
+    render(
       <FormWithTimeSpan
         label="How long do you live in the current address?"
         helpText="Please be as accurate as possible."
@@ -96,12 +96,8 @@ describe("TimeSpan", () => {
     yearsInput.focus();
     yearsInput.blur();
 
-    const inputsContainer = container.querySelector("[aria-labelledby]");
-    const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
+    await screen.findByText("Must be at least 1 month.");
     await waitFor(() => {
-      expect(errorMessage).toHaveTextContent("Must be at least 1 month.");
       expect(
         screen.queryByText("Please be as accurate as possible.")
       ).not.toBeInTheDocument();

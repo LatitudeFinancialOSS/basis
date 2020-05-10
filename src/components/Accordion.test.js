@@ -287,11 +287,11 @@ describe("Accordion", () => {
     );
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-accordion");
-
-    screen.getByTestId("my-accordion-item");
-    screen.getByTestId("my-accordion-item-header");
-
-    screen.getByTestId("my-accordion-item-content");
-    screen.getByTestId("my-accordion-item-header-icon");
+    expect(screen.getByTestId("my-accordion-item")).toBeInTheDocument();
+    expect(screen.getByTestId("my-accordion-item-header")).toBeInTheDocument();
+    expect(screen.getByTestId("my-accordion-item-content")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("my-accordion-item-header-icon")
+    ).toBeInTheDocument();
   });
 });

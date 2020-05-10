@@ -36,11 +36,11 @@ describe("Frequency", () => {
 
     expect(amountInput).toHaveAttribute("type", "number");
 
-    screen.getByText("Annually");
-    screen.getByText("Quarterly");
-    screen.getByText("Monthly");
-    screen.getByText("Fortnightly");
-    screen.getByText("Weekly");
+    expect(screen.getByText("Annually")).toBeInTheDocument();
+    expect(screen.getByText("Quarterly")).toBeInTheDocument();
+    expect(screen.getByText("Monthly")).toBeInTheDocument();
+    expect(screen.getByText("Fortnightly")).toBeInTheDocument();
+    expect(screen.getByText("Weekly")).toBeInTheDocument();
   });
 
   it("select mode", () => {
@@ -69,7 +69,7 @@ describe("Frequency", () => {
   });
 
   it("renders error message", async () => {
-    const { container } = render(
+    render(
       <FormWithFrequency
         label="Salary"
         amountPlaceholder="0.00"
@@ -82,15 +82,9 @@ describe("Frequency", () => {
     amountInput.focus();
     amountInput.blur();
 
-    const inputsContainer = container.querySelector("[aria-labelledby]");
-
-    const describedBy = inputsContainer.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
+    await screen.findByText("Please enter a valid amount.");
+    await screen.findByText("Please select a frequency.");
     await waitFor(() => {
-      expect(errorMessage).toHaveTextContent(
-        ["Please enter a valid amount.", "Please select a frequency."].join("")
-      );
       expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });

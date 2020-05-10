@@ -97,8 +97,7 @@ describe("Select", () => {
     );
 
     expect(screen.queryByText("Please select")).not.toBeInTheDocument();
-
-    screen.getByText("Choose something");
+    expect(screen.getByText("Choose something")).toBeInTheDocument();
   });
 
   it("inside dark container", () => {

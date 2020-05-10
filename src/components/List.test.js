@@ -21,11 +21,11 @@ describe("List", () => {
 
     expect(container.firstChild.tagName).toBe("UL");
 
-    screen.getByText("First Item");
-    screen.getByText("Second Item");
-    screen.getByText("Nested First Item");
-    screen.getByText("Nested Second Item");
-    screen.getByText("Last Item");
+    expect(screen.getByText("First Item")).toBeInTheDocument();
+    expect(screen.getByText("Second Item")).toBeInTheDocument();
+    expect(screen.getByText("Nested First Item")).toBeInTheDocument();
+    expect(screen.getByText("Nested Second Item")).toBeInTheDocument();
+    expect(screen.getByText("Last Item")).toBeInTheDocument();
   });
 
   it("ordered", () => {
@@ -45,11 +45,11 @@ describe("List", () => {
 
     expect(container.firstChild.tagName).toBe("OL");
 
-    screen.getByText("First Item");
-    screen.getByText("Second Item");
-    screen.getByText("Nested First Item");
-    screen.getByText("Nested Second Item");
-    screen.getByText("Last Item");
+    expect(screen.getByText("First Item")).toBeInTheDocument();
+    expect(screen.getByText("Second Item")).toBeInTheDocument();
+    expect(screen.getByText("Nested First Item")).toBeInTheDocument();
+    expect(screen.getByText("Nested Second Item")).toBeInTheDocument();
+    expect(screen.getByText("Last Item")).toBeInTheDocument();
   });
 
   it("steps", () => {
@@ -69,11 +69,11 @@ describe("List", () => {
 
     expect(container.firstChild.tagName).toBe("OL");
 
-    screen.getByText("First Item");
-    screen.getByText("Second Item");
-    screen.getByText("Nested First Item");
-    screen.getByText("Nested Second Item");
-    screen.getByText("Last Item");
+    expect(screen.getByText("First Item")).toBeInTheDocument();
+    expect(screen.getByText("Second Item")).toBeInTheDocument();
+    expect(screen.getByText("Nested First Item")).toBeInTheDocument();
+    expect(screen.getByText("Nested Second Item")).toBeInTheDocument();
+    expect(screen.getByText("Last Item")).toBeInTheDocument();
   });
 
   it("with testId", () => {

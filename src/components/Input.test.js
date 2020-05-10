@@ -70,19 +70,15 @@ describe("Input", () => {
   });
 
   it("renders error message", async () => {
-    const { container } = render(
-      <FormWithInput label="First name" helpText="Some help text" />
-    );
+    render(<FormWithInput label="First name" helpText="Some help text" />);
+
     const input = screen.getByLabelText("First name");
 
     input.focus();
     input.blur();
 
-    const describedBy = input.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
-
+    await screen.findByText("Required");
     await waitFor(() => {
-      expect(errorMessage).toHaveTextContent("Required");
       expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
   });
