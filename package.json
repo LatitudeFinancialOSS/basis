@@ -32,7 +32,7 @@
     "downshift": "5.2.7",
     "klona": "1.1.1",
     "nanoid": "3.1.6",
-    "polished": "3.6.2",
+    "polished": "3.6.3",
     "react-resize-aware": "3.0.0"
   },
   "peerDependencies": {
