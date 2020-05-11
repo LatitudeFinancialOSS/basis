@@ -11,16 +11,16 @@ describe("Text", () => {
     const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("P");
-    expect(node).toHaveStyle(`
-      font-family: 'Roboto',sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 24px;
-      letter-spacing: 0px;
-      color: #000000;
-      text-align: inherit;
-      margin: 0;
-    `);
+    expect(node).toHaveStyle({
+      fontFamily: "'Roboto',sans-serif",
+      fontSize: "16px",
+      fontWeight: "300",
+      lineHeight: "24px",
+      letterSpacing: "0px",
+      color: "#000000",
+      textAlign: "inherit",
+      margin: "0",
+    });
   });
 
   it("h1", () => {
@@ -33,14 +33,14 @@ describe("Text", () => {
     const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H1");
-    expect(node).toHaveStyle(`
-      font-family: 'Montserrat',sans-serif;
-      font-size: 48px;
-      font-weight: 600;
-      line-height: 56px;
-      letter-spacing: -1.05px;
-      margin: 0;
-    `);
+    expect(node).toHaveStyle({
+      fontFamily: "'Montserrat',sans-serif",
+      fontSize: "48px",
+      fontWeight: "600",
+      lineHeight: "56px",
+      letterSpacing: "-1.05px",
+      margin: "0",
+    });
   });
 
   it(`h1 with textStyle="heading2"`, () => {
@@ -53,14 +53,14 @@ describe("Text", () => {
     const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H1");
-    expect(node).toHaveStyle(`
-      font-family: 'Montserrat',sans-serif;
-      font-size: 40px;
-      font-weight: 600;
-      line-height: 48px;
-      letter-spacing: -0.88px;
-      margin: 0px;
-    `);
+    expect(node).toHaveStyle({
+      fontFamily: "'Montserrat',sans-serif",
+      fontSize: "40px",
+      fontWeight: "600",
+      lineHeight: "48px",
+      letterSpacing: "-0.88px",
+      margin: "0px",
+    });
   });
 
   it("h2 and center aligned", () => {
@@ -73,14 +73,14 @@ describe("Text", () => {
     const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H2");
-    expect(node).toHaveStyle(`
-      font-family: 'Montserrat',sans-serif;
-      font-size: 40px;
-      font-weight: 600;
-      line-height: 48px;
-      letter-spacing: -0.88px;
-      text-align: center;
-    `);
+    expect(node).toHaveStyle({
+      fontFamily: "'Montserrat',sans-serif",
+      fontSize: "40px",
+      fontWeight: "600",
+      lineHeight: "48px",
+      letterSpacing: "-0.88px",
+      textAlign: "center",
+    });
   });
 
   it("h3 and primary.blue.t100", () => {
@@ -93,14 +93,14 @@ describe("Text", () => {
     const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("H3");
-    expect(node).toHaveStyle(`
-      font-family: 'Montserrat',sans-serif;
-      font-size: 32px;
-      font-weight: 600;
-      line-height: 36px;
-      letter-spacing: -0.7px;
-      color: #0046aa;
-    `);
+    expect(node).toHaveStyle({
+      fontFamily: "'Montserrat',sans-serif",
+      fontSize: "32px",
+      fontWeight: "600",
+      lineHeight: "36px",
+      letterSpacing: "-0.7px",
+      color: "#0046aa",
+    });
   });
 
   it("inside dark container", () => {
@@ -112,9 +112,9 @@ describe("Text", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      color: #ffffff;
-    `);
+    expect(node).toHaveStyle({
+      color: "#ffffff",
+    });
   });
 
   it("with margin", () => {
@@ -122,9 +122,9 @@ describe("Text", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      margin: 4px 8px 12px 16px;
-    `);
+    expect(node).toHaveStyle({
+      margin: "4px 8px 12px 16px",
+    });
   });
 
   it("with testId", () => {

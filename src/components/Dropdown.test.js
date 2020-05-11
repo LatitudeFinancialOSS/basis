@@ -120,9 +120,9 @@ describe("Dropdown", () => {
     );
     const button = screen.getByRole("button", { name: /Please select/ });
 
-    expect(button).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(button).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {

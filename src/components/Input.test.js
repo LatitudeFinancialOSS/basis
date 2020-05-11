@@ -32,30 +32,30 @@ describe("Input", () => {
     expect(inputId).toBeTruthy();
     expect(label).toHaveAttribute("for", inputId);
 
-    expect(input).toHaveStyle(`
-      box-sizing: border-box;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 24px;
-      font-family: 'Roboto',sans-serif;
-      padding: 0 16px;
-      color: #000000;
-      width: 100%;
-      height: 48px;
-      border: 0;
-      margin: 0;
-      background-color: #f2f2f2;
-    `);
+    expect(input).toHaveStyle({
+      boxSizing: "border-box",
+      fontSize: "16px",
+      fontWeight: "300",
+      lineHeight: "24px",
+      fontFamily: "'Roboto',sans-serif",
+      padding: "0 16px",
+      color: "#000000",
+      width: "100%",
+      height: "48px",
+      border: "0",
+      margin: "0",
+      backgroundColor: "#f2f2f2",
+    });
 
-    expect(label).toHaveStyle(`
-      display: flex;
-      font-family: 'Roboto',sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 24px;
-      color: #414141;
-      margin-bottom: 8px;
-    `);
+    expect(label).toHaveStyle({
+      display: "flex",
+      fontFamily: "'Roboto',sans-serif",
+      fontSize: "16px",
+      fontWeight: "500",
+      lineHeight: "24px",
+      color: "#414141",
+      marginBottom: "8px",
+    });
   });
 
   it("renders help text that is connected to the input", () => {
@@ -92,9 +92,9 @@ describe("Input", () => {
 
     const input = screen.getByLabelText("First name");
 
-    expect(input).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(input).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {

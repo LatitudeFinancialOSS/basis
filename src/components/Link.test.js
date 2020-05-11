@@ -17,15 +17,16 @@ describe("Link", () => {
     expect(link.tagName).toBe("A");
     expect(link).not.toHaveAttribute("target");
     expect(link).toHaveAttribute("href", "/terms");
-    expect(link).toHaveStyle(`
-      text-decoration: none;
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-      transition: background-color 200ms ease-out,border-bottom-color 200ms ease-out;
-      font-family: 'Roboto',sans-serif;
-      color: #0046aa;
-      border-bottom-color: rgba(0,70,170,0.5);
-    `);
+    expect(link).toHaveStyle({
+      textDecoration: "none",
+      borderBottomWidth: "1px",
+      borderBottomStyle: "solid",
+      borderBottomColor: "rgba(0,70,170,0.5)",
+      transition:
+        "background-color 200ms ease-out,border-bottom-color 200ms ease-out",
+      fontFamily: "'Roboto',sans-serif",
+      color: "#0046aa",
+    });
   });
 
   it("new tab", () => {
@@ -50,10 +51,10 @@ describe("Link", () => {
 
     const link = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle(`
-      color: #d8edff;
-      border-bottom-color: rgba(216,237,255,0.5);
-    `);
+    expect(link).toHaveStyle({
+      color: "#d8edff",
+      borderBottomColor: "rgba(216,237,255,0.5)",
+    });
   });
 
   it("inherits variant based on background", () => {
@@ -67,10 +68,10 @@ describe("Link", () => {
 
     const link = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle(`
-      color: #d8edff;
-      border-bottom-color: rgba(216,237,255,0.5);
-    `);
+    expect(link).toHaveStyle({
+      color: "#d8edff",
+      borderBottomColor: "rgba(216,237,255,0.5)",
+    });
   });
 
   it("with margin", () => {
@@ -82,9 +83,9 @@ describe("Link", () => {
 
     const link = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle(`
-      margin: 4px 8px 12px;
-    `);
+    expect(link).toHaveStyle({
+      margin: "4px 8px 12px",
+    });
   });
 
   it("with padding", () => {
@@ -96,9 +97,9 @@ describe("Link", () => {
 
     const link = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle(`
-      padding: 12px 24px;
-    `);
+    expect(link).toHaveStyle({
+      padding: "12px 24px",
+    });
   });
 
   it("with testId", () => {

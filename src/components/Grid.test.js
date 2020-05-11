@@ -7,9 +7,9 @@ describe("Grid", () => {
   it("with margin", () => {
     render(<Grid margin="6 0 0 0">Hello</Grid>);
 
-    expect(screen.getByText("Hello")).toHaveStyle(`
-      margin: "24px 0 0 0"
-    `);
+    expect(screen.getByText("Hello")).toHaveStyle({
+      margin: "24px 0 0 0",
+    });
   });
 
   it("with testId", () => {

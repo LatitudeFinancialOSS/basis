@@ -45,7 +45,6 @@ function Item(props) {
             }
           : {};
       },
-      margin: responsiveMargin,
     }
   );
   const itemCSS = {
@@ -124,6 +123,7 @@ function Grid(_props) {
           gridRowGap: getGapPx(rowsGap, theme),
         };
       },
+      margin: responsiveMargin,
     }
   );
   const gridRef = useRef();

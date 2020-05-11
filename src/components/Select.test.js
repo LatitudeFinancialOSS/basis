@@ -56,26 +56,27 @@ describe("Select", () => {
     expect(screen.getByText("Married").tagName).toBe("OPTION");
     expect(screen.getByText("Other").tagName).toBe("OPTION");
 
-    expect(select).toHaveStyle(`
-      display: inline-block;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 24px;
-      font-family: 'Roboto',sans-serif;
-      color: #000000;
-      height: 48px;
-      padding-left: 16px;
-      padding-right: 40px;
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-      appearance: none;
-      background-image: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' hei…1.495.802.874.874 0 01-.253.607z' fill='%23414141'%3E%3C/path%3E%3C/svg%3E);
-      background-repeat: no-repeat;
-      background-position: right 8px top 50%;
-      width: 100%;
-      background-color: #f2f2f2;
-    `);
+    expect(select).toHaveStyle({
+      display: "inline-block",
+      fontSize: "16px",
+      fontWeight: "300",
+      lineHeight: "24px",
+      fontFamily: "'Roboto',sans-serif",
+      color: "#000000",
+      height: "48px",
+      paddingLeft: "16px",
+      paddingRight: "40px",
+      margin: "0",
+      border: "0",
+      borderRadius: "0",
+      appearance: "none",
+      backgroundImage:
+        "url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' hei…1.495.802.874.874 0 01-.253.607z' fill='%23414141'%3E%3C/path%3E%3C/svg%3E)",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "right 8px top 50%",
+      width: "100%",
+      backgroundColor: "#f2f2f2",
+    });
   });
 
   it("not full width", () => {
@@ -83,9 +84,9 @@ describe("Select", () => {
 
     const select = screen.getByDisplayValue("Please select");
 
-    expect(select).not.toHaveStyle(`
-      width: 100%;
-    `);
+    expect(select).not.toHaveStyle({
+      width: "100%",
+    });
   });
 
   it("custom placeholder", () => {
@@ -109,9 +110,9 @@ describe("Select", () => {
 
     const select = screen.getByDisplayValue("Please select");
 
-    expect(select).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(select).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {

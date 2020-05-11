@@ -7,9 +7,9 @@ describe("Flex", () => {
   it("with fullHeight", () => {
     const { container } = render(<Flex fullHeight>Content goes here</Flex>);
 
-    expect(container.firstChild).toHaveStyle(`
-      height: 100%;
-    `);
+    expect(container.firstChild).toHaveStyle({
+      height: "100%",
+    });
   });
 
   it("with testId", () => {

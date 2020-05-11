@@ -118,12 +118,12 @@ describe("Frequency", () => {
     const amountInput = screen.getByPlaceholderText("0.00");
     const annuallyLabel = screen.getByText("Annually");
 
-    expect(amountInput).toHaveStyle(`
-      background-color: #ffffff;
-    `);
-    expect(annuallyLabel).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(amountInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+    expect(annuallyLabel).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {

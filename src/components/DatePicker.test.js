@@ -114,15 +114,15 @@ describe("DatePicker", () => {
     const monthInput = screen.getByPlaceholderText("MM");
     const yearInput = screen.getByPlaceholderText("YYYY");
 
-    expect(dayInput).toHaveStyle(`
-      background-color: #ffffff;
-    `);
-    expect(monthInput).toHaveStyle(`
-      background-color: #ffffff;
-    `);
-    expect(yearInput).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(dayInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+    expect(monthInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+    expect(yearInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {

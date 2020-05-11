@@ -12,22 +12,22 @@ describe("Button", () => {
 
     expect(button.tagName).toBe("BUTTON");
     expect(button).toHaveAttribute("type", "button");
-    expect(button).toHaveStyle(`
-      font-size: 18px;
-      line-height: 28px;
-      font-family: 'Roboto',sans-serif;
-      font-weight: 500;
-      border: 0;
-      border-radius: 4px;
-      padding: 0 24px;
-      min-height: 48px;
-      transition: background-color 150ms ease,color 150ms ease;
-      background-color: #006aff;
-      color: #ffffff;
-    `);
-    expect(button).not.toHaveStyle(`
-      width: 100%;
-    `);
+    expect(button).toHaveStyle({
+      fontSize: "18px",
+      lineHeight: "28px",
+      fontFamily: "'Roboto',sans-serif",
+      fontWeight: 500,
+      border: 0,
+      borderRadius: "4px",
+      padding: "0 24px",
+      minHeight: "48px",
+      transition: "background-color 150ms ease,color 150ms ease",
+      backgroundColor: "#006aff",
+      color: "#ffffff",
+    });
+    expect(button).not.toHaveStyle({
+      width: "100%",
+    });
   });
 
   it("secondary", () => {
@@ -35,13 +35,13 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      background-color: transparent;
-      color: #006aff;
-      border-width: 1px;
-      border-style: solid;
-      border-color: #006aff;
-    `);
+    expect(button).toHaveStyle({
+      backgroundColor: "transparent",
+      color: "#006aff",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "#006aff",
+    });
   });
 
   it("primary white", () => {
@@ -49,10 +49,10 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      background-color: #ffffff;
-      color: #006aff;
-    `);
+    expect(button).toHaveStyle({
+      backgroundColor: "#ffffff",
+      color: "#006aff",
+    });
   });
 
   it("secondary white", () => {
@@ -64,13 +64,13 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      background-color: transparent;
-      color: #ffffff;
-      border-width: 1px;
-      border-style: solid;
-      border-color: #ffffff;
-    `);
+    expect(button).toHaveStyle({
+      backgroundColor: "transparent",
+      color: "#ffffff",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "#ffffff",
+    });
   });
 
   it("full width", () => {
@@ -78,9 +78,9 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      width: 100%;
-    `);
+    expect(button).toHaveStyle({
+      width: "100%",
+    });
   });
 
   it("disabled", () => {
@@ -88,12 +88,12 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      background-color: #b2b2b2;
-      color: #414141;
-      opacity: 0.7;
-      cursor: not-allowed;
-    `);
+    expect(button).toHaveStyle({
+      backgroundColor: "#b2b2b2",
+      color: "#414141",
+      opacity: 0.7,
+      cursor: "not-allowed",
+    });
   });
 
   it('type="submit"', () => {
@@ -113,10 +113,10 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      background-color: #ffffff;
-      color: #006aff;
-    `);
+    expect(button).toHaveStyle({
+      backgroundColor: "#ffffff",
+      color: "#006aff",
+    });
   });
 
   it("with margin", () => {
@@ -124,9 +124,9 @@ describe("Button", () => {
 
     const button = screen.getByText("Find out more");
 
-    expect(button).toHaveStyle(`
-      margin: 8px 16px;
-    `);
+    expect(button).toHaveStyle({
+      margin: "8px 16px",
+    });
   });
 
   it("with testId", () => {

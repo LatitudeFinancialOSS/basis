@@ -48,21 +48,21 @@ describe("Sticky", () => {
     const stepper = screen.getByTestId("my-stepper");
     const stickyNav = screen.getByTestId("my-sticky-nav");
 
-    expect(header).toHaveStyle(`
-      position: sticky;
-      height: 56px;
-      top: 0px;
-    `);
-    expect(stepper).toHaveStyle(`
-      position: sticky;
-      height: 100px;
-      top: 56px;
-    `);
-    expect(stickyNav).toHaveStyle(`
-      position: sticky;
-      height: 120px;
-      top: 156px;
-    `);
+    expect(header).toHaveStyle({
+      position: "sticky",
+      height: "56px",
+      top: "0px",
+    });
+    expect(stepper).toHaveStyle({
+      position: "sticky",
+      height: "100px",
+      top: "56px",
+    });
+    expect(stickyNav).toHaveStyle({
+      position: "sticky",
+      height: "120px",
+      top: "156px",
+    });
   });
 
   it("with testId", () => {

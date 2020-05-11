@@ -82,9 +82,9 @@ describe("RadioGroup", () => {
 
     const yesLabel = screen.getByText("Yes");
 
-    expect(yesLabel).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(yesLabel).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {

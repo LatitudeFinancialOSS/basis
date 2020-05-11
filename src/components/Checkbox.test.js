@@ -43,18 +43,18 @@ describe("Checkbox", () => {
       checkboxInput.getAttribute("id")
     );
 
-    expect(checkboxInputLabel).toHaveStyle(`
-      display: inline-flex;
-      align-items: flex-start;
-      padding: 12px 16px;
-      min-height: 24px;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 24px;
-      font-family: 'Roboto',sans-serif;
-      color: #000000;
-      background-color: #f2f2f2;
-    `);
+    expect(checkboxInputLabel).toHaveStyle({
+      display: "inline-flex",
+      alignItems: "flex-start",
+      padding: "12px 16px",
+      minHeight: "24px",
+      fontSize: "16px",
+      fontWeight: 300,
+      lineHeight: "24px",
+      fontFamily: "'Roboto',sans-serif",
+      color: "#000000",
+      backgroundColor: "#f2f2f2",
+    });
   });
 
   it("inside dark container", () => {
@@ -68,9 +68,9 @@ describe("Checkbox", () => {
     const checkboxContainer = container.querySelector("[aria-checked]");
     const checkboxInputLabel = checkboxContainer.querySelector("label");
 
-    expect(checkboxInputLabel).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(checkboxInputLabel).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with hideLabel", () => {

@@ -38,25 +38,25 @@ describe("Accordion", () => {
     const item2 = screen.getByTestId("accordion-item-2");
     const item3 = screen.getByTestId("accordion-item-3");
 
-    expect(item1).not.toHaveStyle(`
-      margin-top: 4px;
-    `);
+    expect(item1).not.toHaveStyle({
+      marginTop: "4px",
+    });
     expect(item1header.tagName).toBe("H3");
     expect(item1header).toHaveTextContent("Header 1");
-    expect(item1HeaderButton).toHaveStyle(`
-      background-color: #ececec;
-      color: #000000;
-    `);
+    expect(item1HeaderButton).toHaveStyle({
+      backgroundColor: "#ececec",
+      color: "#000000",
+    });
     expect(item1HeaderButton).toHaveAttribute("type", "button");
     expect(item1Content).toHaveTextContent("Content 1");
 
-    expect(item2).toHaveStyle(`
-      margin-top: 4px;
-    `);
+    expect(item2).toHaveStyle({
+      marginTop: "4px",
+    });
 
-    expect(item3).toHaveStyle(`
-      margin-top: 4px;
-    `);
+    expect(item3).toHaveStyle({
+      marginTop: "4px",
+    });
   });
 
   it("aria attributes", () => {
@@ -170,9 +170,9 @@ describe("Accordion", () => {
     );
     const itemHeaderButton = container.querySelector("[aria-controls]");
 
-    expect(itemHeaderButton).toHaveStyle(`
-      background-color: #d8edff;
-    `);
+    expect(itemHeaderButton).toHaveStyle({
+      backgroundColor: "#d8edff",
+    });
   });
 
   it("with textColor", () => {
@@ -187,9 +187,9 @@ describe("Accordion", () => {
     );
     const itemHeaderButton = container.querySelector("[aria-controls]");
 
-    expect(itemHeaderButton).toHaveStyle(`
-      color: #0046aa;
-    `);
+    expect(itemHeaderButton).toHaveStyle({
+      color: "#0046aa",
+    });
   });
 
   it("with itemHeaderAs", () => {
@@ -227,15 +227,15 @@ describe("Accordion", () => {
     const item2 = screen.getByTestId("accordion-item-2");
     const item3 = screen.getByTestId("accordion-item-3");
 
-    expect(item1).not.toHaveStyle(`
-      margin-top: 1px;
-    `);
-    expect(item2).toHaveStyle(`
-      margin-top: 1px;
-    `);
-    expect(item3).toHaveStyle(`
-      margin-top: 1px;
-    `);
+    expect(item1).not.toHaveStyle({
+      marginTop: "1px",
+    });
+    expect(item2).toHaveStyle({
+      marginTop: "1px",
+    });
+    expect(item3).toHaveStyle({
+      marginTop: "1px",
+    });
   });
 
   it("with testId", () => {

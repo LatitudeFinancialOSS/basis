@@ -18,9 +18,9 @@ describe("Container", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      margin: 4px 16px;
-    `);
+    expect(node).toHaveStyle({
+      margin: "4px 16px",
+    });
   });
 
   it("with padding", () => {
@@ -28,9 +28,9 @@ describe("Container", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      padding: 4px 8px 12px 16px;
-    `);
+    expect(node).toHaveStyle({
+      padding: "4px 8px 12px 16px",
+    });
   });
 
   it("with width", () => {
@@ -38,9 +38,9 @@ describe("Container", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      width: 80px;
-    `);
+    expect(node).toHaveStyle({
+      width: "80px",
+    });
   });
 
   it("with height", () => {
@@ -48,9 +48,9 @@ describe("Container", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      height: 72px;
-    `);
+    expect(node).toHaveStyle({
+      height: "72px",
+    });
   });
 
   it("with textStyle parent", () => {
@@ -62,9 +62,9 @@ describe("Container", () => {
 
     const text = screen.getByText("Hello World");
 
-    expect(text).toHaveStyle(`
-      font-size: 14px;
-    `);
+    expect(text).toHaveStyle({
+      fontSize: "14px",
+    });
   });
 
   it("with textStyle grandparent", () => {
@@ -78,9 +78,9 @@ describe("Container", () => {
 
     const text = screen.getByText("Hello World");
 
-    expect(text).toHaveStyle(`
-      font-size: 104px;
-    `);
+    expect(text).toHaveStyle({
+      fontSize: "104px",
+    });
   });
 
   it("with textAlign", () => {
@@ -88,9 +88,9 @@ describe("Container", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      text-align: right;
-    `);
+    expect(node).toHaveStyle({
+      textAlign: "right",
+    });
   });
 
   it("with background color", () => {
@@ -98,9 +98,9 @@ describe("Container", () => {
 
     const node = screen.getByText("Hello World");
 
-    expect(node).toHaveStyle(`
-      background-color: #d8edff;
-    `);
+    expect(node).toHaveStyle({
+      backgroundColor: "#d8edff",
+    });
   });
 
   it("with testId", () => {

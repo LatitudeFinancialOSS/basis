@@ -114,12 +114,12 @@ describe("TimeSpan", () => {
     const yearsInput = screen.getByPlaceholderText("Years");
     const monthsInput = screen.getByPlaceholderText("Months");
 
-    expect(yearsInput).toHaveStyle(`
-      background-color: #ffffff;
-    `);
-    expect(monthsInput).toHaveStyle(`
-      background-color: #ffffff;
-    `);
+    expect(yearsInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+    expect(monthsInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
   });
 
   it("with testId", () => {
