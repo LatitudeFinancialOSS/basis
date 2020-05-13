@@ -68,6 +68,9 @@ module.exports = {
       Select: {
         status: COMPONENT_STATUS.READY,
       },
+      ShadowContainer: {
+        status: COMPONENT_STATUS.READY,
+      },
       Stack: {
         status: COMPONENT_STATUS.READY,
       },

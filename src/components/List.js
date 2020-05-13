@@ -34,9 +34,9 @@ function Item({ children, testId }) {
         ...theme[`listItem.${type}`],
         ...theme[`listItem.${type}.${textStyle}`],
         "& ul, & ol": theme[`list.${type}.nested`],
-        "& ol li:before": theme[`listItem.${type}.nested:before`],
+        "& ol li::before": theme[`listItem.${type}.nested::before`],
         "& ol ol": theme[`list.${type}.nested.nested`],
-        "& ol ol li:before": theme[`listItem.${type}.nested.nested:before`],
+        "& ol ol li::before": theme[`listItem.${type}.nested.nested::before`],
       }}
       data-testid={testId}
     >

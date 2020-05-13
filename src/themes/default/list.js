@@ -12,7 +12,7 @@ export default (theme) => ({
   },
   "listItem.unordered": {
     position: "relative",
-    ":before": {
+    "::before": {
       content: '""',
       width: "0.5em",
       height: "0.5em",
@@ -76,17 +76,17 @@ export default (theme) => ({
   "listItem.ordered": {
     position: "relative",
     counterIncrement: "ordered",
-    ":before": {
+    "::before": {
       content: 'counter(ordered, decimal) ". "',
       position: "absolute",
       top: 0,
       left: "-1.25em",
     },
   },
-  "listItem.ordered.nested:before": {
+  "listItem.ordered.nested::before": {
     content: 'counter(ordered, lower-alpha) ". "',
   },
-  "listItem.ordered.nested.nested:before": {
+  "listItem.ordered.nested.nested::before": {
     content: 'counter(ordered, lower-roman) ". "',
   },
   // Steps
@@ -105,7 +105,7 @@ export default (theme) => ({
     ":last-of-type": {
       marginBottom: 0,
     },
-    ":before": {
+    "::before": {
       content: "counter(steps, decimal)",
       width: "2em",
       height: "2em",
@@ -120,7 +120,7 @@ export default (theme) => ({
       left: "-2.5em",
     },
   },
-  "listItem.steps.nested:before": {
+  "listItem.steps.nested::before": {
     content: "counter(steps, lower-alpha)",
     color: theme.colors.black,
     backgroundColor: theme.colors.secondary.lightBlue.t100,
