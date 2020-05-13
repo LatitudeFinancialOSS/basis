@@ -85,7 +85,7 @@ function Stack(props) {
     <div
       css={{
         paddingTop: "1px",
-        ":before": {
+        "::before": {
           content: '""',
           display: "block",
           ...flexWrapperCSS,

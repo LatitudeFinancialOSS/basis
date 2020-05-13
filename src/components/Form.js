@@ -222,10 +222,11 @@ function Form(_props) {
 
   useEffect(() => {
     if (state.submitStatus === "SUBMIT") {
-      onSubmit?.({
-        errors: state.errors,
-        values: state.values,
-      });
+      onSubmit &&
+        onSubmit({
+          errors: state.errors,
+          values: state.values,
+        });
 
       setState((state) => setPath(state, "submitStatus", "READY"));
     }

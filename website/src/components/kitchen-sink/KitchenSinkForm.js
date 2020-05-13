@@ -4,7 +4,7 @@ import { Form } from "basis";
 
 function FormContent({ onMount, children }) {
   useEffect(() => {
-    onMount?.();
+    onMount && onMount();
   }, [onMount]);
 
   return children;
