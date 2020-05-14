@@ -43,13 +43,17 @@ function isLargeScale(fontSize, isBold) {
 export function accessibleContrast(accessibilityLevel, fontSize, isBold) {
   switch (accessibilityLevel) {
     // http://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
-    case "AA":
+    case "AA": {
       return isLargeScale(fontSize, isBold) ? 3 : 4.5;
+    }
 
     // http://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast7
-    case "AAA":
+    case "AAA": {
       return isLargeScale(fontSize, isBold) ? 4.5 : 7;
-  }
+    }
 
-  return null;
+    default: {
+      return null;
+    }
+  }
 }

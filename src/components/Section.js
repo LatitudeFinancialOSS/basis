@@ -7,9 +7,15 @@ import useAllResponsiveProps from "../hooks/useAllResponsiveProps";
 
 const { BACKGROUNDS } = Container;
 
-Section.BACKGROUNDS = BACKGROUNDS;
+const DEFAULT_PROPS = {
+  bg: Container.DEFAULT_PROPS.bg,
+};
 
-function Section(props) {
+Section.BACKGROUNDS = BACKGROUNDS;
+Section.DEFAULT_PROPS = DEFAULT_PROPS;
+
+function Section(_props) {
+  const props = { ...DEFAULT_PROPS, ..._props };
   const { bg, children, testId } = props;
   const paddingProps = useAllResponsiveProps(props, "padding");
 

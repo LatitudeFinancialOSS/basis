@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
-import useBackground, { BackgroundProvider } from "../hooks/useBackground";
+import { BackgroundProvider } from "../hooks/useBackground";
 import {
   responsiveMarginType,
   responsivePaddingType,
@@ -35,7 +35,7 @@ const sizesMap = {
 };
 
 const colorsMap = {
-  white: {
+  low: {
     grey: {
       contentBackgroundColor: "grey.t03",
       shadowBorderColor: "grey.t07",
@@ -53,7 +53,7 @@ const colorsMap = {
       shadowBorderColor: "secondary.purple.t15",
     },
   },
-  "grey.t03": {
+  medium: {
     grey: {
       contentBackgroundColor: "white",
       shadowBorderColor: "grey.t07",
@@ -71,7 +71,7 @@ const colorsMap = {
       shadowBorderColor: "secondary.purple.t60",
     },
   },
-  "grey.t05": {
+  high: {
     grey: {
       contentBackgroundColor: "white",
       shadowBorderColor: "grey.t16",
@@ -105,19 +105,23 @@ function getColors(backgroundVariant, shadowColor) {
 const SHADOW_SIZES = ["tiny", "small", "medium", "large"];
 const SHADOW_DIRECTIONS = ["left", "right"];
 const SHADOW_COLORS = ["grey", "blue", "pink", "purple"];
+const SHADOW_CONTRASTS = ["low", "medium", "high"];
 
 const DEFAULT_PROPS = {
   shadowSize: "large",
   shadowDirection: "right",
   shadowColor: "grey",
+  shadowContrast: "high",
 };
 
 ShadowContainer.SHADOW_SIZES = SHADOW_SIZES;
 ShadowContainer.SHADOW_DIRECTIONS = SHADOW_DIRECTIONS;
 ShadowContainer.SHADOW_COLORS = SHADOW_COLORS;
+ShadowContainer.SHADOW_CONTRASTS = SHADOW_CONTRASTS;
 ShadowContainer.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function ShadowContainer(props) {
+  const theme = useTheme();
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -127,18 +131,19 @@ function ShadowContainer(props) {
       shadowDirection: (shadowDirection) =>
         SHADOW_DIRECTIONS.includes(shadowDirection),
       shadowColor: (shadowColor) => SHADOW_COLORS.includes(shadowColor),
+      shadowContrast: (shadowContrast) =>
+        SHADOW_CONTRASTS.includes(shadowContrast),
     }
   );
-  const { shadowDirection, shadowColor, children, testId } = mergedProps;
-  const theme = useTheme();
-  const { background } = useBackground();
-  const backgroundVariant = background
-    ? ["white", "grey.t03"].includes(background)
-      ? background
-      : "grey.t05"
-    : "white";
+  const {
+    shadowDirection,
+    shadowColor,
+    shadowContrast,
+    children,
+    testId,
+  } = mergedProps;
   const { contentBackgroundColor, shadowBorderColor } = getColors(
-    backgroundVariant,
+    shadowContrast,
     shadowColor
   );
   const contentHasBorder = shadowColor === "grey";
@@ -217,6 +222,7 @@ ShadowContainer.propTypes = {
   ...responsivePropType("shadowSize", PropTypes.oneOf(SHADOW_SIZES)),
   shadowDirection: PropTypes.oneOf(SHADOW_DIRECTIONS),
   shadowColor: PropTypes.oneOf(SHADOW_COLORS),
+  shadowContrast: PropTypes.oneOf(SHADOW_CONTRASTS),
   children: PropTypes.node,
   testId: PropTypes.string,
 };

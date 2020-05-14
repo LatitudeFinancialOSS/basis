@@ -11,61 +11,60 @@ const {
   SHADOW_SIZES,
   SHADOW_DIRECTIONS,
   SHADOW_COLORS,
+  SHADOW_CONTRASTS,
   DEFAULT_PROPS,
 } = ShadowContainer;
 const scope = allDesignSystem;
 
-const BACKGROUNDS = ["white", "grey.t03", "grey.t05"];
-
-const backgroundOptions = getRadioOptions(BACKGROUNDS);
 const shadowSizeOptions = getRadioOptions(SHADOW_SIZES);
 const shadowDirectionOptions = getRadioOptions(SHADOW_DIRECTIONS);
 const shadowColorOptions = getRadioOptions(SHADOW_COLORS);
+const shadowContrastOptions = getRadioOptions(SHADOW_CONTRASTS);
 
 function ShadowContainerPage() {
   const theme = useTheme();
-  const [background, setBackground] = useState("white");
   const [shadowSize, setShadowSize] = useState(DEFAULT_PROPS.shadowSize);
   const [shadowDirection, setShadowDirection] = useState(
     DEFAULT_PROPS.shadowDirection
   );
   const [shadowColor, setShadowColor] = useState(DEFAULT_PROPS.shadowColor);
+  const [shadowContrast, setShadowContrast] = useState(
+    DEFAULT_PROPS.shadowContrast
+  );
   const code = formatCode(`
-    <Container ${nonDefaultProps([
+    <ShadowContainer ${nonDefaultProps([
       {
-        prop: "bg",
-        value: background,
+        prop: "shadowSize",
+        value: shadowSize,
+        defaultValue: DEFAULT_PROPS.shadowSize,
+      },
+      {
+        prop: "shadowDirection",
+        value: shadowDirection,
+        defaultValue: DEFAULT_PROPS.shadowDirection,
+      },
+      {
+        prop: "shadowColor",
+        value: shadowColor,
+        defaultValue: DEFAULT_PROPS.shadowColor,
+      },
+      {
+        prop: "shadowContrast",
+        value: shadowContrast,
+        defaultValue: DEFAULT_PROPS.shadowContrast,
+      },
+      {
+        prop: "margin",
+        value: "14",
       },
       {
         prop: "padding",
-        value: "14",
+        value: "4",
       },
-    ])}>
-      <ShadowContainer ${nonDefaultProps([
-        {
-          prop: "shadowSize",
-          value: shadowSize,
-          defaultValue: DEFAULT_PROPS.shadowSize,
-        },
-        {
-          prop: "shadowDirection",
-          value: shadowDirection,
-          defaultValue: DEFAULT_PROPS.shadowDirection,
-        },
-        {
-          prop: "shadowColor",
-          value: shadowColor,
-          defaultValue: DEFAULT_PROPS.shadowColor,
-        },
-        {
-          prop: "padding",
-          value: "4",
-        },
-      ])}
-      >
-        <Text>Hello World</Text>
-      </ShadowContainer>
-    </Container>
+    ])}
+    >
+      <Text>Hello World</Text>
+    </ShadowContainer>
   `);
 
   return (
@@ -78,13 +77,6 @@ function ShadowContainerPage() {
         }}
       >
         <RadioGroupSetting
-          heading="Background"
-          options={backgroundOptions}
-          selectedValue={background}
-          setSelectedValue={setBackground}
-        />
-        <RadioGroupSetting
-          css={{ marginLeft: theme.space[13] }}
           heading="Shadow Size"
           options={shadowSizeOptions}
           selectedValue={shadowSize}
@@ -103,6 +95,13 @@ function ShadowContainerPage() {
           options={shadowColorOptions}
           selectedValue={shadowColor}
           setSelectedValue={setShadowColor}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Shadow Contrast"
+          options={shadowContrastOptions}
+          selectedValue={shadowContrast}
+          setSelectedValue={setShadowContrast}
         />
       </div>
       <ComponentContainer code={code} scope={scope} />

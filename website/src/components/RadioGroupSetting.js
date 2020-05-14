@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import { useTheme, Text } from "basis";
 
-export const getRadioOptions = (values, { emptyLabel } = {}) =>
+export const getRadioOptions = (values) =>
   values.map((value) => ({
     value,
-    label: value === "" ? emptyLabel : String(value),
+    label: String(value),
   }));
 
 export const getCheckboxOptions = () => [

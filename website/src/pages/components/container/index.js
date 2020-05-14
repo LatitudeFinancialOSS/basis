@@ -11,9 +11,7 @@ const { Container, useTheme } = allDesignSystem;
 const { BACKGROUNDS, DEFAULT_PROPS } = Container;
 const scope = allDesignSystem;
 
-const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
-  emptyLabel: "No background",
-});
+const bgOptions = getRadioOptions(BACKGROUNDS);
 const hasBreakpointWidthOptions = getCheckboxOptions();
 
 function ContainerPage() {

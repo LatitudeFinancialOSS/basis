@@ -11,6 +11,9 @@ describe("Container", () => {
     const node = screen.getByText("Hello World");
 
     expect(node.tagName).toBe("DIV");
+    expect(node).toHaveStyle({
+      backgroundColor: "transparent",
+    });
   });
 
   it("with margin", () => {
