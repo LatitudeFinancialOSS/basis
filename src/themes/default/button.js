@@ -11,6 +11,9 @@ export default (theme) => ({
     transition: theme.transitions.button,
     borderRadius: theme.radii[1],
     ...theme.focusStyles.focusVisible,
+    "a &": {
+      cursor: "pointer",
+    },
   },
   "button.fullWidth": {
     width: "100%",

@@ -7,12 +7,10 @@ import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, Section } = allDesignSystem;
-const { BACKGROUNDS } = Section;
+const { BACKGROUNDS, DEFAULT_PROPS } = Section;
 const scope = allDesignSystem;
 
-const bgOptions = getRadioOptions(["", ...BACKGROUNDS], {
-  emptyLabel: "No background",
-});
+const bgOptions = getRadioOptions(BACKGROUNDS);
 
 function SectionPage() {
   const theme = useTheme();
@@ -22,6 +20,7 @@ function SectionPage() {
       {
         prop: "bg",
         value: bg,
+        defaultValue: DEFAULT_PROPS.bg,
       },
     ])}
     >

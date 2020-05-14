@@ -7,12 +7,7 @@ describe("areOptionsValid", () => {
       [{}],
       [{ label: "label" }],
       [{ value: "value" }],
-      [{ label: "label", value: "" }],
-      [{ label: "label", value: "   " }],
-      [
-        { label: "label", value: "value" },
-        { label: "label2", value: "" },
-      ],
+      [{ label: "label", value: "value" }, { label: "label2" }],
     ];
 
     invalidOptions.forEach((option) => {

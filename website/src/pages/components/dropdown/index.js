@@ -69,7 +69,7 @@ function DropdownPage() {
             <Placeholder label="Image" width="100%" height="100%" />
           </Grid.Item>
           <Grid.Item colSpan="1" rowSpan="0">
-            <Text color="primary.blue.t100">
+            <Text>
               <strong>{name}</strong>
             </Text>
           </Grid.Item>

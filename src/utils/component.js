@@ -33,7 +33,7 @@ export function areOptionsValid(options) {
   }
 
   for (const option of options) {
-    if (notStringOrEmpty(option.label) || notStringOrEmpty(option.value)) {
+    if (notStringOrEmpty(option.label) || typeof option.value !== "string") {
       return false;
     }
   }
@@ -47,7 +47,7 @@ export function areDropdownOptionsValid(options) {
   }
 
   for (const option of options) {
-    if (typeof option.data !== "object" || notStringOrEmpty(option.value)) {
+    if (typeof option.data !== "object" || typeof option.value !== "string") {
       return false;
     }
   }

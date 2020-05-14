@@ -22,6 +22,7 @@ import {
 import { EXCEPTION_PREFIX } from "../utils/css";
 
 const BACKGROUNDS = [
+  "transparent",
   "white",
   "grey.t03",
   "grey.t05",
@@ -34,6 +35,7 @@ const BACKGROUNDS = [
 const BOX_SHADOWS = ["header"];
 
 const DEFAULT_PROPS = {
+  bg: "transparent",
   hasBreakpointWidth: false,
 };
 
@@ -87,7 +89,7 @@ function Container(_props) {
     <div
       css={{
         boxSizing: "border-box",
-        backgroundColor: theme.getColor(bg),
+        backgroundColor: bg === "transparent" ? bg : theme.getColor(bg),
         ...responsiveCSS,
         ...theme[`container.${boxShadow}`],
         "::after": theme[`container.${boxShadow}::after`],
@@ -104,7 +106,7 @@ function Container(_props) {
     );
   }
 
-  if (bg) {
+  if (bg !== "transparent") {
     container = <BackgroundProvider value={bg}>{container}</BackgroundProvider>;
   }
 

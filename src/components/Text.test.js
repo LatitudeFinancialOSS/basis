@@ -117,6 +117,22 @@ describe("Text", () => {
     });
   });
 
+  it("inside nested containers", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <Text>Hello World</Text>
+        </Container>
+      </Container>
+    );
+
+    const node = screen.getByText("Hello World");
+
+    expect(node).toHaveStyle({
+      color: "#ffffff",
+    });
+  });
+
   it("with margin", () => {
     render(<Text margin="1 2 3 4">Hello World</Text>);
 

@@ -5,7 +5,7 @@ import {
 } from "./css";
 
 function getColor(colorName, theme) {
-  if (typeof colorName !== "string") {
+  if (typeof colorName !== "string" || colorName === "transparent") {
     return null;
   }
 

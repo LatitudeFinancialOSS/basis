@@ -142,14 +142,16 @@ const TEXT_COLOR_COLUMN_WIDTH = "160px";
 const CELL_WIDTH = "160px";
 const CELL_HEIGHT = "72px";
 
+const initialValues = {
+  show: "Pass AA",
+  textStyle: "body1",
+  weight: "regular",
+  text: "Text",
+};
+const backgrounds = BACKGROUNDS.filter((bg) => bg !== "transparent");
+
 function AccessibilityPage() {
   const theme = useTheme();
-  const initialValues = {
-    show: "Pass AA",
-    textStyle: "body1",
-    weight: "regular",
-    text: "Text",
-  };
 
   return (
     <Flex direction="column" fullHeight>
@@ -192,7 +194,7 @@ function AccessibilityPage() {
                       paddingLeft: TEXT_COLOR_COLUMN_WIDTH,
                     }}
                   >
-                    {BACKGROUNDS.map((backgroundColor) => (
+                    {backgrounds.map((backgroundColor) => (
                       <div
                         css={{
                           display: "flex",
@@ -233,7 +235,7 @@ function AccessibilityPage() {
                           <strong>{color}</strong>
                         </Text>
                       </div>
-                      {BACKGROUNDS.map((backgroundColor) => (
+                      {backgrounds.map((backgroundColor) => (
                         <MatrixCell
                           width={CELL_WIDTH}
                           height={CELL_HEIGHT}
