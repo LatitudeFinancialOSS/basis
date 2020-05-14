@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
-import useBackground from "../hooks/useBackground";
+import useBackground, { BackgroundProvider } from "../hooks/useBackground";
 import {
   responsiveMarginType,
   responsivePaddingType,
@@ -91,14 +91,14 @@ const colorsMap = {
   },
 };
 
-function getColors(backgroundVariant, shadowColor, theme) {
+function getColors(backgroundVariant, shadowColor) {
   const { contentBackgroundColor, shadowBorderColor } = colorsMap[
     backgroundVariant
   ][shadowColor];
 
   return {
-    contentBackgroundColor: theme.getColor(contentBackgroundColor),
-    shadowBorderColor: theme.getColor(shadowBorderColor),
+    contentBackgroundColor,
+    shadowBorderColor,
   };
 }
 
@@ -139,8 +139,7 @@ function ShadowContainer(props) {
     : "white";
   const { contentBackgroundColor, shadowBorderColor } = getColors(
     backgroundVariant,
-    shadowColor,
-    theme
+    shadowColor
   );
   const contentHasBorder = shadowColor === "grey";
   const contentBorderWidth = contentHasBorder
@@ -148,20 +147,8 @@ function ShadowContainer(props) {
     : 0;
   const contentBorderColor = theme.colors.grey.t10;
   const shadowSizePx = `calc(100% + ${2 * contentBorderWidth}px)`;
-  const wrapperResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    margin: responsiveMargin,
-    shadowSize: ({ shadowSize }) => {
-      const shadowOffset = sizesMap[shadowSize].offset;
-
-      return {
-        padding:
-          shadowDirection === "left"
-            ? `0 0 ${shadowOffset}px ${shadowOffset}px`
-            : `0 ${shadowOffset}px ${shadowOffset}px 0`,
-      };
-    },
-  });
   const contentResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    margin: responsiveMargin,
     padding: responsivePadding,
     shadowSize: ({ shadowSize }) => {
       const contentMinSize = sizesMap[shadowSize].minSize;
@@ -185,28 +172,21 @@ function ShadowContainer(props) {
           left:
             (shadowDirection === "left" ? -shadowOffset : shadowOffset) -
             contentBorderWidth,
-          border: `${shadowBorderWidth}px solid ${shadowBorderColor}`,
+          border: `${shadowBorderWidth}px solid ${theme.getColor(
+            shadowBorderColor
+          )}`,
         };
       },
     }
   );
 
   return (
-    <div
-      css={{
-        boxSizing: "border-box",
-        ...wrapperResponsiveCSS,
-      }}
-      data-testid={testId}
-    >
+    <BackgroundProvider value={contentBackgroundColor}>
       <div
         css={{
           boxSizing: "border-box",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           ...contentResponsiveCSS,
-          backgroundColor: contentBackgroundColor,
+          backgroundColor: theme.getColor(contentBackgroundColor),
           ...(contentHasBorder && {
             border: `${contentBorderWidth}px solid ${contentBorderColor}`,
           }),
@@ -223,10 +203,11 @@ function ShadowContainer(props) {
             ...contentBeforeResponsiveCSS,
           },
         }}
+        data-testid={testId}
       >
         {children}
       </div>
-    </div>
+    </BackgroundProvider>
   );
 }
 

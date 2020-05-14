@@ -38,7 +38,7 @@ function ShadowContainerPage() {
       },
       {
         prop: "padding",
-        value: "8",
+        value: "14",
       },
     ])}>
       <ShadowContainer ${nonDefaultProps([
@@ -56,6 +56,10 @@ function ShadowContainerPage() {
           prop: "shadowColor",
           value: shadowColor,
           defaultValue: DEFAULT_PROPS.shadowColor,
+        },
+        {
+          prop: "padding",
+          value: "4",
         },
       ])}
       >
