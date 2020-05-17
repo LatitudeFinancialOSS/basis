@@ -17,9 +17,8 @@ import {
   responsivePadding,
   responsiveSize,
   responsiveTextAlign,
-  mergeResponsiveCSS,
 } from "../utils/css";
-import { EXCEPTION_PREFIX } from "../utils/css";
+import { DEFAULT_BREAKPOINT } from "../utils/css";
 
 const BACKGROUNDS = [
   "transparent",
@@ -45,46 +44,43 @@ Container.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const {
-    bg,
-    boxShadow,
-    hasBreakpointWidth,
-    textStyle,
-    children,
-    testId,
-  } = props;
+  const { bg, boxShadow, textStyle, children, testId } = props;
   const theme = useTheme();
-  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     padding: responsivePadding,
     width: responsiveSize("width"),
     height: responsiveSize("height"),
     textAlign: responsiveTextAlign,
-  });
-  const responsiveCSS = hasBreakpointWidth
-    ? mergeResponsiveCSS(
-        {
+    hasBreakpointWidth: ({ hasBreakpointWidth, margin }, theme, bp) => {
+      if (hasBreakpointWidth !== true) {
+        if (margin) {
+          return {
+            maxWidth: "initial",
+          };
+        }
+
+        return {
+          maxWidth: "initial",
+          marginLeft: "initial",
+          marginRight: "initial",
+        };
+      }
+
+      if (bp === DEFAULT_BREAKPOINT || !theme.breakpointMaxWidths[bp]) {
+        return {
           marginLeft: "15px", // This is half of our special 30px columns gap.
           marginRight: "15px",
-          // Note: the order of these media queries is important (because they are not exclusive).
-          [theme.minMediaQueries.sm]: {
-            maxWidth: theme.breakpointMaxWidths.sm,
-            marginLeft: "auto",
-            marginRight: "auto",
-          },
-          [theme.minMediaQueries.md]: {
-            maxWidth: theme.breakpointMaxWidths.md,
-          },
-          [theme.minMediaQueries.lg]: {
-            maxWidth: theme.breakpointMaxWidths.lg,
-          },
-          [theme.minMediaQueries.xl]: {
-            maxWidth: theme.breakpointMaxWidths.xl,
-          },
-        },
-        responsivePropsCSS
-      )
-    : responsivePropsCSS;
+        };
+      }
+
+      return {
+        maxWidth: theme.breakpointMaxWidths[bp],
+        marginLeft: "auto",
+        marginRight: "auto",
+      };
+    },
+  });
   let container = (
     <div
       css={{
@@ -119,10 +115,6 @@ Container.propTypes = {
       return;
     }
 
-    if (typeof props.bg === "string" && props.bg.startsWith(EXCEPTION_PREFIX)) {
-      return;
-    }
-
     return new Error(
       `Container: bg="${
         props.bg
@@ -136,7 +128,7 @@ Container.propTypes = {
   ...responsiveHeightType,
   ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
-  hasBreakpointWidth: PropTypes.bool,
+  ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   children: PropTypes.node,
   testId: PropTypes.string,
 };
