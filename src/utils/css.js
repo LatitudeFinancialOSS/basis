@@ -4,8 +4,6 @@ import Text from "../components/Text";
 
 const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
 
-export const EXCEPTION_PREFIX = "__exception__:";
-
 export function getGapValues(gap, theme) {
   if (typeof gap === "number") {
     gap = String(gap);
