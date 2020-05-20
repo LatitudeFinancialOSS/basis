@@ -1,7 +1,6 @@
 import React, { Children } from "react";
 import PropTypes from "prop-types";
 import {
-  Section,
   Container,
   Accordion,
   Stack,
@@ -186,35 +185,37 @@ function Links(props) {
 
   return (
     <FooterLinksProvider value={{ sectionTitlesAs }}>
-      <Section
+      <Container
         bg={isColumnsLayout ? "white" : "primary.blue.t100"}
         padding={isColumnsLayout ? "8 0" : "8 0 0 0"}
         testId={testId}
       >
-        {isColumnsLayout ? (
-          <div
-            css={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            {children}
-          </div>
-        ) : (
-          <Accordion itemGap="small">
-            {Children.map(children, (child, index) => (
-              <Accordion.Item key={index}>
-                <Accordion.Item.Header>
-                  {child.props.title}
-                </Accordion.Item.Header>
-                <Accordion.Item.Content>
-                  <Stack gap="5">{child.props.children}</Stack>
-                </Accordion.Item.Content>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        )}
-      </Section>
+        <Container hasBreakpointWidth>
+          {isColumnsLayout ? (
+            <div
+              css={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              {children}
+            </div>
+          ) : (
+            <Accordion itemGap="small">
+              {Children.map(children, (child, index) => (
+                <Accordion.Item key={index}>
+                  <Accordion.Item.Header>
+                    {child.props.title}
+                  </Accordion.Item.Header>
+                  <Accordion.Item.Content>
+                    <Stack gap="5">{child.props.children}</Stack>
+                  </Accordion.Item.Content>
+                </Accordion.Item>
+              ))}
+            </Accordion>
+          )}
+        </Container>
+      </Container>
     </FooterLinksProvider>
   );
 }

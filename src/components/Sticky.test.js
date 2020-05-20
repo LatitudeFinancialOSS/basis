@@ -1,17 +1,17 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { Section, Container, Sticky, Header, Stepper, Text } from ".";
+import { Container, Sticky, Header, Stepper, Text } from ".";
 import { render, screen } from "../utils/test";
 
 describe("Sticky", () => {
   it("applies the right CSS to sticky items", () => {
     function MyStickyNav() {
       return (
-        <Section>
+        <Container hasBreakpointWidth>
           <Container height="120" height-lg="60">
             <Text>My Sticky Navigation</Text>
           </Container>
-        </Section>
+        </Container>
       );
     }
 
@@ -35,9 +35,9 @@ describe("Sticky", () => {
             <Stepper.Item label="Step 3" />
           </Stepper>
         </Sticky.Item>
-        <Section>
+        <Container hasBreakpointWidth>
           <Text>Hello World</Text>
-        </Section>
+        </Container>
         <Sticky.Item testId="my-sticky-nav">
           <MyStickyNav />
         </Sticky.Item>
