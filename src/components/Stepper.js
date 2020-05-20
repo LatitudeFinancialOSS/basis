@@ -4,7 +4,7 @@ import useTheme from "../hooks/useTheme";
 import useResponsiveProp, {
   responsivePropType,
 } from "../hooks/useResponsiveProp";
-import { Section, Text, Icon } from ".";
+import { Container, Text, Icon } from ".";
 
 const DEFAULT_ITEM_PROPS = {
   minor: false,
@@ -112,36 +112,38 @@ function Stepper(_props) {
   );
 
   return (
-    <Section bg="grey.t07" testId={testId}>
-      <div css={theme.stepper}>
-        {
-          steps.reduce(
-            (acc, step, index) => {
-              const minor = step.props.minor === true;
+    <Container bg="grey.t07" testId={testId}>
+      <Container hasBreakpointWidth>
+        <div css={theme.stepper}>
+          {
+            steps.reduce(
+              (acc, step, index) => {
+                const minor = step.props.minor === true;
 
-              acc.items.push(
-                React.cloneElement(step, {
-                  index: index,
-                  total: steps.length,
-                  isPrevious: completed || index < currentStepIndex,
-                  majorStepNumber: minor ? null : acc.majorStepNumber,
-                })
-              );
+                acc.items.push(
+                  React.cloneElement(step, {
+                    index: index,
+                    total: steps.length,
+                    isPrevious: completed || index < currentStepIndex,
+                    majorStepNumber: minor ? null : acc.majorStepNumber,
+                  })
+                );
 
-              if (!minor) {
-                acc.majorStepNumber += 1;
+                if (!minor) {
+                  acc.majorStepNumber += 1;
+                }
+
+                return acc;
+              },
+              {
+                items: [],
+                majorStepNumber: 1,
               }
-
-              return acc;
-            },
-            {
-              items: [],
-              majorStepNumber: 1,
-            }
-          ).items
-        }
-      </div>
-    </Section>
+            ).items
+          }
+        </div>
+      </Container>
+    </Container>
   );
 }
 

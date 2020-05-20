@@ -16,7 +16,6 @@ import {
   List,
   Placeholder,
   RadioGroup,
-  Section,
   Select,
   Stack,
   Stepper,
@@ -45,7 +44,6 @@ function KitchenSink() {
       <List />
       <Placeholder />
       <RadioGroup />
-      <Section />
       <Select />
       <Stack />
       <Stepper />

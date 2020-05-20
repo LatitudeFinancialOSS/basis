@@ -62,9 +62,6 @@ module.exports = {
       RadioGroup: {
         status: COMPONENT_STATUS.READY,
       },
-      Section: {
-        status: COMPONENT_STATUS.READY,
-      },
       Select: {
         status: COMPONENT_STATUS.READY,
       },

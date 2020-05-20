@@ -17,7 +17,6 @@ export { default as List } from "./List";
 export { default as LoadingIcon } from "./LoadingIcon";
 export { default as Placeholder } from "./Placeholder";
 export { default as RadioGroup } from "./RadioGroup";
-export { default as Section } from "./Section";
 export { default as Select } from "./Select";
 export { default as ShadowContainer } from "./ShadowContainer";
 export { default as Stack } from "./Stack";
