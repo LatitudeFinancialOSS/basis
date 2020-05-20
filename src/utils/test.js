@@ -34,6 +34,17 @@ export { customRender as render };
 
 export { userEvent };
 
+// throw if console.error is called in tests
+beforeEach(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {
+    throw new Error();
+  });
+});
+
+afterEach(() => {
+  console.error.mockRestore();
+});
+
 // custom matchers
 expect.extend({
   toBeVisuallyHidden(element) {
