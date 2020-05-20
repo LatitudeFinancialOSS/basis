@@ -1,6 +1,8 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import useTheme from "../../hooks/useTheme";
+import useBackground from "../../hooks/useBackground";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 
 const TYPES = ["text", "number"];
 const COLORS = ["grey.t05", "white"];
@@ -29,7 +31,6 @@ function InternalInput(_props) {
     min,
     max,
     step,
-    color,
     disabled,
     pasteAllowed,
     isValid,
@@ -41,7 +42,15 @@ function InternalInput(_props) {
     __internal__focus,
   } = props;
   const theme = useTheme();
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
+  const { inputColorMap } = useBackground();
+  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color = _props.color ?? inputColorMap[bp];
+      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
+
+      return theme[`input.${colorStr}`];
+    },
+  });
   const onPaste = useCallback(
     (event) => {
       if (!pasteAllowed) {
@@ -55,7 +64,7 @@ function InternalInput(_props) {
     <input
       css={{
         ...theme.input,
-        ...theme[`input.${colorStr}`],
+        ...responsiveCSS,
         ":focus": theme["input:focus"],
         ...(__internal__focus && theme["input:focus"]),
         ":hover": theme["input:hover"],

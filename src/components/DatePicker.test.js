@@ -125,6 +125,22 @@ describe("DatePicker", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithDatePicker label="Expiry date" />
+        </Container>
+      </Container>
+    );
+
+    const dayInput = screen.getByPlaceholderText("DD");
+
+    expect(dayInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithDatePicker label="Expiry date" testId="my-date-picker" />

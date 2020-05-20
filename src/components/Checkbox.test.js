@@ -73,6 +73,24 @@ describe("Checkbox", () => {
     });
   });
 
+  it("inside nested container", () => {
+    const { container } = render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithCheckbox label="Accept terms and conditions">
+            I agree
+          </FormWithCheckbox>
+        </Container>
+      </Container>
+    );
+    const checkboxContainer = container.querySelector("[aria-checked]");
+    const checkboxInputLabel = checkboxContainer.querySelector("label");
+
+    expect(checkboxInputLabel).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with hideLabel", () => {
     render(
       <FormWithCheckbox label="Accept terms and conditions" hideLabel>

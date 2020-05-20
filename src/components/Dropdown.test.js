@@ -125,6 +125,21 @@ describe("Dropdown", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="grey.t05">
+        <Container>
+          <FormWithDropdown />
+        </Container>
+      </Container>
+    );
+    const button = screen.getByRole("button", { name: /Please select/ });
+
+    expect(button).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(<FormWithDropdown testId="my-dropdown" />);
 

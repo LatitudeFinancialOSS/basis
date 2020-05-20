@@ -2,6 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen, userEvent } from "../utils/test";
 import Accordion from "./Accordion";
+import Container from "./Container";
 import Text from "./Text";
 
 describe("Accordion", () => {
@@ -159,35 +160,33 @@ describe("Accordion", () => {
   });
 
   it("with color", () => {
-    const { container } = render(
+    render(
       <Accordion color="secondary.lightBlue.t25">
         <Accordion.Item>
-          <Accordion.Item.Header testId="my-accordion-item-header">
-            My header
-          </Accordion.Item.Header>
+          <Accordion.Item.Header>My header</Accordion.Item.Header>
         </Accordion.Item>
       </Accordion>
     );
-    const itemHeaderButton = container.querySelector("[aria-controls]");
 
-    expect(itemHeaderButton).toHaveStyle({
+    const headerButton = screen.getByRole("button", { name: /My header/ });
+
+    expect(headerButton).toHaveStyle({
       backgroundColor: "#d8edff",
     });
   });
 
   it("with textColor", () => {
-    const { container } = render(
+    render(
       <Accordion textColor="primary.blue.t100">
         <Accordion.Item>
-          <Accordion.Item.Header testId="my-accordion-item-header">
-            My header
-          </Accordion.Item.Header>
+          <Accordion.Item.Header>My header</Accordion.Item.Header>
         </Accordion.Item>
       </Accordion>
     );
-    const itemHeaderButton = container.querySelector("[aria-controls]");
 
-    expect(itemHeaderButton).toHaveStyle({
+    const headerButton = screen.getByRole("button", { name: /My header/ });
+
+    expect(headerButton).toHaveStyle({
       color: "#0046aa",
     });
   });
@@ -235,6 +234,52 @@ describe("Accordion", () => {
     });
     expect(item3).toHaveStyle({
       marginTop: "1px",
+    });
+  });
+
+  it("inside dark container", () => {
+    render(
+      <Container bg="grey.t07">
+        <Accordion>
+          <Accordion.Item>
+            <Accordion.Item.Header>Header 1</Accordion.Item.Header>
+            <Accordion.Item.Content>
+              <Text>Content 1</Text>
+            </Accordion.Item.Content>
+          </Accordion.Item>
+        </Accordion>
+      </Container>
+    );
+
+    const headerButton = screen.getByRole("button", { name: /Header 1/ });
+
+    expect(headerButton).toHaveStyle({
+      backgroundColor: "#ffffff",
+      color: "#000000",
+    });
+  });
+
+  it("inside nested container", () => {
+    render(
+      <Container bg="grey.t07">
+        <Container>
+          <Accordion>
+            <Accordion.Item>
+              <Accordion.Item.Header>Header 1</Accordion.Item.Header>
+              <Accordion.Item.Content>
+                <Text>Content 1</Text>
+              </Accordion.Item.Content>
+            </Accordion.Item>
+          </Accordion>
+        </Container>
+      </Container>
+    );
+
+    const headerButton = screen.getByRole("button", { name: /Header 1/ });
+
+    expect(headerButton).toHaveStyle({
+      backgroundColor: "#ffffff",
+      color: "#000000",
     });
   });
 

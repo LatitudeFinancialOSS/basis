@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon, Text } from "..";
 import useTheme from "../../hooks/useTheme";
+import useBackground, {
+  BackgroundProvider,
+  mapResponsiveValues,
+} from "../../hooks/useBackground";
 import { responsiveMaxHeightType } from "../../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import { responsiveSize } from "../../utils/css";
@@ -30,7 +34,6 @@ function InternalDropdown(_props) {
   const {
     name,
     parentName,
-    color,
     placeholderComponent: PlaceholderComponent,
     optionComponent: OptionComponent,
     options,
@@ -46,13 +49,28 @@ function InternalDropdown(_props) {
     __internal__highlightedIndex,
   } = props;
   const theme = useTheme();
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
+  const { inputColorMap } = useBackground();
+  const colorMap = mapResponsiveValues(
+    inputColorMap,
+    (inputColor) => {
+      return _props.color ?? inputColor;
+    },
+    theme
+  );
+  const buttonResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color = colorMap[bp];
+      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
+
+      return theme[`dropdownButton.${colorStr}`];
+    },
+  });
+  const optionsResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    maxHeight: responsiveSize("maxHeight"),
+  });
   const menuProps = getMenuProps({
     "data-parent-name": parentName ?? name,
     onFocus,
-  });
-  const dropdownOptionsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    maxHeight: responsiveSize("maxHeight"),
   });
 
   return (
@@ -60,7 +78,7 @@ function InternalDropdown(_props) {
       <button
         css={{
           ...theme.dropdownButton,
-          ...theme[`dropdownButton.${colorStr}`],
+          ...buttonResponsiveCSS,
           ...(!selectedOption && theme.dropdownButtonPlaceholder),
           ...(__internal__focus && theme.focusStyles.__keyboardFocus),
           // See: https://stackoverflow.com/a/199319/247243
@@ -73,39 +91,43 @@ function InternalDropdown(_props) {
         data-parent-name={parentName ?? name}
         {...toggleButtonProps}
       >
-        <div css={theme.dropdownButtonContent}>
-          {selectedOption ? (
-            <OptionComponent {...selectedOption} />
-          ) : (
-            <PlaceholderComponent />
-          )}
-        </div>
-        <div css={theme.dropdownButtonChevron}>
-          <Icon name="triangle-down" color="black" />
-        </div>
+        <BackgroundProvider value={colorMap}>
+          <div css={theme.dropdownButtonContent}>
+            {selectedOption ? (
+              <OptionComponent {...selectedOption} />
+            ) : (
+              <PlaceholderComponent />
+            )}
+          </div>
+          <div css={theme.dropdownButtonChevron}>
+            <Icon name="triangle-down" color="black" />
+          </div>
+        </BackgroundProvider>
       </button>
       <ul
         css={{
           ...theme.dropdownOptions,
           ":focus": theme["dropdownOptions:focus"],
-          ...dropdownOptionsCSS,
+          ...optionsResponsiveCSS,
         }}
         {...menuProps}
       >
-        {(isOpen || __internal__open) &&
-          options.map((option, index) => (
-            <li
-              css={{
-                ...theme.dropdownOption,
-                ...((__internal__highlightedIndex ?? highlightedIndex) ===
-                  index && theme.dropdownOptionHighlighted),
-              }}
-              {...getItemProps({ item: option, index })}
-              key={index}
-            >
-              <OptionComponent {...option} />
-            </li>
-          ))}
+        <BackgroundProvider value="white">
+          {(isOpen || __internal__open) &&
+            options.map((option, index) => (
+              <li
+                css={{
+                  ...theme.dropdownOption,
+                  ...((__internal__highlightedIndex ?? highlightedIndex) ===
+                    index && theme.dropdownOptionHighlighted),
+                }}
+                {...getItemProps({ item: option, index })}
+                key={index}
+              >
+                <OptionComponent {...option} />
+              </li>
+            ))}
+        </BackgroundProvider>
       </ul>
     </div>
   );

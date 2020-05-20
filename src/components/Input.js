@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
@@ -29,29 +28,29 @@ Input.COLORS = COLORS;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Input(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    type: (type) => TYPES.includes(type),
-    min: (min) =>
-      props.type === "number" &&
-      (typeof min === "number" || typeof min === "string"),
-    max: (max) =>
-      props.type === "number" &&
-      (typeof max === "number" || typeof max === "string"),
-    step: (step) =>
-      props.type === "number" &&
-      (typeof step === "number" || typeof step === "string"),
-    disabled: (disabled) => typeof disabled === "boolean",
-    pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      type: (type) => TYPES.includes(type),
+      min: (min) =>
+        props.type === "number" &&
+        (typeof min === "number" || typeof min === "string"),
+      max: (max) =>
+        props.type === "number" &&
+        (typeof max === "number" || typeof max === "string"),
+      step: (step) =>
+        props.type === "number" &&
+        (typeof step === "number" || typeof step === "string"),
+      disabled: (disabled) => typeof disabled === "boolean",
+      pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+    }
+  );
   const {
     name,
-    color,
     type,
     min,
     max,
@@ -107,7 +106,7 @@ function Input(props) {
         max={max}
         step={step}
         placeholder={placeholder}
-        color={color}
+        color={props.color}
         disabled={disabled}
         pasteAllowed={pasteAllowed}
         isValid={!hasErrors}

@@ -115,6 +115,22 @@ describe("Select", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithSelect label="Relationship status" />
+        </Container>
+      </Container>
+    );
+
+    const select = screen.getByDisplayValue("Please select");
+
+    expect(select).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithSelect label="Relationship status" testId="my-select" />

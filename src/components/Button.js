@@ -4,6 +4,7 @@ import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import { hasOwnProperty } from "../utils/core";
 import { responsiveMargin } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
@@ -27,24 +28,29 @@ Button.COLORS = COLORS;
 Button.TYPES = TYPES;
 Button.DEFAULT_PROPS = DEFAULT_PROPS;
 
+function getInheritedColor(backgroundColor) {
+  return backgroundColor === "primary.blue.t100"
+    ? "white"
+    : "highlight.blue.t100";
+}
+
 function Button(props) {
   const theme = useTheme();
-  const { background } = useBackground();
-  const inheritedColor =
-    background === "primary.blue.t100" ? "white" : "highlight.blue.t100";
-  const inheritedProps = {
-    color: inheritedColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    variant: (variant) => VARIANTS.includes(variant),
-    color: (color) => COLORS.includes(color),
-    fullWidth: (fullWidth) => typeof fullWidth === "boolean",
-    disabled: (disabled) => typeof disabled === "boolean",
-    type: (type) => TYPES.includes(type),
-  });
+  const { bgMap } = useBackground();
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      variant: (variant) => VARIANTS.includes(variant),
+      color: (color) => COLORS.includes(color),
+      fullWidth: (fullWidth) => typeof fullWidth === "boolean",
+      disabled: (disabled) => typeof disabled === "boolean",
+      type: (type) => TYPES.includes(type),
+    }
+  );
   const {
     variant,
-    color,
     fullWidth,
     disabled,
     type,
@@ -57,25 +63,35 @@ function Button(props) {
   } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color =
+        hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
+          ? mergedProps.color
+          : getInheritedColor(bgMap?.[bp]);
+      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
+
+      return {
+        ...theme[`button.${variant}.${colorStr}`],
+        ":hover": {
+          ...(!disabled && theme[`button.${variant}.${colorStr}:hover`]),
+        },
+        ...(__internal__hover && theme[`button.${variant}.${colorStr}:hover`]),
+        ":active": {
+          ...(!disabled && theme[`button.${variant}.${colorStr}:active`]),
+        },
+        ...(__internal__active &&
+          theme[`button.${variant}.${colorStr}:active`]),
+        ":disabled": {
+          ...theme["button:disabled"],
+          ...theme[`button.${variant}.${colorStr}:disabled`],
+        },
+      };
+    },
   });
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
   const css = {
     ...theme.button,
     ...(fullWidth && theme["button.fullWidth"]),
-    ...theme[`button.${variant}.${colorStr}`],
     ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-    ":hover": {
-      ...(!disabled && theme[`button.${variant}.${colorStr}:hover`]),
-    },
-    ...(__internal__hover && theme[`button.${variant}.${colorStr}:hover`]),
-    ":active": {
-      ...(!disabled && theme[`button.${variant}.${colorStr}:active`]),
-    },
-    ...(__internal__active && theme[`button.${variant}.${colorStr}:active`]),
-    ":disabled": {
-      ...theme["button:disabled"],
-      ...theme[`button.${variant}.${colorStr}:disabled`],
-    },
     ...responsivePropsCSS,
   };
 

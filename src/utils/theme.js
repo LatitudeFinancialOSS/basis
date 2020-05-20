@@ -1,16 +1,8 @@
-import {
-  EXCEPTION_PREFIX,
-  getMinMediaQueries,
-  getExclusiveMediaQueries,
-} from "./css";
+import { getMinMediaQueries, getExclusiveMediaQueries } from "./css";
 
 function getColor(colorName, theme) {
   if (typeof colorName !== "string" || colorName === "transparent") {
     return null;
-  }
-
-  if (colorName.startsWith(EXCEPTION_PREFIX)) {
-    colorName = colorName.slice(EXCEPTION_PREFIX.length);
   }
 
   const parts = colorName.split(".");

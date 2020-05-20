@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Text from "./Text";
 import useTheme from "../hooks/useTheme";
 import { TextStyleProvider } from "../hooks/useTextStyle";
-import { BackgroundProvider } from "../hooks/useBackground";
+import useBackground, { BackgroundProvider } from "../hooks/useBackground";
 import {
   responsiveMarginType,
   responsivePaddingType,
@@ -13,13 +13,16 @@ import {
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
+  DEFAULT_BREAKPOINT,
   responsiveMargin,
   responsivePadding,
   responsiveSize,
   responsiveTextAlign,
-  mergeResponsiveCSS,
 } from "../utils/css";
-import { EXCEPTION_PREFIX } from "../utils/css";
+import {
+  getResponsivePropMap,
+  mergeResponsivePropMaps,
+} from "../utils/component";
 
 const BACKGROUNDS = [
   "transparent",
@@ -45,51 +48,62 @@ Container.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const {
-    bg,
-    boxShadow,
-    hasBreakpointWidth,
-    textStyle,
-    children,
-    testId,
-  } = props;
+  const { boxShadow, textStyle, children, testId } = props;
   const theme = useTheme();
-  const responsivePropsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const { bgMap: inheritedBgMap } = useBackground();
+  const myBgMap = getResponsivePropMap(_props, DEFAULT_PROPS, "bg", theme);
+  const mergedResponsiveBgMap = mergeResponsivePropMaps(
+    inheritedBgMap,
+    myBgMap,
+    theme
+  );
+  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     padding: responsivePadding,
     width: responsiveSize("width"),
     height: responsiveSize("height"),
     textAlign: responsiveTextAlign,
-  });
-  const responsiveCSS = hasBreakpointWidth
-    ? mergeResponsiveCSS(
-        {
+    bg: (propsAtBreakpoint, theme, bp) => {
+      return {
+        backgroundColor:
+          mergedResponsiveBgMap[bp] === "transparent"
+            ? "transparent"
+            : theme.getColor(mergedResponsiveBgMap[bp]),
+      };
+    },
+    hasBreakpointWidth: ({ hasBreakpointWidth, margin }, theme, bp) => {
+      if (hasBreakpointWidth !== true) {
+        if (margin) {
+          return {
+            maxWidth: "initial",
+          };
+        }
+
+        return {
+          maxWidth: "initial",
+          marginLeft: "initial",
+          marginRight: "initial",
+        };
+      }
+
+      if (bp === DEFAULT_BREAKPOINT || !theme.breakpointMaxWidths[bp]) {
+        return {
           marginLeft: "15px", // This is half of our special 30px columns gap.
           marginRight: "15px",
-          // Note: the order of these media queries is important (because they are not exclusive).
-          [theme.minMediaQueries.sm]: {
-            maxWidth: theme.breakpointMaxWidths.sm,
-            marginLeft: "auto",
-            marginRight: "auto",
-          },
-          [theme.minMediaQueries.md]: {
-            maxWidth: theme.breakpointMaxWidths.md,
-          },
-          [theme.minMediaQueries.lg]: {
-            maxWidth: theme.breakpointMaxWidths.lg,
-          },
-          [theme.minMediaQueries.xl]: {
-            maxWidth: theme.breakpointMaxWidths.xl,
-          },
-        },
-        responsivePropsCSS
-      )
-    : responsivePropsCSS;
+        };
+      }
+
+      return {
+        maxWidth: theme.breakpointMaxWidths[bp],
+        marginLeft: "auto",
+        marginRight: "auto",
+      };
+    },
+  });
   let container = (
     <div
       css={{
         boxSizing: "border-box",
-        backgroundColor: bg === "transparent" ? bg : theme.getColor(bg),
         ...responsiveCSS,
         ...theme[`container.${boxShadow}`],
         "::after": theme[`container.${boxShadow}::after`],
@@ -106,37 +120,23 @@ function Container(_props) {
     );
   }
 
-  if (bg !== "transparent") {
-    container = <BackgroundProvider value={bg}>{container}</BackgroundProvider>;
-  }
-
-  return container;
+  return (
+    <BackgroundProvider value={mergedResponsiveBgMap}>
+      {container}
+    </BackgroundProvider>
+  );
 }
 
 Container.propTypes = {
-  bg: (props) => {
-    if (!props.bg || BACKGROUNDS.includes(props.bg)) {
-      return;
-    }
-
-    if (typeof props.bg === "string" && props.bg.startsWith(EXCEPTION_PREFIX)) {
-      return;
-    }
-
-    return new Error(
-      `Container: bg="${
-        props.bg
-      }" is not allowed. Must be one of: ${JSON.stringify(BACKGROUNDS)}`
-    );
-  },
   boxShadow: PropTypes.oneOf(BOX_SHADOWS),
   ...responsiveMarginType,
   ...responsivePaddingType,
   ...responsiveWidthType,
   ...responsiveHeightType,
+  ...responsivePropType("bg", PropTypes.oneOf(BACKGROUNDS)),
   ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
-  hasBreakpointWidth: PropTypes.bool,
+  ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   children: PropTypes.node,
   testId: PropTypes.string,
 };

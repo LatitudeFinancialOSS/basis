@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../utils/component";
 import Field from "./internal/Field";
@@ -31,23 +30,23 @@ RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function RadioGroup(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    showCircles: (showCircles) => typeof showCircles === "boolean",
-    disabled: (disabled) => typeof disabled === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-    options: (options) => areOptionsValid(options),
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      showCircles: (showCircles) => typeof showCircles === "boolean",
+      disabled: (disabled) => typeof disabled === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+      options: (options) => areOptionsValid(options),
+    }
+  );
   const {
     name,
     label,
     options,
     columns,
-    color,
     showCircles,
     helpText,
     disabled,
@@ -110,7 +109,7 @@ function RadioGroup(props) {
         auxId={auxId}
         options={options}
         columns={cols}
-        color={color}
+        color={props.color}
         showCircles={showCircles}
         disabled={disabled}
         isValid={!hasErrors}

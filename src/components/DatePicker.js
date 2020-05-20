@@ -6,7 +6,6 @@ import {
   format as formatDate,
 } from "date-fns";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
@@ -97,19 +96,19 @@ function getHelpText(value, day, defaultHelpText) {
 }
 
 function DatePicker(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    day: (day) => typeof day === "boolean",
-    disabled: (disabled) => typeof disabled === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      day: (day) => typeof day === "boolean",
+      disabled: (disabled) => typeof disabled === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+    }
+  );
   const {
     name,
-    color,
     label,
     day,
     helpText: helpTextProp,
@@ -174,7 +173,7 @@ function DatePicker(props) {
               <InternalInput
                 name={`${name}.day`}
                 parentName={name}
-                color={color}
+                color={props.color}
                 type="number"
                 placeholder="DD"
                 disabled={disabled}
@@ -189,7 +188,7 @@ function DatePicker(props) {
             <InternalInput
               name={`${name}.month`}
               parentName={name}
-              color={color}
+              color={props.color}
               type="number"
               placeholder="MM"
               disabled={disabled}
@@ -203,7 +202,7 @@ function DatePicker(props) {
             <InternalInput
               name={`${name}.year`}
               parentName={name}
-              color={color}
+              color={props.color}
               type="number"
               placeholder="YYYY"
               disabled={disabled}

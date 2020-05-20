@@ -119,6 +119,23 @@ describe("Button", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <Button>Find out more</Button>
+        </Container>
+      </Container>
+    );
+
+    const button = screen.getByText("Find out more");
+
+    expect(button).toHaveStyle({
+      backgroundColor: "#ffffff",
+      color: "#006aff",
+    });
+  });
+
   it("with margin", () => {
     render(<Button margin="2 4">Find out more</Button>);
 

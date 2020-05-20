@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
@@ -75,24 +74,24 @@ Frequency.MODES = MODES;
 Frequency.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Frequency(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    mode: (mode) => MODES.includes(mode),
-    annually: (annually) => typeof annually === "boolean",
-    quarterly: (quarterly) => typeof quarterly === "boolean",
-    monthly: (monthly) => typeof monthly === "boolean",
-    fortnightly: (fortnightly) => typeof fortnightly === "boolean",
-    weekly: (weekly) => typeof weekly === "boolean",
-    disabled: (disabled) => typeof disabled === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      mode: (mode) => MODES.includes(mode),
+      annually: (annually) => typeof annually === "boolean",
+      quarterly: (quarterly) => typeof quarterly === "boolean",
+      monthly: (monthly) => typeof monthly === "boolean",
+      fortnightly: (fortnightly) => typeof fortnightly === "boolean",
+      weekly: (weekly) => typeof weekly === "boolean",
+      disabled: (disabled) => typeof disabled === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+    }
+  );
   const {
     name,
-    color,
     mode,
     label,
     annually,
@@ -175,7 +174,7 @@ function Frequency(props) {
     <InternalInput
       name={`${name}.amount`}
       parentName={name}
-      color={color}
+      color={props.color}
       type="number"
       placeholder={amountPlaceholder}
       disabled={disabled}
@@ -209,7 +208,7 @@ function Frequency(props) {
               <InternalRadioGroup
                 name={`${name}.frequency`}
                 parentName={name}
-                color={color}
+                color={props.color}
                 options={frequencyOptions}
                 columns={2}
                 disabled={disabled}
@@ -229,7 +228,7 @@ function Frequency(props) {
               <InternalSelect
                 name={`${name}.frequency`}
                 parentName={name}
-                color={color}
+                color={props.color}
                 optional={optional}
                 placeholder={selectPlaceholder}
                 options={frequencyOptions}

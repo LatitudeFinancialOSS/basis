@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { pluralize } from "../utils/string";
 import { mergeProps } from "../utils/component";
@@ -81,18 +80,18 @@ function getHelpText(years, months, defaultHelpText) {
 }
 
 function TimeSpan(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    disabled: (disabled) => typeof disabled === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      disabled: (disabled) => typeof disabled === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+    }
+  );
   const {
     name,
-    color,
     label,
     helpText: helpTextProp,
     disabled,
@@ -152,7 +151,7 @@ function TimeSpan(props) {
             <InternalInput
               name={`${name}.years`}
               parentName={name}
-              color={color}
+              color={props.color}
               type="number"
               placeholder="Years"
               disabled={disabled}
@@ -167,7 +166,7 @@ function TimeSpan(props) {
             <InternalInput
               name={`${name}.months`}
               parentName={name}
-              color={color}
+              color={props.color}
               type="number"
               placeholder="Months"
               disabled={disabled}

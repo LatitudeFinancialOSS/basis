@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
@@ -28,21 +27,21 @@ Checkbox.COLORS = COLORS;
 Checkbox.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Checkbox(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    hideLabel: (hideLabel) => typeof hideLabel === "boolean",
-    color: (color) => COLORS.includes(color),
-    disabled: (disabled) => typeof disabled === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      hideLabel: (hideLabel) => typeof hideLabel === "boolean",
+      color: (color) => COLORS.includes(color),
+      disabled: (disabled) => typeof disabled === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+    }
+  );
   const {
     name,
     label,
     hideLabel,
-    color,
     helpText,
     disabled,
     optional,
@@ -94,7 +93,7 @@ function Checkbox(props) {
       <InternalCheckbox
         name={name}
         inputId={inputId}
-        color={color}
+        color={props.color}
         disabled={disabled}
         isValid={!hasErrors}
         labelledBy={label ? labelId : null}
