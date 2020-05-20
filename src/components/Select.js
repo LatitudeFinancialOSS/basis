@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../utils/component";
 import Field from "./internal/Field";
@@ -32,22 +31,22 @@ Select.COLORS = COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Select(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    placeholder: (placeholder) => typeof placeholder === "string",
-    fullWidth: (fullWidth) => typeof fullWidth === "boolean",
-    helpText: (helpText) => typeof helpText === "string",
-    disabled: (disabled) => typeof disabled === "boolean",
-    optional: (optional) => typeof optional === "boolean",
-    options: (options) => areOptionsValid(options),
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      placeholder: (placeholder) => typeof placeholder === "string",
+      fullWidth: (fullWidth) => typeof fullWidth === "boolean",
+      helpText: (helpText) => typeof helpText === "string",
+      disabled: (disabled) => typeof disabled === "boolean",
+      optional: (optional) => typeof optional === "boolean",
+      options: (options) => areOptionsValid(options),
+    }
+  );
   const {
     name,
-    color,
     label,
     placeholder,
     options,
@@ -106,7 +105,7 @@ function Select(props) {
       <InternalSelect
         id={selectId}
         name={name}
-        color={color}
+        color={props.color}
         placeholder={placeholder}
         options={options}
         fullWidth={fullWidth}

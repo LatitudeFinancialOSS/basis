@@ -2,12 +2,17 @@ import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import useTheme from "../hooks/useTheme";
-import useBackground, { BackgroundProvider } from "../hooks/useBackground";
+import useBackground, {
+  BackgroundProvider,
+  mapResponsiveValues,
+} from "../hooks/useBackground";
 import useAccordion, { AccordionProvider } from "../hooks/useAccordion";
 import useAccordionItem, {
   AccordionItemProvider,
 } from "../hooks/useAccordionItem";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../utils/component";
+import { hasOwnProperty } from "../utils/core";
 import Icon from "./Icon";
 
 const COLORS = ["grey.t07", "secondary.lightBlue.t25", "white"];
@@ -30,7 +35,18 @@ Accordion.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Header({ children, testId, __internal__keyboardFocus = false }) {
   const theme = useTheme();
-  const { color, textColor, itemHeaderAs: HeadingComponent } = useAccordion();
+  const { colorMap, textColor, itemHeaderAs: HeaderComponent } = useAccordion();
+  const responsiveCSS = useResponsivePropsCSS(
+    {},
+    {},
+    {
+      backgroundColor: (propsAtBreakpoint, theme, bp) => {
+        return {
+          backgroundColor: theme.getColor(colorMap[bp]),
+        };
+      },
+    }
+  );
   const {
     headerId,
     contentId,
@@ -42,13 +58,13 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
   }, [toggleAccordionItem]);
 
   return (
-    <HeadingComponent css={theme.accordionHeader} data-testid={testId}>
+    <HeaderComponent css={theme.accordionHeader} data-testid={testId}>
       <button
         id={headerId}
         css={{
           ...theme.accordionHeaderButton,
           ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-          backgroundColor: theme.getColor(color),
+          ...responsiveCSS,
           color: theme.getColor(textColor),
         }}
         type="button"
@@ -66,7 +82,7 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
           <Icon name="chevron-down" color={textColor} />
         </div>
       </button>
-    </HeadingComponent>
+    </HeaderComponent>
   );
 }
 
@@ -94,22 +110,38 @@ HeaderIcon.propTypes = {
 
 function Content({ children, testId }) {
   const theme = useTheme();
-  const { color } = useAccordion();
-  const backgroundColor =
-    color === "grey.t07"
-      ? "grey.t03"
-      : color === "secondary.lightBlue.t25"
-      ? "secondary.lightBlue.t15"
-      : "white";
+  const { colorMap } = useAccordion();
+  const bgMap = mapResponsiveValues(
+    colorMap,
+    (headerColor) => {
+      return headerColor === "grey.t07"
+        ? "grey.t03"
+        : headerColor === "secondary.lightBlue.t25"
+        ? "secondary.lightBlue.t15"
+        : "white";
+    },
+    theme
+  );
+  const responsiveCSS = useResponsivePropsCSS(
+    {},
+    {},
+    {
+      backgroundColor: (propsAtBreakpoint, theme, bp) => {
+        return {
+          backgroundColor: theme.getColor(bgMap[bp]),
+        };
+      },
+    }
+  );
   const { headerId, contentId, isOpen } = useAccordionItem();
 
   return (
-    <BackgroundProvider value={backgroundColor}>
+    <BackgroundProvider value={bgMap}>
       <div
         id={contentId}
         css={{
           ...theme.accordionContent,
-          backgroundColor: theme.getColor(backgroundColor),
+          ...responsiveCSS,
         }}
         role="region"
         aria-labelledby={headerId}
@@ -177,16 +209,19 @@ Item.propTypes = {
 };
 
 function Accordion(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    color: (color) => COLORS.includes(color),
-    textColor: (textColor) => TEXT_COLORS.includes(textColor),
-    itemGap: (itemGap) => ITEM_GAP.includes(itemGap),
-    itemHeaderAs: (itemHeaderAs) => ITEM_HEADER_AS.includes(itemHeaderAs),
-  });
+  const theme = useTheme();
+  const { bgMap } = useBackground();
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      color: (color) => COLORS.includes(color),
+      textColor: (textColor) => TEXT_COLORS.includes(textColor),
+      itemGap: (itemGap) => ITEM_GAP.includes(itemGap),
+      itemHeaderAs: (itemHeaderAs) => ITEM_HEADER_AS.includes(itemHeaderAs),
+    }
+  );
   const {
     color,
     textColor,
@@ -195,14 +230,26 @@ function Accordion(props) {
     children,
     testId,
   } = mergedProps;
+  const colorMap =
+    hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
+      ? mapResponsiveValues(bgMap, () => color, theme)
+      : mapResponsiveValues(
+          bgMap,
+          (backgroundColor) => {
+            return [undefined, "transparent", "white"].includes(backgroundColor)
+              ? DEFAULT_PROPS.color
+              : "white";
+          },
+          theme
+        );
   const accordionInfo = useMemo(
     () => ({
-      color,
+      colorMap,
       textColor,
       itemGap,
       itemHeaderAs,
     }),
-    [color, textColor, itemGap, itemHeaderAs]
+    [colorMap, textColor, itemGap, itemHeaderAs]
   );
 
   return (

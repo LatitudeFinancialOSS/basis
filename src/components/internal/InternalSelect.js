@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../../hooks/useTheme";
+import useBackground from "../../hooks/useBackground";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 
 const COLORS = ["grey.t05", "white"];
 
@@ -22,7 +24,6 @@ function InternalSelect(_props) {
     name,
     parentName,
     id,
-    color,
     placeholder,
     options,
     fullWidth,
@@ -37,14 +38,14 @@ function InternalSelect(_props) {
     __internal__focus,
   } = props;
   const theme = useTheme();
-  const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
+  const { inputColorMap } = useBackground();
+  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color = _props.color ?? inputColorMap[bp];
+      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
 
-  return (
-    <select
-      css={{
-        ...theme.selectInput,
+      return {
         ...theme[`selectInput.${colorStr}`],
-        ...(fullWidth && theme["selectInput.fullWidth"]),
         ":focus": {
           ...theme["selectInput:focus"],
           ...theme[`selectInput.${colorStr}:focus`],
@@ -59,6 +60,16 @@ function InternalSelect(_props) {
         ":hover": {
           ...(!disabled && theme[`selectInput.${colorStr}:hover`]),
         },
+      };
+    },
+  });
+
+  return (
+    <select
+      css={{
+        ...theme.selectInput,
+        ...responsiveCSS,
+        ...(fullWidth && theme["selectInput.fullWidth"]),
         // See: https://stackoverflow.com/a/19451423/247243
         ":-moz-focusring": {
           color: "transparent",

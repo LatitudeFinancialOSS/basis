@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { LinkContext } from "../providers/LinkProvider";
 import useTheme from "../hooks/useTheme";
-import useBackground from "../hooks/useBackground";
+import useBackground, { mapResponsiveValues } from "../hooks/useBackground";
 import {
   responsiveMarginType,
   responsivePaddingType,
@@ -25,26 +25,32 @@ Link.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Link(props) {
   const theme = useTheme();
-  const { background } = useBackground();
-  const inheritedVariant =
-    background === "primary.blue.t100"
-      ? "dark-bg"
-      : [
-          "grey.t07",
-          "secondary.lightBlue.t15",
-          "secondary.lightBlue.t25",
-        ].includes(background)
-      ? "medium-bg"
-      : "light-bg";
-  const inheritedProps = {
-    variant: inheritedVariant,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    variant: (variant) => VARIANTS.includes(variant),
-    newTab: (newTab) => typeof newTab === "boolean",
-  });
+  const { bgMap } = useBackground();
+  const variantMap = mapResponsiveValues(
+    bgMap,
+    (backgroundColor) => {
+      return backgroundColor === "primary.blue.t100"
+        ? "dark-bg"
+        : [
+            "grey.t07",
+            "secondary.lightBlue.t15",
+            "secondary.lightBlue.t25",
+          ].includes(backgroundColor)
+        ? "medium-bg"
+        : "light-bg";
+    },
+    theme
+  );
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      variant: (variant) => VARIANTS.includes(variant),
+      newTab: (newTab) => typeof newTab === "boolean",
+    }
+  );
   const {
-    variant,
     href,
     newTab,
     title,
@@ -59,13 +65,19 @@ function Link(props) {
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
     padding: responsivePadding,
+    variant: (propsAtBreakpoint, theme, bp) => {
+      const variant = props.variant ?? variantMap[bp];
+
+      return {
+        ...theme[`link.${variant}`],
+        ...(__internal__hover && theme[`link.${variant}`][":hover"]),
+        ...(__internal__active && theme[`link.${variant}`][":active"]),
+      };
+    },
   });
   const css = {
     ...theme.link,
-    ...theme[`link.${variant}`],
     ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-    ...(__internal__hover && theme[`link.${variant}`][":hover"]),
-    ...(__internal__active && theme[`link.${variant}`][":active"]),
     ...responsivePropsCSS,
   };
   const newTabProps = newTab

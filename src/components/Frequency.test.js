@@ -126,6 +126,22 @@ describe("Frequency", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithFrequency label="Salary" amountPlaceholder="0.00" />
+        </Container>
+      </Container>
+    );
+
+    const amountInput = screen.getByPlaceholderText("0.00");
+
+    expect(amountInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithFrequency label="Salary" testId="my-frequency" />

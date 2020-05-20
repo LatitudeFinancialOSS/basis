@@ -31,9 +31,11 @@ export default (theme) => ({
   },
   "button.primary.default:hover": {
     backgroundColor: theme.colors.primary.blue.t100,
+    color: theme.colors.white,
   },
   "button.primary.default:active": {
     backgroundColor: theme.colors.primary.blue.t100,
+    color: theme.colors.white,
   },
   // Primary white
   "button.primary.white": {

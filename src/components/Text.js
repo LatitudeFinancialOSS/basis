@@ -10,6 +10,7 @@ import useTextStyle from "../hooks/useTextStyle";
 import useBackground from "../hooks/useBackground";
 import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 import { mergeProps } from "../utils/component";
+import { hasOwnProperty } from "../utils/core";
 
 const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
 const TEXT_STYLES = [
@@ -75,6 +76,10 @@ const allowedColors = [
   },
 ];
 
+function getInheritedColor(backgroundColor) {
+  return backgroundColor === "primary.blue.t100" ? "white" : "black";
+}
+
 const DEFAULT_PROPS = {
   as: "p",
   textStyle: "body1",
@@ -93,11 +98,9 @@ Text.DEFAULT_PROPS = DEFAULT_PROPS;
 function Text(props) {
   const theme = useTheme();
   const { textStyle: inheritedTextStyle } = useTextStyle();
-  const { background } = useBackground();
-  const inheritedColor = background === "primary.blue.t100" ? "white" : "black";
+  const { bgMap } = useBackground();
   const inheritedProps = {
     textStyle: inheritedTextStyle,
-    color: inheritedColor,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
     as: (as) => AS.includes(as),
@@ -106,10 +109,18 @@ function Text(props) {
     align: (align) => ALIGNS.includes(align),
     wrap: (wrap) => typeof wrap === "boolean",
   });
-  const { as, color, align, wrap, children, testId } = mergedProps;
+  const { as, align, wrap, children, testId } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
     textStyle: responsiveTextStyle,
+    color: (propsAtBreakpoint, theme, bp) => {
+      return {
+        color:
+          hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
+            ? theme.getColor(mergedProps.color)
+            : theme.getColor(getInheritedColor(bgMap?.[bp])),
+      };
+    },
   });
   const Component = as;
   const css = {
@@ -117,7 +128,6 @@ function Text(props) {
     ...(!wrap && theme["text.noWrap"]),
     ...responsivePropsCSS,
     textAlign: align,
-    color: theme.getColor(color),
   };
 
   return (

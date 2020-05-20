@@ -23,23 +23,11 @@ export default (theme) => ({
     backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100,
   },
-  "checkboxLabel.grey.t05": {
-    backgroundColor: theme.colors.grey.t05,
-  },
-  "checkboxLabel.white": {
-    backgroundColor: theme.colors.white,
-  },
   checkboxIcon: {
     flexShrink: 0,
     width: "24px",
     height: "24px",
     marginRight: theme.space[3],
-  },
-  "checkboxIcon.secondary.lightBlue.t25": {
-    fill: theme.colors.secondary.lightBlue.t25,
-  },
-  "checkboxIcon.white": {
-    fill: theme.colors.white,
   },
   checkboxIconMark: {
     stroke: theme.colors.primary.blue.t100,

@@ -74,6 +74,25 @@ describe("Link", () => {
     });
   });
 
+  it("inherits variant based on background in nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <Link href="/terms" newTab={false}>
+            Terms and Conditions
+          </Link>
+        </Container>
+      </Container>
+    );
+
+    const link = screen.getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle({
+      color: "#d8edff",
+      borderBottomColor: "rgba(216,237,255,0.5)",
+    });
+  });
+
   it("with margin", () => {
     render(
       <Link href="/terms" newTab={false} margin="1 2 3">

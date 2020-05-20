@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../../hooks/useTheme";
+import useBackground from "../../hooks/useBackground";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import VisuallyHidden from "../VisuallyHidden";
 
 const COLORS = ["grey.t05", "white"];
@@ -16,6 +18,24 @@ InternalCheckbox.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function CheckboxIcon({ color, isChecked }) {
   const theme = useTheme();
+  const { inputColorMap } = useBackground();
+  const rectResponsiveCSS = useResponsivePropsCSS(
+    {},
+    {},
+    {
+      color: (propsAtBreakpoint, theme, bp) => {
+        const labelColor = color ?? inputColorMap[bp];
+        const fill =
+          labelColor === "grey.t05" || isChecked
+            ? "white"
+            : "secondary.lightBlue.t25";
+
+        return {
+          fill: theme.getColor(fill),
+        };
+      },
+    }
+  );
 
   return (
     <svg
@@ -24,12 +44,7 @@ function CheckboxIcon({ color, isChecked }) {
       focusable="false"
       aria-hidden="true"
     >
-      <rect
-        css={theme[`checkboxIcon.${color}`]}
-        width="100"
-        height="100"
-        rx="16"
-      />
+      <rect css={rectResponsiveCSS} width="100" height="100" rx="16" />
       {isChecked && (
         <path
           css={theme.checkboxIconMark}
@@ -45,7 +60,7 @@ function CheckboxIcon({ color, isChecked }) {
 }
 
 CheckboxIcon.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
+  color: PropTypes.oneOf(COLORS),
   isChecked: PropTypes.bool.isRequired,
 };
 
@@ -69,6 +84,14 @@ function InternalCheckbox(_props) {
     __internal__keyboardFocus,
   } = props;
   const theme = useTheme();
+  const { inputColorMap } = useBackground();
+  const labelResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      return {
+        backgroundColor: theme.getColor(_props.color ?? inputColorMap[bp]),
+      };
+    },
+  });
 
   return (
     <div
@@ -99,19 +122,14 @@ function InternalCheckbox(_props) {
       <label
         css={{
           ...theme.checkboxLabel,
-          ...theme[`checkboxLabel.${color}`],
+          ...labelResponsiveCSS,
           ...(__internal__keyboardFocus &&
             theme.focusStyles.__keyboardFocusAdjacentLabel),
         }}
         htmlFor={inputId}
         onMouseDown={onMouseDown}
       >
-        <CheckboxIcon
-          color={
-            color === "grey.t05" || value ? "white" : "secondary.lightBlue.t25"
-          }
-          isChecked={value}
-        />
+        <CheckboxIcon color={color} isChecked={value} />
         <span /* This span is needed so that we could mix text and <Link>. Without it, the white space between them would be ignored. */
         >
           {children}

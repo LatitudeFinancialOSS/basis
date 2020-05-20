@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import useTheme from "../../hooks/useTheme";
+import useBackground from "../../hooks/useBackground";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import Grid from "../Grid";
 import VisuallyHidden from "../VisuallyHidden";
 
@@ -17,8 +19,25 @@ const DEFAULT_PROPS = {
 InternalRadioGroup.COLORS = COLORS;
 InternalRadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function RadioCircle({ color, isChecked }) {
+function RadioCircle(props) {
+  const { isChecked } = props;
   const theme = useTheme();
+  const { inputColorMap } = useBackground();
+  const circleResponsiveCSS = useResponsivePropsCSS(
+    props,
+    {},
+    {
+      color: (propsAtBreakpoint, theme, bp) => {
+        const labelColor = props.color ?? inputColorMap[bp];
+        const color =
+          labelColor === "grey.t05" || isChecked
+            ? "white"
+            : "secondary.lightBlue.t25";
+
+        return theme[`radioGroupRadioOuterCircle.${color}`];
+      },
+    }
+  );
 
   return (
     <svg
@@ -27,12 +46,7 @@ function RadioCircle({ color, isChecked }) {
       focusable="false"
       aria-hidden="true"
     >
-      <circle
-        css={theme[`radioGroupRadioOuterCircle.${color}`]}
-        cx="12"
-        cy="12"
-        r="12"
-      />
+      <circle css={circleResponsiveCSS} cx="12" cy="12" r="12" />
       {isChecked && (
         <circle css={theme.radioGroupRadioInnerCircle} cx="12" cy="12" r="6" />
       )}
@@ -41,26 +55,34 @@ function RadioCircle({ color, isChecked }) {
 }
 
 RadioCircle.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]).isRequired,
+  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]),
   isChecked: PropTypes.bool.isRequired,
 };
 
-function Radio({
-  name,
-  parentName,
-  color,
-  isOneLine,
-  showCircle,
-  label,
-  isChecked,
-  disabled,
-  onFocus,
-  onBlur,
-  onMouseDown,
-  value,
-  onChange,
-}) {
+function Radio(props) {
+  const {
+    name,
+    parentName,
+    isOneLine,
+    showCircle,
+    label,
+    isChecked,
+    disabled,
+    onFocus,
+    onBlur,
+    onMouseDown,
+    value,
+    onChange,
+  } = props;
   const theme = useTheme();
+  const { inputColorMap } = useBackground();
+  const labelResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color = props.color ?? inputColorMap[bp];
+
+      return theme[`radioGroupRadioLabel.${color}`];
+    },
+  });
   const [inputId] = useState(() => `radio-input-${nanoid()}`);
 
   return (
@@ -86,7 +108,7 @@ function Radio({
       <label
         css={{
           ...theme.radioGroupRadioLabel,
-          ...theme[`radioGroupRadioLabel.${color}`],
+          ...labelResponsiveCSS,
           ...(isOneLine &&
             !showCircle &&
             theme["radioGroupRadioLabel.oneLine.withoutCircle"]),
@@ -95,14 +117,7 @@ function Radio({
         onMouseDown={onMouseDown}
       >
         {showCircle && (
-          <RadioCircle
-            color={
-              color === "grey.t05" || isChecked
-                ? "white"
-                : "secondary.lightBlue.t25"
-            }
-            isChecked={isChecked}
-          />
+          <RadioCircle color={props.color} isChecked={isChecked} />
         )}
         {label}
       </label>
@@ -113,7 +128,7 @@ function Radio({
 Radio.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
-  color: PropTypes.oneOf(COLORS).isRequired,
+  color: PropTypes.oneOf(COLORS),
   isOneLine: PropTypes.bool.isRequired,
   showCircle: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,

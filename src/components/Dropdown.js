@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import { useSelect } from "downshift";
-import useBackground from "../hooks/useBackground";
 import useField from "../hooks/internal/useField";
 import useWindow from "../hooks/useWindow";
 import { responsiveMaxHeightType } from "../hooks/useResponsiveProp";
@@ -35,24 +34,25 @@ Dropdown.COLORS = COLORS;
 Dropdown.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Dropdown(props) {
-  const { inputColor } = useBackground();
-  const inheritedProps = {
-    color: inputColor,
-  };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    hideLabel: (hideLabel) => typeof hideLabel === "boolean",
-    color: (color) => COLORS.includes(color),
-    placeholderComponent: (placeholderComponent) =>
-      typeof placeholderComponent === "function",
-    optionToString: (optionToString) => typeof optionToString === "function",
-    optionComponent: (optionComponent) => typeof optionComponent === "function",
-    helpText: (helpText) => typeof helpText === "string",
-    disabled: (disabled) => typeof disabled === "boolean",
-    options: (options) => areDropdownOptionsValid(options),
-  });
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      hideLabel: (hideLabel) => typeof hideLabel === "boolean",
+      color: (color) => COLORS.includes(color),
+      placeholderComponent: (placeholderComponent) =>
+        typeof placeholderComponent === "function",
+      optionToString: (optionToString) => typeof optionToString === "function",
+      optionComponent: (optionComponent) =>
+        typeof optionComponent === "function",
+      helpText: (helpText) => typeof helpText === "string",
+      disabled: (disabled) => typeof disabled === "boolean",
+      options: (options) => areDropdownOptionsValid(options),
+    }
+  );
   const {
     name,
-    color,
     label,
     hideLabel,
     placeholderComponent,
@@ -164,7 +164,7 @@ function Dropdown(props) {
     >
       <InternalDropdown
         name={name}
-        color={color}
+        color={props.color}
         placeholderComponent={placeholderComponent}
         optionComponent={optionComponent}
         options={options}

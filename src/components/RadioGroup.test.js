@@ -87,6 +87,22 @@ describe("RadioGroup", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithRadioGroup label="Are you happy?" />
+        </Container>
+      </Container>
+    );
+
+    const yesLabel = screen.getByText("Yes");
+
+    expect(yesLabel).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithRadioGroup label="Are you happy?" testId="my-radio-group" />

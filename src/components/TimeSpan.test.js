@@ -122,6 +122,22 @@ describe("TimeSpan", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithTimeSpan label="How long do you live in the current address?" />
+        </Container>
+      </Container>
+    );
+
+    const yearsInput = screen.getByPlaceholderText("Years");
+
+    expect(yearsInput).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithTimeSpan

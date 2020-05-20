@@ -97,6 +97,22 @@ describe("Input", () => {
     });
   });
 
+  it("inside nested container", () => {
+    render(
+      <Container bg="primary.blue.t100">
+        <Container>
+          <FormWithInput label="First name" />
+        </Container>
+      </Container>
+    );
+
+    const input = screen.getByLabelText("First name");
+
+    expect(input).toHaveStyle({
+      backgroundColor: "#ffffff",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithInput label="First name" testId="my-input" />
