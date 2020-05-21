@@ -20,6 +20,9 @@ module.exports = {
       DatePicker: {
         status: COMPONENT_STATUS.READY,
       },
+      Divider: {
+        status: COMPONENT_STATUS.READY,
+      },
       Dropdown: {
         status: COMPONENT_STATUS.READY,
       },
