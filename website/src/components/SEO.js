@@ -8,6 +8,7 @@ function SEO({ title, description = "Basis Design System" }) {
       <Helmet htmlAttributes={{ lang: "en" }}>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <script async src="https://cdn.splitbee.io/sb.js"></script>
       </Helmet>
     </HelmetProvider>
   );
