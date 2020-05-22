@@ -106,6 +106,16 @@ describe("Container", () => {
     });
   });
 
+  it("with hide", () => {
+    render(<Container hide>Hello World</Container>);
+
+    const node = screen.getByText("Hello World");
+
+    expect(node).toHaveStyle({
+      display: "none",
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <Container testId="my-container">Hello World</Container>

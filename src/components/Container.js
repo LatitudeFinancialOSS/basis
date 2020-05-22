@@ -40,6 +40,7 @@ const BOX_SHADOWS = ["header"];
 const DEFAULT_PROPS = {
   bg: "transparent",
   hasBreakpointWidth: false,
+  hide: false,
 };
 
 Container.BACKGROUNDS = BACKGROUNDS;
@@ -99,6 +100,13 @@ function Container(_props) {
         marginRight: "auto",
       };
     },
+    hide: ({ hide }) => {
+      return hide
+        ? {
+            display: "none",
+          }
+        : {};
+    },
   });
   let container = (
     <div
@@ -137,6 +145,7 @@ Container.propTypes = {
   ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
+  ...responsivePropType("hide", PropTypes.bool),
   children: PropTypes.node,
   testId: PropTypes.string,
 };
