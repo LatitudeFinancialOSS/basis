@@ -7,6 +7,7 @@ import { COMPONENT_STATUS } from "../utils/constants";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
+import Splitbee from "../components/Splitbee";
 import { BasisProvider, Container, Text, Link } from "basis";
 import theme from "../themes/website";
 import { getTabsUrls } from "../utils/url";
@@ -35,6 +36,7 @@ function Page({ pageContext, children }) {
         }}
       />
       <SEO title={title} />
+      <Splitbee />
       {layout === "empty" ? (
         <main>{children}</main>
       ) : (
