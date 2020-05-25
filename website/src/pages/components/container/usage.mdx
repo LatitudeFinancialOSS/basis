@@ -1,2 +1,76 @@
-<Text>Container usage is coming soon.</Text>
-<Text>Meantime, enjoy the <Link href="/components/container" newTab={false}>Playground</Link>.</Text>
+You should use a `Container` if you need one of the following:
+
+- Add background color
+- Add margin or padding
+- Hide content responsively
+- Set max-width
+
+### Add background color
+
+The `bg` prop is responsive, and the following backgrounds are currently supported:
+
+- <Color>transparent</Color>
+- <Color>white</Color>
+- <Color>grey.t03</Color>
+- <Color>grey.t05</Color>
+- <Color>grey.t07</Color>
+- <Color>secondary.lightBlue.t15</Color>
+- <Color>secondary.lightBlue.t25</Color>
+- <Color>primary.blue.t100</Color>
+
+For example, to add a `grey.t07` background on smaller screens only, you could do:
+
+```
+<Container bg="grey.t07" bg-md="transparent">
+  Some content
+</Container>
+```
+
+### Add margin or padding
+
+Both the `margin` and the `padding` props are responsive and use the [spacing scale](/spacing).
+
+For example, to set `{ margin: "16px 0 24px 0" }`, do:
+
+```
+<Container margin="4 0 6 0">
+  Some content
+</Container>
+```
+
+To set `{ padding: "0 20px 4px" }`, do:
+
+```
+<Container padding="0 5 1">
+  Some content
+</Container>
+```
+
+### Hide content responsively
+
+The responsive `hide` prop allows you to hide `Container`'s content based on the screen size.
+
+For example, to hide text starting from the `lg` screen size, do:
+
+```
+<Container hide-lg>
+  I will be hidden on large screens.
+</Container>
+```
+
+To show text only on `sm` and `md` screens, do:
+
+```
+<Container hide hide-sm={false} hide-lg>
+  I will be visible only on small and medium screens.
+</Container>
+```
+
+### Set max-width
+
+The responsive `hasBreakpointWidth` prop allows you to set a `max-width` based on the screen size.
+
+| Breakpoint | Screen size  | max-width |
+| ---------- | ------------ | --------- |
+| sm         | 576px..767px | 540px     |
+| md         |
