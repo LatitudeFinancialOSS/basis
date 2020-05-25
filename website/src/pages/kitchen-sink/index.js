@@ -6,6 +6,7 @@ import {
   Checkbox,
   Container,
   DatePicker,
+  Divider,
   Flex,
   Footer,
   Frequency,
@@ -34,6 +35,7 @@ function KitchenSink() {
       <Checkbox />
       <Container />
       <DatePicker />
+      <Divider />
       <Flex />
       <Footer />
       <Frequency />

@@ -27,7 +27,7 @@ function Divider(_props) {
     <svg
       css={responsiveCSS}
       width="100%"
-      height="32"
+      height="24"
       focusable="false"
       role="img"
       data-testid={testId}
@@ -36,19 +36,22 @@ function Divider(_props) {
         id={patternId}
         x="0"
         y="0"
-        width="20"
-        height="32"
+        width="15"
+        height="24"
         patternUnits="userSpaceOnUse"
       >
-        <circle cx="4" cy="4" r="4" fill={circleColor}></circle>
-        <circle cx="14" cy="16" r="4" fill={circleColor}></circle>
-        <circle cx="4" cy="28" r="4" fill={circleColor}></circle>
+        <circle cx="3" cy="3" r="3" fill={circleColor}></circle>
+        <circle cx="10.5" cy="12" r="3" fill={circleColor}></circle>
+        <circle cx="3" cy="21" r="3" fill={circleColor}></circle>
       </pattern>
       <rect
+        css={{
+          transform: "translateX(-4px)",
+          width: "calc(100% + 4px)",
+          height: "100%",
+        }}
         x="0"
         y="0"
-        width="100%"
-        height="100%"
         fill={`url(#${patternId})`}
       ></rect>
     </svg>
