@@ -231,8 +231,10 @@ export function responsivePadding(propsAtBreakpoint, theme) {
   return padding === null ? {} : { padding };
 }
 
+const NUMBERS_ONLY_REGEX = /^\d+$/;
+
 function addPxIfNeeded(str) {
-  if (/^\d+$/.test(str)) {
+  if (NUMBERS_ONLY_REGEX.test(str)) {
     return `${str}px`;
   }
 

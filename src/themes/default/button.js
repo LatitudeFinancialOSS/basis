@@ -15,9 +15,6 @@ export default (theme) => ({
       cursor: "pointer",
     },
   },
-  "button.fullWidth": {
-    width: "100%",
-  },
   "button:disabled": {
     backgroundColor: theme.colors.grey.t30,
     color: theme.colors.grey.t75,
