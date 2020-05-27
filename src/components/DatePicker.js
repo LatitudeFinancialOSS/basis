@@ -92,7 +92,7 @@ function getHelpText(value, day, defaultHelpText) {
     return defaultHelpText;
   }
 
-  return formatDate(date, day ? "d MMMM, yyyy" : "MMMM, yyyy");
+  return formatDate(date, day ? "d MMMM yyyy" : "MMMM yyyy");
 }
 
 function DatePicker(props) {
