@@ -63,7 +63,7 @@ describe("DatePicker", () => {
     await userEvent.type(screen.getByPlaceholderText("MM"), "4");
     await userEvent.type(screen.getByPlaceholderText("YYYY"), "2017");
 
-    expect(getHelpText(container)).toBe("6 April, 2017");
+    expect(getHelpText(container)).toBe("6 April 2017");
   });
 
   it("renders the date as help text when day={false}", async () => {
@@ -74,7 +74,7 @@ describe("DatePicker", () => {
     await userEvent.type(screen.getByPlaceholderText("MM"), "4");
     await userEvent.type(screen.getByPlaceholderText("YYYY"), "2017");
 
-    expect(getHelpText(container)).toBe("April, 2017");
+    expect(getHelpText(container)).toBe("April 2017");
   });
 
   it("renders help text", () => {
