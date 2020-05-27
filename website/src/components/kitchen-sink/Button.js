@@ -55,7 +55,7 @@ function KitchenSinkButton() {
         )}
 
         <Container padding="4">
-          <Button fullWidth>Full width</Button>
+          <Button width="100%">Full width</Button>
         </Container>
       </Grid>
     </KitchenSinkLayout>

@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsiveMarginType } from "../hooks/useResponsiveProp";
+import {
+  responsiveMarginType,
+  responsiveWidthType,
+} from "../hooks/useResponsiveProp";
 import { hasOwnProperty } from "../utils/core";
-import { responsiveMargin } from "../utils/css";
+import { responsiveMargin, responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
 const VARIANTS = ["primary", "secondary", "icon"];
@@ -15,7 +18,6 @@ const TYPES = ["button", "submit"];
 const DEFAULT_PROPS = {
   variant: "primary",
   color: "highlight.blue.t100",
-  fullWidth: false,
   disabled: false,
   type: "button",
   __internal__keyboardFocus: false,
@@ -44,14 +46,12 @@ function Button(props) {
     {
       variant: (variant) => VARIANTS.includes(variant),
       color: (color) => COLORS.includes(color),
-      fullWidth: (fullWidth) => typeof fullWidth === "boolean",
       disabled: (disabled) => typeof disabled === "boolean",
       type: (type) => TYPES.includes(type),
     }
   );
   const {
     variant,
-    fullWidth,
     disabled,
     type,
     onClick,
@@ -63,6 +63,7 @@ function Button(props) {
   } = mergedProps;
   const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     margin: responsiveMargin,
+    width: responsiveSize("width"),
     color: (propsAtBreakpoint, theme, bp) => {
       const color =
         hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
@@ -90,7 +91,6 @@ function Button(props) {
   });
   const css = {
     ...theme.button,
-    ...(fullWidth && theme["button.fullWidth"]),
     ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
     ...responsivePropsCSS,
   };
@@ -110,9 +110,9 @@ function Button(props) {
 
 Button.propTypes = {
   ...responsiveMarginType,
+  ...responsiveWidthType,
   variant: PropTypes.oneOf(VARIANTS),
   color: PropTypes.oneOf(COLORS),
-  fullWidth: PropTypes.bool,
   disabled: PropTypes.bool,
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,

@@ -73,8 +73,8 @@ describe("Button", () => {
     });
   });
 
-  it("full width", () => {
-    render(<Button fullWidth>Find out more</Button>);
+  it("with width", () => {
+    render(<Button width="100%">Find out more</Button>);
 
     const button = screen.getByText("Find out more");
 
