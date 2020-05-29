@@ -7,15 +7,17 @@ import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, List } = allDesignSystem;
-const { TYPES, TEXT_STYLES, DEFAULT_PROPS } = List;
+const { TYPES, VARIANTS, TEXT_STYLES, DEFAULT_PROPS } = List;
 const scope = allDesignSystem;
 
 const typeOptions = getRadioOptions(TYPES);
+const variantOptions = getRadioOptions(VARIANTS);
 const textStyleOptions = getRadioOptions(TEXT_STYLES);
 
 function ListPage() {
   const theme = useTheme();
   const [type, setType] = useState(DEFAULT_PROPS.type);
+  const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [textStyle, setTextStyle] = useState(DEFAULT_PROPS.textStyle);
   const code = formatCode(`
   <List ${nonDefaultProps([
@@ -23,6 +25,11 @@ function ListPage() {
       prop: "type",
       value: type,
       defaultValue: DEFAULT_PROPS.type,
+    },
+    {
+      prop: "variant",
+      value: variant,
+      defaultValue: DEFAULT_PROPS.variant,
     },
     {
       prop: "textStyle",
@@ -66,6 +73,13 @@ function ListPage() {
           options={typeOptions}
           selectedValue={type}
           setSelectedValue={setType}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Variant"
+          options={variantOptions}
+          selectedValue={variant}
+          setSelectedValue={setVariant}
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}

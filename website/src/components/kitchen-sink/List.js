@@ -38,6 +38,33 @@ function KitchenSinkList() {
             </Container>
           ))}
         </Stack>
+        <Text textStyle="heading5" margin="6 0 4 0">
+          danger
+        </Text>
+        <Container width="240" bg="grey.t05">
+          <List variant="danger">
+            <List.Item>Short item</List.Item>
+            <List.Item>
+              Very long item with a{" "}
+              <Link href="#" newTab={false}>
+                link
+              </Link>{" "}
+              and a <b>bold text</b> that demonstrates a multi-line paragraph.
+              <Text textStyle="legal">
+                {`Note that you can override List's textStyle.`}
+              </Text>
+            </List.Item>
+            <List.Item>
+              <strong>Nested list</strong>
+              <List>
+                <List.Item>First</List.Item>
+                <List.Item>Second</List.Item>
+                <List.Item>Third</List.Item>
+              </List>
+            </List.Item>
+            <List.Item>Last item</List.Item>
+          </List>
+        </Container>
       </Container>
 
       <Container padding="4">

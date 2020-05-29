@@ -12,16 +12,21 @@ export default (theme) => ({
   },
   "listItem.unordered": {
     position: "relative",
-    "::before": {
-      content: '""',
-      width: "0.5em",
-      height: "0.5em",
-      backgroundColor: theme.colors.secondary.lightBlue.t100,
-      borderRadius: theme.radii[3],
-      position: "absolute",
-      top: "0.5em",
-      left: "-1.25em",
-    },
+  },
+  "listItem.unordered::before": {
+    content: '""',
+    width: "0.5em",
+    height: "0.5em",
+    borderRadius: theme.radii[3],
+    position: "absolute",
+    top: "0.5em",
+    left: "-1.25em",
+  },
+  "listItem.unordered.default::before": {
+    backgroundColor: theme.colors.secondary.lightBlue.t100,
+  },
+  "listItem.unordered.danger::before": {
+    backgroundColor: theme.colors.conditional.negative.graphics,
   },
   "listItem.unordered.subtitle1": {
     ":not(:first-of-type)": {
@@ -76,12 +81,12 @@ export default (theme) => ({
   "listItem.ordered": {
     position: "relative",
     counterIncrement: "ordered",
-    "::before": {
-      content: 'counter(ordered, decimal) ". "',
-      position: "absolute",
-      top: 0,
-      left: "-1.25em",
-    },
+  },
+  "listItem.ordered::before": {
+    content: 'counter(ordered, decimal) ". "',
+    position: "absolute",
+    top: 0,
+    left: "-1.25em",
   },
   "listItem.ordered.nested::before": {
     content: 'counter(ordered, lower-alpha) ". "',
@@ -105,20 +110,20 @@ export default (theme) => ({
     ":last-of-type": {
       marginBottom: 0,
     },
-    "::before": {
-      content: "counter(steps, decimal)",
-      width: "2em",
-      height: "2em",
-      lineHeight: "2em",
-      color: theme.colors.white,
-      backgroundColor: theme.colors.primary.blue.t100,
-      fontWeight: theme.fontWeights.medium,
-      textAlign: "center",
-      borderRadius: theme.radii[3],
-      position: "absolute",
-      top: "-0.25em",
-      left: "-2.5em",
-    },
+  },
+  "listItem.steps::before": {
+    content: "counter(steps, decimal)",
+    width: "2em",
+    height: "2em",
+    lineHeight: "2em",
+    color: theme.colors.white,
+    backgroundColor: theme.colors.primary.blue.t100,
+    fontWeight: theme.fontWeights.medium,
+    textAlign: "center",
+    borderRadius: theme.radii[3],
+    position: "absolute",
+    top: "-0.25em",
+    left: "-2.5em",
   },
   "listItem.steps.nested::before": {
     content: "counter(steps, lower-alpha)",
