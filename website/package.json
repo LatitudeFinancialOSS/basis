@@ -14,7 +14,7 @@
     "@emotion/core": "10.0.28",
     "@mdx-js/mdx": "1.6.5",
     "@mdx-js/react": "1.6.5",
-    "@react-hook/mouse-position": "4.0.0",
+    "@react-hook/mouse-position": "3.2.2",
     "copy-to-clipboard": "3.3.1",
     "emotion-theming": "10.0.27",
     "gatsby": "2.22.12",
