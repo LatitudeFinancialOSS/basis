@@ -36,6 +36,7 @@ export default (theme) => ({
   // Icon default
   "button.icon.default": {
     display: "flex",
+    alignItems: "center",
     padding: `0 ${theme.space[1]}`,
     color: theme.colors.grey.t65,
     backgroundColor: "transparent",
