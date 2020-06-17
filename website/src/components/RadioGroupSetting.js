@@ -14,28 +14,40 @@ export const getCheckboxOptions = () => [
   { value: true, label: "yes" },
 ];
 
-function Option({ value, name, checked, label, onChange }) {
+function Option({ value, name, checked, disabled = false, label, onChange }) {
   const theme = useTheme();
   const [id] = useState(`radio-${nanoid()}`);
 
   return (
     <div
       css={{
+        display: "flex",
+        alignItems: "center",
         paddingTop: theme.space[1],
         paddingBottom: theme.space[1],
         whiteSpace: "nowrap",
       }}
     >
       <input
+        css={{
+          margin: 0,
+        }}
         id={id}
         type="radio"
         value={value}
         name={name}
         checked={checked}
+        disabled={disabled}
         onChange={onChange}
       />
       <label
-        css={{ marginLeft: theme.space[2], verticalAlign: "middle" }}
+        css={{
+          marginLeft: theme.space[2],
+          ...(disabled && {
+            color: theme.colors.grey.t65,
+            cursor: "not-allowed",
+          }),
+        }}
         htmlFor={id}
       >
         {label}
@@ -48,6 +60,7 @@ Option.propTypes = {
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
@@ -79,11 +92,12 @@ function RadioGroupSetting({
       <Text color="grey.t75" margin="0 0 2 0">
         <strong>{heading.toUpperCase()}</strong>
       </Text>
-      {options.map(({ value, label }) => (
+      {options.map(({ value, label, disabled }) => (
         <Option
           value={String(value)}
           name={heading}
           checked={value === selectedValue}
+          disabled={disabled}
           label={label}
           onChange={onChange}
           key={value}
@@ -104,6 +118,7 @@ RadioGroupSetting.propTypes = {
         PropTypes.bool,
       ]).isRequired,
       label: PropTypes.string.isRequired,
+      disabled: PropTypes.bool,
     })
   ).isRequired,
   selectedValue: PropTypes.oneOfType([

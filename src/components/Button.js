@@ -12,7 +12,7 @@ import { responsiveMargin, responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
 const VARIANTS = ["primary", "secondary", "icon"];
-const COLORS = ["highlight.blue.t100", "white"];
+const COLORS = ["highlight.blue.t100", "white", "green"];
 const TYPES = ["button", "submit"];
 
 const DEFAULT_PROPS = {

@@ -55,6 +55,17 @@ describe("Button", () => {
     });
   });
 
+  it("primary green", () => {
+    render(<Button color="green">Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
+
+    expect(button).toHaveStyle({
+      backgroundColor: "#21a637",
+      color: "#ffffff",
+    });
+  });
+
   it("secondary white", () => {
     render(
       <Button variant="secondary" color="white">
