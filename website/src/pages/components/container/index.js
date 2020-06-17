@@ -12,11 +12,13 @@ const { BACKGROUNDS, DEFAULT_PROPS } = Container;
 const scope = allDesignSystem;
 
 const bgOptions = getRadioOptions(BACKGROUNDS);
+const hasBorderOptions = getCheckboxOptions();
 const hasBreakpointWidthOptions = getCheckboxOptions();
 
 function ContainerPage() {
   const theme = useTheme();
   const [bg, setBg] = useState("grey.t05");
+  const [hasBorder, setHasBorder] = useState(DEFAULT_PROPS.hasBorder);
   const [hasBreakpointWidth, setHasBreakpointWidth] = useState(
     DEFAULT_PROPS.hasBreakpointWidth
   );
@@ -26,6 +28,12 @@ function ContainerPage() {
         prop: "bg",
         value: bg,
         defaultValue: DEFAULT_PROPS.bg,
+      },
+      {
+        prop: "hasBorder",
+        value: hasBorder,
+        defaultValue: DEFAULT_PROPS.hasBorder,
+        type: "boolean",
       },
       {
         prop: "padding",
@@ -72,6 +80,14 @@ function ContainerPage() {
           options={bgOptions}
           selectedValue={bg}
           setSelectedValue={setBg}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Has Border"
+          options={hasBorderOptions}
+          selectedValue={hasBorder}
+          setSelectedValue={setHasBorder}
+          type="boolean"
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}

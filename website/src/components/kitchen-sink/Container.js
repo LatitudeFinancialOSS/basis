@@ -5,49 +5,41 @@ import KitchenSinkLayout from "./KitchenSinkLayout";
 function KitchenSinkContainer() {
   return (
     <KitchenSinkLayout name="Container">
-      <Container padding="6 0">
-        <Container margin="4 8" bg="secondary.lightBlue.t25" textAlign="left">
-          <Text>Left aligned</Text>
+      {Container.BACKGROUNDS.map((bg) => (
+        <Container bg={bg} margin="4" padding="6" key={bg}>
+          <Text>{bg}</Text>
         </Container>
+      ))}
 
-        <Container
-          margin-xs="4 8"
-          padding-lg="6"
-          bg="grey.t05"
-          textAlign="center"
-          width="320"
-          height="112"
-        >
-          <Text>Center aligned</Text>
+      {Container.BACKGROUNDS.map((bg) => (
+        <Container bg={bg} hasBorder margin="4" padding="6" key={bg}>
+          <Text>{bg} with border</Text>
         </Container>
+      ))}
 
-        <Container
-          margin-lg="4 8"
-          bg="grey.t03"
-          textAlign="right"
-          width-md="224"
-          height-sm="72"
-        >
-          <Text>Right aligned</Text>
-        </Container>
+      <Container hasBreakpointWidth bg="primary.blue.t100">
+        <Text>Has breakpoint width</Text>
+      </Container>
 
-        <Container hasBreakpointWidth bg="primary.blue.t100">
-          <Text>Has breakpoint width</Text>
-        </Container>
+      <Container margin="4" height="60" bg="grey.t07" textAlign="left">
+        <Text>Left aligned</Text>
+      </Container>
 
-        {Container.BOX_SHADOWS.map((boxShadow) => (
-          <Container
-            boxShadow={boxShadow}
-            bg="white"
-            width="320"
-            height="40"
-            margin="8 0 0 8"
-            key={boxShadow}
-          >
+      <Container margin="4" height="60" bg="grey.t07" textAlign="center">
+        <Text>Center aligned</Text>
+      </Container>
+
+      <Container margin="4" height="60" bg="grey.t07" textAlign="right">
+        <Text>Right aligned</Text>
+      </Container>
+
+      {Container.BOX_SHADOWS.map((boxShadow) => (
+        <Container boxShadow={boxShadow} padding="4" key={boxShadow}>
+          <Container height="40" padding="0 6">
             Box shadow: {boxShadow}
           </Container>
-        ))}
-      </Container>
+        </Container>
+      ))}
     </KitchenSinkLayout>
   );
 }
