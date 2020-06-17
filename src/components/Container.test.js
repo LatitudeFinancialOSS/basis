@@ -106,6 +106,16 @@ describe("Container", () => {
     });
   });
 
+  it("with hasBorder", () => {
+    render(<Container hasBorder>Hello World</Container>);
+
+    const node = screen.getByText("Hello World");
+
+    expect(node).toHaveStyle({
+      border: "1px solid #D6D6D6",
+    });
+  });
+
   it("with hide", () => {
     render(<Container hide>Hello World</Container>);
 

@@ -35,10 +35,22 @@ const BACKGROUNDS = [
   "primary.blue.t100",
 ];
 
+const borderColorMap = {
+  transparent: "grey.t16",
+  white: "grey.t16",
+  "grey.t03": "grey.t10",
+  "grey.t05": "grey.t16",
+  "grey.t07": "grey.t16",
+  "secondary.lightBlue.t15": "secondary.lightBlue.t60",
+  "secondary.lightBlue.t25": "secondary.lightBlue.t80",
+  "primary.blue.t100": "white",
+};
+
 const BOX_SHADOWS = ["header"];
 
 const DEFAULT_PROPS = {
   bg: "transparent",
+  hasBorder: false,
   hasBreakpointWidth: false,
   hide: false,
 };
@@ -64,12 +76,21 @@ function Container(_props) {
     width: responsiveSize("width"),
     height: responsiveSize("height"),
     textAlign: responsiveTextAlign,
-    bg: (propsAtBreakpoint, theme, bp) => {
+    bg: ({ hasBorder }, theme, bp) => {
+      const bg =
+        mergedResponsiveBgMap[bp] === "transparent"
+          ? "transparent"
+          : mergedResponsiveBgMap[bp];
+      const borderColor = hasBorder ? borderColorMap[bg] : null;
+
       return {
         backgroundColor:
-          mergedResponsiveBgMap[bp] === "transparent"
-            ? "transparent"
-            : theme.getColor(mergedResponsiveBgMap[bp]),
+          bg === "transparent" ? "transparent" : theme.getColor(bg),
+        ...(borderColor && {
+          border: `${theme.borderWidths[0]} solid ${theme.getColor(
+            borderColor
+          )}`,
+        }),
       };
     },
     hasBreakpointWidth: ({ hasBreakpointWidth, margin }, theme, bp) => {
@@ -142,6 +163,7 @@ Container.propTypes = {
   ...responsiveWidthType,
   ...responsiveHeightType,
   ...responsivePropType("bg", PropTypes.oneOf(BACKGROUNDS)),
+  ...responsivePropType("hasBorder", PropTypes.bool),
   ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
