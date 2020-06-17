@@ -53,7 +53,7 @@ const COMPONENT_PAGE_REGEX = /^\/components\/([^/]*)\//;
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage } = actions;
 
-  if (page.path.startsWith("/playground/")) {
+  if (page.path.startsWith("/playground")) {
     page.context.header = "Playground";
     page.context.layout = "empty";
   } else if (page.path.startsWith("/kitchen-sink/")) {
