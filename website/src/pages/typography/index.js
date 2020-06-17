@@ -47,7 +47,7 @@ function Cell({ textStyle, children }) {
         borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t16}`,
       }}
     >
-      <Flex fullHeight placeItems="center left">
+      <Flex height="100%" placeItems="center left">
         <Text textStyle={textStyle}>{children}</Text>
       </Flex>
     </div>

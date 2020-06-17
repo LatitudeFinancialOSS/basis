@@ -4,8 +4,8 @@ import "@testing-library/jest-dom/extend-expect";
 import Flex from "./Flex";
 
 describe("Flex", () => {
-  it("with fullHeight", () => {
-    const { container } = render(<Flex fullHeight>Content goes here</Flex>);
+  it("with height", () => {
+    const { container } = render(<Flex height="100%">Content goes here</Flex>);
 
     expect(container.firstChild).toHaveStyle({
       height: "100%",
