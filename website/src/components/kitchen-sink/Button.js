@@ -1,63 +1,59 @@
 import React from "react";
-import { Container, Grid, Stack, Button, Icon } from "basis";
+import PropTypes from "prop-types";
+import { Container, Stack, Button, Icon } from "basis";
 import KitchenSinkLayout from "./KitchenSinkLayout";
+
+function ButtonStates({ variant, color }) {
+  return (
+    <Container padding="4" bg={color === "white" ? "primary.blue.t100" : null}>
+      <Stack direction="horizontal" gap="6">
+        <Button variant={variant} color={color}>
+          {variant === "icon" ? <Icon name="cross" /> : `${variant} ${color}`}
+        </Button>
+
+        <Button variant={variant} color={color} __internal__hover>
+          {variant === "icon" ? <Icon name="cross" /> : "Hover"}
+        </Button>
+
+        <Button variant={variant} color={color} __internal__active>
+          {variant === "icon" ? <Icon name="cross" /> : "Active"}
+        </Button>
+
+        <Button variant={variant} color={color} __internal__keyboardFocus>
+          {variant === "icon" ? <Icon name="cross" /> : "Keyboard focus"}
+        </Button>
+
+        <Button variant={variant} color={color} disabled>
+          {variant === "icon" ? <Icon name="cross" /> : "Disabled"}
+        </Button>
+      </Stack>
+    </Container>
+  );
+}
+
+ButtonStates.propTypes = {
+  variant: PropTypes.oneOf(Button.VARIANTS),
+  color: PropTypes.oneOf(Button.COLORS),
+};
 
 function KitchenSinkButton() {
   return (
     <KitchenSinkLayout name="Button">
-      <Grid>
-        <Container padding="4">
+      <Container padding="4">
+        <Stack direction="horizontal" gap="8">
           <Button>Default</Button>
-        </Container>
+          <Button width="256">256px wide</Button>
+        </Stack>
+      </Container>
 
-        {Button.VARIANTS.map((variant) =>
-          Button.COLORS.map((color) => (
-            <Container
-              padding="4"
-              bg={color === "white" ? "primary.blue.t100" : null}
-              key={color}
-            >
-              <Stack direction="horizontal" gap="6">
-                <Button variant={variant} color={color}>
-                  {variant === "icon" ? (
-                    <Icon name="cross" />
-                  ) : (
-                    `${variant} ${color}`
-                  )}
-                </Button>
+      <ButtonStates variant="primary" color="highlight.blue.t100" />
+      <ButtonStates variant="primary" color="white" />
+      <ButtonStates variant="primary" color="green" />
 
-                <Button variant={variant} color={color} __internal__hover>
-                  {variant === "icon" ? <Icon name="cross" /> : "Hover"}
-                </Button>
+      <ButtonStates variant="secondary" color="highlight.blue.t100" />
+      <ButtonStates variant="secondary" color="white" />
 
-                <Button variant={variant} color={color} __internal__active>
-                  {variant === "icon" ? <Icon name="cross" /> : "Active"}
-                </Button>
-
-                <Button
-                  variant={variant}
-                  color={color}
-                  __internal__keyboardFocus
-                >
-                  {variant === "icon" ? (
-                    <Icon name="cross" />
-                  ) : (
-                    "Keyboard focus"
-                  )}
-                </Button>
-
-                <Button variant={variant} color={color} disabled>
-                  {variant === "icon" ? <Icon name="cross" /> : "Disabled"}
-                </Button>
-              </Stack>
-            </Container>
-          ))
-        )}
-
-        <Container padding="4">
-          <Button width="100%">Full width</Button>
-        </Container>
-      </Grid>
+      <ButtonStates variant="icon" color="highlight.blue.t100" />
     </KitchenSinkLayout>
   );
 }

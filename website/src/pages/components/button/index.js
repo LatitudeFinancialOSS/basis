@@ -60,14 +60,26 @@ function ButtonPage() {
       >
         <RadioGroupSetting
           heading="Variant"
-          options={variantOptions}
+          options={variantOptions.map(({ value, label }) => ({
+            value,
+            label,
+            disabled:
+              (color === "green" && value !== "primary") ||
+              (value === "icon" && color !== "highlight.blue.t100"),
+          }))}
           selectedValue={variant}
           setSelectedValue={setVariant}
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
           heading="Color"
-          options={colorOptions}
+          options={colorOptions.map(({ value, label }) => ({
+            value,
+            label,
+            disabled:
+              (value === "green" && variant !== "primary") ||
+              (variant === "icon" && value !== "highlight.blue.t100"),
+          }))}
           selectedValue={color}
           setSelectedValue={setColor}
         />

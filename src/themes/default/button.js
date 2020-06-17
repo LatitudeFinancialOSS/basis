@@ -47,6 +47,19 @@ export default (theme) => ({
     backgroundColor: theme.colors.secondary.lightBlue.t25,
     color: theme.colors.primary.blue.t100,
   },
+  // Primary green
+  "button.primary.green": {
+    backgroundColor: "#21a637",
+    color: theme.colors.white,
+  },
+  "button.primary.green:hover": {
+    backgroundColor: "#007414",
+    color: theme.colors.white,
+  },
+  "button.primary.green:active": {
+    backgroundColor: "#007414",
+    color: theme.colors.white,
+  },
   // Secondary default
   "button.secondary.default": {
     backgroundColor: "transparent",
