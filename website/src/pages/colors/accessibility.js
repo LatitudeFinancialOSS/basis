@@ -154,7 +154,7 @@ function AccessibilityPage() {
   const theme = useTheme();
 
   return (
-    <Flex direction="column" fullHeight>
+    <Flex height="100%" direction="column">
       <Form initialValues={initialValues} fullWidth>
         {({ state }) => {
           const { show, textStyle, weight, text } = state.values;
@@ -176,7 +176,7 @@ function AccessibilityPage() {
             : null;
 
           return (
-            <Flex fullHeight>
+            <Flex height="100%">
               <div css={{ flexGrow: 1, overflow: "auto" }}>
                 <Text as="h3" textStyle="heading5" color="grey.t75" margin="6">
                   Color contrast matrix

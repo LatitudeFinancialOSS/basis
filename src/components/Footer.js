@@ -19,7 +19,7 @@ import { mergeProps } from "../utils/component";
 function HeaderLogo({ name, testId }) {
   return (
     <Container height="56" height-lg="80" testId={testId}>
-      <Flex fullHeight placeItems="left center">
+      <Flex height="100%" placeItems="left center">
         <Logo
           name={name}
           color="white"
@@ -48,7 +48,7 @@ function HeaderSocial({ children, testId }) {
       margin-sm="0 0 0 auto"
       testId={testId}
     >
-      <Flex fullHeight placeItems="left center">
+      <Flex height="100%" placeItems="left center">
         <Text margin="0" margin-sm="0 4 0 0">
           <strong>Connect with us</strong>
         </Text>
