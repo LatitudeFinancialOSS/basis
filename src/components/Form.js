@@ -8,9 +8,11 @@ import React, {
 import PropTypes from "prop-types";
 import { FormProvider } from "../hooks/internal/useForm";
 import { getPath, setPath, deletePath } from "../utils/objectPath";
+import { responsiveWidthType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsiveSize } from "../utils/css";
 
 const DEFAULT_PROPS = {
-  fullWidth: true,
   debug: false,
 };
 
@@ -22,7 +24,7 @@ Form.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Form(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { initialValues, onSubmit, fullWidth, debug, children, testId } = props;
+  const { initialValues, onSubmit, debug, children, testId } = props;
   const [state, setState] = useState({
     values: initialValues,
     errors: {},
@@ -203,6 +205,9 @@ function Form(_props) {
     },
     [submitForm]
   );
+  const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    width: responsiveSize("width"),
+  });
 
   useEffect(() => {
     if (state.namesToValidate === null) {
@@ -235,9 +240,7 @@ function Form(_props) {
   return (
     <FormProvider value={providerValue}>
       <form
-        css={{
-          ...(fullWidth === true ? { width: "100%" } : {}),
-        }}
+        css={responsiveFormCSS}
         method="POST"
         action="#" // https://stackoverflow.com/a/45705325/247243
         noValidate
@@ -258,9 +261,9 @@ function Form(_props) {
 }
 
 Form.propTypes = {
+  ...responsiveWidthType,
   initialValues: PropTypes.object.isRequired,
   onSubmit: PropTypes.func,
-  fullWidth: PropTypes.bool,
   debug: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
   testId: PropTypes.string,
