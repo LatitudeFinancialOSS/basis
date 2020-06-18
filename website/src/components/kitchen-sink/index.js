@@ -15,6 +15,7 @@ export { default as List } from "./List";
 export { default as Placeholder } from "./Placeholder";
 export { default as RadioGroup } from "./RadioGroup";
 export { default as Select } from "./Select";
+export { default as ShadowContainer } from "./ShadowContainer";
 export { default as Stack } from "./Stack";
 export { default as Stepper } from "./Stepper";
 export { default as Sticky } from "./Sticky";

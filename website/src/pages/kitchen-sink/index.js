@@ -18,6 +18,7 @@ import {
   Placeholder,
   RadioGroup,
   Select,
+  ShadowContainer,
   Stack,
   Stepper,
   Sticky,
@@ -47,6 +48,7 @@ function KitchenSink() {
       <Placeholder />
       <RadioGroup />
       <Select />
+      <ShadowContainer />
       <Stack />
       <Stepper />
       <Sticky />
