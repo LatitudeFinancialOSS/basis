@@ -155,7 +155,7 @@ function AccessibilityPage() {
 
   return (
     <Flex height="100%" direction="column">
-      <Form initialValues={initialValues} fullWidth>
+      <Form width="100%" initialValues={initialValues}>
         {({ state }) => {
           const { show, textStyle, weight, text } = state.values;
           const isBoldAllowed = isBoldAllowedForTextStyle(textStyle);
