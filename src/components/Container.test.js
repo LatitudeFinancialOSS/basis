@@ -19,9 +19,7 @@ describe("Container", () => {
   it("with margin", () => {
     render(<Container margin="1 4">Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       margin: "4px 16px",
     });
   });
@@ -29,9 +27,7 @@ describe("Container", () => {
   it("with padding", () => {
     render(<Container padding="1 2 3 4">Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       padding: "4px 8px 12px 16px",
     });
   });
@@ -39,9 +35,7 @@ describe("Container", () => {
   it("with width", () => {
     render(<Container width="80">Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       width: "80px",
     });
   });
@@ -49,9 +43,7 @@ describe("Container", () => {
   it("with height", () => {
     render(<Container height="72px">Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       height: "72px",
     });
   });
@@ -63,9 +55,7 @@ describe("Container", () => {
       </Container>
     );
 
-    const text = screen.getByText("Hello World");
-
-    expect(text).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       fontSize: "14px",
     });
   });
@@ -79,9 +69,7 @@ describe("Container", () => {
       </Container>
     );
 
-    const text = screen.getByText("Hello World");
-
-    expect(text).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       fontSize: "104px",
     });
   });
@@ -89,10 +77,16 @@ describe("Container", () => {
   it("with textAlign", () => {
     render(<Container textAlign="right">Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       textAlign: "right",
+    });
+  });
+
+  it("with overflow", () => {
+    render(<Container overflow=" auto  hidden ">Hello World</Container>);
+
+    expect(screen.getByText("Hello World")).toHaveStyle({
+      overflow: "auto hidden",
     });
   });
 
@@ -109,9 +103,7 @@ describe("Container", () => {
   it("with hasBorder", () => {
     render(<Container hasBorder>Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       border: "1px solid #D6D6D6",
     });
   });
@@ -119,9 +111,7 @@ describe("Container", () => {
   it("with hide", () => {
     render(<Container hide>Hello World</Container>);
 
-    const node = screen.getByText("Hello World");
-
-    expect(node).toHaveStyle({
+    expect(screen.getByText("Hello World")).toHaveStyle({
       display: "none",
     });
   });

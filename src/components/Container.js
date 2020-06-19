@@ -18,6 +18,7 @@ import {
   responsivePadding,
   responsiveSize,
   responsiveTextAlign,
+  responsiveOverflow,
 } from "../utils/css";
 import {
   getResponsivePropMap,
@@ -76,6 +77,7 @@ function Container(_props) {
     width: responsiveSize("width"),
     height: responsiveSize("height"),
     textAlign: responsiveTextAlign,
+    overflow: responsiveOverflow,
     bg: ({ hasBorder }, theme, bp) => {
       const bg =
         mergedResponsiveBgMap[bp] === "transparent"
@@ -166,6 +168,7 @@ Container.propTypes = {
   ...responsivePropType("hasBorder", PropTypes.bool),
   ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
+  ...responsivePropType("overflow", PropTypes.string),
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   ...responsivePropType("hide", PropTypes.bool),
   children: PropTypes.node,

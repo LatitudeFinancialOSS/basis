@@ -37,6 +37,21 @@ function getTextAlignValue(textAlign) {
   return null;
 }
 
+const OVERFLOW_VALUES = ["visible", "hidden", "scroll", "auto"];
+
+function getOverflowValue(overflow) {
+  const parts =
+    typeof overflow === "string" ? overflow.trim().split(/\s+/) : null;
+  const isValid =
+    parts !== null && parts.every((part) => OVERFLOW_VALUES.includes(part));
+
+  if (isValid) {
+    return parts.join(" ");
+  }
+
+  return null;
+}
+
 const SPAN_REGEX = /^(\d+)(-(\d+))?$/;
 
 export function getGridLines(span, { allAllowed = false } = {}) {
@@ -261,6 +276,12 @@ export function responsiveTextAlign(propsAtBreakpoint) {
   const textAlign = getTextAlignValue(propsAtBreakpoint.textAlign);
 
   return textAlign === null ? {} : { textAlign };
+}
+
+export function responsiveOverflow(propsAtBreakpoint) {
+  const overflow = getOverflowValue(propsAtBreakpoint.overflow);
+
+  return overflow === null ? {} : { overflow };
 }
 
 export function responsiveFlexDirection({ direction }) {
