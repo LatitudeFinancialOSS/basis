@@ -18,7 +18,7 @@ function vhToHeight(vh) {
 }
 
 function addToWidth(width, delta) {
-  if (width.endsWith("vw")) {
+  if (typeof width === "string" && width.endsWith("vw")) {
     return widthToVw(vwToWidth(width) + delta);
   }
 
@@ -26,18 +26,18 @@ function addToWidth(width, delta) {
 }
 
 function addToHeight(height, delta) {
-  if (height.endsWith("vh")) {
+  if (typeof height === "string" && height.endsWith("vh")) {
     return heightToVh(vhToHeight(height) + delta);
   }
 
   return parseFloat(height, 10) + delta + "px";
 }
 
-function getNewSize(size, delta) {
+function getNewSize(size, delta, { shouldUpdateWidth, shouldUpdateHeight }) {
   return {
     ...size,
-    ...(size.width != null && { width: addToWidth(size.width, delta.width) }),
-    ...(size.height != null && {
+    ...(shouldUpdateWidth && { width: addToWidth(size.width, delta.width) }),
+    ...(shouldUpdateHeight && {
       height: addToHeight(size.height, delta.height),
     }),
   };
@@ -82,10 +82,18 @@ function useResizable({
             topLeft: false,
           }}
           onResize={(e, direction, ref, delta) => {
-            setSizeWhenResizing(getNewSize(size, delta));
+            setSizeWhenResizing(
+              getNewSize(size, delta, {
+                shouldUpdateWidth: !!resizeRight,
+                shouldUpdateHeight: !!resizeTop,
+              })
+            );
           }}
           onResizeStop={(e, direction, ref, delta) => {
-            const newSize = getNewSize(size, delta);
+            const newSize = getNewSize(size, delta, {
+              shouldUpdateWidth: !!resizeRight,
+              shouldUpdateHeight: !!resizeTop,
+            });
 
             setSize(newSize);
 

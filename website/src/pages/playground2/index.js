@@ -103,7 +103,6 @@ function Playground({ location }) {
             {screens.map(({ id, name, width }, index) => (
               <div
                 css={{
-                  width,
                   marginLeft: index === 0 ? null : theme.space[8],
                 }}
                 key={id}
