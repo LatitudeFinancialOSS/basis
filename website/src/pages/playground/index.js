@@ -491,7 +491,7 @@ function Playground({ location }) {
             css={{
               display: "flex",
               padding: theme.space[8],
-              width: "min-content", // Without it, right padding is not visible.
+              width: "min-content", // Without it, right padding is not visible. See also: https://stackoverflow.com/q/10054870/247243
             }}
           >
             {screens.map(({ id, name, width }, index) => (

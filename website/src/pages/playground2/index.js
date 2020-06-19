@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import { atom, useRecoilState } from "recoil";
 import { useTheme, Container, Grid } from "basis";
 import PlaygroundScreen from "./PlaygroundScreen";
 import PlaygroundSettings from "./PlaygroundSettings";
@@ -37,19 +37,9 @@ const screensState = atom({
   default: [],
 });
 
-const screensWidthsState = selector({
-  key: "screensWidthsState",
-  get: ({ get }) => {
-    const screens = get(screensState);
-
-    return screens.map((screen) => `${screen.width}px`).join(" ");
-  },
-});
-
 function Playground({ location }) {
   const theme = useTheme();
   const [screens, setScreens] = useRecoilState(screensState);
-  const screensWidths = useRecoilValue(screensWidthsState);
   const initialSettingsHeight = useLocalStorageValue(
     LOCAL_STORAGE_SETTINGS_HEIGHT_KEY,
     "40vh"
@@ -100,12 +90,28 @@ function Playground({ location }) {
       }`}
     >
       <Grid.Item>
-        <Container height="100%" padding="8" bg="grey.t03">
-          <Grid height="100%" cols={screensWidths} colsGap="8">
-            {screens.map(({ id, name, width }) => (
-              <PlaygroundScreen id={id} name={name} width={width} key={id} />
+        <Container height="100%" bg="grey.t03" overflow="auto">
+          <div
+            css={{
+              display: "flex",
+              boxSizing: "border-box",
+              padding: theme.space[8],
+              width: "min-content", // Without it, right padding is not visible.
+              height: "100%",
+            }}
+          >
+            {screens.map(({ id, name, width }, index) => (
+              <div
+                css={{
+                  width,
+                  marginLeft: index === 0 ? null : theme.space[8],
+                }}
+                key={id}
+              >
+                <PlaygroundScreen id={id} name={name} width={width} />
+              </div>
             ))}
-          </Grid>
+          </div>
         </Container>
       </Grid.Item>
       {initialSettingsHeight !== null && (
