@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import {
-  atomFamily,
-  // selector,
-  // useRecoilState,
-  // useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
-import { useTheme, Grid } from "basis";
+import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import { useTheme, Container, Grid } from "basis";
+import PlaygroundScreen from "./PlaygroundScreen";
 import PlaygroundSettings from "./PlaygroundSettings";
 import useResizable from "./useResizable";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
@@ -37,14 +32,24 @@ function useLocalStorageValue(localStorageKey, fallbackValue) {
 
 const LOCAL_STORAGE_SETTINGS_HEIGHT_KEY = "playground-code-panel-height";
 
-const screensStateFamily = atomFamily({
-  key: "screen",
-  default: null,
+const screensState = atom({
+  key: "screensState",
+  default: [],
+});
+
+const screensWidthsState = selector({
+  key: "screensWidthsState",
+  get: ({ get }) => {
+    const screens = get(screensState);
+
+    return screens.map((screen) => `${screen.width}px`).join(" ");
+  },
 });
 
 function Playground({ location }) {
   const theme = useTheme();
-  const setScreens = useSetRecoilState(screensStateFamily);
+  const [screens, setScreens] = useRecoilState(screensState);
+  const screensWidths = useRecoilValue(screensWidthsState);
   const initialSettingsHeight = useLocalStorageValue(
     LOCAL_STORAGE_SETTINGS_HEIGHT_KEY,
     "40vh"
@@ -94,7 +99,15 @@ function Playground({ location }) {
         initialSettingsHeight === null ? "" : settingsHeightWhenResizing
       }`}
     >
-      <Grid.Item>Screens</Grid.Item>
+      <Grid.Item>
+        <Container height="100%" padding="8" bg="grey.t03">
+          <Grid height="100%" cols={screensWidths} colsGap="8">
+            {screens.map(({ id, name, width }) => (
+              <PlaygroundScreen id={id} name={name} width={width} key={id} />
+            ))}
+          </Grid>
+        </Container>
+      </Grid.Item>
       {initialSettingsHeight !== null && (
         <Grid.Item>
           <ResizableSettings
