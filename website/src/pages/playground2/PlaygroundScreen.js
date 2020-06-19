@@ -35,9 +35,11 @@ function PlaygroundScreen({ name, width }) {
             fontFamily: "inherit",
             fontWeight: "inherit",
             lineHeight: "inherit",
+            transition: "background-color 100ms ease",
             ":hover": {
               backgroundColor: theme.getColor("grey.t16"),
             },
+            ...theme.focusStyles.focusVisible,
           }}
           type="button"
           onClick={() => {
