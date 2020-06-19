@@ -44,11 +44,11 @@ function Playground({ location }) {
     LOCAL_STORAGE_SETTINGS_HEIGHT_KEY,
     "40vh"
   );
-  const [
-    settingsSize,
-    { height: settingsHeightWhenResizing },
-    ResizableSettings,
-  ] = useResizable({
+  const {
+    size: settingsSize,
+    sizeWhenResizing: settingsSizeWhenResizing,
+    Resizable: ResizableSettings,
+  } = useResizable({
     resizeTop: true,
     defaultHeight: initialSettingsHeight,
     minHeight: "10vh",
@@ -86,7 +86,7 @@ function Playground({ location }) {
     <Grid
       height="100vh"
       rows={`1fr ${
-        initialSettingsHeight === null ? "" : settingsHeightWhenResizing
+        initialSettingsHeight === null ? "" : settingsSizeWhenResizing.height
       }`}
     >
       <Grid.Item>

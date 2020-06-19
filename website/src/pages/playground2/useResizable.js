@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Resizable as ReResizable } from "re-resizable";
 
 function widthToVw(width) {
@@ -106,34 +106,45 @@ function useResizable({
     },
     [minWidth, maxWidth, minHeight, maxHeight, resizeTop, resizeRight]
   );
+  const setSizes = useCallback(({ width, height }) => {
+    const newSize = {};
+
+    if (width != null) {
+      newSize.width = width;
+    }
+
+    if (height != null) {
+      newSize.height = height;
+    }
+
+    setSize((size) => ({
+      ...size,
+      ...newSize,
+    }));
+    setSizeWhenResizing((sizeWhenResizing) => ({
+      ...sizeWhenResizing,
+      ...newSize,
+    }));
+  }, []);
 
   useEffect(() => {
     if (defaultWidth !== null) {
-      setSize((size) => ({
-        ...size,
-        width: defaultWidth,
-      }));
-      setSizeWhenResizing((sizeWhenResizing) => ({
-        ...sizeWhenResizing,
-        width: defaultWidth,
-      }));
+      setSizes({ width: defaultWidth });
     }
-  }, [defaultWidth]);
+  }, [setSizes, defaultWidth]);
 
   useEffect(() => {
     if (defaultHeight !== null) {
-      setSize((size) => ({
-        ...size,
-        height: defaultHeight,
-      }));
-      setSizeWhenResizing((sizeWhenResizing) => ({
-        ...sizeWhenResizing,
-        height: defaultHeight,
-      }));
+      setSizes({ height: defaultHeight });
     }
-  }, [defaultHeight]);
+  }, [setSizes, defaultHeight]);
 
-  return [size, sizeWhenResizing, Resizable];
+  return {
+    size,
+    setSize: setSizes,
+    sizeWhenResizing,
+    Resizable,
+  };
 }
 
 export default useResizable;

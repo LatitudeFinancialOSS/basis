@@ -1,15 +1,53 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text } from "basis";
+import { useTheme, Text } from "basis";
 import useResizable from "./useResizable";
 
 function PlaygroundScreen({ name, width }) {
-  const [screenSize, sizeWhenResizing, ResizableScreen] = useResizable({
+  const theme = useTheme();
+  const {
+    size: screenSize,
+    sizeWhenResizing: screenSizeWhenResizing,
+    Resizable: ResizableScreen,
+    setSize: setScreenSize,
+  } = useResizable({
     resizeRight: true,
     defaultWidth: width,
     defaultHeight: "100%",
-    minWidth: 200,
+    minWidth: 300,
   });
+  const resizedTo =
+    parseInt(screenSizeWhenResizing.width, 10) === width ? null : (
+      <span
+        css={{
+          fontSize: theme.fontSizes[0],
+          float: "right",
+        }}
+      >
+        resized to {screenSizeWhenResizing.width}
+        <button
+          css={{
+            marginLeft: theme.space[2],
+            padding: `0 ${theme.space[2]}`,
+            border: 0,
+            backgroundColor: theme.getColor("grey.t10"),
+            fontSize: "inherit",
+            fontFamily: "inherit",
+            fontWeight: "inherit",
+            lineHeight: "inherit",
+            ":hover": {
+              backgroundColor: theme.getColor("grey.t16"),
+            },
+          }}
+          type="button"
+          onClick={() => {
+            setScreenSize({ width });
+          }}
+        >
+          Reset
+        </button>
+      </span>
+    );
 
   return (
     <ResizableScreen size={screenSize}>
@@ -17,11 +55,11 @@ function PlaygroundScreen({ name, width }) {
         css={{
           display: "flex",
           flexDirection: "column-reverse",
-          ...sizeWhenResizing,
+          ...screenSizeWhenResizing,
         }}
       >
         <Text color="grey.t75" margin="1 1 0">
-          <strong>{name}</strong> – {width}px
+          <strong>{name}</strong> – {width}px {resizedTo}
         </Text>
         <div
           css={{
