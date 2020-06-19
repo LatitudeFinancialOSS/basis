@@ -12,6 +12,14 @@ describe("Grid", () => {
     });
   });
 
+  it("with height", () => {
+    render(<Grid height="300">Hello</Grid>);
+
+    expect(screen.getByText("Hello")).toHaveStyle({
+      height: "300px",
+    });
+  });
+
   it("with testId", () => {
     render(
       <Grid testId="my-grid">

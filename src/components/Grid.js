@@ -6,6 +6,7 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsivePropType,
   responsiveMarginType,
+  responsiveHeightType,
 } from "../hooks/useResponsiveProp";
 import { range } from "../utils/array";
 import {
@@ -14,6 +15,7 @@ import {
   getGridLines,
   getGapPx,
   responsiveMargin,
+  responsiveSize,
 } from "../utils/css";
 
 const DEFAULT_GRID_ITEM_PROPS = {};
@@ -124,6 +126,7 @@ function Grid(_props) {
         };
       },
       margin: responsiveMargin,
+      height: responsiveSize("height"),
     }
   );
   const gridRef = useRef();
@@ -187,6 +190,7 @@ Grid.propTypes = {
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
   ...responsiveMarginType,
+  ...responsiveHeightType,
   preset: PropTypes.oneOf(PRESETS),
   debug: PropTypes.bool,
   children: PropTypes.node.isRequired,
