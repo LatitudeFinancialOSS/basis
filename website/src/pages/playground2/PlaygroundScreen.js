@@ -31,13 +31,17 @@ function PlaygroundScreen({ name, width }) {
             padding: `0 ${theme.space[2]}`,
             border: 0,
             backgroundColor: theme.getColor("grey.t10"),
+            borderRadius: theme.radii[1],
             fontSize: "inherit",
             fontFamily: "inherit",
             fontWeight: "inherit",
             lineHeight: "inherit",
-            transition: "background-color 100ms ease",
+            transition: "background-color 100ms ease, transform 100ms ease",
             ":hover": {
               backgroundColor: theme.getColor("grey.t16"),
+            },
+            ":active": {
+              transform: "scale(0.95)",
             },
             ...theme.focusStyles.focusVisible,
           }}
