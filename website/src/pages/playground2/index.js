@@ -10,7 +10,7 @@ import { getPlaygroundDataFromUrl } from "../../utils/url";
 
 const LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY = "playground-code-panel-height";
 
-const screensState = atom({
+export const screensState = atom({
   key: "screensState",
   default: [],
 });
@@ -81,6 +81,7 @@ function Playground({ location }) {
             {screens.map(({ id, name, width }, index) => (
               <div
                 css={{
+                  display: "flex",
                   marginLeft: index === 0 ? null : theme.space[8],
                 }}
                 key={id}

@@ -13,47 +13,8 @@ function PlaygroundScreen({ name, width }) {
   } = useResizable({
     resizeRight: true,
     defaultWidth: width,
-    defaultHeight: "100%",
     minWidth: 300,
   });
-  const resizedTo =
-    parseInt(screenSizeWhenResizing.width, 10) === width ? null : (
-      <span
-        css={{
-          fontSize: theme.fontSizes[0],
-          float: "right",
-        }}
-      >
-        resized to {screenSizeWhenResizing.width}
-        <button
-          css={{
-            marginLeft: theme.space[2],
-            padding: `0 ${theme.space[2]}`,
-            border: 0,
-            backgroundColor: theme.getColor("grey.t10"),
-            borderRadius: theme.radii[1],
-            fontSize: "inherit",
-            fontFamily: "inherit",
-            fontWeight: "inherit",
-            lineHeight: "inherit",
-            transition: "background-color 100ms ease, transform 100ms ease",
-            ":hover": {
-              backgroundColor: theme.getColor("grey.t16"),
-            },
-            ":active": {
-              transform: "scale(0.95)",
-            },
-            ...theme.focusStyles.focusVisible,
-          }}
-          type="button"
-          onClick={() => {
-            setScreenSize({ width });
-          }}
-        >
-          Reset
-        </button>
-      </span>
-    );
 
   return (
     <ResizableScreen size={screenSize}>
@@ -61,11 +22,41 @@ function PlaygroundScreen({ name, width }) {
         css={{
           display: "flex",
           flexDirection: "column-reverse",
-          ...screenSizeWhenResizing,
+          width: screenSizeWhenResizing.width,
+          height: "100%",
         }}
       >
         <Text color="grey.t75" margin="1 1 0">
-          <strong>{name}</strong> – {width}px {resizedTo}
+          <strong>{name}</strong> – {screenSizeWhenResizing.width}
+          {parseInt(screenSizeWhenResizing.width, 10) !== width && (
+            <button
+              css={{
+                float: "right",
+                padding: `0 ${theme.space[2]}`,
+                border: 0,
+                backgroundColor: theme.getColor("grey.t10"),
+                borderRadius: theme.radii[1],
+                fontSize: theme.fontSizes[0],
+                fontFamily: "inherit",
+                fontWeight: "inherit",
+                lineHeight: "inherit",
+                transition: "background-color 100ms ease, transform 100ms ease",
+                ":hover": {
+                  backgroundColor: theme.getColor("grey.t16"),
+                },
+                ":active": {
+                  transform: "scale(0.95)",
+                },
+                ...theme.focusStyles.focusVisible,
+              }}
+              type="button"
+              onClick={() => {
+                setScreenSize({ width: width + "px" });
+              }}
+            >
+              Reset
+            </button>
+          )}
         </Text>
         <div
           css={{

@@ -53,9 +53,20 @@ function useResizable({
   resizeTop,
   resizeRight,
 }) {
-  const [size, setSize] = useState({
-    width: defaultWidth,
-    height: defaultHeight,
+  const [size, setSize] = useState(() => {
+    const initialSize = {};
+
+    if (defaultWidth != null) {
+      initialSize.width =
+        defaultWidth + (typeof defaultWidth === "number" ? "px" : "");
+    }
+
+    if (defaultHeight != null) {
+      initialSize.height =
+        defaultHeight + (typeof defaultHeight === "number" ? "px" : "");
+    }
+
+    return initialSize;
   });
   const [sizeWhenResizing, setSizeWhenResizing] = useState(size);
   const Resizable = useMemo(
@@ -82,12 +93,12 @@ function useResizable({
             topLeft: false,
           }}
           onResize={(e, direction, ref, delta) => {
-            setSizeWhenResizing(
-              getNewSize(size, delta, {
-                shouldUpdateWidth: !!resizeRight,
-                shouldUpdateHeight: !!resizeTop,
-              })
-            );
+            const newSize = getNewSize(size, delta, {
+              shouldUpdateWidth: !!resizeRight,
+              shouldUpdateHeight: !!resizeTop,
+            });
+
+            setSizeWhenResizing(newSize);
           }}
           onResizeStop={(e, direction, ref, delta) => {
             const newSize = getNewSize(size, delta, {
@@ -129,13 +140,17 @@ function useResizable({
 
   useEffect(() => {
     if (defaultWidth !== null) {
-      setSizes({ width: defaultWidth });
+      setSizes({
+        width: defaultWidth + (typeof defaultWidth === "number" ? "px" : ""),
+      });
     }
   }, [setSizes, defaultWidth]);
 
   useEffect(() => {
     if (defaultHeight !== null) {
-      setSizes({ height: defaultHeight });
+      setSizes({
+        height: defaultHeight + (typeof defaultHeight === "number" ? "px" : ""),
+      });
     }
   }, [setSizes, defaultHeight]);
 

@@ -1,11 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useTheme, Button } from "basis";
 import PlaygroundSettings from "./PlaygroundSettings";
 
 function PlaygroundCodePanel() {
   const theme = useTheme();
   const [areSettingsOpen, setAreSettingsOpen] = useState(true);
-  const settingsRef = useRef();
 
   return (
     <div
@@ -62,12 +61,7 @@ function PlaygroundCodePanel() {
               top: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(255, 255, 255, 0.7)",
-            }}
-            onClick={(e) => {
-              if (!settingsRef.current.contains(e.target)) {
-                setAreSettingsOpen(false);
-              }
+              backgroundColor: theme.colors.white,
             }}
           >
             <div
@@ -81,7 +75,6 @@ function PlaygroundCodePanel() {
                 boxSizing: "border-box",
                 borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t16}`,
               }}
-              ref={settingsRef}
             >
               <PlaygroundSettings />
             </div>
