@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { useStaticQuery, graphql, Link as GatsbyLink } from "gatsby";
 import { Location } from "@reach/router";
 import { pascalCase } from "pascal-case";
-import { Container, Text, useTheme } from "basis";
+import { useTheme, Container, Text, Icon, Link } from "basis";
 import { version } from "../../../package.json";
 
 function Section({ heading, children }) {
@@ -30,7 +30,7 @@ function Item({ location, href, children }) {
 
   return (
     <li css={{ listStyleType: "none" }}>
-      <Link
+      <GatsbyLink
         css={{
           display: "flex",
           alignItems: "center",
@@ -47,7 +47,7 @@ function Item({ location, href, children }) {
         to={href}
       >
         {children}
-      </Link>
+      </GatsbyLink>
     </li>
   );
 }
@@ -89,16 +89,21 @@ function Sidebar() {
     <header css={{ minHeight: 0, display: "flex", flexDirection: "column" }}>
       <div
         css={{
+          display: "flex",
+          alignItems: "center",
           padding: `${theme.space[5]} ${theme.space[6]}`,
           borderBottom: `1px solid ${theme.colors.grey.t10}`,
           backgroundColor: theme.colors.grey.t05,
         }}
       >
-        <Link to="/">
-          <Text as="h5" textStyle="heading5">
-            Basis
-          </Text>
-        </Link>
+        <GatsbyLink to="/" css={{ ...theme.textStyles.heading5 }}>
+          Basis
+        </GatsbyLink>
+        <Container margin="0 0 0 auto">
+          <Link href="https://github.com/moroshko/basis" variant="icon" newTab>
+            <Icon name="github" color="grey.t75" hoverColor="black" />
+          </Link>
+        </Container>
       </div>
       <div
         css={{
