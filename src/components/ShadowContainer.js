@@ -102,7 +102,7 @@ function getColors(backgroundVariant, shadowColor) {
   };
 }
 
-const SHADOW_SIZES = ["tiny", "small", "medium", "large"];
+const SHADOW_SIZES = ["none", "tiny", "small", "medium", "large"];
 const SHADOW_DIRECTIONS = ["left", "right"];
 const SHADOW_COLORS = ["grey", "blue", "pink", "purple"];
 const SHADOW_CONTRASTS = ["low", "medium", "high"];
@@ -156,6 +156,10 @@ function ShadowContainer(props) {
     margin: responsiveMargin,
     padding: responsivePadding,
     shadowSize: ({ shadowSize }) => {
+      if (shadowSize === "none") {
+        return {};
+      }
+
       const contentMinSize = sizesMap[shadowSize].minSize;
 
       return {
@@ -169,10 +173,17 @@ function ShadowContainer(props) {
     DEFAULT_PROPS,
     {
       shadowSize: ({ shadowSize }) => {
+        const display = shadowSize === "none" ? "none" : "block";
+
+        if (shadowSize === "none") {
+          return { display };
+        }
+
         const shadowOffset = sizesMap[shadowSize].offset;
         const shadowBorderWidth = sizesMap[shadowSize].borderWidth;
 
         return {
+          display,
           top: shadowOffset - contentBorderWidth,
           left:
             (shadowDirection === "left" ? -shadowOffset : shadowOffset) -
@@ -189,6 +200,13 @@ function ShadowContainer(props) {
     <BackgroundProvider value={contentBackgroundColor}>
       <div
         css={{
+          /* 
+            We set { display: "flex", flexDirection: "column" } in order to allow `children`
+            to be full height.
+            See: https://stackoverflow.com/q/8468066/247243
+          */
+          display: "flex",
+          flexDirection: "column",
           boxSizing: "border-box",
           ...contentResponsiveCSS,
           backgroundColor: theme.getColor(contentBackgroundColor),
@@ -200,7 +218,6 @@ function ShadowContainer(props) {
           "::before": {
             transform: "translateZ(-1px)", // See: https://stackoverflow.com/a/51432213/247243
             boxSizing: "border-box",
-            display: "block",
             content: '""',
             position: "absolute",
             width: shadowSizePx,

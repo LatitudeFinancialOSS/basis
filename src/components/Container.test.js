@@ -13,6 +13,7 @@ describe("Container", () => {
     expect(node.tagName).toBe("DIV");
     expect(node).toHaveStyle({
       backgroundColor: "transparent",
+      flexGrow: 0,
     });
   });
 
@@ -97,6 +98,14 @@ describe("Container", () => {
 
     expect(node).toHaveStyle({
       backgroundColor: "#d8edff",
+    });
+  });
+
+  it("with flexGrow", () => {
+    render(<Container flexGrow>Hello World</Container>);
+
+    expect(screen.getByText("Hello World")).toHaveStyle({
+      flexGrow: 1,
     });
   });
 
