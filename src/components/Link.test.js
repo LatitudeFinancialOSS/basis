@@ -39,7 +39,7 @@ describe("Link", () => {
     const link = screen.getByText("Terms and Conditions");
 
     expect(link).toHaveAttribute("target", "_blank");
-    expect(link).toHaveAttribute("rel", "noopener");
+    expect(link).toHaveAttribute("rel", "noreferrer");
   });
 
   it("with variant", () => {
