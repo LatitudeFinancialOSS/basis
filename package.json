@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@scarf/scarf": "^1.0.6",
+    "@scarf/scarf": "1.0.6",
     "date-fns": "2.14.0",
     "deep-object-diff": "1.1.0",
     "deepmerge": "4.2.2",
