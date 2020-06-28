@@ -60,7 +60,7 @@
     "eslint": "7.3.1",
     "eslint-plugin-jest": "23.17.1",
     "eslint-plugin-jest-dom": "3.0.1",
-    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react": "7.20.1",
     "eslint-plugin-react-hooks": "4.0.4",
     "eslint-plugin-testing-library": "3.3.1",
     "husky": "4.2.5",
