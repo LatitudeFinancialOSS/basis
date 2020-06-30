@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "../utils/test";
+import { render, screen, userEvent } from "../utils/test";
 import Button from "./Button";
 import Container from "./Container";
 
@@ -155,6 +155,18 @@ describe("Button", () => {
     expect(button).toHaveStyle({
       margin: "8px 16px",
     });
+  });
+
+  it("with onClick", () => {
+    const onClick = jest.fn();
+
+    render(<Button onClick={onClick}>Find out more</Button>);
+
+    const button = screen.getByText("Find out more");
+
+    userEvent.click(button);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it("with testId", () => {

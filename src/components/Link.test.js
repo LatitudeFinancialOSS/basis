@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen } from "../utils/test";
+import { render, screen, userEvent } from "../utils/test";
 import Link from "./Link";
 import Container from "./Container";
 
@@ -121,14 +121,22 @@ describe("Link", () => {
     });
   });
 
-  it("with testId", () => {
-    const { container } = render(
-      <Link href="/terms" newTab={false} testId="my-link">
+  it("with onClick", () => {
+    const onClick = jest.fn().mockImplementation((e) => {
+      e.preventDefault();
+    });
+
+    render(
+      <Link href="/terms" newTab={false} onClick={onClick}>
         Terms and Conditions
       </Link>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-link");
+    const link = screen.getByText("Terms and Conditions");
+
+    userEvent.click(link);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it("with analyticsClassName", () => {
@@ -145,5 +153,15 @@ describe("Link", () => {
     const link = screen.getByText("Terms and Conditions");
 
     expect(link).toHaveClass("trackcustomanalytics");
+  });
+
+  it("with testId", () => {
+    const { container } = render(
+      <Link href="/terms" newTab={false} testId="my-link">
+        Terms and Conditions
+      </Link>
+    );
+
+    expect(container.firstChild).toHaveAttribute("data-testid", "my-link");
   });
 });

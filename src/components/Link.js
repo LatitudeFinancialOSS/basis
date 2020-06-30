@@ -54,6 +54,7 @@ function Link(props) {
     href,
     newTab,
     title,
+    onClick,
     children,
     testId,
     analyticsClassName,
@@ -94,6 +95,7 @@ function Link(props) {
         - It gets a `className` prop, which gets applies to the rendered <a>.
         - It gets a `to` prop, which gets mapped to <a>'s `href` prop.
         - It gets a `title` prop which is set on the rendered <a>.
+        - It gets an `onClick` prop which is set on the rendered <a>.
         - It gets a `data-testid` prop which is set on the rendered <a>.
         - It gets a `children` prop, which gets rendered as <a>'s `children`.
 
@@ -105,6 +107,7 @@ function Link(props) {
         css={css}
         to={href}
         title={title}
+        onClick={onClick}
         data-testid={testId}
       >
         {children}
@@ -118,6 +121,7 @@ function Link(props) {
       css={css}
       href={href}
       title={title}
+      onClick={onClick}
       data-testid={testId}
       {...newTabProps}
     >
@@ -133,6 +137,7 @@ Link.propTypes = {
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,
   title: PropTypes.string,
+  onClick: PropTypes.func,
   children: PropTypes.node,
   testId: PropTypes.string,
   analyticsClassName: PropTypes.string,

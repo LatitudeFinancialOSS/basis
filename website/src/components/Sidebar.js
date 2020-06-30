@@ -5,6 +5,7 @@ import { Location } from "@reach/router";
 import { pascalCase } from "pascal-case";
 import { useTheme, Container, Text, Icon, Link } from "basis";
 import { version } from "../../../package.json";
+import { trackEvent } from "./Splitbee";
 
 function Section({ heading, children }) {
   return (
@@ -100,7 +101,15 @@ function Sidebar() {
           Basis
         </GatsbyLink>
         <Container margin="0 0 0 auto">
-          <Link href="https://github.com/moroshko/basis" variant="icon" newTab>
+          <Link
+            variant="icon"
+            href="https://github.com/moroshko/basis"
+            newTab
+            title="GitHub"
+            onClick={() => {
+              trackEvent("GitHub link clicked");
+            }}
+          >
             <Icon name="github" color="grey.t75" hoverColor="black" />
           </Link>
         </Container>
