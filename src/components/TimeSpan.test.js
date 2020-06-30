@@ -37,8 +37,8 @@ describe("TimeSpan", () => {
     const yearsInput = screen.getByPlaceholderText("Years");
     const monthsInput = screen.getByPlaceholderText("Months");
 
-    expect(yearsInput).toHaveAttribute("type", "number");
-    expect(monthsInput).toHaveAttribute("type", "number");
+    expect(yearsInput).toHaveAttribute("inputmode", "numeric");
+    expect(monthsInput).toHaveAttribute("inputmode", "numeric");
   });
 
   it("renders default help text", () => {

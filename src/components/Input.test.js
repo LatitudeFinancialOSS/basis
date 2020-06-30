@@ -23,6 +23,7 @@ describe("Input", () => {
 
     const label = screen.getByText("First name");
     const input = screen.getByLabelText("First name");
+    const inputContainer = input.parentElement;
 
     expect(label.tagName).toBe("LABEL");
     expect(input.tagName).toBe("INPUT");
@@ -30,22 +31,8 @@ describe("Input", () => {
     const inputId = input.getAttribute("id");
 
     expect(inputId).toBeTruthy();
+    expect(input).toHaveAttribute("type", "text");
     expect(label).toHaveAttribute("for", inputId);
-
-    expect(input).toHaveStyle({
-      boxSizing: "border-box",
-      fontSize: "16px",
-      fontWeight: "300",
-      lineHeight: "24px",
-      fontFamily: "'Roboto',sans-serif",
-      padding: "0 16px",
-      color: "#000000",
-      width: "100%",
-      height: "48px",
-      border: "0",
-      margin: "0",
-      backgroundColor: "#f2f2f2",
-    });
 
     expect(label).toHaveStyle({
       display: "flex",
@@ -55,6 +42,77 @@ describe("Input", () => {
       lineHeight: "24px",
       color: "#414141",
       marginBottom: "8px",
+    });
+
+    expect(inputContainer).toHaveStyle({
+      fontSize: "16px",
+      fontWeight: "300",
+      lineHeight: "24px",
+      fontFamily: "'Roboto',sans-serif",
+      color: "#000000",
+    });
+
+    expect(input).toHaveStyle({
+      boxSizing: "border-box",
+      fontSize: "inherit",
+      fontWeight: "inherit",
+      lineHeight: "inherit",
+      fontFamily: "inherit",
+      color: "inherit",
+      padding: "0px 16px 0px 16px",
+      width: "100%",
+      height: "48px",
+      border: "0",
+      margin: "0",
+      backgroundColor: "#f2f2f2",
+    });
+  });
+
+  it("numeric variant", () => {
+    render(<FormWithInput label="New credit limit" variant="numeric" />);
+
+    const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveAttribute("type", "text");
+    expect(input).toHaveAttribute("inputmode", "numeric");
+    expect(input).toHaveAttribute("pattern", "[0-9]*");
+  });
+
+  it("with numericPrefix", () => {
+    render(
+      <FormWithInput
+        label="New credit limit"
+        variant="numeric"
+        numericPrefix="$"
+      />
+    );
+
+    const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveStyle({
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: "calc(16px + 2ch)",
+      paddingRight: "16px",
+    });
+  });
+
+  it("with numericSuffix", () => {
+    render(
+      <FormWithInput
+        label="New credit limit"
+        variant="numeric"
+        numericSuffix="mysuffix"
+      />
+    );
+
+    const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveStyle({
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: "16px",
+      paddingRight: "calc(16px + 9ch)",
     });
   });
 

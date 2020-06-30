@@ -45,9 +45,14 @@ describe("DatePicker", () => {
     const monthInput = screen.getByPlaceholderText("MM");
     const yearInput = screen.getByPlaceholderText("YYYY");
 
-    expect(dayInput).toHaveAttribute("type", "number");
-    expect(monthInput).toHaveAttribute("type", "number");
-    expect(yearInput).toHaveAttribute("type", "number");
+    expect(dayInput).toHaveAttribute("inputmode", "numeric");
+    expect(dayInput).toHaveAttribute("maxlength", "2");
+
+    expect(monthInput).toHaveAttribute("inputmode", "numeric");
+    expect(monthInput).toHaveAttribute("maxlength", "2");
+
+    expect(yearInput).toHaveAttribute("inputmode", "numeric");
+    expect(yearInput).toHaveAttribute("maxlength", "4");
   });
 
   it("doesn't render the day field when day={false}", () => {

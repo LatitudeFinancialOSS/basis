@@ -6,24 +6,28 @@ import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalInput from "./internal/InternalInput";
 
-const { TYPES, COLORS } = InternalInput;
+const { VARIANTS, COLORS, NUMERIC_REGEX } = InternalInput;
 
 const DEFAULT_PROPS = {
+  variant: InternalInput.DEFAULT_PROPS.variant,
   color: InternalInput.DEFAULT_PROPS.color,
-  type: InternalInput.DEFAULT_PROPS.type,
   disabled: false,
   pasteAllowed: true,
   optional: false,
-  validate: (value, { isEmpty }) => {
+  validate: (value, { isEmpty, variant }) => {
     if (isEmpty(value)) {
       return "Required";
+    }
+
+    if (variant === "numeric" && NUMERIC_REGEX.test(value) === false) {
+      return "Only 0-9 are allowed";
     }
 
     return null;
   },
 };
 
-Input.TYPES = TYPES;
+Input.VARIANTS = VARIANTS;
 Input.COLORS = COLORS;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
@@ -33,17 +37,12 @@ function Input(props) {
     DEFAULT_PROPS,
     {},
     {
+      variant: (variant) => VARIANTS.includes(variant),
+      numericPrefix: (numericPrefix) =>
+        typeof numericPrefix === "string" && numericPrefix.length > 0,
+      numericSuffix: (numericSuffix) =>
+        typeof numericSuffix === "string" && numericSuffix.length > 0,
       color: (color) => COLORS.includes(color),
-      type: (type) => TYPES.includes(type),
-      min: (min) =>
-        props.type === "number" &&
-        (typeof min === "number" || typeof min === "string"),
-      max: (max) =>
-        props.type === "number" &&
-        (typeof max === "number" || typeof max === "string"),
-      step: (step) =>
-        props.type === "number" &&
-        (typeof step === "number" || typeof step === "string"),
       disabled: (disabled) => typeof disabled === "boolean",
       pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
       optional: (optional) => typeof optional === "boolean",
@@ -51,10 +50,9 @@ function Input(props) {
   );
   const {
     name,
-    type,
-    min,
-    max,
-    step,
+    variant,
+    numericPrefix,
+    numericSuffix,
     label,
     placeholder,
     helpText,
@@ -72,9 +70,10 @@ function Input(props) {
   const data = useMemo(
     () => ({
       isEmpty,
+      variant,
       ...(validateData && { data: validateData }),
     }),
-    [isEmpty, validateData]
+    [isEmpty, variant, validateData]
   );
   const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
     "Input",
@@ -101,10 +100,9 @@ function Input(props) {
       <InternalInput
         id={label ? inputId : null}
         name={name}
-        type={type}
-        min={min}
-        max={max}
-        step={step}
+        variant={variant}
+        numericPrefix={numericPrefix}
+        numericSuffix={numericSuffix}
         placeholder={placeholder}
         color={props.color}
         disabled={disabled}
@@ -123,11 +121,10 @@ function Input(props) {
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(VARIANTS),
+  numericPrefix: PropTypes.string,
+  numericSuffix: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
-  type: PropTypes.oneOf(TYPES),
-  min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   helpText: PropTypes.node,
