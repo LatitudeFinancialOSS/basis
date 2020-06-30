@@ -8,9 +8,10 @@ import RadioGroupSetting, {
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, Input } = allDesignSystem;
-const { COLORS, DEFAULT_PROPS } = Input;
+const { VARIANTS, COLORS, DEFAULT_PROPS } = Input;
 const scope = allDesignSystem;
 
+const variantOptions = getRadioOptions(VARIANTS);
 const colorOptions = getRadioOptions(COLORS);
 const isOptionalOptions = getCheckboxOptions();
 const hasPlaceholderOptions = getCheckboxOptions();
@@ -19,6 +20,7 @@ const isDisabledOptions = getCheckboxOptions();
 
 function InputPage() {
   const theme = useTheme();
+  const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasPlaceholder, setHasPlaceholder] = useState(
@@ -31,7 +33,7 @@ function InputPage() {
   const code = formatCode(`
     function App() {
       const initialValues = {
-        name: ""
+        ${variant === "numeric" ? "newCreditLimit" : "name"}: ""
       };
       
       return (
@@ -39,8 +41,21 @@ function InputPage() {
           <Input ${nonDefaultProps([
             {
               prop: "name",
-              value: "name",
+              value: variant === "numeric" ? "newCreditLimit" : "name",
             },
+            {
+              prop: "variant",
+              value: variant,
+              defaultValue: DEFAULT_PROPS.variant,
+            },
+            ...(variant === "numeric"
+              ? [
+                  {
+                    prop: "numericPrefix",
+                    value: "$",
+                  },
+                ]
+              : []),
             {
               prop: "color",
               value: color,
@@ -48,7 +63,7 @@ function InputPage() {
             },
             {
               prop: "label",
-              value: "Name",
+              value: variant === "numeric" ? "New credit limit" : "Name",
             },
             {
               prop: "optional",
@@ -66,7 +81,9 @@ function InputPage() {
             {
               prop: "helpText",
               value: hasHelpText
-                ? "Nickname is fine too."
+                ? variant === "numeric"
+                  ? "Must be a whole amount."
+                  : "Nickname is fine too."
                 : DEFAULT_PROPS.helpText,
               defaultValue: DEFAULT_PROPS.helpText,
             },
@@ -93,6 +110,13 @@ function InputPage() {
         }}
       >
         <RadioGroupSetting
+          heading="Variant"
+          options={variantOptions}
+          selectedValue={variant}
+          setSelectedValue={setVariant}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
           heading="Color"
           options={colorOptions}
           selectedValue={color}

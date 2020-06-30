@@ -136,10 +136,7 @@ describe("Form", () => {
           likeIceCream: ["Must be checked"],
           name: ["Required"],
           relationshipStatus: ["Please make a selection."],
-          salary: [
-            "Please enter a valid amount.",
-            "Please select a frequency.",
-          ],
+          salary: ["Please enter an amount.", "Please select a frequency."],
           birthDate: [
             "Day must be within 1-31.",
             "Month must be within 1-12.",

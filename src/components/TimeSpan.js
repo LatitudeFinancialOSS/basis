@@ -105,7 +105,7 @@ function TimeSpan(props) {
   const [labelId] = useState(() => `time-span-${nanoid()}`);
   const [auxId] = useState(() => `time-span-aux-${nanoid()}`);
   const isEmpty = useCallback(
-    (value) => value.years === "" && value.months === "",
+    (value) => value.years.trim() === "" && value.months.trim() === "",
     []
   );
   const data = useMemo(
@@ -151,8 +151,8 @@ function TimeSpan(props) {
             <InternalInput
               name={`${name}.years`}
               parentName={name}
+              variant="numeric"
               color={props.color}
-              type="number"
               placeholder="Years"
               disabled={disabled}
               onFocus={onFocus}
@@ -166,8 +166,8 @@ function TimeSpan(props) {
             <InternalInput
               name={`${name}.months`}
               parentName={name}
+              variant="numeric"
               color={props.color}
-              type="number"
               placeholder="Months"
               disabled={disabled}
               onFocus={onFocus}

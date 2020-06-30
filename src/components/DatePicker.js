@@ -122,9 +122,9 @@ function DatePicker(props) {
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
   const isEmpty = useCallback(
     (value) =>
-      (day === false || value.day === "") &&
-      value.month === "" &&
-      value.year === "",
+      (day === false || value.day.trim() === "") &&
+      value.month.trim() === "" &&
+      value.year.trim() === "",
     [day]
   );
   const data = useMemo(
@@ -173,8 +173,8 @@ function DatePicker(props) {
               <InternalInput
                 name={`${name}.day`}
                 parentName={name}
+                variant="numeric"
                 color={props.color}
-                type="number"
                 placeholder="DD"
                 disabled={disabled}
                 onFocus={onFocus}
@@ -188,8 +188,8 @@ function DatePicker(props) {
             <InternalInput
               name={`${name}.month`}
               parentName={name}
+              variant="numeric"
               color={props.color}
-              type="number"
               placeholder="MM"
               disabled={disabled}
               onFocus={onFocus}
@@ -202,8 +202,8 @@ function DatePicker(props) {
             <InternalInput
               name={`${name}.year`}
               parentName={name}
+              variant="numeric"
               color={props.color}
-              type="number"
               placeholder="YYYY"
               disabled={disabled}
               onFocus={onFocus}
