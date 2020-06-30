@@ -33,6 +33,7 @@ function InternalInput(_props) {
     variant,
     numericPrefix,
     numericSuffix,
+    maxLength,
     disabled,
     pasteAllowed,
     isValid,
@@ -110,6 +111,7 @@ function InternalInput(_props) {
           inputMode: "numeric",
           pattern: "[0-9]*",
         })}
+        maxLength={maxLength}
         disabled={disabled}
         onPaste={onPaste}
         autoComplete="off"
@@ -135,6 +137,7 @@ InternalInput.propTypes = {
   variant: PropTypes.oneOf(VARIANTS),
   numericPrefix: PropTypes.string,
   numericSuffix: PropTypes.string,
+  maxLength: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,
   pasteAllowed: PropTypes.bool,

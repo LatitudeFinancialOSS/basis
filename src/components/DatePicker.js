@@ -176,6 +176,7 @@ function DatePicker(props) {
                 variant="numeric"
                 color={props.color}
                 placeholder="DD"
+                maxLength="2"
                 disabled={disabled}
                 onFocus={onFocus}
                 onBlur={onBlur}
@@ -191,6 +192,7 @@ function DatePicker(props) {
               variant="numeric"
               color={props.color}
               placeholder="MM"
+              maxLength="2"
               disabled={disabled}
               onFocus={onFocus}
               onBlur={onBlur}
@@ -205,6 +207,7 @@ function DatePicker(props) {
               variant="numeric"
               color={props.color}
               placeholder="YYYY"
+              maxLength="4"
               disabled={disabled}
               onFocus={onFocus}
               onBlur={onBlur}
