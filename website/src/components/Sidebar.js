@@ -46,6 +46,9 @@ function Item({ location, href, children }) {
           },
         }}
         to={href}
+        onClick={() => {
+          trackEvent(`${children} clicked`);
+        }}
       >
         {children}
       </GatsbyLink>
