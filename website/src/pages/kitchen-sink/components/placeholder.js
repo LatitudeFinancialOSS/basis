@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Placeholder } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 
 function KitchenSinkPlaceholder() {
   return (

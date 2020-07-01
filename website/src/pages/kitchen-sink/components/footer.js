@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Footer, Link, Text } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 
 function KitchenSinkFooter() {
   return (
     <KitchenSinkLayout name="Footer">
-      <Container padding="6 0" bg="grey.t05">
+      <Container padding="6 0">
         <Footer>
           <Footer.Header>
             <Footer.Header.Logo name="latitude" />
