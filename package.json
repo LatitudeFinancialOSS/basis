@@ -11,7 +11,7 @@
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
     "test": "cross-env BABEL_ENV=cjs jest",
-    "percy": "percy snapshot public -s kitchen-sink",
+    "percy": "percy snapshot public -c .percy.js",
     "prebuild-basis": "rimraf dist",
     "build-basis:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --ignore \"src/**/*.test.js\"",
     "build-basis:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel src -d dist/esm --ignore \"src/**/*.test.js\"",
