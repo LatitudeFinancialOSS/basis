@@ -34,7 +34,7 @@ describe("Frequency", () => {
 
     const amountInput = screen.getByPlaceholderText("0.00");
 
-    expect(amountInput).toHaveAttribute("type", "number");
+    expect(amountInput).toHaveAttribute("inputmode", "numeric");
 
     expect(screen.getByText("Annually")).toBeInTheDocument();
     expect(screen.getByText("Quarterly")).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("Frequency", () => {
     amountInput.focus();
     amountInput.blur();
 
-    await screen.findByText("Please enter a valid amount.");
+    await screen.findByText("Please enter an amount.");
     await screen.findByText("Please select a frequency.");
     await waitFor(() => {
       expect(screen.queryByText("Some help text")).not.toBeInTheDocument();

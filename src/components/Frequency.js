@@ -32,7 +32,7 @@ const ALL_FREQUENCY_OPTIONS = [
   },
 ];
 
-const { COLORS } = InternalInput;
+const { COLORS, NUMERIC_REGEX } = InternalInput;
 const MODES = ["radio-group", "select"];
 
 function isFrequencySelected(frequency, frequencyPropsMap) {
@@ -57,7 +57,11 @@ const DEFAULT_PROPS = {
     const errors = [];
 
     if (isInputEmpty(value.amount)) {
-      errors.push("Please enter a valid amount.");
+      errors.push("Please enter an amount.");
+    }
+
+    if (NUMERIC_REGEX.test(value.amount) === false) {
+      errors.push("Amount can contain only digits.");
     }
 
     if (isFrequencyEmpty(value.frequency)) {
@@ -86,6 +90,8 @@ function Frequency(props) {
       monthly: (monthly) => typeof monthly === "boolean",
       fortnightly: (fortnightly) => typeof fortnightly === "boolean",
       weekly: (weekly) => typeof weekly === "boolean",
+      amountPrefix: (amountPrefix) =>
+        typeof amountPrefix === "string" && amountPrefix.length > 0,
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
     }
@@ -99,11 +105,12 @@ function Frequency(props) {
     monthly,
     fortnightly,
     weekly,
-    optional,
+    amountPrefix,
     amountPlaceholder,
     selectPlaceholder,
     helpText,
     disabled,
+    optional,
     validate,
     validateData,
     testId,
@@ -132,7 +139,7 @@ function Frequency(props) {
     [frequencyPropsMap]
   );
   const isInputEmpty = useCallback((amount) => {
-    return amount === "";
+    return amount.trim() === "";
   }, []);
   const isFrequencyEmpty = useCallback(
     (frequency) => {
@@ -174,8 +181,9 @@ function Frequency(props) {
     <InternalInput
       name={`${name}.amount`}
       parentName={name}
+      variant="numeric"
+      numericPrefix={amountPrefix}
       color={props.color}
-      type="number"
       placeholder={amountPlaceholder}
       disabled={disabled}
       onFocus={onFocus}
@@ -256,6 +264,7 @@ Frequency.propTypes = {
   monthly: PropTypes.bool,
   fortnightly: PropTypes.bool,
   weekly: PropTypes.bool,
+  amountPrefix: PropTypes.string,
   amountPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,

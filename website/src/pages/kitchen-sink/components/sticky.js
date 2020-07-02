@@ -1,8 +1,8 @@
 import React from "react";
 import { LiveProvider } from "react-live";
 import * as allDesignSystem from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
-import ComponentPreview from "../ComponentPreview";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
+import ComponentPreview from "../../../components/ComponentPreview";
 
 const { Container } = allDesignSystem;
 const scope = allDesignSystem;

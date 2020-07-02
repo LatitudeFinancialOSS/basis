@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid, Select } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
-import KitchenSinkForm from "./KitchenSinkForm";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
+import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
 const options = [
   {
@@ -51,9 +51,9 @@ function FormWithSelect({
 }
 
 FormWithSelect.propTypes = {
+  initialValue: PropTypes.string,
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  initialValue: PropTypes.string,
   disabled: PropTypes.bool,
   helpText: PropTypes.string,
   optional: PropTypes.bool,

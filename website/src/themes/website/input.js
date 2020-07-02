@@ -24,9 +24,6 @@ export default (theme) => ({
     color: theme.colors.black,
     borderColor: theme.colors.black,
   },
-  "input.webkitSpinButton": {
-    display: "none", // Hides the input="number" spin buttons in Chrome
-  },
   "input.default": {
     color: theme.colors.grey.t65,
     backgroundColor: "transparent",

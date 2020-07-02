@@ -45,7 +45,7 @@ npm start
 - [Formidable Labs](https://formidable.com/) for creating [react-live](https://www.npmjs.com/package/react-live).
 - [Ryan Seddon](https://twitter.com/ryanseddon) for creating [react-frame-component](https://www.npmjs.com/package/react-frame-component).
 - [Sharvil Nanavati](https://twitter.com/snrrrub) for providing the `basis` npm package name.
-- [ZEIT](https://zeit.co) for outstanding deployment experience.
+- [Vercel](https://vercel.com) for outstanding deployment experience.
 
 ## License
 

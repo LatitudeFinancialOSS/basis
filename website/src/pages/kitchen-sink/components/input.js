@@ -1,14 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid, Input } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
-import KitchenSinkForm from "./KitchenSinkForm";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
+import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
 function FormWithInput({
   initialValue = "",
   placeholder,
+  variant,
+  numericPrefix,
+  numericSuffix,
   color,
-  type,
   label,
   disabled,
   helpText,
@@ -24,8 +26,10 @@ function FormWithInput({
       <Input
         name="name"
         placeholder={placeholder}
+        variant={variant}
+        numericPrefix={numericPrefix}
+        numericSuffix={numericSuffix}
         color={color}
-        type={type}
         label={label}
         disabled={disabled}
         helpText={helpText}
@@ -39,8 +43,10 @@ function FormWithInput({
 FormWithInput.propTypes = {
   initialValue: PropTypes.string,
   placeholder: PropTypes.string,
+  variant: PropTypes.oneOf(Input.VARIANTS),
+  numericPrefix: PropTypes.string,
+  numericSuffix: PropTypes.string,
   color: PropTypes.oneOf(Input.COLORS),
-  type: PropTypes.oneOf(Input.TYPES),
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   helpText: PropTypes.string,
@@ -75,7 +81,7 @@ function KitchenSinkInput() {
 
             <FormWithInput label="With placeholder" placeholder="Placeholder" />
 
-            <FormWithInput label="With value" initialValue="With value" />
+            <FormWithInput label="With value" initialValue="Some value" />
 
             <FormWithInput label="Optional" optional />
 
@@ -85,19 +91,40 @@ function KitchenSinkInput() {
             />
 
             <FormWithInput
-              label="Disabled"
+              label="Disabled with value"
+              initialValue="Some value"
               helpText="Nickname is not allowed."
               disabled
             />
 
             <FormWithInput label="With error" submitOnMount />
 
-            <FormWithInput label="Number type" type="number" />
+            <FormWithInput
+              label="Numeric with prefix"
+              variant="numeric"
+              numericPrefix="$"
+              placeholder="Placeholder"
+            />
 
             <FormWithInput
-              label="Number type with value"
-              type="number"
-              initialValue="10"
+              label="Numeric with prefix and value"
+              variant="numeric"
+              numericPrefix="$"
+              initialValue="4000"
+            />
+
+            <FormWithInput
+              label="Numeric with longer prefix"
+              variant="numeric"
+              numericPrefix="AUD"
+              initialValue="800"
+            />
+
+            <FormWithInput
+              label="Numeric with suffix"
+              variant="numeric"
+              numericSuffix="%"
+              initialValue="34"
             />
           </Grid>
         </Container>

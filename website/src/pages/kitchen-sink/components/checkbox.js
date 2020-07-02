@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid, Checkbox } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
-import KitchenSinkForm from "./KitchenSinkForm";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
+import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
 function FormWithCheckbox({
   initialValue = false,

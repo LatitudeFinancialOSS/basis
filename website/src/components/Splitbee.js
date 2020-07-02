@@ -2,9 +2,19 @@ import { useEffect } from "react";
 
 const SPLITBEE_SCRIPT_ID = "basis-splitbee";
 
+function isSplitbeeEnabled() {
+  return window.location.host === "basis.now.sh";
+}
+
+export function trackEvent(eventName) {
+  if (isSplitbeeEnabled()) {
+    window.splitbee.track(eventName);
+  }
+}
+
 function Splitbee() {
   useEffect(() => {
-    if (window.location.host !== "basis.now.sh") {
+    if (!isSplitbeeEnabled()) {
       return;
     }
 

@@ -49,6 +49,7 @@ exports.onCreateWebpackConfig = ({ actions, stage }) => {
 };
 
 const COMPONENT_PAGE_REGEX = /^\/components\/([^/]*)\//;
+const KITCHEN_SINK_COMPONENT_PAGE_REGEX = /^\/kitchen-sink\/components\/([^/]*)\//;
 
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage } = actions;
@@ -57,8 +58,14 @@ exports.onCreatePage = ({ page, actions }) => {
     page.context.header = "Playground";
     page.context.layout = "empty";
   } else if (page.path.startsWith("/kitchen-sink/")) {
-    page.context.header = "Kitchen Sink";
-    page.context.layout = "empty";
+    const match = page.path.match(KITCHEN_SINK_COMPONENT_PAGE_REGEX);
+
+    if (match) {
+      const componentName = pascalCase(match[1]);
+
+      page.context.header = `Kitchen Sink - ${componentName}`;
+      page.context.layout = "empty";
+    }
   } else if (page.path.startsWith("/typography/")) {
     page.context.header = "Typography";
   } else if (page.path.startsWith("/spacing/")) {

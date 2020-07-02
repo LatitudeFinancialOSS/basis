@@ -51,6 +51,7 @@ const BOX_SHADOWS = ["header"];
 
 const DEFAULT_PROPS = {
   bg: "transparent",
+  flexGrow: false,
   hasBorder: false,
   hasBreakpointWidth: false,
   hide: false,
@@ -93,6 +94,11 @@ function Container(_props) {
             borderColor
           )}`,
         }),
+      };
+    },
+    flexGrow: ({ flexGrow }) => {
+      return {
+        flexGrow: flexGrow ? 1 : 0,
       };
     },
     hasBreakpointWidth: ({ hasBreakpointWidth, margin }, theme, bp) => {
@@ -165,6 +171,7 @@ Container.propTypes = {
   ...responsiveWidthType,
   ...responsiveHeightType,
   ...responsivePropType("bg", PropTypes.oneOf(BACKGROUNDS)),
+  ...responsivePropType("flexGrow", PropTypes.bool),
   ...responsivePropType("hasBorder", PropTypes.bool),
   ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
   ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),

@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Divider } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 
 function KitchenSinkDivider() {
   return (

@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid, Frequency } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
-import KitchenSinkForm from "./KitchenSinkForm";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
+import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
 function FormWithFrequency({
   label,
   optional,
+  mode,
   annually,
   quarterly,
   monthly,
@@ -16,6 +17,7 @@ function FormWithFrequency({
     amount: "",
     frequency: "",
   },
+  amountPrefix,
   amountPlaceholder,
   selectPlaceholder,
   disabled,
@@ -30,11 +32,13 @@ function FormWithFrequency({
         name="salary"
         label={label}
         optional={optional}
+        mode={mode}
         annually={annually}
         quarterly={quarterly}
         monthly={monthly}
         fortnightly={fortnightly}
         weekly={weekly}
+        amountPrefix={amountPrefix}
         amountPlaceholder={amountPlaceholder}
         selectPlaceholder={selectPlaceholder}
         disabled={disabled}
@@ -56,6 +60,7 @@ FormWithFrequency.propTypes = {
     amount: PropTypes.string.isRequired,
     frequency: PropTypes.string.isRequired,
   }),
+  amountPrefix: PropTypes.string,
   amountPlaceholder: PropTypes.string,
   selectPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
@@ -112,9 +117,21 @@ function KitchenSinkFrequency() {
           />
 
           <FormWithFrequency
+            label="Amount prefix"
+            mode="select"
+            quarterly={false}
+            amountPrefix="$"
+            initialValue={{
+              amount: "80000",
+              frequency: "",
+            }}
+          />
+
+          <FormWithFrequency
             label="Custom placeholders"
             mode="select"
             quarterly={false}
+            amountPrefix="$"
             amountPlaceholder="Type something"
             selectPlaceholder="Select something"
             initialValue={{

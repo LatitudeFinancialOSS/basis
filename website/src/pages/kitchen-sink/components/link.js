@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Stack, Link } from "basis";
-import KitchenSinkLayout from "./KitchenSinkLayout";
+import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 
 const backgrounds = [
   "white",

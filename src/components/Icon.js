@@ -23,6 +23,7 @@ const NAMES = [
   "face-id",
   "facebook",
   "fingerprint",
+  "github",
   "hamburger",
   "instagram",
   "linkedin",
