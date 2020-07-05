@@ -10,6 +10,7 @@ export default (theme) => ({
     overflow: "hidden",
     transition: theme.transitions.button,
     borderRadius: theme.radii[1],
+    outline: 0,
     ...theme.focusStyles.focusVisible,
     "a &": {
       cursor: "pointer",

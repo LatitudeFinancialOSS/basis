@@ -4,6 +4,7 @@ export default (theme) => ({
   link: {
     textDecoration: "none",
     borderRadius: theme.radii[0],
+    outline: 0,
     ...theme.focusStyles.focusVisible,
   },
   "link.light-bg": {

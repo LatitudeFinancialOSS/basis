@@ -200,61 +200,28 @@ theme.shadows = {
   focus: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`,
 };
 
+const focusStyle = {
+  boxShadow: theme.shadows.focus,
+  // Make sure that the focus style sits above the surrounding elements with normal page flow
+  position: "relative",
+  zIndex: theme.zIndices.aboveNormalFlow,
+};
+
 theme.focusStyles = {
-  // https://github.com/WICG/focus-visible#backwards-compatibility
   focusVisible: {
-    // Provide basic, default focus styles.
     ":focus": {
-      outline: 0,
-      boxShadow: theme.shadows.focus,
-      // Make sure that the focus style sits above the surrounding elements with normal page flow
-      position: "relative",
-      zIndex: theme.zIndices.aboveNormalFlow,
-    },
-    // Remove default focus styles for mouse users ONLY if :focus-visible is supported on this platform.
-    ":focus:not(:focus-visible)": {
-      boxShadow: "none",
-      position: "initial",
-      zIndex: "initial",
-    },
-    // If :focus-visible is supported on this platform, provide enhanced focus styles for keyboard focus.
-    ":focus-visible": {
-      boxShadow: theme.shadows.focus,
-      // Make sure that the focus style sits above the surrounding elements with normal page flow
-      position: "relative",
-      zIndex: theme.zIndices.aboveNormalFlow,
+      '[data-basis-keyboard-mode="true"] &': focusStyle,
     },
   },
   focusVisibleAdjacentLabel: {
     ":focus + label": {
-      boxShadow: theme.shadows.focus,
-      // Make sure that the focus style sits above the surrounding elements with normal page flow
-      position: "relative",
-      zIndex: theme.zIndices.aboveNormalFlow,
-    },
-    ":focus:not(:focus-visible) + label": {
-      boxShadow: "none",
-      position: "initial",
-      zIndex: "initial",
-    },
-    ":focus-visible + label": {
-      boxShadow: theme.shadows.focus,
-      // Make sure that the focus style sits above the surrounding elements with normal page flow
-      position: "relative",
-      zIndex: theme.zIndices.aboveNormalFlow,
+      '[data-basis-keyboard-mode="true"] &': focusStyle,
     },
   },
 };
 
-theme.focusStyles.__keyboardFocus = {
-  ...theme.focusStyles.focusVisible[":focus"],
-  ...theme.focusStyles.focusVisible[":focus-visible"],
-};
-
-theme.focusStyles.__keyboardFocusAdjacentLabel = {
-  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus + label"],
-  ...theme.focusStyles.focusVisibleAdjacentLabel[":focus-visible + label"],
-};
+theme.focusStyles.__keyboardFocus = focusStyle;
+theme.focusStyles.__keyboardFocusAdjacentLabel = focusStyle;
 
 export default {
   ...theme,
