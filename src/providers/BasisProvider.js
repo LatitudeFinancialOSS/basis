@@ -4,6 +4,7 @@ import WindowProvider from "./WindowProvider";
 import BreakpointProvider from "./BreakpointProvider";
 import LinkProvider from "./LinkProvider";
 import { enhanceTheme } from "../utils/theme";
+import FocusVisiblePolyfill from "../components/internal/FocusVisiblePolyfill";
 
 export const ThemeContext = React.createContext();
 
@@ -19,6 +20,7 @@ function BasisProvider({
   return (
     <ThemeContext.Provider value={enhancedTheme}>
       <WindowProvider window={window}>
+        <FocusVisiblePolyfill />
         <BreakpointProvider>
           <LinkProvider
             InternalLink={InternalLink}

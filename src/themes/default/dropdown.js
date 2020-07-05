@@ -13,6 +13,7 @@ export default (theme) => ({
     margin: 0,
     border: 0,
     borderRadius: theme.radii[0],
+    outline: 0,
     ...theme.focusStyles.focusVisible,
   },
   dropdownButtonPlaceholder: {

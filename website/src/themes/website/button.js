@@ -10,6 +10,7 @@ export default (theme) => ({
     overflow: "hidden",
     transition:
       "transform 100ms ease, color 100ms ease, border-color 100ms ease",
+    outline: 0,
     ...theme.focusStyles.focusVisible,
   },
   "button:disabled": {
