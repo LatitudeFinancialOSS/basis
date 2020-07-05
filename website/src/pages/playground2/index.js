@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { atom, useRecoilState } from "recoil";
+import { Resizable } from "re-resizable";
 import { useTheme, Container, Grid } from "basis";
 import PlaygroundScreen from "./PlaygroundScreen";
 import PlaygroundCodePanel from "./PlaygroundCodePanel";
 import useLocalStorageValue from "./useLocalStorageValue";
-import useResizable from "./useResizable";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
+
+function heightToVh(height) {
+  return (height / window.innerHeight) * 100 + "vh";
+}
+
+function vhToHeight(vh) {
+  return (parseFloat(vh, 10) * window.innerHeight) / 100;
+}
 
 const LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY = "playground-code-panel-height";
 
@@ -22,27 +30,25 @@ function Playground({ location }) {
     LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY,
     "40vh"
   );
-  const {
-    size: codePanelSize,
-    sizeWhenResizing: codePanelSizeWhenResizing,
-    Resizable: ResizableCodePanel,
-  } = useResizable({
-    resizeTop: true,
-    defaultHeight: initialCodePanelHeight,
-    minHeight: "10vh",
-    maxHeight: "90vh",
-  });
-  const onCodePanelResizeStop = ({ height }) => {
+  const [codePanelHeight, setCodePanelHeight] = useState(null);
+  const codePanelHeightOnResizeStart = useRef();
+  const onCodePanelResizeStop = () => {
     try {
       localStorage &&
         localStorage.setItem(
           LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY,
-          JSON.stringify(height)
+          JSON.stringify(codePanelHeight)
         );
     } catch (error) {
       console.error(`Saving in localStorage failed: ${error.message}`);
     }
   };
+
+  useEffect(() => {
+    if (initialCodePanelHeight !== null) {
+      setCodePanelHeight(initialCodePanelHeight);
+    }
+  }, [initialCodePanelHeight]);
 
   useEffect(() => {
     const dataFromUrl = getPlaygroundDataFromUrl(location);
@@ -60,13 +66,12 @@ function Playground({ location }) {
     );
   }, [location, theme, setScreens]);
 
+  if (codePanelHeight === null) {
+    return null;
+  }
+
   return (
-    <Grid
-      height="100vh"
-      rows={`1fr ${
-        initialCodePanelHeight === null ? "" : codePanelSizeWhenResizing.height
-      }`}
-    >
+    <Grid height="100vh" rows={`1fr ${codePanelHeight}`}>
       <Grid.Item>
         <Container height="100%" bg="grey.t03" overflow="auto">
           <div
@@ -92,14 +97,36 @@ function Playground({ location }) {
           </div>
         </Container>
       </Grid.Item>
-      {initialCodePanelHeight !== null && (
+      {codePanelHeight !== null && (
         <Grid.Item>
-          <ResizableCodePanel
-            size={codePanelSize}
+          <Resizable
+            size={{ height: codePanelHeight }}
+            onResizeStart={() => {
+              codePanelHeightOnResizeStart.current = codePanelHeight;
+            }}
+            onResize={(e, direction, ref, d) => {
+              setCodePanelHeight(
+                heightToVh(
+                  vhToHeight(codePanelHeightOnResizeStart.current) + d.height
+                )
+              );
+            }}
             onResizeStop={onCodePanelResizeStop}
+            minHeight="10vh"
+            maxHeight="90vh"
+            enable={{
+              top: true,
+              right: false,
+              bottom: false,
+              left: false,
+              topRight: false,
+              bottomRight: false,
+              bottomLeft: false,
+              topLeft: false,
+            }}
           >
             <PlaygroundCodePanel />
-          </ResizableCodePanel>
+          </Resizable>
         </Grid.Item>
       )}
     </Grid>

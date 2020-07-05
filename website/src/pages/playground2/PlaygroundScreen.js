@@ -1,34 +1,50 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { useTheme, Text } from "basis";
-import useResizable from "./useResizable";
+import { useSetRecoilState } from "recoil";
+import { Resizable } from "re-resizable";
+import { Text } from "basis";
+import { screensState } from "./index";
+import { updateItemWithId } from "./utils";
 
-function PlaygroundScreen({ name, width }) {
-  const theme = useTheme();
-  const {
-    size: screenSize,
-    sizeWhenResizing: screenSizeWhenResizing,
-    Resizable: ResizableScreen,
-    setSize: setScreenSize,
-  } = useResizable({
-    resizeRight: true,
-    defaultWidth: width,
-    minWidth: 300,
-  });
+function PlaygroundScreen({ id, name, width }) {
+  const setScreens = useSetRecoilState(screensState);
+  const setScreenWidth = (width) => {
+    setScreens((screens) => updateItemWithId(screens, id, { width }));
+  };
+  const widthOnResizeStart = useRef();
 
   return (
-    <ResizableScreen size={screenSize}>
+    <Resizable
+      size={{ width }}
+      onResizeStart={() => {
+        widthOnResizeStart.current = width;
+      }}
+      onResize={(e, direction, ref, d) => {
+        setScreenWidth(widthOnResizeStart.current + d.width);
+      }}
+      minWidth={300}
+      enable={{
+        top: false,
+        right: true,
+        bottom: false,
+        left: false,
+        topRight: false,
+        bottomRight: false,
+        bottomLeft: false,
+        topLeft: false,
+      }}
+    >
       <div
         css={{
           display: "flex",
           flexDirection: "column-reverse",
-          width: screenSizeWhenResizing.width,
+          width,
           height: "100%",
         }}
       >
         <Text color="grey.t75" margin="1 1 0">
-          <strong>{name}</strong> – {screenSizeWhenResizing.width}
-          {parseInt(screenSizeWhenResizing.width, 10) !== width && (
+          <strong>{name}</strong> – {width}px
+          {/* {parseInt(screenSizeWhenResizing.width, 10) !== width && (
             <button
               css={{
                 float: "right",
@@ -56,7 +72,7 @@ function PlaygroundScreen({ name, width }) {
             >
               Reset
             </button>
-          )}
+          )} */}
         </Text>
         <div
           css={{
@@ -69,7 +85,7 @@ function PlaygroundScreen({ name, width }) {
           iframe
         </div>
       </div>
-    </ResizableScreen>
+    </Resizable>
   );
 }
 
@@ -79,4 +95,4 @@ PlaygroundScreen.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default PlaygroundScreen;
+export default React.memo(PlaygroundScreen);
