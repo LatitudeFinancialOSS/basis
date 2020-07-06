@@ -25,6 +25,7 @@ export default (theme) => ({
     textAlign: "left",
     ...textStyles(theme)["subtitle2"],
     ...textStyles(theme)["subtitle2.bold"],
+    outline: 0,
     ...theme.focusStyles.focusVisible,
   },
   accordionHeaderContent: {

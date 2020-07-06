@@ -3,6 +3,7 @@ export default (theme) => ({
     display: "inline-block",
     textDecoration: "none",
     borderRadius: theme.radii[0],
+    outline: 0,
     ...theme.focusStyles.focusVisible,
   },
   "link.light-bg": {
