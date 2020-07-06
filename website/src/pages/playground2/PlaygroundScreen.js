@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { Text } from "basis";
 import { screensState } from "./index";
-import { updateItemWithId } from "./utils";
+import { MIN_SCREEN_WIDTH, MAX_SCREEN_WIDTH, updateItemWithId } from "./utils";
 
 function PlaygroundScreen({ id, name, width }) {
   const setScreens = useSetRecoilState(screensState);
@@ -22,7 +22,8 @@ function PlaygroundScreen({ id, name, width }) {
       onResize={(e, direction, ref, d) => {
         setScreenWidth(widthOnResizeStart.current + d.width);
       }}
-      minWidth={300}
+      minWidth={MIN_SCREEN_WIDTH}
+      maxWidth={MAX_SCREEN_WIDTH}
       enable={{
         top: false,
         right: true,
