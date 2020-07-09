@@ -59,6 +59,6 @@ export default (theme) => ({
     },
   },
   "link.icon": {
-    display: "flex",
+    display: "inline-flex",
   },
 });

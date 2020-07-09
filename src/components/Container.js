@@ -97,9 +97,13 @@ function Container(_props) {
       };
     },
     flexGrow: ({ flexGrow }) => {
-      return {
-        flexGrow: flexGrow ? 1 : 0,
-      };
+      if (flexGrow) {
+        return {
+          flexGrow: 1,
+        };
+      }
+
+      return {};
     },
     hasBreakpointWidth: ({ hasBreakpointWidth, margin }, theme, bp) => {
       if (hasBreakpointWidth !== true) {
