@@ -95,6 +95,7 @@ function Sidebar() {
         css={{
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           padding: `${theme.space[5]} ${theme.space[6]}`,
           borderBottom: `1px solid ${theme.colors.grey.t10}`,
           backgroundColor: theme.colors.grey.t05,
@@ -103,19 +104,17 @@ function Sidebar() {
         <GatsbyLink to="/" css={{ ...theme.textStyles.heading5 }}>
           Basis
         </GatsbyLink>
-        <Container margin="0 0 0 auto">
-          <Link
-            variant="icon"
-            href="https://github.com/moroshko/basis"
-            newTab
-            title="GitHub"
-            onClick={() => {
-              trackEvent("GitHub link clicked");
-            }}
-          >
-            <Icon name="github" color="grey.t75" hoverColor="black" />
-          </Link>
-        </Container>
+        <Link
+          variant="icon"
+          href="https://github.com/moroshko/basis"
+          newTab
+          title="GitHub"
+          onClick={() => {
+            trackEvent("GitHub link clicked");
+          }}
+        >
+          <Icon name="github" color="grey.t75" hoverColor="black" />
+        </Link>
       </div>
       <div
         css={{

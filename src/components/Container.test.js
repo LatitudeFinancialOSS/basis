@@ -13,7 +13,6 @@ describe("Container", () => {
     expect(node.tagName).toBe("DIV");
     expect(node).toHaveStyle({
       backgroundColor: "transparent",
-      flexGrow: 0,
     });
   });
 

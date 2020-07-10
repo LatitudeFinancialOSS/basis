@@ -569,6 +569,7 @@ function Playground({ location }) {
                 css={{
                   flexShrink: 0,
                   display: "flex",
+                  justifyContent: "space-between",
                   padding: `${theme.space[2]} ${theme.space[8]}`,
                   backgroundColor: theme.colors.grey.t05,
                   borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
@@ -612,7 +613,6 @@ function Playground({ location }) {
                   </Button>
                 </Stack>
                 <Button
-                  margin="0 0 0 auto"
                   variant="secondary"
                   onClick={() => {
                     setAreSettingsOpen(!areSettingsOpen);
