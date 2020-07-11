@@ -1,34 +1,50 @@
+import React from "react";
+
 export const MIN_SCREEN_WIDTH = 300;
 export const MAX_SCREEN_WIDTH = 2048;
 
-export function isScreenNameValid(name, screenId, screens) {
+export function validateScreenName(name, screenId, screens) {
   const trimmedName = name.trim();
 
   if (trimmedName === "") {
-    return false;
+    return "Name can't be empty.";
   }
 
   for (let i = 0, len = screens.length; i < len; i++) {
     const screen = screens[i];
 
     if (screen.id !== screenId && screen.name === trimmedName) {
-      return false;
+      return "Name already exists.";
     }
   }
 
-  return true;
+  return null;
 }
 
-const INTEGER_REGEX = /^\d*$/;
+const INTEGER_REGEX = /^\d+$/;
 
-export function isScreenWidthValid(width) {
-  if (INTEGER_REGEX.test(width) === false) {
-    return false;
+export function validateScreenWidth(width) {
+  const trimmedWidth = width.trim();
+
+  if (trimmedWidth === "") {
+    return "Width can't be empty.";
   }
 
-  const widthInt = Number(width);
+  if (INTEGER_REGEX.test(trimmedWidth) === false) {
+    return "Width must be a number.";
+  }
 
-  return widthInt >= MIN_SCREEN_WIDTH && widthInt <= MAX_SCREEN_WIDTH;
+  const widthInt = Number(trimmedWidth);
+
+  if (widthInt < MIN_SCREEN_WIDTH) {
+    return `Min width is ${MIN_SCREEN_WIDTH}.`;
+  }
+
+  if (widthInt > MAX_SCREEN_WIDTH) {
+    return `Max width is ${MAX_SCREEN_WIDTH}.`;
+  }
+
+  return null;
 }
 
 function replaceItemAtIndex(arr, index, newValue) {
@@ -54,4 +70,24 @@ export function removeItemWithId(arr, id) {
   const index = arr.findIndex((item) => item.id === id);
 
   return index === -1 ? arr : removeItemAtIndex(arr, index);
+}
+
+export function getErrorsFrom(errors) {
+  errors = errors.filter(Boolean);
+
+  const lastIndex = errors.length - 1;
+
+  return React.createElement(
+    React.Fragment,
+    null,
+    errors.reduce((result, error, index) => {
+      result.push(error);
+
+      if (index !== lastIndex) {
+        result.push(React.createElement("br", { key: index }));
+      }
+
+      return result;
+    }, [])
+  );
 }

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useRecoilState } from "recoil";
 import { useTheme } from "basis";
 import { shallowEqualObjects } from "shallow-equal";
+import PlaygroundSettingsInput from "./PlaygroundSettingsInput";
+import PlaygroundSettingsButton from "./PlaygroundSettingsButton";
 import { screensState } from "./index";
 import {
-  isScreenNameValid,
-  isScreenWidthValid,
+  validateScreenName,
+  validateScreenWidth,
   updateItemWithId,
   removeItemWithId,
 } from "./utils";
@@ -19,17 +21,22 @@ function PlaygroundScreenSettingsRender(
   const { style, ...restWithoutStyle } = rest;
   const theme = useTheme();
   const [screens, setScreens] = useRecoilState(screensState);
+  const isNameValid = useCallback(
+    (name) => validateScreenName(name, id, screens) === null,
+    [id, screens]
+  );
+  const isWidthValid = (width) => validateScreenWidth(width) === null;
   const [localName, setLocalName] = useState(name);
   const [isLocalNameValid, setIsLocalNameValid] = useState(() =>
-    isScreenNameValid(name, id, screens)
+    isNameValid(name)
   );
   const [localWidth, setLocalWidth] = useState(String(width));
   const [isLocalWidthValid, setIsLocalWidthValid] = useState(() =>
-    isScreenWidthValid(width)
+    isWidthValid(localWidth)
   );
   const onLocalNameChange = (e) => {
     const newName = e.target.value;
-    const isValid = isScreenNameValid(newName, id, screens);
+    const isValid = isNameValid(newName);
 
     setLocalName(newName);
     setIsLocalNameValid(isValid);
@@ -40,55 +47,28 @@ function PlaygroundScreenSettingsRender(
   };
   const onLocalWidthChange = (e) => {
     const newWidth = e.target.value;
-    const isValid = isScreenWidthValid(newWidth);
+    const isValid = isWidthValid(newWidth);
 
     setLocalWidth(newWidth);
     setIsLocalWidthValid(isValid);
 
     if (isValid) {
       setScreens((screens) =>
-        updateItemWithId(screens, id, { width: Number(newWidth) })
+        updateItemWithId(screens, id, { width: newWidth })
       );
     }
-  };
-  const getInputCSS = (isValid) => ({
-    height: 20,
-    padding: "0 4px",
-    fontSize: "14px",
-    fontWeight: "inherit",
-    fontFamily: "inherit",
-    border: 0,
-    outline: `${isValid ? "1px" : "2px"} solid ${
-      isValid ? theme.getColor("grey.t65") : "red"
-    }`,
-    ":focus": {
-      border: 0,
-      outline: `2px solid ${
-        isValid ? theme.getColor("highlight.blue.t100") : "red"
-      }`,
-      outlineOffset: 0,
-    },
-  });
-  const buttonCSS = {
-    boxSizing: "border-box",
-    width: 22,
-    height: 22,
-    padding: 0,
-    border: 0,
-    backgroundColor: theme.getColor("grey.t10"),
-    ":hover": {
-      backgroundColor: theme.getColor("grey.t16"),
-    },
   };
 
   useEffect(() => {
     setLocalName(name);
-    setIsLocalNameValid(isScreenNameValid(name, id, screens));
-  }, [name, id, screens]);
+    setIsLocalNameValid(isNameValid(name));
+  }, [name, isNameValid]);
 
   useEffect(() => {
-    setLocalWidth(width);
-    setIsLocalWidthValid(isScreenWidthValid(width));
+    const newLocalWidth = String(width);
+
+    setLocalWidth(newLocalWidth);
+    setIsLocalWidthValid(isWidthValid(newLocalWidth));
   }, [width]);
 
   return (
@@ -121,46 +101,37 @@ function PlaygroundScreenSettingsRender(
           />
         </svg>
       </button>
-      <input
-        css={{
-          ...getInputCSS(isLocalNameValid),
-          width: 100,
-          marginLeft: theme.space[1],
-        }}
-        type="text"
-        value={localName}
-        onChange={onLocalNameChange}
-        aria-label="Screen name"
-        aria-invalid={!isLocalNameValid}
-      />
-      <input
-        css={{
-          ...getInputCSS(isLocalWidthValid),
-          width: 50,
-          marginLeft: theme.space[2],
-        }}
-        type="text"
-        maxLength="4"
-        // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
-        inputMode="numeric"
-        pattern="[0-9]*"
-        value={localWidth}
-        onChange={onLocalWidthChange}
-        aria-label="Screen width"
-        aria-invalid={!isLocalWidthValid}
-      />
-      <button
-        css={{
-          ...buttonCSS,
-          marginLeft: theme.space[2],
-        }}
-        onClick={() => {
-          setScreens((screens) => removeItemWithId(screens, id));
-        }}
-        title="Remove screen"
-      >
-        ✕
-      </button>
+      <div css={{ marginLeft: theme.space[1] }}>
+        <PlaygroundSettingsInput
+          value={localName}
+          onChange={onLocalNameChange}
+          isValid={isLocalNameValid}
+          ariaLabel="Screen name"
+          width={100}
+        />
+      </div>
+      <div css={{ marginLeft: theme.space[2] }}>
+        <PlaygroundSettingsInput
+          value={localWidth}
+          onChange={onLocalWidthChange}
+          isValid={isLocalWidthValid}
+          variant="numeric"
+          maxLength="4"
+          ariaLabel="Screen width"
+          width={50}
+        />
+      </div>
+      <div css={{ display: "flex", marginLeft: theme.space[2] }}>
+        <PlaygroundSettingsButton
+          width={22}
+          title="Remove screen"
+          onClick={() => {
+            setScreens((screens) => removeItemWithId(screens, id));
+          }}
+        >
+          ✕
+        </PlaygroundSettingsButton>
+      </div>
     </li>
   );
 }

@@ -35,6 +35,12 @@ function Page({ pageContext, children }) {
               color: "inherit",
               textDecoration: "none",
             },
+            ":focus": {
+              outline: 0,
+            },
+            '[data-basis-keyboard-mode="true"] :focus': {
+              boxShadow: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`,
+            },
           }}
         />
         <SEO title={title} />

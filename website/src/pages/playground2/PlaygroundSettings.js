@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { List, arrayMove } from "react-movable";
 import { useTheme, Container, Text } from "basis";
 import PlaygroundScreenSettings from "./PlaygroundScreenSettings";
+import PlaygroundNewScreenSettings from "./PlaygroundNewScreenSettings";
 import { screensState } from "./index";
 
 function PlaygroundSettings() {
@@ -34,8 +35,7 @@ function PlaygroundSettings() {
                 css={{
                   boxSizing: "border-box",
                   margin: 0,
-                  padding: `${theme.space[1]} ${theme.space[6]} ${theme.space[4]}`,
-                  height: "100%",
+                  padding: `${theme.space[1]} ${theme.space[6]} 0`,
                   overflowY: "auto",
                 }}
                 {...props}
@@ -53,6 +53,7 @@ function PlaygroundSettings() {
               />
             )}
           />
+          <PlaygroundNewScreenSettings />
         </div>
       </div>
     </Container>
