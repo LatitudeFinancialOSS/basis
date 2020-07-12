@@ -3,6 +3,7 @@ import { rgba } from "polished";
 export default (theme) => ({
   link: {
     textDecoration: "none",
+    lineHeight: "normal", // Without it, if link is placed inside an element with `display: inline-flex`, for example, the bottom-border will be further away from the text.
     borderRadius: theme.radii[0],
     outline: 0,
     ...theme.focusStyles.focusVisible,
@@ -59,6 +60,6 @@ export default (theme) => ({
     },
   },
   "link.icon": {
-    display: "flex",
+    display: "inline-flex",
   },
 });
