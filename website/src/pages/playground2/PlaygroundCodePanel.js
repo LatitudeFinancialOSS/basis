@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import { useTheme, Button, VisuallyHidden } from "basis";
 import { LiveEditor } from "react-live";
@@ -10,6 +10,7 @@ function PlaygroundCodePanel() {
   const theme = useTheme();
   const setCode = useSetRecoilState(codeState);
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
+  const settingsRef = useRef();
 
   return (
     <div
@@ -85,6 +86,11 @@ function PlaygroundCodePanel() {
               bottom: 0,
               backgroundColor: "rgba(255, 255, 255, 0.7)",
             }}
+            onClick={(e) => {
+              if (!settingsRef.current.contains(e.target)) {
+                setAreSettingsOpen(false);
+              }
+            }}
           >
             <div
               css={{
@@ -97,6 +103,7 @@ function PlaygroundCodePanel() {
                 boxSizing: "border-box",
                 borderLeft: `${theme.borderWidths[0]} solid ${theme.colors.grey.t16}`,
               }}
+              ref={settingsRef}
             >
               <PlaygroundSettings />
             </div>
