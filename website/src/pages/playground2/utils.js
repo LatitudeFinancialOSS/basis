@@ -21,7 +21,7 @@ export function validateScreenName(name, screenId, screens) {
   return null;
 }
 
-const INTEGER_REGEX = /^\d+$/;
+export const INTEGER_REGEX = /^\d+$/;
 
 export function validateScreenWidth(width) {
   const trimmedWidth = width.trim();
@@ -34,13 +34,13 @@ export function validateScreenWidth(width) {
     return "Width must be a number.";
   }
 
-  const widthInt = Number(trimmedWidth);
+  const intWidth = Number(trimmedWidth);
 
-  if (widthInt < MIN_SCREEN_WIDTH) {
+  if (intWidth < MIN_SCREEN_WIDTH) {
     return `Min width is ${MIN_SCREEN_WIDTH}.`;
   }
 
-  if (widthInt > MAX_SCREEN_WIDTH) {
+  if (intWidth > MAX_SCREEN_WIDTH) {
     return `Max width is ${MAX_SCREEN_WIDTH}.`;
   }
 

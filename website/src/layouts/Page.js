@@ -38,7 +38,7 @@ function Page({ pageContext, children }) {
             ":focus": {
               outline: 0,
             },
-            '[data-basis-keyboard-mode="true"] :focus': {
+            '[data-basis-keyboard-mode="true"] :not([aria-invalid="true"]):focus': {
               boxShadow: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`,
             },
           }}

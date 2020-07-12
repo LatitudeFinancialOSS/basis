@@ -18,6 +18,7 @@ function PlaygroundSettingsButton({
     height: 22,
     padding: 0,
     border: 0,
+    borderRadius: 2,
     backgroundColor: theme.getColor("grey.t10"),
     ":hover": {
       backgroundColor: theme.getColor("grey.t16"),

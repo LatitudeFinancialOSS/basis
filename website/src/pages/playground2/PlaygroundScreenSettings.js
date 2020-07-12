@@ -7,6 +7,8 @@ import PlaygroundSettingsInput from "./PlaygroundSettingsInput";
 import PlaygroundSettingsButton from "./PlaygroundSettingsButton";
 import { screensState } from "./index";
 import {
+  MIN_SCREEN_WIDTH,
+  MAX_SCREEN_WIDTH,
   validateScreenName,
   validateScreenWidth,
   updateItemWithId,
@@ -54,7 +56,7 @@ function PlaygroundScreenSettingsRender(
 
     if (isValid) {
       setScreens((screens) =>
-        updateItemWithId(screens, id, { width: newWidth })
+        updateItemWithId(screens, id, { width: Number(newWidth) })
       );
     }
   };
@@ -79,6 +81,7 @@ function PlaygroundScreenSettingsRender(
         alignItems: "center",
         listStyleType: "none",
         height: "36px",
+        borderRadius: 2,
       }}
       ref={ref}
       {...restWithoutStyle}
@@ -117,6 +120,8 @@ function PlaygroundScreenSettingsRender(
           isValid={isLocalWidthValid}
           variant="numeric"
           maxLength="4"
+          min={MIN_SCREEN_WIDTH}
+          max={MAX_SCREEN_WIDTH}
           ariaLabel="Screen width"
           width={50}
         />

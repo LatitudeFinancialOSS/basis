@@ -4,6 +4,8 @@ import { useTheme, Text } from "basis";
 import PlaygroundSettingsInput from "./PlaygroundSettingsInput";
 import PlaygroundSettingsButton from "./PlaygroundSettingsButton";
 import {
+  MIN_SCREEN_WIDTH,
+  MAX_SCREEN_WIDTH,
   validateScreenName,
   validateScreenWidth,
   getErrorsFrom,
@@ -85,6 +87,8 @@ function PlaygroundNewScreenSettings() {
             isValid={isWidthValid}
             variant="numeric"
             maxLength="4"
+            min={MIN_SCREEN_WIDTH}
+            max={MAX_SCREEN_WIDTH}
             ariaLabel="New screen width"
             width={50}
           />
