@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { useTheme, Button } from "basis";
+import { useSetRecoilState } from "recoil";
+import { useTheme, Button, VisuallyHidden } from "basis";
+import { LiveEditor } from "react-live";
+import PlaygroundCodeError from "./PlaygroundCodeError";
 import PlaygroundSettings from "./PlaygroundSettings";
+import { codeState } from "./index";
 
 function PlaygroundCodePanel() {
   const theme = useTheme();
-  const [areSettingsOpen, setAreSettingsOpen] = useState(true);
+  const setCode = useSetRecoilState(codeState);
+  const [areSettingsOpen, setAreSettingsOpen] = useState(false);
 
   return (
     <div
@@ -13,6 +18,7 @@ function PlaygroundCodePanel() {
         flexDirection: "column",
         height: "100%",
         boxSizing: "border-box",
+        position: "relative",
       }}
     >
       <div
@@ -51,8 +57,24 @@ function PlaygroundCodePanel() {
           display: "flex",
           position: "relative",
           flexGrow: 1,
+          minHeight: 0, // This ensures that, when there is a lot of code, this div isn't growing beyond what we want.
         }}
       >
+        <div
+          css={{
+            padding: `${theme.space[4]} ${theme.space[8]}`,
+            width: "100%",
+            overflow: "auto",
+            "textarea:focus": {
+              outline: "none",
+            },
+          }}
+        >
+          <VisuallyHidden>
+            <label htmlFor="code-editor">Code Editor</label>
+          </VisuallyHidden>
+          <LiveEditor textareaId="code-editor" padding={0} onChange={setCode} />
+        </div>
         {areSettingsOpen && (
           <div
             css={{
@@ -61,7 +83,7 @@ function PlaygroundCodePanel() {
               top: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: theme.colors.white,
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
             }}
           >
             <div
@@ -81,6 +103,7 @@ function PlaygroundCodePanel() {
           </div>
         )}
       </div>
+      <PlaygroundCodeError />
     </div>
   );
 }

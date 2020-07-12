@@ -53,10 +53,14 @@ export function getReactLiveNoInline(code) {
   }
 }
 
-export function annotateCodeForPlayground(code) {
-  const codeToParse = isClassOrFunction(code) ? code : wrapCodeInFragment(code);
+export function wrapInFragmentIfNeeded(code) {
+  return isClassOrFunction(code) ? code : wrapCodeInFragment(code);
+}
 
+export function annotateCodeForPlayground(code) {
+  const codeToParse = wrapInFragmentIfNeeded(code);
   const ast = getASTfromCode(codeToParse);
+
   if (ast === null) {
     return code;
   }
