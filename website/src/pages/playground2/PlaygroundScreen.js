@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useSetRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { Text } from "basis";
+import ComponentPreview from "../../components/ComponentPreview";
 import { screensState } from "./index";
 import { MIN_SCREEN_WIDTH, MAX_SCREEN_WIDTH, updateItemWithId } from "./utils";
 
@@ -45,35 +46,6 @@ function PlaygroundScreen({ id, name, width }) {
       >
         <Text color="grey.t75" margin="1 1 0">
           <strong>{name}</strong> – {width}px
-          {/* {parseInt(screenSizeWhenResizing.width, 10) !== width && (
-            <button
-              css={{
-                float: "right",
-                padding: `0 ${theme.space[2]}`,
-                border: 0,
-                backgroundColor: theme.getColor("grey.t10"),
-                borderRadius: theme.radii[1],
-                fontSize: theme.fontSizes[0],
-                fontFamily: "inherit",
-                fontWeight: "inherit",
-                lineHeight: "inherit",
-                transition: "background-color 100ms ease, transform 100ms ease",
-                ":hover": {
-                  backgroundColor: theme.getColor("grey.t16"),
-                },
-                ":active": {
-                  transform: "scale(0.95)",
-                },
-                ...theme.focusStyles.focusVisible,
-              }}
-              type="button"
-              onClick={() => {
-                setScreenSize({ width: width + "px" });
-              }}
-            >
-              Reset
-            </button>
-          )} */}
         </Text>
         <div
           css={{
@@ -83,7 +55,10 @@ function PlaygroundScreen({ id, name, width }) {
               "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
           }}
         >
-          iframe
+          <ComponentPreview
+            iframeTitle={`${name} screen preview`}
+            hasBodyMargin={false}
+          />
         </div>
       </div>
     </Resizable>
