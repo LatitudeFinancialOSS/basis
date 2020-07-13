@@ -6,9 +6,10 @@
     "plugin:jest/recommended",
     "plugin:testing-library/recommended",
     "plugin:testing-library/react",
-    "plugin:jest-dom/recommended"
+    "plugin:jest-dom/recommended",
+    "plugin:jsx-a11y/strict"
   ],
-  "plugins": ["react-hooks", "jest", "testing-library", "jest-dom"],
+  "plugins": ["react-hooks", "jest", "testing-library", "jest-dom", "jsx-a11y"],
   "rules": {
     "no-unused-vars": [
       "error",
@@ -20,7 +21,8 @@
       { "always": ["initialValue"] }
     ],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error"
+    "react-hooks/exhaustive-deps": "error",
+    "jsx-a11y/label-has-for": "off"
   },
   "env": {
     "browser": true,
