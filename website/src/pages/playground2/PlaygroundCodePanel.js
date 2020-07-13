@@ -93,6 +93,13 @@ function PlaygroundCodePanel() {
               bottom: 0,
               backgroundColor: "rgba(255, 255, 255, 0.7)",
             }}
+            role="button"
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.key === " " || e.key === "Enter") {
+                setAreSettingsOpen(false);
+              }
+            }}
             onClick={(e) => {
               if (!settingsRef.current.contains(e.target)) {
                 setAreSettingsOpen(false);
