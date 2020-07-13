@@ -402,7 +402,7 @@ function Playground({ location }) {
     [screens]
   );
   const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(() =>
-    getPlaygroundUrl(location, {
+    getPlaygroundUrl({
       code: prettify(code),
       settings: {
         screens: screens.map(({ name, width }) => [name, width]),

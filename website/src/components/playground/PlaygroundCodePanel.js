@@ -1,15 +1,19 @@
 import React, { useState, useRef } from "react";
-import { useRecoilState } from "recoil";
+import { navigate } from "gatsby";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useTheme, Button, VisuallyHidden } from "basis";
 import { LiveEditor } from "react-live";
+import { getPlaygroundUrl } from "../../utils/url";
 import PlaygroundCodeError from "./PlaygroundCodeError";
 import PlaygroundSettings from "./PlaygroundSettings";
 import { prettify } from "./utils";
-import { codeState } from "./recoilState";
+import { codeState, screensState } from "./recoilState";
 
 function PlaygroundCodePanel() {
   const theme = useTheme();
   const [code, setCode] = useRecoilState(codeState);
+  const screens = useRecoilValue(screensState);
+  const [isSaved, setIsSaved] = useState(false);
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
 
@@ -36,6 +40,7 @@ function PlaygroundCodePanel() {
         <div css={{ flexShrink: 0 }}>
           <Button
             variant="secondary"
+            width="80"
             margin="0 4 0 0"
             onClick={() => {
               setCode(prettify(code));
@@ -45,8 +50,29 @@ function PlaygroundCodePanel() {
           </Button>
         </div>
         <div css={{ flexShrink: 0 }}>
-          <Button variant="secondary" margin="0 4 0 0">
-            Share
+          <Button
+            variant="secondary"
+            width="80"
+            margin="0 4 0 0"
+            disabled={isSaved}
+            onClick={() => {
+              navigate(
+                getPlaygroundUrl({
+                  code: prettify(code),
+                  settings: {
+                    screens: screens.map(({ name, width }) => [name, width]),
+                  },
+                })
+              );
+
+              setIsSaved(true);
+
+              setTimeout(() => {
+                setIsSaved(false);
+              }, 1000);
+            }}
+          >
+            {isSaved ? "Saved!" : "Save"}
           </Button>
         </div>
         <div css={{ flexShrink: 0, marginLeft: "auto" }}>
@@ -96,7 +122,10 @@ function PlaygroundCodePanel() {
             role="button"
             tabIndex="0"
             onKeyDown={(e) => {
-              if (e.key === " " || e.key === "Enter") {
+              if (
+                e.target === e.currentTarget &&
+                (e.key === " " || e.key === "Enter")
+              ) {
                 setAreSettingsOpen(false);
               }
             }}

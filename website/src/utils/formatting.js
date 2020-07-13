@@ -2,12 +2,18 @@ import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
 
 export function formatCode(code, { printWidth = 56 } = {}) {
-  const formattedCode = prettier.format(code.trim(), {
-    parser: "babel",
-    plugins: [babel],
-    printWidth,
-    semi: false,
-  });
+  let formattedCode;
+
+  try {
+    formattedCode = prettier.format(code.trim(), {
+      parser: "babel",
+      plugins: [babel],
+      printWidth,
+      semi: false,
+    });
+  } catch (_e) {
+    formattedCode = code;
+  }
 
   if (formattedCode[0] === ";") {
     return formattedCode.slice(1);

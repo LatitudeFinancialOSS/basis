@@ -47,10 +47,10 @@ export function getTabsUrls(location) {
   });
 }
 
-export function getPlaygroundUrl(location, data) {
+export function getPlaygroundUrl(data) {
   const dataStr = lzString.compressToEncodedURIComponent(JSON.stringify(data));
 
-  const { url, query } = queryString.parseUrl(location.href);
+  const { url, query } = queryString.parseUrl(window.location.href);
 
   return `${url}?${queryString.stringify({
     ...query,
