@@ -4,15 +4,22 @@ import { useRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { LiveProvider } from "react-live";
 import * as allDesignSystem from "basis";
-import PlaygroundCodePanel from "./PlaygroundCodePanel";
-import PlaygroundScreen from "./PlaygroundScreen";
-import useLocalStorageValue from "./useLocalStorageValue";
+import PlaygroundCodePanel from "../../components/playground/PlaygroundCodePanel";
+import PlaygroundScreen from "../../components/playground/PlaygroundScreen";
+import useLocalStorageValue from "../../components/playground/useLocalStorageValue";
+import {
+  prettify,
+  heightToVh,
+  vhToHeight,
+} from "../../components/playground/utils";
+import {
+  codeState,
+  screensState,
+} from "../../components/playground/recoilState";
 import useDebounce from "../../hooks/useDebounce";
 import { getReactLiveNoInline, wrapInFragmentIfNeeded } from "../../utils/ast";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
-import { prettify, heightToVh, vhToHeight } from "./utils";
-import { codeState, screensState } from "./recoilState";
 
 const { useTheme, Container, Grid } = allDesignSystem;
 
