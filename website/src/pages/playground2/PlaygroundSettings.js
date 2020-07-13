@@ -1,14 +1,17 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { List, arrayMove } from "react-movable";
 import { useTheme, Container, Text } from "basis";
 import PlaygroundScreenSettings from "./PlaygroundScreenSettings";
 import PlaygroundNewScreenSettings from "./PlaygroundNewScreenSettings";
-import { screensState } from "./index";
+import { screensState, componentPreviewCounterState } from "./recoilState";
 
 function PlaygroundSettings() {
   const theme = useTheme();
   const [screens, setScreens] = useRecoilState(screensState);
+  const setComponentPreviewCounter = useSetRecoilState(
+    componentPreviewCounterState
+  );
 
   return (
     <Container bg="grey.t03" height="100%">
@@ -27,9 +30,12 @@ function PlaygroundSettings() {
           <List
             lockVertically
             values={screens}
-            onChange={({ oldIndex, newIndex }) =>
-              setScreens(arrayMove(screens, oldIndex, newIndex))
-            }
+            onChange={({ oldIndex, newIndex }) => {
+              setComponentPreviewCounter(
+                (componentPreviewCounter) => componentPreviewCounter + 1
+              );
+              setScreens(arrayMove(screens, oldIndex, newIndex));
+            }}
             renderList={({ children, props }) => (
               <ul
                 css={{

@@ -1,14 +1,15 @@
 import React, { useState, useRef } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useTheme, Button, VisuallyHidden } from "basis";
 import { LiveEditor } from "react-live";
 import PlaygroundCodeError from "./PlaygroundCodeError";
 import PlaygroundSettings from "./PlaygroundSettings";
-import { codeState } from "./index";
+import { prettify } from "./utils";
+import { codeState } from "./recoilState";
 
 function PlaygroundCodePanel() {
   const theme = useTheme();
-  const setCode = useSetRecoilState(codeState);
+  const [code, setCode] = useRecoilState(codeState);
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
 
@@ -33,7 +34,13 @@ function PlaygroundCodePanel() {
         }}
       >
         <div css={{ flexShrink: 0 }}>
-          <Button variant="secondary" margin="0 4 0 0">
+          <Button
+            variant="secondary"
+            margin="0 4 0 0"
+            onClick={() => {
+              setCode(prettify(code));
+            }}
+          >
             Prettify
           </Button>
         </div>

@@ -1,13 +1,14 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { Text } from "basis";
 import ComponentPreview from "../../components/ComponentPreview";
-import { screensState } from "./index";
+import { screensState, componentPreviewCounterState } from "./recoilState";
 import { MIN_SCREEN_WIDTH, MAX_SCREEN_WIDTH, updateItemWithId } from "./utils";
 
 function PlaygroundScreen({ id, name, width }) {
+  const componentPreviewCounter = useRecoilValue(componentPreviewCounterState);
   const setScreens = useSetRecoilState(screensState);
   const setScreenWidth = (width) => {
     setScreens((screens) => updateItemWithId(screens, id, { width }));
@@ -58,6 +59,9 @@ function PlaygroundScreen({ id, name, width }) {
           <ComponentPreview
             iframeTitle={`${name} screen preview`}
             hasBodyMargin={false}
+            key={
+              componentPreviewCounter /* See: https://github.com/ryanseddon/react-frame-component/issues/170 */
+            }
           />
         </div>
       </div>

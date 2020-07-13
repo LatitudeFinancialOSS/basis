@@ -5,7 +5,7 @@ import { useTheme } from "basis";
 import { shallowEqualObjects } from "shallow-equal";
 import PlaygroundSettingsInput from "./PlaygroundSettingsInput";
 import PlaygroundSettingsButton from "./PlaygroundSettingsButton";
-import { screensState } from "./index";
+import { screensState } from "./recoilState";
 import {
   MIN_SCREEN_WIDTH,
   MAX_SCREEN_WIDTH,

@@ -1,4 +1,5 @@
 import React from "react";
+import { formatCode } from "../../utils/formatting";
 
 export const MIN_SCREEN_WIDTH = 300;
 export const MAX_SCREEN_WIDTH = 2048;
@@ -90,4 +91,16 @@ export function getErrorsFrom(errors) {
       return result;
     }, [])
   );
+}
+
+export function prettify(code) {
+  return formatCode(code, { printWidth: 81 });
+}
+
+export function heightToVh(height) {
+  return (height / window.innerHeight) * 100 + "vh";
+}
+
+export function vhToHeight(vh) {
+  return (parseFloat(vh, 10) * window.innerHeight) / 100;
 }

@@ -10,7 +10,7 @@ import {
   validateScreenWidth,
   getErrorsFrom,
 } from "./utils";
-import { screensState } from "./index";
+import { screensState } from "./recoilState";
 
 function PlaygroundNewScreenSettings() {
   const theme = useTheme();

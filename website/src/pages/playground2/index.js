@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
-import { atom, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { LiveProvider } from "react-live";
 import * as allDesignSystem from "basis";
@@ -10,23 +10,11 @@ import useLocalStorageValue from "./useLocalStorageValue";
 import useDebounce from "../../hooks/useDebounce";
 import { getReactLiveNoInline, wrapInFragmentIfNeeded } from "../../utils/ast";
 import { reactLiveEditorTheme } from "../../utils/constants";
-import { formatCode } from "../../utils/formatting";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
+import { prettify, heightToVh, vhToHeight } from "./utils";
+import { codeState, screensState } from "./recoilState";
 
 const { useTheme, Container, Grid } = allDesignSystem;
-
-function heightToVh(height) {
-  return (height / window.innerHeight) * 100 + "vh";
-}
-
-function vhToHeight(vh) {
-  return (parseFloat(vh, 10) * window.innerHeight) / 100;
-}
-
-const prettify = (code) =>
-  formatCode(code, {
-    printWidth: 81,
-  });
 
 const defaultCode = prettify(`
   <Container bg="secondary.lightBlue.t25" padding="2 4" padding-sm="3 5" padding-md="5 7">
@@ -39,16 +27,6 @@ const defaultCode = prettify(`
 const scope = allDesignSystem;
 
 const LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY = "playground-code-panel-height";
-
-export const codeState = atom({
-  key: "playgroundCode",
-  default: "",
-});
-
-export const screensState = atom({
-  key: "playgroundScreens",
-  default: [],
-});
 
 function Playground({ location }) {
   const theme = useTheme();
