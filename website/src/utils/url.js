@@ -49,7 +49,6 @@ export function getTabsUrls(location) {
 
 export function getPlaygroundUrl(data) {
   const dataStr = lzString.compressToEncodedURIComponent(JSON.stringify(data));
-
   const { url, query } = queryString.parseUrl(window.location.href);
 
   return `${url}?${queryString.stringify({
@@ -58,8 +57,8 @@ export function getPlaygroundUrl(data) {
   })}`;
 }
 
-export function getPlaygroundDataFromUrl(location) {
-  const { data } = queryString.parse(location.search);
+export function getPlaygroundDataFromUrl() {
+  const { data } = queryString.parse(window.location.search);
 
   if (!data) {
     return {};
@@ -70,4 +69,20 @@ export function getPlaygroundDataFromUrl(location) {
   } catch (_e) {
     return {};
   }
+}
+
+export function getPreviewUrl(code) {
+  return `${
+    window.location.origin
+  }/preview?code=${lzString.compressToEncodedURIComponent(code)}`;
+}
+
+export function getPreviewCodeFromUrl() {
+  const { code } = queryString.parse(window.location.search);
+
+  if (!code) {
+    return null;
+  }
+
+  return lzString.decompressFromEncodedURIComponent(code);
 }

@@ -4,20 +4,6 @@ import generate from "@babel/generator";
 import * as t from "@babel/types";
 import { allComponentNames } from "./meta";
 
-function isClassOrFunction(code) {
-  const trimmedCode = code.trim();
-
-  return (
-    trimmedCode.startsWith("class") ||
-    trimmedCode.startsWith("()") ||
-    trimmedCode.startsWith("function")
-  );
-}
-
-function wrapCodeInFragment(code) {
-  return `<>${code}</>`;
-}
-
 function getASTfromCode(code) {
   try {
     return parse(code, { plugins: ["jsx"] });
@@ -53,12 +39,16 @@ export function getReactLiveNoInline(code) {
   }
 }
 
-export function wrapInFragmentIfNeeded(code) {
-  return isClassOrFunction(code) ? code : wrapCodeInFragment(code);
+export function wrapCodeInFragmentIfNeeded(code) {
+  const trimmedCode = code.trim();
+
+  return trimmedCode === "" || trimmedCode[0] === "<"
+    ? `<>${trimmedCode}</>`
+    : code;
 }
 
 export function annotateCodeForPlayground(code) {
-  const codeToParse = wrapInFragmentIfNeeded(code);
+  const codeToParse = wrapCodeInFragmentIfNeeded(code);
   const ast = getASTfromCode(codeToParse);
 
   if (ast === null) {

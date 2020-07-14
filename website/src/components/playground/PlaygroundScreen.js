@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { Text } from "basis";
-import ComponentPreview from "../../components/ComponentPreview";
+import ComponentPreview from "../ComponentPreview";
 import { screensState, componentPreviewCounterState } from "./recoilState";
 import { MIN_SCREEN_WIDTH, MAX_SCREEN_WIDTH, updateItemWithId } from "./utils";
 
@@ -43,6 +43,7 @@ function PlaygroundScreen({ id, name, width }) {
           flexDirection: "column-reverse",
           width,
           height: "100%",
+          overflowY: "hidden",
         }}
       >
         <Text color="grey.t75" margin="1 1 0">

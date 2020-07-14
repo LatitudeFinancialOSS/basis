@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import PropTypes from "prop-types";
 import { useRecoilState } from "recoil";
 import { Resizable } from "re-resizable";
 import { LiveProvider } from "react-live";
@@ -17,7 +16,10 @@ import {
   screensState,
 } from "../../components/playground/recoilState";
 import useDebounce from "../../hooks/useDebounce";
-import { getReactLiveNoInline, wrapInFragmentIfNeeded } from "../../utils/ast";
+import {
+  getReactLiveNoInline,
+  wrapCodeInFragmentIfNeeded,
+} from "../../utils/ast";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
 
@@ -35,11 +37,17 @@ const scope = allDesignSystem;
 
 const LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY = "playground-code-panel-height";
 
-function Playground({ location }) {
+function Playground() {
   const theme = useTheme();
   const [code, setCode] = useRecoilState(codeState);
   const debouncedCode = useDebounce(code, 500);
-  const noInline = useMemo(() => getReactLiveNoInline(code), [code]);
+  const liveProviderProps = useMemo(
+    () => ({
+      code: debouncedCode,
+      noInline: getReactLiveNoInline(debouncedCode),
+    }),
+    [debouncedCode]
+  );
   const [screens, setScreens] = useRecoilState(screensState);
   const initialCodePanelHeight = useLocalStorageValue(
     LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY,
@@ -66,7 +74,7 @@ function Playground({ location }) {
   }, [initialCodePanelHeight]);
 
   useEffect(() => {
-    const dataFromUrl = getPlaygroundDataFromUrl(location);
+    const dataFromUrl = getPlaygroundDataFromUrl();
     const initialCode = dataFromUrl.code ?? defaultCode;
     const initialScreens =
       dataFromUrl.settings?.screens ?? Object.entries(theme.breakpoints);
@@ -79,7 +87,7 @@ function Playground({ location }) {
         width: parseInt(width, 10),
       }))
     );
-  }, [location, theme, setCode, setScreens]);
+  }, [theme, setCode, setScreens]);
 
   if (codePanelHeight === null) {
     return null;
@@ -87,9 +95,8 @@ function Playground({ location }) {
 
   return (
     <LiveProvider
-      code={debouncedCode}
-      transformCode={wrapInFragmentIfNeeded}
-      noInline={noInline}
+      {...liveProviderProps}
+      transformCode={wrapCodeInFragmentIfNeeded}
       scope={scope}
       theme={reactLiveEditorTheme}
     >
@@ -155,12 +162,5 @@ function Playground({ location }) {
     </LiveProvider>
   );
 }
-
-Playground.propTypes = {
-  location: PropTypes.shape({
-    href: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Playground;

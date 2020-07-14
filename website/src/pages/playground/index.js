@@ -340,7 +340,7 @@ PlaygroundSettings.propTypes = {
   setScreens: PropTypes.func.isRequired,
 };
 
-function Playground({ location }) {
+function Playground() {
   const theme = useTheme();
   const isCanary = useCanary();
   const [code, setCode] = useState("");
@@ -403,7 +403,7 @@ function Playground({ location }) {
   );
   const [isShareSuccessful, copyShareUrlToClipboard] = useCopyToClipboard(() =>
     getPlaygroundUrl({
-      code: prettify(code),
+      code,
       settings: {
         screens: screens.map(({ name, width }) => [name, width]),
       },
@@ -444,7 +444,7 @@ function Playground({ location }) {
   };
 
   useEffect(() => {
-    const dataFromUrl = getPlaygroundDataFromUrl(location);
+    const dataFromUrl = getPlaygroundDataFromUrl();
     const initialCode = dataFromUrl.code ?? defaultCode;
     const initialScreens =
       dataFromUrl.settings?.screens ?? Object.entries(theme.breakpoints);
@@ -457,7 +457,7 @@ function Playground({ location }) {
         width: parseInt(width, 10),
       }))
     );
-  }, [location, theme.breakpoints]);
+  }, [theme.breakpoints]);
 
   useEffect(() => {
     setInspectInfo({
@@ -693,12 +693,5 @@ function Playground({ location }) {
     </div>
   );
 }
-
-Playground.propTypes = {
-  location: PropTypes.shape({
-    href: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Playground;

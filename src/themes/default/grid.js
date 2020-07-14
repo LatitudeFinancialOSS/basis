@@ -9,6 +9,13 @@ export default (theme) => ({
       of the components that use Grid (e.g. TimeSpan, Frequency).
     */
     minWidth: 0, // This helps the RadioGroup items to shrink on narrow screens
+    /* 
+      This helps in situations where Grid.Item has a vertical scrollbar. 
+      Without setting `minHeight: 0`, if Grid.Item's height is 1fr, for example,
+      the actual height would be greater than what you'd expect (lots of content 
+      makes it go beyond the desired 1fr). 
+    */
+    minHeight: 0,
   },
   gridOverlay: {
     position: "absolute",

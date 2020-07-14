@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { LivePreview } from "react-live";
 import Frame, { FrameContextConsumer } from "react-frame-component";
 import { Global } from "@emotion/core";
-import { BasisProvider, defaultTheme } from "basis";
+import { BasisProvider, defaultTheme, Container } from "basis";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";
 import ErrorBoundary from "./ErrorBoundary";
 import "typeface-montserrat";
@@ -21,11 +21,6 @@ const iframeHTML = `
   </body>
 </html>
 `;
-const iframeStyle = {
-  width: "100%",
-  height: "100%",
-  border: 0,
-};
 
 function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
   return (
@@ -104,11 +99,13 @@ function ComponentPreviewContent({
           }}
         />
       )}
-      <LivePreview
-        Component={LivePreviewWrapper}
-        containerRef={containerRef}
-        highlightedComponents={highlightedComponents}
-      />
+      <Container bg="white">
+        <LivePreview
+          Component={LivePreviewWrapper}
+          containerRef={containerRef}
+          highlightedComponents={highlightedComponents}
+        />
+      </Container>
     </BasisProvider>
   );
 }
@@ -124,6 +121,7 @@ ComponentPreviewContent.propTypes = {
 
 function ComponentPreview({
   iframeTitle = "Preview",
+  iframeHeight = "100%",
   hasBodyMargin = true,
   setDocument,
   containerRef,
@@ -135,7 +133,12 @@ function ComponentPreview({
         title={iframeTitle}
         initialContent={iframeHTML}
         mountTarget="#component-preview"
-        style={iframeStyle}
+        style={{
+          display: "block", // This removes the extra whitespace below the iframe. See: https://stackoverflow.com/q/21025319/247243
+          width: "100%",
+          height: iframeHeight,
+          border: 0,
+        }}
       >
         <FrameContextConsumer>
           {({ window, document }) => {
@@ -161,6 +164,7 @@ function ComponentPreview({
 
 ComponentPreview.propTypes = {
   iframeTitle: PropTypes.string,
+  iframeHeight: PropTypes.string,
   hasBodyMargin: PropTypes.bool,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,

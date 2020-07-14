@@ -57,6 +57,9 @@ exports.onCreatePage = ({ page, actions }) => {
   if (page.path.startsWith("/playground")) {
     page.context.header = "Playground";
     page.context.layout = "empty";
+  } else if (page.path.startsWith("/preview/")) {
+    page.context.header = "Preview";
+    page.context.layout = "empty";
   } else if (page.path.startsWith("/kitchen-sink/")) {
     const match = page.path.match(KITCHEN_SINK_COMPONENT_PAGE_REGEX);
 

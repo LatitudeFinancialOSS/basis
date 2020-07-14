@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useTheme, Button, VisuallyHidden } from "basis";
 import { LiveEditor } from "react-live";
-import { getPlaygroundUrl } from "../../utils/url";
+import { getPlaygroundUrl, getPreviewUrl } from "../../utils/url";
 import PlaygroundCodeError from "./PlaygroundCodeError";
 import PlaygroundSettings from "./PlaygroundSettings";
 import { prettify } from "./utils";
@@ -40,7 +40,7 @@ function PlaygroundCodePanel() {
         <div css={{ flexShrink: 0 }}>
           <Button
             variant="secondary"
-            width="80"
+            width="88"
             margin="0 4 0 0"
             onClick={() => {
               setCode(prettify(code));
@@ -52,13 +52,13 @@ function PlaygroundCodePanel() {
         <div css={{ flexShrink: 0 }}>
           <Button
             variant="secondary"
-            width="80"
+            width="88"
             margin="0 4 0 0"
             disabled={isSaved}
             onClick={() => {
               navigate(
                 getPlaygroundUrl({
-                  code: prettify(code),
+                  code,
                   settings: {
                     screens: screens.map(({ name, width }) => [name, width]),
                   },
@@ -75,9 +75,24 @@ function PlaygroundCodePanel() {
             {isSaved ? "Saved!" : "Save"}
           </Button>
         </div>
+        <div css={{ flexShrink: 0 }}>
+          <Button
+            variant="secondary"
+            width="88"
+            margin="0 4 0 0"
+            onClick={() => {
+              const previewUrl = getPreviewUrl(code);
+
+              window.open(previewUrl, "_blank");
+            }}
+          >
+            Preview
+          </Button>
+        </div>
         <div css={{ flexShrink: 0, marginLeft: "auto" }}>
           <Button
             variant="secondary"
+            width="88"
             onClick={() => {
               setAreSettingsOpen((areSettingsOpen) => !areSettingsOpen);
             }}
@@ -107,7 +122,12 @@ function PlaygroundCodePanel() {
           <VisuallyHidden>
             <label htmlFor="code-editor">Code Editor</label>
           </VisuallyHidden>
-          <LiveEditor textareaId="code-editor" padding={0} onChange={setCode} />
+          <LiveEditor
+            textareaId="code-editor"
+            padding={0}
+            style={{ minHeight: "100%" }}
+            onChange={setCode}
+          />
         </div>
         {areSettingsOpen && (
           <div
