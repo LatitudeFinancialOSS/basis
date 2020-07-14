@@ -26,11 +26,41 @@ import { getPlaygroundDataFromUrl } from "../../utils/url";
 const { useTheme, Container, Grid } = allDesignSystem;
 
 const defaultCode = prettify(`
-  <Container bg="secondary.lightBlue.t25" padding="2 4" padding-sm="3 5" padding-md="5 7">
-    <Text as="h1" textStyle="heading5" textStyle-sm="heading3" textStyle-md="heading2">
-      Hello World
-    </Text>
-  </Container>
+  <>
+    <Header>
+      <Header.Logo name="latitude" />
+    </Header>
+    <Container hasBreakpointWidth margin="6 auto" margin-lg="7 auto">
+      <Text
+        as="h1"
+        textStyle="heading5"
+        textStyle-sm="heading4"
+        textStyle-lg="heading3"
+      >
+        Welcome to basis playground!
+      </Text>
+    </Container>
+    <Container hasBreakpointWidth>
+      <Container bg="secondary.lightBlue.t25" width="100%" width-sm="420" width-lg="580" padding="5">
+        <Container bg="white" padding="6" padding-sm="7">
+          <Text textStyle="heading5" textStyle-sm="heading4" margin="0 0 3 0" margin-lg="0 0 4 0">
+            Who's behind this?
+          </Text>
+          <List>
+            <List.Item>
+              We are a small and passionate team at
+              <Link href="https://www.latitudefinancial.com.au" newTab>
+                Latitude
+              </Link>.
+            </List.Item>
+            <List.Item>
+              Interested in working with us? Please contact <Link href="https://twitter.com/moroshko" newTab>Misha Moroshko</Link>.
+            </List.Item>
+          </List>
+        </Container>
+      </Container>
+    </Container>
+  </>
 `);
 
 const scope = allDesignSystem;
