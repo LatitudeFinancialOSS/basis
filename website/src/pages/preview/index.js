@@ -23,7 +23,9 @@ function Preview() {
     <LiveProvider code={code} noInline={noInline} scope={scope}>
       <ComponentPreview
         iframeTitle="Preview"
-        iframeHeight="100vh"
+        iframeStyle={{
+          height: "100vh",
+        }}
         hasBodyMargin={false}
       />
     </LiveProvider>

@@ -121,7 +121,7 @@ ComponentPreviewContent.propTypes = {
 
 function ComponentPreview({
   iframeTitle = "Preview",
-  iframeHeight = "100%",
+  iframeStyle,
   hasBodyMargin = true,
   setDocument,
   containerRef,
@@ -136,8 +136,9 @@ function ComponentPreview({
         style={{
           display: "block", // This removes the extra whitespace below the iframe. See: https://stackoverflow.com/q/21025319/247243
           width: "100%",
-          height: iframeHeight,
+          height: "100%",
           border: 0,
+          ...iframeStyle,
         }}
       >
         <FrameContextConsumer>
@@ -164,7 +165,7 @@ function ComponentPreview({
 
 ComponentPreview.propTypes = {
   iframeTitle: PropTypes.string,
-  iframeHeight: PropTypes.string,
+  iframeStyle: PropTypes.object,
   hasBodyMargin: PropTypes.bool,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,

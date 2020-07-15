@@ -49,22 +49,19 @@ function PlaygroundScreen({ id, name, width }) {
         <Text color="grey.t75" margin="1 1 0">
           <strong>{name}</strong> – {width}px
         </Text>
-        <div
-          css={{
+        <ComponentPreview
+          iframeTitle={`${name} screen preview`}
+          iframeStyle={{
             flexGrow: 1,
             backgroundColor: "white",
             boxShadow:
               "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
           }}
-        >
-          <ComponentPreview
-            iframeTitle={`${name} screen preview`}
-            hasBodyMargin={false}
-            key={
-              componentPreviewCounter /* See: https://github.com/ryanseddon/react-frame-component/issues/170 */
-            }
-          />
-        </div>
+          hasBodyMargin={false}
+          key={
+            componentPreviewCounter /* See: https://github.com/ryanseddon/react-frame-component/issues/170 */
+          }
+        />
       </div>
     </Resizable>
   );

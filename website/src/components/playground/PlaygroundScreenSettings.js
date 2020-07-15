@@ -92,6 +92,7 @@ function PlaygroundScreenSettingsRender(
           backgroundColor: "transparent",
           border: 0,
           padding: 0,
+          margin: 0,
           cursor: isDragged ? "grabbing" : "grab",
         }}
         data-movable-handle
