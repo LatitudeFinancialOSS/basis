@@ -1,4 +1,4 @@
-import { getReactLiveNoInline, annotateCodeForPlayground } from "./ast";
+import { getReactLiveNoInline } from "./ast";
 
 describe("getReactLiveNoInline", () => {
   it("invalid code", () => {
@@ -102,53 +102,5 @@ describe("getReactLiveNoInline", () => {
 
     `)
     ).toBe(true);
-  });
-});
-
-describe("annotateCodeForPlayground", () => {
-  // checks if the passed code variable is surrounded by a react fragment <>{code}</>
-  function isFragment(code) {
-    return /^<>.*<\/>;$/.test(code);
-  }
-
-  it("wraps plain adjacent jsx code in Fragment", () => {
-    expect(
-      isFragment(
-        annotateCodeForPlayground("<Button>Apply</Button><Button>Back</Button>")
-      )
-    ).toBe(true);
-  });
-
-  it("wraps plain empty string code in Fragment", () => {
-    expect(isFragment(annotateCodeForPlayground(""))).toBe(true);
-  });
-
-  it("does not wrap code starting with '()' in Fragment", () => {
-    expect(
-      isFragment(annotateCodeForPlayground("() => <Button>Apply</Button>"))
-    ).toBe(false);
-  });
-
-  it("does not wrap code starting with 'function' Fragment", () => {
-    expect(
-      isFragment(
-        annotateCodeForPlayground(
-          "function App() { return <Button>Apply</Button> }"
-        )
-      )
-    ).toBe(false);
-  });
-
-  it("does not wrap code starting with 'class' in Fragment", () => {
-    const classComponent = `class ButtonTest extends React.Component {
-      
-        render() {
-          return (
-            <Button>Apply</Button>
-          )
-        }
-      }`;
-
-    expect(isFragment(annotateCodeForPlayground(classComponent))).toBe(false);
   });
 });

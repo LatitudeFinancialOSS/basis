@@ -5,7 +5,7 @@ import { useTheme } from "basis";
 const PlaygroundCodeError = withLive(({ live }) => {
   const theme = useTheme();
 
-  if (typeof window === "undefined" || !live.error) {
+  if (typeof window === "undefined" || !live.error || live.code.trim() === "") {
     return null;
   }
 

@@ -39,17 +39,8 @@ export function getReactLiveNoInline(code) {
   }
 }
 
-export function wrapCodeInFragmentIfNeeded(code) {
-  const trimmedCode = code.trim();
-
-  return trimmedCode === "" || trimmedCode[0] === "<"
-    ? `<>${trimmedCode}</>`
-    : code;
-}
-
 export function annotateCodeForPlayground(code) {
-  const codeToParse = wrapCodeInFragmentIfNeeded(code);
-  const ast = getASTfromCode(codeToParse);
+  const ast = getASTfromCode(code);
 
   if (ast === null) {
     return code;

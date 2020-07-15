@@ -18,7 +18,7 @@ import {
 import useDebounce from "../../hooks/useDebounce";
 import {
   getReactLiveNoInline,
-  wrapCodeInFragmentIfNeeded,
+  annotateCodeForPlayground,
 } from "../../utils/ast";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
@@ -62,8 +62,6 @@ const defaultCode = prettify(`
     </Container>
   </>
 `);
-
-const scope = allDesignSystem;
 
 const LOCAL_STORAGE_CODE_PANEL_HEIGHT_KEY = "playground-code-panel-height";
 
@@ -126,8 +124,8 @@ function Playground() {
   return (
     <LiveProvider
       {...liveProviderProps}
-      transformCode={wrapCodeInFragmentIfNeeded}
-      scope={scope}
+      transformCode={annotateCodeForPlayground}
+      scope={allDesignSystem}
       theme={reactLiveEditorTheme}
     >
       <Grid height="100vh" rows={`1fr ${codePanelHeight}`}>

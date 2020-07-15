@@ -12,6 +12,7 @@ export function formatCode(code, { printWidth = 56 } = {}) {
       semi: false,
     });
   } catch (_e) {
+    console.log(_e);
     formattedCode = code;
   }
 
