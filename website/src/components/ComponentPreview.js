@@ -22,7 +22,11 @@ const iframeHTML = `
 </html>
 `;
 
-function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
+function LivePreviewWrapper({
+  containerRef,
+  highlightedComponents = {},
+  children,
+}) {
   return (
     <div
       css={{
@@ -125,6 +129,7 @@ function ComponentPreview({
   hasBodyMargin = true,
   setDocument,
   containerRef,
+  onMouseLeave,
   highlightedComponents,
 }) {
   return (
@@ -133,6 +138,7 @@ function ComponentPreview({
         title={iframeTitle}
         initialContent={iframeHTML}
         mountTarget="#component-preview"
+        onMouseLeave={onMouseLeave}
         style={{
           display: "block", // This removes the extra whitespace below the iframe. See: https://stackoverflow.com/q/21025319/247243
           width: "100%",
@@ -169,6 +175,7 @@ ComponentPreview.propTypes = {
   hasBodyMargin: PropTypes.bool,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   highlightedComponents: PropTypes.object,
 };
 

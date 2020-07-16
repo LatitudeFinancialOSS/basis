@@ -14,3 +14,8 @@ export const componentPreviewCounterState = atom({
   key: "playgroundComponentPreviewCounter",
   default: 0,
 });
+
+export const isInspectModeState = atom({
+  key: "playgroundIsInspectMode",
+  default: false,
+});

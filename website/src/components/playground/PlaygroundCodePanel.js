@@ -1,21 +1,38 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { navigate } from "gatsby";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { useTheme, Button, VisuallyHidden } from "basis";
+import { useRecoilState } from "recoil";
+import { useTheme, Stack, Button, Icon, VisuallyHidden } from "basis";
 import { LiveEditor } from "react-live";
-import { getPlaygroundUrl, getPreviewUrl } from "../../utils/url";
 import PlaygroundCodeError from "./PlaygroundCodeError";
 import PlaygroundSettings from "./PlaygroundSettings";
-import { prettify } from "./utils";
-import { codeState, screensState } from "./recoilState";
+import { prettify, getComponentsLocation } from "./utils";
+import { codeState, screensState, isInspectModeState } from "./recoilState";
+import { getPlaygroundUrl, getPreviewUrl } from "../../utils/url";
+import useCanary from "../../hooks/useCanary";
 
 function PlaygroundCodePanel() {
   const theme = useTheme();
+  const isCanary = useCanary();
+  const [isInspectMode, setIsInspectMode] = useRecoilState(isInspectModeState);
   const [code, setCode] = useRecoilState(codeState);
-  const screens = useRecoilValue(screensState);
+  const [screens, setScreens] = useRecoilState(screensState);
   const [isSaved, setIsSaved] = useState(false);
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const settingsRef = useRef();
+  const updateComponentsLocation = useCallback(() => {
+    setScreens((screens) =>
+      screens.map((screen) => ({
+        ...screen,
+        componentsLocation: getComponentsLocation(screen.document),
+      }))
+    );
+  }, [setScreens]);
+
+  useEffect(() => {
+    if (isInspectMode) {
+      updateComponentsLocation();
+    }
+  }, [isInspectMode, updateComponentsLocation]);
 
   return (
     <div
@@ -37,23 +54,34 @@ function PlaygroundCodePanel() {
           borderBottom: `${theme.borderWidths[0]} solid ${theme.colors.grey.t16}`,
         }}
       >
-        <div css={{ flexShrink: 0 }}>
+        <Stack direction="horizontal" gap="4">
+          {isCanary && (
+            <Button
+              variant="icon"
+              onClick={() => {
+                setIsInspectMode((isInspectMode) => !isInspectMode);
+              }}
+            >
+              <Icon
+                name="select-object"
+                size="24px"
+                color={isInspectMode ? "highlight.blue.t100" : "grey.t75"}
+                hoverColor={isInspectMode ? "highlight.blue.t100" : "black"}
+              />
+            </Button>
+          )}
           <Button
             variant="secondary"
             width="88"
-            margin="0 4 0 0"
             onClick={() => {
               setCode(prettify(code));
             }}
           >
             Prettify
           </Button>
-        </div>
-        <div css={{ flexShrink: 0 }}>
           <Button
             variant="secondary"
             width="88"
-            margin="0 4 0 0"
             disabled={isSaved}
             onClick={() => {
               navigate(
@@ -74,12 +102,9 @@ function PlaygroundCodePanel() {
           >
             {isSaved ? "Saved!" : "Save"}
           </Button>
-        </div>
-        <div css={{ flexShrink: 0 }}>
           <Button
             variant="secondary"
             width="88"
-            margin="0 4 0 0"
             onClick={() => {
               const previewUrl = getPreviewUrl(code);
 
@@ -88,7 +113,7 @@ function PlaygroundCodePanel() {
           >
             Preview
           </Button>
-        </div>
+        </Stack>
         <div css={{ flexShrink: 0, marginLeft: "auto" }}>
           <Button
             variant="secondary"

@@ -59,7 +59,11 @@ const COLORS = [
   "conditional.negative.graphics",
   "white",
 ];
-const HOVER_COLORS = ["black", "secondary.lightBlue.t60"];
+const HOVER_COLORS = [
+  "black",
+  "highlight.blue.t100",
+  "secondary.lightBlue.t60",
+];
 const SECONDARY_COLORS = ["highlight.blue.t100"];
 
 const DEFAULT_PROPS = {

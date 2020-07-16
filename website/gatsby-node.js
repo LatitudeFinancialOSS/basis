@@ -54,7 +54,7 @@ const KITCHEN_SINK_COMPONENT_PAGE_REGEX = /^\/kitchen-sink\/components\/([^/]*)\
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage } = actions;
 
-  if (page.path.startsWith("/playground")) {
+  if (page.path.startsWith("/playground/")) {
     page.context.header = "Playground";
     page.context.layout = "empty";
   } else if (page.path.startsWith("/preview/")) {

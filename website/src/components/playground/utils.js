@@ -104,3 +104,42 @@ export function heightToVh(height) {
 export function vhToHeight(vh) {
   return (parseFloat(vh, 10) * window.innerHeight) / 100;
 }
+
+export function getComponentsLocation(document) {
+  const { scrollX, scrollY, getComputedStyle } = document.defaultView;
+  const components = document.querySelectorAll(`[data-testid^="playground"]`);
+  const result = {};
+
+  for (let len = components.length, i = 0; i < len; i++) {
+    const { left, top, right, bottom } = components[i].getBoundingClientRect();
+    const {
+      marginLeft,
+      marginTop,
+      marginRight,
+      marginBottom,
+    } = getComputedStyle(components[i]);
+
+    result[components[i].dataset.testid] = {
+      left: left + scrollX - parseFloat(marginLeft),
+      top: top + scrollY - parseFloat(marginTop),
+      right: right + scrollX + parseFloat(marginRight),
+      bottom: bottom + scrollY + parseFloat(marginBottom),
+    };
+  }
+
+  return result;
+}
+
+export function getComponentsAtPoint({ x, y }, componentsLocation) {
+  const result = {};
+
+  for (const testId in componentsLocation) {
+    const { left, top, right, bottom } = componentsLocation[testId];
+
+    if (x >= left && y >= top && x <= right && y <= bottom) {
+      result[testId] = componentsLocation[testId];
+    }
+  }
+
+  return result;
+}
