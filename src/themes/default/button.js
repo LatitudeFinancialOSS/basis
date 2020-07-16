@@ -4,6 +4,7 @@ export default (theme) => ({
     lineHeight: theme.lineHeights[3],
     fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.medium,
+    margin: 0,
     border: 0,
     padding: `0 ${theme.space[6]}`,
     minHeight: "48px",

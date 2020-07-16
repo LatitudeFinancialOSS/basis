@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { RecoilRoot } from "recoil";
 import { Location } from "@reach/router";
 import { Global } from "@emotion/core";
 import { Link as GatsbyLink } from "gatsby";
@@ -19,121 +20,129 @@ function Page({ pageContext, children }) {
   const title = header ? `${header} | Basis` : "Basis";
 
   return (
-    <BasisProvider theme={theme} InternalLink={GatsbyLink}>
-      <Global
-        styles={{
-          body: {
-            margin: 0,
-            fontFamily: theme.fonts.body,
-            fontSize: theme.fontSizes[1],
-            lineHeight: theme.lineHeights[2],
-            color: theme.colors.black,
-          },
-          a: {
-            color: "inherit",
-            textDecoration: "none",
-          },
-        }}
-      />
-      <SEO title={title} />
-      <Splitbee />
-      {layout === "empty" ? (
-        <main>{children}</main>
-      ) : (
-        <div
-          css={{
-            height: "100vh",
-            display: "grid",
-            gridTemplateColumns: "224px 1fr",
+    <RecoilRoot>
+      <BasisProvider theme={theme} InternalLink={GatsbyLink}>
+        <Global
+          styles={{
+            body: {
+              margin: 0,
+              fontFamily: theme.fonts.body,
+              fontSize: theme.fontSizes[1],
+              lineHeight: theme.lineHeights[2],
+              color: theme.colors.black,
+            },
+            a: {
+              color: "inherit",
+              textDecoration: "none",
+            },
+            ":focus": {
+              outline: 0,
+            },
+            '[data-basis-keyboard-mode="true"] :not([aria-invalid="true"]):focus': {
+              boxShadow: `0 0 0px ${theme.radii[1]} ${theme.colors.secondary.lightBlue.t80}`,
+            },
           }}
-        >
-          <Sidebar />
-          <main
+        />
+        <SEO title={title} />
+        <Splitbee />
+        {layout === "empty" ? (
+          <main>{children}</main>
+        ) : (
+          <div
             css={{
-              minHeight: 0,
-              display: "flex",
-              flexDirection: "column",
-              overflow: "auto",
+              height: "100vh",
+              display: "grid",
+              gridTemplateColumns: "224px 1fr",
             }}
           >
-            {header && (
-              <div
-                css={{
-                  borderBottom: `1px solid ${theme.colors.grey.t16}`,
-                }}
-              >
-                <div
-                  css={{
-                    display: "flex",
-                    padding: `${theme.space[5]} ${theme.space[6]} 0`,
-                  }}
-                >
-                  <Text as="h1" textStyle="heading4">
-                    {header}
-                  </Text>
-                  {status && (
-                    <Container margin="0 0 0 9">
-                      <ComponentStatusIndicator status={status} />
-                    </Container>
-                  )}
-                </div>
-                <Location>
-                  {({ location }) => {
-                    const urls = getTabsUrls(location);
-
-                    return (
-                      <ul
-                        css={{
-                          display: "flex",
-                          margin: `${theme.space[6]} 0 0`,
-                          padding: 0,
-                        }}
-                      >
-                        {urls.map(({ name, href, isCurrent }) => (
-                          <li
-                            css={{
-                              listStyleType: "none",
-                              color: isCurrent
-                                ? theme.colors.black
-                                : theme.colors.grey.t65,
-                              ...(isCurrent && {
-                                "::after": {
-                                  content: "''",
-                                  display: "block",
-                                  height: theme.borderWidths[1],
-                                  margin: `0 ${theme.space[6]}`,
-                                  backgroundColor: theme.colors.black,
-                                },
-                              }),
-                            }}
-                            key={name}
-                          >
-                            <Link href={href} newTab={false} padding="2 6">
-                              {name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    );
-                  }}
-                </Location>
-              </div>
-            )}
-            <div
+            <Sidebar />
+            <main
               css={{
+                minHeight: 0,
                 display: "flex",
                 flexDirection: "column",
-                flexGrow: 1,
-                minHeight: 0,
-                overflowY: "auto",
+                overflow: "auto",
               }}
             >
-              {children}
-            </div>
-          </main>
-        </div>
-      )}
-    </BasisProvider>
+              {header && (
+                <div
+                  css={{
+                    borderBottom: `1px solid ${theme.colors.grey.t16}`,
+                  }}
+                >
+                  <div
+                    css={{
+                      display: "flex",
+                      padding: `${theme.space[5]} ${theme.space[6]} 0`,
+                    }}
+                  >
+                    <Text as="h1" textStyle="heading4">
+                      {header}
+                    </Text>
+                    {status && (
+                      <Container margin="0 0 0 9">
+                        <ComponentStatusIndicator status={status} />
+                      </Container>
+                    )}
+                  </div>
+                  <Location>
+                    {({ location }) => {
+                      const urls = getTabsUrls(location);
+
+                      return (
+                        <ul
+                          css={{
+                            display: "flex",
+                            margin: `${theme.space[6]} 0 0`,
+                            padding: 0,
+                          }}
+                        >
+                          {urls.map(({ name, href, isCurrent }) => (
+                            <li
+                              css={{
+                                listStyleType: "none",
+                                color: isCurrent
+                                  ? theme.colors.black
+                                  : theme.colors.grey.t65,
+                                ...(isCurrent && {
+                                  "::after": {
+                                    content: "''",
+                                    display: "block",
+                                    height: theme.borderWidths[1],
+                                    margin: `0 ${theme.space[6]}`,
+                                    backgroundColor: theme.colors.black,
+                                  },
+                                }),
+                              }}
+                              key={name}
+                            >
+                              <Link href={href} newTab={false} padding="2 6">
+                                {name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      );
+                    }}
+                  </Location>
+                </div>
+              )}
+              <div
+                css={{
+                  display: "flex",
+                  flexDirection: "column",
+                  flexGrow: 1,
+                  minHeight: 0,
+                  overflowY: "auto",
+                }}
+              >
+                {children}
+              </div>
+            </main>
+          </div>
+        )}
+      </BasisProvider>
+    </RecoilRoot>
   );
 }
 

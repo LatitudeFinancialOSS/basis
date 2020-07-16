@@ -105,6 +105,7 @@ function Radio(props) {
           onChange={onChange}
         />
       </VisuallyHidden>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <label
         css={{
           ...theme.radioGroupRadioLabel,

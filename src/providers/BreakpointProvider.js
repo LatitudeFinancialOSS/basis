@@ -34,6 +34,7 @@ function BreakpointProvider(props) {
 
     for (const bp in mediaQueryListMap) {
       const mediaQueryList = mediaQueryListMap[bp];
+      // eslint-disable-next-line no-loop-func
       const listener = (event) => {
         if (event.matches && mounted) {
           setBreakpoint(bp);

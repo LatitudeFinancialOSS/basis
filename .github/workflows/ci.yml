@@ -33,11 +33,3 @@ jobs:
 
       - name: Build website
         run: npm run build
-
-      - name: Visual test
-        uses: percy/snapshot-action@v0.1.1
-        with:
-          build-directory: "public"
-          flags: "-c .percy.js"
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

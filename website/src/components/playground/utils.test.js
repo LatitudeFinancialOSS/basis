@@ -1,4 +1,4 @@
-import { getComponentsAtPoint } from "./playground";
+import { getComponentsAtPoint } from "./utils";
 
 describe("getComponentsAtPoint", () => {
   it("find all components that contain the given point", () => {

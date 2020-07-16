@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { LivePreview } from "react-live";
 import Frame, { FrameContextConsumer } from "react-frame-component";
 import { Global } from "@emotion/core";
-import { BasisProvider, defaultTheme } from "basis";
+import { BasisProvider, defaultTheme, Container } from "basis";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";
 import ErrorBoundary from "./ErrorBoundary";
 import "typeface-montserrat";
@@ -21,13 +21,12 @@ const iframeHTML = `
   </body>
 </html>
 `;
-const iframeStyle = {
-  width: "100%",
-  height: "100%",
-  border: 0,
-};
 
-function LivePreviewWrapper({ containerRef, highlightedComponents, children }) {
+function LivePreviewWrapper({
+  containerRef,
+  highlightedComponents = {},
+  children,
+}) {
   return (
     <div
       css={{
@@ -104,11 +103,13 @@ function ComponentPreviewContent({
           }}
         />
       )}
-      <LivePreview
-        Component={LivePreviewWrapper}
-        containerRef={containerRef}
-        highlightedComponents={highlightedComponents}
-      />
+      <Container bg="white">
+        <LivePreview
+          Component={LivePreviewWrapper}
+          containerRef={containerRef}
+          highlightedComponents={highlightedComponents}
+        />
+      </Container>
     </BasisProvider>
   );
 }
@@ -124,9 +125,11 @@ ComponentPreviewContent.propTypes = {
 
 function ComponentPreview({
   iframeTitle = "Preview",
+  iframeStyle,
   hasBodyMargin = true,
   setDocument,
   containerRef,
+  onMouseLeave,
   highlightedComponents,
 }) {
   return (
@@ -135,7 +138,14 @@ function ComponentPreview({
         title={iframeTitle}
         initialContent={iframeHTML}
         mountTarget="#component-preview"
-        style={iframeStyle}
+        onMouseLeave={onMouseLeave}
+        style={{
+          display: "block", // This removes the extra whitespace below the iframe. See: https://stackoverflow.com/q/21025319/247243
+          width: "100%",
+          height: "100%",
+          border: 0,
+          ...iframeStyle,
+        }}
       >
         <FrameContextConsumer>
           {({ window, document }) => {
@@ -161,9 +171,11 @@ function ComponentPreview({
 
 ComponentPreview.propTypes = {
   iframeTitle: PropTypes.string,
+  iframeStyle: PropTypes.object,
   hasBodyMargin: PropTypes.bool,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   highlightedComponents: PropTypes.object,
 };
 

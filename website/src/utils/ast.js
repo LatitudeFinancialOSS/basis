@@ -4,20 +4,6 @@ import generate from "@babel/generator";
 import * as t from "@babel/types";
 import { allComponentNames } from "./meta";
 
-function isClassOrFunction(code) {
-  const trimmedCode = code.trim();
-
-  return (
-    trimmedCode.startsWith("class") ||
-    trimmedCode.startsWith("()") ||
-    trimmedCode.startsWith("function")
-  );
-}
-
-function wrapCodeInFragment(code) {
-  return `<>${code}</>`;
-}
-
 function getASTfromCode(code) {
   try {
     return parse(code, { plugins: ["jsx"] });
@@ -53,10 +39,27 @@ export function getReactLiveNoInline(code) {
   }
 }
 
-export function annotateCodeForPlayground(code) {
-  const codeToParse = isClassOrFunction(code) ? code : wrapCodeInFragment(code);
+function getComponentName(nameObj) {
+  switch (nameObj.type) {
+    case "JSXIdentifier": {
+      return nameObj.name;
+    }
 
-  const ast = getASTfromCode(codeToParse);
+    case "JSXMemberExpression": {
+      return `${getComponentName(nameObj.object)}.${getComponentName(
+        nameObj.property
+      )}`;
+    }
+
+    default: {
+      return null;
+    }
+  }
+}
+
+export function annotateCodeForPlayground(code) {
+  const ast = getASTfromCode(code);
+
   if (ast === null) {
     return code;
   }
@@ -65,9 +68,9 @@ export function annotateCodeForPlayground(code) {
 
   traverse(ast, {
     JSXOpeningElement: (path) => {
-      const componentName = path.node.name.name;
+      const componentName = getComponentName(path.node.name);
 
-      if (!allComponentNames.includes(componentName)) {
+      if (allComponentNames.includes(componentName) === false) {
         return;
       }
 

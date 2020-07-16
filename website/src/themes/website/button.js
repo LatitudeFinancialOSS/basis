@@ -5,13 +5,12 @@ export default (theme) => ({
     fontFamily: theme.fonts.body,
     fontWeight: theme.fontWeights.medium,
     borderRadius: theme.radii[1],
+    margin: 0,
     padding: `0 ${theme.space[4]}`,
     minHeight: "32px",
     overflow: "hidden",
     transition:
       "transform 100ms ease, color 100ms ease, border-color 100ms ease",
-    outline: 0,
-    ...theme.focusStyles.focusVisible,
   },
   "button:disabled": {
     opacity: 0.4,
