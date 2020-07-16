@@ -11,6 +11,7 @@
   ],
   "plugins": ["react-hooks", "jest", "testing-library", "jest-dom", "jsx-a11y"],
   "rules": {
+    "no-console": ["error", { "allow": ["error"] }],
     "no-unused-vars": [
       "error",
       { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
