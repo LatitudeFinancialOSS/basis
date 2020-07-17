@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { LivePreview } from "react-live";
 import Frame, { FrameContextConsumer } from "react-frame-component";
 import { Global } from "@emotion/core";
-import { BasisProvider, defaultTheme, Container } from "basis";
+import { BasisProvider, defaultTheme } from "basis";
+import { BackgroundProvider } from "../../../src/hooks/useBackground";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";
 import ErrorBoundary from "./ErrorBoundary";
 import "typeface-montserrat";
@@ -103,13 +104,13 @@ function ComponentPreviewContent({
           }}
         />
       )}
-      <Container bg="white">
+      <BackgroundProvider value={null}>
         <LivePreview
           Component={LivePreviewWrapper}
           containerRef={containerRef}
           highlightedComponents={highlightedComponents}
         />
-      </Container>
+      </BackgroundProvider>
     </BasisProvider>
   );
 }
