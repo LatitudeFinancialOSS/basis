@@ -13,9 +13,6 @@ export default (theme) => ({
     borderRadius: theme.radii[1],
     outline: 0,
     ...theme.focusStyles.focusVisible,
-    "a &": {
-      cursor: "pointer",
-    },
   },
   "button:disabled": {
     backgroundColor: theme.colors.grey.t30,
