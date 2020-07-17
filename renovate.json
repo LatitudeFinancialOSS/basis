@@ -5,7 +5,6 @@
   "packageRules": [
     {
       "packagePatterns": ["*"],
-      "excludePackageNames": ["downshift"],
       "minor": {
         "groupName": "all non-major dependencies",
         "groupSlug": "all-minor-patch"

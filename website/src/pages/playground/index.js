@@ -51,10 +51,13 @@ const defaultCode = prettify(`
               We are a small and passionate team at
               <Link href="https://www.latitudefinancial.com.au" newTab>
                 Latitude
-              </Link>.
+              </Link>
+              .
             </List.Item>
             <List.Item>
-              Interested in working with us? Please contact <Link href="https://twitter.com/moroshko" newTab>Misha Moroshko</Link>.
+              Interested in working with us? Please contact
+              <Link href="https://twitter.com/moroshko" newTab>Misha Moroshko</Link>
+              .
             </List.Item>
           </List>
         </Container>
