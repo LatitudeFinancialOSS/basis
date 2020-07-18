@@ -7,9 +7,9 @@ import select from "./select";
 
 export default {
   ...theme,
-  ...button(theme),
+  button: button(theme),
   ...field(theme),
   ...input(theme),
-  ...link(theme),
+  link: link(theme),
   ...select(theme),
 };

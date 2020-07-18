@@ -63,24 +63,21 @@ function Link(props) {
     __internal__active,
   } = mergedProps;
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
-  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    margin: responsiveMargin,
-    padding: responsivePadding,
+  const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     variant: (propsAtBreakpoint, theme, bp) => {
       const variant = props.variant ?? variantMap[bp];
 
-      return {
-        ...theme[`link.${variant}`],
-        ...(__internal__hover && theme[`link.${variant}`][":hover"]),
-        ...(__internal__active && theme[`link.${variant}`][":active"]),
-      };
+      return theme.link.getCSS({
+        variant,
+        __internal__keyboardFocus,
+        __internal__hover,
+        __internal__active,
+      });
     },
+    margin: responsiveMargin,
+    padding: responsivePadding,
   });
-  const css = {
-    ...theme.link,
-    ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-    ...responsivePropsCSS,
-  };
+
   const newTabProps = newTab
     ? {
         target: "_blank",

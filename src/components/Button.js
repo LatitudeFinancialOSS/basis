@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useTheme from "../hooks/useTheme";
 import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
@@ -37,7 +36,6 @@ function getInheritedColor(backgroundColor) {
 }
 
 function Button(props) {
-  const theme = useTheme();
   const { bgMap } = useBackground();
   const mergedProps = mergeProps(
     props,
@@ -61,39 +59,24 @@ function Button(props) {
     __internal__hover,
     __internal__active,
   } = mergedProps;
-  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    margin: responsiveMargin,
-    width: responsiveSize("width"),
+  const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
       const color =
         hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
           ? mergedProps.color
           : getInheritedColor(bgMap?.[bp]);
-      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
 
-      return {
-        ...theme[`button.${variant}.${colorStr}`],
-        ":hover": {
-          ...(!disabled && theme[`button.${variant}.${colorStr}:hover`]),
-        },
-        ...(__internal__hover && theme[`button.${variant}.${colorStr}:hover`]),
-        ":active": {
-          ...(!disabled && theme[`button.${variant}.${colorStr}:active`]),
-        },
-        ...(__internal__active &&
-          theme[`button.${variant}.${colorStr}:active`]),
-        ":disabled": {
-          ...theme["button:disabled"],
-          ...theme[`button.${variant}.${colorStr}:disabled`],
-        },
-      };
+      return theme.button.getCSS({
+        variant,
+        color,
+        __internal__keyboardFocus,
+        __internal__hover,
+        __internal__active,
+      });
     },
+    margin: responsiveMargin,
+    width: responsiveSize("width"),
   });
-  const css = {
-    ...theme.button,
-    ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-    ...responsivePropsCSS,
-  };
 
   return (
     <button
