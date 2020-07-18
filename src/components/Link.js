@@ -11,7 +11,15 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveMargin, responsivePadding } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
-const VARIANTS = ["light-bg", "medium-bg", "dark-bg", "icon"];
+const VARIANTS = [
+  "light-bg",
+  "medium-bg",
+  "dark-bg",
+  "icon",
+  "primary-blue-button",
+  "primary-green-button",
+  "secondary-blue-button",
+];
 
 const DEFAULT_PROPS = {
   variant: "light-bg",
@@ -69,6 +77,7 @@ function Link(props) {
 
       return theme.link.getCSS({
         variant,
+        buttonTheme: theme.button,
         __internal__keyboardFocus,
         __internal__hover,
         __internal__active,

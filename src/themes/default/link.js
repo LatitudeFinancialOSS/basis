@@ -17,6 +17,7 @@ export default (theme) => {
   return {
     getCSS: ({
       variant,
+      buttonTheme,
       __internal__keyboardFocus,
       __internal__hover,
       __internal__active,
@@ -122,6 +123,57 @@ export default (theme) => {
           css = {
             ...css,
             display: "inline-flex",
+          };
+          break;
+        }
+
+        case "primary-blue-button": {
+          css = {
+            ...buttonTheme.getCSS({
+              variant: "primary",
+              color: "highlight.blue.t100",
+              __internal__keyboardFocus,
+              __internal__hover,
+              __internal__active,
+            }),
+            display: "inline-flex",
+            alignItems: "center",
+            textDecoration: "none",
+            boxSizing: "border-box",
+          };
+          break;
+        }
+
+        case "primary-green-button": {
+          css = {
+            ...buttonTheme.getCSS({
+              variant: "primary",
+              color: "green",
+              __internal__keyboardFocus,
+              __internal__hover,
+              __internal__active,
+            }),
+            display: "inline-flex",
+            alignItems: "center",
+            textDecoration: "none",
+            boxSizing: "border-box",
+          };
+          break;
+        }
+
+        case "secondary-blue-button": {
+          css = {
+            ...buttonTheme.getCSS({
+              variant: "secondary",
+              color: "highlight.blue.t100",
+              __internal__keyboardFocus,
+              __internal__hover,
+              __internal__active,
+            }),
+            display: "inline-flex",
+            alignItems: "center",
+            textDecoration: "none",
+            boxSizing: "border-box",
           };
           break;
         }
