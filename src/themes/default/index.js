@@ -13,6 +13,7 @@ import select from "./select";
 import stepper from "./stepper";
 import text from "./text";
 import textStyles from "./textStyles";
+import { getPath } from "../../utils/objectPath";
 
 const theme = {
   // margin, padding
@@ -223,17 +224,23 @@ theme.focusStyles = {
 theme.focusStyles.__keyboardFocus = focusStyle;
 theme.focusStyles.__keyboardFocusAdjacentLabel = focusStyle;
 
+const helpers = {
+  getColor: (color) => {
+    return getPath(theme.colors, color);
+  },
+};
+
 export default {
   ...theme,
   ...accordion(theme),
-  button: button(theme),
+  button: button(theme, helpers),
   ...checkbox(theme),
   ...container(theme),
   ...dropdown(theme),
   ...field(theme),
   ...grid(theme),
-  ...input(theme),
-  link: link(theme),
+  input: input(theme, helpers),
+  link: link(theme, helpers),
   ...list(theme),
   ...radioGroup(theme),
   ...select(theme),

@@ -9,7 +9,7 @@ export default {
   ...theme,
   button: button(theme),
   ...field(theme),
-  ...input(theme),
+  input: input(theme),
   link: link(theme),
   ...select(theme),
 };
