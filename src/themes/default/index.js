@@ -237,7 +237,7 @@ export default {
   ...checkbox(theme),
   ...container(theme),
   ...dropdown(theme),
-  ...field(theme),
+  field: field(theme, helpers),
   ...grid(theme),
   input: input(theme, helpers),
   link: link(theme, helpers),
