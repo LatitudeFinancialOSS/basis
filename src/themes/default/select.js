@@ -38,9 +38,3 @@ export default (theme, { getColor }) => {
     },
   };
 };
-
-// export default (theme) => ({
-//   "selectInput.default:focus": {
-//     backgroundColor: theme.colors.grey.t05,
-//   },
-// });
