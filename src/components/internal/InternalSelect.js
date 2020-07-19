@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useTheme from "../../hooks/useTheme";
 import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 
@@ -37,45 +36,22 @@ function InternalSelect(_props) {
     onChange,
     __internal__focus,
   } = props;
-  const theme = useTheme();
   const { inputColorMap } = useBackground();
-  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const css = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
       const color = _props.color ?? inputColorMap[bp];
-      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
 
-      return {
-        ...theme[`selectInput.${colorStr}`],
-        ":focus": {
-          ...theme["selectInput:focus"],
-          ...theme[`selectInput.${colorStr}:focus`],
-        },
-        ...(__internal__focus && {
-          ...theme["selectInput:focus"],
-          ...theme[`selectInput.${colorStr}:focus`],
-        }),
-        ":active": {
-          ...(!disabled && theme[`selectInput.${colorStr}:active`]),
-        },
-        ":hover": {
-          ...(!disabled && theme[`selectInput.${colorStr}:hover`]),
-        },
-      };
+      return theme.select.getCSS({
+        color,
+        fullWidth,
+        __internal__focus,
+      });
     },
   });
 
   return (
     <select
-      css={{
-        ...theme.selectInput,
-        ...responsiveCSS,
-        ...(fullWidth && theme["selectInput.fullWidth"]),
-        // See: https://stackoverflow.com/a/19451423/247243
-        ":-moz-focusring": {
-          color: "transparent",
-          textShadow: "0 0 0 #000",
-        },
-      }}
+      css={css}
       id={id}
       name={name}
       data-parent-name={parentName}
@@ -94,13 +70,13 @@ function InternalSelect(_props) {
       )}
       {options.map((option) => (
         /* 
-            Note: We use `option.label` as the key here because users shouldn't have
-                  multiple options with the same label.
-                  They can have multiple options with the same value though!
-                  For example:
-                    <option value="us">USA</option>
-                    <option value="us">United States</option>
-          */
+          Note: We use `option.label` as the key here because users shouldn't have
+                multiple options with the same label.
+                They can have multiple options with the same value though!
+                For example:
+                  <option value="us">USA</option>
+                  <option value="us">United States</option>
+        */
         <option value={option.value} key={option.label}>
           {option.label}
         </option>

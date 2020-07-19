@@ -243,7 +243,7 @@ export default {
   link: link(theme, helpers),
   ...list(theme),
   ...radioGroup(theme),
-  ...select(theme),
+  select: select(theme, helpers),
   ...stepper(theme),
   ...text(theme),
 };

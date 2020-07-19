@@ -11,5 +11,5 @@ export default {
   ...field(theme),
   input: input(theme),
   link: link(theme),
-  ...select(theme),
+  select: select(theme),
 };
