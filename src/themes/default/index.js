@@ -246,7 +246,7 @@ export default {
   ...theme,
   accordion: accordion(theme, helpers),
   button: button(theme, helpers),
-  ...checkbox(theme),
+  checkbox: checkbox(theme, helpers),
   ...container(theme),
   ...dropdown(theme),
   field: field(theme, helpers),
