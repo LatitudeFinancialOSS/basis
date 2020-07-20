@@ -36,14 +36,17 @@ Accordion.DEFAULT_PROPS = DEFAULT_PROPS;
 function Header({ children, testId, __internal__keyboardFocus = false }) {
   const theme = useTheme();
   const { colorMap, textColor, itemHeaderAs: HeaderComponent } = useAccordion();
-  const responsiveCSS = useResponsivePropsCSS(
+  const buttonCSS = useResponsivePropsCSS(
     {},
     {},
     {
       backgroundColor: (propsAtBreakpoint, theme, bp) => {
-        return {
-          backgroundColor: theme.getColor(colorMap[bp]),
-        };
+        return theme.accordion.getCSS({
+          targetElement: "headerButton",
+          color: colorMap[bp],
+          textColor,
+          __internal__keyboardFocus,
+        });
       },
     }
   );
@@ -58,26 +61,26 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
   }, [toggleAccordionItem]);
 
   return (
-    <HeaderComponent css={theme.accordionHeader} data-testid={testId}>
+    <HeaderComponent
+      css={theme.accordion.getCSS({ targetElement: "headerContainer" })}
+      data-testid={testId}
+    >
       <button
         id={headerId}
-        css={{
-          ...theme.accordionHeaderButton,
-          ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-          ...responsiveCSS,
-          color: theme.getColor(textColor),
-        }}
+        css={buttonCSS}
         type="button"
         aria-controls={contentId}
         aria-expanded={isOpen ? "true" : "false"}
         onClick={onClick}
       >
-        <div css={theme.accordionHeaderContent}>{children}</div>
+        <div css={theme.accordion.getCSS({ targetElement: "headerContent" })}>
+          {children}
+        </div>
         <div
-          css={{
-            ...theme.accordionHeaderChevron,
-            ...(isOpen && theme["accordionHeaderChevron.open"]),
-          }}
+          css={theme.accordion.getCSS({
+            targetElement: "headerChevron",
+            isOpen,
+          })}
         >
           <Icon name="chevron-down" color={textColor} />
         </div>
@@ -97,7 +100,10 @@ function HeaderIcon({ name, testId }) {
   const { textColor } = useAccordion();
 
   return (
-    <div css={theme.accordionHeaderIcon} data-testid={testId}>
+    <div
+      css={theme.accordion.getCSS({ targetElement: "headerIcon" })}
+      data-testid={testId}
+    >
       <Icon name={name} color={textColor} />
     </div>
   );
@@ -113,23 +119,18 @@ function Content({ children, testId }) {
   const { colorMap } = useAccordion();
   const bgMap = mapResponsiveValues(
     colorMap,
-    (headerColor) => {
-      return headerColor === "grey.t07"
-        ? "grey.t03"
-        : headerColor === "secondary.lightBlue.t25"
-        ? "secondary.lightBlue.t15"
-        : "white";
-    },
+    theme.accordion.getContentColor,
     theme
   );
-  const responsiveCSS = useResponsivePropsCSS(
+  const css = useResponsivePropsCSS(
     {},
     {},
     {
       backgroundColor: (propsAtBreakpoint, theme, bp) => {
-        return {
-          backgroundColor: theme.getColor(bgMap[bp]),
-        };
+        return theme.accordion.getCSS({
+          targetElement: "content",
+          color: colorMap[bp],
+        });
       },
     }
   );
@@ -139,10 +140,7 @@ function Content({ children, testId }) {
     <BackgroundProvider value={bgMap}>
       <div
         id={contentId}
-        css={{
-          ...theme.accordionContent,
-          ...responsiveCSS,
-        }}
+        css={css}
         role="region"
         aria-labelledby={headerId}
         hidden={!isOpen}
@@ -195,7 +193,10 @@ function Item(props) {
 
   return (
     <AccordionItemProvider value={accordionItemInfo}>
-      <div css={theme[`accordionItem.${itemGap}`]} data-testid={testId}>
+      <div
+        css={theme.accordion.getCSS({ targetElement: "item", itemGap })}
+        data-testid={testId}
+      >
         {children}
       </div>
     </AccordionItemProvider>

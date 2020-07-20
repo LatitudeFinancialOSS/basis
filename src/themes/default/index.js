@@ -228,11 +228,23 @@ const helpers = {
   getColor: (color) => {
     return getPath(theme.colors, color);
   },
+  getTextStyle: ({ name, isBold }) => {
+    const result = theme.textStyles[name];
+
+    if (isBold) {
+      return {
+        ...result,
+        ...theme.textStyles[`${name}.bold`],
+      };
+    }
+
+    return result;
+  },
 };
 
 export default {
   ...theme,
-  ...accordion(theme),
+  accordion: accordion(theme, helpers),
   button: button(theme, helpers),
   ...checkbox(theme),
   ...container(theme),
