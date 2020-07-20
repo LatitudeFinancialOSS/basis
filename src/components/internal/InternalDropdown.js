@@ -57,15 +57,17 @@ function InternalDropdown(_props) {
     },
     theme
   );
-  const buttonResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const buttonCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
-      const color = colorMap[bp];
-      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
-
-      return theme[`dropdownButton.${colorStr}`];
+      return theme.dropdown.getCSS({
+        targetElement: "button",
+        color: colorMap[bp],
+        isPlaceholder: !selectedOption,
+        __internal__focus,
+      });
     },
   });
-  const optionsResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const optionsCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     maxHeight: responsiveSize("maxHeight"),
   });
   const menuProps = getMenuProps({
@@ -74,41 +76,31 @@ function InternalDropdown(_props) {
   });
 
   return (
-    <div css={theme.dropdownContainer}>
+    <div css={theme.dropdown.getCSS({ targetElement: "container" })}>
       <button
-        css={{
-          ...theme.dropdownButton,
-          ...buttonResponsiveCSS,
-          ...(!selectedOption && theme.dropdownButtonPlaceholder),
-          ...(__internal__focus && theme.focusStyles.__keyboardFocus),
-          // See: https://stackoverflow.com/a/199319/247243
-          "::-moz-focus-inner": {
-            border: 0,
-          },
-        }}
+        css={buttonCSS}
         type="button"
         name={name}
         data-parent-name={parentName ?? name}
         {...toggleButtonProps}
       >
         <BackgroundProvider value={colorMap}>
-          <div css={theme.dropdownButtonContent}>
+          <div css={theme.dropdown.getCSS({ targetElement: "buttonContent" })}>
             {selectedOption ? (
               <OptionComponent {...selectedOption} />
             ) : (
               <PlaceholderComponent />
             )}
           </div>
-          <div css={theme.dropdownButtonChevron}>
+          <div css={theme.dropdown.getCSS({ targetElement: "buttonChevron" })}>
             <Icon name="triangle-down" color="black" />
           </div>
         </BackgroundProvider>
       </button>
       <ul
         css={{
-          ...theme.dropdownOptions,
-          ":focus": theme["dropdownOptions:focus"],
-          ...optionsResponsiveCSS,
+          ...theme.dropdown.getCSS({ targetElement: "options" }),
+          ...optionsCSS,
         }}
         {...menuProps}
       >
@@ -116,11 +108,12 @@ function InternalDropdown(_props) {
           {(isOpen || __internal__open) &&
             options.map((option, index) => (
               <li
-                css={{
-                  ...theme.dropdownOption,
-                  ...((__internal__highlightedIndex ?? highlightedIndex) ===
-                    index && theme.dropdownOptionHighlighted),
-                }}
+                css={theme.dropdown.getCSS({
+                  targetElement: "option",
+                  isHighlighted:
+                    (__internal__highlightedIndex ?? highlightedIndex) ===
+                    index,
+                })}
                 {...getItemProps({ item: option, index })}
                 key={index}
               >

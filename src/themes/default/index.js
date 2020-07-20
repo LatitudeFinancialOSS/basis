@@ -264,7 +264,7 @@ export default {
   accordion: accordion(theme, helpers),
   button: button(theme, helpers),
   checkbox: checkbox(theme, helpers),
-  ...dropdown(theme),
+  dropdown: dropdown(theme, helpers),
   field: field(theme, helpers),
   ...grid(theme),
   input: input(theme, helpers),
