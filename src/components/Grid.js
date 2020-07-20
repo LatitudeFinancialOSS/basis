@@ -24,7 +24,6 @@ Item.DEFAULT_PROPS = DEFAULT_GRID_ITEM_PROPS;
 
 function Item(props) {
   const { children, testId } = props;
-  const theme = useTheme();
   const responsivePropsCSS = useResponsivePropsCSS(
     props,
     DEFAULT_GRID_ITEM_PROPS,
@@ -49,13 +48,26 @@ function Item(props) {
       },
     }
   );
-  const itemCSS = {
-    ...theme.gridItem,
-    ...responsivePropsCSS,
-  };
 
   return (
-    <div css={itemCSS} data-testid={testId}>
+    <div
+      css={{
+        /* 
+          Don't add overflow: hidden here because it will hide the focus style 
+          of the components that use Grid (e.g. TimeSpan, Frequency).
+        */
+        minWidth: 0, // This helps the RadioGroup items to shrink on narrow screens
+        /* 
+          This helps in situations where Grid.Item has a vertical scrollbar. 
+          Without setting `minHeight: 0`, if Grid.Item's height is 1fr, for example,
+          the actual height would be greater than what you'd expect (lots of content 
+          makes it go beyond the desired 1fr). 
+        */
+        minHeight: 0,
+        ...responsivePropsCSS,
+      }}
+      data-testid={testId}
+    >
       {children}
     </div>
   );
@@ -149,7 +161,11 @@ function Grid(_props) {
 
   return (
     <div
-      css={{ ...theme.grid, ...responsivePropsCSS }}
+      css={{
+        display: "grid",
+        position: "relative",
+        ...responsivePropsCSS,
+      }}
       data-testid={testId}
       ref={gridRef}
     >
@@ -158,13 +174,25 @@ function Grid(_props) {
       {debug && gridInfo && (
         <div
           css={{
-            ...theme.gridOverlay,
+            position: "absolute",
+            display: "grid",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            gridGap: "inherit",
+            pointerEvents: "none",
             gridTemplateColumns: gridInfo.gridTemplateColumns,
             gridTemplateRows: gridInfo.gridTemplateRows,
           }}
         >
           {range(gridInfo.columnsCount * gridInfo.rowsCount).map((i) => (
-            <div css={theme.gridOverlayItem} key={i} />
+            <div
+              css={{
+                border: `${theme.borderWidths[0]} dotted`,
+              }}
+              key={i}
+            />
           ))}
         </div>
       )}

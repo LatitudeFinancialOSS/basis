@@ -3,7 +3,6 @@ import button from "./button";
 import checkbox from "./checkbox";
 import dropdown from "./dropdown";
 import field from "./field";
-import grid from "./grid";
 import input from "./input";
 import link from "./link";
 import list from "./list";
@@ -266,7 +265,6 @@ export default {
   checkbox: checkbox(theme, helpers),
   dropdown: dropdown(theme, helpers),
   field: field(theme, helpers),
-  ...grid(theme),
   input: input(theme, helpers),
   link: link(theme, helpers),
   list: list(theme, helpers),
