@@ -228,17 +228,35 @@ const helpers = {
   getColor: (color) => {
     return getPath(theme.colors, color);
   },
-  getTextStyle: ({ name, isBold }) => {
-    const result = theme.textStyles[name];
+  getTextStyle: ({ name, mode }) => {
+    switch (mode) {
+      case "self": {
+        return theme.textStyles[name];
+      }
 
-    if (isBold) {
-      return {
-        ...result,
-        ...theme.textStyles[`${name}.bold`],
-      };
+      case "self-bold": {
+        return {
+          ...theme.textStyles[name],
+          ...theme.textStyles[`${name}.bold`],
+        };
+      }
+
+      case "container": {
+        const boldCSS = theme.textStyles[`${name}.bold`];
+
+        return {
+          ...theme.textStyles[name],
+          ...(boldCSS && {
+            "& strong": boldCSS,
+            "& b": boldCSS,
+          }),
+        };
+      }
+
+      default: {
+        return null;
+      }
     }
-
-    return result;
   },
 };
 
@@ -253,7 +271,7 @@ export default {
   ...grid(theme),
   input: input(theme, helpers),
   link: link(theme, helpers),
-  ...list(theme),
+  list: list(theme, helpers),
   ...radioGroup(theme),
   select: select(theme, helpers),
   ...stepper(theme),

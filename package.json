@@ -7,7 +7,7 @@
   "scripts": {
     "postinstall": "(test -d website && npm run install-website) || true",
     "install-website": "cd website && npm install && cd ..",
-    "start": "cd website && npm start",
+    "start": "cd website && npm run clean && npm start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
     "test": "cross-env BABEL_ENV=cjs jest",

@@ -34,7 +34,7 @@ export default (theme, { getColor, getTextStyle }) => {
             boxSizing: "border-box",
             padding: `${theme.space[3]} ${theme.space[4]}`,
             textAlign: "left",
-            ...getTextStyle({ name: "subtitle2", isBold: true }),
+            ...getTextStyle({ name: "subtitle2", mode: "self-bold" }),
             outline: 0,
             ...theme.focusStyles.focusVisible,
             ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
