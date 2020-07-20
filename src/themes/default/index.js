@@ -1,7 +1,6 @@
 import accordion from "./accordion";
 import button from "./button";
 import checkbox from "./checkbox";
-import container from "./container";
 import dropdown from "./dropdown";
 import field from "./field";
 import grid from "./grid";
@@ -265,7 +264,6 @@ export default {
   accordion: accordion(theme, helpers),
   button: button(theme, helpers),
   checkbox: checkbox(theme, helpers),
-  ...container(theme),
   ...dropdown(theme),
   field: field(theme, helpers),
   ...grid(theme),

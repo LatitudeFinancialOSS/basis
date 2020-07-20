@@ -146,8 +146,14 @@ function Container(_props) {
       css={{
         boxSizing: "border-box",
         ...responsiveCSS,
-        ...theme[`container.${boxShadow}`],
-        "::after": theme[`container.${boxShadow}::after`],
+        ...(boxShadow === "header" && {
+          "::after": {
+            content: "''",
+            display: "block",
+            height: theme.borderWidths[1],
+            boxShadow: theme.shadows.header,
+          },
+        }),
       }}
       data-testid={testId}
     >
