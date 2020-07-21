@@ -7,15 +7,24 @@
     "plugin:testing-library/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
-    "plugin:jsx-a11y/strict"
+    "plugin:jsx-a11y/strict",
+    "plugin:import/errors"
   ],
-  "plugins": ["react-hooks", "jest", "testing-library", "jest-dom", "jsx-a11y"],
+  "plugins": [
+    "import",
+    "react-hooks",
+    "jest",
+    "testing-library",
+    "jest-dom",
+    "jsx-a11y"
+  ],
   "rules": {
     "no-console": ["error", { "allow": ["error"] }],
     "no-unused-vars": [
       "error",
       { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
     ],
+    "import/no-cycle": "error",
     "react/jsx-boolean-value": [
       "error",
       "never",
@@ -34,6 +43,9 @@
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "alias": [["basis", "./src"]]
     }
   }
 }

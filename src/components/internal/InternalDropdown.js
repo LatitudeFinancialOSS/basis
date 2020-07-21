@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon, Text } from "..";
-import useTheme from "../../hooks/useTheme";
+import Icon from "../Icon";
+import Text from "../Text";
 import useBackground, {
   BackgroundProvider,
   mapResponsiveValues,
 } from "../../hooks/useBackground";
+import useTheme from "../../hooks/useTheme";
 import { responsiveMaxHeightType } from "../../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import { responsiveSize } from "../../utils/css";

@@ -12,30 +12,10 @@ import {
   responsiveFlexDirection,
   responsiveFlexPlaceItems,
 } from "../utils/css";
+import { FLEX_DIRECTIONS, FLEX_PLACE_ITEMS } from "../utils/constants";
 
-const DIRECTIONS = ["row", "column"];
-const PLACE_ITEMS = [
-  "top left",
-  "top center",
-  "top right",
-  "center left",
-  "center center",
-  "center right",
-  "bottom left",
-  "bottom center",
-  "bottom right",
-
-  "left top",
-  "center top",
-  "right top",
-  "left center",
-  "right center",
-  "left bottom",
-  "center bottom",
-  "right bottom",
-
-  "center",
-];
+const DIRECTIONS = FLEX_DIRECTIONS;
+const PLACE_ITEMS = FLEX_PLACE_ITEMS;
 
 const DEFAULT_PROPS = {
   direction: "row",

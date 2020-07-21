@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Text from "./Text";
 import useTheme from "../hooks/useTheme";
 import { TextStyleProvider } from "../hooks/useTextStyle";
 import useBackground, { BackgroundProvider } from "../hooks/useBackground";
@@ -24,6 +23,7 @@ import {
   getResponsivePropMap,
   mergeResponsivePropMaps,
 } from "../utils/component";
+import { TEXT_STYLES, TEXT_ALIGNS } from "../utils/constants";
 
 const BACKGROUNDS = [
   "transparent",
@@ -183,8 +183,8 @@ Container.propTypes = {
   ...responsivePropType("bg", PropTypes.oneOf(BACKGROUNDS)),
   ...responsivePropType("flexGrow", PropTypes.bool),
   ...responsivePropType("hasBorder", PropTypes.bool),
-  ...responsivePropType("textStyle", PropTypes.oneOf(Text.TEXT_STYLES)),
-  ...responsivePropType("textAlign", PropTypes.oneOf(Text.ALIGNS)),
+  ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
+  ...responsivePropType("textAlign", PropTypes.oneOf(TEXT_ALIGNS)),
   ...responsivePropType("overflow", PropTypes.string),
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   ...responsivePropType("hide", PropTypes.bool),

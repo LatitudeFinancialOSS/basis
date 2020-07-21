@@ -4,7 +4,9 @@ import useTheme from "../hooks/useTheme";
 import useResponsiveProp, {
   responsivePropType,
 } from "../hooks/useResponsiveProp";
-import { Container, Text, Icon } from ".";
+import Container from "./Container";
+import Icon from "./Icon";
+import Text from "./Text";
 
 const DEFAULT_ITEM_PROPS = {
   minor: false,

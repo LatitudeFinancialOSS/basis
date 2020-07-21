@@ -271,5 +271,5 @@ export default {
   radioGroup: radioGroup(theme, helpers),
   select: select(theme, helpers),
   stepper: stepper(theme, helpers),
-  ...text(theme),
+  text: text(theme, helpers),
 };

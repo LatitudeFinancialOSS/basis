@@ -2,8 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import useWindow from "../hooks/useWindow";
-
-export const BreakpointContext = React.createContext();
+import { BreakpointContext } from "../hooks/useBreakpoint";
 
 function BreakpointProvider(props) {
   const { children } = props;
