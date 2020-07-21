@@ -270,6 +270,6 @@ export default {
   list: list(theme, helpers),
   radioGroup: radioGroup(theme, helpers),
   select: select(theme, helpers),
-  ...stepper(theme),
+  stepper: stepper(theme, helpers),
   ...text(theme),
 };
