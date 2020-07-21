@@ -4,7 +4,9 @@ import useTheme from "../hooks/useTheme";
 import useResponsiveProp, {
   responsivePropType,
 } from "../hooks/useResponsiveProp";
-import { Container, Text, Icon } from ".";
+import Container from "./Container";
+import Icon from "./Icon";
+import Text from "./Text";
 
 const DEFAULT_ITEM_PROPS = {
   minor: false,
@@ -23,13 +25,10 @@ function Item(_props) {
 
   return (
     <div
-      css={{
-        ...theme["stepper.item"],
-        width: `${100 / total}%`,
-      }}
+      css={theme.stepper.getCSS({ targetElement: "item", stepsCount: total })}
     >
-      <div css={theme["stepper.itemLabelContainer"]}>
-        <div css={theme["stepper.itemLabel"]}>
+      <div css={theme.stepper.getCSS({ targetElement: "labelContainer" })}>
+        <div css={theme.stepper.getCSS({ targetElement: "label" })}>
           {label && (
             <Text
               textStyle="body2"
@@ -41,31 +40,31 @@ function Item(_props) {
           )}
         </div>
       </div>
-      <div css={theme["stepper.itemContent"]}>
+      <div css={theme.stepper.getCSS({ targetElement: "itemContent" })}>
         {!isFirst && (
           <div
-            css={{
-              ...theme["stepper.progress.left"],
-              ...((isPrevious || current) &&
-                theme["stepper.progress.completed"]),
-            }}
+            css={theme.stepper.getCSS({
+              targetElement: "progressLeft",
+              isPrevious,
+              isCurrent: current,
+            })}
           />
         )}
         {!isLast && (
           <div
-            css={{
-              ...theme["stepper.progress.right"],
-              ...(isPrevious && theme["stepper.progress.completed"]),
-            }}
+            css={theme.stepper.getCSS({
+              targetElement: "progressRight",
+              isPrevious,
+            })}
           />
         )}
         <div
-          css={{
-            ...theme["stepper.itemCircle"],
-            ...(minor && theme["stepper.itemCircle.minor"]),
-            ...(current && theme["stepper.itemCircle.current"]),
-            ...(isPrevious && theme["stepper.itemCircle.previous"]),
-          }}
+          css={theme.stepper.getCSS({
+            targetElement: "circle",
+            isMinor: minor,
+            isCurrent: current,
+            isPrevious,
+          })}
         >
           {isPrevious && !minor && <Icon name="tick" color="white" />}
           {!isPrevious && !minor && (
@@ -114,7 +113,7 @@ function Stepper(_props) {
   return (
     <Container bg="grey.t07" testId={testId}>
       <Container hasBreakpointWidth>
-        <div css={theme.stepper}>
+        <div css={theme.stepper.getCSS({ targetElement: "container" })}>
           {
             steps.reduce(
               (acc, step, index) => {

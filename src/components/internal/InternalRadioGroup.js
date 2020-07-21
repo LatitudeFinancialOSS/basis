@@ -23,32 +23,35 @@ function RadioCircle(props) {
   const { isChecked } = props;
   const theme = useTheme();
   const { inputColorMap } = useBackground();
-  const circleResponsiveCSS = useResponsivePropsCSS(
+  const outerCircleCSS = useResponsivePropsCSS(
     props,
     {},
     {
       color: (propsAtBreakpoint, theme, bp) => {
-        const labelColor = props.color ?? inputColorMap[bp];
-        const color =
-          labelColor === "grey.t05" || isChecked
-            ? "white"
-            : "secondary.lightBlue.t25";
-
-        return theme[`radioGroupRadioOuterCircle.${color}`];
+        return theme.radioGroup.getCSS({
+          targetElement: "outerCircle",
+          color: props.color ?? inputColorMap[bp],
+          isChecked,
+        });
       },
     }
   );
 
   return (
     <svg
-      css={theme.radioGroupRadioCircle}
+      css={theme.radioGroup.getCSS({ targetElement: "circleSvg" })}
       viewBox="0 0 24 24"
       focusable="false"
       aria-hidden="true"
     >
-      <circle css={circleResponsiveCSS} cx="12" cy="12" r="12" />
+      <circle css={outerCircleCSS} cx="12" cy="12" r="12" />
       {isChecked && (
-        <circle css={theme.radioGroupRadioInnerCircle} cx="12" cy="12" r="6" />
+        <circle
+          css={theme.radioGroup.getCSS({ targetElement: "innerCircle" })}
+          cx="12"
+          cy="12"
+          r="6"
+        />
       )}
     </svg>
   );
@@ -76,23 +79,27 @@ function Radio(props) {
   } = props;
   const theme = useTheme();
   const { inputColorMap } = useBackground();
-  const labelResponsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const labelCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
-      const color = props.color ?? inputColorMap[bp];
-
-      return theme[`radioGroupRadioLabel.${color}`];
+      return theme.radioGroup.getCSS({
+        targetElement: "radioLabel",
+        color: props.color ?? inputColorMap[bp],
+        isOneLine,
+        showCircle,
+      });
     },
   });
   const [inputId] = useState(() => `radio-input-${nanoid()}`);
 
   return (
-    <div css={theme.radioGroupRadio} role="radio" aria-checked={isChecked}>
+    <div
+      css={theme.radioGroup.getCSS({ targetElement: "radio" })}
+      role="radio"
+      aria-checked={isChecked}
+    >
       <VisuallyHidden>
         <input
-          css={{
-            ...theme.radioGroupRadioInput,
-            ":checked + label": theme["radioGroupRadioLabel.checked"],
-          }}
+          css={theme.radioGroup.getCSS({ targetElement: "radioInput" })}
           type="radio"
           id={inputId}
           name={name}
@@ -106,17 +113,7 @@ function Radio(props) {
         />
       </VisuallyHidden>
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-      <label
-        css={{
-          ...theme.radioGroupRadioLabel,
-          ...labelResponsiveCSS,
-          ...(isOneLine &&
-            !showCircle &&
-            theme["radioGroupRadioLabel.oneLine.withoutCircle"]),
-        }}
-        htmlFor={inputId}
-        onMouseDown={onMouseDown}
-      >
+      <label css={labelCSS} htmlFor={inputId} onMouseDown={onMouseDown}>
         {showCircle && (
           <RadioCircle color={props.color} isChecked={isChecked} />
         )}

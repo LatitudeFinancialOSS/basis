@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useTheme from "../hooks/useTheme";
 import {
   responsivePropType,
   responsiveMarginType,
@@ -11,23 +10,9 @@ import useBackground from "../hooks/useBackground";
 import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import { hasOwnProperty } from "../utils/core";
+import { TEXT_STYLES, TEXT_ALIGNS } from "../utils/constants";
 
 const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
-const TEXT_STYLES = [
-  "hero",
-  "heading1",
-  "heading2",
-  "heading3",
-  "heading4",
-  "heading5",
-  "heading6",
-  "subtitle1",
-  "subtitle2",
-  "body1",
-  "body2",
-  "legal",
-  "overline",
-];
 const COLORS = [
   "black",
   "white",
@@ -37,7 +22,7 @@ const COLORS = [
   "conditional.positive.text",
   "conditional.negative.text",
 ];
-const ALIGNS = ["inherit", "left", "center", "right"];
+const ALIGNS = TEXT_ALIGNS;
 
 const allowedColors = [
   {
@@ -96,7 +81,6 @@ Text.allowedColors = allowedColors;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Text(props) {
-  const theme = useTheme();
   const { textStyle: inheritedTextStyle } = useTextStyle();
   const { bgMap } = useBackground();
   const inheritedProps = {
@@ -110,25 +94,23 @@ function Text(props) {
     wrap: (wrap) => typeof wrap === "boolean",
   });
   const { as, align, wrap, children, testId } = mergedProps;
-  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+  const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color =
+        hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
+          ? mergedProps.color
+          : getInheritedColor(bgMap?.[bp]);
+
+      return theme.text.getCSS({
+        color,
+        wrap,
+        align,
+      });
+    },
     margin: responsiveMargin,
     textStyle: responsiveTextStyle,
-    color: (propsAtBreakpoint, theme, bp) => {
-      return {
-        color:
-          hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
-            ? theme.getColor(mergedProps.color)
-            : theme.getColor(getInheritedColor(bgMap?.[bp])),
-      };
-    },
   });
   const Component = as;
-  const css = {
-    ...theme.text,
-    ...(!wrap && theme["text.noWrap"]),
-    ...responsivePropsCSS,
-    textAlign: align,
-  };
 
   return (
     <Component css={css} data-testid={testId}>

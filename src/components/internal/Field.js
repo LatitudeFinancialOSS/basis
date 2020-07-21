@@ -21,9 +21,17 @@ function Field({
 }) {
   const theme = useTheme();
   const labelElement = (
-    <label css={theme["field.label"]} id={labelId} htmlFor={labelFor}>
+    <label
+      css={theme.field.getCSS({ targetElement: "label" })}
+      id={labelId}
+      htmlFor={labelFor}
+    >
       {label}
-      {optional && <span css={theme["field.label.optional"]}>Optional</span>}
+      {optional && (
+        <span css={theme.field.getCSS({ targetElement: "optionalTag" })}>
+          Optional
+        </span>
+      )}
     </label>
   );
   const labelToRender = hideLabel ? (
@@ -34,17 +42,22 @@ function Field({
 
   return (
     <div
-      css={{
-        ...theme.field,
-        ...(fullWidth && theme["field.fullWidth"]),
-        ...(disabled && theme["field.disabled"]),
-      }}
+      css={theme.field.getCSS({
+        targetElement: "fieldContainer",
+        fullWidth,
+        disabled,
+      })}
       data-testid={testId}
     >
       {labelToRender}
       {children}
       {Array.isArray(errors) && errors.length > 0 ? (
-        <div css={theme["field.errors"]} id={auxId}>
+        <div
+          css={theme.field.getCSS({
+            targetElement: "errorsContainer",
+          })}
+          id={auxId}
+        >
           <Grid cols={1} rowsGap={1}>
             {errors.map((error, index) => (
               <Text
@@ -58,7 +71,7 @@ function Field({
           </Grid>
         </div>
       ) : helpText ? (
-        <div css={theme["field.helpText"]} id={auxId}>
+        <div css={theme.field.getCSS({ targetElement: "helpText" })} id={auxId}>
           <Text textStyle="body2">{helpText}</Text>
         </div>
       ) : null}

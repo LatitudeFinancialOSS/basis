@@ -1,16 +1,14 @@
 import React, { Children } from "react";
 import PropTypes from "prop-types";
-import {
-  Container,
-  Accordion,
-  Stack,
-  Flex,
-  Text,
-  Link,
-  Icon,
-  useTheme,
-  useBreakpoint,
-} from "..";
+import Accordion from "./Accordion";
+import Container from "./Container";
+import Flex from "./Flex";
+import Icon from "./Icon";
+import Link from "./Link";
+import Stack from "./Stack";
+import Text from "./Text";
+import useBreakpoint from "../hooks/useBreakpoint";
+import useTheme from "../hooks/useTheme";
 import Logo from "./internal/Logo";
 import useFooterLinks, { FooterLinksProvider } from "../hooks/useFooterLinks";
 import { compareBreakpoints } from "../utils/css";

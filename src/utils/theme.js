@@ -1,22 +1,13 @@
+import mem from "mem";
 import { getMinMediaQueries, getExclusiveMediaQueries } from "./css";
+import { getPath } from "./objectPath";
 
 function getColor(colorName, theme) {
   if (typeof colorName !== "string" || colorName === "transparent") {
     return null;
   }
 
-  const parts = colorName.split(".");
-  let result = theme.colors;
-
-  for (let i = 0, len = parts.length; i < len; i++) {
-    result = result[parts[i]];
-
-    if (!result) {
-      return null;
-    }
-  }
-
-  return result;
+  return getPath(theme.colors, colorName);
 }
 
 function getTextStyleCSS(textStyle, theme) {
@@ -67,7 +58,29 @@ function getSpaceValue(space, theme) {
     .join(" ");
 }
 
+function memoizeGetCSS(theme) {
+  const result = {};
+
+  for (const key in theme) {
+    if (typeof theme[key].getCSS === "function") {
+      const { getCSS, ...rest } = theme[key];
+      const memoizedGetCSS = mem(getCSS, { cacheKey: JSON.stringify });
+
+      result[key] = {
+        getCSS: memoizedGetCSS,
+        ...rest,
+      };
+    } else {
+      result[key] = theme[key];
+    }
+  }
+
+  return result;
+}
+
 export function enhanceTheme(theme) {
+  theme = memoizeGetCSS(theme);
+
   return {
     ...theme,
     minMediaQueries: getMinMediaQueries(theme.breakpoints),

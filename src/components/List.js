@@ -33,18 +33,12 @@ function Item({ children, testId }) {
 
   return (
     <li
-      css={{
-        ...theme[`listItem.${type}`],
-        ...theme[`listItem.${type}.${textStyle}`],
-        "::before": {
-          ...theme[`listItem.${type}::before`],
-          ...theme[`listItem.${type}.${variant}::before`],
-        },
-        "& ul, & ol": theme[`list.${type}.nested`],
-        "& ol li::before": theme[`listItem.${type}.nested::before`],
-        "& ol ol": theme[`list.${type}.nested.nested`],
-        "& ol ol li::before": theme[`listItem.${type}.nested.nested::before`],
-      }}
+      css={theme.list.getCSS({
+        targetElement: "item",
+        type,
+        variant,
+        textStyle,
+      })}
       data-testid={testId}
     >
       {children}
@@ -58,7 +52,6 @@ Item.propTypes = {
 };
 
 function List(props) {
-  const theme = useTheme();
   const {
     type: inheritedListType,
     variant: inheritedVariantType,
@@ -82,7 +75,10 @@ function List(props) {
     }),
     [type, variant]
   );
-  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+  const listCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+    textStyle: ({ textStyle }, theme) => {
+      return theme.list.getCSS({ targetElement: "list", type, textStyle });
+    },
     margin: responsiveMargin,
   });
   const ListComponent = type === "unordered" ? "ul" : "ol";
@@ -92,15 +88,7 @@ function List(props) {
   );
 
   let list = (
-    <ListComponent
-      css={{
-        ...theme.list,
-        ...theme[`list.${type}`],
-        ...theme.getTextStyleCSS(textStyle),
-        ...responsivePropsCSS,
-      }}
-      data-testid={testId}
-    >
+    <ListComponent css={listCSS} data-testid={testId}>
       {items}
     </ListComponent>
   );

@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import WindowProvider from "./WindowProvider";
 import BreakpointProvider from "./BreakpointProvider";
 import LinkProvider from "./LinkProvider";
+import { ThemeContext } from "../hooks/useTheme";
 import { enhanceTheme } from "../utils/theme";
 import FocusVisiblePolyfill from "../components/internal/FocusVisiblePolyfill";
-
-export const ThemeContext = React.createContext();
 
 function BasisProvider({
   theme,

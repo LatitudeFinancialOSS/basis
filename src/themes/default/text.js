@@ -1,11 +1,16 @@
-export default (_theme) => ({
-  text: {
-    margin: "0px",
-  },
-  // ellipsis
-  "text.noWrap": {
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-});
+export default (theme, { getColor }) => {
+  return {
+    getCSS: ({ color, align, wrap }) => {
+      return {
+        margin: 0,
+        color: getColor(color),
+        textAlign: align,
+        ...(!wrap && {
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }),
+      };
+    },
+  };
+};

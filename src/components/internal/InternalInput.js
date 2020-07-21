@@ -46,12 +46,18 @@ function InternalInput(_props) {
   } = props;
   const theme = useTheme();
   const { inputColorMap } = useBackground();
-  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+  const inputCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
       const color = _props.color ?? inputColorMap[bp];
-      const colorStr = color === DEFAULT_PROPS.color ? "default" : color;
 
-      return theme[`input.${colorStr}`];
+      return theme.input.getCSS({
+        targetElement: "input",
+        variant,
+        numericPrefix,
+        numericSuffix,
+        color,
+        __internal__focus,
+      });
     },
   });
   const onPaste = useCallback(
@@ -62,45 +68,18 @@ function InternalInput(_props) {
     },
     [pasteAllowed]
   );
-  const hasPrefix = variant === "numeric" && numericPrefix;
-  const hasSuffix = variant === "numeric" && numericSuffix;
 
   return (
     <div
-      css={{
-        ...theme.inputContainer,
-        ...(hasPrefix && {
-          "::before": {
-            content: `"${numericPrefix}"`,
-            position: "absolute",
-            top: "13px",
-            left: theme.space[4],
-          },
-        }),
-        ...(hasSuffix && {
-          "::after": {
-            content: `"${numericSuffix}"`,
-            position: "absolute",
-            top: "13px",
-            right: theme.space[4],
-          },
-        }),
-      }}
+      css={theme.input.getCSS({
+        targetElement: "inputContainer",
+        variant,
+        numericPrefix,
+        numericSuffix,
+      })}
     >
       <input
-        css={{
-          ...theme.input,
-          ...responsiveCSS,
-          paddingLeft: hasPrefix
-            ? `calc(${theme.space[4]} + ${numericPrefix.length + 1}ch)`
-            : theme.space[4],
-          paddingRight: hasSuffix
-            ? `calc(${theme.space[4]} + ${numericSuffix.length + 1}ch)`
-            : theme.space[4],
-          ":focus": theme["input:focus"],
-          ...(__internal__focus && theme["input:focus"]),
-          ":hover": theme["input:hover"],
-        }}
+        css={inputCSS}
         id={id}
         name={name}
         data-parent-name={parentName}

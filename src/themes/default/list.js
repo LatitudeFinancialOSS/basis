@@ -1,133 +1,133 @@
-export default (theme) => ({
-  list: {
-    margin: 0,
-  },
-  // Unordered
-  "list.unordered": {
-    listStyleType: "none",
-    paddingLeft: "1.25em",
-  },
-  "list.unordered.nested": {
-    margin: "0.5em 0 1em",
-  },
-  "listItem.unordered": {
-    position: "relative",
-  },
-  "listItem.unordered::before": {
-    content: '""',
-    width: "0.5em",
-    height: "0.5em",
-    borderRadius: theme.radii[3],
-    position: "absolute",
-    top: "0.5em",
-    left: "-1.25em",
-  },
-  "listItem.unordered.default::before": {
-    backgroundColor: theme.colors.secondary.lightBlue.t100,
-  },
-  "listItem.unordered.danger::before": {
-    backgroundColor: theme.colors.conditional.negative.graphics,
-  },
-  "listItem.unordered.subtitle1": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[4],
+export default (theme, { getTextStyle }) => {
+  return {
+    getCSS: ({ targetElement, type, variant, textStyle }) => {
+      switch (targetElement) {
+        case "list": {
+          return {
+            margin: 0,
+            listStyleType: "none",
+            ...(type === "unordered" && {
+              paddingLeft: "1.25em",
+            }),
+            ...(type === "ordered" && {
+              counterReset: "ordered",
+              paddingLeft: "1.25em",
+            }),
+            ...(type === "steps" && {
+              counterReset: "steps",
+              padding: "0.25em 0 0.25em 2.5em",
+            }),
+            ...getTextStyle({ name: textStyle, mode: "container" }),
+          };
+        }
+
+        case "item": {
+          switch (type) {
+            case "unordered": {
+              return {
+                position: "relative",
+                ":not(:first-of-type)": {
+                  marginTop:
+                    textStyle === "subtitle1"
+                      ? theme.space[4]
+                      : textStyle === "subtitle2"
+                      ? theme.space[3]
+                      : theme.space[2],
+                },
+                "::before": {
+                  content: '""',
+                  width: "0.5em",
+                  height: "0.5em",
+                  borderRadius: theme.radii[3],
+                  position: "absolute",
+                  top: "0.5em",
+                  left: "-1.25em",
+                  backgroundColor:
+                    variant === "danger"
+                      ? theme.colors.conditional.negative.graphics
+                      : theme.colors.secondary.lightBlue.t100,
+                },
+                "& ul, & ol": {
+                  margin: "0.5em 0 1em",
+                },
+              };
+            }
+
+            case "ordered": {
+              return {
+                position: "relative",
+                counterIncrement: "ordered",
+                ":not(:first-of-type)": {
+                  marginTop:
+                    textStyle === "subtitle1"
+                      ? theme.space[4]
+                      : textStyle === "subtitle2"
+                      ? theme.space[3]
+                      : theme.space[2],
+                },
+                "::before": {
+                  content: 'counter(ordered, decimal) ". "',
+                  position: "absolute",
+                  top: 0,
+                  left: "-1.25em",
+                },
+                "& ul, & ol": {
+                  margin: "0.5em 0 1em",
+                },
+                "& ol li::before": {
+                  content: 'counter(ordered, lower-alpha) ". "',
+                },
+                "& ol ol li::before": {
+                  content: 'counter(ordered, lower-roman) ". "',
+                },
+              };
+            }
+
+            case "steps": {
+              return {
+                position: "relative",
+                counterIncrement: "steps",
+                marginBottom: "1.4em",
+                ":last-of-type": {
+                  marginBottom: 0,
+                },
+                "::before": {
+                  content: "counter(steps, decimal)",
+                  width: "2em",
+                  height: "2em",
+                  lineHeight: "2em",
+                  color: theme.colors.white,
+                  backgroundColor: theme.colors.primary.blue.t100,
+                  fontWeight: theme.fontWeights.medium,
+                  textAlign: "center",
+                  borderRadius: theme.radii[3],
+                  position: "absolute",
+                  top: "-0.25em",
+                  left: "-2.5em",
+                },
+                "& ul, & ol": {
+                  margin: "1em 0 1.25em",
+                },
+                "& ol li::before": {
+                  content: "counter(steps, lower-alpha)",
+                  color: theme.colors.black,
+                  backgroundColor: theme.colors.secondary.lightBlue.t100,
+                },
+              };
+            }
+
+            default: {
+              return null;
+            }
+          }
+
+          // "& ol ol li::before": theme[`listItem.${type}.nested.nested::before`],
+        }
+
+        default: {
+          return null;
+        }
+      }
     },
-  },
-  "listItem.unordered.subtitle2": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[3],
-    },
-  },
-  "listItem.unordered.body1": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[2],
-    },
-  },
-  "listItem.unordered.body2": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[2],
-    },
-  },
-  // Ordered
-  "list.ordered": {
-    listStyleType: "none",
-    counterReset: "ordered",
-    paddingLeft: "1.25em",
-  },
-  "listItem.ordered.subtitle1": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[4],
-    },
-  },
-  "listItem.ordered.subtitle2": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[3],
-    },
-  },
-  "listItem.ordered.body1": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[2],
-    },
-  },
-  "listItem.ordered.body2": {
-    ":not(:first-of-type)": {
-      marginTop: theme.space[2],
-    },
-  },
-  "list.ordered.nested": {
-    margin: "0.5em 0 1em",
-  },
-  "list.ordered.nested.nested": {},
-  "listItem.ordered": {
-    position: "relative",
-    counterIncrement: "ordered",
-  },
-  "listItem.ordered::before": {
-    content: 'counter(ordered, decimal) ". "',
-    position: "absolute",
-    top: 0,
-    left: "-1.25em",
-  },
-  "listItem.ordered.nested::before": {
-    content: 'counter(ordered, lower-alpha) ". "',
-  },
-  "listItem.ordered.nested.nested::before": {
-    content: 'counter(ordered, lower-roman) ". "',
-  },
-  // Steps
-  "list.steps": {
-    listStyleType: "none",
-    counterReset: "steps",
-    padding: "0.25em 0 0.25em 2.5em",
-  },
-  "list.steps.nested": {
-    margin: "1em 0 1.25em",
-  },
-  "listItem.steps": {
-    position: "relative",
-    counterIncrement: "steps",
-    marginBottom: "1.4em",
-    ":last-of-type": {
-      marginBottom: 0,
-    },
-  },
-  "listItem.steps::before": {
-    content: "counter(steps, decimal)",
-    width: "2em",
-    height: "2em",
-    lineHeight: "2em",
-    color: theme.colors.white,
-    backgroundColor: theme.colors.primary.blue.t100,
-    fontWeight: theme.fontWeights.medium,
-    textAlign: "center",
-    borderRadius: theme.radii[3],
-    position: "absolute",
-    top: "-0.25em",
-    left: "-2.5em",
-  },
-  "listItem.steps.nested::before": {
-    content: "counter(steps, lower-alpha)",
-    color: theme.colors.black,
-    backgroundColor: theme.colors.secondary.lightBlue.t100,
-  },
-});
+  };
+};

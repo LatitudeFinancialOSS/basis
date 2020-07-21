@@ -1,10 +1,8 @@
 import accordion from "./accordion";
 import button from "./button";
 import checkbox from "./checkbox";
-import container from "./container";
 import dropdown from "./dropdown";
 import field from "./field";
-import grid from "./grid";
 import input from "./input";
 import link from "./link";
 import list from "./list";
@@ -13,6 +11,7 @@ import select from "./select";
 import stepper from "./stepper";
 import text from "./text";
 import textStyles from "./textStyles";
+import { getPath } from "../../utils/objectPath";
 
 const theme = {
   // margin, padding
@@ -223,20 +222,54 @@ theme.focusStyles = {
 theme.focusStyles.__keyboardFocus = focusStyle;
 theme.focusStyles.__keyboardFocusAdjacentLabel = focusStyle;
 
+const helpers = {
+  getColor: (color) => {
+    return getPath(theme.colors, color);
+  },
+  getTextStyle: ({ name, mode }) => {
+    switch (mode) {
+      case "self": {
+        return theme.textStyles[name];
+      }
+
+      case "self-bold": {
+        return {
+          ...theme.textStyles[name],
+          ...theme.textStyles[`${name}.bold`],
+        };
+      }
+
+      case "container": {
+        const boldCSS = theme.textStyles[`${name}.bold`];
+
+        return {
+          ...theme.textStyles[name],
+          ...(boldCSS && {
+            "& strong": boldCSS,
+            "& b": boldCSS,
+          }),
+        };
+      }
+
+      default: {
+        return null;
+      }
+    }
+  },
+};
+
 export default {
   ...theme,
-  ...accordion(theme),
-  ...button(theme),
-  ...checkbox(theme),
-  ...container(theme),
-  ...dropdown(theme),
-  ...field(theme),
-  ...grid(theme),
-  ...input(theme),
-  ...link(theme),
-  ...list(theme),
-  ...radioGroup(theme),
-  ...select(theme),
-  ...stepper(theme),
-  ...text(theme),
+  accordion: accordion(theme, helpers),
+  button: button(theme, helpers),
+  checkbox: checkbox(theme, helpers),
+  dropdown: dropdown(theme, helpers),
+  field: field(theme, helpers),
+  input: input(theme, helpers),
+  link: link(theme, helpers),
+  list: list(theme, helpers),
+  radioGroup: radioGroup(theme, helpers),
+  select: select(theme, helpers),
+  stepper: stepper(theme, helpers),
+  text: text(theme, helpers),
 };

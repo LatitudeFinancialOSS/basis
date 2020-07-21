@@ -11,7 +11,15 @@ import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveMargin, responsivePadding } from "../utils/css";
 import { mergeProps } from "../utils/component";
 
-const VARIANTS = ["light-bg", "medium-bg", "dark-bg", "icon"];
+const VARIANTS = [
+  "light-bg",
+  "medium-bg",
+  "dark-bg",
+  "icon",
+  "primary-blue-button",
+  "primary-green-button",
+  "secondary-blue-button",
+];
 
 const DEFAULT_PROPS = {
   variant: "light-bg",
@@ -63,24 +71,22 @@ function Link(props) {
     __internal__active,
   } = mergedProps;
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
-  const responsivePropsCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    margin: responsiveMargin,
-    padding: responsivePadding,
+  const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     variant: (propsAtBreakpoint, theme, bp) => {
       const variant = props.variant ?? variantMap[bp];
 
-      return {
-        ...theme[`link.${variant}`],
-        ...(__internal__hover && theme[`link.${variant}`][":hover"]),
-        ...(__internal__active && theme[`link.${variant}`][":active"]),
-      };
+      return theme.link.getCSS({
+        variant,
+        buttonTheme: theme.button,
+        __internal__keyboardFocus,
+        __internal__hover,
+        __internal__active,
+      });
     },
+    margin: responsiveMargin,
+    padding: responsivePadding,
   });
-  const css = {
-    ...theme.link,
-    ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-    ...responsivePropsCSS,
-  };
+
   const newTabProps = newTab
     ? {
         target: "_blank",

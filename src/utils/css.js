@@ -1,8 +1,5 @@
 import { hasOwnProperty } from "./core";
-import Flex from "../components/Flex";
-import Text from "../components/Text";
-
-const { DIRECTIONS: FLEX_DIRECTIONS, PLACE_ITEMS: FLEX_PLACE_ITEMS } = Flex;
+import { TEXT_ALIGNS, FLEX_DIRECTIONS, FLEX_PLACE_ITEMS } from "./constants";
 
 export function getGapValues(gap, theme) {
   if (typeof gap === "number") {
@@ -30,7 +27,7 @@ export function getGapValues(gap, theme) {
 }
 
 function getTextAlignValue(textAlign) {
-  if (Text.ALIGNS.includes(textAlign)) {
+  if (TEXT_ALIGNS.includes(textAlign)) {
     return textAlign;
   }
 

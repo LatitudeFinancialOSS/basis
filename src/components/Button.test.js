@@ -17,6 +17,7 @@ describe("Button", () => {
       lineHeight: "28px",
       fontFamily: "'Roboto',sans-serif",
       fontWeight: 500,
+      margin: 0,
       border: 0,
       borderRadius: "4px",
       padding: "0 24px",
