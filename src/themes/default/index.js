@@ -268,7 +268,7 @@ export default {
   input: input(theme, helpers),
   link: link(theme, helpers),
   list: list(theme, helpers),
-  ...radioGroup(theme),
+  radioGroup: radioGroup(theme, helpers),
   select: select(theme, helpers),
   ...stepper(theme),
   ...text(theme),
