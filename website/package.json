@@ -48,7 +48,7 @@
     "react-live": "2.2.2",
     "react-movable": "2.5.0",
     "recoil": "0.0.9",
-    "shallow-equal": "^1.2.1",
+    "shallow-equal": "1.2.1",
     "typeface-montserrat": "0.0.75",
     "typeface-roboto": "0.0.75",
     "upper-case-first": "2.0.1",
