@@ -1,4 +1,4 @@
-import deepClone from "klona";
+import { klona as deepClone } from "klona";
 import deepMerge from "deepmerge";
 import { detailedDiff } from "deep-object-diff";
 import useTheme from "./useTheme";
