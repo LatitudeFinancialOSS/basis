@@ -6,9 +6,14 @@ import useBackground, { mapResponsiveValues } from "../hooks/useBackground";
 import {
   responsiveMarginType,
   responsivePaddingType,
+  responsiveWidthType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsiveMargin, responsivePadding } from "../utils/css";
+import {
+  responsiveMargin,
+  responsivePadding,
+  responsiveSize,
+} from "../utils/css";
 import { mergeProps } from "../utils/component";
 
 const VARIANTS = [
@@ -62,6 +67,7 @@ function Link(props) {
     href,
     newTab,
     title,
+    state,
     onClick,
     children,
     testId,
@@ -85,6 +91,7 @@ function Link(props) {
     },
     margin: responsiveMargin,
     padding: responsivePadding,
+    width: responsiveSize("width"),
   });
 
   const newTabProps = newTab
@@ -98,12 +105,14 @@ function Link(props) {
     /*
       Note: We assume here that InternalLink respects the following contract:
 
-        - It gets a `className` prop, which gets applies to the rendered <a>.
+        - It gets a `state` prop
         - It gets a `to` prop, which gets mapped to <a>'s `href` prop.
-        - It gets a `title` prop which is set on the rendered <a>.
-        - It gets an `onClick` prop which is set on the rendered <a>.
-        - It gets a `data-testid` prop which is set on the rendered <a>.
-        - It gets a `children` prop, which gets rendered as <a>'s `children`.
+        - It gets the following props and sets them on the rendered <a>:
+          * className
+          * title
+          * onClick
+          * data-testid
+          * children
 
       Example: Gatsby `Link` component.
     */
@@ -113,6 +122,7 @@ function Link(props) {
         css={css}
         to={href}
         title={title}
+        state={state}
         onClick={onClick}
         data-testid={testId}
       >
@@ -139,10 +149,38 @@ function Link(props) {
 Link.propTypes = {
   ...responsiveMarginType,
   ...responsivePaddingType,
-  variant: PropTypes.oneOf(VARIANTS),
+  ...responsiveWidthType,
+  variant: (props) => {
+    if (props.variant === undefined) {
+      for (const prop in props) {
+        if (prop.startsWith("width")) {
+          return new Error(
+            `Link: ${prop} should be used only with these variants: ${[
+              "primary-blue-button",
+              "primary-green-button",
+              "secondary-blue-button",
+            ]
+              .map((v) => `"${v}"`)
+              .join(", ")}`
+          );
+        }
+      }
+    } else {
+      if (VARIANTS.includes(props.variant) === false) {
+        return new Error(
+          `Link: variant="${
+            props.variant
+          }" is not supported. Must be one of: ${VARIANTS.map(
+            (v) => `"${v}"`
+          ).join(", ")}`
+        );
+      }
+    }
+  },
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,
   title: PropTypes.string,
+  state: PropTypes.object,
   onClick: PropTypes.func,
   children: PropTypes.node,
   testId: PropTypes.string,
