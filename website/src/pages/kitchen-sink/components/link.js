@@ -15,25 +15,57 @@ const backgrounds = [
 function KitchenSinkLink() {
   return (
     <KitchenSinkLayout name="Link">
-      <Container padding="6 0">
-        {backgrounds.map((bg) => (
-          <Container padding="4" bg={bg} key={bg}>
-            <Stack direction="horizontal" gap="8">
-              <Link href="#" newTab={false}>
-                {bg}
-              </Link>
-              <Link href="#" newTab={false} __internal__hover>
-                Hover
-              </Link>
-              <Link href="#" newTab={false} __internal__active>
-                Active
-              </Link>
-              <Link href="#" newTab={false} __internal__keyboardFocus>
-                Keyboard focus
-              </Link>
-            </Stack>
-          </Container>
-        ))}
+      {backgrounds.map((bg) => (
+        <Container padding="4" bg={bg} key={bg}>
+          <Stack direction="horizontal" gap="8">
+            <Link href="#" newTab={false}>
+              {bg}
+            </Link>
+            <Link href="#" newTab={false} __internal__hover>
+              Hover
+            </Link>
+            <Link href="#" newTab={false} __internal__active>
+              Active
+            </Link>
+            <Link href="#" newTab={false} __internal__keyboardFocus>
+              Keyboard focus
+            </Link>
+          </Stack>
+        </Container>
+      ))}
+
+      {[
+        "primary-blue-button",
+        "primary-green-button",
+        "secondary-blue-button",
+      ].map((variant) => (
+        <Container padding="4" key={variant}>
+          <Stack direction="horizontal" gap="8">
+            <Link variant={variant} href="#" newTab={false}>
+              {variant}
+            </Link>
+            <Link variant={variant} href="#" newTab={false} __internal__hover>
+              Hover
+            </Link>
+            <Link variant={variant} href="#" newTab={false} __internal__active>
+              Active
+            </Link>
+            <Link
+              variant={variant}
+              href="#"
+              newTab={false}
+              __internal__keyboardFocus
+            >
+              Keyboard focus
+            </Link>
+          </Stack>
+        </Container>
+      ))}
+
+      <Container padding="4">
+        <Link variant="primary-blue-button" href="#" newTab={false} width="300">
+          300px width
+        </Link>
       </Container>
     </KitchenSinkLayout>
   );

@@ -121,6 +121,25 @@ describe("Link", () => {
     });
   });
 
+  it("with width", () => {
+    render(
+      <Link
+        variant="primary-blue-button"
+        href="/terms"
+        newTab={false}
+        width="300"
+      >
+        Terms and Conditions
+      </Link>
+    );
+
+    const link = screen.getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle({
+      width: "300px",
+    });
+  });
+
   it("with onClick", () => {
     const onClick = jest.fn().mockImplementation((e) => {
       e.preventDefault();

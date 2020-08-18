@@ -138,6 +138,7 @@ export default (theme) => {
             }),
             display: "inline-flex",
             alignItems: "center",
+            justifyContent: "center",
             textDecoration: "none",
             boxSizing: "border-box",
           };
@@ -155,6 +156,7 @@ export default (theme) => {
             }),
             display: "inline-flex",
             alignItems: "center",
+            justifyContent: "center",
             textDecoration: "none",
             boxSizing: "border-box",
           };
@@ -172,6 +174,7 @@ export default (theme) => {
             }),
             display: "inline-flex",
             alignItems: "center",
+            justifyContent: "center",
             textDecoration: "none",
             boxSizing: "border-box",
           };
