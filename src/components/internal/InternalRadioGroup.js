@@ -11,7 +11,6 @@ const COLORS = ["grey.t05", "white"];
 
 const DEFAULT_PROPS = {
   color: "grey.t05",
-  showCircles: true,
   disabled: false,
   isValid: true,
 };
@@ -66,9 +65,9 @@ function Radio(props) {
   const {
     name,
     parentName,
-    isOneLine,
-    showCircle,
     label,
+    isLabelBold,
+    description,
     isChecked,
     disabled,
     onFocus,
@@ -84,8 +83,6 @@ function Radio(props) {
       return theme.radioGroup.getCSS({
         targetElement: "radioLabel",
         color: props.color ?? inputColorMap[bp],
-        isOneLine,
-        showCircle,
       });
     },
   });
@@ -114,10 +111,17 @@ function Radio(props) {
       </VisuallyHidden>
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <label css={labelCSS} htmlFor={inputId} onMouseDown={onMouseDown}>
-        {showCircle && (
-          <RadioCircle color={props.color} isChecked={isChecked} />
-        )}
-        {label}
+        <RadioCircle color={props.color} isChecked={isChecked} />
+        <div>
+          {isLabelBold ? <strong>{label}</strong> : label}
+          {description ? (
+            <div
+              css={theme.radioGroup.getCSS({ targetElement: "description" })}
+            >
+              {description}
+            </div>
+          ) : null}
+        </div>
       </label>
     </div>
   );
@@ -127,9 +131,9 @@ Radio.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
-  isOneLine: PropTypes.bool.isRequired,
-  showCircle: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
+  isLabelBold: PropTypes.bool.isRequired,
+  description: PropTypes.node,
   isChecked: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
   onFocus: PropTypes.func.isRequired,
@@ -148,7 +152,6 @@ function InternalRadioGroup(_props) {
     options,
     columns,
     color,
-    showCircles,
     disabled,
     isValid,
     describedBy,
@@ -159,6 +162,7 @@ function InternalRadioGroup(_props) {
     onChange,
   } = props;
   const cols = columns === undefined ? options.length : columns;
+  const areLabelsBold = options.some((option) => option.description);
 
   return (
     <div
@@ -168,7 +172,7 @@ function InternalRadioGroup(_props) {
       aria-describedby={describedBy}
     >
       <Grid cols={cols} colsGap={1} rowsGap={1}>
-        {options.map(({ label, value }, index) => (
+        {options.map(({ label, description, value }, index) => (
           <Grid.Item
             colSpan={index % cols}
             rowSpan={Math.floor(index / cols)}
@@ -178,9 +182,9 @@ function InternalRadioGroup(_props) {
               name={name}
               parentName={parentName}
               color={color}
-              isOneLine={cols === options.length}
-              showCircle={showCircles}
               label={label}
+              isLabelBold={areLabelsBold}
+              description={description}
               value={value}
               isChecked={value === checkedValue}
               disabled={disabled}
@@ -203,12 +207,12 @@ InternalRadioGroup.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
+      description: PropTypes.node,
       value: PropTypes.string.isRequired,
     })
   ).isRequired,
   columns: PropTypes.number,
   color: PropTypes.oneOf(COLORS),
-  showCircles: PropTypes.bool,
   disabled: PropTypes.bool,
   isValid: PropTypes.bool,
   describedBy: PropTypes.string,

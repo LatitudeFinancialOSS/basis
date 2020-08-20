@@ -120,8 +120,6 @@ export default (theme, { getTextStyle }) => {
               return null;
             }
           }
-
-          // "& ol ol li::before": theme[`listItem.${type}.nested.nested::before`],
         }
 
         default: {

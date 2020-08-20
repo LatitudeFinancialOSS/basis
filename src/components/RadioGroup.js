@@ -14,7 +14,6 @@ function isOptionSelected(options, value) {
 
 const DEFAULT_PROPS = {
   color: InternalRadioGroup.DEFAULT_PROPS.color,
-  showCircles: true,
   disabled: false,
   optional: false,
   validate: (value, { isEmpty }) => {
@@ -36,7 +35,6 @@ function RadioGroup(props) {
     {},
     {
       color: (color) => COLORS.includes(color),
-      showCircles: (showCircles) => typeof showCircles === "boolean",
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
       options: (options) => areOptionsValid(options),
@@ -47,7 +45,6 @@ function RadioGroup(props) {
     label,
     options,
     columns,
-    showCircles,
     helpText,
     disabled,
     optional,
@@ -64,7 +61,11 @@ function RadioGroup(props) {
 
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
-  const cols = columns === undefined ? options.length : columns;
+  const cols = options.some((option) => option.description)
+    ? 1
+    : columns === undefined
+    ? options.length
+    : columns;
   const isEmpty = useCallback(
     (value) => isOptionSelected(options, value) === false,
     [options]
@@ -110,7 +111,6 @@ function RadioGroup(props) {
         options={options}
         columns={cols}
         color={props.color}
-        showCircles={showCircles}
         disabled={disabled}
         isValid={!hasErrors}
         describedBy={helpText || hasErrors ? auxId : null}
@@ -130,12 +130,29 @@ RadioGroup.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
+      description: PropTypes.node,
       value: PropTypes.string.isRequired,
     })
   ).isRequired,
-  columns: PropTypes.number,
+  columns: (props) => {
+    if (props.columns !== undefined) {
+      if (typeof props.columns !== "number") {
+        return new Error(
+          `RadioGroup: columns must be a number (${typeof props.columns} found)`
+        );
+      }
+
+      if (
+        props.columns !== 1 &&
+        props.options.some((option) => option.description)
+      ) {
+        return new Error(
+          `RadioGroup: option's description can only be used when columns={1}`
+        );
+      }
+    }
+  },
   color: PropTypes.oneOf(COLORS),
-  showCircles: PropTypes.bool,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
   onFocus: PropTypes.func,

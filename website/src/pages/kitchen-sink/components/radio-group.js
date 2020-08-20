@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Grid, RadioGroup } from "basis";
+import { Container, Grid, RadioGroup, Link } from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
-const options = [
+const defaultOptions = [
   {
     label: "Option 1",
     value: "option-1",
@@ -20,13 +20,13 @@ const options = [
 ];
 
 function FormWithRadioGroup({
+  options = defaultOptions,
   label,
   initialValue = "",
   disabled,
   helpText,
   optional,
   columns,
-  showCircles,
   submitOnMount,
 }) {
   return (
@@ -42,62 +42,98 @@ function FormWithRadioGroup({
         helpText={helpText}
         optional={optional}
         columns={columns}
-        showCircles={showCircles}
       />
     </KitchenSinkForm>
   );
 }
 
 FormWithRadioGroup.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      description: PropTypes.node,
+      value: PropTypes.string.isRequired,
+    })
+  ),
   label: PropTypes.string.isRequired,
   initialValue: PropTypes.string,
   disabled: PropTypes.bool,
   helpText: PropTypes.string,
   optional: PropTypes.bool,
   columns: PropTypes.number,
-  showCircles: PropTypes.bool,
   submitOnMount: PropTypes.bool,
 };
 
 function KitchenSinkRadioGroup() {
   return (
     <KitchenSinkLayout name="RadioGroup">
-      <Container padding="4" bg="white">
-        <Grid rowsGap="8">
-          <FormWithRadioGroup
-            label="Grey disabled"
-            initialValue="option-2"
-            disabled
-          />
+      <Container width="600">
+        <Grid rowsGap="4">
+          <Container padding="4">
+            <Grid rowsGap="8">
+              <FormWithRadioGroup label="Default" />
 
-          <FormWithRadioGroup label="Optional" optional />
+              <FormWithRadioGroup
+                label="Disabled"
+                initialValue="option-2"
+                disabled
+              />
 
-          <FormWithRadioGroup label="With error" submitOnMount />
-        </Grid>
-      </Container>
+              <FormWithRadioGroup label="Optional" optional />
 
-      <Container padding="4" bg="grey.t05">
-        <Grid rowsGap="8">
-          <FormWithRadioGroup
-            label="White one column with help text"
-            initialValue="option-1"
-            columns={1}
-            helpText="Help text goes here."
-          />
+              <FormWithRadioGroup label="With error" submitOnMount />
+            </Grid>
+          </Container>
 
-          <FormWithRadioGroup
-            label="No circles centered"
-            initialValue="option-3"
-            columns={3}
-            showCircles={false}
-          />
+          <Container padding="4" bg="grey.t05">
+            <Grid rowsGap="8">
+              <FormWithRadioGroup
+                label="One column with help text"
+                initialValue="option-1"
+                columns={1}
+                helpText="Help text goes here."
+              />
 
-          <FormWithRadioGroup
-            label="No circles, 2 columns, with error"
-            columns={2}
-            showCircles={false}
-            submitOnMount
-          />
+              <FormWithRadioGroup
+                label="2 columns, with error"
+                columns={2}
+                submitOnMount
+              />
+            </Grid>
+          </Container>
+
+          <Container padding="4">
+            <Grid rowsGap="8">
+              <FormWithRadioGroup
+                label="With description"
+                options={[
+                  {
+                    label: "Option 1",
+                    description: "Description goes here",
+                    value: "option-1",
+                  },
+                  {
+                    label: "Option 2",
+                    description: (
+                      <>
+                        Descriptions can be very long, so long that they span
+                        multiple lines. Moreover, they can have links like{" "}
+                        <Link href="https://basis.now.sh" newTab>
+                          this
+                        </Link>
+                        .
+                      </>
+                    ),
+                    value: "option-2",
+                  },
+                  {
+                    label: "Option 3",
+                    value: "option-3",
+                  },
+                ]}
+              />
+            </Grid>
+          </Container>
         </Grid>
       </Container>
     </KitchenSinkLayout>

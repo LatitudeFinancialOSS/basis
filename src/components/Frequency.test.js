@@ -20,6 +20,10 @@ function FormWithFrequency(props) {
   );
 }
 
+function getLabelByText(text) {
+  return screen.getByText(text).closest("label");
+}
+
 describe("Frequency", () => {
   it("renders label, amount and frequency", () => {
     const { container } = render(
@@ -36,11 +40,11 @@ describe("Frequency", () => {
 
     expect(amountInput).toHaveAttribute("inputmode", "numeric");
 
-    expect(screen.getByText("Annually")).toBeInTheDocument();
-    expect(screen.getByText("Quarterly")).toBeInTheDocument();
-    expect(screen.getByText("Monthly")).toBeInTheDocument();
-    expect(screen.getByText("Fortnightly")).toBeInTheDocument();
-    expect(screen.getByText("Weekly")).toBeInTheDocument();
+    expect(getLabelByText("Annually")).toBeInTheDocument();
+    expect(getLabelByText("Quarterly")).toBeInTheDocument();
+    expect(getLabelByText("Monthly")).toBeInTheDocument();
+    expect(getLabelByText("Fortnightly")).toBeInTheDocument();
+    expect(getLabelByText("Weekly")).toBeInTheDocument();
   });
 
   it("select mode", () => {
@@ -116,7 +120,7 @@ describe("Frequency", () => {
     );
 
     const amountInput = screen.getByPlaceholderText("0.00");
-    const annuallyLabel = screen.getByText("Annually");
+    const annuallyLabel = getLabelByText("Annually");
 
     expect(amountInput).toHaveStyle({
       backgroundColor: "#ffffff",
