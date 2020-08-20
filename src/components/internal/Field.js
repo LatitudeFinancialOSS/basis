@@ -20,8 +20,9 @@ function Field({
   testId,
 }) {
   const theme = useTheme();
-  const labelElement = (
-    <label
+  const LabelElement = labelFor ? "label" : "div";
+  const labelContent = (
+    <LabelElement
       css={theme.field.getCSS({ targetElement: "label" })}
       id={labelId}
       htmlFor={labelFor}
@@ -32,12 +33,12 @@ function Field({
           Optional
         </span>
       )}
-    </label>
+    </LabelElement>
   );
   const labelToRender = hideLabel ? (
-    <VisuallyHidden>{labelElement}</VisuallyHidden>
+    <VisuallyHidden>{labelContent}</VisuallyHidden>
   ) : (
-    labelElement
+    labelContent
   );
 
   return (

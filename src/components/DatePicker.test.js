@@ -33,9 +33,6 @@ describe("DatePicker", () => {
     const { container } = render(<FormWithDatePicker label="Expiry date" />);
     const label = screen.getByText("Expiry date");
     const inputsContainer = container.querySelector("[aria-labelledby]");
-
-    expect(label.tagName).toBe("LABEL");
-
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();

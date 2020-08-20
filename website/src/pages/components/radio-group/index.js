@@ -13,7 +13,6 @@ const scope = allDesignSystem;
 
 const colorOptions = getRadioOptions(COLORS);
 const columnsOptions = getRadioOptions(["Unspecified", 1, 2, 3]);
-const showCirclesOptions = getCheckboxOptions();
 const isOptionalOptions = getCheckboxOptions();
 const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
@@ -22,7 +21,6 @@ function RadioGroupPage() {
   const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [columns, setColumns] = useState("Unspecified");
-  const [showCircles, setShowCircles] = useState(DEFAULT_PROPS.showCircles);
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
@@ -80,12 +78,6 @@ function RadioGroupPage() {
               type: "number",
             },
             {
-              prop: "showCircles",
-              value: showCircles,
-              defaultValue: DEFAULT_PROPS.showCircles,
-              type: "boolean",
-            },
-            {
               prop: "optional",
               value: optional,
               defaultValue: DEFAULT_PROPS.optional,
@@ -136,14 +128,6 @@ function RadioGroupPage() {
           selectedValue={columns}
           setSelectedValue={setColumns}
           type="number"
-        />
-        <RadioGroupSetting
-          css={{ marginLeft: theme.space[13] }}
-          heading="Show Circles"
-          options={showCirclesOptions}
-          selectedValue={showCircles}
-          setSelectedValue={setShowCircles}
-          type="boolean"
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}

@@ -32,15 +32,16 @@ function FormWithRadioGroup(props) {
   );
 }
 
+function getLabelByText(text) {
+  return screen.getByText(text).closest("label");
+}
+
 describe("RadioGroup", () => {
   it("renders label that is connected to the radio group", () => {
     render(<FormWithRadioGroup label="Are you happy?" />);
 
     const label = screen.getByText("Are you happy?");
     const radioGroup = screen.getByRole("radiogroup");
-
-    expect(label.tagName).toBe("LABEL");
-
     const labelId = label.getAttribute("id");
 
     expect(labelId).toBeTruthy();
@@ -80,7 +81,7 @@ describe("RadioGroup", () => {
       </Container>
     );
 
-    const yesLabel = screen.getByText("Yes");
+    const yesLabel = getLabelByText("Yes");
 
     expect(yesLabel).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -96,7 +97,7 @@ describe("RadioGroup", () => {
       </Container>
     );
 
-    const yesLabel = screen.getByText("Yes");
+    const yesLabel = getLabelByText("Yes");
 
     expect(yesLabel).toHaveStyle({
       backgroundColor: "#ffffff",

@@ -90,7 +90,6 @@ describe("getReactLiveNoInline", () => {
         return (
           <RadioGroup
             label="How many dependands do you have?"
-            showCircles={false}
             options={options}
             data={dependants}
             onChange={setDependants}

@@ -1,6 +1,6 @@
-export default (theme, { getColor }) => {
+export default (theme, { getColor, getTextStyle }) => {
   return {
-    getCSS: ({ targetElement, color, isOneLine, showCircle, isChecked }) => {
+    getCSS: ({ targetElement, color, isChecked }) => {
       switch (targetElement) {
         case "radio": {
           return {
@@ -22,22 +22,13 @@ export default (theme, { getColor }) => {
         case "radioLabel": {
           return {
             display: "inline-flex",
-            alignItems: "center",
-            paddingLeft: theme.space[4],
-            paddingRight: theme.space[4],
-            height: "48px",
-            fontSize: theme.fontSizes[1],
-            fontWeight: theme.fontWeights.light,
-            lineHeight: theme.lineHeights[2],
-            fontFamily: theme.fonts.body,
+            alignItems: "flex-start",
+            padding: `${theme.space[3]} ${theme.space[4]}`,
+            minHeight: "24px",
+            ...getTextStyle({ name: "body1", mode: "container" }),
             color: theme.colors.black,
             backgroundColor: getColor(color),
-            overflow: "hidden",
             borderRadius: theme.radii[0],
-            ...(isOneLine &&
-              !showCircle && {
-                justifyContent: "center",
-              }),
           };
         }
 
@@ -63,6 +54,12 @@ export default (theme, { getColor }) => {
         case "innerCircle": {
           return {
             fill: theme.colors.primary.blue.t100,
+          };
+        }
+
+        case "description": {
+          return {
+            marginTop: theme.space[1],
           };
         }
 
