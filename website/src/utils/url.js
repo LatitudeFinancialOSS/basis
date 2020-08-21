@@ -49,9 +49,10 @@ export function getTabsUrls(location) {
 
 export function getPlaygroundUrl(data) {
   const dataStr = lzString.compressToEncodedURIComponent(JSON.stringify(data));
-  const { url, query } = queryString.parseUrl(window.location.href);
+  const { href, pathname } = window.location;
+  const { query } = queryString.parseUrl(href);
 
-  return `${url}?${queryString.stringify({
+  return `${pathname}?${queryString.stringify({
     ...query,
     data: dataStr,
   })}`;
