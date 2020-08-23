@@ -8,7 +8,7 @@ const presets = [
   "@babel/react",
   "@emotion/babel-preset-css-prop",
 ];
-const plugins = [];
+const plugins = ["@babel/plugin-proposal-class-properties"];
 
 module.exports = {
   presets,
