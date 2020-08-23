@@ -58,8 +58,8 @@ function SimpleForm({ testId }) {
 }
 
 // eslint-disable-next-line react/prop-types
-function ComplexForm({ onSubmit }) {
-  const initialValues = {
+function ComplexForm({ onSubmit, initialValues }) {
+  const formInitialValues = {
     name: "",
     relationshipStatus: "",
     likeIceCream: false,
@@ -77,10 +77,11 @@ function ComplexForm({ onSubmit }) {
       years: "",
       months: "",
     },
+    ...initialValues,
   };
 
   return (
-    <Form initialValues={initialValues} onSubmit={onSubmit}>
+    <Form initialValues={formInitialValues} onSubmit={onSubmit}>
       {() => (
         <Grid rowsGap="8">
           <Text as="h2" textStyle="heading4">
@@ -127,7 +128,8 @@ describe("Form", () => {
 
     render(<ComplexForm onSubmit={onSubmit} />);
 
-    userEvent.click(screen.getByText("Submit"));
+    userEvent.click(screen.getByRole("button", "Submit"));
+
     await waitFor(() =>
       expect(onSubmit).toBeCalledWith({
         errors: {
@@ -162,8 +164,68 @@ describe("Form", () => {
             year: "",
           },
         },
+        setErrors: expect.any(Function),
       })
     );
+  });
+
+  it("setErrors", async () => {
+    const onSubmit = jest.fn().mockImplementation(({ setErrors }) => {
+      setTimeout(() => {
+        setErrors({
+          name: ["This name is already taken.", "Try to spell it differently."],
+          age: "You look too young.",
+        });
+      }, 100);
+    });
+
+    render(
+      <ComplexForm
+        initialValues={{
+          name: "David",
+          relationshipStatus: "married",
+          likeIceCream: true,
+          hungry: "no",
+          salary: {
+            amount: "75000",
+            frequency: "annually",
+          },
+          birthDate: {
+            day: "18",
+            month: "04",
+            year: "1982",
+          },
+          age: {
+            years: "16",
+            months: "5",
+          },
+        }}
+        onSubmit={onSubmit}
+      />
+    );
+
+    userEvent.click(screen.getByRole("button", "Submit"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("This name is already taken.")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("Try to spell it differently.")
+      ).toBeInTheDocument();
+      expect(screen.getByText("You look too young.")).toBeInTheDocument();
+    });
+
+    userEvent.type(screen.getByLabelText("Name"), "Helena");
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("This name is already taken.")
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Try to spell it differently.")
+      ).not.toBeInTheDocument();
+    });
   });
 
   it("with testId", () => {

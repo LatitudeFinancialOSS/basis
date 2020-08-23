@@ -6,6 +6,7 @@ export const FormProvider = FormContext.Provider;
 
 function useForm(componentName) {
   const context = useContext(FormContext);
+
   if (context) {
     return context;
   }

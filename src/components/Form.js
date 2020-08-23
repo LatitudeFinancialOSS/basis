@@ -205,6 +205,26 @@ function Form(_props) {
     },
     [submitForm]
   );
+  const setErrors = useCallback((errorsMap) => {
+    setState((state) => {
+      const newErrors = Object.keys(fields.current).reduce((acc, name) => {
+        if (typeof errorsMap[name] === "string") {
+          acc[name] = [errorsMap[name]];
+        } else if (Array.isArray(errorsMap[name])) {
+          acc[name] = errorsMap[name];
+        } else {
+          acc[name] = state.errors[name];
+        }
+
+        return acc;
+      }, {});
+
+      return {
+        ...state,
+        errors: newErrors,
+      };
+    });
+  }, []);
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
   });
@@ -231,11 +251,12 @@ function Form(_props) {
         onSubmit({
           errors: state.errors,
           values: state.values,
+          setErrors,
         });
 
       setState((state) => setPath(state, "submitStatus", "READY"));
     }
-  }, [state.submitStatus, state.errors, state.values, onSubmit]);
+  }, [state.submitStatus, state.errors, state.values, onSubmit, setErrors]);
 
   return (
     <FormProvider value={providerValue}>
