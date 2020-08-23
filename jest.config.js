@@ -4,7 +4,7 @@ module.exports = {
     "<rootDir>/website/src/**/*.test.js",
   ],
   moduleNameMapper: {
-    react: "<rootDir>/website/node_modules/react",
+    //react: "<rootDir>/website/node_modules/react",
     "typeface-montserrat": "identity-obj-proxy",
     "typeface-roboto": "identity-obj-proxy",
   },
