@@ -122,9 +122,9 @@ describe("Input", () => {
     );
     const input = screen.getByLabelText("First name");
     const describedBy = input.getAttribute("aria-describedby");
-    const errorMessage = container.querySelector(`[id="${describedBy}"]`);
+    const helpText = container.querySelector(`[id="${describedBy}"]`);
 
-    expect(errorMessage).toHaveTextContent("Some help text");
+    expect(helpText).toHaveTextContent("Some help text");
   });
 
   it("renders error message", async () => {
