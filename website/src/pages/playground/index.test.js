@@ -5,7 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import Playground from "./index";
 
 describe("Playground", () => {
-  it("loads successfully", async () => {
+  it("loads successfully", () => {
     expect(() => {
       render(
         <RecoilRoot>
