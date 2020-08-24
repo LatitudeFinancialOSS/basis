@@ -1,4 +1,5 @@
 import React from "react";
+import { RecoilRoot } from "recoil";
 import { render } from "../../../../src/utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Playground from "./index";
@@ -6,7 +7,11 @@ import Playground from "./index";
 describe("Playground", () => {
   it("loads successfully", async () => {
     expect(() => {
-      render(<Playground />);
+      render(
+        <RecoilRoot>
+          <Playground />
+        </RecoilRoot>
+      );
     }).not.toThrow();
   });
 });

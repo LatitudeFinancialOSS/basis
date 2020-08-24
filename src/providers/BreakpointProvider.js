@@ -12,6 +12,10 @@ function BreakpointProvider(props) {
   const [breakpoint, setBreakpoint] = useState(null);
 
   useLayoutEffect(() => {
+    if (!windowObj.matchMedia) {
+      return;
+    }
+
     const mediaQueryListMap = {};
 
     for (const bp in theme.exclusiveMediaQueries) {
