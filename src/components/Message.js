@@ -99,8 +99,17 @@ function Message(props) {
                   size={`${iconSize}px`}
                 />
               </div>
-              <div css={{ paddingTop }}>
-                <Text margin="0 6 0 2" color={textAndIconColor}>
+              <div
+                css={{
+                  paddingTop,
+                  paddingLeft: theme.space[2],
+                  paddingRight: 0,
+                  [theme.minMediaQueries[switchLayoutAt]]: {
+                    paddingRight: theme.space[6],
+                  },
+                }}
+              >
+                <Text color={textAndIconColor}>
                   {title && (
                     <strong
                       css={{ display: "block", marginBottom: theme.space[1] }}
@@ -116,7 +125,7 @@ function Message(props) {
           {callToAction && (
             <div
               css={{
-                marginLeft: theme.space[10],
+                marginLeft: iconSize + parseInt(theme.space[2], 10),
                 marginTop: theme.space[2],
                 [theme.minMediaQueries[switchLayoutAt]]: {
                   marginLeft: "auto",

@@ -41,9 +41,7 @@ function ButtonPage() {
     },
     {
       prop: "title",
-      value: hasTitle
-        ? "Optional title"
-        : DEFAULT_PROPS.title,
+      value: hasTitle ? "Optional title" : DEFAULT_PROPS.title,
       defaultValue: DEFAULT_PROPS.title,
     },
     {
@@ -52,7 +50,7 @@ function ButtonPage() {
         ? `<Link variant="secondary-blue-button" href="#" newTab>Action</Link>`
         : DEFAULT_PROPS.callToAction,
       defaultValue: DEFAULT_PROPS.callToAction,
-      type: "jsx"
+      type: "jsx",
     },
   ])}
 >
@@ -110,9 +108,7 @@ function ButtonPage() {
         scope={scope}
         width="md"
         backgroundColor={
-          bg === "white"
-            ? theme.colors.grey.t05
-            : theme.colors.white
+          bg === "white" ? theme.colors.grey.t05 : theme.colors.white
         }
       />
     </>
