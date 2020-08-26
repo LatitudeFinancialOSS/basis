@@ -12,12 +12,12 @@ import {
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
-  DEFAULT_BREAKPOINT,
   responsiveMargin,
   responsivePadding,
   responsiveSize,
   responsiveTextAlign,
   responsiveOverflow,
+  responsiveHasBreakpointWidth,
 } from "../utils/css";
 import {
   getResponsivePropMap,
@@ -79,6 +79,7 @@ function Container(_props) {
     height: responsiveSize("height"),
     textAlign: responsiveTextAlign,
     overflow: responsiveOverflow,
+    hasBreakpointWidth: responsiveHasBreakpointWidth,
     bg: ({ hasBorder }, theme, bp) => {
       const bg =
         mergedResponsiveBgMap[bp] === "transparent"
@@ -104,34 +105,6 @@ function Container(_props) {
       }
 
       return {};
-    },
-    hasBreakpointWidth: ({ hasBreakpointWidth, margin }, theme, bp) => {
-      if (hasBreakpointWidth !== true) {
-        if (margin) {
-          return {
-            maxWidth: "initial",
-          };
-        }
-
-        return {
-          maxWidth: "initial",
-          marginLeft: "initial",
-          marginRight: "initial",
-        };
-      }
-
-      if (bp === DEFAULT_BREAKPOINT || !theme.breakpointMaxWidths[bp]) {
-        return {
-          marginLeft: "15px", // This is half of our special 30px columns gap.
-          marginRight: "15px",
-        };
-      }
-
-      return {
-        maxWidth: theme.breakpointMaxWidths[bp],
-        marginLeft: "auto",
-        marginRight: "auto",
-      };
     },
     hide: ({ hide }) => {
       return hide

@@ -5,9 +5,11 @@ import Icon from "./Icon";
 import Link from "./Link";
 import Text from "./Text";
 import useTheme from "../hooks/useTheme";
-import { TextStyleProvider } from "../hooks/useTextStyle";
 import { BackgroundProvider } from "../hooks/useBackground";
+import { responsivePropType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../utils/component";
+import { responsiveHasBreakpointWidth, mergeResponsiveCSS } from "../utils/css";
 
 const SEVERITIES = [
   "assistance",
@@ -27,16 +29,14 @@ const BACKGROUNDS = [
   "grey.t05",
   "white",
 ];
-const TEXT_STYLES = ["body1", "body2"];
 
 const DEFAULT_PROPS = {
   bg: "grey.t10",
-  textStyle: "body1",
+  hasBreakpointWidth: false,
 };
 
 Message.SEVERITIES = SEVERITIES;
 Message.BACKGROUNDS = BACKGROUNDS;
-Message.TEXT_STYLES = TEXT_STYLES;
 Message.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Message(props) {
@@ -47,21 +47,12 @@ function Message(props) {
     {
       severity: (severity) => SEVERITIES.includes(severity),
       bg: (bg) => BACKGROUNDS.includes(bg),
-      textStyle: (textStyle) => TEXT_STYLES.includes(textStyle),
       title: (title) => typeof title === "string" && title.length > 0,
       callToAction: (callToAction) =>
         callToAction.type === Button || callToAction.type === Link,
     }
   );
-  const {
-    severity,
-    bg,
-    textStyle,
-    title,
-    callToAction,
-    children,
-    testId,
-  } = mergedProps;
+  const { severity, bg, title, callToAction, children, testId } = mergedProps;
   const theme = useTheme();
   const textAndIconColor = [
     "highlight.pink.t100",
@@ -71,24 +62,34 @@ function Message(props) {
     : "black";
   const switchLayoutAt = "md";
   const iconSize = 32;
-  const paddingTop =
-    (iconSize - parseInt(theme.getTextStyleCSS(textStyle).lineHeight, 10)) / 2;
+  const paddingTop = (iconSize - 24) / 2; // 24px is the line-height of the body1 text style
+  const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    hasBreakpointWidth: responsiveHasBreakpointWidth,
+  });
 
   return (
     <BackgroundProvider value={bg}>
-      <TextStyleProvider value={textStyle}>
+      <div
+        css={{
+          backgroundColor: theme.getColor(bg),
+        }}
+        data-testid={testId}
+      >
         <div
           css={{
             boxSizing: "border-box",
-            backgroundColor: theme.getColor(bg),
             padding: `${theme.space[3]} ${theme.space[4]}`,
             display: "flex",
             flexDirection: "column",
-            [theme.minMediaQueries[switchLayoutAt]]: {
-              flexDirection: "row",
-            },
+            ...mergeResponsiveCSS(
+              {
+                [theme.minMediaQueries[switchLayoutAt]]: {
+                  flexDirection: "row",
+                },
+              },
+              responsiveCSS
+            ),
           }}
-          data-testid={testId}
         >
           <div css={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
             <div css={{ display: "flex", alignItems: "flex-start" }}>
@@ -137,7 +138,7 @@ function Message(props) {
             </div>
           )}
         </div>
-      </TextStyleProvider>
+      </div>
     </BackgroundProvider>
   );
 }
@@ -145,9 +146,9 @@ function Message(props) {
 Message.propTypes = {
   severity: PropTypes.oneOf(SEVERITIES).isRequired,
   bg: PropTypes.oneOf(BACKGROUNDS),
-  textStyle: PropTypes.oneOf(TEXT_STYLES),
   title: PropTypes.string,
   callToAction: PropTypes.node,
+  ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

@@ -8,22 +8,24 @@ import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, Message } = allDesignSystem;
-const { SEVERITIES, BACKGROUNDS, TEXT_STYLES, DEFAULT_PROPS } = Message;
+const { SEVERITIES, BACKGROUNDS, DEFAULT_PROPS } = Message;
 const scope = allDesignSystem;
 
 const severityOptions = getRadioOptions(SEVERITIES);
 const bgOptions = getRadioOptions(BACKGROUNDS);
-const textStyleOptions = getRadioOptions(TEXT_STYLES);
 const hasTitleOptions = getCheckboxOptions();
 const hasCallToActionOptions = getCheckboxOptions();
+const hasBreakpointWidthOptions = getCheckboxOptions();
 
 function ButtonPage() {
   const theme = useTheme();
   const [severity, setSeverity] = useState("info-or-minor");
   const [bg, setBg] = useState(DEFAULT_PROPS.bg);
-  const [textStyle, setTextStyle] = useState(DEFAULT_PROPS.textStyle);
   const [hasTitle, setHasTitle] = useState(false);
   const [hasCallToAction, setHasCallToAction] = useState(false);
+  const [hasBreakpointWidth, setHasBreakpointWidth] = useState(
+    DEFAULT_PROPS.hasBreakpointWidth
+  );
   const code = formatCode(`<Message ${nonDefaultProps([
     {
       prop: "severity",
@@ -33,11 +35,6 @@ function ButtonPage() {
       prop: "bg",
       value: bg,
       defaultValue: DEFAULT_PROPS.bg,
-    },
-    {
-      prop: "textStyle",
-      value: textStyle,
-      defaultValue: DEFAULT_PROPS.textStyle,
     },
     {
       prop: "title",
@@ -51,6 +48,12 @@ function ButtonPage() {
         : DEFAULT_PROPS.callToAction,
       defaultValue: DEFAULT_PROPS.callToAction,
       type: "jsx",
+    },
+    {
+      prop: "hasBreakpointWidth",
+      value: hasBreakpointWidth,
+      defaultValue: DEFAULT_PROPS.hasBreakpointWidth,
+      type: "boolean",
     },
   ])}
 >
@@ -81,13 +84,6 @@ function ButtonPage() {
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
-          heading="Text style"
-          options={textStyleOptions}
-          selectedValue={textStyle}
-          setSelectedValue={setTextStyle}
-        />
-        <RadioGroupSetting
-          css={{ marginLeft: theme.space[13] }}
           heading="Title"
           options={hasTitleOptions}
           selectedValue={hasTitle}
@@ -100,6 +96,14 @@ function ButtonPage() {
           options={hasCallToActionOptions}
           selectedValue={hasCallToAction}
           setSelectedValue={setHasCallToAction}
+          type="boolean"
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Has breakpoint width"
+          options={hasBreakpointWidthOptions}
+          selectedValue={hasBreakpointWidth}
+          setSelectedValue={setHasBreakpointWidth}
           type="boolean"
         />
       </div>

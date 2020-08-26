@@ -263,6 +263,39 @@ export const responsiveSize = (prop) => (propsAtBreakpoint) => {
   return value === null ? {} : { [prop]: value };
 };
 
+export function responsiveHasBreakpointWidth(
+  { hasBreakpointWidth, margin },
+  theme,
+  bp
+) {
+  if (hasBreakpointWidth !== true) {
+    if (margin) {
+      return {
+        maxWidth: "initial",
+      };
+    }
+
+    return {
+      maxWidth: "initial",
+      marginLeft: "initial",
+      marginRight: "initial",
+    };
+  }
+
+  if (bp === DEFAULT_BREAKPOINT || !theme.breakpointMaxWidths[bp]) {
+    return {
+      marginLeft: "15px", // This is half of our special 30px columns gap.
+      marginRight: "15px",
+    };
+  }
+
+  return {
+    maxWidth: theme.breakpointMaxWidths[bp],
+    marginLeft: "auto",
+    marginRight: "auto",
+  };
+}
+
 export function responsiveTextStyle(propsAtBreakpoint, theme) {
   const css = theme.getTextStyleCSS(propsAtBreakpoint.textStyle);
 
