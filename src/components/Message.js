@@ -48,8 +48,15 @@ function Message(props) {
       severity: (severity) => SEVERITIES.includes(severity),
       bg: (bg) => BACKGROUNDS.includes(bg),
       title: (title) => typeof title === "string" && title.length > 0,
-      callToAction: (callToAction) =>
-        callToAction.type === Button || callToAction.type === Link,
+      callToAction: (callToAction) => {
+        return (
+          callToAction?.type === Button ||
+          (callToAction?.type === Link &&
+            ["primary-button", "secondary-button"].includes(
+              callToAction.props.appearance
+            ))
+        );
+      },
     }
   );
   const { severity, bg, title, callToAction, children, testId } = mergedProps;
@@ -163,7 +170,27 @@ Message.propTypes = {
   severity: PropTypes.oneOf(SEVERITIES).isRequired,
   bg: PropTypes.oneOf(BACKGROUNDS),
   title: PropTypes.string,
-  callToAction: PropTypes.node,
+  callToAction: (props) => {
+    if ([undefined, Button].includes(props.callToAction?.type)) {
+      return;
+    }
+
+    if (props.callToAction.type === Link) {
+      if (
+        ["primary-button", "secondary-button"].includes(
+          props.callToAction.props.appearance
+        ) === false
+      ) {
+        return new Error(
+          `Message: When callToAction is a Link, you should set appearance="primary-button" or appearance="secondary-button" on the Link.`
+        );
+      }
+
+      return;
+    }
+
+    return new Error(`Message: callToAction must be a Button or a Link.`);
+  },
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,

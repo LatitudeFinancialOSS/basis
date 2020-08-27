@@ -11,6 +11,7 @@ import { getPath, setPath, deletePath } from "../utils/objectPath";
 import { responsiveWidthType } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { responsiveSize } from "../utils/css";
+import { formatArray } from "../utils/array";
 
 const DEFAULT_PROPS = {
   debug: false,
@@ -181,11 +182,9 @@ function Form(_props) {
         });
       } else {
         console.error(
-          `Can't validate field "${name}" because it's not found. Existing fields: ${Object.keys(
-            fields.current
-          )
-            .map((name) => `"${name}"`)
-            .join(", ")}`
+          `Can't validate field "${name}" because it's not found. Existing fields: ${formatArray(
+            Object.keys(fields.current)
+          )}`
         );
       }
     },

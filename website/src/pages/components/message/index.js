@@ -44,7 +44,7 @@ function ButtonPage() {
     {
       prop: "callToAction",
       value: hasCallToAction
-        ? `<Link variant="secondary-blue-button" href="#" newTab>Action</Link>`
+        ? `<Link appearance="secondary-button" href="#" newTab>Action</Link>`
         : DEFAULT_PROPS.callToAction,
       defaultValue: DEFAULT_PROPS.callToAction,
       type: "jsx",

@@ -105,7 +105,7 @@ function Sidebar() {
           Basis
         </GatsbyLink>
         <Link
-          variant="icon"
+          appearance="icon"
           href="https://github.com/moroshko/basis"
           newTab
           title="GitHub"

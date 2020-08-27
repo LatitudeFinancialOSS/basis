@@ -67,7 +67,7 @@ HeaderSocial.propTypes = {
 
 function SocialFacebook({ href, title, testId }) {
   return (
-    <Link variant="icon" href={href} newTab title={title} testId={testId}>
+    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
       <Icon
         name="facebook"
         color="white"
@@ -85,7 +85,7 @@ SocialFacebook.propTypes = {
 
 function SocialYouTube({ href, title, testId }) {
   return (
-    <Link variant="icon" href={href} newTab title={title} testId={testId}>
+    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
       <Icon name="youtube" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
@@ -99,7 +99,7 @@ SocialYouTube.propTypes = {
 
 function SocialTwitter({ href, title, testId }) {
   return (
-    <Link variant="icon" href={href} newTab title={title} testId={testId}>
+    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
       <Icon name="twitter" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
@@ -113,7 +113,7 @@ SocialTwitter.propTypes = {
 
 function SocialInstagram({ href, title, testId }) {
   return (
-    <Link variant="icon" href={href} newTab title={title} testId={testId}>
+    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
       <Icon
         name="instagram"
         color="white"
@@ -131,7 +131,7 @@ SocialInstagram.propTypes = {
 
 function SocialLinkedIn({ href, title, testId }) {
   return (
-    <Link variant="icon" href={href} newTab title={title} testId={testId}>
+    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
       <Icon
         name="linkedin"
         color="white"

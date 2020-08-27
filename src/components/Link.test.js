@@ -124,7 +124,7 @@ describe("Link", () => {
   it("with width", () => {
     render(
       <Link
-        variant="primary-blue-button"
+        appearance="primary-button"
         href="/terms"
         newTab={false}
         width="300"

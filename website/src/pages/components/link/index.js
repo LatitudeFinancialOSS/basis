@@ -1,68 +1,80 @@
 import React, { useState } from "react";
 import * as allDesignSystem from "basis";
 import RadioGroupSetting, {
+  getRadioOptions,
   getCheckboxOptions,
 } from "../../../components/RadioGroupSetting";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { useTheme } = allDesignSystem;
+const { useTheme, Link } = allDesignSystem;
+const { APPEARANCES, VARIANTS, DEFAULT_PROPS } = Link;
 const scope = allDesignSystem;
 
+const appearanceOptions = getRadioOptions(APPEARANCES);
+const variantOptions = getRadioOptions(VARIANTS);
 const newTabOptions = getCheckboxOptions();
+
+function isVariantDisabled({ appearance, variant }) {
+  switch (appearance) {
+    case "text": {
+      return ["light-bg", "medium-bg", "dark-bg"].includes(variant) === false;
+    }
+
+    case "primary-button": {
+      return (
+        ["blue-button", "white-button", "green-button"].includes(variant) ===
+        false
+      );
+    }
+
+    case "secondary-button": {
+      return ["blue-button", "white-button"].includes(variant) === false;
+    }
+
+    case "icon": {
+      return true;
+    }
+
+    default: {
+      return false;
+    }
+  }
+}
 
 function LinkPage() {
   const theme = useTheme();
+  const [appearance, setAppearance] = useState(DEFAULT_PROPS.appearance);
+  const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [newTab, setNewTab] = useState(false);
-  const linkProps = nonDefaultProps([
-    {
-      prop: "href",
-      value: "/terms",
-    },
-    {
-      prop: "newTab",
-      value: newTab,
-      type: "boolean",
-    },
-  ]);
   const code = formatCode(`
-    <>
-      <Container padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-      <Container bg="grey.t03" padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-      <Container bg="grey.t05" padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-      <Container bg="grey.t07" padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-      <Container bg="secondary.lightBlue.t15" padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-      <Container bg="secondary.lightBlue.t25" padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-      <Container bg="primary.blue.t100" padding="4">
-        <Link ${linkProps}>
-          Terms and Conditions
-        </Link>
-      </Container>
-    </>
+    <Link ${nonDefaultProps([
+      {
+        prop: "appearance",
+        value: appearance,
+        defaultValue: DEFAULT_PROPS.appearance,
+      },
+      {
+        prop: "variant",
+        value: variant,
+        defaultValue: DEFAULT_PROPS.variant,
+      },
+      {
+        prop: "href",
+        value: "/terms",
+      },
+      {
+        prop: "newTab",
+        value: newTab,
+        type: "boolean",
+      },
+    ])}>
+      ${
+        appearance === "icon"
+          ? `<Icon name="github" color="grey.t75" hoverColor="black" />`
+          : "Terms and Conditions"
+      }
+    </Link>
   `);
 
   return (
@@ -75,14 +87,86 @@ function LinkPage() {
         }}
       >
         <RadioGroupSetting
-          heading="New Tab"
+          heading="Appearance"
+          options={appearanceOptions}
+          selectedValue={appearance}
+          setSelectedValue={(appearance) => {
+            setAppearance(appearance);
+
+            switch (appearance) {
+              case "text": {
+                if (
+                  ["light-bg", "medium-bg", "dark-bg"].includes(variant) ===
+                  false
+                ) {
+                  setVariant("light-bg");
+                }
+                break;
+              }
+
+              case "primary-button": {
+                if (
+                  ["blue-button", "white-button", "green-button"].includes(
+                    variant
+                  ) === false
+                ) {
+                  setVariant("blue-button");
+                }
+                break;
+              }
+
+              case "secondary-button": {
+                if (
+                  ["blue-button", "white-button"].includes(variant) === false
+                ) {
+                  setVariant("blue-button");
+                }
+                break;
+              }
+
+              case "icon": {
+                setVariant("light-bg");
+                break;
+              }
+
+              default: {
+                break;
+              }
+            }
+          }}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Variant"
+          options={variantOptions.map((option) => ({
+            ...option,
+            disabled: isVariantDisabled({ appearance, variant: option.value }),
+          }))}
+          selectedValue={variant}
+          setSelectedValue={setVariant}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="New tab"
           options={newTabOptions}
           selectedValue={newTab}
           setSelectedValue={setNewTab}
           type="boolean"
         />
       </div>
-      <ComponentContainer code={code} scope={scope} />
+      <ComponentContainer
+        code={code}
+        scope={scope}
+        backgroundColor={
+          variant === "medium-bg"
+            ? theme.colors.secondary.lightBlue.t15
+            : variant === "dark-bg"
+            ? theme.colors.primary.blue.t100
+            : variant === "white-button"
+            ? theme.colors.highlight.pink.t100
+            : theme.colors.white
+        }
+      />
     </>
   );
 }
