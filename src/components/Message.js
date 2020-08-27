@@ -62,6 +62,8 @@ function Message(props) {
     : "black";
   const switchLayoutAt = "md";
   const iconSize = 32;
+  const distanceFromIcon = parseInt(theme.space[2], 10);
+  const iconOffset = -parseInt(theme.space[1], 10);
   const paddingTop = (iconSize - 24) / 2; // 24px is the line-height of the body1 text style
   const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     hasBreakpointWidth: responsiveHasBreakpointWidth,
@@ -93,7 +95,13 @@ function Message(props) {
         >
           <div css={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
             <div css={{ display: "flex", alignItems: "flex-start" }}>
-              <div css={{ flexShrink: 0, display: "flex" }}>
+              <div
+                css={{
+                  flexShrink: 0,
+                  display: "flex",
+                  marginLeft: iconOffset,
+                }}
+              >
                 <Icon
                   name={severity}
                   color={textAndIconColor}
@@ -103,7 +111,7 @@ function Message(props) {
               <div
                 css={{
                   paddingTop,
-                  paddingLeft: theme.space[2],
+                  paddingLeft: distanceFromIcon,
                   paddingRight: 0,
                   [theme.minMediaQueries[switchLayoutAt]]: {
                     paddingRight: theme.space[6],
@@ -126,7 +134,7 @@ function Message(props) {
           {callToAction && (
             <div
               css={{
-                marginLeft: iconSize + parseInt(theme.space[2], 10),
+                marginLeft: iconOffset + iconSize + distanceFromIcon,
                 marginTop: theme.space[2],
                 [theme.minMediaQueries[switchLayoutAt]]: {
                   marginLeft: "auto",
