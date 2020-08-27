@@ -62,9 +62,9 @@ function Message(props) {
     : "black";
   const switchLayoutAt = "md";
   const iconSize = 32;
-  const distanceFromIcon = parseInt(theme.space[2], 10);
-  const iconOffset = -parseInt(theme.space[1], 10);
-  const paddingTop = (iconSize - 24) / 2; // 24px is the line-height of the body1 text style
+  const distanceFromIcon = 8;
+  const iconMarginLeft = -4;
+  const textYpadding = (iconSize - 24) / 2; // 24px is the line-height of the body1 text style
   const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     hasBreakpointWidth: responsiveHasBreakpointWidth,
   });
@@ -80,7 +80,7 @@ function Message(props) {
         <div
           css={{
             boxSizing: "border-box",
-            padding: `${theme.space[3]} ${theme.space[4]}`,
+            padding: theme.space[4],
             display: "flex",
             flexDirection: "column",
             ...mergeResponsiveCSS(
@@ -94,12 +94,19 @@ function Message(props) {
           }}
         >
           <div css={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-            <div css={{ display: "flex", alignItems: "flex-start" }}>
+            <div
+              css={{
+                display: "flex",
+                alignItems: "flex-start",
+                marginTop: -textYpadding,
+                marginBottom: -textYpadding,
+              }}
+            >
               <div
                 css={{
                   flexShrink: 0,
                   display: "flex",
-                  marginLeft: iconOffset,
+                  marginLeft: iconMarginLeft,
                 }}
               >
                 <Icon
@@ -110,7 +117,8 @@ function Message(props) {
               </div>
               <div
                 css={{
-                  paddingTop,
+                  paddingTop: textYpadding,
+                  paddingBottom: textYpadding,
                   paddingLeft: distanceFromIcon,
                   paddingRight: 0,
                   [theme.minMediaQueries[switchLayoutAt]]: {
@@ -134,8 +142,8 @@ function Message(props) {
           {callToAction && (
             <div
               css={{
-                marginLeft: iconOffset + iconSize + distanceFromIcon,
-                marginTop: theme.space[2],
+                marginLeft: iconMarginLeft + iconSize + distanceFromIcon,
+                marginTop: theme.space[3],
                 [theme.minMediaQueries[switchLayoutAt]]: {
                   marginLeft: "auto",
                   marginTop: 0,
