@@ -34,23 +34,87 @@ function KitchenSinkLink() {
         </Container>
       ))}
 
-      {[
-        "primary-blue-button",
-        "primary-green-button",
-        "secondary-blue-button",
-      ].map((variant) => (
-        <Container padding="4" key={variant}>
+      {["blue-button", "white-button", "green-button"].map((variant) => (
+        <Container
+          bg={variant === "white-button" ? "primary.blue.t100" : "white"}
+          padding="4"
+          key={variant}
+        >
           <Stack direction="horizontal" gap="8">
-            <Link variant={variant} href="#" newTab={false}>
+            <Link
+              appearance="primary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+            >
               {variant}
             </Link>
-            <Link variant={variant} href="#" newTab={false} __internal__hover>
+            <Link
+              appearance="primary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+              __internal__hover
+            >
               Hover
             </Link>
-            <Link variant={variant} href="#" newTab={false} __internal__active>
+            <Link
+              appearance="primary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+              __internal__active
+            >
               Active
             </Link>
             <Link
+              appearance="primary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+              __internal__keyboardFocus
+            >
+              Keyboard focus
+            </Link>
+          </Stack>
+        </Container>
+      ))}
+
+      {["blue-button", "white-button"].map((variant) => (
+        <Container
+          bg={variant === "white-button" ? "primary.blue.t100" : "white"}
+          padding="4"
+          key={variant}
+        >
+          <Stack direction="horizontal" gap="8">
+            <Link
+              appearance="secondary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+            >
+              {variant}
+            </Link>
+            <Link
+              appearance="secondary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+              __internal__hover
+            >
+              Hover
+            </Link>
+            <Link
+              appearance="secondary-button"
+              variant={variant}
+              href="#"
+              newTab={false}
+              __internal__active
+            >
+              Active
+            </Link>
+            <Link
+              appearance="secondary-button"
               variant={variant}
               href="#"
               newTab={false}
@@ -63,9 +127,25 @@ function KitchenSinkLink() {
       ))}
 
       <Container padding="4">
-        <Link variant="primary-blue-button" href="#" newTab={false} width="300">
-          300px width
-        </Link>
+        <Stack direction="horizontal" gap="8">
+          <Link
+            appearance="primary-button"
+            variant="green-button"
+            width="300"
+            href="#"
+            newTab={false}
+          >
+            300px width
+          </Link>
+          <Link
+            appearance="secondary-button"
+            width="500"
+            href="#"
+            newTab={false}
+          >
+            500px width
+          </Link>
+        </Stack>
       </Container>
     </KitchenSinkLayout>
   );
