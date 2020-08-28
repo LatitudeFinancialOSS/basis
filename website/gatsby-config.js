@@ -60,7 +60,7 @@ module.exports = {
         status: COMPONENT_STATUS.DRAFT,
       },
       Message: {
-        status: COMPONENT_STATUS.DRAFT,
+        status: COMPONENT_STATUS.READY,
       },
       Placeholder: {
         status: COMPONENT_STATUS.READY,
