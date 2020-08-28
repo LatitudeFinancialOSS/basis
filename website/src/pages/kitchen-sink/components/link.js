@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Stack, Link } from "basis";
+import { Container, Stack, Link, Icon } from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 
 const backgrounds = [
@@ -125,6 +125,12 @@ function KitchenSinkLink() {
           </Stack>
         </Container>
       ))}
+
+      <Container padding="4">
+        <Link appearance="icon" href="/terms" newTab={false}>
+          <Icon name="github" color="grey.t75" hoverColor="black" />
+        </Link>
+      </Container>
 
       <Container padding="4">
         <Stack direction="horizontal" gap="8">
