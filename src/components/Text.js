@@ -11,6 +11,7 @@ import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import { hasOwnProperty } from "../utils/core";
 import { TEXT_STYLES, TEXT_ALIGNS } from "../utils/constants";
+import { formatArray } from "../utils/array";
 
 const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
 const COLORS = [
@@ -132,7 +133,7 @@ Text.propTypes = {
         return new Error(
           `Text: color="${props.color}" is not allowed for textStyle="${
             props.textStyle
-          }". Must be one of: ${allowedColors.map((c) => `"${c}"`).join(", ")}`
+          }". Must be one of: ${formatArray(allowedColors)}`
         );
       }
     });

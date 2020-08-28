@@ -42,6 +42,26 @@ describe("Link", () => {
     expect(link).toHaveAttribute("rel", "noreferrer");
   });
 
+  it("with appearance", () => {
+    render(
+      <Link
+        appearance="primary-button"
+        variant="white-button"
+        href="/terms"
+        newTab={false}
+      >
+        Terms and Conditions
+      </Link>
+    );
+
+    const link = screen.getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle({
+      backgroundColor: "#ffffff",
+      color: "#006aff",
+    });
+  });
+
   it("with variant", () => {
     render(
       <Link href="/terms" newTab={false} variant="dark-bg">
@@ -54,6 +74,24 @@ describe("Link", () => {
     expect(link).toHaveStyle({
       color: "#d8edff",
       borderBottomColor: "rgba(216,237,255,0.5)",
+    });
+  });
+
+  it("defaults to a button variant", () => {
+    render(
+      <Link appearance="secondary-button" href="/terms" newTab={false}>
+        Terms and Conditions
+      </Link>
+    );
+
+    const link = screen.getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle({
+      backgroundColor: "transparent",
+      color: "#006aff",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "#006aff",
     });
   });
 
@@ -124,7 +162,7 @@ describe("Link", () => {
   it("with width", () => {
     render(
       <Link
-        variant="primary-blue-button"
+        appearance="primary-button"
         href="/terms"
         newTab={false}
         width="300"
@@ -160,18 +198,14 @@ describe("Link", () => {
 
   it("with analyticsClassName", () => {
     render(
-      <Link
-        href="/terms"
-        newTab={false}
-        analyticsClassName="trackcustomanalytics"
-      >
+      <Link href="/terms" newTab={false} analyticsClassName="track-me">
         Terms and Conditions
       </Link>
     );
 
     const link = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveClass("trackcustomanalytics");
+    expect(link).toHaveClass("track-me");
   });
 
   it("with testId", () => {

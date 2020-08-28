@@ -15,55 +15,53 @@ import {
   responsiveSize,
 } from "../utils/css";
 import { mergeProps } from "../utils/component";
+import { formatArray } from "../utils/array";
 
+const APPEARANCES = ["text", "primary-button", "secondary-button", "icon"];
 const VARIANTS = [
   "light-bg",
   "medium-bg",
   "dark-bg",
-  "icon",
-  "primary-blue-button",
-  "primary-green-button",
-  "secondary-blue-button",
+  "blue-button",
+  "white-button",
+  "green-button",
 ];
 
 const DEFAULT_PROPS = {
+  appearance: "text",
   variant: "light-bg",
   __internal__keyboardFocus: false,
   __internal__hover: false,
   __internal__active: false,
 };
 
+Link.APPEARANCES = APPEARANCES;
 Link.VARIANTS = VARIANTS;
 Link.DEFAULT_PROPS = DEFAULT_PROPS;
+
+const DARK_BACKGROUNDS = ["primary.blue.t100", "highlight.pink.t100"];
+const MEDIUM_BACKGROUNDS = [
+  "grey.t07",
+  "secondary.lightBlue.t15",
+  "secondary.lightBlue.t25",
+];
 
 function Link(props) {
   const theme = useTheme();
   const { bgMap } = useBackground();
-  const variantMap = mapResponsiveValues(
-    bgMap,
-    (backgroundColor) => {
-      return backgroundColor === "primary.blue.t100"
-        ? "dark-bg"
-        : [
-            "grey.t07",
-            "secondary.lightBlue.t15",
-            "secondary.lightBlue.t25",
-          ].includes(backgroundColor)
-        ? "medium-bg"
-        : "light-bg";
-    },
-    theme
-  );
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
     {},
     {
+      appearance: (appearance) => APPEARANCES.includes(appearance),
       variant: (variant) => VARIANTS.includes(variant),
       newTab: (newTab) => typeof newTab === "boolean",
+      title: (title) => typeof title === "string",
     }
   );
   const {
+    appearance,
     href,
     newTab,
     title,
@@ -76,12 +74,40 @@ function Link(props) {
     __internal__hover,
     __internal__active,
   } = mergedProps;
+  const variantMap = mapResponsiveValues(
+    bgMap,
+    (backgroundColor) => {
+      const isDarkBackground = DARK_BACKGROUNDS.includes(backgroundColor);
+      const isMediumBackground = MEDIUM_BACKGROUNDS.includes(backgroundColor);
+
+      if (appearance === "text") {
+        return isDarkBackground
+          ? "dark-bg"
+          : isMediumBackground
+          ? "medium-bg"
+          : "light-bg";
+      }
+
+      if (["primary-button", "secondary-button"].includes(appearance)) {
+        return isDarkBackground ? "white-button" : "blue-button";
+      }
+
+      return null;
+    },
+    theme
+  );
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    variant: (propsAtBreakpoint, theme, bp) => {
+    variant: (_, theme, bp) => {
       const variant = props.variant ?? variantMap[bp];
+      const appearance =
+        props.appearance ??
+        (["blue-button", "white-button", "green-button"].includes(variant)
+          ? "primary-button"
+          : "text");
 
       return theme.link.getCSS({
+        appearance,
         variant,
         buttonTheme: theme.button,
         __internal__keyboardFocus,
@@ -150,33 +176,58 @@ Link.propTypes = {
   ...responsiveMarginType,
   ...responsivePaddingType,
   ...responsiveWidthType,
-  variant: (props) => {
-    if (props.variant === undefined) {
+  appearance: (props) => {
+    if (props.appearance === undefined) {
+      return;
+    }
+
+    if (APPEARANCES.includes(props.appearance) === false) {
+      return new Error(
+        `Link: appearance="${
+          props.appearance
+        }" is not supported. Must be one of: ${formatArray(APPEARANCES)}`
+      );
+    }
+
+    const isButtonAppearance = ["primary-button", "secondary-button"].includes(
+      props.appearance
+    );
+    const isTextVariant = ["light-bg", "medium-bg", "dark-bg"];
+    const isButtonVariant = ["blue-button", "white-button", "green-button"];
+
+    if (isButtonAppearance && !isButtonVariant) {
+      return new Error(
+        `Link: appearance="${
+          props.appearance
+        }" should be used only with these variants: ${formatArray([
+          "blue-button",
+          "white-button",
+          "green-button",
+        ])}`
+      );
+    }
+
+    if (props.appearance === "text" && !isTextVariant) {
+      return new Error(
+        `Link: appearance="text" should be used only with these variants: ${formatArray(
+          ["light-bg", "medium-bg", "dark-bg"]
+        )}`
+      );
+    }
+
+    if (!isButtonAppearance) {
       for (const prop in props) {
         if (prop.startsWith("width")) {
           return new Error(
-            `Link: ${prop} should be used only with these variants: ${[
-              "primary-blue-button",
-              "primary-green-button",
-              "secondary-blue-button",
-            ]
-              .map((v) => `"${v}"`)
-              .join(", ")}`
+            `Link: ${prop} should be used only with these appearances: ${formatArray(
+              ["primary-button", "secondary-button"]
+            )}`
           );
         }
       }
-    } else {
-      if (VARIANTS.includes(props.variant) === false) {
-        return new Error(
-          `Link: variant="${
-            props.variant
-          }" is not supported. Must be one of: ${VARIANTS.map(
-            (v) => `"${v}"`
-          ).join(", ")}`
-        );
-      }
     }
   },
+  variant: PropTypes.oneOf(VARIANTS),
   href: PropTypes.string.isRequired,
   newTab: PropTypes.bool.isRequired,
   title: PropTypes.string,

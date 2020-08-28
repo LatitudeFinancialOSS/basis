@@ -16,6 +16,7 @@ export default (theme) => {
 
   return {
     getCSS: ({
+      appearance,
       variant,
       buttonTheme,
       __internal__keyboardFocus,
@@ -33,7 +34,7 @@ export default (theme) => {
 
       switch (variant) {
         case "light-bg": {
-          css = addStates(
+          return addStates(
             {
               ...css,
               fontFamily: theme.fonts.body,
@@ -57,11 +58,10 @@ export default (theme) => {
               __internal__active,
             }
           );
-          break;
         }
 
         case "medium-bg": {
-          css = addStates(
+          return addStates(
             {
               ...css,
               fontFamily: theme.fonts.body,
@@ -85,11 +85,10 @@ export default (theme) => {
               __internal__active,
             }
           );
-          break;
         }
 
         case "dark-bg": {
-          css = addStates(
+          return addStates(
             {
               ...css,
               fontFamily: theme.fonts.body,
@@ -116,21 +115,13 @@ export default (theme) => {
               __internal__active,
             }
           );
-          break;
         }
 
-        case "icon": {
-          css = {
-            ...css,
-            display: "inline-flex",
-          };
-          break;
-        }
-
-        case "primary-blue-button": {
-          css = {
+        case "blue-button": {
+          return {
             ...buttonTheme.getCSS({
-              variant: "primary",
+              variant:
+                appearance === "primary-button" ? "primary" : "secondary",
               color: "highlight.blue.t100",
               __internal__keyboardFocus,
               __internal__hover,
@@ -142,11 +133,28 @@ export default (theme) => {
             textDecoration: "none",
             boxSizing: "border-box",
           };
-          break;
         }
 
-        case "primary-green-button": {
-          css = {
+        case "white-button": {
+          return {
+            ...buttonTheme.getCSS({
+              variant:
+                appearance === "primary-button" ? "primary" : "secondary",
+              color: "white",
+              __internal__keyboardFocus,
+              __internal__hover,
+              __internal__active,
+            }),
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none",
+            boxSizing: "border-box",
+          };
+        }
+
+        case "green-button": {
+          return {
             ...buttonTheme.getCSS({
               variant: "primary",
               color: "green",
@@ -160,25 +168,6 @@ export default (theme) => {
             textDecoration: "none",
             boxSizing: "border-box",
           };
-          break;
-        }
-
-        case "secondary-blue-button": {
-          css = {
-            ...buttonTheme.getCSS({
-              variant: "secondary",
-              color: "highlight.blue.t100",
-              __internal__keyboardFocus,
-              __internal__hover,
-              __internal__active,
-            }),
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textDecoration: "none",
-            boxSizing: "border-box",
-          };
-          break;
         }
 
         default: {
@@ -186,7 +175,14 @@ export default (theme) => {
         }
       }
 
-      return css;
+      if (appearance === "icon") {
+        return {
+          ...css,
+          display: "inline-flex",
+        };
+      }
+
+      return {};
     },
   };
 };

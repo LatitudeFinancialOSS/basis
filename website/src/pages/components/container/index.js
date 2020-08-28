@@ -83,7 +83,7 @@ function ContainerPage() {
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
-          heading="Has Border"
+          heading="Has border"
           options={hasBorderOptions}
           selectedValue={hasBorder}
           setSelectedValue={setHasBorder}
@@ -91,7 +91,7 @@ function ContainerPage() {
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
-          heading="Has Breakpoint Width"
+          heading="Has breakpoint width"
           options={hasBreakpointWidthOptions}
           selectedValue={hasBreakpointWidth}
           setSelectedValue={setHasBreakpointWidth}

@@ -59,6 +59,9 @@ module.exports = {
       LoadingIcon: {
         status: COMPONENT_STATUS.DRAFT,
       },
+      Message: {
+        status: COMPONENT_STATUS.READY,
+      },
       Placeholder: {
         status: COMPONENT_STATUS.READY,
       },
