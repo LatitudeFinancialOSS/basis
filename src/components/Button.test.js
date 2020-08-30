@@ -8,7 +8,7 @@ describe("Button", () => {
   it("default", () => {
     render(<Button>Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button.tagName).toBe("BUTTON");
     expect(button).toHaveAttribute("type", "button");
@@ -34,7 +34,7 @@ describe("Button", () => {
   it("secondary", () => {
     render(<Button variant="secondary">Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       backgroundColor: "transparent",
@@ -48,7 +48,7 @@ describe("Button", () => {
   it("primary white", () => {
     render(<Button color="white">Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -59,7 +59,7 @@ describe("Button", () => {
   it("primary green", () => {
     render(<Button color="green">Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       backgroundColor: "#21a637",
@@ -74,7 +74,7 @@ describe("Button", () => {
       </Button>
     );
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       backgroundColor: "transparent",
@@ -88,7 +88,7 @@ describe("Button", () => {
   it("with width", () => {
     render(<Button width="100%">Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       width: "100%",
@@ -98,7 +98,7 @@ describe("Button", () => {
   it("disabled", () => {
     render(<Button disabled>Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       backgroundColor: "#b2b2b2",
@@ -111,7 +111,7 @@ describe("Button", () => {
   it('type="submit"', () => {
     render(<Button type="submit">Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveAttribute("type", "submit");
   });
@@ -119,13 +119,11 @@ describe("Button", () => {
   it("inside dark container", () => {
     render(
       <Container bg="primary.blue.t100">
-        <Button>Find out more</Button>
+        <Button>On dark blue</Button>
       </Container>
     );
 
-    const button = screen.getByText("Find out more");
-
-    expect(button).toHaveStyle({
+    expect(screen.getByRole("button", { name: "On dark blue" })).toHaveStyle({
       backgroundColor: "#ffffff",
       color: "#006aff",
     });
@@ -140,7 +138,7 @@ describe("Button", () => {
       </Container>
     );
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -151,7 +149,7 @@ describe("Button", () => {
   it("with margin", () => {
     render(<Button margin="2 4">Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     expect(button).toHaveStyle({
       margin: "8px 16px",
@@ -163,7 +161,7 @@ describe("Button", () => {
 
     render(<Button onClick={onClick}>Find out more</Button>);
 
-    const button = screen.getByText("Find out more");
+    const button = screen.getByRole("button", { name: "Find out more" });
 
     userEvent.click(button);
 
