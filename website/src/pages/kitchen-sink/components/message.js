@@ -4,7 +4,7 @@ import * as allDesignSystem from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 import ComponentPreview from "../../../components/ComponentPreview";
 
-const { Container, Message, Link, Button } = allDesignSystem;
+const { Container, Grid, Message, Link, Button } = allDesignSystem;
 const scope = allDesignSystem;
 
 const { SEVERITIES, BACKGROUNDS } = Message;
@@ -18,31 +18,63 @@ function KitchenSinkMessage() {
           bg={bg === "white" ? "grey.t05" : "white"}
           key={bg}
         >
-          <Message
-            severity="info-or-minor"
-            bg={bg}
-            callToAction={
-              <Link appearance="secondary-button" href="#" newTab>
-                Link
+          <Grid rowsGap="4">
+            <Message
+              severity="info-or-minor"
+              bg={bg}
+              callToAction={
+                <Link appearance="primary-button" href="#" newTab>
+                  Link
+                </Link>
+              }
+            >
+              We can help you ease the financial stress of COVID-19.{" "}
+              <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
+                Find out how.
               </Link>
-            }
-          >
-            We can help you ease the financial stress of COVID-19.{" "}
-            <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
-              Find out how.
-            </Link>
-          </Message>
+            </Message>
+            <Message
+              severity="info-or-minor"
+              bg={bg}
+              callToAction={
+                <Link appearance="secondary-button" href="#" newTab>
+                  Link
+                </Link>
+              }
+            >
+              We can help you ease the financial stress of COVID-19.{" "}
+              <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
+                Find out how.
+              </Link>
+            </Message>
+            <Message
+              severity="info-or-minor"
+              bg={bg}
+              callToAction={<Button>Button</Button>}
+            >
+              We can help you ease the financial stress of COVID-19.{" "}
+              <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
+                Find out how.
+              </Link>
+            </Message>
+            <Message
+              severity="info-or-minor"
+              bg={bg}
+              callToAction={<Button variant="secondary">Button</Button>}
+            >
+              We can help you ease the financial stress of COVID-19.{" "}
+              <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
+                Find out how.
+              </Link>
+            </Message>
+          </Grid>
         </Container>
       ))}
       <Container padding="6">
         <Message
           severity="info-or-minor"
           bg="highlight.pink.t100"
-          callToAction={
-            <Button variant="secondary" color="white">
-              Button
-            </Button>
-          }
+          callToAction={<Button variant="secondary">Dismiss</Button>}
           hasBreakpointWidth-sm
         >
           We can help you ease the financial stress of COVID-19.{" "}
