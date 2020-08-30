@@ -30,7 +30,7 @@ Button.TYPES = TYPES;
 Button.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function getInheritedColor(backgroundColor) {
-  return backgroundColor === "primary.blue.t100"
+  return ["primary.blue.t100", "highlight.pink.t100"].includes(backgroundColor)
     ? "white"
     : "highlight.blue.t100";
 }
