@@ -38,23 +38,6 @@ describe("Message", () => {
     ).toBeInTheDocument();
   });
 
-  it("call to action - primary button", () => {
-    render(
-      <Message
-        severity="assistance"
-        bg="highlight.pink.t100"
-        callToAction={<Button>I agree</Button>}
-      >
-        If you struggle, we can help!
-      </Message>
-    );
-
-    expect(screen.getByRole("button", { name: "I agree" })).toHaveStyle({
-      backgroundColor: "#ffffff",
-      color: "#006aff",
-    });
-  });
-
   it("call to action - secondary button", () => {
     render(
       <Message
@@ -72,27 +55,6 @@ describe("Message", () => {
       borderWidth: "1px",
       borderStyle: "solid",
       borderColor: "#ffffff",
-    });
-  });
-
-  it("call to action - primary button link", () => {
-    render(
-      <Message
-        severity="assistance"
-        bg="highlight.pink.t100"
-        callToAction={
-          <Link appearance="primary-button" href="#" newTab>
-            Pay bill
-          </Link>
-        }
-      >
-        If you struggle, we can help!
-      </Message>
-    );
-
-    expect(screen.getByRole("link", { name: "Pay bill" })).toHaveStyle({
-      backgroundColor: "#ffffff",
-      color: "#006aff",
     });
   });
 
