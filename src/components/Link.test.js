@@ -72,8 +72,8 @@ describe("Link", () => {
     const link = screen.getByText("Terms and Conditions");
 
     expect(link).toHaveStyle({
-      color: "#d8edff",
-      borderBottomColor: "rgba(216,237,255,0.5)",
+      color: "#ffffff",
+      borderBottomColor: "rgba(255,255,255,0.5)",
     });
   });
 
@@ -125,8 +125,8 @@ describe("Link", () => {
     const link = screen.getByText("Terms and Conditions");
 
     expect(link).toHaveStyle({
-      color: "#d8edff",
-      borderBottomColor: "rgba(216,237,255,0.5)",
+      color: "#ffffff",
+      borderBottomColor: "rgba(255,255,255,0.5)",
     });
   });
 
@@ -144,8 +144,8 @@ describe("Link", () => {
     const link = screen.getByText("Terms and Conditions");
 
     expect(link).toHaveStyle({
-      color: "#d8edff",
-      borderBottomColor: "rgba(216,237,255,0.5)",
+      color: "#ffffff",
+      borderBottomColor: "rgba(255,255,255,0.5)",
     });
   });
 

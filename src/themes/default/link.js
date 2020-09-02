@@ -96,20 +96,17 @@ export default (theme) => {
               borderBottomWidth: theme.borderWidths[0],
               borderBottomStyle: "solid",
               transition: theme.transitions.link,
-              color: theme.colors.secondary.lightBlue.t25,
-              borderBottomColor: rgba(
-                theme.colors.secondary.lightBlue.t25,
-                0.5
-              ),
+              color: theme.colors.white,
+              borderBottomColor: rgba(theme.colors.white, 0.5),
             },
             {
               hover: {
                 borderBottomColor: theme.colors.secondary.lightBlue.t25,
-                backgroundColor: theme.colors.primary.blue.b40,
+                backgroundColor: rgba(theme.colors.black, 0.45),
               },
               active: {
                 borderBottomColor: theme.colors.secondary.lightBlue.t25,
-                backgroundColor: theme.colors.primary.blue.b40,
+                backgroundColor: rgba(theme.colors.black, 0.45),
               },
               __internal__hover,
               __internal__active,
