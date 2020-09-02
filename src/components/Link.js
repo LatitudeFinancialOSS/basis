@@ -192,10 +192,16 @@ Link.propTypes = {
     const isButtonAppearance = ["primary-button", "secondary-button"].includes(
       props.appearance
     );
-    const isTextVariant = ["light-bg", "medium-bg", "dark-bg"];
-    const isButtonVariant = ["blue-button", "white-button", "green-button"];
+    const isTextVariant = ["light-bg", "medium-bg", "dark-bg"].includes(
+      props.variant
+    );
+    const isButtonVariant = [
+      "blue-button",
+      "white-button",
+      "green-button",
+    ].includes(props.variant);
 
-    if (isButtonAppearance && !isButtonVariant) {
+    if (isButtonAppearance && props.variant && !isButtonVariant) {
       return new Error(
         `Link: appearance="${
           props.appearance
@@ -207,7 +213,7 @@ Link.propTypes = {
       );
     }
 
-    if (props.appearance === "text" && !isTextVariant) {
+    if (props.appearance === "text" && props.variant && !isTextVariant) {
       return new Error(
         `Link: appearance="text" should be used only with these variants: ${formatArray(
           ["light-bg", "medium-bg", "dark-bg"]

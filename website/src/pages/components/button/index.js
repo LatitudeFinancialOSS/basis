@@ -65,6 +65,7 @@ function ButtonPage() {
             label,
             disabled:
               (color === "green" && value !== "primary") ||
+              (color === "black" && value !== "secondary") ||
               (value === "icon" && color !== "highlight.blue.t100"),
           }))}
           selectedValue={variant}
@@ -78,6 +79,7 @@ function ButtonPage() {
             label,
             disabled:
               (value === "green" && variant !== "primary") ||
+              (value === "black" && variant !== "secondary") ||
               (variant === "icon" && value !== "highlight.blue.t100"),
           }))}
           selectedValue={color}
@@ -103,7 +105,9 @@ function ButtonPage() {
         code={code}
         scope={scope}
         backgroundColor={
-          color === "white"
+          color === "black"
+            ? theme.colors.grey.t07
+            : color === "white"
             ? theme.colors.primary.blue.t100
             : theme.colors.white
         }

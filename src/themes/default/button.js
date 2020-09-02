@@ -148,6 +148,37 @@ export default (theme) => {
           break;
         }
 
+        case variant === "secondary" && color === "black": {
+          css = addStates(
+            {
+              ...css,
+              backgroundColor: "transparent",
+              color: theme.colors.black,
+              borderWidth: theme.borderWidths[0],
+              borderStyle: "solid",
+              borderColor: theme.colors.black,
+            },
+            {
+              hover: {
+                backgroundColor: theme.colors.highlight.blue.t100,
+                color: theme.colors.white,
+                borderColor: theme.colors.highlight.blue.t100,
+              },
+              active: {
+                backgroundColor: theme.colors.highlight.blue.t100,
+                color: theme.colors.white,
+                borderColor: theme.colors.highlight.blue.t100,
+              },
+              disabled: {
+                borderColor: theme.colors.grey.t65,
+              },
+              __internal__hover,
+              __internal__active,
+            }
+          );
+          break;
+        }
+
         case variant === "secondary" && color === "white": {
           css = addStates(
             {

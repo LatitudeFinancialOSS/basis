@@ -9,9 +9,10 @@ import {
 import { hasOwnProperty } from "../utils/core";
 import { responsiveMargin, responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
+import { formatArray } from "../utils/array";
 
 const VARIANTS = ["primary", "secondary", "icon"];
-const COLORS = ["highlight.blue.t100", "white", "green"];
+const COLORS = ["highlight.blue.t100", "white", "black", "green"];
 const TYPES = ["button", "submit"];
 
 const DEFAULT_PROPS = {
@@ -29,9 +30,31 @@ Button.COLORS = COLORS;
 Button.TYPES = TYPES;
 Button.DEFAULT_PROPS = DEFAULT_PROPS;
 
+const darkColorsMap = {
+  "primary.blue.t100": true,
+  "highlight.blue.t100": true,
+  "highlight.pink.t100": true,
+  "highlight.purple.t100": true,
+};
+const mediumColorsMap = {
+  "grey.t07": true,
+  "grey.t10": true,
+  "grey.t16": true,
+  "secondary.lightBlue.t25": true,
+  "secondary.lightBlue.t15": true,
+  "secondary.pink.t30": true,
+  "secondary.pink.t15": true,
+  "secondary.purple.t30": true,
+  "secondary.purple.t15": true,
+  "secondary.turquoise.t30": true,
+  "secondary.turquoise.t10": true,
+};
+
 function getInheritedColor(backgroundColor) {
-  return ["primary.blue.t100", "highlight.pink.t100"].includes(backgroundColor)
+  return darkColorsMap[backgroundColor]
     ? "white"
+    : mediumColorsMap[backgroundColor]
+    ? "black"
     : "highlight.blue.t100";
 }
 
@@ -49,7 +72,6 @@ function Button(props) {
     }
   );
   const {
-    variant,
     disabled,
     type,
     onClick,
@@ -60,11 +82,18 @@ function Button(props) {
     __internal__active,
   } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    color: (propsAtBreakpoint, theme, bp) => {
+    color: (_, theme, bp) => {
       const color =
         hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
           ? mergedProps.color
           : getInheritedColor(bgMap?.[bp]);
+      const variant =
+        hasOwnProperty(props, "variant") &&
+        hasOwnProperty(mergedProps, "variant")
+          ? mergedProps.variant
+          : color === "black"
+          ? "secondary"
+          : "primary";
 
       return theme.button.getCSS({
         variant,
@@ -95,7 +124,30 @@ Button.propTypes = {
   ...responsiveMarginType,
   ...responsiveWidthType,
   variant: PropTypes.oneOf(VARIANTS),
-  color: PropTypes.oneOf(COLORS),
+  color: (props) => {
+    if (props.color === undefined) {
+      return;
+    }
+
+    if (COLORS.includes(props.color) === false) {
+      return new Error(
+        `Button: color="${
+          props.color
+        }" is not supported. Must be one of: ${formatArray(COLORS)}`
+      );
+    }
+
+    if (
+      props.variant === "primary" &&
+      ["highlight.blue.t100", "white", "green"].includes(props.color) === false
+    ) {
+      return new Error(
+        `Button: variant="primary" should be used only with these colors: ${formatArray(
+          ["highlight.blue.t100", "white", "green"]
+        )}`
+      );
+    }
+  },
   disabled: PropTypes.bool,
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,
