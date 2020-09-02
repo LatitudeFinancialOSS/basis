@@ -23,34 +23,10 @@ function KitchenSinkMessage() {
               severity="info-or-minor"
               bg={bg}
               callToAction={
-                <Link appearance="primary-button" href="#" newTab>
-                  Link
-                </Link>
-              }
-            >
-              We can help you ease the financial stress of COVID-19.{" "}
-              <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
-                Find out how.
-              </Link>
-            </Message>
-            <Message
-              severity="info-or-minor"
-              bg={bg}
-              callToAction={
                 <Link appearance="secondary-button" href="#" newTab>
                   Link
                 </Link>
               }
-            >
-              We can help you ease the financial stress of COVID-19.{" "}
-              <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
-                Find out how.
-              </Link>
-            </Message>
-            <Message
-              severity="info-or-minor"
-              bg={bg}
-              callToAction={<Button>Button</Button>}
             >
               We can help you ease the financial stress of COVID-19.{" "}
               <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
@@ -96,7 +72,7 @@ function KitchenSinkMessage() {
                   severity="info-or-minor"
                   bg={bg}
                   callToAction={
-                    <Link appearance="primary-button" href="#" newTab>
+                    <Link appearance="secondary-button" href="#" newTab>
                       Link
                     </Link>
                   }

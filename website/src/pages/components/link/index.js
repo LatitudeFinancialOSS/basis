@@ -29,7 +29,10 @@ function isVariantDisabled({ appearance, variant }) {
     }
 
     case "secondary-button": {
-      return ["blue-button", "white-button"].includes(variant) === false;
+      return (
+        ["blue-button", "white-button", "black-button"].includes(variant) ===
+        false
+      );
     }
 
     case "icon": {
@@ -117,7 +120,9 @@ function LinkPage() {
 
               case "secondary-button": {
                 if (
-                  ["blue-button", "white-button"].includes(variant) === false
+                  ["blue-button", "white-button", "black-button"].includes(
+                    variant
+                  ) === false
                 ) {
                   setVariant("blue-button");
                 }
@@ -158,12 +163,14 @@ function LinkPage() {
         code={code}
         scope={scope}
         backgroundColor={
-          variant === "medium-bg"
-            ? theme.colors.secondary.lightBlue.t15
-            : variant === "dark-bg"
+          variant === "dark-bg"
             ? theme.colors.primary.blue.t100
+            : variant === "medium-bg"
+            ? theme.colors.secondary.lightBlue.t15
             : variant === "white-button"
             ? theme.colors.highlight.pink.t100
+            : variant === "black-button"
+            ? theme.colors.secondary.pink.t30
             : theme.colors.white
         }
       />

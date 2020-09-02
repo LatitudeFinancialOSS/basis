@@ -95,6 +95,24 @@ describe("Link", () => {
     });
   });
 
+  it("defaults to a button appearance", () => {
+    render(
+      <Link variant="black-button" href="/terms" newTab={false}>
+        Terms and Conditions
+      </Link>
+    );
+
+    const link = screen.getByText("Terms and Conditions");
+
+    expect(link).toHaveStyle({
+      backgroundColor: "transparent",
+      color: "#000000",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "#000000",
+    });
+  });
+
   it("inherits variant based on background", () => {
     render(
       <Container bg="primary.blue.t100">

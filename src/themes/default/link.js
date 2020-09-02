@@ -153,6 +153,23 @@ export default (theme) => {
           };
         }
 
+        case "black-button": {
+          return {
+            ...buttonTheme.getCSS({
+              variant: "secondary",
+              color: "black",
+              __internal__keyboardFocus,
+              __internal__hover,
+              __internal__active,
+            }),
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none",
+            boxSizing: "border-box",
+          };
+        }
+
         case "green-button": {
           return {
             ...buttonTheme.getCSS({
