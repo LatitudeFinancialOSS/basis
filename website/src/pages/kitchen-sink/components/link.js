@@ -80,9 +80,15 @@ function KitchenSinkLink() {
         </Container>
       ))}
 
-      {["blue-button", "white-button"].map((variant) => (
+      {["blue-button", "white-button", "black-button"].map((variant) => (
         <Container
-          bg={variant === "white-button" ? "primary.blue.t100" : "white"}
+          bg={
+            variant === "white-button"
+              ? "primary.blue.t100"
+              : variant === "black-button"
+              ? "secondary.lightBlue.t25"
+              : "white"
+          }
           padding="4"
           key={variant}
         >
