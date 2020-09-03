@@ -89,7 +89,6 @@ const theme = {
     white: "#ffffff",
     primary: {
       blue: {
-        b40: "#002a66",
         t100: "#0046aa",
         t80: "#336bbb",
         t60: "#7fa2d4",

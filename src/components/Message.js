@@ -171,25 +171,25 @@ Message.propTypes = {
   bg: PropTypes.oneOf(BACKGROUNDS),
   title: PropTypes.string,
   callToAction: (props) => {
-    if ([undefined, Button].includes(props.callToAction?.type)) {
+    if (!props.callToAction) {
       return;
     }
 
-    if (props.callToAction.type === Link) {
-      if (
-        ["primary-button", "secondary-button"].includes(
-          props.callToAction.props.appearance
-        ) === false
-      ) {
+    if (props.callToAction.type === Button) {
+      if (props.callToAction.props.variant !== "secondary") {
         return new Error(
-          `Message: When callToAction is a Link, you should set appearance="primary-button" or appearance="secondary-button" on the Link.`
+          `Message: When callToAction is a Button, you should set variant="secondary" on the Button.`
         );
       }
-
-      return;
+    } else if (props.callToAction.type === Link) {
+      if (props.callToAction.props.appearance !== "secondary-button") {
+        return new Error(
+          `Message: When callToAction is a Link, you should set appearance="secondary-button" on the Link.`
+        );
+      }
+    } else {
+      return new Error(`Message: callToAction must be a Button or a Link.`);
     }
-
-    return new Error(`Message: callToAction must be a Button or a Link.`);
   },
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   children: PropTypes.node.isRequired,

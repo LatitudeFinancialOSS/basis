@@ -5,7 +5,16 @@ import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayou
 
 function ButtonStates({ variant, color }) {
   return (
-    <Container padding="4" bg={color === "white" ? "primary.blue.t100" : null}>
+    <Container
+      padding="4"
+      bg={
+        color === "black"
+          ? "secondary.lightBlue.t25"
+          : color === "white"
+          ? "primary.blue.t100"
+          : null
+      }
+    >
       <Stack direction="horizontal" gap="6">
         <Button variant={variant} color={color}>
           {variant === "icon" ? <Icon name="cross" /> : `${variant} ${color}`}
@@ -51,6 +60,7 @@ function KitchenSinkButton() {
       <ButtonStates variant="primary" color="green" />
 
       <ButtonStates variant="secondary" color="highlight.blue.t100" />
+      <ButtonStates variant="secondary" color="black" />
       <ButtonStates variant="secondary" color="white" />
 
       <ButtonStates variant="icon" color="highlight.blue.t100" />

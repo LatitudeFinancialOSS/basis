@@ -24,6 +24,7 @@ const VARIANTS = [
   "dark-bg",
   "blue-button",
   "white-button",
+  "black-button",
   "green-button",
 ];
 
@@ -39,12 +40,25 @@ Link.APPEARANCES = APPEARANCES;
 Link.VARIANTS = VARIANTS;
 Link.DEFAULT_PROPS = DEFAULT_PROPS;
 
-const DARK_BACKGROUNDS = ["primary.blue.t100", "highlight.pink.t100"];
-const MEDIUM_BACKGROUNDS = [
-  "grey.t07",
-  "secondary.lightBlue.t15",
-  "secondary.lightBlue.t25",
-];
+const darkColorsMap = {
+  "primary.blue.t100": true,
+  "highlight.blue.t100": true,
+  "highlight.pink.t100": true,
+  "highlight.purple.t100": true,
+};
+const mediumColorsMap = {
+  "grey.t07": true,
+  "grey.t10": true,
+  "grey.t16": true,
+  "secondary.lightBlue.t25": true,
+  "secondary.lightBlue.t15": true,
+  "secondary.pink.t30": true,
+  "secondary.pink.t15": true,
+  "secondary.purple.t30": true,
+  "secondary.purple.t15": true,
+  "secondary.turquoise.t30": true,
+  "secondary.turquoise.t10": true,
+};
 
 function Link(props) {
   const theme = useTheme();
@@ -77,8 +91,8 @@ function Link(props) {
   const variantMap = mapResponsiveValues(
     bgMap,
     (backgroundColor) => {
-      const isDarkBackground = DARK_BACKGROUNDS.includes(backgroundColor);
-      const isMediumBackground = MEDIUM_BACKGROUNDS.includes(backgroundColor);
+      const isDarkBackground = darkColorsMap[backgroundColor] === true;
+      const isMediumBackground = mediumColorsMap[backgroundColor] === true;
 
       if (appearance === "text") {
         return isDarkBackground
@@ -89,7 +103,11 @@ function Link(props) {
       }
 
       if (["primary-button", "secondary-button"].includes(appearance)) {
-        return isDarkBackground ? "white-button" : "blue-button";
+        return isDarkBackground
+          ? "white-button"
+          : isMediumBackground
+          ? "black-button"
+          : "blue-button";
       }
 
       return null;
@@ -104,6 +122,8 @@ function Link(props) {
         props.appearance ??
         (["blue-button", "white-button", "green-button"].includes(variant)
           ? "primary-button"
+          : variant === "black-button"
+          ? "secondary-button"
           : "text");
 
       return theme.link.getCSS({
@@ -189,25 +209,11 @@ Link.propTypes = {
       );
     }
 
-    const isButtonAppearance = ["primary-button", "secondary-button"].includes(
-      props.appearance
-    );
-    const isTextVariant = ["light-bg", "medium-bg", "dark-bg"];
-    const isButtonVariant = ["blue-button", "white-button", "green-button"];
-
-    if (isButtonAppearance && !isButtonVariant) {
-      return new Error(
-        `Link: appearance="${
-          props.appearance
-        }" should be used only with these variants: ${formatArray([
-          "blue-button",
-          "white-button",
-          "green-button",
-        ])}`
-      );
-    }
-
-    if (props.appearance === "text" && !isTextVariant) {
+    if (
+      props.appearance === "text" &&
+      props.variant &&
+      ["light-bg", "medium-bg", "dark-bg"].includes(props.variant) === false
+    ) {
       return new Error(
         `Link: appearance="text" should be used only with these variants: ${formatArray(
           ["light-bg", "medium-bg", "dark-bg"]
@@ -215,7 +221,38 @@ Link.propTypes = {
       );
     }
 
-    if (!isButtonAppearance) {
+    if (
+      props.appearance === "primary-button" &&
+      props.variant &&
+      ["blue-button", "white-button", "green-button"].includes(
+        props.variant
+      ) === false
+    ) {
+      return new Error(
+        `Link: appearance="primary-button" should be used only with these variants: ${formatArray(
+          ["blue-button", "white-button", "green-button"]
+        )}`
+      );
+    }
+
+    if (
+      props.appearance === "secondary-button" &&
+      props.variant &&
+      ["blue-button", "white-button", "black-button"].includes(
+        props.variant
+      ) === false
+    ) {
+      return new Error(
+        `Link: appearance="secondary-button" should be used only with these variants: ${formatArray(
+          ["blue-button", "white-button", "black-button"]
+        )}`
+      );
+    }
+
+    if (
+      ["primary-button", "secondary-button"].includes(props.appearance) ===
+      false
+    ) {
       for (const prop in props) {
         if (prop.startsWith("width")) {
           return new Error(

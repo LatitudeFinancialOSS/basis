@@ -67,6 +67,24 @@ describe("Button", () => {
     });
   });
 
+  it("secondary black", () => {
+    render(
+      <Button variant="secondary" color="black">
+        Find out more
+      </Button>
+    );
+
+    const button = screen.getByRole("button", { name: "Find out more" });
+
+    expect(button).toHaveStyle({
+      backgroundColor: "transparent",
+      color: "#000000",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "#000000",
+    });
+  });
+
   it("secondary white", () => {
     render(
       <Button variant="secondary" color="white">
