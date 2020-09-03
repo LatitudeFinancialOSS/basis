@@ -1,6 +1,6 @@
 export default (theme) => {
   return {
-    getCSS: ({ variant }) => {
+    getCSS: ({ appearance }) => {
       let css = {
         display: "inline-block",
         textDecoration: "none",
@@ -17,7 +17,7 @@ export default (theme) => {
         },
       };
 
-      switch (variant) {
+      switch (appearance) {
         case "icon": {
           css = {
             ...css,
