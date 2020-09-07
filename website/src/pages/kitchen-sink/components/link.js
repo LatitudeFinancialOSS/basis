@@ -133,9 +133,19 @@ function KitchenSinkLink() {
       ))}
 
       <Container padding="4">
-        <Link appearance="icon" href="/terms" newTab={false}>
-          <Icon name="github" color="grey.t75" hoverColor="black" />
-        </Link>
+        <Stack direction="horizontal" gap="8">
+          <Link appearance="icon" href="#" newTab={false}>
+            <Icon name="github" color="grey.t75" hoverColor="black" />
+          </Link>
+          <Link
+            appearance="icon"
+            href="#"
+            newTab={false}
+            __internal__keyboardFocus
+          >
+            <Icon name="github" color="grey.t75" hoverColor="black" />
+          </Link>
+        </Stack>
       </Container>
 
       <Container padding="4">
@@ -156,6 +166,15 @@ function KitchenSinkLink() {
             newTab={false}
           >
             500px width
+          </Link>
+        </Stack>
+      </Container>
+
+      <Container width="200" padding="4">
+        <Stack>
+          <Link href="#" newTab={false}>
+            This multi-line link is to ensure that the underline appears under
+            each line.
           </Link>
         </Stack>
       </Container>
