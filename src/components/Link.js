@@ -114,19 +114,33 @@ function Link(props) {
     },
     theme
   );
-  const { InternalLink, isLinkInternal } = useContext(LinkContext);
-  const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+  const getAppearanceFromVariant = (variant) =>
+    props.appearance ??
+    (["blue-button", "white-button", "green-button"].includes(variant)
+      ? "primary-button"
+      : variant === "black-button"
+      ? "secondary-button"
+      : "text");
+  const anchorCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     variant: (_, theme, bp) => {
       const variant = props.variant ?? variantMap[bp];
-      const appearance =
-        props.appearance ??
-        (["blue-button", "white-button", "green-button"].includes(variant)
-          ? "primary-button"
-          : variant === "black-button"
-          ? "secondary-button"
-          : "text");
+      const appearance = getAppearanceFromVariant(variant);
 
       return theme.link.getCSS({
+        targetElement: "anchor",
+        appearance,
+        __internal__keyboardFocus,
+      });
+    },
+    margin: responsiveMargin,
+  });
+  const spanCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+    variant: (_, theme, bp) => {
+      const variant = props.variant ?? variantMap[bp];
+      const appearance = getAppearanceFromVariant(variant);
+
+      return theme.link.getCSS({
+        targetElement: "span",
         appearance,
         variant,
         buttonTheme: theme.button,
@@ -135,11 +149,11 @@ function Link(props) {
         __internal__active,
       });
     },
-    margin: responsiveMargin,
     padding: responsivePadding,
     width: responsiveSize("width"),
   });
 
+  const { InternalLink, isLinkInternal } = useContext(LinkContext);
   const newTabProps = newTab
     ? {
         target: "_blank",
@@ -165,14 +179,14 @@ function Link(props) {
     return (
       <InternalLink
         className={analyticsClassName}
-        css={css}
+        css={anchorCSS}
         to={href}
         title={title}
         state={state}
         onClick={onClick}
         data-testid={testId}
       >
-        {children}
+        <span css={spanCSS}>{children}</span>
       </InternalLink>
     );
   }
@@ -180,14 +194,14 @@ function Link(props) {
   return (
     <a
       className={analyticsClassName}
-      css={css}
+      css={anchorCSS}
       href={href}
       title={title}
       onClick={onClick}
       data-testid={testId}
       {...newTabProps}
     >
-      {children}
+      <span css={spanCSS}>{children}</span>
     </a>
   );
 }

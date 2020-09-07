@@ -12,13 +12,18 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
+    const link = span.parentElement;
 
     expect(link.tagName).toBe("A");
     expect(link).not.toHaveAttribute("target");
     expect(link).toHaveAttribute("href", "/terms");
     expect(link).toHaveStyle({
       textDecoration: "none",
+      borderRadius: "4px",
+      outline: 0,
+    });
+    expect(span).toHaveStyle({
       borderBottomWidth: "1px",
       borderBottomStyle: "solid",
       borderBottomColor: "rgba(0,70,170,0.5)",
@@ -36,7 +41,8 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
+    const link = span.parentElement;
 
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noreferrer");
@@ -54,9 +60,9 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       backgroundColor: "#ffffff",
       color: "#006aff",
     });
@@ -69,9 +75,9 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       color: "#ffffff",
       borderBottomColor: "rgba(255,255,255,0.5)",
     });
@@ -84,9 +90,9 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       backgroundColor: "transparent",
       color: "#006aff",
       borderWidth: "1px",
@@ -102,9 +108,9 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       backgroundColor: "transparent",
       color: "#000000",
       borderWidth: "1px",
@@ -122,9 +128,9 @@ describe("Link", () => {
       </Container>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       color: "#ffffff",
       borderBottomColor: "rgba(255,255,255,0.5)",
     });
@@ -141,9 +147,9 @@ describe("Link", () => {
       </Container>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       color: "#ffffff",
       borderBottomColor: "rgba(255,255,255,0.5)",
     });
@@ -156,7 +162,8 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
+    const link = span.parentElement;
 
     expect(link).toHaveStyle({
       margin: "4px 8px 12px",
@@ -170,9 +177,9 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       padding: "12px 24px",
     });
   });
@@ -189,9 +196,9 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
 
-    expect(link).toHaveStyle({
+    expect(span).toHaveStyle({
       width: "300px",
     });
   });
@@ -207,7 +214,8 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
+    const link = span.parentElement;
 
     userEvent.click(link);
 
@@ -221,7 +229,8 @@ describe("Link", () => {
       </Link>
     );
 
-    const link = screen.getByText("Terms and Conditions");
+    const span = screen.getByText("Terms and Conditions");
+    const link = span.parentElement;
 
     expect(link).toHaveClass("track-me");
   });

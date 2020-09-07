@@ -73,7 +73,9 @@ describe("Message", () => {
       </Message>
     );
 
-    expect(screen.getByRole("link", { name: "Explore how" })).toHaveStyle({
+    expect(
+      screen.getByRole("link", { name: "Explore how" }).firstChild
+    ).toHaveStyle({
       backgroundColor: "transparent",
       color: "#ffffff",
       borderWidth: "1px",
