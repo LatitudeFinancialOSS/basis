@@ -10,7 +10,9 @@ import useAccordion, { AccordionProvider } from "../hooks/useAccordion";
 import useAccordionItem, {
   AccordionItemProvider,
 } from "../hooks/useAccordionItem";
+import { responsivePaddingType } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
+import { responsivePadding } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import { hasOwnProperty } from "../utils/core";
 import Icon from "./Icon";
@@ -114,7 +116,8 @@ HeaderIcon.propTypes = {
   testId: PropTypes.string,
 };
 
-function Content({ children, testId }) {
+function Content(props) {
+  const { children, testId } = props;
   const theme = useTheme();
   const { colorMap } = useAccordion();
   const bgMap = mapResponsiveValues(
@@ -123,7 +126,7 @@ function Content({ children, testId }) {
     theme
   );
   const css = useResponsivePropsCSS(
-    {},
+    props,
     {},
     {
       backgroundColor: (propsAtBreakpoint, theme, bp) => {
@@ -132,6 +135,13 @@ function Content({ children, testId }) {
           color: colorMap[bp],
         });
       },
+      /* 
+        Note: 
+          `padding` needs to come after `backgroundColor` because 
+          `backgroundColor` sets a default padding and we want to
+          allow users to override it.
+      */
+      padding: responsivePadding,
     }
   );
   const { headerId, contentId, isOpen } = useAccordionItem();
@@ -153,6 +163,7 @@ function Content({ children, testId }) {
 }
 
 Content.propTypes = {
+  ...responsivePaddingType,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

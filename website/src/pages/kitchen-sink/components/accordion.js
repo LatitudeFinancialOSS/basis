@@ -154,6 +154,26 @@ function KitchenSinkAccordion() {
           </Accordion.Item>
         </Accordion>
       </Container>
+
+      <Container padding="4" width="360">
+        <Text textStyle="heading4" margin="0 0 4 0">
+          Without content padding
+        </Text>
+        <Accordion>
+          <Accordion.Item initiallyOpen>
+            <Accordion.Item.Header>Open by default</Accordion.Item.Header>
+            <Accordion.Item.Content padding="0">
+              <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed
+                nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
+                ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
+                Mauris massa.
+              </Text>
+            </Accordion.Item.Content>
+          </Accordion.Item>
+        </Accordion>
+      </Container>
     </KitchenSinkLayout>
   );
 }

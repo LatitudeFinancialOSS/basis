@@ -45,11 +45,15 @@ describe("Accordion", () => {
     expect(item1header.tagName).toBe("H3");
     expect(item1header).toHaveTextContent("Header 1");
     expect(item1HeaderButton).toHaveStyle({
+      padding: "12px 16px 12px 24px",
       backgroundColor: "#ececec",
       color: "#000000",
     });
     expect(item1HeaderButton).toHaveAttribute("type", "button");
     expect(item1Content).toHaveTextContent("Content 1");
+    expect(item1Content).toHaveStyle({
+      textAlign: "left",
+    });
 
     expect(item2).toHaveStyle({
       marginTop: "4px",
@@ -234,6 +238,26 @@ describe("Accordion", () => {
     });
     expect(item3).toHaveStyle({
       marginTop: "1px",
+    });
+  });
+
+  it("with custom content padding", () => {
+    render(
+      <Accordion>
+        <Accordion.Item testId="accordion-item-1">
+          <Accordion.Item.Header>Header 1</Accordion.Item.Header>
+          <Accordion.Item.Content padding="0">
+            <Text>Content 1</Text>
+          </Accordion.Item.Content>
+        </Accordion.Item>
+      </Accordion>
+    );
+
+    const item1 = screen.getByTestId("accordion-item-1");
+    const item1Content = item1.querySelector(`[role="region"]`);
+
+    expect(item1Content).toHaveStyle({
+      padding: 0,
     });
   });
 
