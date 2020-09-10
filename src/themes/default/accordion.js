@@ -32,7 +32,7 @@ export default (theme, { getColor, getTextStyle }) => {
             border: 0,
             borderRadius: theme.radii[0],
             boxSizing: "border-box",
-            padding: `${theme.space[3]} ${theme.space[6]}`,
+            padding: `${theme.space[3]} ${theme.space[4]} ${theme.space[3]} ${theme.space[6]}`,
             textAlign: "left",
             ...getTextStyle({ name: "subtitle2", mode: "self-bold" }),
             outline: 0,

@@ -45,6 +45,7 @@ describe("Accordion", () => {
     expect(item1header.tagName).toBe("H3");
     expect(item1header).toHaveTextContent("Header 1");
     expect(item1HeaderButton).toHaveStyle({
+      padding: "12px 16px 12px 24px",
       backgroundColor: "#ececec",
       color: "#000000",
     });
