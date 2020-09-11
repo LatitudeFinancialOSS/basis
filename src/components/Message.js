@@ -74,6 +74,11 @@ function Message(props) {
   const textYpadding = (iconSize - 24) / 2; // 24px is the line-height of the body1 text style
   const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     hasBreakpointWidth: responsiveHasBreakpointWidth,
+    padding: ({ hasBreakpointWidth }, theme) => {
+      return {
+        padding: hasBreakpointWidth ? `${theme.space[4]} 0` : theme.space[4],
+      };
+    },
   });
 
   return (
@@ -87,7 +92,6 @@ function Message(props) {
         <div
           css={{
             boxSizing: "border-box",
-            padding: theme.space[4],
             display: "flex",
             flexDirection: "column",
             ...mergeResponsiveCSS(
