@@ -6,6 +6,18 @@ import Message from "./Message";
 import { render, screen } from "../utils/test";
 
 describe("Message", () => {
+  it("has padding", () => {
+    render(
+      <Message severity="success" testId="my-message">
+        Your request was submitted successfully.
+      </Message>
+    );
+
+    expect(screen.getByTestId("my-message").firstChild).toHaveStyle({
+      padding: "16px",
+    });
+  });
+
   it("renders icon", () => {
     render(<Message severity="blocking">Something went wrong.</Message>);
 
@@ -97,6 +109,20 @@ describe("Message", () => {
 
     expect(screen.getByTestId("my-message")).toHaveStyle({
       backgroundColor: "#d8edff",
+    });
+  });
+
+  it("with hasBreakpointWidth", () => {
+    render(
+      <Message severity="success" hasBreakpointWidth testId="my-message">
+        Your request was submitted successfully.
+      </Message>
+    );
+
+    expect(screen.getByTestId("my-message").firstChild).toHaveStyle({
+      marginLeft: "15px",
+      marginRight: "15px",
+      padding: "16px 0",
     });
   });
 
