@@ -163,6 +163,33 @@ export function getExclusiveMediaQueries(breakpoints) {
   return result;
 }
 
+function sortMediaQueries(css) {
+  const result = {};
+  const minWidths = [];
+
+  for (const key in css) {
+    const match = key.match(/^@media \(min-width: (\d+)px\)$/);
+
+    if (match) {
+      const minWidth = parseInt(match[1], 10);
+
+      minWidths.push(minWidth);
+    } else {
+      result[key] = css[key];
+    }
+  }
+
+  minWidths
+    .sort((a, b) => a - b)
+    .forEach((minWidth) => {
+      const mediaQuery = `@media (min-width: ${minWidth}px)`;
+
+      result[mediaQuery] = css[mediaQuery];
+    });
+
+  return result;
+}
+
 export function mergeResponsiveCSS(css1, css2) {
   const result = {};
 
@@ -190,7 +217,7 @@ export function mergeResponsiveCSS(css1, css2) {
     }
   }
 
-  return result;
+  return sortMediaQueries(result);
 }
 
 const MIN_MEDIA_QUERY_REGEX = /^@media \(min-width: (\d+)px\)$/;

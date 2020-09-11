@@ -111,6 +111,42 @@ describe("mergeResponsiveCSS", () => {
       },
     });
   });
+
+  it("sorts the media queries", () => {
+    const result = mergeResponsiveCSS(
+      {
+        "@media (min-width: 1200px)": {
+          padding: "16px",
+        },
+        "@media (min-width: 768px)": {
+          flexDirection: "row",
+        },
+      },
+      {
+        "@media (min-width: 576px)": {
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "540px",
+        },
+        "@media (min-width: 768px)": {
+          maxWidth: "720px",
+        },
+        "@media (min-width: 992px)": {
+          maxWidth: "960px",
+        },
+        "@media (min-width: 1200px)": {
+          maxWidth: "1140px",
+        },
+      }
+    );
+
+    expect(Object.keys(result)).toStrictEqual([
+      "@media (min-width: 576px)",
+      "@media (min-width: 768px)",
+      "@media (min-width: 992px)",
+      "@media (min-width: 1200px)",
+    ]);
+  });
 });
 
 describe("isCSSinOrder", () => {
