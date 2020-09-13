@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMarginType,
+  responsiveWidthType,
   responsiveHeightType,
   responsivePropType,
 } from "../hooks/useResponsiveProp";
@@ -19,7 +20,6 @@ const PLACE_ITEMS = FLEX_PLACE_ITEMS;
 
 const DEFAULT_PROPS = {
   direction: "row",
-  placeItems: "top left",
 };
 
 Flex.DIRECTIONS = DIRECTIONS;
@@ -32,6 +32,7 @@ function Flex(_props) {
   const childrenArray = React.Children.toArray(children);
   const wrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
+    width: responsiveSize("width"),
     height: responsiveSize("height"),
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
@@ -63,6 +64,7 @@ function Flex(_props) {
 
 Flex.propTypes = {
   ...responsiveMarginType,
+  ...responsiveWidthType,
   ...responsiveHeightType,
   ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
   ...responsivePropType("placeItems", PropTypes.oneOf(PLACE_ITEMS)),
