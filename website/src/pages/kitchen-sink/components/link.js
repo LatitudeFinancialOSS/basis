@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Stack, Link, Icon } from "basis";
+import { Container, Stack, Link, Icon, Text } from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 
 const backgrounds = [
@@ -17,20 +17,43 @@ function KitchenSinkLink() {
     <KitchenSinkLayout name="Link">
       {backgrounds.map((bg) => (
         <Container padding="4" bg={bg} key={bg}>
-          <Stack direction="horizontal" gap="8">
+          <Container>
+            <Text>In stack:</Text>
+            <Stack direction="horizontal" gap="8">
+              <Link href="#" newTab={false}>
+                {bg}
+              </Link>
+              <Link href="#" newTab={false} __internal__hover>
+                Hover
+              </Link>
+              <Link href="#" newTab={false} __internal__active>
+                Active
+              </Link>
+              <Link href="#" newTab={false} __internal__keyboardFocus>
+                Keyboard focus
+              </Link>
+            </Stack>
+          </Container>
+          <Container margin="6 0 0 0">
+            <Text>With margins:</Text>
             <Link href="#" newTab={false}>
               {bg}
             </Link>
-            <Link href="#" newTab={false} __internal__hover>
+            <Link href="#" newTab={false} __internal__hover margin="0 0 0 8">
               Hover
             </Link>
-            <Link href="#" newTab={false} __internal__active>
+            <Link href="#" newTab={false} __internal__active margin="0 0 0 8">
               Active
             </Link>
-            <Link href="#" newTab={false} __internal__keyboardFocus>
+            <Link
+              href="#"
+              newTab={false}
+              __internal__keyboardFocus
+              margin="0 0 0 8"
+            >
               Keyboard focus
             </Link>
-          </Stack>
+          </Container>
         </Container>
       ))}
 
@@ -40,7 +63,48 @@ function KitchenSinkLink() {
           padding="4"
           key={variant}
         >
-          <Stack direction="horizontal" gap="8">
+          <Container>
+            <Text>In stack:</Text>
+            <Stack direction="horizontal" gap="8">
+              <Link
+                appearance="primary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+              >
+                {variant}
+              </Link>
+              <Link
+                appearance="primary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+                __internal__hover
+              >
+                Hover
+              </Link>
+              <Link
+                appearance="primary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+                __internal__active
+              >
+                Active
+              </Link>
+              <Link
+                appearance="primary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+                __internal__keyboardFocus
+              >
+                Keyboard focus
+              </Link>
+            </Stack>
+          </Container>
+          <Container margin="6 0 0 0">
+            <Text>With margins:</Text>
             <Link
               appearance="primary-button"
               variant={variant}
@@ -55,6 +119,7 @@ function KitchenSinkLink() {
               href="#"
               newTab={false}
               __internal__hover
+              margin="0 0 0 8"
             >
               Hover
             </Link>
@@ -64,6 +129,7 @@ function KitchenSinkLink() {
               href="#"
               newTab={false}
               __internal__active
+              margin="0 0 0 8"
             >
               Active
             </Link>
@@ -73,10 +139,11 @@ function KitchenSinkLink() {
               href="#"
               newTab={false}
               __internal__keyboardFocus
+              margin="0 0 0 8"
             >
               Keyboard focus
             </Link>
-          </Stack>
+          </Container>
         </Container>
       ))}
 
@@ -92,7 +159,48 @@ function KitchenSinkLink() {
           padding="4"
           key={variant}
         >
-          <Stack direction="horizontal" gap="8">
+          <Container>
+            <Text>In stack:</Text>
+            <Stack direction="horizontal" gap="8">
+              <Link
+                appearance="secondary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+              >
+                {variant}
+              </Link>
+              <Link
+                appearance="secondary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+                __internal__hover
+              >
+                Hover
+              </Link>
+              <Link
+                appearance="secondary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+                __internal__active
+              >
+                Active
+              </Link>
+              <Link
+                appearance="secondary-button"
+                variant={variant}
+                href="#"
+                newTab={false}
+                __internal__keyboardFocus
+              >
+                Keyboard focus
+              </Link>
+            </Stack>
+          </Container>
+          <Container margin="6 0 0 0">
+            <Text>With margins:</Text>
             <Link
               appearance="secondary-button"
               variant={variant}
@@ -107,6 +215,7 @@ function KitchenSinkLink() {
               href="#"
               newTab={false}
               __internal__hover
+              margin="0 0 0 8"
             >
               Hover
             </Link>
@@ -116,6 +225,7 @@ function KitchenSinkLink() {
               href="#"
               newTab={false}
               __internal__active
+              margin="0 0 0 8"
             >
               Active
             </Link>
@@ -125,10 +235,11 @@ function KitchenSinkLink() {
               href="#"
               newTab={false}
               __internal__keyboardFocus
+              margin="0 0 0 8"
             >
               Keyboard focus
             </Link>
-          </Stack>
+          </Container>
         </Container>
       ))}
 

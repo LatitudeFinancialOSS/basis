@@ -124,7 +124,6 @@ export default (theme) => {
                   variant:
                     appearance === "primary-button" ? "primary" : "secondary",
                   color: "highlight.blue.t100",
-                  __internal__keyboardFocus,
                   __internal__hover,
                   __internal__active,
                 }),
@@ -142,7 +141,6 @@ export default (theme) => {
                   variant:
                     appearance === "primary-button" ? "primary" : "secondary",
                   color: "white",
-                  __internal__keyboardFocus,
                   __internal__hover,
                   __internal__active,
                 }),
@@ -159,7 +157,6 @@ export default (theme) => {
                 ...buttonTheme.getCSS({
                   variant: "secondary",
                   color: "black",
-                  __internal__keyboardFocus,
                   __internal__hover,
                   __internal__active,
                 }),
@@ -176,7 +173,6 @@ export default (theme) => {
                 ...buttonTheme.getCSS({
                   variant: "primary",
                   color: "green",
-                  __internal__keyboardFocus,
                   __internal__hover,
                   __internal__active,
                 }),
