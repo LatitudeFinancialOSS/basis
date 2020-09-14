@@ -30,12 +30,12 @@ export default (theme) => {
             textDecoration: "none",
             borderRadius: theme.radii[1],
             outline: 0,
-            display:
-              appearance === "icon"
-                ? "table"
-                : ["primary-button", "secondary-button"].includes(appearance)
-                ? "inline-flex"
-                : null,
+            display: ["primary-button", "secondary-button", "icon"].includes(
+              appearance
+            )
+              ? "inline-flex"
+              : null,
+            verticalAlign: appearance === "icon" ? "top" : null,
             ...theme.focusStyles.focusVisible,
             ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
           };
