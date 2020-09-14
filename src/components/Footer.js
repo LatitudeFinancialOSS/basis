@@ -50,11 +50,9 @@ function HeaderSocial({ children, testId }) {
         <Text margin="0" margin-sm="0 4 0 0">
           <strong>Connect with us</strong>
         </Text>
-        <Container margin="0 0 0 auto" margin-sm="0">
-          <Stack direction="horizontal" gap="3">
-            {children}
-          </Stack>
-        </Container>
+        <Stack direction="horizontal" gap="3" margin="0 0 0 auto" margin-sm="0">
+          {children}
+        </Stack>
       </Flex>
     </Container>
   );

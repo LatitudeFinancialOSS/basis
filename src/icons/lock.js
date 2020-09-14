@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 function Lock({ size, primaryColor, testId }) {
   return (
     <svg
+      css={{
+        display: "block",
+      }}
       width={size}
       height={size}
       viewBox="0 0 32 32"

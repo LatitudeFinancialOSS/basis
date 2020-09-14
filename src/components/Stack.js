@@ -2,17 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useResponsiveProp, {
+  responsiveMarginType,
+  responsiveWidthType,
   responsivePropType,
 } from "../hooks/useResponsiveProp";
+import {
+  responsiveMargin,
+  responsiveSize,
+  getGapValues,
+  mergeResponsiveCSS,
+} from "../utils/css";
 import { mergeProps } from "../utils/component";
-import { getGapValues } from "../utils/css";
 
 const DIRECTIONS = ["vertical", "horizontal"];
 const ALIGNMENTS = ["left", "center", "right"];
 
 const DEFAULT_PROPS = {
   direction: "vertical",
-  align: "left",
   gap: "0",
 };
 
@@ -21,10 +27,20 @@ Stack.ALIGNMENTS = ALIGNMENTS;
 Stack.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Stack(props) {
-  const mergedProps = mergeProps(props, DEFAULT_PROPS);
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      direction: (direction) => DIRECTIONS.includes(direction),
+      align: (align) => ALIGNMENTS.includes(align),
+    }
+  );
   const { children, testId } = mergedProps;
   const direction = useResponsiveProp(mergedProps, "direction");
   const flexWrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    margin: responsiveMargin,
+    width: responsiveSize("width"),
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
@@ -35,12 +51,18 @@ function Stack(props) {
       const { rowGap } = gapValues;
 
       return {
-        marginTop: `-${parseInt(rowGap, 10) + 1}px`,
+        "::before": {
+          marginTop: `-${parseInt(rowGap, 10) + 1}px`,
+        },
       };
     },
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     align: ({ direction, align }) => {
+      if (!align) {
+        return {};
+      }
+
       return {
         [direction === "horizontal" ? "justifyContent" : "alignItems"]:
           align === "center"
@@ -83,14 +105,16 @@ function Stack(props) {
 
   return (
     <div
-      css={{
-        paddingTop: "1px",
-        "::before": {
-          content: '""',
-          display: "block",
-          ...flexWrapperCSS,
+      css={mergeResponsiveCSS(
+        {
+          paddingTop: "1px",
+          "::before": {
+            content: '""',
+            display: "block",
+          },
         },
-      }}
+        flexWrapperCSS
+      )}
       data-testid={testId}
     >
       <div
@@ -104,13 +128,7 @@ function Stack(props) {
         {React.Children.toArray(children)
           .filter((child) => child != null)
           .map((child, index) => (
-            <div
-              css={{
-                display: "inline-flex",
-                ...childCSS,
-              }}
-              key={index}
-            >
+            <div css={childCSS} key={index}>
               {child}
             </div>
           ))}
@@ -120,6 +138,8 @@ function Stack(props) {
 }
 
 Stack.propTypes = {
+  ...responsiveMarginType,
+  ...responsiveWidthType,
   ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
   ...responsivePropType("align", PropTypes.oneOf(ALIGNMENTS)),
   ...responsivePropType(

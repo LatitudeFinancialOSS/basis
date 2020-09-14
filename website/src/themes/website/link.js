@@ -21,7 +21,8 @@ export default (theme) => {
         case "icon": {
           css = {
             ...css,
-            display: "inline-flex",
+            display: "inline-block",
+            verticalAlign: "top",
           };
           break;
         }

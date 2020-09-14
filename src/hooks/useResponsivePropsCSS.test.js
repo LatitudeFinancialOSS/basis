@@ -356,10 +356,9 @@ describe("useResponsivePropsCSS", () => {
     );
 
     expect(result.current).toStrictEqual({
-      alignItems: "flex-start",
-      justifyContent: "flex-start",
       "@media (min-width: 375px)": {
         alignItems: "flex-end",
+        justifyContent: "flex-start",
       },
       "@media (min-width: 576px)": {
         alignItems: "center",
