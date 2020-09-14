@@ -21,7 +21,7 @@ export default (theme) => {
         case "icon": {
           css = {
             ...css,
-            display: "inline-flex",
+            display: "table",
           };
           break;
         }

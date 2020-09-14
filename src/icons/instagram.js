@@ -7,15 +7,16 @@ function Instagram({ size, primaryColor, hoverColor, testId }) {
 
   return (
     <svg
-      width={size}
-      height={size}
       css={{
+        display: "block",
         fill: primaryColor,
         transition: hoverColor ? theme.transitions.icon : null,
         ":hover": {
           ...(hoverColor && { fill: hoverColor }),
         },
       }}
+      width={size}
+      height={size}
       viewBox="0 0 32 32"
       focusable="false"
       role="img"

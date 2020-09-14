@@ -29,7 +29,6 @@ Flex.DEFAULT_PROPS = DEFAULT_PROPS;
 function Flex(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const { children, testId } = props;
-  const childrenArray = React.Children.toArray(children);
   const wrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     width: responsiveSize("width"),
@@ -56,7 +55,7 @@ function Flex(_props) {
           ...flexCSS,
         }}
       >
-        {childrenArray}
+        {children}
       </div>
     </div>
   );

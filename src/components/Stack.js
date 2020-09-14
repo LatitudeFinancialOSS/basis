@@ -19,7 +19,6 @@ const ALIGNMENTS = ["left", "center", "right"];
 
 const DEFAULT_PROPS = {
   direction: "vertical",
-  align: "left",
   gap: "0",
 };
 
@@ -28,7 +27,15 @@ Stack.ALIGNMENTS = ALIGNMENTS;
 Stack.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Stack(props) {
-  const mergedProps = mergeProps(props, DEFAULT_PROPS);
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      direction: (direction) => DIRECTIONS.includes(direction),
+      align: (align) => ALIGNMENTS.includes(align),
+    }
+  );
   const { children, testId } = mergedProps;
   const direction = useResponsiveProp(mergedProps, "direction");
   const flexWrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
@@ -52,6 +59,10 @@ function Stack(props) {
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     align: ({ direction, align }) => {
+      if (!align) {
+        return {};
+      }
+
       return {
         [direction === "horizontal" ? "justifyContent" : "alignItems"]:
           align === "center"
@@ -117,13 +128,7 @@ function Stack(props) {
         {React.Children.toArray(children)
           .filter((child) => child != null)
           .map((child, index) => (
-            <div
-              css={{
-                display: "inline-flex",
-                ...childCSS,
-              }}
-              key={index}
-            >
+            <div css={childCSS} key={index}>
               {child}
             </div>
           ))}
