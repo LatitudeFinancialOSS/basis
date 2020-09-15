@@ -55,6 +55,13 @@ function KitchenSinkButton() {
         </Stack>
       </Container>
 
+      <Container padding="4" width="500">
+        <Button width="100%">100%</Button>
+        <Button variant="secondary" width="50%" margin="4 0 0 0">
+          50%
+        </Button>
+      </Container>
+
       <ButtonStates variant="primary" color="highlight.blue.t100" />
       <ButtonStates variant="primary" color="white" />
       <ButtonStates variant="primary" color="green" />

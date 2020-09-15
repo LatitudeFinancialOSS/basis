@@ -281,6 +281,21 @@ function KitchenSinkLink() {
         </Stack>
       </Container>
 
+      <Container bg="grey.t07" padding="4" width="400">
+        <Link appearance="primary-button" width="100%" href="#" newTab={false}>
+          100% width
+        </Link>
+        <Link
+          appearance="secondary-button"
+          width="50%"
+          href="#"
+          newTab={false}
+          margin="4 0 0 0"
+        >
+          50% width
+        </Link>
+      </Container>
+
       <Container width="200" padding="4">
         <Stack>
           <Link href="#" newTab={false}>

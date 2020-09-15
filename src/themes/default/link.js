@@ -14,6 +14,18 @@ export default (theme) => {
     };
   }
 
+  function getButtonCSS(css) {
+    return {
+      ...css,
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textDecoration: "none",
+      boxSizing: "border-box",
+      width: "100%",
+    };
+  }
+
   return {
     getCSS: ({
       targetElement,
@@ -122,69 +134,49 @@ export default (theme) => {
             }
 
             case "blue-button": {
-              return {
-                ...buttonTheme.getCSS({
+              return getButtonCSS(
+                buttonTheme.getCSS({
                   variant:
                     appearance === "primary-button" ? "primary" : "secondary",
                   color: "highlight.blue.t100",
                   __internal__hover,
                   __internal__active,
-                }),
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textDecoration: "none",
-                boxSizing: "border-box",
-              };
+                })
+              );
             }
 
             case "white-button": {
-              return {
-                ...buttonTheme.getCSS({
+              return getButtonCSS(
+                buttonTheme.getCSS({
                   variant:
                     appearance === "primary-button" ? "primary" : "secondary",
                   color: "white",
                   __internal__hover,
                   __internal__active,
-                }),
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textDecoration: "none",
-                boxSizing: "border-box",
-              };
+                })
+              );
             }
 
             case "black-button": {
-              return {
-                ...buttonTheme.getCSS({
+              return getButtonCSS(
+                buttonTheme.getCSS({
                   variant: "secondary",
                   color: "black",
                   __internal__hover,
                   __internal__active,
-                }),
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textDecoration: "none",
-                boxSizing: "border-box",
-              };
+                })
+              );
             }
 
             case "green-button": {
-              return {
-                ...buttonTheme.getCSS({
+              return getButtonCSS(
+                buttonTheme.getCSS({
                   variant: "primary",
                   color: "green",
                   __internal__hover,
                   __internal__active,
-                }),
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                textDecoration: "none",
-                boxSizing: "border-box",
-              };
+                })
+              );
             }
 
             default: {

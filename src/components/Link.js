@@ -16,6 +16,7 @@ import {
 } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import { formatArray } from "../utils/array";
+import { hasOwnProperty } from "../utils/core";
 
 const APPEARANCES = ["text", "primary-button", "secondary-button", "icon"];
 const VARIANTS = [
@@ -102,7 +103,11 @@ function Link(props) {
           : "light-bg";
       }
 
-      if (["primary-button", "secondary-button"].includes(appearance)) {
+      if (appearance === "primary-button") {
+        return isDarkBackground ? "white-button" : "blue-button";
+      }
+
+      if (appearance === "secondary-button") {
         return isDarkBackground
           ? "white-button"
           : isMediumBackground
@@ -114,17 +119,9 @@ function Link(props) {
     },
     theme
   );
-  const getAppearanceFromVariant = (variant) =>
-    props.appearance ??
-    (["blue-button", "white-button", "green-button"].includes(variant)
-      ? "primary-button"
-      : variant === "black-button"
-      ? "secondary-button"
-      : "text");
   const anchorCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    variant: (_, theme, bp) => {
-      const variant = props.variant ?? variantMap[bp];
-      const appearance = getAppearanceFromVariant(variant);
+    variant: (_, theme) => {
+      const { appearance } = mergedProps;
 
       return theme.link.getCSS({
         targetElement: "anchor",
@@ -133,11 +130,14 @@ function Link(props) {
       });
     },
     margin: responsiveMargin,
+    width: responsiveSize("width"),
   });
   const spanCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     variant: (_, theme, bp) => {
-      const variant = props.variant ?? variantMap[bp];
-      const appearance = getAppearanceFromVariant(variant);
+      const { appearance } = mergedProps;
+      const variant = hasOwnProperty(props, "variant")
+        ? mergedProps.variant
+        : variantMap[bp];
 
       return theme.link.getCSS({
         targetElement: "span",
@@ -150,7 +150,6 @@ function Link(props) {
       });
     },
     padding: responsivePadding,
-    width: responsiveSize("width"),
   });
 
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
