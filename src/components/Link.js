@@ -52,7 +52,6 @@ const mediumColorsMap = {
   "grey.t10": true,
   "grey.t16": true,
   "secondary.lightBlue.t25": true,
-  "secondary.lightBlue.t15": true,
   "secondary.pink.t30": true,
   "secondary.pink.t15": true,
   "secondary.purple.t30": true,
