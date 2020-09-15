@@ -197,9 +197,13 @@ describe("Link", () => {
     );
 
     const span = screen.getByText("Terms and Conditions");
+    const link = span.parentElement;
 
-    expect(span).toHaveStyle({
+    expect(link).toHaveStyle({
       width: "300px",
+    });
+    expect(span).toHaveStyle({
+      width: "100%",
     });
   });
 

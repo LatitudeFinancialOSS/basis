@@ -83,17 +83,17 @@ function Button(props) {
   } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     color: (_, theme, bp) => {
-      const color =
-        hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
-          ? mergedProps.color
-          : getInheritedColor(bgMap?.[bp]);
-      const variant =
-        hasOwnProperty(props, "variant") &&
-        hasOwnProperty(mergedProps, "variant")
-          ? mergedProps.variant
-          : color === "black"
-          ? "secondary"
-          : "primary";
+      const { variant } = mergedProps;
+      let color = hasOwnProperty(props, "color")
+        ? mergedProps.color
+        : getInheritedColor(bgMap?.[bp]);
+
+      if (
+        (color === "black" && variant !== "secondary") ||
+        (color === "green" && variant !== "primary")
+      ) {
+        color = DEFAULT_PROPS.color;
+      }
 
       return theme.button.getCSS({
         variant,
