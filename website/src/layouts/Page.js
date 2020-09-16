@@ -9,7 +9,7 @@ import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
 import Splitbee from "../components/Splitbee";
-import { BasisProvider, Container, Text, Link } from "basis";
+import { BasisProvider, Container, Text } from "basis";
 import theme from "../themes/website";
 import { getTabsUrls } from "../utils/url";
 import "typeface-montserrat";
@@ -116,9 +116,21 @@ function Page({ pageContext, children }) {
                               }}
                               key={name}
                             >
-                              <Link href={href} newTab={false} padding="2 6">
+                              <GatsbyLink
+                                css={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  boxSizing: "border-box",
+                                  width: "100%",
+                                  padding: `${theme.space[2]} ${theme.space[6]}`,
+                                  color: isCurrent
+                                    ? theme.colors.black
+                                    : theme.colors.grey.t75,
+                                }}
+                                to={href}
+                              >
                                 {name}
-                              </Link>
+                              </GatsbyLink>
                             </li>
                           ))}
                         </ul>

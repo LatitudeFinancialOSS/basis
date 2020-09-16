@@ -170,20 +170,6 @@ describe("Link", () => {
     });
   });
 
-  it("with padding", () => {
-    render(
-      <Link href="/terms" newTab={false} padding="3 6">
-        Terms and Conditions
-      </Link>
-    );
-
-    const span = screen.getByText("Terms and Conditions");
-
-    expect(span).toHaveStyle({
-      padding: "12px 24px",
-    });
-  });
-
   it("with width", () => {
     render(
       <Link

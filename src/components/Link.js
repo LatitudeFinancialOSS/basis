@@ -5,15 +5,10 @@ import useTheme from "../hooks/useTheme";
 import useBackground, { mapResponsiveValues } from "../hooks/useBackground";
 import {
   responsiveMarginType,
-  responsivePaddingType,
   responsiveWidthType,
 } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import {
-  responsiveMargin,
-  responsivePadding,
-  responsiveSize,
-} from "../utils/css";
+import { responsiveMargin, responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import { formatArray } from "../utils/array";
 import { hasOwnProperty } from "../utils/core";
@@ -148,7 +143,6 @@ function Link(props) {
         __internal__active,
       });
     },
-    padding: responsivePadding,
   });
 
   const { InternalLink, isLinkInternal } = useContext(LinkContext);
@@ -206,7 +200,6 @@ function Link(props) {
 
 Link.propTypes = {
   ...responsiveMarginType,
-  ...responsivePaddingType,
   ...responsiveWidthType,
   appearance: (props) => {
     if (props.appearance === undefined) {
