@@ -35,6 +35,10 @@ function ButtonStates({ variant, color }) {
         <Button variant={variant} color={color} disabled>
           {variant === "icon" ? <Icon name="cross" /> : "Disabled"}
         </Button>
+
+        <Button variant={variant} color={color} loading>
+          {variant === "icon" ? <Icon name="cross" /> : "Loading"}
+        </Button>
       </Stack>
     </Container>
   );

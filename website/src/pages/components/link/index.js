@@ -162,16 +162,16 @@ function LinkPage() {
       <ComponentContainer
         code={code}
         scope={scope}
-        backgroundColor={
+        bg={
           variant === "dark-bg"
-            ? theme.colors.primary.blue.t100
+            ? "primary.blue.t100"
             : variant === "medium-bg"
-            ? theme.colors.secondary.lightBlue.t15
+            ? "secondary.lightBlue.t15"
             : variant === "white-button"
-            ? theme.colors.highlight.pink.t100
+            ? "highlight.pink.t100"
             : variant === "black-button"
-            ? theme.colors.secondary.pink.t30
-            : theme.colors.white
+            ? "secondary.pink.t30"
+            : "white"
         }
       />
     </>

@@ -125,11 +125,7 @@ function TextPage() {
         code={code}
         scope={scope}
         width="sm"
-        backgroundColor={
-          color === "white"
-            ? theme.colors.primary.blue.t100
-            : theme.colors.white
-        }
+        bg={color === "white" ? "primary.blue.t100" : "white"}
       />
     </>
   );

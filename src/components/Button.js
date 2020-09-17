@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import useBackground from "../hooks/useBackground";
+import LoadingIcon from "./LoadingIcon";
+import useTheme from "../hooks/useTheme";
+import useBackground, { mapResponsiveValues } from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMarginType,
   responsiveWidthType,
 } from "../hooks/useResponsiveProp";
 import { hasOwnProperty } from "../utils/core";
+import { getPropsFromMap } from "../utils/component";
 import { responsiveMargin, responsiveSize } from "../utils/css";
 import { mergeProps } from "../utils/component";
 import { formatArray } from "../utils/array";
@@ -18,6 +21,7 @@ const TYPES = ["button", "submit"];
 const DEFAULT_PROPS = {
   variant: "primary",
   color: "highlight.blue.t100",
+  loading: false,
   disabled: false,
   type: "button",
   __internal__keyboardFocus: false,
@@ -49,15 +53,20 @@ const mediumColorsMap = {
   "secondary.turquoise.t10": true,
 };
 
-function getInheritedColor(backgroundColor) {
-  return darkColorsMap[backgroundColor]
+function getButtonColor(bg) {
+  return darkColorsMap[bg]
     ? "white"
-    : mediumColorsMap[backgroundColor]
+    : mediumColorsMap[bg]
     ? "black"
     : "highlight.blue.t100";
 }
 
+function getLoadingIconColor(bg) {
+  return getButtonColor(bg);
+}
+
 function Button(props) {
+  const theme = useTheme();
   const { bgMap } = useBackground();
   const mergedProps = mergeProps(
     props,
@@ -71,6 +80,8 @@ function Button(props) {
     }
   );
   const {
+    variant,
+    loading,
     disabled,
     type,
     onClick,
@@ -80,12 +91,15 @@ function Button(props) {
     __internal__hover,
     __internal__active,
   } = mergedProps;
-  const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+  const showLoadingIcon =
+    ["primary", "secondary"].includes(variant) &&
+    props.color !== "green" &&
+    loading;
+  const buttonCSS = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     color: (_, theme, bp) => {
-      const { variant } = mergedProps;
       let color = hasOwnProperty(props, "color")
         ? mergedProps.color
-        : getInheritedColor(bgMap?.[bp]);
+        : getButtonColor(bgMap?.[bp]);
 
       if (
         (color === "black" && variant !== "secondary") ||
@@ -95,8 +109,10 @@ function Button(props) {
       }
 
       return theme.button.getCSS({
+        targetElement: "button",
         variant,
         color,
+        showLoadingIcon,
         __internal__keyboardFocus,
         __internal__hover,
         __internal__active,
@@ -105,16 +121,42 @@ function Button(props) {
     margin: responsiveMargin,
     width: responsiveSize("width"),
   });
+  const loadingIconCSS = theme.button.getCSS({
+    targetElement: "loadingIcon",
+  });
+  const contentCSS = theme.button.getCSS({
+    targetElement: "content",
+    showLoadingIcon,
+  });
+  const loadingIconColorProps = useMemo(
+    () =>
+      getPropsFromMap(
+        "color",
+        mapResponsiveValues(
+          bgMap,
+          (bg) => {
+            return getLoadingIconColor(bg);
+          },
+          theme
+        )
+      ),
+    [bgMap, theme]
+  );
 
   return (
     <button
-      css={css}
-      disabled={disabled}
+      css={buttonCSS}
+      disabled={showLoadingIcon || disabled}
       type={type}
       onClick={onClick}
       data-testid={testId}
     >
-      {children}
+      {showLoadingIcon && (
+        <span css={loadingIconCSS} aria-hidden="true">
+          <LoadingIcon {...loadingIconColorProps} />
+        </span>
+      )}
+      <span css={contentCSS}>{children}</span>
     </button>
   );
 }
@@ -147,6 +189,7 @@ Button.propTypes = {
       );
     }
   },
+  loading: PropTypes.bool,
   disabled: PropTypes.bool,
   type: PropTypes.oneOf(TYPES),
   onClick: PropTypes.func,

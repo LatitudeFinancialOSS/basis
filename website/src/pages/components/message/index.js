@@ -111,9 +111,7 @@ function ButtonPage() {
         code={code}
         scope={scope}
         width="md"
-        backgroundColor={
-          bg === "white" ? theme.colors.grey.t05 : theme.colors.white
-        }
+        bg={bg === "white" ? "grey.t05" : "white"}
       />
     </>
   );

@@ -113,6 +113,22 @@ describe("Button", () => {
     });
   });
 
+  it("loading", () => {
+    render(<Button loading>I agree</Button>);
+
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyle({
+      backgroundColor: "transparent",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "rgba(0,0,0,0.35)",
+      cursor: "progress",
+    });
+
+    expect(screen.getByLabelText("Loading icon")).toBeInTheDocument();
+  });
+
   it("disabled", () => {
     render(<Button disabled>Find out more</Button>);
 

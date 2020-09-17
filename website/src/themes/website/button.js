@@ -8,7 +8,11 @@ export default (theme) => {
   }
 
   return {
-    getCSS: ({ variant }) => {
+    getCSS: ({ targetElement, variant }) => {
+      if (targetElement !== "button") {
+        return {};
+      }
+
       let css = {
         fontSize: theme.fontSizes[0],
         lineHeight: theme.lineHeights[0],
