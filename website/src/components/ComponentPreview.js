@@ -83,6 +83,7 @@ function ComponentPreviewContent({
   window,
   document,
   hasBodyMargin,
+  bg,
   setDocument,
   containerRef,
   highlightedComponents,
@@ -104,7 +105,7 @@ function ComponentPreviewContent({
           }}
         />
       )}
-      <BackgroundProvider value={null}>
+      <BackgroundProvider value={bg ?? null}>
         <LivePreview
           Component={LivePreviewWrapper}
           containerRef={containerRef}
@@ -119,6 +120,7 @@ ComponentPreviewContent.propTypes = {
   window: PropTypes.object.isRequired,
   document: PropTypes.object.isRequired,
   hasBodyMargin: PropTypes.bool.isRequired,
+  bg: PropTypes.string,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,
   highlightedComponents: PropTypes.object,
@@ -128,6 +130,7 @@ function ComponentPreview({
   iframeTitle = "Preview",
   iframeStyle,
   hasBodyMargin = true,
+  bg,
   setDocument,
   containerRef,
   onMouseLeave,
@@ -157,6 +160,7 @@ function ComponentPreview({
                   window={window}
                   document={document}
                   hasBodyMargin={hasBodyMargin}
+                  bg={bg}
                   setDocument={setDocument}
                   containerRef={containerRef}
                   highlightedComponents={highlightedComponents}
@@ -174,6 +178,7 @@ ComponentPreview.propTypes = {
   iframeTitle: PropTypes.string,
   iframeStyle: PropTypes.object,
   hasBodyMargin: PropTypes.bool,
+  bg: PropTypes.string,
   setDocument: PropTypes.func,
   containerRef: PropTypes.func,
   onMouseLeave: PropTypes.func,

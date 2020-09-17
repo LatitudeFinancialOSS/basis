@@ -133,9 +133,7 @@ function AccordionPage() {
       <ComponentContainer
         code={code}
         scope={scope}
-        backgroundColor={
-          color === "white" ? theme.colors.grey.t07 : theme.colors.white
-        }
+        bg={color === "white" ? "grey.t07" : "white"}
       />
     </>
   );

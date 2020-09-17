@@ -55,11 +55,7 @@ function IconPage() {
       <ComponentContainer
         code={code}
         scope={scope}
-        backgroundColor={
-          color === "white"
-            ? theme.colors.highlight.blue.t100
-            : theme.colors.white
-        }
+        bg={color === "white" ? "highlight.blue.t100" : "white"}
       />
     </>
   );

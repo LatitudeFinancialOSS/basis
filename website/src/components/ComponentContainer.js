@@ -19,13 +19,7 @@ const rightOnly = {
 };
 
 function ComponentContainer(props) {
-  const {
-    code,
-    noInline = false,
-    scope,
-    hasBodyMargin,
-    backgroundColor,
-  } = props;
+  const { code, noInline = false, scope, hasBodyMargin, bg } = props;
   const theme = useTheme();
   const spaceBetween = parseInt(theme.space[11], 10);
   const spaceAroundIframe = parseInt(theme.space[5], 10);
@@ -94,11 +88,11 @@ function ComponentContainer(props) {
                 height: "100%",
                 boxSizing: "border-box",
                 padding: spaceAroundIframe,
-                backgroundColor,
+                backgroundColor: theme.getColor(bg),
                 overflowY: "auto",
               }}
             >
-              <ComponentPreview hasBodyMargin={hasBodyMargin} />
+              <ComponentPreview hasBodyMargin={hasBodyMargin} bg={bg} />
             </div>
           </Resizable>
         </div>
@@ -117,7 +111,7 @@ ComponentContainer.propTypes = {
   scope: PropTypes.object.isRequired,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hasBodyMargin: PropTypes.bool,
-  backgroundColor: PropTypes.string,
+  bg: PropTypes.string,
 };
 
 export default ComponentContainer;

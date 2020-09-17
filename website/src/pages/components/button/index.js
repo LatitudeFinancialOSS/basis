@@ -13,13 +13,15 @@ const scope = allDesignSystem;
 
 const variantOptions = getRadioOptions(VARIANTS);
 const colorOptions = getRadioOptions(COLORS);
-const isDisabledOptions = getCheckboxOptions();
+const loadingOptions = getCheckboxOptions();
+const disabledOptions = getCheckboxOptions();
 const typeOptions = getRadioOptions(TYPES);
 
 function ButtonPage() {
   const theme = useTheme();
   const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
+  const [loading, setLoading] = useState(DEFAULT_PROPS.loading);
   const [disabled, setIsDisabled] = useState(DEFAULT_PROPS.disabled);
   const [type, setType] = useState(DEFAULT_PROPS.type);
   const code = formatCode(`<Button ${nonDefaultProps([
@@ -32,6 +34,12 @@ function ButtonPage() {
       prop: "color",
       value: color,
       defaultValue: DEFAULT_PROPS.color,
+    },
+    {
+      prop: "loading",
+      value: loading,
+      defaultValue: DEFAULT_PROPS.loading,
+      type: "boolean",
     },
     {
       prop: "disabled",
@@ -66,7 +74,8 @@ function ButtonPage() {
             disabled:
               (color === "green" && value !== "primary") ||
               (color === "black" && value !== "secondary") ||
-              (value === "icon" && color !== "highlight.blue.t100"),
+              (value === "icon" &&
+                (color !== "highlight.blue.t100" || loading === true)),
           }))}
           selectedValue={variant}
           setSelectedValue={setVariant}
@@ -78,7 +87,8 @@ function ButtonPage() {
             value,
             label,
             disabled:
-              (value === "green" && variant !== "primary") ||
+              (value === "green" &&
+                (variant !== "primary" || loading === true)) ||
               (value === "black" && variant !== "secondary") ||
               (variant === "icon" && value !== "highlight.blue.t100"),
           }))}
@@ -87,8 +97,21 @@ function ButtonPage() {
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
+          heading="Loading"
+          options={loadingOptions.map(({ value, label }) => ({
+            value,
+            label,
+            disabled:
+              value === true && (variant === "icon" || color === "green"),
+          }))}
+          selectedValue={loading}
+          setSelectedValue={setLoading}
+          type="boolean"
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
           heading="Disabled"
-          options={isDisabledOptions}
+          options={disabledOptions}
           selectedValue={disabled}
           setSelectedValue={setIsDisabled}
           type="boolean"
@@ -104,12 +127,12 @@ function ButtonPage() {
       <ComponentContainer
         code={code}
         scope={scope}
-        backgroundColor={
+        bg={
           color === "black"
-            ? theme.colors.grey.t07
+            ? "grey.t07"
             : color === "white"
-            ? theme.colors.primary.blue.t100
-            : theme.colors.white
+            ? "primary.blue.t100"
+            : "white"
         }
       />
     </>

@@ -178,9 +178,7 @@ function FrequencyPage() {
       <ComponentContainer
         code={code}
         scope={scope}
-        backgroundColor={
-          color === "white" ? theme.colors.grey.t05 : theme.colors.white
-        }
+        bg={color === "white" ? "grey.t05" : "white"}
       />
     </>
   );

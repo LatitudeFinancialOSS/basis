@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { keyframes } from "@emotion/core";
-import useTheme from "../hooks/useTheme";
+import { responsivePropType } from "../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 
 const SIZES = ["small", "medium", "large"];
-const COLORS = ["highlight.blue.t100", "white"];
+const COLORS = ["highlight.blue.t100", "white", "black"];
 
 const DEFAULT_PROPS = {
   size: "small",
@@ -23,10 +24,8 @@ LoadingIcon.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function LoadingIcon(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { size, color, testId } = props;
-  const theme = useTheme();
+  const { size, testId } = props;
   const radius = circleRadiusMap[size] ?? 4;
-  const circleColor = theme.getColor(color) ?? theme.colors.black;
   const stepPx = `${3 * radius}px`;
   const frames = 12; // 3 circles * 4 steps each
   const percantagePerFrame = 100 / frames;
@@ -71,7 +70,14 @@ function LoadingIcon(_props) {
       }, {})
     );
 
-  const css = [
+  const svgCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: ({ color }, theme) => {
+      return {
+        fill: theme.getColor(color) ?? theme.colors.black,
+      };
+    },
+  });
+  const circleCSS = [
     getKeyframes([
       start,
       right,
@@ -120,6 +126,7 @@ function LoadingIcon(_props) {
 
   return (
     <svg
+      css={svgCSS}
       width={svgSize}
       height={svgSize}
       viewBox={`0 0 ${svgSize} ${svgSize}`}
@@ -128,34 +135,16 @@ function LoadingIcon(_props) {
       aria-label="Loading icon"
       data-testid={testId}
     >
-      <circle
-        cx={radius}
-        cy={radius}
-        r={radius}
-        fill={circleColor}
-        css={css[0]}
-      />
-      <circle
-        cx={radius}
-        cy={4 * radius}
-        r={radius}
-        fill={circleColor}
-        css={css[1]}
-      />
-      <circle
-        cx={4 * radius}
-        cy={4 * radius}
-        r={radius}
-        fill={circleColor}
-        css={css[2]}
-      />
+      <circle cx={radius} cy={radius} r={radius} css={circleCSS[0]} />
+      <circle cx={radius} cy={4 * radius} r={radius} css={circleCSS[1]} />
+      <circle cx={4 * radius} cy={4 * radius} r={radius} css={circleCSS[2]} />
     </svg>
   );
 }
 
 LoadingIcon.propTypes = {
+  ...responsivePropType("color", PropTypes.oneOf(COLORS)),
   size: PropTypes.oneOf(SIZES),
-  color: PropTypes.oneOf(COLORS),
   testId: PropTypes.string,
 };
 

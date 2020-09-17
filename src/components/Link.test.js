@@ -62,6 +62,8 @@ describe("Link", () => {
 
     const span = screen.getByText("Terms and Conditions");
 
+    screen.debug(span);
+
     expect(span).toHaveStyle({
       backgroundColor: "#ffffff",
       color: "#006aff",

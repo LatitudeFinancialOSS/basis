@@ -136,6 +136,7 @@ export default (theme) => {
             case "blue-button": {
               return getButtonCSS(
                 buttonTheme.getCSS({
+                  targetElement: "button",
                   variant:
                     appearance === "primary-button" ? "primary" : "secondary",
                   color: "highlight.blue.t100",
@@ -148,6 +149,7 @@ export default (theme) => {
             case "white-button": {
               return getButtonCSS(
                 buttonTheme.getCSS({
+                  targetElement: "button",
                   variant:
                     appearance === "primary-button" ? "primary" : "secondary",
                   color: "white",
@@ -160,6 +162,7 @@ export default (theme) => {
             case "black-button": {
               return getButtonCSS(
                 buttonTheme.getCSS({
+                  targetElement: "button",
                   variant: "secondary",
                   color: "black",
                   __internal__hover,
@@ -171,6 +174,7 @@ export default (theme) => {
             case "green-button": {
               return getButtonCSS(
                 buttonTheme.getCSS({
+                  targetElement: "button",
                   variant: "primary",
                   color: "green",
                   __internal__hover,
