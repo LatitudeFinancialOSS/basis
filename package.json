@@ -33,7 +33,7 @@
     "klona": "2.0.4",
     "mem": "6.1.1",
     "nanoid": "3.1.12",
-    "polished": "3.6.6",
+    "polished": "3.6.7",
     "react-resize-aware": "3.0.1"
   },
   "peerDependencies": {
