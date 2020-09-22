@@ -128,7 +128,15 @@ function Stack(props) {
         {React.Children.toArray(children)
           .filter((child) => child != null)
           .map((child, index) => (
-            <div css={childCSS} key={index}>
+            <div
+              css={{
+                ":empty": {
+                  display: "none",
+                },
+                ...childCSS,
+              }}
+              key={index}
+            >
               {child}
             </div>
           ))}
