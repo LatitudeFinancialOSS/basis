@@ -8,11 +8,12 @@ import RadioGroupSetting, {
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, DatePicker } = allDesignSystem;
-const { COLORS, DEFAULT_PROPS } = DatePicker;
+const { COLORS, DAY_MODES, YEAR_MODES, DEFAULT_PROPS } = DatePicker;
 const scope = allDesignSystem;
 
 const colorOptions = getRadioOptions(COLORS);
-const dayOptions = getCheckboxOptions();
+const dayModeOptions = getRadioOptions(DAY_MODES);
+const yearModeOptions = getRadioOptions(YEAR_MODES);
 const isOptionalOptions = getCheckboxOptions();
 const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
@@ -20,7 +21,8 @@ const isDisabledOptions = getCheckboxOptions();
 function DatePickerPage() {
   const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
-  const [day, setDay] = useState(DEFAULT_PROPS.day);
+  const [dayMode, setDayMode] = useState(DEFAULT_PROPS.dayMode);
+  const [yearMode, setYearMode] = useState(DEFAULT_PROPS.yearMode);
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
@@ -53,10 +55,14 @@ function DatePickerPage() {
               value: "Birth date",
             },
             {
-              prop: "day",
-              value: day,
-              defaultValue: DEFAULT_PROPS.day,
-              type: "boolean",
+              prop: "dayMode",
+              value: dayMode,
+              defaultValue: DEFAULT_PROPS.dayMode,
+            },
+            {
+              prop: "yearMode",
+              value: yearMode,
+              defaultValue: DEFAULT_PROPS.yearMode,
             },
             {
               prop: "optional",
@@ -101,11 +107,17 @@ function DatePickerPage() {
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}
-          heading="Day"
-          options={dayOptions}
-          selectedValue={day}
-          setSelectedValue={setDay}
-          type="boolean"
+          heading="Day mode"
+          options={dayModeOptions}
+          selectedValue={dayMode}
+          setSelectedValue={setDayMode}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Year mode"
+          options={yearModeOptions}
+          selectedValue={yearMode}
+          setSelectedValue={setYearMode}
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}

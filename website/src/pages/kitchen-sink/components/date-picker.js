@@ -5,28 +5,28 @@ import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayou
 import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
 function FormWithDatePicker({
-  label,
-  day,
   initialValue = {
     day: "",
     month: "",
     year: "",
   },
   submitOnMount,
+  ...rest
 }) {
   return (
     <KitchenSinkForm
       initialValues={{ birthDate: initialValue }}
       submitOnMount={submitOnMount}
     >
-      <DatePicker name="birthDate" label={label} day={day} />
+      <DatePicker name="birthDate" {...rest} />
     </KitchenSinkForm>
   );
 }
 
 FormWithDatePicker.propTypes = {
   label: PropTypes.string.isRequired,
-  day: PropTypes.bool,
+  dayMode: PropTypes.oneOf(DatePicker.DAY_MODES),
+  yearMode: PropTypes.oneOf(DatePicker.YEAR_MODES),
   initialValue: PropTypes.shape({
     day: PropTypes.string,
     month: PropTypes.string.isRequired,
@@ -40,9 +40,17 @@ function KitchenSinkDatePicker() {
     <KitchenSinkLayout name="DatePicker">
       <Container padding="4" width="320" bg="white">
         <Grid rowsGap="8">
-          <FormWithDatePicker label="Grey" />
+          <FormWithDatePicker label="Default" />
 
-          <FormWithDatePicker label="Without day" day={false} />
+          <FormWithDatePicker label="2 digits year" yearMode="2-digits" />
+
+          <FormWithDatePicker label="No day" dayMode="none" />
+
+          <FormWithDatePicker
+            label="No day and 2 digits year"
+            dayMode="none"
+            yearMode="2-digits"
+          />
 
           <FormWithDatePicker
             label="With error"
@@ -68,15 +76,35 @@ function KitchenSinkDatePicker() {
           />
 
           <FormWithDatePicker
-            label="Without day"
-            day={false}
+            label="No day"
+            dayMode="none"
             initialValue={{
               month: "2",
               year: "1999",
             }}
           />
 
-          <FormWithDatePicker label="Multiple errors" submitOnMount />
+          <FormWithDatePicker
+            label="No day and 2 digits year"
+            dayMode="none"
+            yearMode="2-digits"
+            initialValue={{
+              month: "03",
+              year: "00",
+            }}
+          />
+
+          <FormWithDatePicker label="Required" submitOnMount />
+
+          <FormWithDatePicker
+            label="Multiple errors"
+            initialValue={{
+              day: "34",
+              month: "56",
+              year: "7890",
+            }}
+            submitOnMount
+          />
         </Grid>
       </Container>
     </KitchenSinkLayout>

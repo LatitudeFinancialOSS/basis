@@ -139,11 +139,7 @@ describe("Form", () => {
           name: ["Required"],
           relationshipStatus: ["Please make a selection."],
           salary: ["Please enter an amount.", "Please select a frequency."],
-          birthDate: [
-            "Day must be within 1-31.",
-            "Month must be within 1-12.",
-            "Year must be within 1800-2200.",
-          ],
+          birthDate: ["Required"],
         },
         values: {
           age: {
