@@ -13,58 +13,60 @@ import InternalInput from "./internal/InternalInput";
 import Grid from "./Grid";
 
 const { COLORS } = InternalInput;
+const DAY_MODES = ["none", "2-digits"];
+const YEAR_MODES = ["2-digits", "4-digits"];
 
-const DAY_REGEX = /^\d{1,2}$/;
-const MONTH_REGEX = /^\d{1,2}$/;
-const YEAR_REGEX = /^\d{1,4}$/;
+const DAY_REGEX = /^([012]?[1-9]|[123]0|31)$/;
+const MONTH_REGEX = /^(0?[1-9]|1[012])$/;
+const TWO_DIGITS_YEAR_REGEX = /^\d{2}$/;
+const FOUR_DIGITS_YEAR_REGEX = /^(19|20|21)\d{2}$/;
 
 const DEFAULT_PROPS = {
   color: InternalInput.DEFAULT_PROPS.color,
-  day: true,
+  dayMode: "2-digits",
+  yearMode: "4-digits",
   disabled: false,
   optional: false,
-  validate: ({ day, month, year }, data) => {
+  validate: (value, { isEmpty, dayMode, yearMode }) => {
+    if (isEmpty(value)) {
+      return "Required";
+    }
+
+    const { day, month, year } = value;
     const errors = [];
 
-    if (data.day) {
-      if (DAY_REGEX.test(day)) {
-        const dayInt = parseInt(day, 10);
-
-        if (dayInt < 1 || dayInt > 31) {
-          errors.push("Day must be within 1-31.");
-        }
-      } else {
+    if (dayMode === "2-digits") {
+      if (DAY_REGEX.test(day) === false) {
         errors.push("Day must be within 1-31.");
       }
     }
 
-    if (MONTH_REGEX.test(month)) {
-      const monthInt = parseInt(month, 10);
-
-      if (monthInt < 1 || monthInt > 12) {
-        errors.push("Month must be within 1-12.");
-      }
-    } else {
+    if (MONTH_REGEX.test(month) === false) {
       errors.push("Month must be within 1-12.");
     }
 
-    if (YEAR_REGEX.test(year)) {
-      const yearInt = parseInt(year, 10);
-
-      if (yearInt < 1800 || yearInt > 2200) {
-        errors.push("Year must be within 1800-2200.");
+    if (yearMode === "2-digits") {
+      if (TWO_DIGITS_YEAR_REGEX.test(year) === false) {
+        errors.push("Year must be within 00-99.");
       }
     } else {
-      errors.push("Year must be within 1800-2200.");
+      if (FOUR_DIGITS_YEAR_REGEX.test(year) === false) {
+        errors.push("Year must be within 1900-2199.");
+      }
     }
 
-    if (data.day && errors.length === 0) {
+    if (dayMode === "2-digits" && errors.length === 0) {
       const twoDigitsDay = day.length === 1 ? `0${day}` : day;
       const twoDigitsMonth = month.length === 1 ? `0${month}` : month;
 
       if (
-        isDateValid(parseISO(`${year}-${twoDigitsMonth}-${twoDigitsDay}`)) ===
-        false
+        isDateValid(
+          parseISO(
+            `${
+              yearMode === "2-digits" ? `20${year}` : year
+            }-${twoDigitsMonth}-${twoDigitsDay}`
+          )
+        ) === false
       ) {
         errors.push("Invalid date.");
       }
@@ -75,24 +77,37 @@ const DEFAULT_PROPS = {
 };
 
 DatePicker.COLORS = COLORS;
+DatePicker.DAY_MODES = DAY_MODES;
+DatePicker.YEAR_MODES = YEAR_MODES;
 DatePicker.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function getHelpText(value, day, defaultHelpText) {
-  const dayInt = day ? parseInt(value.day || "0", 10) : 1;
-  const monthInt = parseInt(value.month || "0", 10);
-  const yearInt = parseInt(value.year || "0", 10);
-
-  if ((day && dayInt === 0) || monthInt === 0 || yearInt === 0) {
+function getHelpText(value, dayMode, yearMode, defaultHelpText) {
+  if (
+    (dayMode === "2-digits" && DAY_REGEX.test(value.day) === false) ||
+    MONTH_REGEX.test(value.month) === false ||
+    (yearMode === "2-digits" &&
+      TWO_DIGITS_YEAR_REGEX.test(value.year) === false) ||
+    (yearMode === "4-digits" &&
+      FOUR_DIGITS_YEAR_REGEX.test(value.year) === false)
+  ) {
     return defaultHelpText;
   }
 
-  const date = new Date(yearInt, monthInt - 1, dayInt);
+  const dayInt = dayMode === "2-digits" ? parseInt(value.day, 10) : 1;
+  const monthInt = parseInt(value.month, 10);
+  const yearInt = parseInt(value.year, 10);
+
+  const date = new Date(
+    yearMode === "2-digits" ? 2000 + yearInt : yearInt,
+    monthInt - 1,
+    dayInt
+  );
 
   if (isNaN(date)) {
     return defaultHelpText;
   }
 
-  return formatDate(date, day ? "d MMMM yyyy" : "MMMM yyyy");
+  return formatDate(date, dayMode === "2-digits" ? "d MMMM yyyy" : "MMMM yyyy");
 }
 
 function DatePicker(props) {
@@ -102,7 +117,8 @@ function DatePicker(props) {
     {},
     {
       color: (color) => COLORS.includes(color),
-      day: (day) => typeof day === "boolean",
+      dayMode: (dayMode) => DAY_MODES.includes(dayMode),
+      yearMode: (yearMode) => YEAR_MODES.includes(yearMode),
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
     }
@@ -110,7 +126,8 @@ function DatePicker(props) {
   const {
     name,
     label,
-    day,
+    dayMode,
+    yearMode,
     helpText: helpTextProp,
     disabled,
     optional,
@@ -121,19 +138,20 @@ function DatePicker(props) {
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
   const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
   const isEmpty = useCallback(
-    (value) =>
-      (day === false || value.day.trim() === "") &&
-      value.month.trim() === "" &&
-      value.year.trim() === "",
-    [day]
+    ({ day, month, year }) =>
+      (dayMode === "none" || day.trim() === "") &&
+      month.trim() === "" &&
+      year.trim() === "",
+    [dayMode]
   );
   const data = useMemo(
     () => ({
       isEmpty,
-      day,
+      dayMode,
+      yearMode,
       ...(validateData && { data: validateData }),
     }),
-    [isEmpty, day, validateData]
+    [isEmpty, dayMode, yearMode, validateData]
   );
   const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
     "DatePicker",
@@ -145,11 +163,10 @@ function DatePicker(props) {
       data,
     }
   );
-  const helpText = useMemo(() => getHelpText(value, day, helpTextProp), [
-    value,
-    day,
-    helpTextProp,
-  ]);
+  const helpText = useMemo(
+    () => getHelpText(value, dayMode, yearMode, helpTextProp),
+    [value, dayMode, yearMode, helpTextProp]
+  );
 
   return (
     <Field
@@ -167,8 +184,17 @@ function DatePicker(props) {
         aria-labelledby={labelId}
         aria-describedby={helpText || hasErrors ? auxId : null}
       >
-        <Grid cols={day ? 4 : 3} colsGap={1}>
-          {day && (
+        <Grid
+          cols={
+            dayMode === "none" && yearMode === "2-digits"
+              ? 2
+              : dayMode === "2-digits" && yearMode === "4-digits"
+              ? 4
+              : 3
+          }
+          colsGap={1}
+        >
+          {dayMode === "2-digits" && (
             <Grid.Item colSpan={0}>
               <InternalInput
                 name={`${name}.day`}
@@ -185,7 +211,7 @@ function DatePicker(props) {
               />
             </Grid.Item>
           )}
-          <Grid.Item colSpan={day ? 1 : 0}>
+          <Grid.Item colSpan={dayMode === "2-digits" ? 1 : 0}>
             <InternalInput
               name={`${name}.month`}
               parentName={name}
@@ -200,14 +226,24 @@ function DatePicker(props) {
               onChange={onChange}
             />
           </Grid.Item>
-          <Grid.Item colSpan={day ? "2-3" : "1-2"}>
+          <Grid.Item
+            colSpan={
+              dayMode === "none" && yearMode === "2-digits"
+                ? "1"
+                : dayMode === "none" && yearMode === "4-digits"
+                ? "1-2"
+                : dayMode === "2-digits" && yearMode === "2-digits"
+                ? "2"
+                : "2-3"
+            }
+          >
             <InternalInput
               name={`${name}.year`}
               parentName={name}
               variant="numeric"
               color={props.color}
-              placeholder="YYYY"
-              maxLength="4"
+              placeholder={yearMode === "2-digits" ? "YY" : "YYYY"}
+              maxLength={yearMode === "2-digits" ? "2" : "4"}
               disabled={disabled}
               onFocus={onFocus}
               onBlur={onBlur}
@@ -225,7 +261,8 @@ DatePicker.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
-  day: PropTypes.bool,
+  dayMode: PropTypes.oneOf(DAY_MODES),
+  yearMode: PropTypes.oneOf(YEAR_MODES),
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
   optional: PropTypes.bool,

@@ -52,13 +52,13 @@ describe("DatePicker", () => {
     expect(yearInput).toHaveAttribute("maxlength", "4");
   });
 
-  it("doesn't render the day field when day={false}", () => {
-    render(<FormWithDatePicker label="Expiry date" day={false} />);
+  it(`doesn't render the day field when dayMode="none"`, () => {
+    render(<FormWithDatePicker label="Expiry date" dayMode="none" />);
 
     expect(screen.queryByPlaceholderText("DD")).not.toBeInTheDocument();
   });
 
-  it("renders the date as help text", async () => {
+  it("help text date - 4 digits year", async () => {
     const { container } = render(<FormWithDatePicker label="Expiry date" />);
 
     await userEvent.type(screen.getByPlaceholderText("DD"), "6");
@@ -68,15 +68,42 @@ describe("DatePicker", () => {
     expect(getHelpText(container)).toBe("6 April 2017");
   });
 
-  it("renders the date as help text when day={false}", async () => {
+  it("help text date - 2 digits year", async () => {
     const { container } = render(
-      <FormWithDatePicker label="Expiry date" day={false} />
+      <FormWithDatePicker label="Expiry date" yearMode="2-digits" />
+    );
+
+    await userEvent.type(screen.getByPlaceholderText("DD"), "02");
+    await userEvent.type(screen.getByPlaceholderText("MM"), "05");
+    await userEvent.type(screen.getByPlaceholderText("YY"), "00");
+
+    expect(getHelpText(container)).toBe("2 May 2000");
+  });
+
+  it("help text date - no day, 4 digits year", async () => {
+    const { container } = render(
+      <FormWithDatePicker label="Expiry date" dayMode="none" />
     );
 
     await userEvent.type(screen.getByPlaceholderText("MM"), "4");
     await userEvent.type(screen.getByPlaceholderText("YYYY"), "2017");
 
     expect(getHelpText(container)).toBe("April 2017");
+  });
+
+  it("help text date - no day, 2 digits year", async () => {
+    const { container } = render(
+      <FormWithDatePicker
+        label="Expiry date"
+        dayMode="none"
+        yearMode="2-digits"
+      />
+    );
+
+    await userEvent.type(screen.getByPlaceholderText("MM"), "08");
+    await userEvent.type(screen.getByPlaceholderText("YY"), "01");
+
+    expect(getHelpText(container)).toBe("August 2001");
   });
 
   it("renders help text", () => {
@@ -87,7 +114,7 @@ describe("DatePicker", () => {
     expect(getHelpText(container)).toBe("Some help text");
   });
 
-  it("renders error messages", async () => {
+  it("required error message", async () => {
     render(
       <FormWithDatePicker label="Expiry date" helpText="Some help text" />
     );
@@ -97,9 +124,51 @@ describe("DatePicker", () => {
     dayInput.focus();
     dayInput.blur();
 
+    await screen.findByText("Required");
+    await waitFor(() => {
+      expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
+    });
+  });
+
+  it("multiple error messages", async () => {
+    render(
+      <FormWithDatePicker label="Expiry date" helpText="Some help text" />
+    );
+
+    const dayInput = screen.getByPlaceholderText("DD");
+    const monthInput = screen.getByPlaceholderText("MM");
+    const yearInput = screen.getByPlaceholderText("YYYY");
+
+    await userEvent.type(dayInput, "34");
+    await userEvent.type(monthInput, "56");
+    await userEvent.type(yearInput, "7890");
+
+    dayInput.focus();
+    dayInput.blur();
+
     await screen.findByText("Day must be within 1-31.");
     await screen.findByText("Month must be within 1-12.");
-    await screen.findByText("Year must be within 1800-2200.");
+    await screen.findByText("Year must be within 1900-2199.");
+    await waitFor(() => {
+      expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
+    });
+  });
+
+  it("invalid date", async () => {
+    render(<FormWithDatePicker label="Expiry date" />);
+
+    const dayInput = screen.getByPlaceholderText("DD");
+    const monthInput = screen.getByPlaceholderText("MM");
+    const yearInput = screen.getByPlaceholderText("YYYY");
+
+    await userEvent.type(dayInput, "31");
+    await userEvent.type(monthInput, "02");
+    await userEvent.type(yearInput, "2001");
+
+    dayInput.focus();
+    dayInput.blur();
+
+    await screen.findByText("Invalid date.");
     await waitFor(() => {
       expect(screen.queryByText("Some help text")).not.toBeInTheDocument();
     });
