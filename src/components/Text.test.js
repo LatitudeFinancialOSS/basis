@@ -23,6 +23,12 @@ describe("Text", () => {
     });
   });
 
+  it("with id", () => {
+    render(<Text id="my-id">Hello World</Text>);
+
+    expect(screen.getByText("Hello World")).toHaveAttribute("id", "my-id");
+  });
+
   it("h1", () => {
     render(
       <Text as="h1" textStyle="heading1">
