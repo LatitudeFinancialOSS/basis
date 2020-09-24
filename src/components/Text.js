@@ -88,15 +88,16 @@ function Text(props) {
     textStyle: inheritedTextStyle,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    id: (id) => typeof id === "string",
     as: (as) => AS.includes(as),
     textStyle: (textStyle) => TEXT_STYLES.includes(textStyle),
     color: (color) => COLORS.includes(color),
     align: (align) => ALIGNS.includes(align),
     wrap: (wrap) => typeof wrap === "boolean",
   });
-  const { as, align, wrap, children, testId } = mergedProps;
+  const { id, as, align, wrap, children, testId } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    color: (propsAtBreakpoint, theme, bp) => {
+    color: (_, theme, bp) => {
       const color =
         hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
           ? mergedProps.color
@@ -114,15 +115,16 @@ function Text(props) {
   const Component = as;
 
   return (
-    <Component css={css} data-testid={testId}>
+    <Component id={id} css={css} data-testid={testId}>
       {children}
     </Component>
   );
 }
 
 Text.propTypes = {
-  ...responsiveMarginType,
+  id: PropTypes.string,
   as: PropTypes.oneOf(AS),
+  ...responsiveMarginType,
   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
   color: (props) => {
     allowedColors.forEach(({ textStyles, allowedColors }) => {

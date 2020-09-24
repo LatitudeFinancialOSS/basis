@@ -58,6 +58,16 @@ describe("DatePicker", () => {
     expect(screen.queryByPlaceholderText("DD")).not.toBeInTheDocument();
   });
 
+  it("doesn't render the label when aria-labelledby is specified", () => {
+    const { container } = render(
+      <FormWithDatePicker label="Expiry date" aria-labelledby="my-id" />
+    );
+    const inputsContainer = container.querySelector("[aria-labelledby]");
+
+    expect(screen.queryByText("Expiry date")).not.toBeInTheDocument();
+    expect(inputsContainer).toHaveAttribute("aria-labelledby", "my-id");
+  });
+
   it("help text date - 4 digits year", async () => {
     const { container } = render(<FormWithDatePicker label="Expiry date" />);
 
