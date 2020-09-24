@@ -11,6 +11,7 @@ function Field({
   disabled,
   label,
   hideLabel = false,
+  renderLabel = true,
   labelId,
   labelFor,
   auxId,
@@ -20,26 +21,31 @@ function Field({
   testId,
 }) {
   const theme = useTheme();
-  const LabelElement = labelFor ? "label" : "div";
-  const labelContent = (
-    <LabelElement
-      css={theme.field.getCSS({ targetElement: "label" })}
-      id={labelId}
-      htmlFor={labelFor}
-    >
-      {label}
-      {optional && (
-        <span css={theme.field.getCSS({ targetElement: "optionalTag" })}>
-          Optional
-        </span>
-      )}
-    </LabelElement>
-  );
-  const labelToRender = hideLabel ? (
-    <VisuallyHidden>{labelContent}</VisuallyHidden>
-  ) : (
-    labelContent
-  );
+  let labelToRender = null;
+
+  if (renderLabel) {
+    const LabelElement = labelFor ? "label" : "div";
+    const labelContent = (
+      <LabelElement
+        css={theme.field.getCSS({ targetElement: "label" })}
+        id={labelId}
+        htmlFor={labelFor}
+      >
+        {label}
+        {optional && (
+          <span css={theme.field.getCSS({ targetElement: "optionalTag" })}>
+            Optional
+          </span>
+        )}
+      </LabelElement>
+    );
+
+    labelToRender = hideLabel ? (
+      <VisuallyHidden>{labelContent}</VisuallyHidden>
+    ) : (
+      labelContent
+    );
+  }
 
   return (
     <div
@@ -88,6 +94,7 @@ Field.propTypes = {
   labelFor: PropTypes.string,
   label: PropTypes.node,
   hideLabel: PropTypes.bool,
+  renderLabel: PropTypes.bool,
   auxId: PropTypes.string.isRequired,
   helpText: PropTypes.node,
   errors: PropTypes.arrayOf(PropTypes.node),

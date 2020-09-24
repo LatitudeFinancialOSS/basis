@@ -121,6 +121,8 @@ function DatePicker(props) {
       yearMode: (yearMode) => YEAR_MODES.includes(yearMode),
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
+      "aria-labelledby": (ariaLabelledby) =>
+        typeof ariaLabelledby === "string" && ariaLabelledby.trim() !== "",
     }
   );
   const {
@@ -133,6 +135,7 @@ function DatePicker(props) {
     optional,
     validate,
     validateData,
+    "aria-labelledby": ariaLabelledby,
     testId,
   } = mergedProps;
   const [labelId] = useState(() => `date-picker-${nanoid()}`);
@@ -174,6 +177,7 @@ function DatePicker(props) {
       disabled={disabled}
       label={label}
       labelId={labelId}
+      renderLabel={ariaLabelledby === undefined}
       auxId={auxId}
       helpText={helpText}
       errors={errors}
@@ -181,7 +185,7 @@ function DatePicker(props) {
     >
       <div
         aria-invalid={hasErrors ? "true" : null}
-        aria-labelledby={labelId}
+        aria-labelledby={ariaLabelledby || labelId}
         aria-describedby={helpText || hasErrors ? auxId : null}
       >
         <Grid
@@ -260,7 +264,7 @@ function DatePicker(props) {
 DatePicker.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   dayMode: PropTypes.oneOf(DAY_MODES),
   yearMode: PropTypes.oneOf(YEAR_MODES),
   helpText: PropTypes.string,
@@ -268,6 +272,7 @@ DatePicker.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
+  "aria-labelledby": PropTypes.string,
   testId: PropTypes.string,
 };
 
