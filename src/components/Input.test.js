@@ -32,6 +32,7 @@ describe("Input", () => {
 
     expect(inputId).toBeTruthy();
     expect(input).toHaveAttribute("type", "text");
+    expect(input).toHaveAttribute("autoComplete", "off");
     expect(label).toHaveAttribute("for", inputId);
 
     expect(label).toHaveStyle({
@@ -114,6 +115,24 @@ describe("Input", () => {
       paddingLeft: "16px",
       paddingRight: "calc(16px + 9ch)",
     });
+  });
+
+  it("with maxLength", () => {
+    render(<FormWithInput label="New credit limit" maxLength="4" />);
+
+    const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveAttribute("maxLength", "4");
+  });
+
+  it("with autoComplete", () => {
+    render(
+      <FormWithInput label="New credit limit" autoComplete="one-time-code" />
+    );
+
+    const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveAttribute("autoComplete", "one-time-code");
   });
 
   it("renders help text that is connected to the input", () => {

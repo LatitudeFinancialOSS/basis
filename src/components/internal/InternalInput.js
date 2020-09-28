@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import useTheme from "../../hooks/useTheme";
 import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
+import { mergeProps } from "../../utils/component";
 
 const VARIANTS = ["text", "numeric"];
 const COLORS = ["grey.t05", "white"];
@@ -13,6 +14,7 @@ const DEFAULT_PROPS = {
   variant: "text",
   color: "grey.t05",
   disabled: false,
+  autoComplete: "off",
   pasteAllowed: true,
   isValid: true,
   __internal__focus: false,
@@ -23,8 +25,25 @@ InternalInput.COLORS = COLORS;
 InternalInput.NUMERIC_REGEX = NUMERIC_REGEX;
 InternalInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function InternalInput(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function InternalInput(props) {
+  const mergedProps = mergeProps(
+    props,
+    DEFAULT_PROPS,
+    {},
+    {
+      variant: (variant) => VARIANTS.includes(variant),
+      numericPrefix: (numericPrefix) =>
+        typeof numericPrefix === "string" && numericPrefix.length > 0,
+      numericSuffix: (numericSuffix) =>
+        typeof numericSuffix === "string" && numericSuffix.length > 0,
+      maxLength: (maxLength) =>
+        typeof maxLength === "string" || typeof maxLength === "number",
+      autoComplete: (autoComplete) => typeof autoComplete === "string",
+      color: (color) => COLORS.includes(color),
+      disabled: (disabled) => typeof disabled === "boolean",
+      pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
+    }
+  );
   const {
     name,
     parentName,
@@ -34,6 +53,7 @@ function InternalInput(_props) {
     numericPrefix,
     numericSuffix,
     maxLength,
+    autoComplete,
     disabled,
     pasteAllowed,
     isValid,
@@ -43,12 +63,12 @@ function InternalInput(_props) {
     value,
     onChange,
     __internal__focus,
-  } = props;
+  } = mergedProps;
   const theme = useTheme();
   const { inputColorMap } = useBackground();
   const inputCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
-      const color = _props.color ?? inputColorMap[bp];
+      const color = props.color ?? inputColorMap[bp];
 
       return theme.input.getCSS({
         targetElement: "input",
@@ -93,7 +113,7 @@ function InternalInput(_props) {
         maxLength={maxLength}
         disabled={disabled}
         onPaste={onPaste}
-        autoComplete="off"
+        autoComplete={autoComplete}
         autoCorrect="off"
         autoCapitalize="off"
         spellCheck="false"
@@ -116,7 +136,8 @@ InternalInput.propTypes = {
   variant: PropTypes.oneOf(VARIANTS),
   numericPrefix: PropTypes.string,
   numericSuffix: PropTypes.string,
-  maxLength: PropTypes.string,
+  maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  autoComplete: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,
   pasteAllowed: PropTypes.bool,
