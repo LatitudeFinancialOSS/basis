@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import flattenChildren from "react-keyed-flatten-children";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useResponsiveProp, {
   responsiveMarginType,
@@ -15,11 +16,13 @@ import {
 import { mergeProps } from "../utils/component";
 
 const DIRECTIONS = ["vertical", "horizontal"];
-const ALIGNMENTS = ["left", "center", "right"];
+const ALIGNMENTS = ["normal", "left", "center", "right"];
 
 const DEFAULT_PROPS = {
   direction: "vertical",
+  align: "normal",
   gap: "0",
+  flatten: false,
 };
 
 Stack.DIRECTIONS = DIRECTIONS;
@@ -34,9 +37,13 @@ function Stack(props) {
     {
       direction: (direction) => DIRECTIONS.includes(direction),
       align: (align) => ALIGNMENTS.includes(align),
+      flatten: (flatten) => typeof flatten === "boolean",
     }
   );
-  const { children, testId } = mergedProps;
+  const { flatten, children, testId } = mergedProps;
+  const maybeFlattenedChildren = flatten
+    ? flattenChildren(children)
+    : React.Children.toArray(children);
   const direction = useResponsiveProp(mergedProps, "direction");
   const flexWrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
@@ -64,12 +71,14 @@ function Stack(props) {
       }
 
       return {
-        [direction === "horizontal" ? "justifyContent" : "alignItems"]:
-          align === "center"
-            ? "center"
-            : align === "right"
-            ? "flex-end"
-            : "flex-start",
+        [direction === "horizontal" ? "justifyContent" : "alignItems"]: [
+          "normal",
+          "center",
+        ].includes(align)
+          ? align
+          : align === "right"
+          ? "flex-end"
+          : "flex-start",
       };
     },
     gap: ({ gap }, theme) => {
@@ -125,7 +134,7 @@ function Stack(props) {
           ...flexCSS,
         }}
       >
-        {React.Children.toArray(children)
+        {maybeFlattenedChildren
           .filter((child) => child != null)
           .map((child, index) => (
             <div
@@ -154,6 +163,7 @@ Stack.propTypes = {
     "gap",
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   ),
+  flatten: PropTypes.bool,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

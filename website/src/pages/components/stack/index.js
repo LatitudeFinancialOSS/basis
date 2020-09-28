@@ -21,7 +21,7 @@ function StackPage() {
   const [verticalGap, setVerticalGap] = useState(4);
   const [horizontalGap, setHorizontalGap] = useState(8);
   const code = formatCode(`
-    <Container bg="secondary.lightBlue.t25">
+    <Container padding="4" bg="secondary.lightBlue.t25">
       <Stack ${nonDefaultProps([
         {
           prop: "direction",
@@ -42,12 +42,24 @@ function StackPage() {
           defaultValue: DEFAULT_PROPS.gap,
         },
       ])}>
-        <Placeholder label="1" height="40" width="100" />
-        <Placeholder label="2" height="40" width="40" />
-        <Placeholder label="3" height="40" width="140" />
-        <Placeholder label="4" height="40" width="120" />
-        <Placeholder label="5" height="40" width="200" />
-        <Placeholder label="6" height="40" width="80" />
+        <Container bg="white">
+          <Placeholder label="1" height="40" width="100" />
+        </Container>
+        <Container bg="white">
+          <Placeholder label="2" height="40" width="40" />
+        </Container>
+        <Container bg="white">
+          <Placeholder label="3" height="40" width="140" />
+        </Container>
+        <Container bg="white">
+          <Placeholder label="4" height="40" width="120" />
+        </Container>
+        <Container bg="white">
+          <Placeholder label="5" height="40" width="200" />
+        </Container>
+        <Container bg="white">
+          <Placeholder label="6" height="40" width="80" />
+        </Container>
       </Stack>
     </Container>
   `);

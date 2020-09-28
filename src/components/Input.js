@@ -42,6 +42,9 @@ function Input(props) {
         typeof numericPrefix === "string" && numericPrefix.length > 0,
       numericSuffix: (numericSuffix) =>
         typeof numericSuffix === "string" && numericSuffix.length > 0,
+      maxLength: (maxLength) =>
+        typeof maxLength === "string" || typeof maxLength === "number",
+      autoComplete: (autoComplete) => typeof autoComplete === "string",
       color: (color) => COLORS.includes(color),
       disabled: (disabled) => typeof disabled === "boolean",
       pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
@@ -53,6 +56,8 @@ function Input(props) {
     variant,
     numericPrefix,
     numericSuffix,
+    maxLength,
+    autoComplete,
     label,
     placeholder,
     helpText,
@@ -103,6 +108,8 @@ function Input(props) {
         variant={variant}
         numericPrefix={numericPrefix}
         numericSuffix={numericSuffix}
+        maxLength={maxLength}
+        autoComplete={autoComplete}
         placeholder={placeholder}
         color={props.color}
         disabled={disabled}
@@ -124,6 +131,8 @@ Input.propTypes = {
   variant: PropTypes.oneOf(VARIANTS),
   numericPrefix: PropTypes.string,
   numericSuffix: PropTypes.string,
+  maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  autoComplete: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
