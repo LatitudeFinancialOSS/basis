@@ -43,6 +43,7 @@ function Select(props) {
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
       options: (options) => areOptionsValid(options),
+      onChange: (onChange) => typeof onChange === "function",
     }
   );
   const {
@@ -56,6 +57,7 @@ function Select(props) {
     optional,
     validate,
     validateData,
+    onChange: propsOnChange,
     testId,
     __internal__focus,
   } = mergedProps;
@@ -79,16 +81,28 @@ function Select(props) {
     }),
     [isEmpty, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
-    "Select",
-    {
-      name,
-      disabled,
-      optional,
-      validate,
-      data,
-    }
-  );
+  const {
+    value,
+    errors,
+    hasErrors,
+    onFocus,
+    onBlur,
+    onChange: fieldOnChange,
+  } = useField("Select", {
+    name,
+    disabled,
+    optional,
+    validate,
+    data,
+  });
+  const onChange = (event) => {
+    fieldOnChange(event);
+
+    const selectedValue = event.target.value;
+    const selectedOption = options.find(({ value }) => value === selectedValue);
+
+    propsOnChange && propsOnChange({ selectedOption });
+  };
 
   return (
     <Field
@@ -140,6 +154,7 @@ Select.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
+  onChange: PropTypes.func,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool,
 };

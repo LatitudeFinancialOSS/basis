@@ -49,6 +49,7 @@ function Dropdown(props) {
       helpText: (helpText) => typeof helpText === "string",
       disabled: (disabled) => typeof disabled === "boolean",
       options: (options) => areDropdownOptionsValid(options),
+      onChange: (onChange) => typeof onChange === "function",
     }
   );
   const {
@@ -63,6 +64,7 @@ function Dropdown(props) {
     disabled,
     validate,
     validateData,
+    onChange: propsOnChange,
     testId,
     __internal__focus,
     __internal__open,
@@ -87,16 +89,20 @@ function Dropdown(props) {
     }),
     [isEmpty, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
-    "Dropdown",
-    {
-      name,
-      disabled,
-      optional: false,
-      validate,
-      data,
-    }
-  );
+  const {
+    value,
+    errors,
+    hasErrors,
+    onFocus,
+    onBlur,
+    onChange: fieldOnChange,
+  } = useField("Dropdown", {
+    name,
+    disabled,
+    optional: false,
+    validate,
+    data,
+  });
   const windowFromContext = useWindow();
   const buttonRef = useRef();
   const itemToString = useCallback(
@@ -118,10 +124,12 @@ function Dropdown(props) {
     itemToString,
     initialSelectedItem,
     onSelectedItemChange: ({ selectedItem: selectedOption }) => {
-      onChange({
+      fieldOnChange({
         target: buttonRef.current,
         value: selectedOption.value,
       });
+
+      propsOnChange && propsOnChange({ selectedOption });
     },
     environment: windowFromContext,
   });
@@ -132,21 +140,12 @@ function Dropdown(props) {
       getToggleButtonProps({
         onFocus,
         onBlur,
-        onChange,
         disabled,
         "aria-invalid": isValid ? null : "true",
         "aria-describedby": describedBy,
         ref: buttonRef,
       }),
-    [
-      getToggleButtonProps,
-      onFocus,
-      onBlur,
-      onChange,
-      disabled,
-      isValid,
-      describedBy,
-    ]
+    [getToggleButtonProps, onFocus, onBlur, disabled, isValid, describedBy]
   );
   const maxHeightProps = useAllResponsiveProps(props, "maxHeight");
 
@@ -203,6 +202,7 @@ Dropdown.propTypes = {
   ...responsiveMaxHeightType,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
+  onChange: PropTypes.func,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool,
   __internal__open: PropTypes.bool,

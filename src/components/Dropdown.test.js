@@ -140,6 +140,27 @@ describe("Dropdown", () => {
     });
   });
 
+  it("with onChange", () => {
+    const onChange = jest.fn();
+
+    render(<FormWithDropdown onChange={onChange} />);
+
+    const button = screen.getByRole("button", { name: /Please select/ });
+
+    userEvent.click(button);
+    userEvent.click(screen.getByText("Movie 2"));
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toBeCalledWith({
+      selectedOption: {
+        data: {
+          name: "Movie 2",
+        },
+        value: "movie-2",
+      },
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(<FormWithDropdown testId="my-dropdown" />);
 

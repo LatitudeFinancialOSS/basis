@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "../utils/test";
+import { render, screen, userEvent } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Select from "./Select";
@@ -128,6 +128,24 @@ describe("Select", () => {
 
     expect(select).toHaveStyle({
       backgroundColor: "#ffffff",
+    });
+  });
+
+  it("with onChange", () => {
+    const onChange = jest.fn();
+
+    render(<FormWithSelect label="Relationship status" onChange={onChange} />);
+
+    const select = screen.getByDisplayValue("Please select");
+
+    userEvent.selectOptions(select, "married");
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toBeCalledWith({
+      selectedOption: {
+        label: "Married",
+        value: "married",
+      },
     });
   });
 
