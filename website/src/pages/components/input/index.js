@@ -8,9 +8,10 @@ import RadioGroupSetting, {
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
 const { useTheme, Input } = allDesignSystem;
-const { VARIANTS, COLORS, DEFAULT_PROPS } = Input;
+const { TYPES, VARIANTS, COLORS, DEFAULT_PROPS } = Input;
 const scope = allDesignSystem;
 
+const typeOptions = getRadioOptions(TYPES);
 const variantOptions = getRadioOptions(VARIANTS);
 const colorOptions = getRadioOptions(COLORS);
 const isOptionalOptions = getCheckboxOptions();
@@ -20,6 +21,7 @@ const isDisabledOptions = getCheckboxOptions();
 
 function InputPage() {
   const theme = useTheme();
+  const [type, setType] = useState(DEFAULT_PROPS.type);
   const [variant, setVariant] = useState(DEFAULT_PROPS.variant);
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
@@ -42,6 +44,11 @@ function InputPage() {
             {
               prop: "name",
               value: variant === "numeric" ? "newCreditLimit" : "name",
+            },
+            {
+              prop: "type",
+              value: type,
+              defaultValue: DEFAULT_PROPS.type,
             },
             {
               prop: "variant",
@@ -110,6 +117,13 @@ function InputPage() {
         }}
       >
         <RadioGroupSetting
+          heading="Type"
+          options={typeOptions}
+          selectedValue={type}
+          setSelectedValue={setType}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
           heading="Variant"
           options={variantOptions}
           selectedValue={variant}

@@ -5,12 +5,14 @@ import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../../utils/component";
 
+const TYPES = ["text", "password"];
 const VARIANTS = ["text", "numeric"];
 const COLORS = ["grey.t05", "white"];
 
 const NUMERIC_REGEX = /^\d*$/;
 
 const DEFAULT_PROPS = {
+  type: "text",
   variant: "text",
   color: "grey.t05",
   disabled: false,
@@ -20,6 +22,7 @@ const DEFAULT_PROPS = {
   __internal__focus: false,
 };
 
+InternalInput.TYPES = TYPES;
 InternalInput.VARIANTS = VARIANTS;
 InternalInput.COLORS = COLORS;
 InternalInput.NUMERIC_REGEX = NUMERIC_REGEX;
@@ -31,6 +34,7 @@ function InternalInput(props) {
     DEFAULT_PROPS,
     {},
     {
+      type: (type) => TYPES.includes(type),
       variant: (variant) => VARIANTS.includes(variant),
       numericPrefix: (numericPrefix) =>
         typeof numericPrefix === "string" && numericPrefix.length > 0,
@@ -48,6 +52,7 @@ function InternalInput(props) {
     name,
     parentName,
     id,
+    type,
     placeholder,
     variant,
     numericPrefix,
@@ -104,7 +109,7 @@ function InternalInput(props) {
         name={name}
         data-parent-name={parentName}
         placeholder={placeholder}
-        type="text"
+        type={type}
         {...(variant === "numeric" && {
           // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
           inputMode: "numeric",
@@ -132,6 +137,7 @@ InternalInput.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
   id: PropTypes.string,
+  type: PropTypes.oneOf(TYPES),
   placeholder: PropTypes.string,
   variant: PropTypes.oneOf(VARIANTS),
   numericPrefix: PropTypes.string,
