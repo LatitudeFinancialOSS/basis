@@ -6,9 +6,10 @@ import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalInput from "./internal/InternalInput";
 
-const { VARIANTS, COLORS, NUMERIC_REGEX } = InternalInput;
+const { TYPES, VARIANTS, COLORS, NUMERIC_REGEX } = InternalInput;
 
 const DEFAULT_PROPS = {
+  type: InternalInput.DEFAULT_PROPS.type,
   variant: InternalInput.DEFAULT_PROPS.variant,
   color: InternalInput.DEFAULT_PROPS.color,
   disabled: false,
@@ -27,6 +28,7 @@ const DEFAULT_PROPS = {
   },
 };
 
+Input.TYPES = TYPES;
 Input.VARIANTS = VARIANTS;
 Input.COLORS = COLORS;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
@@ -37,6 +39,7 @@ function Input(props) {
     DEFAULT_PROPS,
     {},
     {
+      type: (type) => TYPES.includes(type),
       variant: (variant) => VARIANTS.includes(variant),
       numericPrefix: (numericPrefix) =>
         typeof numericPrefix === "string" && numericPrefix.length > 0,
@@ -53,6 +56,7 @@ function Input(props) {
   );
   const {
     name,
+    type,
     variant,
     numericPrefix,
     numericSuffix,
@@ -105,6 +109,7 @@ function Input(props) {
       <InternalInput
         id={label ? inputId : null}
         name={name}
+        type={type}
         variant={variant}
         numericPrefix={numericPrefix}
         numericSuffix={numericSuffix}
@@ -128,6 +133,7 @@ function Input(props) {
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(TYPES),
   variant: PropTypes.oneOf(VARIANTS),
   numericPrefix: PropTypes.string,
   numericSuffix: PropTypes.string,

@@ -69,6 +69,14 @@ describe("Input", () => {
     });
   });
 
+  it("type password", () => {
+    render(<FormWithInput label="New credit limit" type="password" />);
+
+    const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveAttribute("type", "password");
+  });
+
   it("numeric variant", () => {
     render(<FormWithInput label="New credit limit" variant="numeric" />);
 

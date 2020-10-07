@@ -6,6 +6,7 @@ import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
 function FormWithInput({
   initialValue = "",
+  type,
   placeholder,
   variant,
   numericPrefix,
@@ -25,6 +26,7 @@ function FormWithInput({
     >
       <Input
         name="name"
+        type={type}
         placeholder={placeholder}
         variant={variant}
         numericPrefix={numericPrefix}
@@ -42,6 +44,7 @@ function FormWithInput({
 
 FormWithInput.propTypes = {
   initialValue: PropTypes.string,
+  type: PropTypes.oneOf(Input.TYPES),
   placeholder: PropTypes.string,
   variant: PropTypes.oneOf(Input.VARIANTS),
   numericPrefix: PropTypes.string,
@@ -78,6 +81,12 @@ function KitchenSinkInput() {
             <FormWithInput label="White" />
 
             <FormWithInput label="White focus" __internal__focus />
+
+            <FormWithInput
+              label="Password"
+              type="password"
+              initialValue="Some value"
+            />
 
             <FormWithInput label="With placeholder" placeholder="Placeholder" />
 
