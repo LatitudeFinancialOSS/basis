@@ -79,6 +79,14 @@ describe("Select", () => {
     });
   });
 
+  it("optional", () => {
+    render(<FormWithSelect label="Relationship status" optional />);
+
+    const placeholder = screen.getByText("Please select");
+
+    expect(placeholder).toBeEnabled();
+  });
+
   it("not full width", () => {
     render(<FormWithSelect label="Relationship status" fullWidth={false} />);
 

@@ -64,7 +64,7 @@ function InternalSelect(_props) {
       onChange={onChange}
     >
       {placeholder && (
-        <option value="" disabled={!optional} hidden={!optional}>
+        <option value="" disabled={!optional}>
           {placeholder}
         </option>
       )}
