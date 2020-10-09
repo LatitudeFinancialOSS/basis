@@ -151,7 +151,7 @@ function SelectPage() {
         code={code}
         noInline
         scope={scope}
-        backgroundColor={color === "white" ? "grey.t05" : "white"}
+        bg={color === "white" ? "grey.t05" : "white"}
       />
     </>
   );
