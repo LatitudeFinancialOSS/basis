@@ -87,6 +87,16 @@ describe("Input", () => {
     expect(input).toHaveAttribute("pattern", "[0-9]*");
   });
 
+  it("decimal variant", () => {
+    render(<FormWithInput label="Amount" variant="decimal" />);
+
+    const input = screen.getByLabelText("Amount");
+
+    expect(input).toHaveAttribute("type", "text");
+    expect(input).toHaveAttribute("inputmode", "decimal");
+    expect(input).not.toHaveAttribute("pattern");
+  });
+
   it("with numericPrefix", () => {
     render(
       <FormWithInput

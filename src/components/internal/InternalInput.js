@@ -6,10 +6,11 @@ import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../../utils/component";
 
 const TYPES = ["text", "password"];
-const VARIANTS = ["text", "numeric"];
+const VARIANTS = ["text", "numeric", "decimal"];
 const COLORS = ["grey.t05", "white"];
 
 const NUMERIC_REGEX = /^\d*$/;
+const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
 
 const DEFAULT_PROPS = {
   type: "text",
@@ -26,6 +27,7 @@ InternalInput.TYPES = TYPES;
 InternalInput.VARIANTS = VARIANTS;
 InternalInput.COLORS = COLORS;
 InternalInput.NUMERIC_REGEX = NUMERIC_REGEX;
+InternalInput.DECIMAL_REGEX = DECIMAL_REGEX;
 InternalInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function InternalInput(props) {
@@ -93,6 +95,18 @@ function InternalInput(props) {
     },
     [pasteAllowed]
   );
+  const variantProps =
+    variant === "numeric"
+      ? {
+          // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
+          inputMode: "numeric",
+          pattern: "[0-9]*",
+        }
+      : variant === "decimal"
+      ? {
+          inputMode: "decimal",
+        }
+      : {};
 
   return (
     <div
@@ -110,11 +124,7 @@ function InternalInput(props) {
         data-parent-name={parentName}
         placeholder={placeholder}
         type={type}
-        {...(variant === "numeric" && {
-          // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
-          inputMode: "numeric",
-          pattern: "[0-9]*",
-        })}
+        {...variantProps}
         maxLength={maxLength}
         disabled={disabled}
         onPaste={onPaste}
