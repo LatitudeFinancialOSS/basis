@@ -97,13 +97,9 @@ describe("Input", () => {
     expect(input).not.toHaveAttribute("pattern");
   });
 
-  it("with numericPrefix", () => {
+  it("numeric with prefix", () => {
     render(
-      <FormWithInput
-        label="New credit limit"
-        variant="numeric"
-        numericPrefix="$"
-      />
+      <FormWithInput label="New credit limit" variant="numeric" prefix="$" />
     );
 
     const input = screen.getByLabelText("New credit limit");
@@ -116,16 +112,44 @@ describe("Input", () => {
     });
   });
 
-  it("with numericSuffix", () => {
+  it("decimal with prefix", () => {
+    render(<FormWithInput label="Amount" variant="decimal" prefix="$" />);
+
+    const input = screen.getByLabelText("Amount");
+
+    expect(input).toHaveStyle({
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: "calc(16px + 2ch)",
+      paddingRight: "16px",
+    });
+  });
+
+  it("numeric with suffix", () => {
     render(
       <FormWithInput
         label="New credit limit"
         variant="numeric"
-        numericSuffix="mysuffix"
+        suffix="mysuffix"
       />
     );
 
     const input = screen.getByLabelText("New credit limit");
+
+    expect(input).toHaveStyle({
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: "16px",
+      paddingRight: "calc(16px + 9ch)",
+    });
+  });
+
+  it("decimal with suffix", () => {
+    render(
+      <FormWithInput label="Amount" variant="decimal" suffix="mysuffix" />
+    );
+
+    const input = screen.getByLabelText("Amount");
 
     expect(input).toHaveStyle({
       paddingTop: 0,

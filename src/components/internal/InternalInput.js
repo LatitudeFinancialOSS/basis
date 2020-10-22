@@ -38,10 +38,8 @@ function InternalInput(props) {
     {
       type: (type) => TYPES.includes(type),
       variant: (variant) => VARIANTS.includes(variant),
-      numericPrefix: (numericPrefix) =>
-        typeof numericPrefix === "string" && numericPrefix.length > 0,
-      numericSuffix: (numericSuffix) =>
-        typeof numericSuffix === "string" && numericSuffix.length > 0,
+      prefix: (prefix) => typeof prefix === "string" && prefix.length > 0,
+      suffix: (suffix) => typeof suffix === "string" && suffix.length > 0,
       maxLength: (maxLength) =>
         typeof maxLength === "string" || typeof maxLength === "number",
       autoComplete: (autoComplete) => typeof autoComplete === "string",
@@ -57,8 +55,8 @@ function InternalInput(props) {
     type,
     placeholder,
     variant,
-    numericPrefix,
-    numericSuffix,
+    prefix,
+    suffix,
     maxLength,
     autoComplete,
     disabled,
@@ -80,8 +78,8 @@ function InternalInput(props) {
       return theme.input.getCSS({
         targetElement: "input",
         variant,
-        numericPrefix,
-        numericSuffix,
+        prefix,
+        suffix,
         color,
         __internal__focus,
       });
@@ -113,8 +111,8 @@ function InternalInput(props) {
       css={theme.input.getCSS({
         targetElement: "inputContainer",
         variant,
-        numericPrefix,
-        numericSuffix,
+        prefix,
+        suffix,
       })}
     >
       <input
@@ -150,8 +148,8 @@ InternalInput.propTypes = {
   type: PropTypes.oneOf(TYPES),
   placeholder: PropTypes.string,
   variant: PropTypes.oneOf(VARIANTS),
-  numericPrefix: PropTypes.string,
-  numericSuffix: PropTypes.string,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
   maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   autoComplete: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
