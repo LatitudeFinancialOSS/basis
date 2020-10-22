@@ -135,6 +135,13 @@ function KitchenSinkInput() {
               suffix="%"
               initialValue="34"
             />
+
+            <FormWithInput
+              label="Decimal with prefix"
+              variant="decimal"
+              prefix="$"
+              initialValue="564.50"
+            />
           </Grid>
         </Container>
       </Container>
