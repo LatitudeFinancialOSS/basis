@@ -97,7 +97,11 @@ function InputPage() {
             {
               prop: "placeholder",
               value: hasPlaceholder
-                ? "e.g. David Smith"
+                ? variant === "numeric"
+                  ? "e.g. 400"
+                  : variant === "decimal"
+                  ? "e.g. 400 or 546.50"
+                  : "e.g. David Smith"
                 : DEFAULT_PROPS.placeholder,
               defaultValue: DEFAULT_PROPS.placeholder,
             },
@@ -107,7 +111,7 @@ function InputPage() {
                 ? variant === "numeric"
                   ? "Must be a whole amount."
                   : variant === "decimal"
-                  ? "e.g. 400 or 546.50"
+                  ? "Can be a whole number or contain cents."
                   : "Nickname is fine too."
                 : DEFAULT_PROPS.helpText,
               defaultValue: DEFAULT_PROPS.helpText,
