@@ -9,8 +9,8 @@ function FormWithInput({
   type,
   placeholder,
   variant,
-  numericPrefix,
-  numericSuffix,
+  prefix,
+  suffix,
   color,
   label,
   disabled,
@@ -29,8 +29,8 @@ function FormWithInput({
         type={type}
         placeholder={placeholder}
         variant={variant}
-        numericPrefix={numericPrefix}
-        numericSuffix={numericSuffix}
+        prefix={prefix}
+        suffix={suffix}
         color={color}
         label={label}
         disabled={disabled}
@@ -47,8 +47,8 @@ FormWithInput.propTypes = {
   type: PropTypes.oneOf(Input.TYPES),
   placeholder: PropTypes.string,
   variant: PropTypes.oneOf(Input.VARIANTS),
-  numericPrefix: PropTypes.string,
-  numericSuffix: PropTypes.string,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
   color: PropTypes.oneOf(Input.COLORS),
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
@@ -111,29 +111,36 @@ function KitchenSinkInput() {
             <FormWithInput
               label="Numeric with prefix"
               variant="numeric"
-              numericPrefix="$"
+              prefix="$"
               placeholder="Placeholder"
             />
 
             <FormWithInput
               label="Numeric with prefix and value"
               variant="numeric"
-              numericPrefix="$"
+              prefix="$"
               initialValue="4000"
             />
 
             <FormWithInput
               label="Numeric with longer prefix"
               variant="numeric"
-              numericPrefix="AUD"
+              prefix="AUD"
               initialValue="800"
             />
 
             <FormWithInput
               label="Numeric with suffix"
               variant="numeric"
-              numericSuffix="%"
+              suffix="%"
               initialValue="34"
+            />
+
+            <FormWithInput
+              label="Decimal with prefix"
+              variant="decimal"
+              prefix="$"
+              initialValue="564.50"
             />
           </Grid>
         </Container>

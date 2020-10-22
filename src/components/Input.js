@@ -45,10 +45,8 @@ function Input(props) {
     {
       type: (type) => TYPES.includes(type),
       variant: (variant) => VARIANTS.includes(variant),
-      numericPrefix: (numericPrefix) =>
-        typeof numericPrefix === "string" && numericPrefix.length > 0,
-      numericSuffix: (numericSuffix) =>
-        typeof numericSuffix === "string" && numericSuffix.length > 0,
+      prefix: (prefix) => typeof prefix === "string" && prefix.length > 0,
+      suffix: (suffix) => typeof suffix === "string" && suffix.length > 0,
       maxLength: (maxLength) =>
         typeof maxLength === "string" || typeof maxLength === "number",
       autoComplete: (autoComplete) => typeof autoComplete === "string",
@@ -62,8 +60,8 @@ function Input(props) {
     name,
     type,
     variant,
-    numericPrefix,
-    numericSuffix,
+    prefix,
+    suffix,
     maxLength,
     autoComplete,
     label,
@@ -115,8 +113,8 @@ function Input(props) {
         name={name}
         type={type}
         variant={variant}
-        numericPrefix={numericPrefix}
-        numericSuffix={numericSuffix}
+        prefix={prefix}
+        suffix={suffix}
         maxLength={maxLength}
         autoComplete={autoComplete}
         placeholder={placeholder}
@@ -139,8 +137,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(TYPES),
   variant: PropTypes.oneOf(VARIANTS),
-  numericPrefix: PropTypes.string,
-  numericSuffix: PropTypes.string,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
   maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   autoComplete: PropTypes.string,
   color: PropTypes.oneOf(COLORS),

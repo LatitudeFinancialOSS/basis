@@ -3,13 +3,13 @@ export default (theme, { getColor }) => {
     getCSS: ({
       targetElement,
       variant,
-      numericPrefix,
-      numericSuffix,
+      prefix,
+      suffix,
       color,
       __internal__focus,
     }) => {
-      const hasPrefix = variant === "numeric" && numericPrefix;
-      const hasSuffix = variant === "numeric" && numericSuffix;
+      const hasPrefix = ["numeric", "decimal"].includes(variant) && prefix;
+      const hasSuffix = ["numeric", "decimal"].includes(variant) && suffix;
 
       switch (targetElement) {
         case "inputContainer": {
@@ -22,7 +22,7 @@ export default (theme, { getColor }) => {
             color: theme.colors.black,
             ...(hasPrefix && {
               "::before": {
-                content: `"${numericPrefix}"`,
+                content: `"${prefix}"`,
                 position: "absolute",
                 top: "13px",
                 left: theme.space[4],
@@ -30,7 +30,7 @@ export default (theme, { getColor }) => {
             }),
             ...(hasSuffix && {
               "::after": {
-                content: `"${numericSuffix}"`,
+                content: `"${suffix}"`,
                 position: "absolute",
                 top: "13px",
                 right: theme.space[4],
@@ -61,10 +61,10 @@ export default (theme, { getColor }) => {
             color: "inherit",
             backgroundColor: getColor(color),
             paddingLeft: hasPrefix
-              ? `calc(${theme.space[4]} + ${numericPrefix.length + 1}ch)`
+              ? `calc(${theme.space[4]} + ${prefix.length + 1}ch)`
               : theme.space[4],
             paddingRight: hasSuffix
-              ? `calc(${theme.space[4]} + ${numericSuffix.length + 1}ch)`
+              ? `calc(${theme.space[4]} + ${suffix.length + 1}ch)`
               : theme.space[4],
             ":focus": focusStyle,
             ...(__internal__focus && focusStyle),

@@ -35,7 +35,13 @@ function InputPage() {
   const code = formatCode(`
     function App() {
       const initialValues = {
-        ${variant === "numeric" ? "newCreditLimit" : "name"}: ""
+        ${
+          variant === "numeric"
+            ? "newCreditLimit"
+            : variant === "decimal"
+            ? "amount"
+            : "name"
+        }: ""
       };
       
       return (
@@ -43,7 +49,12 @@ function InputPage() {
           <Input ${nonDefaultProps([
             {
               prop: "name",
-              value: variant === "numeric" ? "newCreditLimit" : "name",
+              value:
+                variant === "numeric"
+                  ? "newCreditLimit"
+                  : variant === "decimal"
+                  ? "amount"
+                  : "name",
             },
             {
               prop: "type",
@@ -55,10 +66,10 @@ function InputPage() {
               value: variant,
               defaultValue: DEFAULT_PROPS.variant,
             },
-            ...(variant === "numeric"
+            ...(variant === "numeric" || variant === "decimal"
               ? [
                   {
-                    prop: "numericPrefix",
+                    prop: "prefix",
                     value: "$",
                   },
                 ]
@@ -70,7 +81,12 @@ function InputPage() {
             },
             {
               prop: "label",
-              value: variant === "numeric" ? "New credit limit" : "Name",
+              value:
+                variant === "numeric"
+                  ? "New credit limit"
+                  : variant === "decimal"
+                  ? "Amount"
+                  : "Name",
             },
             {
               prop: "optional",
@@ -81,7 +97,11 @@ function InputPage() {
             {
               prop: "placeholder",
               value: hasPlaceholder
-                ? "e.g. David Smith"
+                ? variant === "numeric"
+                  ? "e.g. 400"
+                  : variant === "decimal"
+                  ? "e.g. 400 or 546.50"
+                  : "e.g. David Smith"
                 : DEFAULT_PROPS.placeholder,
               defaultValue: DEFAULT_PROPS.placeholder,
             },
@@ -90,6 +110,8 @@ function InputPage() {
               value: hasHelpText
                 ? variant === "numeric"
                   ? "Must be a whole amount."
+                  : variant === "decimal"
+                  ? "Can be a whole number or contain cents."
                   : "Nickname is fine too."
                 : DEFAULT_PROPS.helpText,
               defaultValue: DEFAULT_PROPS.helpText,

@@ -182,7 +182,7 @@ function Frequency(props) {
       name={`${name}.amount`}
       parentName={name}
       variant="numeric"
-      numericPrefix={amountPrefix}
+      prefix={amountPrefix}
       color={props.color}
       placeholder={amountPlaceholder}
       disabled={disabled}
