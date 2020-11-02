@@ -6,7 +6,10 @@ import Link from "./Link";
 import Text from "./Text";
 import useTheme from "../hooks/useTheme";
 import { BackgroundProvider } from "../hooks/useBackground";
-import { responsivePropType } from "../hooks/useResponsiveProp";
+import {
+  responsivePaddingType,
+  responsivePropType,
+} from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../utils/component";
 import { responsiveHasBreakpointWidth, mergeResponsiveCSS } from "../utils/css";
@@ -28,6 +31,7 @@ const BACKGROUNDS = [
   "grey.t10",
   "grey.t05",
   "white",
+  "transparent",
 ];
 
 const DEFAULT_PROPS = {
@@ -74,9 +78,11 @@ function Message(props) {
   const textYpadding = (iconSize - 24) / 2; // 24px is the line-height of the body1 text style
   const responsiveCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     hasBreakpointWidth: responsiveHasBreakpointWidth,
-    padding: ({ hasBreakpointWidth }, theme) => {
+    padding: ({ hasBreakpointWidth, padding }, theme) => {
       return {
-        padding: hasBreakpointWidth ? `${theme.space[4]} 0` : theme.space[4],
+        padding: hasBreakpointWidth
+          ? `${theme.space[4]} 0`
+          : theme.getSpaceValue(padding ?? 4),
       };
     },
   });
@@ -132,9 +138,11 @@ function Message(props) {
                   paddingBottom: textYpadding,
                   paddingLeft: distanceFromIcon,
                   paddingRight: 0,
-                  [theme.minMediaQueries[switchLayoutAt]]: {
-                    paddingRight: theme.space[6],
-                  },
+                  ...(callToAction && {
+                    [theme.minMediaQueries[switchLayoutAt]]: {
+                      paddingRight: theme.space[6],
+                    },
+                  }),
                 }}
               >
                 <Text color={textAndIconColor}>
@@ -196,6 +204,7 @@ Message.propTypes = {
     }
   },
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
+  ...responsivePaddingType,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

@@ -59,7 +59,15 @@ function KitchenSinkMessage() {
           </Link>
         </Message>
       </Container>
-      <Container width="600" height="1988">
+      <Container margin="6" width="240" bg="grey.t05">
+        <Message severity="info-or-minor" padding="0">
+          We can help you ease the financial stress of COVID-19.{" "}
+          <Link href="https://www.latitudefinancial.com.au/covid-19" newTab>
+            Find out how.
+          </Link>
+        </Message>
+      </Container>
+      <Container width="600" height="2272">
         <LiveProvider
           code={`
             Message.BACKGROUNDS.map((bg) => (
