@@ -126,6 +126,18 @@ describe("Message", () => {
     });
   });
 
+  it("with padding", () => {
+    render(
+      <Message severity="success" padding="0" testId="my-message">
+        Your request was submitted successfully.
+      </Message>
+    );
+
+    expect(screen.getByTestId("my-message").firstChild).toHaveStyle({
+      padding: 0,
+    });
+  });
+
   it("with testId", () => {
     const { container } = render(
       <Message severity="info-or-minor" testId="my-message">
