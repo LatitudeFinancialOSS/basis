@@ -212,19 +212,6 @@ describe("Link", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it("with analyticsClassName", () => {
-    render(
-      <Link href="/terms" newTab={false} analyticsClassName="track-me">
-        Terms and Conditions
-      </Link>
-    );
-
-    const span = screen.getByText("Terms and Conditions");
-    const link = span.parentElement;
-
-    expect(link).toHaveClass("track-me");
-  });
-
   it("with testId", () => {
     const { container } = render(
       <Link href="/terms" newTab={false} testId="my-link">

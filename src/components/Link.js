@@ -78,7 +78,6 @@ function Link(props) {
     onClick,
     children,
     testId,
-    analyticsClassName,
     __internal__keyboardFocus,
     __internal__hover,
     __internal__active,
@@ -160,7 +159,6 @@ function Link(props) {
         - It gets a `state` prop
         - It gets a `to` prop, which gets mapped to <a>'s `href` prop.
         - It gets the following props and sets them on the rendered <a>:
-          * className
           * title
           * onClick
           * data-testid
@@ -170,7 +168,6 @@ function Link(props) {
     */
     return (
       <InternalLink
-        className={analyticsClassName}
         css={anchorCSS}
         to={href}
         title={title}
@@ -185,7 +182,6 @@ function Link(props) {
 
   return (
     <a
-      className={analyticsClassName}
       css={anchorCSS}
       href={href}
       title={title}
@@ -277,7 +273,6 @@ Link.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
   testId: PropTypes.string,
-  analyticsClassName: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
   __internal__hover: PropTypes.bool,
   __internal__active: PropTypes.bool,
