@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "../utils/test";
+import { render, screen, userEvent } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Checkbox from "./Checkbox";
@@ -101,6 +101,32 @@ describe("Checkbox", () => {
     const label = screen.getByText("Accept terms and conditions");
 
     expect(label).toBeVisuallyHidden();
+  });
+
+  it("with onChange", () => {
+    const onChange = jest.fn();
+    const { container } = render(
+      <FormWithCheckbox label="Accept terms and conditions" onChange={onChange}>
+        I agree
+      </FormWithCheckbox>
+    );
+    const checkboxContainer = container.querySelector("[aria-checked]");
+    const checkboxInputLabel = checkboxContainer.querySelector("label");
+
+    // Check
+    userEvent.click(checkboxInputLabel);
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toBeCalledWith({
+      isChecked: true,
+    });
+
+    // Uncheck
+    userEvent.click(checkboxInputLabel);
+
+    expect(onChange).toBeCalledWith({
+      isChecked: false,
+    });
   });
 
   it("with testId", () => {

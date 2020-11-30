@@ -47,6 +47,7 @@ function Checkbox(props) {
     optional,
     validate,
     validateData,
+    onChange: onChangeProp,
     children,
     testId,
     __internal__keyboardFocus,
@@ -68,7 +69,7 @@ function Checkbox(props) {
     hasErrors,
     onFocus,
     onBlur,
-    onChange,
+    onChange: fieldOnChange,
     onMouseDown,
   } = useField("Checkbox", {
     name,
@@ -77,6 +78,13 @@ function Checkbox(props) {
     validate,
     data,
   });
+  const onChange = useCallback(
+    (event) => {
+      fieldOnChange(event);
+      onChangeProp && onChangeProp({ isChecked: !value });
+    },
+    [fieldOnChange, onChangeProp, value]
+  );
 
   return (
     <Field
@@ -121,6 +129,7 @@ Checkbox.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
+  onChange: PropTypes.func,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
   __internal__keyboardFocus: PropTypes.bool,
