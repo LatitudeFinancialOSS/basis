@@ -50,6 +50,7 @@ function RadioGroup(props) {
     optional,
     validate,
     validateData,
+    onChange: onChangeProp,
     testId,
   } = mergedProps;
 
@@ -83,7 +84,7 @@ function RadioGroup(props) {
     hasErrors,
     onFocus,
     onBlur,
-    onChange,
+    onChange: fieldOnChange,
     onMouseDown,
   } = useField("RadioGroup", {
     name,
@@ -92,6 +93,19 @@ function RadioGroup(props) {
     validate,
     data,
   });
+  const onChange = useCallback(
+    (event) => {
+      fieldOnChange(event);
+
+      const selectedValue = event.target.value;
+      const selectedOption = options.find(
+        (option) => option.value === selectedValue
+      );
+
+      onChangeProp && onChangeProp({ selectedOption });
+    },
+    [fieldOnChange, onChangeProp, options]
+  );
 
   return (
     <Field
@@ -155,12 +169,10 @@ RadioGroup.propTypes = {
   color: PropTypes.oneOf(COLORS),
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onMouseDown: PropTypes.func,
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
+  onChange: PropTypes.func,
   testId: PropTypes.string,
 };
 

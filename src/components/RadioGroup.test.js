@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "../utils/test";
+import { render, screen, userEvent, waitFor } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import RadioGroup from "./RadioGroup";
@@ -101,6 +101,43 @@ describe("RadioGroup", () => {
 
     expect(yesLabel).toHaveStyle({
       backgroundColor: "#ffffff",
+    });
+  });
+
+  it("with onChange", () => {
+    const onChange = jest.fn();
+    const { container } = render(
+      <FormWithRadioGroup label="Are you happy?" onChange={onChange} />
+    );
+
+    const yesInput = screen.getByLabelText("Yes");
+    const yesLabel = container.querySelector(
+      `label[for="${yesInput.getAttribute("id")}"]`
+    );
+    const noInput = screen.getByLabelText("No");
+    const noLabel = container.querySelector(
+      `label[for="${noInput.getAttribute("id")}"]`
+    );
+
+    // Click "Yes"
+    userEvent.click(yesLabel);
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toBeCalledWith({
+      selectedOption: {
+        label: "Yes",
+        value: "yes",
+      },
+    });
+
+    // Click "No"
+    userEvent.click(noLabel);
+
+    expect(onChange).toBeCalledWith({
+      selectedOption: {
+        label: "No",
+        value: "no",
+      },
     });
   });
 
