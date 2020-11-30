@@ -241,6 +241,75 @@ describe("Accordion", () => {
     });
   });
 
+  it("with onItemToggle", () => {
+    const onItemToggle = jest.fn();
+
+    render(
+      <Accordion onItemToggle={onItemToggle}>
+        <Accordion.Item testId="accordion-item-1">
+          <Accordion.Item.Header>Header 1</Accordion.Item.Header>
+        </Accordion.Item>
+        <Accordion.Item testId="accordion-item-2">
+          <Accordion.Item.Header>
+            <Accordion.Item.Header.Icon name="calculator" />
+            Header with icon
+          </Accordion.Item.Header>
+        </Accordion.Item>
+        <Accordion.Item testId="accordion-item-3">
+          <Accordion.Item.Header>
+            Header with dynamic number {5}
+          </Accordion.Item.Header>
+        </Accordion.Item>
+      </Accordion>
+    );
+
+    const item1 = screen.getByTestId("accordion-item-1");
+    const item2 = screen.getByTestId("accordion-item-2");
+    const item3 = screen.getByTestId("accordion-item-3");
+    const item1HeaderButton = item1.querySelector("[aria-controls]");
+    const item2HeaderButton = item2.querySelector("[aria-controls]");
+    const item3HeaderButton = item3.querySelector("[aria-controls]");
+
+    // Open item 1
+    userEvent.click(item1HeaderButton);
+
+    expect(onItemToggle).toHaveBeenCalledTimes(1);
+    expect(onItemToggle).toBeCalledWith({
+      isOpen: true,
+      itemHeaderChildren: "Header 1",
+    });
+
+    // Close item 1
+    onItemToggle.mockClear();
+    userEvent.click(item1HeaderButton);
+
+    expect(onItemToggle).toHaveBeenCalledTimes(1);
+    expect(onItemToggle).toBeCalledWith({
+      isOpen: false,
+      itemHeaderChildren: "Header 1",
+    });
+
+    // Open item 2
+    userEvent.click(item2HeaderButton);
+
+    expect(onItemToggle).toBeCalledWith({
+      isOpen: true,
+      itemHeaderChildren: [
+        // eslint-disable-next-line react/jsx-key
+        <Accordion.Item.Header.Icon name="calculator" />,
+        "Header with icon",
+      ],
+    });
+
+    // Open item 3
+    userEvent.click(item3HeaderButton);
+
+    expect(onItemToggle).toBeCalledWith({
+      isOpen: true,
+      itemHeaderChildren: ["Header with dynamic number ", 5],
+    });
+  });
+
   it("with custom content padding", () => {
     render(
       <Accordion>

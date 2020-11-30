@@ -37,7 +37,12 @@ Accordion.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Header({ children, testId, __internal__keyboardFocus = false }) {
   const theme = useTheme();
-  const { colorMap, textColor, itemHeaderAs: HeaderComponent } = useAccordion();
+  const {
+    colorMap,
+    textColor,
+    itemHeaderAs: HeaderComponent,
+    onItemToggle,
+  } = useAccordion();
   const buttonCSS = useResponsivePropsCSS(
     {},
     {},
@@ -60,7 +65,9 @@ function Header({ children, testId, __internal__keyboardFocus = false }) {
   } = useAccordionItem();
   const onClick = useCallback(() => {
     toggleAccordionItem();
-  }, [toggleAccordionItem]);
+    onItemToggle &&
+      onItemToggle({ isOpen: !isOpen, itemHeaderChildren: children });
+  }, [toggleAccordionItem, onItemToggle, isOpen, children]);
 
   return (
     <HeaderComponent
@@ -239,6 +246,7 @@ function Accordion(props) {
     textColor,
     itemHeaderAs,
     itemGap,
+    onItemToggle,
     children,
     testId,
   } = mergedProps;
@@ -260,8 +268,9 @@ function Accordion(props) {
       textColor,
       itemGap,
       itemHeaderAs,
+      onItemToggle,
     }),
-    [colorMap, textColor, itemGap, itemHeaderAs]
+    [colorMap, textColor, itemGap, itemHeaderAs, onItemToggle]
   );
 
   return (
@@ -276,6 +285,7 @@ Accordion.propTypes = {
   textColor: PropTypes.oneOf(TEXT_COLORS),
   itemGap: PropTypes.oneOf(ITEM_GAP),
   itemHeaderAs: PropTypes.oneOf(ITEM_HEADER_AS),
+  onItemToggle: PropTypes.func,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };
