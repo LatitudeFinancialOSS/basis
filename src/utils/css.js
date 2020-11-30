@@ -49,31 +49,31 @@ function getOverflowValue(overflow) {
   return null;
 }
 
-const SPAN_REGEX = /^(\d+)(-(\d+))?$/;
+const SPAN_LINES_REGEX = /^(\d+)(-(\d+))?$/;
 
-export function getGridLines(span, { allAllowed = false } = {}) {
+export function getGridRowColumn(span, { allAllowed = false } = {}) {
   if (allAllowed && span === "all") {
-    return [1, -1];
+    return "1 / -1";
   }
 
   if (typeof span === "number") {
-    return [span + 1, span + 2];
+    return `${span + 1} / ${span + 2}`;
   }
 
   if (typeof span !== "string") {
     return null;
   }
 
-  const match = span.match(SPAN_REGEX);
+  const match = span.match(SPAN_LINES_REGEX);
 
-  if (match === null) {
-    return null;
+  if (match) {
+    const start = parseInt(match[1], 10);
+    const end = match[3] === undefined ? start : parseInt(match[3], 10);
+
+    return `${start + 1} / ${end + 2}`;
   }
 
-  const start = parseInt(match[1], 10);
-  const end = match[3] === undefined ? start : parseInt(match[3], 10);
-
-  return [start + 1, end + 2];
+  return span;
 }
 
 export function getGapPx(gap, theme) {

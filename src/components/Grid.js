@@ -12,7 +12,7 @@ import { range } from "../utils/array";
 import {
   getGridTemplateColumns,
   getGridTemplateRows,
-  getGridLines,
+  getGridRowColumn,
   getGapPx,
   responsiveMargin,
   responsiveSize,
@@ -29,22 +29,14 @@ function Item(props) {
     DEFAULT_GRID_ITEM_PROPS,
     {
       colSpan: ({ colSpan }) => {
-        const gridLines = getGridLines(colSpan, { allAllowed: true });
+        const gridColumn = getGridRowColumn(colSpan, { allAllowed: true });
 
-        return gridLines
-          ? {
-              gridColumn: `${gridLines[0]} / ${gridLines[1]}`,
-            }
-          : {};
+        return gridColumn ? { gridColumn } : {};
       },
       rowSpan: ({ rowSpan }) => {
-        const gridLines = getGridLines(rowSpan);
+        const gridRow = getGridRowColumn(rowSpan);
 
-        return gridLines
-          ? {
-              gridRow: `${gridLines[0]} / ${gridLines[1]}`,
-            }
-          : {};
+        return gridRow ? { gridRow } : {};
       },
     }
   );

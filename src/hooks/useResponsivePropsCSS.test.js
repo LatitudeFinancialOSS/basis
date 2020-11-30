@@ -9,7 +9,7 @@ import useResponsivePropsCSS, {
 import {
   getGridTemplateColumns,
   getGapPx,
-  getGridLines,
+  getGridRowColumn,
   isCSSinOrder,
   responsiveMargin,
   responsivePadding,
@@ -182,34 +182,26 @@ describe("useResponsivePropsCSS", () => {
   it("Grid.Item", () => {
     const props = {
       colSpan: "all",
+      "colSpan-xs": "auto / span 4",
       "colSpan-sm": 8,
       "colSpan-md": "4",
       "colSpan-lg": "0-2",
-      "colSpan-xl": "foo",
       rowSpan: true,
-      "rowSpan-xs": "1-2-3",
+      "rowSpan-xs": "span 2 / 7",
       "rowSpan-lg": "2-3",
     };
     const { result } = renderHook(
       () =>
         useResponsivePropsCSS(props, Grid.Item.DEFAULT_PROPS, {
           colSpan: ({ colSpan }) => {
-            const gridLines = getGridLines(colSpan, { allAllowed: true });
+            const gridColumn = getGridRowColumn(colSpan, { allAllowed: true });
 
-            return gridLines
-              ? {
-                  gridColumn: `${gridLines[0]} / ${gridLines[1]}`,
-                }
-              : {};
+            return gridColumn ? { gridColumn } : {};
           },
           rowSpan: ({ rowSpan }) => {
-            const gridLines = getGridLines(rowSpan);
+            const gridRow = getGridRowColumn(rowSpan);
 
-            return gridLines
-              ? {
-                  gridRow: `${gridLines[0]} / ${gridLines[1]}`,
-                }
-              : {};
+            return gridRow ? { gridRow } : {};
           },
         }),
       { wrapper: TestWrapper }
@@ -217,6 +209,10 @@ describe("useResponsivePropsCSS", () => {
 
     expect(result.current).toStrictEqual({
       gridColumn: "1 / -1",
+      "@media (min-width: 375px)": {
+        gridColumn: "auto / span 4",
+        gridRow: "span 2 / 7",
+      },
       "@media (min-width: 576px)": {
         gridColumn: "9 / 10",
       },
