@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
-    "postinstall": "(test -d website && npm run install-website) || true",
+    "postinstall": "(test -d website && npm run install-website && husky install) || true",
     "install-website": "cd website && npm install && cd ..",
     "start": "cd website && npm run clean && npm start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
