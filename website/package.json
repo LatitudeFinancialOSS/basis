@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/parser": "7.12.7",
     "@emotion/core": "10.1.1",
+    "@feedback-fish/react": "1.2.1",
     "@mdx-js/mdx": "1.6.21",
     "@mdx-js/react": "1.6.21",
     "@react-hook/mouse-position": "3.2.2",

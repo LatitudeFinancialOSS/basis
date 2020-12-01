@@ -4,6 +4,8 @@ import { RecoilRoot } from "recoil";
 import { Location } from "@reach/router";
 import { Global } from "@emotion/core";
 import { Link as GatsbyLink } from "gatsby";
+import { FeedbackFish } from "@feedback-fish/react";
+import { Button } from "basis";
 import { COMPONENT_STATUS } from "../utils/constants";
 import SEO from "../components/SEO";
 import Sidebar from "../components/Sidebar";
@@ -84,6 +86,11 @@ function Page({ pageContext, children }) {
                         <ComponentStatusIndicator status={status} />
                       </Container>
                     )}
+                    <FeedbackFish projectId="42362f272b4510">
+                      <Button variant="secondary" margin="0 0 0 auto">
+                        Feedback
+                      </Button>
+                    </FeedbackFish>
                   </div>
                   <Location>
                     {({ location }) => {
