@@ -1,0 +1,4 @@
+npm run prettier
+npm run lint
+npm test
+exit 1
