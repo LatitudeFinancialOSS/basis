@@ -74,4 +74,6 @@ yarn-error.log
 
 # VSCode
 .vscode
-.now
+
+# Vercel
+.vercel
