@@ -87,9 +87,9 @@ function Page({ pageContext, children }) {
                       </Container>
                     )}
                     <FeedbackFish projectId="42362f272b4510">
-                      <Button variant="secondary" margin="0 0 0 auto">
-                        Feedback
-                      </Button>
+                      <div css={{ marginLeft: "auto" }}>
+                        <Button variant="secondary">Feedback</Button>
+                      </div>
                     </FeedbackFish>
                   </div>
                   <Location>
