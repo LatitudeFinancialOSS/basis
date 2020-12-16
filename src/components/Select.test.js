@@ -49,7 +49,7 @@ describe("Select", () => {
     const placeholder = screen.getByText("Please select");
 
     expect(placeholder.tagName).toBe("OPTION");
-    expect(placeholder.value).toBe("");
+    expect(placeholder).toHaveValue("");
     expect(placeholder).toBeDisabled();
 
     expect(screen.getByText("Single").tagName).toBe("OPTION");
