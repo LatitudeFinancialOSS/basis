@@ -132,6 +132,7 @@ function Form(_props) {
     const field = fields.current[name];
 
     if (
+      !field || // See: https://stackoverflow.com/q/65659161/247243
       field.disabled === true ||
       (field.optional === true &&
         typeof field.data?.isEmpty === "function" &&
