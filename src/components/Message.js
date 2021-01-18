@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "./Button";
 import Icon from "./Icon";
-import Link from "./Link";
 import Text from "./Text";
 import useTheme from "../hooks/useTheme";
 import { BackgroundProvider } from "../hooks/useBackground";
@@ -52,15 +50,6 @@ function Message(props) {
       severity: (severity) => SEVERITIES.includes(severity),
       bg: (bg) => BACKGROUNDS.includes(bg),
       title: (title) => typeof title === "string" && title.length > 0,
-      callToAction: (callToAction) => {
-        return (
-          callToAction?.type === Button ||
-          (callToAction?.type === Link &&
-            ["primary-button", "secondary-button"].includes(
-              callToAction.props.appearance
-            ))
-        );
-      },
     }
   );
   const { severity, bg, title, callToAction, children, testId } = mergedProps;
@@ -182,27 +171,6 @@ Message.propTypes = {
   severity: PropTypes.oneOf(SEVERITIES).isRequired,
   bg: PropTypes.oneOf(BACKGROUNDS),
   title: PropTypes.string,
-  callToAction: (props) => {
-    if (!props.callToAction) {
-      return;
-    }
-
-    if (props.callToAction.type === Button) {
-      if (props.callToAction.props.variant !== "secondary") {
-        return new Error(
-          `Message: When callToAction is a Button, you should set variant="secondary" on the Button.`
-        );
-      }
-    } else if (props.callToAction.type === Link) {
-      if (props.callToAction.props.appearance !== "secondary-button") {
-        return new Error(
-          `Message: When callToAction is a Link, you should set appearance="secondary-button" on the Link.`
-        );
-      }
-    } else {
-      return new Error(`Message: callToAction must be a Button or a Link.`);
-    }
-  },
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   ...responsivePaddingType,
   children: PropTypes.node.isRequired,
