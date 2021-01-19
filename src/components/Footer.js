@@ -63,9 +63,16 @@ HeaderSocial.propTypes = {
   testId: PropTypes.string,
 };
 
-function SocialFacebook({ href, title, testId }) {
+function SocialFacebook({ href, title, onClick, testId }) {
   return (
-    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
+    <Link
+      appearance="icon"
+      href={href}
+      newTab
+      title={title}
+      onClick={onClick}
+      testId={testId}
+    >
       <Icon
         name="facebook"
         color="white"
@@ -78,12 +85,20 @@ function SocialFacebook({ href, title, testId }) {
 SocialFacebook.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   testId: PropTypes.string,
 };
 
-function SocialYouTube({ href, title, testId }) {
+function SocialYouTube({ href, title, onClick, testId }) {
   return (
-    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
+    <Link
+      appearance="icon"
+      href={href}
+      newTab
+      title={title}
+      onClick={onClick}
+      testId={testId}
+    >
       <Icon name="youtube" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
@@ -92,12 +107,20 @@ function SocialYouTube({ href, title, testId }) {
 SocialYouTube.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   testId: PropTypes.string,
 };
 
-function SocialTwitter({ href, title, testId }) {
+function SocialTwitter({ href, title, onClick, testId }) {
   return (
-    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
+    <Link
+      appearance="icon"
+      href={href}
+      newTab
+      title={title}
+      onClick={onClick}
+      testId={testId}
+    >
       <Icon name="twitter" color="white" hoverColor="secondary.lightBlue.t60" />
     </Link>
   );
@@ -106,12 +129,20 @@ function SocialTwitter({ href, title, testId }) {
 SocialTwitter.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   testId: PropTypes.string,
 };
 
-function SocialInstagram({ href, title, testId }) {
+function SocialInstagram({ href, title, onClick, testId }) {
   return (
-    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
+    <Link
+      appearance="icon"
+      href={href}
+      newTab
+      title={title}
+      onClick={onClick}
+      testId={testId}
+    >
       <Icon
         name="instagram"
         color="white"
@@ -124,12 +155,20 @@ function SocialInstagram({ href, title, testId }) {
 SocialInstagram.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   testId: PropTypes.string,
 };
 
-function SocialLinkedIn({ href, title, testId }) {
+function SocialLinkedIn({ href, title, onClick, testId }) {
   return (
-    <Link appearance="icon" href={href} newTab title={title} testId={testId}>
+    <Link
+      appearance="icon"
+      href={href}
+      newTab
+      title={title}
+      onClick={onClick}
+      testId={testId}
+    >
       <Icon
         name="linkedin"
         color="white"
@@ -142,6 +181,7 @@ function SocialLinkedIn({ href, title, testId }) {
 SocialLinkedIn.propTypes = {
   href: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
   testId: PropTypes.string,
 };
 
@@ -243,15 +283,10 @@ LinksSection.propTypes = {
 };
 
 function LegalLinks({ children, testId }) {
-  const links = React.Children.toArray(children).filter(
-    // Ignore all children that aren't a Link
-    (child) => child.type === Link
-  );
-
   return (
     <Container padding="0 4" padding-lg="0" textAlign="center">
       <Stack direction="horizontal" align="center" gap="3 4" testId={testId}>
-        {links}
+        {children}
       </Stack>
     </Container>
   );
