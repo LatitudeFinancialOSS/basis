@@ -138,6 +138,19 @@ describe("Message", () => {
     });
   });
 
+  it("with role", () => {
+    render(
+      <Message severity="blocking" bg="secondary.pink.t30" role="alert">
+        Please fix the errors above.
+      </Message>
+    );
+
+    expect(screen.getByText("Please fix the errors above.")).toHaveAttribute(
+      "role",
+      "alert"
+    );
+  });
+
   it("with testId", () => {
     const { container } = render(
       <Message severity="info-or-minor" testId="my-message">

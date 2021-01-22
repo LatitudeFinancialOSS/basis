@@ -149,6 +149,14 @@ describe("Text", () => {
     });
   });
 
+  it("with role", () => {
+    render(<Text role="alert">Hello World</Text>);
+
+    const node = screen.getByText("Hello World");
+
+    expect(node).toHaveAttribute("role", "alert");
+  });
+
   it("with testId", () => {
     const { container } = render(<Text testId="my-text">Hello World</Text>);
 

@@ -52,7 +52,15 @@ function Message(props) {
       title: (title) => typeof title === "string" && title.length > 0,
     }
   );
-  const { severity, bg, title, callToAction, children, testId } = mergedProps;
+  const {
+    severity,
+    bg,
+    title,
+    callToAction,
+    role,
+    children,
+    testId,
+  } = mergedProps;
   const theme = useTheme();
   const textAndIconColor = [
     "highlight.pink.t100",
@@ -134,7 +142,7 @@ function Message(props) {
                   }),
                 }}
               >
-                <Text color={textAndIconColor}>
+                <Text color={textAndIconColor} role={role}>
                   {title && (
                     <strong
                       css={{ display: "block", marginBottom: theme.space[1] }}
@@ -173,6 +181,7 @@ Message.propTypes = {
   title: PropTypes.string,
   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
   ...responsivePaddingType,
+  role: PropTypes.string,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

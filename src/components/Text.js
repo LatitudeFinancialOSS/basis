@@ -95,7 +95,7 @@ function Text(props) {
     align: (align) => ALIGNS.includes(align),
     wrap: (wrap) => typeof wrap === "boolean",
   });
-  const { id, as, align, wrap, children, testId } = mergedProps;
+  const { id, as, align, wrap, role, children, testId } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     color: (_, theme, bp) => {
       const color =
@@ -115,7 +115,7 @@ function Text(props) {
   const Component = as;
 
   return (
-    <Component id={id} css={css} data-testid={testId}>
+    <Component id={id} css={css} role={role} data-testid={testId}>
       {children}
     </Component>
   );
@@ -142,6 +142,7 @@ Text.propTypes = {
   },
   align: PropTypes.oneOf(ALIGNS),
   wrap: PropTypes.bool,
+  role: PropTypes.string,
   children: PropTypes.node,
   testId: PropTypes.string,
 };
