@@ -72,6 +72,7 @@ function Input(props) {
     optional,
     validate,
     validateData,
+    onChange: onChangeProp,
     testId,
     __internal__focus,
   } = mergedProps;
@@ -86,15 +87,26 @@ function Input(props) {
     }),
     [isEmpty, variant, validateData]
   );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
-    "Input",
-    {
-      name,
-      disabled,
-      optional,
-      validate,
-      data,
-    }
+  const {
+    value,
+    errors,
+    hasErrors,
+    onFocus,
+    onBlur,
+    onChange: fieldOnChange,
+  } = useField("Input", {
+    name,
+    disabled,
+    optional,
+    validate,
+    data,
+  });
+  const onChange = useCallback(
+    (event) => {
+      fieldOnChange(event);
+      onChangeProp && onChangeProp({ value: event.target.value });
+    },
+    [fieldOnChange, onChangeProp]
   );
 
   return (
@@ -150,6 +162,7 @@ Input.propTypes = {
   optional: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
+  onChange: PropTypes.func,
   testId: PropTypes.string,
   __internal__focus: PropTypes.bool,
 };

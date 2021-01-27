@@ -81,9 +81,9 @@ function Checkbox(props) {
   const onChange = useCallback(
     (event) => {
       fieldOnChange(event);
-      onChangeProp && onChangeProp({ isChecked: !value });
+      onChangeProp && onChangeProp({ isChecked: event.target.checked });
     },
-    [fieldOnChange, onChangeProp, value]
+    [fieldOnChange, onChangeProp]
   );
 
   return (

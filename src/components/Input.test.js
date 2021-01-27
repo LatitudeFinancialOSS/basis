@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "../utils/test";
+import { render, screen, waitFor, userEvent } from "../utils/test";
 import "@testing-library/jest-dom/extend-expect";
 import Form from "./Form";
 import Input from "./Input";
@@ -229,6 +229,27 @@ describe("Input", () => {
 
     expect(input).toHaveStyle({
       backgroundColor: "#ffffff",
+    });
+  });
+
+  it("with onChange", () => {
+    const onChange = jest.fn();
+
+    render(<FormWithInput label="First name" onChange={onChange} />);
+
+    const input = screen.getByLabelText("First name");
+
+    userEvent.type(input, "a");
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toBeCalledWith({
+      value: "a",
+    });
+
+    userEvent.type(input, "bc");
+
+    expect(onChange).toBeCalledWith({
+      value: "abc",
     });
   });
 
