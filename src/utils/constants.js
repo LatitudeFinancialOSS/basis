@@ -15,7 +15,12 @@ export const TEXT_STYLES = [
 ];
 export const TEXT_ALIGNS = ["inherit", "left", "center", "right"];
 
-export const FLEX_DIRECTIONS = ["row", "column"];
+export const FLEX_DIRECTIONS = [
+  "row",
+  "row-reverse",
+  "column",
+  "column-reverse",
+];
 export const FLEX_PLACE_ITEMS = [
   "top left",
   "top center",
