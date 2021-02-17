@@ -86,6 +86,9 @@ module.exports = {
       Text: {
         status: COMPONENT_STATUS.READY,
       },
+      Textarea: {
+        status: COMPONENT_STATUS.READY,
+      },
       TimeSpan: {
         status: COMPONENT_STATUS.READY,
       },

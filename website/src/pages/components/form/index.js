@@ -121,6 +121,7 @@ function FormPage() {
         years: "",
         months: ""
       },
+      aboutYourself: ""
     };
       
     function App() {
@@ -145,6 +146,7 @@ function FormPage() {
               <Frequency name="salary" label="Salary" />
               <DatePicker name="birthDate" label="Birth date" />
               <TimeSpan name="age" label="Age" />
+              <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
               <Button type="submit">Submit</Button>
             </Grid>
           </Form>

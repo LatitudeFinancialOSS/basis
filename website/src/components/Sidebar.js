@@ -27,7 +27,9 @@ Section.propTypes = {
 
 function Item({ location, href, children }) {
   const theme = useTheme();
-  const isCurrent = location.pathname.startsWith(href);
+  const isCurrent =
+    location.pathname.startsWith(href) &&
+    [undefined, "/"].includes(location.pathname[href.length]);
 
   return (
     <li css={{ listStyleType: "none" }}>
