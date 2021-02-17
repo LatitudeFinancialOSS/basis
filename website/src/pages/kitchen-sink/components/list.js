@@ -138,7 +138,6 @@ function KitchenSinkList() {
                     <List.Item>Third</List.Item>
                   </List>
                 </List.Item>
-                <List.Item>Last item</List.Item>
               </List>
             </Container>
           ))}

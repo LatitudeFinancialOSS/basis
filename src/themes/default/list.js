@@ -49,7 +49,10 @@ export default (theme, { getTextStyle }) => {
                       : theme.colors.secondary.lightBlue.t100,
                 },
                 "& ul, & ol": {
-                  margin: "0.5em 0 1em",
+                  marginTop: "0.5em",
+                },
+                "&:not(:last-of-type) ul, &:not(:last-of-type) ol": {
+                  marginBottom: "1em",
                 },
               };
             }
@@ -73,7 +76,10 @@ export default (theme, { getTextStyle }) => {
                   left: "-1.25em",
                 },
                 "& ul, & ol": {
-                  margin: "0.5em 0 1em",
+                  marginTop: "0.5em",
+                },
+                "&:not(:last-of-type) ul, &:not(:last-of-type) ol": {
+                  marginBottom: "1em",
                 },
                 "& ol li::before": {
                   content: 'counter(ordered, lower-alpha) ". "',
@@ -107,7 +113,10 @@ export default (theme, { getTextStyle }) => {
                   left: "-2.5em",
                 },
                 "& ul, & ol": {
-                  margin: "1em 0 1.25em",
+                  marginTop: "1em",
+                },
+                "&:not(:last-of-type) ul, &:not(:last-of-type) ol": {
+                  marginBottom: "1.25em",
                 },
                 "& ol li::before": {
                   content: "counter(steps, lower-alpha)",
