@@ -25,5 +25,6 @@ export { default as Stack } from "./Stack";
 export { default as Stepper } from "./Stepper";
 export { default as Sticky } from "./Sticky";
 export { default as Text } from "./Text";
+export { default as Textarea } from "./Textarea";
 export { default as TimeSpan } from "./TimeSpan";
 export { default as VisuallyHidden } from "./VisuallyHidden";

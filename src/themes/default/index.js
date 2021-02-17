@@ -10,6 +10,7 @@ import radioGroup from "./radioGroup";
 import select from "./select";
 import stepper from "./stepper";
 import text from "./text";
+import textarea from "./textarea";
 import textStyles from "./textStyles";
 import { getPath } from "../../utils/objectPath";
 
@@ -271,4 +272,5 @@ export default {
   select: select(theme, helpers),
   stepper: stepper(theme, helpers),
   text: text(theme, helpers),
+  textarea: textarea(theme, helpers),
 };
