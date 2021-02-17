@@ -151,4 +151,35 @@ describe("TimeSpan", () => {
       "my-time-span"
     );
   });
+
+  describe("getHelpText", () => {
+    it("empty", () => {
+      expect(TimeSpan.getHelpText("", "", "-")).toBe("-");
+    });
+
+    it("error", () => {
+      expect(TimeSpan.getHelpText("foo", "", "-")).toBe("-");
+      expect(TimeSpan.getHelpText("", "bar", "-")).toBe("-");
+      expect(TimeSpan.getHelpText("foo", "bar", "-")).toBe("-");
+    });
+
+    it("only months", () => {
+      expect(TimeSpan.getHelpText("", "1", "-")).toBe("1 month");
+      expect(TimeSpan.getHelpText("", "3", "-")).toBe("3 months");
+    });
+
+    it("only years", () => {
+      expect(TimeSpan.getHelpText("1", "", "-")).toBe("1 year");
+      expect(TimeSpan.getHelpText("5", "", "-")).toBe("5 years");
+    });
+
+    it("months and years", () => {
+      expect(TimeSpan.getHelpText("1", "1", "-")).toBe("1 year and 1 month");
+      expect(TimeSpan.getHelpText("1", "8", "-")).toBe("1 year and 8 months");
+      expect(TimeSpan.getHelpText("2", "1", "-")).toBe("2 years and 1 month");
+      expect(TimeSpan.getHelpText("2", "11", "-")).toBe(
+        "2 years and 11 months"
+      );
+    });
+  });
 });
