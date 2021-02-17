@@ -18,6 +18,7 @@ export default (theme, { getTextStyle }) => {
               padding: "0.25em 0 0.25em 2.5em",
             }),
             ...getTextStyle({ name: textStyle, mode: "container" }),
+            color: theme.colors.black,
           };
         }
 
