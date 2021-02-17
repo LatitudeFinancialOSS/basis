@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import useResizeAware from "react-resize-aware";
 import useTheme from "../hooks/useTheme";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
@@ -8,7 +7,6 @@ import {
   responsiveMarginType,
   responsiveHeightType,
 } from "../hooks/useResponsiveProp";
-import { range } from "../utils/array";
 import {
   getGridTemplateColumns,
   getGridTemplateRows,
@@ -89,18 +87,15 @@ const presetsMap = {
   },
 };
 
-const DEFAULT_GRID_PROPS = {
-  debug: false,
-};
+const DEFAULT_GRID_PROPS = {};
 
 Grid.PRESETS = PRESETS;
 Grid.DEFAULT_PROPS = DEFAULT_GRID_PROPS;
 
 function Grid(_props) {
   const props = { ...DEFAULT_GRID_PROPS, ..._props };
-  const { preset, debug, children, testId } = props;
+  const { preset, children, testId } = props;
   const theme = useTheme();
-  const [resizeListener, sizes] = useResizeAware();
   const parsedProps = {
     ...presetsMap[preset],
     ...props,
@@ -133,61 +128,16 @@ function Grid(_props) {
       height: responsiveSize("height"),
     }
   );
-  const gridRef = useRef();
-  const [gridInfo, setGridInfo] = useState(null);
-
-  useEffect(() => {
-    const gridStyles = getComputedStyle(gridRef.current);
-    const gridTemplateColumns = gridStyles.getPropertyValue(
-      "grid-template-columns"
-    );
-    const gridTemplateRows = gridStyles.getPropertyValue("grid-template-rows");
-
-    setGridInfo({
-      gridTemplateColumns,
-      columnsCount: gridTemplateColumns.split(" ").length,
-      gridTemplateRows,
-      rowsCount: gridTemplateRows.split(" ").length,
-    });
-  }, [sizes.width, children]);
 
   return (
     <div
       css={{
         display: "grid",
-        position: "relative",
         ...responsivePropsCSS,
       }}
       data-testid={testId}
-      ref={gridRef}
     >
-      {resizeListener}
       {children}
-      {debug && gridInfo && (
-        <div
-          css={{
-            position: "absolute",
-            display: "grid",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            gridGap: "inherit",
-            pointerEvents: "none",
-            gridTemplateColumns: gridInfo.gridTemplateColumns,
-            gridTemplateRows: gridInfo.gridTemplateRows,
-          }}
-        >
-          {range(gridInfo.columnsCount * gridInfo.rowsCount).map((i) => (
-            <div
-              css={{
-                border: `${theme.borderWidths[0]} dotted`,
-              }}
-              key={i}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }
@@ -212,7 +162,6 @@ Grid.propTypes = {
   ...responsiveMarginType,
   ...responsiveHeightType,
   preset: PropTypes.oneOf(PRESETS),
-  debug: PropTypes.bool,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

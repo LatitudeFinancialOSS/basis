@@ -1,39 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
-import RadioGroupSetting, {
-  getCheckboxOptions,
-} from "../../../components/RadioGroupSetting";
-import { formatCode, nonDefaultProps } from "../../../utils/formatting";
+import { formatCode } from "../../../utils/formatting";
 
-const { useTheme, Grid } = allDesignSystem;
-const { DEFAULT_PROPS } = Grid;
 const scope = allDesignSystem;
 
-const debugOptions = getCheckboxOptions();
-
 function GridPage() {
-  const theme = useTheme();
-  const [debug, setDebug] = useState(DEFAULT_PROPS.debug);
-  const gridProps = nonDefaultProps([
-    {
-      prop: "preset",
-      value: "page",
-    },
-    {
-      prop: "rowsGap",
-      value: 4,
-      type: "number",
-    },
-    {
-      prop: "debug",
-      value: debug,
-      defaultValue: DEFAULT_PROPS.debug,
-      type: "boolean",
-    },
-  ]);
   const code = formatCode(`
-    <Grid ${gridProps}>
+    <Grid preset="page" rowsGap={4}>
       <Grid.Item colSpan="all">
         <Placeholder label="Header" height="32" />
       </Grid.Item>
@@ -56,29 +30,12 @@ function GridPage() {
   `);
 
   return (
-    <>
-      <div
-        css={{
-          display: "flex",
-          flexShrink: 0,
-          padding: `${theme.space[5]} ${theme.space[6]}`,
-        }}
-      >
-        <RadioGroupSetting
-          heading="Debug"
-          options={debugOptions}
-          selectedValue={debug}
-          setSelectedValue={setDebug}
-          type="boolean"
-        />
-      </div>
-      <ComponentContainer
-        code={code}
-        scope={scope}
-        width="md"
-        hasBodyMargin={false}
-      />
-    </>
+    <ComponentContainer
+      code={code}
+      scope={scope}
+      width="md"
+      hasBodyMargin={false}
+    />
   );
 }
 
