@@ -19,9 +19,11 @@ describe("Message", () => {
   });
 
   it("renders icon", () => {
-    render(<Message severity="blocking">Something went wrong.</Message>);
+    const { container } = render(
+      <Message severity="blocking">Something went wrong.</Message>
+    );
 
-    expect(screen.getByLabelText("Blocking")).toBeInTheDocument();
+    expect(container.querySelector("svg")).toBeInTheDocument();
   });
 
   it("renders title", () => {

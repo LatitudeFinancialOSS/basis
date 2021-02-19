@@ -20,7 +20,6 @@ function Twitter({ size, primaryColor, hoverColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Twitter"
       data-testid={testId}
     >
       <path

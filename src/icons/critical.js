@@ -12,7 +12,6 @@ function Critical({ size, primaryColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Critical"
       data-testid={testId}
     >
       <path
