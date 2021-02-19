@@ -12,7 +12,6 @@ function LockSmall({ size, primaryColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Lock small"
       data-testid={testId}
     >
       <path

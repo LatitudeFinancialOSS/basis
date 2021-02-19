@@ -12,7 +12,6 @@ function Stop({ size, primaryColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Stop"
       data-testid={testId}
     >
       <path

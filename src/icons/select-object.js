@@ -20,7 +20,6 @@ function SelectObject({ size, primaryColor, hoverColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Select object"
       data-testid={testId}
     >
       <path d="M14 14l14 3.5-5.2 3.5 4.86 4.93a.49.49 0 010 .7l-1 1a.5.5 0 01-.7 0L21 22.77 17.5 28z" />

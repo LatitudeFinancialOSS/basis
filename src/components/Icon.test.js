@@ -10,7 +10,6 @@ describe("Icon", () => {
       const svg = container.firstChild;
 
       expect(svg).toHaveAttribute("role", "img");
-      expect(svg).toHaveAttribute("aria-label");
       expect(svg).toHaveAttribute("data-testid", `my-${name}`);
     });
   });

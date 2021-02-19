@@ -54,7 +54,11 @@ function ButtonPage() {
     },
   ])}
 >
-  ${variant === "icon" ? `<Icon name="cross" />` : "Button"}
+  ${
+    variant === "icon"
+      ? `<Icon name="cross" /><VisuallyHidden>Close</VisuallyHidden>`
+      : "Button"
+  }
 </Button>`);
 
   return (

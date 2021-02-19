@@ -12,7 +12,6 @@ function Hamburger({ size, primaryColor, testId }) {
       viewBox="0 0 32 32"
       focusable="false"
       role="img"
-      aria-label="Hamburger"
       data-testid={testId}
     >
       <path
