@@ -50,6 +50,7 @@ const NAMES = [
   "tick-small",
   "tick",
   "time",
+  "trash",
   "triangle-down",
   "triangle-up",
   "twitter",
