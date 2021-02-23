@@ -8,5 +8,8 @@ export { default as defaultTheme } from "./themes/default";
 export { default as useTheme } from "./hooks/useTheme";
 export { default as useBreakpoint } from "./hooks/useBreakpoint";
 
+// Utils
+export { getUniqueId } from "./utils/core";
+
 // Components
 export * from "./components";

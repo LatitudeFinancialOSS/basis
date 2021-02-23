@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export function isObjectEmpty(obj) {
   for (const _key in obj) {
     return false;
@@ -15,3 +17,5 @@ export function isObjectEmpty(obj) {
 export function hasOwnProperty(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key);
 }
+
+export const getUniqueId = nanoid;

@@ -205,6 +205,14 @@ function Form(_props) {
     },
     [submitForm]
   );
+  const setValues = (updateValues) => {
+    setState((state) => {
+      return {
+        ...state,
+        values: updateValues(state.values),
+      };
+    });
+  };
   const setErrors = useCallback((errorsMap) => {
     setState((state) => {
       const newErrors = Object.keys(fields.current).reduce((acc, name) => {
@@ -273,6 +281,7 @@ function Form(_props) {
               state: exposedState,
               validateField,
               submitForm,
+              setValues,
             })
           : children}
       </form>
