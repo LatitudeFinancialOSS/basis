@@ -18,6 +18,7 @@ const NAMES = [
   "cross-small",
   "cross",
   "devices",
+  "document",
   "download",
   "edit",
   "external-link",
