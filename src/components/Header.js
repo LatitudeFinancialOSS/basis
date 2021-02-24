@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import Container from "./Container";
 import Flex from "./Flex";
-import Logo from "./internal/Logo";
+import Logo from "./Logo";
 import { getPropsFromMap } from "../utils/component";
 
 function HeaderLogo({ name, testId }) {

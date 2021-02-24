@@ -9,7 +9,7 @@ import Stack from "./Stack";
 import Text from "./Text";
 import useBreakpoint from "../hooks/useBreakpoint";
 import useTheme from "../hooks/useTheme";
-import Logo from "./internal/Logo";
+import Logo from "./Logo";
 import useFooterLinks, { FooterLinksProvider } from "../hooks/useFooterLinks";
 import { compareBreakpoints } from "../utils/css";
 import { mergeProps } from "../utils/component";

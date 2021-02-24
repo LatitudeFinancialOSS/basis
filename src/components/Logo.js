@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import {
   responsiveHeightType,
   responsiveMaxWidthType,
-} from "../../hooks/useResponsiveProp";
-import useAllResponsiveProps from "../../hooks/useAllResponsiveProps";
+} from "../hooks/useResponsiveProp";
+import useAllResponsiveProps from "../hooks/useAllResponsiveProps";
 
 const NAMES = ["latitude", "gem"];
 const COLORS = ["primary.blue.t100", "black", "white"];
@@ -25,7 +25,7 @@ function Logo(_props) {
     return null;
   }
 
-  const LogoComponent = require(`../../logos/${name}`).default;
+  const LogoComponent = require(`../logos/${name}`).default;
   const logoProps = {
     color,
     ...heightProps,
