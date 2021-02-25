@@ -6,7 +6,15 @@ import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import InternalInput from "./internal/InternalInput";
 
-const { TYPES, VARIANTS, COLORS, NUMERIC_REGEX, DECIMAL_REGEX } = InternalInput;
+const {
+  TYPES,
+  VARIANTS,
+  COLORS,
+  INPUTMODE,
+  AUTOCAPITALIZE,
+  NUMERIC_REGEX,
+  DECIMAL_REGEX,
+} = InternalInput;
 
 const DEFAULT_PROPS = {
   type: InternalInput.DEFAULT_PROPS.type,
@@ -35,6 +43,8 @@ const DEFAULT_PROPS = {
 Input.TYPES = TYPES;
 Input.VARIANTS = VARIANTS;
 Input.COLORS = COLORS;
+Input.INPUTMODE = INPUTMODE;
+Input.AUTOCAPITALIZE = AUTOCAPITALIZE;
 Input.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Input(props) {
@@ -54,6 +64,9 @@ function Input(props) {
       disabled: (disabled) => typeof disabled === "boolean",
       pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
       optional: (optional) => typeof optional === "boolean",
+      inputMode: (inputMode) => INPUTMODE.includes(inputMode),
+      autoCapitalize: (autoCapitalize) =>
+        AUTOCAPITALIZE.includes(autoCapitalize),
     }
   );
   const {
@@ -74,6 +87,8 @@ function Input(props) {
     validateData,
     onChange: onChangeProp,
     testId,
+    inputMode,
+    autoCapitalize,
     __internal__focus,
   } = mergedProps;
   const [inputId] = useState(() => `input-${nanoid()}`);
@@ -130,6 +145,7 @@ function Input(props) {
         maxLength={maxLength}
         autoComplete={autoComplete}
         placeholder={placeholder}
+        inputMode={inputMode}
         color={props.color}
         disabled={disabled}
         pasteAllowed={pasteAllowed}
@@ -139,6 +155,7 @@ function Input(props) {
         onBlur={onBlur}
         value={value}
         onChange={onChange}
+        autoCapitalize={autoCapitalize}
         __internal__focus={__internal__focus}
       />
     </Field>
@@ -164,6 +181,8 @@ Input.propTypes = {
   validateData: PropTypes.any,
   onChange: PropTypes.func,
   testId: PropTypes.string,
+  inputMode: PropTypes.string,
+  autoCapitalize: PropTypes.string,
   __internal__focus: PropTypes.bool,
 };
 

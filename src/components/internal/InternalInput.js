@@ -8,6 +8,24 @@ import { mergeProps } from "../../utils/component";
 const TYPES = ["text", "password"];
 const VARIANTS = ["text", "numeric", "decimal"];
 const COLORS = ["grey.t05", "white"];
+const INPUTMODE = [
+  "none",
+  "text",
+  "decimal",
+  "numeric",
+  "tel",
+  "search",
+  "email",
+  "url",
+];
+const AUTOCAPITALIZE = [
+  "off",
+  "none",
+  "on",
+  "sentences",
+  "words",
+  "characters",
+];
 
 const NUMERIC_REGEX = /^\d*$/;
 const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
@@ -26,6 +44,8 @@ const DEFAULT_PROPS = {
 InternalInput.TYPES = TYPES;
 InternalInput.VARIANTS = VARIANTS;
 InternalInput.COLORS = COLORS;
+InternalInput.INPUTMODE = INPUTMODE;
+InternalInput.AUTOCAPITALIZE = AUTOCAPITALIZE;
 InternalInput.NUMERIC_REGEX = NUMERIC_REGEX;
 InternalInput.DECIMAL_REGEX = DECIMAL_REGEX;
 InternalInput.DEFAULT_PROPS = DEFAULT_PROPS;
@@ -46,6 +66,9 @@ function InternalInput(props) {
       color: (color) => COLORS.includes(color),
       disabled: (disabled) => typeof disabled === "boolean",
       pasteAllowed: (pasteAllowed) => typeof pasteAllowed === "boolean",
+      inputMode: (inputMode) => INPUTMODE.includes(inputMode),
+      autoCapitalize: (autoCapitalize) =>
+        AUTOCAPITALIZE.includes(autoCapitalize),
     }
   );
   const {
@@ -67,6 +90,8 @@ function InternalInput(props) {
     onBlur,
     value,
     onChange,
+    inputMode,
+    autoCapitalize,
     __internal__focus,
   } = mergedProps;
   const theme = useTheme();
@@ -122,13 +147,14 @@ function InternalInput(props) {
         data-parent-name={parentName}
         placeholder={placeholder}
         type={type}
+        inputMode={inputMode}
         {...variantProps}
         maxLength={maxLength}
         disabled={disabled}
         onPaste={onPaste}
         autoComplete={autoComplete}
         autoCorrect="off"
-        autoCapitalize="off"
+        autoCapitalize={autoCapitalize || "off"}
         spellCheck="false"
         aria-invalid={isValid ? null : "true"}
         aria-describedby={describedBy}
@@ -161,6 +187,8 @@ InternalInput.propTypes = {
   onBlur: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  inputMode: PropTypes.string,
+  autoCapitalize: PropTypes.string,
   __internal__focus: PropTypes.bool,
 };
 
