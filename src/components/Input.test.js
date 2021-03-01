@@ -77,6 +77,14 @@ describe("Input", () => {
     expect(input).toHaveAttribute("type", "password");
   });
 
+  it("type email", () => {
+    render(<FormWithInput label="Email address" type="email" />);
+
+    const input = screen.getByLabelText("Email address");
+
+    expect(input).toHaveAttribute("type", "email");
+  });
+
   it("numeric variant", () => {
     render(<FormWithInput label="New credit limit" variant="numeric" />);
 
