@@ -5,7 +5,7 @@ import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../../utils/component";
 
-const TYPES = ["text", "password"];
+const TYPES = ["text", "password", "email"];
 const VARIANTS = ["text", "numeric", "decimal"];
 const COLORS = ["grey.t05", "white"];
 
