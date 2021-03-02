@@ -25,13 +25,12 @@ describe("Checkbox", () => {
       </FormWithCheckbox>
     );
     const label = screen.getByText("Accept terms and conditions");
-    const checkboxContainer = container.querySelector("[aria-checked]");
+    const checkboxContainer = container.querySelector("[aria-labelledby]");
 
     expect(label).toHaveAttribute(
       "id",
       checkboxContainer.getAttribute("aria-labelledby")
     );
-    expect(checkboxContainer).not.toBeChecked();
 
     const checkboxInput = checkboxContainer.querySelector(
       'input[type="checkbox"]'
@@ -65,7 +64,7 @@ describe("Checkbox", () => {
         </FormWithCheckbox>
       </Container>
     );
-    const checkboxContainer = container.querySelector("[aria-checked]");
+    const checkboxContainer = container.querySelector("[aria-labelledby]");
     const checkboxInputLabel = checkboxContainer.querySelector("label");
 
     expect(checkboxInputLabel).toHaveStyle({
@@ -83,7 +82,7 @@ describe("Checkbox", () => {
         </Container>
       </Container>
     );
-    const checkboxContainer = container.querySelector("[aria-checked]");
+    const checkboxContainer = container.querySelector("[aria-labelledby]");
     const checkboxInputLabel = checkboxContainer.querySelector("label");
 
     expect(checkboxInputLabel).toHaveStyle({
@@ -110,7 +109,7 @@ describe("Checkbox", () => {
         I agree
       </FormWithCheckbox>
     );
-    const checkboxContainer = container.querySelector("[aria-checked]");
+    const checkboxContainer = container.querySelector("[aria-labelledby]");
     const checkboxInputLabel = checkboxContainer.querySelector("label");
 
     // Check

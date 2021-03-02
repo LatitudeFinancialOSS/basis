@@ -94,9 +94,7 @@ function InternalCheckbox(_props) {
   return (
     <div
       css={theme.checkbox.getCSS({ targetElement: "container" })}
-      role="checkbox"
       aria-invalid={isValid ? null : "true"}
-      aria-checked={value}
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
     >
