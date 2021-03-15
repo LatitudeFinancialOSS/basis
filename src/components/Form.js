@@ -72,6 +72,7 @@ function Form(_props) {
     */
     setTimeout(() => {
       if (
+        isMountedRef.current &&
         parentName !== lastFocusedFieldName.current &&
         (lastMouseDownInputElement.current === null ||
           parentName !== getParentFieldName(lastMouseDownInputElement.current))
@@ -236,6 +237,13 @@ function Form(_props) {
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
   });
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (state.namesToValidate === null) {
