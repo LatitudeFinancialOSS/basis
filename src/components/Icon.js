@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
+import { iconListMapping } from "./icon-list";
 
 const NAMES = [
   "assistance",
@@ -103,7 +104,7 @@ function Icon(_props) {
     return null;
   }
 
-  const IconComponent = require(`../icons/${name}`).default;
+  const IconComponent = iconListMapping[name];
 
   return (
     <IconComponent
