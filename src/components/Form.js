@@ -25,10 +25,17 @@ Form.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Form(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
-  const { initialValues, onSubmit, debug, children, testId } = props;
+  const {
+    initialValues,
+    initialErrors,
+    onSubmit,
+    debug,
+    children,
+    testId,
+  } = props;
   const [state, setState] = useState({
     values: initialValues,
-    errors: {},
+    errors: initialErrors ?? {},
     shouldValidateOnChange: false,
     namesToValidate: null,
     submitStatus: "READY",
@@ -301,6 +308,7 @@ function Form(_props) {
 Form.propTypes = {
   ...responsiveWidthType,
   initialValues: PropTypes.object.isRequired,
+  initialErrors: PropTypes.object,
   onSubmit: PropTypes.func,
   debug: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
