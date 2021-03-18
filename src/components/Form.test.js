@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import "@testing-library/jest-dom/extend-expect";
 import {
@@ -45,7 +46,6 @@ const hungryOptions = [
   },
 ];
 
-// eslint-disable-next-line react/prop-types
 function SimpleForm({ testId }) {
   const initialValues = {
     name: "",
@@ -58,8 +58,12 @@ function SimpleForm({ testId }) {
   );
 }
 
-// eslint-disable-next-line react/prop-types
-function ComplexForm({ initialValues, onSubmit, unMountFormOnSubmit = false }) {
+function ComplexForm({
+  initialValues,
+  initialErrors,
+  onSubmit,
+  unMountFormOnSubmit = false,
+}) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const formInitialValues = {
     name: "",
@@ -90,6 +94,7 @@ function ComplexForm({ initialValues, onSubmit, unMountFormOnSubmit = false }) {
   return (
     <Form
       initialValues={formInitialValues}
+      initialErrors={initialErrors}
       onSubmit={(args) => {
         onSubmit(args);
 
@@ -136,6 +141,7 @@ function ComplexForm({ initialValues, onSubmit, unMountFormOnSubmit = false }) {
     </Form>
   );
 }
+// eslint-disable react/prop-types
 
 describe("Form", () => {
   it("renders a form", () => {
@@ -284,6 +290,21 @@ describe("Form", () => {
         screen.queryByText("Try to spell it differently.")
       ).not.toBeInTheDocument();
     });
+  });
+
+  it("with initialErrors", () => {
+    const initialErrors = {
+      name: ["This name is already taken."],
+      aboutYourself: ["You can't use inappropriate words.", "Max 500 words."],
+    };
+
+    render(<ComplexForm initialErrors={initialErrors} />);
+
+    expect(screen.getByText("This name is already taken.")).toBeInTheDocument();
+    expect(
+      screen.getByText("You can't use inappropriate words.")
+    ).toBeInTheDocument();
+    expect(screen.getByText("Max 500 words.")).toBeInTheDocument();
   });
 
   it("with testId", () => {
