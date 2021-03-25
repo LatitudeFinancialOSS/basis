@@ -5,6 +5,7 @@ const { siteMetadata } = require("./gatsby-config");
 const prodAlias = {
   react: path.resolve("./node_modules/react"), // Resolves to [REPO_LOCATION]/website/node_modules/react
   "@emotion": path.resolve("./node_modules/@emotion"),
+  "@basis": path.resolve("./lib/basis-lib"),
 };
 
 const devAlias = {
