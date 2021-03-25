@@ -86,6 +86,12 @@ function InputPage() {
                   ? "New credit limit"
                   : variant === "decimal"
                   ? "Amount"
+                  : type === "password"
+                  ? "Password"
+                  : type === "email"
+                  ? "Email"
+                  : type === "tel"
+                  ? "Mobile number"
                   : "Name",
             },
             {
