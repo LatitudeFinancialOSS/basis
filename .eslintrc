@@ -45,7 +45,10 @@
       "version": "detect"
     },
     "import/resolver": {
-      "alias": [["basis", "./src"]]
+      "alias": [
+        ["basis", "./src"],
+        ["@basis", "./src"]
+      ]
     }
   }
 }
