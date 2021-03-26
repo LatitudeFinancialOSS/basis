@@ -1,6 +1,8 @@
 module.exports = {
+  preset: "ts-jest/presets/js-with-babel",
   testMatch: [
     "<rootDir>/src/**/*.test.js",
+    "<rootDir>/src/**/*.test.tsx",
     "<rootDir>/website/src/**/*.test.js",
   ],
   moduleNameMapper: {
