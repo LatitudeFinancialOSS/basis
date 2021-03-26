@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { RecoilRoot } from "recoil";
 import { Location } from "@reach/router";
-import { Global } from "@emotion/core";
+import { Global } from "@emotion/react";
 import { Link as GatsbyLink } from "gatsby";
 import { FeedbackFish } from "@feedback-fish/react";
 import { Button } from "basis";

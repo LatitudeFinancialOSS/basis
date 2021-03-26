@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { LivePreview } from "react-live";
 import Frame, { FrameContextConsumer } from "react-frame-component";
-import { Global } from "@emotion/core";
+import { Global } from "@emotion/react";
 import { BasisProvider, defaultTheme } from "basis";
 import { BackgroundProvider } from "../../../src/hooks/useBackground";
 import CacheProviderWithContainer from "./CacheProviderWithContainer";

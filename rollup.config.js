@@ -13,11 +13,11 @@ export default [
       //     format: "esm",
       //     banner: "/* eslint-disable */",
       //   },
-      {
-        file: "website/lib/basis-lib/index.js",
-        format: "esm",
-        banner: "/* eslint-disable */",
-      },
+      // {
+      //   file: "website/lib/basis-lib/index.js",
+      //   format: "esm",
+      //   banner: "/* eslint-disable */",
+      // },
       { file: pkg.main, format: "cjs" },
       { file: pkg.module, format: "esm" },
     ],

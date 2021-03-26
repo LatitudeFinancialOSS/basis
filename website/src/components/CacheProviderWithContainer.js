@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import weakMemoize from "@emotion/weak-memoize";
 import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/core";
+import { CacheProvider } from "@emotion/react";
 
 // Inspired by: https://github.com/emotion-js/emotion/issues/760#issuecomment-404353706
 const memoizedCreateCacheWithContainer = weakMemoize((container) => {
