@@ -1,21 +1,20 @@
 import React from "react";
+import useTheme from "../hooks/useTheme";
+import { TextStyleProvider } from "../hooks/useTextStyle";
 import useBackground, { BackgroundProvider } from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { TextStyleProvider } from "../hooks/useTextStyle";
-import useTheme from "../hooks/useTheme";
+import {
+  responsiveMargin,
+  responsivePadding,
+  responsiveSize,
+  responsiveTextAlign,
+  responsiveOverflow,
+  responsiveHasBreakpointWidth,
+} from "../utils/css";
 import {
   getResponsivePropMap,
-  mergeResponsivePropMaps
+  mergeResponsivePropMaps,
 } from "../utils/component";
-import {
-  responsiveHasBreakpointWidth, responsiveMargin,
-
-
-
-  responsiveOverflow, responsivePadding,
-  responsiveSize,
-  responsiveTextAlign
-} from "../utils/css";
 
 const BACKGROUNDS = [
   "transparent",

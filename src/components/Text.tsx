@@ -76,7 +76,7 @@ Text.allowedColors = allowedColors;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Text(props: any) {
-  const { textStyle: inheritedTextStyle }: any  = useTextStyle();
+  const { textStyle: inheritedTextStyle }: any = useTextStyle();
   const { bgMap } = useBackground();
   const inheritedProps = {
     textStyle: inheritedTextStyle,
