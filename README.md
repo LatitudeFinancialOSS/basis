@@ -38,7 +38,6 @@ export default App;
 Make sure nvm is installed.
 
 ```shell
-nvm use
 npm install
 npm start
 ```

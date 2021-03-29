@@ -1,6 +1,6 @@
 {
   "name": "basis",
-  "version": "2.0.0",
+  "version": "2.0.0-beta.0",
   "description": "Basis Design System",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -104,6 +104,11 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "yarn": "DO_NOT_USE",
+    "node": ">=12.9.x",
+    "npm": ">=6.9.x"
+  },
   "author": "Misha Moroshko <misha.moroshko@latitudefinancial.com>",
   "license": "MIT"
 }
