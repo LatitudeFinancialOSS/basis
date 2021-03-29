@@ -14,7 +14,7 @@
     "percy": "percy snapshot public -c .percy.js",
     "prebuild-basis": "rimraf dist",
     "build-basis": "rollup -c",
-    "build:watch": "rollup -c -w",
+    "build-watch": "rollup -c -w",
     "prebuild": "rimraf public",
     "build": "cd website && npm run build && mv public .. && cd ..",
     "prepublishOnly": "npm run build-basis",
@@ -106,7 +106,7 @@
   ],
   "engines": {
     "yarn": "DO_NOT_USE",
-    "node": ">=12.9.x",
+    "node": ">=12.x.x",
     "npm": ">=6.9.x"
   },
   "author": "Misha Moroshko <misha.moroshko@latitudefinancial.com>",
