@@ -35,7 +35,6 @@ export default App;
 
 ## Developing locally
 
-
 ```shell
 npm install
 npm start
