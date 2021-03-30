@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Basis website",
   "scripts": {
-    "start": "npm run develop",
+    "start": "yarn develop",
     "develop": "gatsby develop",
     "clean": "gatsby clean",
-    "prebuild": "npm run clean",
+    "prebuild": "yarn clean",
     "build": "gatsby build"
   },
   "dependencies": {

@@ -6,3 +6,5 @@ website/node_modules
 website/public
 website/package-lock.json
 package-lock.json
+website/yarn-lock.json
+yarn-lock.json

@@ -2,12 +2,31 @@
   "name": "basis",
   "version": "2.0.0-beta.0",
   "description": "Basis Design System",
+  "keywords": [
+    "design-system",
+    "react",
+    "components",
+    "library",
+    "emotion"
+  ],
+  "bugs": {
+    "url": "https://github.com/moroshko/basis/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moroshko/basis"
+  },
+  "license": "MIT",
+  "author": "Misha Moroshko <misha.moroshko@latitudefinancial.com>",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "concurrently --kill-others \"npm run build-watch\"  \"npm run start-website\"",
-    "start-website": "cd website && npm run clean && npm start",
+    "start": "concurrently --kill-others \"yarn build-watch\"  \"yarn start-website\"",
+    "start-website": "cd website && yarn clean && yarn start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
     "test": "cross-env BABEL_ENV=cjs jest",
@@ -16,10 +35,10 @@
     "build-basis": "rollup -c",
     "build-watch": "rollup -c -w",
     "prebuild": "rimraf public",
-    "build": "cd website && npm run build && mv public .. && cd ..",
-    "prepublishOnly": "npm run build-basis",
-    "postinstall": "(test -d website && npm run install-website && husky install) || true",
-    "install-website": "cd website && npm install && cd .."
+    "build": "cd website && yarn build && mv public .. && cd ..",
+    "prepublishOnly": "yarn build-basis",
+    "postinstall": "(test -d website && yarn install-website && husky install) || true",
+    "install-website": "cd website && yarn && cd .."
   },
   "dependencies": {
     "date-fns": "2.19.0",
@@ -31,12 +50,6 @@
     "nanoid": "3.1.22",
     "polished": "3.7.1",
     "react-keyed-flatten-children": "1.3.0"
-  },
-  "peerDependencies": {
-    "@emotion/react": "^11.1.5",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "7.13.10",
@@ -87,28 +100,15 @@
     "typescript": "4.2.3",
     "yalc": "1.0.0-pre.50"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/moroshko/basis"
+  "peerDependencies": {
+    "@emotion/react": "^11.1.5",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
-  "bugs": {
-    "url": "https://github.com/moroshko/basis/issues"
-  },
-  "keywords": [
-    "design-system",
-    "react",
-    "components",
-    "library",
-    "emotion"
-  ],
-  "files": [
-    "dist"
-  ],
   "engines": {
-    "yarn": "DO_NOT_USE",
     "node": ">=12.13.x",
-    "npm": ">=6.9.x"
-  },
-  "author": "Misha Moroshko <misha.moroshko@latitudefinancial.com>",
-  "license": "MIT"
+    "npm": "DO_NOT_USE",
+    "yarn": ">=1.16.x"
+  }
 }
