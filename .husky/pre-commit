@@ -1,1 +1,1 @@
-npm run prettier && npm run lint && npm test
+yarn prettier && yarn lint && yarn test

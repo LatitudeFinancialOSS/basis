@@ -5,13 +5,13 @@
 ## Installation
 
 ```shell
-npm install --save basis @emotion/react prop-types
+yarn add basis @emotion/react prop-types
 ```
 
 Install the fonts that your theme needs. For example, if you are using the default theme:
 
 ```shell
-npm install --save typeface-{montserrat,roboto}
+yarn add typeface-{montserrat,roboto}
 ```
 
 ## Usage
@@ -36,8 +36,8 @@ export default App;
 ## Developing locally
 
 ```shell
-npm install
-npm start
+yarn
+yarn start
 ```
 
 ## Thanks

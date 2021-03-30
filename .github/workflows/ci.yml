@@ -20,16 +20,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install
-        run: npm install
+        run: yarn
 
       - name: Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Test
-        run: npm test
+        run: yarn test
 
       - name: Build basis
-        run: npm run build-basis
+        run: yarn build-basis
 
       - name: Build website
-        run: npm run build
+        run: yarn build
