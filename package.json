@@ -6,7 +6,7 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run build:watch\"  \"npm run start-website\"",
+    "start": "concurrently --kill-others \"npm run build-watch\"  \"npm run start-website\"",
     "start-website": "cd website && npm run clean && npm start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",

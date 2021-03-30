@@ -35,7 +35,6 @@ export default App;
 
 ## Developing locally
 
-Make sure nvm is installed.
 
 ```shell
 npm install
