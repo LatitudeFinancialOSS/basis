@@ -1,15 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import useTheme from "../hooks/useTheme";
 import { TextStyleProvider } from "../hooks/useTextStyle";
 import useBackground, { BackgroundProvider } from "../hooks/useBackground";
-import {
-  responsiveMarginType,
-  responsivePaddingType,
-  responsiveWidthType,
-  responsiveHeightType,
-  responsivePropType,
-} from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import {
   responsiveMargin,
@@ -23,7 +15,6 @@ import {
   getResponsivePropMap,
   mergeResponsivePropMaps,
 } from "../utils/component";
-import { TEXT_STYLES, TEXT_ALIGNS } from "../utils/constants";
 
 const BACKGROUNDS = [
   "transparent",
@@ -63,6 +54,7 @@ Container.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function Container(_props) {
   const props = { ...DEFAULT_PROPS, ..._props };
+  // eslint-disable-next-line react/prop-types
   const { boxShadow, textStyle, children, testId } = props;
   const theme = useTheme();
   const { bgMap: inheritedBgMap } = useBackground();
@@ -147,22 +139,22 @@ function Container(_props) {
   );
 }
 
-Container.propTypes = {
-  boxShadow: PropTypes.oneOf(BOX_SHADOWS),
-  ...responsiveMarginType,
-  ...responsivePaddingType,
-  ...responsiveWidthType,
-  ...responsiveHeightType,
-  ...responsivePropType("bg", PropTypes.oneOf(BACKGROUNDS)),
-  ...responsivePropType("flexGrow", PropTypes.bool),
-  ...responsivePropType("hasBorder", PropTypes.bool),
-  ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
-  ...responsivePropType("textAlign", PropTypes.oneOf(TEXT_ALIGNS)),
-  ...responsivePropType("overflow", PropTypes.string),
-  ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
-  ...responsivePropType("hide", PropTypes.bool),
-  children: PropTypes.node,
-  testId: PropTypes.string,
-};
+// Container.propTypes = {
+//   boxShadow: PropTypes.oneOf(BOX_SHADOWS),
+//   ...responsiveMarginType,
+//   ...responsivePaddingType,
+//   ...responsiveWidthType,
+//   ...responsiveHeightType,
+//   // ...responsivePropType("bg", PropTypes.oneOf(BACKGROUNDS)),
+//   ...responsivePropType("flexGrow", PropTypes.bool),
+//   ...responsivePropType("hasBorder", PropTypes.bool),
+//   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
+//   ...responsivePropType("textAlign", PropTypes.oneOf(TEXT_ALIGNS)),
+//   ...responsivePropType("overflow", PropTypes.string),
+//   ...responsivePropType("hasBreakpointWidth", PropTypes.bool),
+//   ...responsivePropType("hide", PropTypes.bool),
+//   children: PropTypes.node,
+//   testId: PropTypes.string,
+// };
 
 export default Container;

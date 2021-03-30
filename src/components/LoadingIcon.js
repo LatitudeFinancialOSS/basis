@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { keyframes } from "@emotion/core";
+import { keyframes } from "@emotion/react";
 import { responsivePropType } from "../hooks/useResponsiveProp";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 

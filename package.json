@@ -1,19 +1,20 @@
 {
   "name": "basis",
-  "version": "1.65.0",
+  "version": "2.0.0-beta.0",
   "description": "Basis Design System",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "cd website && npm run clean && npm start",
+    "start": "concurrently --kill-others \"npm run build-watch\"  \"npm run start-website\"",
+    "start-website": "cd website && npm run clean && npm start",
     "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
-    "lint": "eslint --max-warnings 0 \"**/*.js\"",
+    "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
     "test": "cross-env BABEL_ENV=cjs jest",
     "percy": "percy snapshot public -c .percy.js",
     "prebuild-basis": "rimraf dist",
-    "build-basis:cjs": "cross-env NODE_ENV=production BABEL_ENV=cjs babel src -d dist --ignore \"src/**/*.test.js\"",
-    "build-basis:esm": "cross-env NODE_ENV=production BABEL_ENV=esm babel src -d dist/esm --ignore \"src/**/*.test.js\"",
-    "build-basis": "npm run build-basis:cjs && npm run build-basis:esm",
+    "build-basis": "rollup -c",
+    "build-watch": "rollup -c -w",
     "prebuild": "rimraf public",
     "build": "cd website && npm run build && mv public .. && cd ..",
     "prepublishOnly": "npm run build-basis",
@@ -32,10 +33,10 @@
     "react-keyed-flatten-children": "1.3.0"
   },
   "peerDependencies": {
-    "@emotion/core": "^10.0.28",
+    "@emotion/react": "^11.1.5",
     "prop-types": "^15.7.2",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "7.13.10",
@@ -43,15 +44,21 @@
     "@babel/plugin-proposal-class-properties": "7.13.0",
     "@babel/preset-env": "7.13.10",
     "@babel/preset-react": "7.12.13",
-    "@emotion/babel-preset-css-prop": "10.2.1",
-    "@emotion/core": "10.1.1",
+    "@emotion/babel-preset-css-prop": "11.2.0",
+    "@emotion/jest": "11.2.1",
+    "@emotion/react": "11.1.5",
     "@percy/agent": "0.28.6",
+    "@rollup/plugin-babel": "5.3.0",
+    "@rollup/plugin-commonjs": "17.1.0",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "10.4.9",
     "@testing-library/react-hooks": "3.7.0",
     "@testing-library/user-event": "12.8.3",
+    "@types/jest": "26.0.22",
+    "@typescript-eslint/parser": "4.19.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.2.2",
+    "concurrently": "6.0.0",
     "cross-env": "7.0.3",
     "eslint": "7.22.0",
     "eslint-import-resolver-alias": "1.1.2",
@@ -68,10 +75,17 @@
     "mq-polyfill": "1.1.8",
     "prettier": "2.2.1",
     "prop-types": "15.7.2",
-    "react": "16.14.0",
-    "react-dom": "16.14.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-test-renderer": "16.14.0",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "rollup": "2.42.4",
+    "rollup-plugin-delete": "2.0.0",
+    "rollup-plugin-typescript2": "0.30.0",
+    "ts-jest": "26.5.4",
+    "tslib": "2.1.0",
+    "typescript": "4.2.3",
+    "yalc": "1.0.0-pre.50"
   },
   "repository": {
     "type": "git",
@@ -90,6 +104,11 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "yarn": "DO_NOT_USE",
+    "node": ">=12.x.x",
+    "npm": ">=6.9.x"
+  },
   "author": "Misha Moroshko <misha.moroshko@latitudefinancial.com>",
   "license": "MIT"
 }

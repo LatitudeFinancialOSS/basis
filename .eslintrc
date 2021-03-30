@@ -45,7 +45,11 @@
       "version": "detect"
     },
     "import/resolver": {
-      "alias": [["basis", "./src"]]
+
+      "alias": {
+        "map": [["basis", "./src"]],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   }
 }

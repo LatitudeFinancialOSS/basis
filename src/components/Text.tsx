@@ -1,17 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {
-  responsivePropType,
-  responsiveMarginType,
-} from "../hooks/useResponsiveProp";
+import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useTextStyle from "../hooks/useTextStyle";
-import useBackground from "../hooks/useBackground";
-import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 import { mergeProps } from "../utils/component";
+import { TEXT_ALIGNS, TEXT_STYLES } from "../utils/constants";
 import { hasOwnProperty } from "../utils/core";
-import { TEXT_STYLES, TEXT_ALIGNS } from "../utils/constants";
-import { formatArray } from "../utils/array";
+import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 
 const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
 const COLORS = [
@@ -81,8 +75,8 @@ Text.ALIGNS = ALIGNS;
 Text.allowedColors = allowedColors;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Text(props) {
-  const { textStyle: inheritedTextStyle } = useTextStyle();
+function Text(props: any) {
+  const { textStyle: inheritedTextStyle }: any = useTextStyle();
   const { bgMap } = useBackground();
   const inheritedProps = {
     textStyle: inheritedTextStyle,
@@ -121,30 +115,30 @@ function Text(props) {
   );
 }
 
-Text.propTypes = {
-  id: PropTypes.string,
-  as: PropTypes.oneOf(AS),
-  ...responsiveMarginType,
-  ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
-  color: (props) => {
-    allowedColors.forEach(({ textStyles, allowedColors }) => {
-      if (
-        textStyles.includes(props.textStyle) &&
-        !allowedColors.includes(props.color)
-      ) {
-        return new Error(
-          `Text: color="${props.color}" is not allowed for textStyle="${
-            props.textStyle
-          }". Must be one of: ${formatArray(allowedColors)}`
-        );
-      }
-    });
-  },
-  align: PropTypes.oneOf(ALIGNS),
-  wrap: PropTypes.bool,
-  role: PropTypes.string,
-  children: PropTypes.node,
-  testId: PropTypes.string,
-};
+// Text.propTypes = {
+//   id: PropTypes.string,
+//   as: PropTypes.oneOf(AS),
+//   ...responsiveMarginType,
+//   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
+//   color: (props) => {
+//     allowedColors.forEach(({ textStyles, allowedColors }) => {
+//       if (
+//         textStyles.includes(props.textStyle) &&
+//         !allowedColors.includes(props.color)
+//       ) {
+//         return new Error(
+//           `Text: color="${props.color}" is not allowed for textStyle="${
+//             props.textStyle
+//           }". Must be one of: ${formatArray(allowedColors)}`
+//         );
+//       }
+//     });
+//   },
+//   align: PropTypes.oneOf(ALIGNS),
+//   wrap: PropTypes.bool,
+//   role: PropTypes.string,
+//   children: PropTypes.node,
+//   testId: PropTypes.string,
+// };
 
 export default Text;

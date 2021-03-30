@@ -5,7 +5,7 @@
 ## Installation
 
 ```shell
-npm install --save basis @emotion/core prop-types
+npm install --save basis @emotion/react prop-types
 ```
 
 Install the fonts that your theme needs. For example, if you are using the default theme:
@@ -34,6 +34,7 @@ export default App;
 ```
 
 ## Developing locally
+
 
 ```shell
 npm install
