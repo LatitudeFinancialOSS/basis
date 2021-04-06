@@ -1,6 +1,6 @@
 const path = require("path");
 const { pascalCase } = require("pascal-case");
-const { siteMetadata } = require("./gatsby-config");
+const componentListStatus = require("./componentListStatus");
 
 const prodAlias = {
   react: path.resolve("./node_modules/react"), // Resolves to [REPO_LOCATION]/website/node_modules/react
@@ -26,26 +26,7 @@ exports.onCreateWebpackConfig = ({ actions, stage }) => {
     };
   }
 
-  actions.setWebpackConfig({
-    resolve: {
-      alias,
-    },
-    /**
-     * Inspiration from https://github.com/gatsbyjs/gatsby/issues/10965. There seems to be an issue where a couple dependecies are duplicated
-     * across each page component and not properly split out into commons chunks (prettier, babel parser are the main ones)
-     */
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            name: `commons`,
-            chunks: `all`,
-            minChunks: 2,
-          },
-        },
-      },
-    },
-  });
+  actions.setWebpackConfig({ resolve: { alias } });
 };
 
 const COMPONENT_PAGE_REGEX = /^\/components\/([^/]*)\//;
@@ -82,7 +63,7 @@ exports.onCreatePage = ({ page, actions }) => {
       const componentName = pascalCase(match[1]);
 
       page.context.header = componentName;
-      page.context.status = siteMetadata.components[componentName].status;
+      page.context.status = componentListStatus[componentName].status;
     }
   }
 
