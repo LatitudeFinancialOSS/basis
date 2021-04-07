@@ -108,6 +108,7 @@ function Frequency(props) {
     amountPrefix,
     amountPlaceholder,
     selectPlaceholder,
+    amountMaxLength,
     helpText,
     disabled,
     optional,
@@ -185,6 +186,7 @@ function Frequency(props) {
       prefix={amountPrefix}
       color={props.color}
       placeholder={amountPlaceholder}
+      maxLength={amountMaxLength}
       disabled={disabled}
       onFocus={onFocus}
       onBlur={onBlur}
