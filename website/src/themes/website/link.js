@@ -1,4 +1,4 @@
-export default (theme) => {
+const link = (theme) => {
   return {
     getCSS: ({ appearance }) => {
       let css = {
@@ -36,3 +36,5 @@ export default (theme) => {
     },
   };
 };
+
+export default link;
