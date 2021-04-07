@@ -268,6 +268,7 @@ Frequency.propTypes = {
   weekly: PropTypes.bool,
   amountPrefix: PropTypes.string,
   amountPlaceholder: PropTypes.string,
+  amountMaxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,
   disabled: PropTypes.bool,
