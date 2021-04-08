@@ -297,6 +297,7 @@ function Form(_props) {
               validateField,
               submitForm,
               setValues,
+              setErrors,
             })
           : children}
       </form>

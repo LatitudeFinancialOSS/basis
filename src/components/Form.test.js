@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "@testing-library/jest-dom/extend-expect";
 import {
   Button,
@@ -232,7 +232,7 @@ describe("Form", () => {
     });
   });
 
-  it("setErrors", async () => {
+  it("allows setErrors to be called from onSubmit", async () => {
     const onSubmit = jest.fn().mockImplementation(({ setErrors }) => {
       setTimeout(() => {
         setErrors({
@@ -289,6 +289,55 @@ describe("Form", () => {
       expect(
         screen.queryByText("Try to spell it differently.")
       ).not.toBeInTheDocument();
+    });
+  });
+
+  it("allows setErrors to be called from render child function", async () => {
+    render(
+      <Form initialValues={{ name: "", age: "" }} testId="testId">
+        {({ setErrors, state }) => {
+          useEffect(() => {
+            if (state.values.name === "Helena") {
+              setErrors({
+                name: [
+                  "This name is already taken.",
+                  "Try to spell it differently.",
+                ],
+                age: "You look too young.",
+              });
+            }
+          }, [setErrors, state.values.name]);
+
+          return (
+            <>
+              <Input name="name" label="Name" />
+              <Input name="age" label="Age" />
+            </>
+          );
+        }}
+      </Form>
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("This name is already taken.")
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Try to spell it differently.")
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("You look too young.")).not.toBeInTheDocument();
+    });
+
+    userEvent.type(screen.getByLabelText("Name"), "Helena");
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("This name is already taken.")
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText("Try to spell it differently.")
+      ).toBeInTheDocument();
+      expect(screen.getByText("You look too young.")).toBeInTheDocument();
     });
   });
 
