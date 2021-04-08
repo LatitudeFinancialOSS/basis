@@ -63,7 +63,11 @@ function FrequencyPage() {
             },
             {
               prop: "label",
-              value: "How much do you earn before tax?",
+              value: "Salary (before tax)",
+            },
+            {
+              prop: "amountPrefix",
+              value: "$",
             },
             {
               prop: "annually",
