@@ -161,7 +161,6 @@ describe("Frequency", () => {
     const { container } = render(
       <FormWithFrequency
         label="Salary"
-        testId="my-frequency"
         amountMaxLength="4"
       />
     );
