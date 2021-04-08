@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql, Link as GatsbyLink } from "gatsby";
-import { Location } from "@reach/router";
 import { pascalCase } from "pascal-case";
 import { useTheme, Container, Text, Icon, Link } from "basis";
 import { version } from "../../../package.json";
@@ -66,7 +65,7 @@ Item.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function Sidebar() {
+function Sidebar({ location }) {
   const theme = useTheme();
   const data = useStaticQuery(graphql`
     query ComponentsQuery {
@@ -127,35 +126,30 @@ function Sidebar() {
           backgroundColor: theme.colors.grey.t05,
         }}
       >
-        <Location>
-          {({ location }) => (
-            <>
-              <Section>
-                <Item location={location} href="/playground">
-                  Playground
-                </Item>
-              </Section>
-              <Section heading="Foundation">
-                <Item location={location} href="/typography">
-                  Typography
-                </Item>
-                <Item location={location} href="/spacing">
-                  Spacing
-                </Item>
-                <Item location={location} href="/colors">
-                  Colors
-                </Item>
-              </Section>
-              <Section heading="Components">
-                {components.map(({ componentName, href }, index) => (
-                  <Item location={location} href={href} key={index}>
-                    {componentName}
-                  </Item>
-                ))}
-              </Section>
-            </>
-          )}
-        </Location>
+        <Section>
+          <Item location={location} href="/playground">
+            Playground
+          </Item>
+        </Section>
+        <Section heading="Foundation">
+          <Item location={location} href="/typography">
+            Typography
+          </Item>
+          <Item location={location} href="/spacing">
+            Spacing
+          </Item>
+          <Item location={location} href="/colors">
+            Colors
+          </Item>
+        </Section>
+        <Section heading="Components">
+          {components.map(({ componentName, href }, index) => (
+            <Item location={location} href={href} key={index}>
+              {componentName}
+            </Item>
+          ))}
+        </Section>
+
         <div
           css={{
             marginTop: "auto",
@@ -172,4 +166,9 @@ function Sidebar() {
   );
 }
 
+Sidebar.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
 export default Sidebar;

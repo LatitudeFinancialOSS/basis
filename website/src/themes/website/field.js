@@ -1,4 +1,4 @@
-export default (theme) => {
+const field = (theme) => {
   return {
     getCSS: ({ targetElement, fullWidth, disabled }) => {
       switch (targetElement) {
@@ -41,3 +41,4 @@ export default (theme) => {
     },
   };
 };
+export default field;

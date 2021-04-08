@@ -1,8 +1,8 @@
 import { parse } from "@babel/parser";
-import traverse from "@babel/traverse";
-import generate from "@babel/generator";
-import * as t from "@babel/types";
-import { allComponentNames } from "./meta";
+// import traverse from "@babel/traverse";
+// import generate from "@babel/generator";
+// import * as t from "@babel/types";
+// import { allComponentNames } from "./meta";
 
 function getASTfromCode(code) {
   try {
@@ -39,51 +39,51 @@ export function getReactLiveNoInline(code) {
   }
 }
 
-function getComponentName(nameObj) {
-  switch (nameObj.type) {
-    case "JSXIdentifier": {
-      return nameObj.name;
-    }
+// function getComponentName(nameObj) {
+//   switch (nameObj.type) {
+//     case "JSXIdentifier": {
+//       return nameObj.name;
+//     }
 
-    case "JSXMemberExpression": {
-      return `${getComponentName(nameObj.object)}.${getComponentName(
-        nameObj.property
-      )}`;
-    }
+//     case "JSXMemberExpression": {
+//       return `${getComponentName(nameObj.object)}.${getComponentName(
+//         nameObj.property
+//       )}`;
+//     }
 
-    default: {
-      return null;
-    }
-  }
-}
+//     default: {
+//       return null;
+//     }
+//   }
+// }
 
-export function annotateCodeForPlayground(code) {
-  const ast = getASTfromCode(code);
+// export function annotateCodeForPlayground(code) {
+//   const ast = getASTfromCode(code);
 
-  if (ast === null) {
-    return code;
-  }
+//   if (ast === null) {
+//     return code;
+//   }
 
-  let count = 0;
+//   let count = 0;
 
-  traverse(ast, {
-    JSXOpeningElement: (path) => {
-      const componentName = getComponentName(path.node.name);
+//   traverse(ast, {
+//     JSXOpeningElement: (path) => {
+//       const componentName = getComponentName(path.node.name);
 
-      if (allComponentNames.includes(componentName) === false) {
-        return;
-      }
+//       if (allComponentNames.includes(componentName) === false) {
+//         return;
+//       }
 
-      const testId = `playground:${componentName}:${count}`;
+//       const testId = `playground:${componentName}:${count}`;
 
-      path.pushContainer(
-        "attributes",
-        t.jsxAttribute(t.jsxIdentifier("testId"), t.stringLiteral(testId))
-      );
+//       path.pushContainer(
+//         "attributes",
+//         t.jsxAttribute(t.jsxIdentifier("testId"), t.stringLiteral(testId))
+//       );
 
-      count++;
-    },
-  });
+//       count++;
+//     },
+//   });
 
-  return generate(ast).code;
-}
+//   return generate(ast).code;
+// }
