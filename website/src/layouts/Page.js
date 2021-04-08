@@ -6,7 +6,7 @@ import { Link as GatsbyLink } from "gatsby";
 import { FeedbackFish } from "@feedback-fish/react";
 import { Button } from "basis";
 import { COMPONENT_STATUS } from "../utils/constants";
-import SEO from "../components/SEO";
+import Seo from "../components/SEO";
 import Sidebar from "../components/Sidebar";
 import ComponentStatusIndicator from "../components/ComponentStatusIndicator";
 import Splitbee from "../components/Splitbee";
@@ -45,7 +45,7 @@ function Page({ pageContext, children, location }) {
             },
           }}
         />
-        <SEO title={title} />
+        <Seo title={title} />
         <Splitbee />
         {layout === "empty" ? (
           <main>{children}</main>
