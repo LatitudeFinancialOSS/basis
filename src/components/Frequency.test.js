@@ -156,4 +156,12 @@ describe("Frequency", () => {
       "my-frequency"
     );
   });
+
+  it("with amountMaxLength", () => {
+    const { container } = render(
+      <FormWithFrequency label="Salary" amountMaxLength="4" />
+    );
+
+    expect(container.querySelector("input")).toHaveAttribute("maxLength", "4");
+  });
 });
