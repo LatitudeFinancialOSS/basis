@@ -243,7 +243,7 @@ function Form(_props) {
   const resetForm = useCallback(({ values, errors } = {}) => {
     setState({
       values: values ?? initialValues,
-      errors: errors ?? initialErrors,
+      errors: errors ?? (initialErrors || {}),
       shouldValidateOnChange: false,
       namesToValidate: null,
       submitStatus: "READY",
