@@ -121,8 +121,11 @@ function FormPage() {
         years: "",
         months: ""
       },
-      aboutYourself: ""
+      aboutYourself: "",
+      address: { number: "", street: "" }
     };
+    
+     let done = false;
       
     function App() {
       const onSubmit = ({ errors, values }) => {
@@ -135,8 +138,13 @@ function FormPage() {
     
       return (
         <Container padding="8">
-          <Form initialValues={initialValues} onSubmit={onSubmit}>
-            <Grid rowsGap="8">
+          <Form initialValues={initialValues} onSubmit={onSubmit} debug>
+          {({ setErrors, state, resetForm }) => { 
+          console.warn(state.errors)
+         
+          return (
+          
+          <Grid rowsGap="8">
               <Text as="h2" textStyle="heading4">About you</Text>
               <Input name="name" label="Name" />
               <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
@@ -148,7 +156,18 @@ function FormPage() {
               <TimeSpan name="age" label="Age" />
               <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
               <Button type="submit">Submit</Button>
-            </Grid>
+               <Input name="address.number" label="Number" />
+              <Input name="address.street" label="Street" />
+              <Button onClick={() => {
+                 resetForm();
+              }}>RESET</Button>
+              <Button onClick={() => {
+                 setErrors({ 'address.number': 'ERROR' });
+              }}>SET ERRORS</Button>
+            </Grid>); 
+            
+            }}
+            
           </Form>
         </Container>
       );

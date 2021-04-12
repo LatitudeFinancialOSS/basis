@@ -225,14 +225,13 @@ function Form(_props) {
     setState((state) => {
       const newErrors = Object.keys(fields.current).reduce((acc, name) => {
         if (typeof errorsMap[name] === "string") {
-          acc[name] = [errorsMap[name]];
+          return setPath(acc, name, [errorsMap[name]]);
         } else if (Array.isArray(errorsMap[name])) {
-          acc[name] = errorsMap[name];
-        } else {
-          acc[name] = state.errors[name];
+          return setPath(acc, name, errorsMap[name]);
         }
-
-        return acc;
+        return !state.errors[name]
+          ? deletePath(acc, name, { deleteEmptyObjects: true })
+          : setPath(acc, name, state.errors[name]);
       }, {});
 
       return {
@@ -241,6 +240,15 @@ function Form(_props) {
       };
     });
   }, []);
+  const resetForm = useCallback(({ values, errors } = {}) => {
+    setState({
+      values: values ?? initialValues,
+      errors: errors ?? initialErrors,
+      shouldValidateOnChange: false,
+      namesToValidate: null,
+      submitStatus: "READY",
+    })
+  }, [initialValues, initialErrors]);
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
   });
@@ -298,6 +306,7 @@ function Form(_props) {
               submitForm,
               setValues,
               setErrors,
+              resetForm,
             })
           : children}
       </form>
