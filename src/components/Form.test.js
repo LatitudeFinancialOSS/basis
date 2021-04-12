@@ -320,7 +320,7 @@ describe("Form", () => {
       aboutYourself: ["You can't use inappropriate words.", "Max 500 words."],
       address: {
         streetNumber: ["Please enter a street number"],
-      }
+      },
     };
 
     render(<ComplexForm initialErrors={initialErrors} />);
@@ -330,7 +330,9 @@ describe("Form", () => {
       screen.getByText("You can't use inappropriate words.")
     ).toBeInTheDocument();
     expect(screen.getByText("Max 500 words.")).toBeInTheDocument();
-    expect(screen.getByText("Please enter a street number")).toBeInTheDocument();
+    expect(
+      screen.getByText("Please enter a street number")
+    ).toBeInTheDocument();
   });
 
   it("with testId", () => {
@@ -339,14 +341,17 @@ describe("Form", () => {
     expect(container.firstChild).toHaveAttribute("data-testid", "my-form");
   });
 
-  describe('calling exposed functions from render child', () => {
-
+  describe("calling exposed functions from render child", () => {
     it("sets form state correctly when setErrors is called", async () => {
+      const initialValues = {
+        name: "",
+        age: "",
+        address: { streetNumber: "", streetName: "" },
+      };
 
-      const initialValues = { name: "", age: "", address: { streetNumber: "", streetName: "" } };
-
-      const renderChild = jest.fn().mockImplementation(
-        ({ setErrors, state }) => {
+      const renderChild = jest
+        .fn()
+        .mockImplementation(({ setErrors, state }) => {
           useEffect(() => {
             if (state.values.name === "Helena") {
               setErrors({
@@ -355,7 +360,7 @@ describe("Form", () => {
                   "Try to spell it differently",
                 ],
                 age: "You look too young",
-                "address.streetNumber": "Please enter a street number"
+                "address.streetNumber": "Please enter a street number",
               });
             }
           }, [setErrors, state.values.name]);
@@ -368,8 +373,7 @@ describe("Form", () => {
               <Input name="address.streetName" label="Street Name" />
             </>
           );
-        }
-      );
+        });
       render(
         <Form initialValues={initialValues} testId="testId">
           {renderChild}
@@ -377,53 +381,77 @@ describe("Form", () => {
       );
 
       await waitFor(() => {
-        expect(screen.queryByText("This name is already taken")).not.toBeInTheDocument();
-        expect(screen.queryByText("Try to spell it differently")).not.toBeInTheDocument();
-        expect(screen.queryByText("You look too young")).not.toBeInTheDocument();
-        expect(screen.queryByText("Please enter a street number")).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("This name is already taken")
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("Try to spell it differently")
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("You look too young")
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("Please enter a street number")
+        ).not.toBeInTheDocument();
       });
 
       userEvent.type(screen.getByLabelText("Name"), "Helena");
 
       await waitFor(() => {
-        expect(screen.queryByText("This name is already taken")).toBeInTheDocument();
-        expect(screen.queryByText("Try to spell it differently")).toBeInTheDocument();
+        expect(
+          screen.queryByText("This name is already taken")
+        ).toBeInTheDocument();
+        expect(
+          screen.queryByText("Try to spell it differently")
+        ).toBeInTheDocument();
         expect(screen.getByText("You look too young")).toBeInTheDocument();
-        expect(screen.queryByText("Please enter a street number")).toBeInTheDocument();
+        expect(
+          screen.queryByText("Please enter a street number")
+        ).toBeInTheDocument();
       });
     });
 
     it("sets form state to initial values when resetForm is called without argument", async () => {
+      const initialValues = {
+        name: "",
+        address: { streetNumber: "", streetName: "" },
+      };
+      const initialErrors = {
+        name: ["name error message"],
+        address: { streetNumber: ["street number error message"] },
+      };
 
-      const initialValues = { name: "", address: { streetNumber: "", streetName: "" } };
-      const initialErrors = { name: ["name error message"], address: { streetNumber: ["street number error message"] }  };
+      const renderChild = jest.fn().mockImplementation(({ resetForm }) => {
+        const resetFormToInitialState = useCallback(() => {
+          resetForm();
+        }, [resetForm]);
 
-      const renderChild = jest.fn().mockImplementation(
-        ({ resetForm }) => {
-
-          const resetFormToInitialState = useCallback(() => {
-            resetForm();
-          }, [resetForm])
-
-          return (
-            <>
-              <Input name="name" label="Name" />
-              <Input name="address.streetNumber" label="Street Number" />
-              <Input name="address.streetName" label="Street Name" />
-              <Button testId="resetButton" onClick={resetFormToInitialState}>RESET</Button>
-            </>
-          );
-        }
-      );
+        return (
+          <>
+            <Input name="name" label="Name" />
+            <Input name="address.streetNumber" label="Street Number" />
+            <Input name="address.streetName" label="Street Name" />
+            <Button testId="resetButton" onClick={resetFormToInitialState}>
+              RESET
+            </Button>
+          </>
+        );
+      });
 
       render(
-        <Form initialValues={initialValues} initialErrors={initialErrors} testId="testId">
+        <Form
+          initialValues={initialValues}
+          initialErrors={initialErrors}
+          testId="testId"
+        >
           {renderChild}
         </Form>
       );
 
       expect(screen.queryByText("name error message")).toBeInTheDocument();
-      expect(screen.queryByText("street number error message")).toBeInTheDocument();
+      expect(
+        screen.queryByText("street number error message")
+      ).toBeInTheDocument();
       expect(screen.queryByDisplayValue("Helena")).not.toBeInTheDocument();
       expect(screen.queryByDisplayValue("22")).not.toBeInTheDocument();
 
@@ -431,8 +459,12 @@ describe("Form", () => {
       userEvent.type(screen.getByLabelText("Street Number"), "22");
 
       await waitFor(() => {
-        expect(screen.queryByText("name error message")).not.toBeInTheDocument();
-        expect(screen.queryByText("street number error message")).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("name error message")
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("street number error message")
+        ).not.toBeInTheDocument();
         expect(screen.queryByDisplayValue("Helena")).toBeInTheDocument();
         expect(screen.queryByDisplayValue("22")).toBeInTheDocument();
       });
@@ -441,47 +473,61 @@ describe("Form", () => {
 
       await waitFor(() => {
         expect(screen.queryByText("name error message")).toBeInTheDocument();
-        expect(screen.queryByText("street number error message")).toBeInTheDocument();
+        expect(
+          screen.queryByText("street number error message")
+        ).toBeInTheDocument();
         expect(screen.queryByDisplayValue("Helena")).not.toBeInTheDocument();
         expect(screen.queryByDisplayValue("22")).not.toBeInTheDocument();
       });
-
     });
 
     it("sets form state to new values when resetForm is called with argument", async () => {
-
-      const initialValues = { name: "Helena", address: { streetNumber: "22", streetName: "" } };
+      const initialValues = {
+        name: "Helena",
+        address: { streetNumber: "22", streetName: "" },
+      };
       const initialErrors = {};
 
-      const newValues = { name: "Bob", address: { streetNumber: "1", streetName: "" } };
-      const newErrors = { name: ["name error message"], address: { streetNumber: ["street number error message"] } };
+      const newValues = {
+        name: "Bob",
+        address: { streetNumber: "1", streetName: "" },
+      };
+      const newErrors = {
+        name: ["name error message"],
+        address: { streetNumber: ["street number error message"] },
+      };
 
-      const renderChild = jest.fn().mockImplementation(
-        ({ resetForm }) => {
+      const renderChild = jest.fn().mockImplementation(({ resetForm }) => {
+        const resetFormToNewState = useCallback(() => {
+          resetForm({ values: newValues, errors: newErrors });
+        }, [resetForm]);
 
-          const resetFormToNewState = useCallback(() => {
-            resetForm({ values: newValues, errors: newErrors});
-          }, [resetForm])
-
-          return (
-            <>
-              <Input name="name" label="Name" />
-              <Input name="address.streetNumber" label="Street Number" />
-              <Input name="address.streetName" label="Street Name" />
-              <Button testId="resetButton" onClick={resetFormToNewState}>RESET</Button>
-            </>
-          );
-        }
-      );
+        return (
+          <>
+            <Input name="name" label="Name" />
+            <Input name="address.streetNumber" label="Street Number" />
+            <Input name="address.streetName" label="Street Name" />
+            <Button testId="resetButton" onClick={resetFormToNewState}>
+              RESET
+            </Button>
+          </>
+        );
+      });
 
       render(
-        <Form initialValues={initialValues} initialErrors={initialErrors} testId="testId">
+        <Form
+          initialValues={initialValues}
+          initialErrors={initialErrors}
+          testId="testId"
+        >
           {renderChild}
         </Form>
       );
 
       expect(screen.queryByText("name error message")).not.toBeInTheDocument();
-      expect(screen.queryByText("street number error message")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("street number error message")
+      ).not.toBeInTheDocument();
       expect(screen.queryByDisplayValue("Helena")).toBeInTheDocument();
       expect(screen.queryByDisplayValue("22")).toBeInTheDocument();
 
@@ -489,12 +535,12 @@ describe("Form", () => {
 
       await waitFor(() => {
         expect(screen.queryByText("name error message")).toBeInTheDocument();
-        expect(screen.queryByText("street number error message")).toBeInTheDocument();
+        expect(
+          screen.queryByText("street number error message")
+        ).toBeInTheDocument();
         expect(screen.queryByDisplayValue("Bob")).toBeInTheDocument();
         expect(screen.queryByDisplayValue("1")).toBeInTheDocument();
       });
-
     });
-
   });
 });
