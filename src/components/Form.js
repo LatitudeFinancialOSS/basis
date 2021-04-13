@@ -240,18 +240,15 @@ function Form(_props) {
       };
     });
   }, []);
-  const resetForm = useCallback(
-    ({ values, errors } = {}) => {
-      setState({
-        values: values ?? initialValues,
-        errors: errors ?? (initialErrors || {}),
-        shouldValidateOnChange: false,
-        namesToValidate: null,
-        submitStatus: "READY",
-      });
-    },
-    [initialValues, initialErrors]
-  );
+  const resetForm = ({ values, errors } = {}) => {
+    setState({
+      values: values ?? initialValues,
+      errors: errors ?? initialErrors ?? {},
+      shouldValidateOnChange: false,
+      namesToValidate: null,
+      submitStatus: "READY",
+    });
+  };
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
   });

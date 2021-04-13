@@ -139,8 +139,8 @@ function ComplexForm({
             label="Tell us about yourself"
             height="100"
           />
-          <Input name="address.streetNumber" label="Street Number" />
-          <Input name="address.streetName" label="Street Name" />
+          <Input name="address.streetNumber" label="Street number" />
+          <Input name="address.streetName" label="Street name" />
           <Button type="submit">Submit</Button>
         </Grid>
       )}
@@ -349,51 +349,48 @@ describe("Form", () => {
         address: { streetNumber: "", streetName: "" },
       };
 
-      const renderChild = jest
-        .fn()
-        .mockImplementation(({ setErrors, state }) => {
-          useEffect(() => {
-            if (state.values.name === "Helena") {
-              setErrors({
-                name: [
-                  "This name is already taken",
-                  "Try to spell it differently",
-                ],
-                age: "You look too young",
-                "address.streetNumber": "Please enter a street number",
-              });
-            }
-          }, [setErrors, state.values.name]);
+      const RenderChild = ({ setErrors, state }) => {
+        useEffect(() => {
+          if (state.values.name === "Helena") {
+            setErrors({
+              name: [
+                "This name is already taken",
+                "Try to spell it differently",
+              ],
+              age: "You look too young",
+              "address.streetNumber": "Please enter a street number",
+            });
+          }
+        }, [setErrors, state.values.name]);
 
-          return (
-            <>
-              <Input name="name" label="Name" />
-              <Input name="age" label="Age" />
-              <Input name="address.streetNumber" label="Street Number" />
-              <Input name="address.streetName" label="Street Name" />
-            </>
-          );
-        });
+        return (
+          <>
+            <Input name="name" label="Name" />
+            <Input name="age" label="Age" />
+            <Input name="address.streetNumber" label="Street number" />
+            <Input name="address.streetName" label="Street name" />
+          </>
+        );
+      };
+
       render(
         <Form initialValues={initialValues} testId="testId">
-          {renderChild}
+          {RenderChild}
         </Form>
       );
 
-      await waitFor(() => {
-        expect(
-          screen.queryByText("This name is already taken")
-        ).not.toBeInTheDocument();
-        expect(
-          screen.queryByText("Try to spell it differently")
-        ).not.toBeInTheDocument();
-        expect(
-          screen.queryByText("You look too young")
-        ).not.toBeInTheDocument();
-        expect(
-          screen.queryByText("Please enter a street number")
-        ).not.toBeInTheDocument();
-      });
+      expect(
+        screen.queryByText("This name is already taken"),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Try to spell it differently"),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("You look too young"),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a street number"),
+      ).not.toBeInTheDocument();
 
       userEvent.type(screen.getByLabelText("Name"), "Helena");
 
@@ -417,53 +414,48 @@ describe("Form", () => {
         address: { streetNumber: "", streetName: "" },
       };
       const initialErrors = {
-        name: ["name error message"],
-        address: { streetNumber: ["street number error message"] },
+        name: ["Please enter a name"],
+        address: { streetNumber: ["Please enter a street number"] },
       };
 
-      const renderChild = jest.fn().mockImplementation(({ resetForm }) => {
-        const resetFormToInitialState = useCallback(() => {
-          resetForm();
-        }, [resetForm]);
-
-        return (
-          <>
-            <Input name="name" label="Name" />
-            <Input name="address.streetNumber" label="Street Number" />
-            <Input name="address.streetName" label="Street Name" />
-            <Button testId="resetButton" onClick={resetFormToInitialState}>
-              RESET
-            </Button>
-          </>
-        );
-      });
+      const RenderChild = ({ resetForm }) => (
+        <>
+          <Input name="name" label="Name" />
+          <Input name="address.streetNumber" label="Street number" />
+          <Input name="address.streetName" label="Street name" />
+          <Button testId="resetButton" onClick={() => {
+            resetForm();
+          }}>
+            Reset
+          </Button>
+        </>
+      );
 
       render(
         <Form
           initialValues={initialValues}
           initialErrors={initialErrors}
-          testId="testId"
         >
-          {renderChild}
+          {RenderChild}
         </Form>
       );
 
-      expect(screen.queryByText("name error message")).toBeInTheDocument();
+      expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
       expect(
-        screen.queryByText("street number error message")
+        screen.queryByText("Please enter a street number")
       ).toBeInTheDocument();
       expect(screen.queryByDisplayValue("Helena")).not.toBeInTheDocument();
       expect(screen.queryByDisplayValue("22")).not.toBeInTheDocument();
 
       userEvent.type(screen.getByLabelText("Name"), "Helena");
-      userEvent.type(screen.getByLabelText("Street Number"), "22");
+      userEvent.type(screen.getByLabelText("Street number"), "22");
 
       await waitFor(() => {
         expect(
-          screen.queryByText("name error message")
+          screen.queryByText("Please enter a name")
         ).not.toBeInTheDocument();
         expect(
-          screen.queryByText("street number error message")
+          screen.queryByText("Please enter a street number")
         ).not.toBeInTheDocument();
         expect(screen.queryByDisplayValue("Helena")).toBeInTheDocument();
         expect(screen.queryByDisplayValue("22")).toBeInTheDocument();
@@ -472,9 +464,9 @@ describe("Form", () => {
       userEvent.click(screen.getByTestId("resetButton"));
 
       await waitFor(() => {
-        expect(screen.queryByText("name error message")).toBeInTheDocument();
+        expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
         expect(
-          screen.queryByText("street number error message")
+          screen.queryByText("Please enter a street number")
         ).toBeInTheDocument();
         expect(screen.queryByDisplayValue("Helena")).not.toBeInTheDocument();
         expect(screen.queryByDisplayValue("22")).not.toBeInTheDocument();
@@ -493,40 +485,35 @@ describe("Form", () => {
         address: { streetNumber: "1", streetName: "" },
       };
       const newErrors = {
-        name: ["name error message"],
-        address: { streetNumber: ["street number error message"] },
+        name: ["Please enter a name"],
+        address: { streetNumber: ["Please enter a street number"] },
       };
 
-      const renderChild = jest.fn().mockImplementation(({ resetForm }) => {
-        const resetFormToNewState = useCallback(() => {
-          resetForm({ values: newValues, errors: newErrors });
-        }, [resetForm]);
-
-        return (
-          <>
-            <Input name="name" label="Name" />
-            <Input name="address.streetNumber" label="Street Number" />
-            <Input name="address.streetName" label="Street Name" />
-            <Button testId="resetButton" onClick={resetFormToNewState}>
-              RESET
-            </Button>
-          </>
-        );
-      });
+      const RenderChild = ({ resetForm }) => (
+        <>
+          <Input name="name" label="Name" />
+          <Input name="address.streetNumber" label="Street number" />
+          <Input name="address.streetName" label="Street name" />
+          <Button testId="resetButton" onClick={() => {
+            resetForm({ values: newValues, errors: newErrors });
+          }}>
+            Reset
+          </Button>
+        </>
+      );
 
       render(
         <Form
           initialValues={initialValues}
           initialErrors={initialErrors}
-          testId="testId"
         >
-          {renderChild}
+          {RenderChild}
         </Form>
       );
 
-      expect(screen.queryByText("name error message")).not.toBeInTheDocument();
+      expect(screen.queryByText("Please enter a name")).not.toBeInTheDocument();
       expect(
-        screen.queryByText("street number error message")
+        screen.queryByText("Please enter a street number")
       ).not.toBeInTheDocument();
       expect(screen.queryByDisplayValue("Helena")).toBeInTheDocument();
       expect(screen.queryByDisplayValue("22")).toBeInTheDocument();
@@ -534,9 +521,9 @@ describe("Form", () => {
       userEvent.click(screen.getByTestId("resetButton"));
 
       await waitFor(() => {
-        expect(screen.queryByText("name error message")).toBeInTheDocument();
+        expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
         expect(
-          screen.queryByText("street number error message")
+          screen.queryByText("Please enter a street number")
         ).toBeInTheDocument();
         expect(screen.queryByDisplayValue("Bob")).toBeInTheDocument();
         expect(screen.queryByDisplayValue("1")).toBeInTheDocument();
