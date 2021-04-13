@@ -226,7 +226,8 @@ function Form(_props) {
       const newErrors = Object.keys(fields.current).reduce((acc, name) => {
         if (typeof errorsMap[name] === "string") {
           return setPath(acc, name, [errorsMap[name]]);
-        } else if (Array.isArray(errorsMap[name])) {
+        }
+        if (Array.isArray(errorsMap[name])) {
           return setPath(acc, name, errorsMap[name]);
         }
         return getPath(state.errors, name)
