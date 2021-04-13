@@ -349,6 +349,11 @@ describe("Form", () => {
         address: { streetNumber: "", streetName: "" },
       };
 
+      const initialErrors = {
+        name: ["Please enter a name"],
+        age: ["Please enter an age"],
+      };
+
       const RenderChild = ({ setErrors, state }) => {
         useEffect(() => {
           if (state.values.name === "Helena") {
@@ -357,7 +362,6 @@ describe("Form", () => {
                 "This name is already taken",
                 "Try to spell it differently",
               ],
-              age: "You look too young",
               "address.streetNumber": "Please enter a street number",
             });
           }
@@ -374,22 +378,21 @@ describe("Form", () => {
       };
 
       render(
-        <Form initialValues={initialValues} testId="testId">
+        <Form initialValues={initialValues} initialErrors={initialErrors}>
           {RenderChild}
         </Form>
       );
 
       expect(
-        screen.queryByText("This name is already taken"),
+        screen.queryByText("This name is already taken")
       ).not.toBeInTheDocument();
       expect(
-        screen.queryByText("Try to spell it differently"),
+        screen.queryByText("Try to spell it differently")
       ).not.toBeInTheDocument();
+      expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
+      expect(screen.queryByText("Please enter an age")).toBeInTheDocument();
       expect(
-        screen.queryByText("You look too young"),
-      ).not.toBeInTheDocument();
-      expect(
-        screen.queryByText("Please enter a street number"),
+        screen.queryByText("Please enter a street number")
       ).not.toBeInTheDocument();
 
       userEvent.type(screen.getByLabelText("Name"), "Helena");
@@ -401,7 +404,9 @@ describe("Form", () => {
         expect(
           screen.queryByText("Try to spell it differently")
         ).toBeInTheDocument();
-        expect(screen.getByText("You look too young")).toBeInTheDocument();
+        expect(screen.queryByText("Please enter a name")).not.toBeInTheDocument();
+        expect(screen.queryByText("Please enter an age")).toBeInTheDocument();
+
         expect(
           screen.queryByText("Please enter a street number")
         ).toBeInTheDocument();
@@ -423,19 +428,19 @@ describe("Form", () => {
           <Input name="name" label="Name" />
           <Input name="address.streetNumber" label="Street number" />
           <Input name="address.streetName" label="Street name" />
-          <Button testId="resetButton" onClick={() => {
-            resetForm();
-          }}>
+          <Button
+            testId="resetButton"
+            onClick={() => {
+              resetForm();
+            }}
+          >
             Reset
           </Button>
         </>
       );
 
       render(
-        <Form
-          initialValues={initialValues}
-          initialErrors={initialErrors}
-        >
+        <Form initialValues={initialValues} initialErrors={initialErrors}>
           {RenderChild}
         </Form>
       );
@@ -494,19 +499,19 @@ describe("Form", () => {
           <Input name="name" label="Name" />
           <Input name="address.streetNumber" label="Street number" />
           <Input name="address.streetName" label="Street name" />
-          <Button testId="resetButton" onClick={() => {
-            resetForm({ values: newValues, errors: newErrors });
-          }}>
+          <Button
+            testId="resetButton"
+            onClick={() => {
+              resetForm({ values: newValues, errors: newErrors });
+            }}
+          >
             Reset
           </Button>
         </>
       );
 
       render(
-        <Form
-          initialValues={initialValues}
-          initialErrors={initialErrors}
-        >
+        <Form initialValues={initialValues} initialErrors={initialErrors}>
           {RenderChild}
         </Form>
       );

@@ -229,9 +229,9 @@ function Form(_props) {
         } else if (Array.isArray(errorsMap[name])) {
           return setPath(acc, name, errorsMap[name]);
         }
-        return !state.errors[name]
-          ? deletePath(acc, name, { deleteEmptyObjects: true })
-          : setPath(acc, name, state.errors[name]);
+        return getPath(state.errors, name)
+          ? setPath(acc, name, getPath(state.errors, name))
+          : acc;
       }, {});
 
       return {
