@@ -230,10 +230,8 @@ function Form(_props) {
         if (Array.isArray(errorsMap[name])) {
           return setPath(acc, name, errorsMap[name]);
         }
-        return getPath(state.errors, name)
-          ? setPath(acc, name, getPath(state.errors, name))
-          : acc;
-      }, {});
+        return acc;
+      }, {...state.errors});
 
       return {
         ...state,

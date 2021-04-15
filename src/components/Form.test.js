@@ -449,8 +449,8 @@ describe("Form", () => {
       expect(
         screen.queryByText("Please enter a street number")
       ).toBeInTheDocument();
-      expect(screen.queryByDisplayValue("Helena")).not.toBeInTheDocument();
-      expect(screen.queryByDisplayValue("22")).not.toBeInTheDocument();
+      expect(screen.getByLabelText("Name")).toHaveValue("");
+      expect(screen.getByLabelText("Street name")).toHaveValue("");
 
       userEvent.type(screen.getByLabelText("Name"), "Helena");
       userEvent.type(screen.getByLabelText("Street number"), "22");
@@ -462,8 +462,8 @@ describe("Form", () => {
         expect(
           screen.queryByText("Please enter a street number")
         ).not.toBeInTheDocument();
-        expect(screen.queryByDisplayValue("Helena")).toBeInTheDocument();
-        expect(screen.queryByDisplayValue("22")).toBeInTheDocument();
+        expect(screen.getByLabelText("Name")).toHaveValue("Helena");
+        expect(screen.getByLabelText("Street number")).toHaveValue("22");
       });
 
       userEvent.click(screen.getByTestId("resetButton"));
@@ -473,8 +473,8 @@ describe("Form", () => {
         expect(
           screen.queryByText("Please enter a street number")
         ).toBeInTheDocument();
-        expect(screen.queryByDisplayValue("Helena")).not.toBeInTheDocument();
-        expect(screen.queryByDisplayValue("22")).not.toBeInTheDocument();
+        expect(screen.getByLabelText("Name")).toHaveValue("");
+        expect(screen.getByLabelText("Street name")).toHaveValue("");
       });
     });
 
@@ -520,8 +520,8 @@ describe("Form", () => {
       expect(
         screen.queryByText("Please enter a street number")
       ).not.toBeInTheDocument();
-      expect(screen.queryByDisplayValue("Helena")).toBeInTheDocument();
-      expect(screen.queryByDisplayValue("22")).toBeInTheDocument();
+      expect(screen.getByLabelText("Name")).toHaveValue("Helena");
+      expect(screen.getByLabelText("Street number")).toHaveValue("22");
 
       userEvent.click(screen.getByTestId("resetButton"));
 
@@ -530,8 +530,8 @@ describe("Form", () => {
         expect(
           screen.queryByText("Please enter a street number")
         ).toBeInTheDocument();
-        expect(screen.queryByDisplayValue("Bob")).toBeInTheDocument();
-        expect(screen.queryByDisplayValue("1")).toBeInTheDocument();
+        expect(screen.getByLabelText("Name")).toHaveValue("Bob");
+        expect(screen.getByLabelText("Street number")).toHaveValue("1");
       });
     });
   });
