@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "@testing-library/jest-dom/extend-expect";
 import {
   Button,
@@ -94,6 +94,10 @@ function ComplexForm({
       months: "",
     },
     aboutYourself: "",
+    address: {
+      streetNumber: "",
+      streetName: "",
+    },
     ...initialValues,
   };
 
@@ -145,6 +149,8 @@ function ComplexForm({
             label="Tell us about yourself"
             height="100"
           />
+          <Input name="address.streetNumber" label="Street number" />
+          <Input name="address.streetName" label="Street name" />
           <Button type="submit">Submit</Button>
         </Grid>
       )}
@@ -177,6 +183,10 @@ describe("Form", () => {
           salary: ["Please enter an amount.", "Please select a frequency."],
           birthDate: ["Required"],
           aboutYourself: ["Required"],
+          address: {
+            streetNumber: ["Required"],
+            streetName: ["Required"],
+          },
         },
         values: {
           age: {
@@ -197,6 +207,10 @@ describe("Form", () => {
             year: "",
           },
           aboutYourself: "",
+          address: {
+            streetNumber: "",
+            streetName: "",
+          },
         },
         setErrors: expect.any(Function),
       })
@@ -227,6 +241,10 @@ describe("Form", () => {
             months: "5",
           },
           aboutYourself: "I like chess",
+          address: {
+            streetNumber: "22",
+            streetName: "The Esplanade",
+          },
         }}
         onSubmit={onSubmit}
         unMountFormOnSubmit
@@ -241,7 +259,7 @@ describe("Form", () => {
     });
   });
 
-  it("setErrors", async () => {
+  it("sets state correctly when setErrors to be called from onSubmit", async () => {
     const onSubmit = jest.fn().mockImplementation(({ setErrors }) => {
       setTimeout(() => {
         setErrors({
@@ -272,6 +290,10 @@ describe("Form", () => {
             months: "5",
           },
           aboutYourself: "I like chess",
+          address: {
+            streetNumber: "22",
+            streetName: "The Esplanade",
+          },
         }}
         onSubmit={onSubmit}
       />
@@ -305,6 +327,9 @@ describe("Form", () => {
     const initialErrors = {
       name: ["This name is already taken."],
       aboutYourself: ["You can't use inappropriate words.", "Max 500 words."],
+      address: {
+        streetNumber: ["Please enter a street number"],
+      },
     };
 
     render(<ComplexForm initialErrors={initialErrors} />);
@@ -314,6 +339,9 @@ describe("Form", () => {
       screen.getByText("You can't use inappropriate words.")
     ).toBeInTheDocument();
     expect(screen.getByText("Max 500 words.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Please enter a street number")
+    ).toBeInTheDocument();
   });
 
   it("with hidden fields", async () => {
@@ -379,5 +407,200 @@ describe("Form", () => {
     const { container } = render(<SimpleForm testId="my-form" />);
 
     expect(container.firstChild).toHaveAttribute("data-testid", "my-form");
+  });
+
+  describe("calling exposed functions from render child", () => {
+    it("sets form state correctly when setErrors is called", async () => {
+      const initialValues = {
+        name: "",
+        age: "",
+        address: { streetNumber: "", streetName: "" },
+      };
+
+      const initialErrors = {
+        name: ["Please enter a name"],
+        age: ["Please enter an age"],
+      };
+
+      const RenderChild = ({ setErrors, state }) => {
+        useEffect(() => {
+          if (state.values.name === "Helena") {
+            setErrors({
+              name: [
+                "This name is already taken",
+                "Try to spell it differently",
+              ],
+              "address.streetNumber": "Please enter a street number",
+            });
+          }
+        }, [setErrors, state.values.name]);
+
+        return (
+          <>
+            <Input name="name" label="Name" />
+            <Input name="age" label="Age" />
+            <Input name="address.streetNumber" label="Street number" />
+            <Input name="address.streetName" label="Street name" />
+          </>
+        );
+      };
+
+      render(
+        <Form initialValues={initialValues} initialErrors={initialErrors}>
+          {RenderChild}
+        </Form>
+      );
+
+      expect(
+        screen.queryByText("This name is already taken")
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Try to spell it differently")
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
+      expect(screen.queryByText("Please enter an age")).toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a street number")
+      ).not.toBeInTheDocument();
+
+      userEvent.type(screen.getByLabelText("Name"), "Helena");
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText("This name is already taken")
+        ).toBeInTheDocument();
+        expect(
+          screen.queryByText("Try to spell it differently")
+        ).toBeInTheDocument();
+        expect(screen.queryByText("Please enter a name")).not.toBeInTheDocument();
+        expect(screen.queryByText("Please enter an age")).toBeInTheDocument();
+
+        expect(
+          screen.queryByText("Please enter a street number")
+        ).toBeInTheDocument();
+      });
+    });
+
+    it("sets form state to initial values when resetForm is called without argument", async () => {
+      const initialValues = {
+        name: "",
+        address: { streetNumber: "", streetName: "" },
+      };
+      const initialErrors = {
+        name: ["Please enter a name"],
+        address: { streetNumber: ["Please enter a street number"] },
+      };
+
+      const RenderChild = ({ resetForm }) => (
+        <>
+          <Input name="name" label="Name" />
+          <Input name="address.streetNumber" label="Street number" />
+          <Input name="address.streetName" label="Street name" />
+          <Button
+            testId="resetButton"
+            onClick={() => {
+              resetForm();
+            }}
+          >
+            Reset
+          </Button>
+        </>
+      );
+
+      render(
+        <Form initialValues={initialValues} initialErrors={initialErrors}>
+          {RenderChild}
+        </Form>
+      );
+
+      expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a street number")
+      ).toBeInTheDocument();
+      expect(screen.getByLabelText("Name")).toHaveValue("");
+      expect(screen.getByLabelText("Street name")).toHaveValue("");
+
+      userEvent.type(screen.getByLabelText("Name"), "Helena");
+      userEvent.type(screen.getByLabelText("Street number"), "22");
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText("Please enter a name")
+        ).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("Please enter a street number")
+        ).not.toBeInTheDocument();
+        expect(screen.getByLabelText("Name")).toHaveValue("Helena");
+        expect(screen.getByLabelText("Street number")).toHaveValue("22");
+      });
+
+      userEvent.click(screen.getByTestId("resetButton"));
+
+      await waitFor(() => {
+        expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
+        expect(
+          screen.queryByText("Please enter a street number")
+        ).toBeInTheDocument();
+        expect(screen.getByLabelText("Name")).toHaveValue("");
+        expect(screen.getByLabelText("Street name")).toHaveValue("");
+      });
+    });
+
+    it("sets form state to new values when resetForm is called with argument", async () => {
+      const initialValues = {
+        name: "Helena",
+        address: { streetNumber: "22", streetName: "" },
+      };
+      const initialErrors = {};
+
+      const newValues = {
+        name: "Bob",
+        address: { streetNumber: "1", streetName: "" },
+      };
+      const newErrors = {
+        name: ["Please enter a name"],
+        address: { streetNumber: ["Please enter a street number"] },
+      };
+
+      const RenderChild = ({ resetForm }) => (
+        <>
+          <Input name="name" label="Name" />
+          <Input name="address.streetNumber" label="Street number" />
+          <Input name="address.streetName" label="Street name" />
+          <Button
+            testId="resetButton"
+            onClick={() => {
+              resetForm({ values: newValues, errors: newErrors });
+            }}
+          >
+            Reset
+          </Button>
+        </>
+      );
+
+      render(
+        <Form initialValues={initialValues} initialErrors={initialErrors}>
+          {RenderChild}
+        </Form>
+      );
+
+      expect(screen.queryByText("Please enter a name")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a street number")
+      ).not.toBeInTheDocument();
+      expect(screen.getByLabelText("Name")).toHaveValue("Helena");
+      expect(screen.getByLabelText("Street number")).toHaveValue("22");
+
+      userEvent.click(screen.getByTestId("resetButton"));
+
+      await waitFor(() => {
+        expect(screen.queryByText("Please enter a name")).toBeInTheDocument();
+        expect(
+          screen.queryByText("Please enter a street number")
+        ).toBeInTheDocument();
+        expect(screen.getByLabelText("Name")).toHaveValue("Bob");
+        expect(screen.getByLabelText("Street number")).toHaveValue("1");
+      });
+    });
   });
 });

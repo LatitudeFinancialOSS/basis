@@ -231,15 +231,13 @@ function Form(_props) {
     setState((state) => {
       const newErrors = Object.keys(fields.current).reduce((acc, name) => {
         if (typeof errorsMap[name] === "string") {
-          acc[name] = [errorsMap[name]];
-        } else if (Array.isArray(errorsMap[name])) {
-          acc[name] = errorsMap[name];
-        } else {
-          acc[name] = state.errors[name];
+          return setPath(acc, name, [errorsMap[name]]);
         }
-
+        if (Array.isArray(errorsMap[name])) {
+          return setPath(acc, name, errorsMap[name]);
+        }
         return acc;
-      }, {});
+      }, {...state.errors});
 
       return {
         ...state,
@@ -247,6 +245,15 @@ function Form(_props) {
       };
     });
   }, []);
+  const resetForm = ({ values, errors } = {}) => {
+    setState({
+      values: values ?? initialValues,
+      errors: errors ?? initialErrors ?? {},
+      shouldValidateOnChange: false,
+      namesToValidate: null,
+      submitStatus: "READY",
+    });
+  };
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
   });
@@ -303,6 +310,8 @@ function Form(_props) {
               validateField,
               submitForm,
               setValues,
+              setErrors,
+              resetForm,
             })
           : children}
       </form>
