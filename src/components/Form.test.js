@@ -472,7 +472,9 @@ describe("Form", () => {
         expect(
           screen.queryByText("Try to spell it differently")
         ).toBeInTheDocument();
-        expect(screen.queryByText("Please enter a name")).not.toBeInTheDocument();
+        expect(
+          screen.queryByText("Please enter a name")
+        ).not.toBeInTheDocument();
         expect(screen.queryByText("Please enter an age")).toBeInTheDocument();
 
         expect(
