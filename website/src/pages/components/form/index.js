@@ -136,7 +136,7 @@ function FormPage() {
       return (
         <Container padding="8">
           <Form initialValues={initialValues} onSubmit={onSubmit}>
-            <Grid rowsGap="8">
+            <Stack gap="8">
               <Text as="h2" textStyle="heading4">About you</Text>
               <Input name="name" label="Name" />
               <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
@@ -148,7 +148,7 @@ function FormPage() {
               <TimeSpan name="age" label="Age" />
               <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
               <Button type="submit">Submit</Button>
-            </Grid>
+            </Stack>
           </Form>
         </Container>
       );

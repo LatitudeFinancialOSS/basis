@@ -229,15 +229,20 @@ function Form(_props) {
   };
   const setErrors = useCallback((errorsMap) => {
     setState((state) => {
-      const newErrors = Object.keys(fields.current).reduce((acc, name) => {
-        if (typeof errorsMap[name] === "string") {
-          return setPath(acc, name, [errorsMap[name]]);
-        }
-        if (Array.isArray(errorsMap[name])) {
-          return setPath(acc, name, errorsMap[name]);
-        }
-        return acc;
-      }, {...state.errors});
+      const newErrors = Object.keys(fields.current).reduce(
+        (acc, name) => {
+          if (typeof errorsMap[name] === "string") {
+            return setPath(acc, name, [errorsMap[name]]);
+          }
+
+          if (Array.isArray(errorsMap[name])) {
+            return setPath(acc, name, errorsMap[name]);
+          }
+
+          return acc;
+        },
+        { ...state.errors }
+      );
 
       return {
         ...state,
@@ -246,13 +251,11 @@ function Form(_props) {
     });
   }, []);
   const resetForm = ({ values, errors } = {}) => {
-    setState({
+    setState((state) => ({
+      ...state,
       values: values ?? initialValues,
       errors: errors ?? initialErrors ?? {},
-      shouldValidateOnChange: false,
-      namesToValidate: null,
-      submitStatus: "READY",
-    });
+    }));
   };
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
