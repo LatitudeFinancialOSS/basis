@@ -16,10 +16,7 @@ import {
   screensState,
 } from "../../components/playground/recoilState";
 import useDebounce from "../../hooks/useDebounce";
-import {
-  getReactLiveNoInline,
-  // annotateCodeForPlayground,
-} from "../../utils/ast";
+import { getReactLiveNoInline } from "../../utils/ast";
 import { reactLiveEditorTheme } from "../../utils/constants";
 import { getPlaygroundDataFromUrl } from "../../utils/url";
 
@@ -127,7 +124,6 @@ function Playground() {
   return (
     <LiveProvider
       {...liveProviderProps}
-      // transformCode={annotateCodeForPlayground}
       code={debouncedCode}
       scope={allDesignSystem}
       theme={reactLiveEditorTheme}
