@@ -1,4 +1,4 @@
-export default (theme) => {
+const select = (theme) => {
   return {
     getCSS: ({ fullWidth }) => {
       return {
@@ -38,3 +38,5 @@ export default (theme) => {
     },
   };
 };
+
+export default select;

@@ -1,4 +1,4 @@
-export default (theme) => {
+const input = (theme) => {
   return {
     getCSS: ({ targetElement }) => {
       switch (targetElement) {
@@ -53,3 +53,5 @@ export default (theme) => {
     },
   };
 };
+
+export default input;

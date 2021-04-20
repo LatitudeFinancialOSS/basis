@@ -124,6 +124,7 @@ function Playground() {
   return (
     <LiveProvider
       {...liveProviderProps}
+      code={debouncedCode}
       scope={allDesignSystem}
       theme={reactLiveEditorTheme}
     >

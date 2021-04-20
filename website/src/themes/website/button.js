@@ -1,4 +1,4 @@
-export default (theme) => {
+const button = (theme) => {
   function addStates(css, { hover, active }) {
     return {
       ...css,
@@ -86,3 +86,5 @@ export default (theme) => {
     },
   };
 };
+
+export default button;
