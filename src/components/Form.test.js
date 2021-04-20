@@ -344,7 +344,7 @@ describe("Form", () => {
     ).toBeInTheDocument();
   });
 
-  it("with hidden fields", async () => {
+  xit("with hidden fields", async () => {
     const onSubmit = jest.fn();
     const { container } = render(
       <Form
