@@ -131,7 +131,7 @@ Radio.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   isLabelBold: PropTypes.bool.isRequired,
   description: PropTypes.node,
   isChecked: PropTypes.bool.isRequired,
@@ -204,13 +204,21 @@ InternalRadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
   labelId: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      description: PropTypes.node,
-      value: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  options: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        description: PropTypes.node,
+        value: PropTypes.string.isRequired,
+      })
+    ),
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.node.isRequired,
+        value: PropTypes.string.isRequired,
+      })
+    ),
+  ]).isRequired,
   columns: PropTypes.number,
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,

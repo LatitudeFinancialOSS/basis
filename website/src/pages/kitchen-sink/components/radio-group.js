@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Grid, RadioGroup, Link } from "basis";
+import { Container, Flex, Grid, Link, Placeholder, RadioGroup } from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
@@ -129,6 +129,54 @@ function KitchenSinkRadioGroup() {
                   {
                     label: "Option 3",
                     value: "option-3",
+                  },
+                ]}
+              />
+            </Grid>
+          </Container>
+
+          <Container padding="4">
+            <Grid rowsGap="8">
+              <FormWithRadioGroup
+                label="With JSX labels"
+                columns={2}
+                initialValue="value1"
+                options={[
+                  {
+                    label: (
+                      <Flex>
+                        <Placeholder label="Image 1" width="120" height="60" />
+                        <Container margin="0 0 0 6">Option 1</Container>
+                      </Flex>
+                    ),
+                    value: "value1",
+                  },
+                  {
+                    label: (
+                      <Flex>
+                        <Placeholder label="Image 2" width="120" height="120" />
+                        <Container margin="0 0 0 6">Option 2</Container>
+                      </Flex>
+                    ),
+                    value: "value2",
+                  },
+                  {
+                    label: (
+                      <Flex>
+                        <Placeholder label="Image 3" width="120" height="80" />
+                        <Container margin="0 0 0 6">Option 3</Container>
+                      </Flex>
+                    ),
+                    value: "value3",
+                  },
+                  {
+                    label: (
+                      <Flex>
+                        <Placeholder label="Image 4" width="120" height="100" />
+                        <Container margin="0 0 0 6">Option 4</Container>
+                      </Flex>
+                    ),
+                    value: "value4",
                   },
                 ]}
               />
