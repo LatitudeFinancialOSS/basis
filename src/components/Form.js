@@ -125,12 +125,6 @@ function Form(_props) {
   };
   const unregisterField = (name) => {
     delete fields.current[name];
-
-    /* setState((state) =>
-      deletePath(state, `errors.${name}`, {
-        deleteEmptyObjects: { except: ["errors"] },
-      })
-    );*/
   };
   const providerValue = {
     state,

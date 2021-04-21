@@ -45,16 +45,6 @@ const hungryOptions = [
     value: "maybe",
   },
 ];
-const yesNoOptions = [
-  {
-    label: "Yes",
-    value: "yes",
-  },
-  {
-    label: "No",
-    value: "no",
-  },
-];
 
 function SimpleForm({ testId }) {
   const initialValues = {
@@ -342,65 +332,6 @@ describe("Form", () => {
     expect(
       screen.getByText("Please enter a street number")
     ).toBeInTheDocument();
-  });
-
-  it.skip("with hidden fields", async () => {
-    const onSubmit = jest.fn();
-    const { container } = render(
-      <Form
-        initialValues={{ hasMiddleName: "", middleName: "" }}
-        onSubmit={onSubmit}
-      >
-        {({ state }) => (
-          <>
-            <RadioGroup
-              name="hasMiddleName"
-              label="Do you have a middle name?"
-              options={yesNoOptions}
-            />
-            {state.values.hasMiddleName === "yes" && (
-              <Input name="middleName" label="Middle name" />
-            )}
-            <Button type="submit">Submit</Button>
-          </>
-        )}
-      </Form>
-    );
-
-    const yesInput = screen.getByLabelText("Yes");
-    const yesLabel = container.querySelector(
-      `label[for="${yesInput.getAttribute("id")}"]`
-    );
-    const noInput = screen.getByLabelText("No");
-    const noLabel = container.querySelector(
-      `label[for="${noInput.getAttribute("id")}"]`
-    );
-
-    userEvent.click(yesLabel);
-
-    const middleNameInput = screen.getByLabelText("Middle name");
-    middleNameInput.focus();
-    middleNameInput.blur();
-
-    // Wait until form state is updated with the error.
-    // Without this await, the test ends before form's state gets the error.
-    await waitFor(() => {
-      expect(screen.getByText("Required")).toBeInTheDocument();
-    });
-
-    userEvent.click(noLabel);
-    screen.getByRole("button", { name: "Submit" }).click();
-
-    await waitFor(() =>
-      expect(onSubmit).toBeCalledWith({
-        errors: {},
-        values: {
-          hasMiddleName: "no",
-          middleName: "",
-        },
-        setErrors: expect.any(Function),
-      })
-    );
   });
 
   it("with testId", () => {
