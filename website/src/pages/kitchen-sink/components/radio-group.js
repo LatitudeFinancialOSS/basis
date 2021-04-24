@@ -118,7 +118,7 @@ function KitchenSinkRadioGroup() {
                       <>
                         Descriptions can be very long, so long that they span
                         multiple lines. Moreover, they can have links like{" "}
-                        <Link href="https://basis.now.sh" newTab>
+                        <Link href="https://basis.vercel.app" newTab>
                           this
                         </Link>
                         .
