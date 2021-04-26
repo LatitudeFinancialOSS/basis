@@ -48,6 +48,26 @@ export function areOptionsValid(options) {
   return true;
 }
 
+export function areCheckboxOptionsValid(options) {
+  if (!Array.isArray(options) || options.length === 0) {
+    return false;
+  }
+
+  for (const option of options) {
+    if (
+      !(
+        typeof option.key === "string" &&
+        ((typeof option.label === "string" && option.label.trim() !== "") ||
+          React.isValidElement(option.label))
+      )
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function areDropdownOptionsValid(options) {
   if (!Array.isArray(options) || options.length === 0) {
     return false;
