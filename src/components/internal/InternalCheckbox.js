@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { nanoid } from "nanoid";
 import useTheme from "../../hooks/useTheme";
 import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
@@ -65,7 +66,6 @@ function InternalCheckbox(_props) {
   const {
     name,
     parentName,
-    inputId,
     color,
     disabled,
     isValid,
@@ -81,6 +81,7 @@ function InternalCheckbox(_props) {
   } = props;
   const theme = useTheme();
   const { inputColorMap } = useBackground();
+  const [inputId] = useState(() => props.inputId ?? `checkbox-${nanoid()}`);
   const labelCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     color: (propsAtBreakpoint, theme, bp) => {
       return theme.checkbox.getCSS({
@@ -127,7 +128,7 @@ function InternalCheckbox(_props) {
 InternalCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
-  inputId: PropTypes.string.isRequired,
+  inputId: PropTypes.string,
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,
   isValid: PropTypes.bool.isRequired,

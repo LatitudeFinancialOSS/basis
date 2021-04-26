@@ -72,7 +72,6 @@ function Sidebar() {
     query ComponentsQuery {
       allFile(
         filter: { relativePath: { regex: "/^components/.*/index.js/" } }
-        sort: { order: ASC, fields: relativePath }
       ) {
         edges {
           node {
@@ -82,14 +81,18 @@ function Sidebar() {
       }
     }
   `);
-  const components = data.allFile.edges.map(({ node }) => {
-    const { relativeDirectory } = node;
+  const components = data.allFile.edges
+    .map(({ node }) => {
+      const { relativeDirectory } = node;
 
-    return {
-      componentName: pascalCase(relativeDirectory.split("/")[1]),
-      href: `/${relativeDirectory}`,
-    };
-  });
+      return {
+        componentName: pascalCase(relativeDirectory.split("/")[1]),
+        href: `/${relativeDirectory}`,
+      };
+    })
+    .sort(({ componentName: name1 }, { componentName: name2 }) =>
+      name1 < name2 ? -1 : 1
+    );
 
   return (
     <header css={{ minHeight: 0, display: "flex", flexDirection: "column" }}>
