@@ -40,8 +40,8 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
   const errors = getPath(state.errors, name);
   const hasErrors = Array.isArray(errors) && errors.length > 0;
 
-  // we need to store the data in a ref so that if the validateData prop changes, we have a referece
-  // to the new value.
+  // we need to store the data in a ref so that if the validateData prop changes, we have a reference
+  // that we can update with the new value.
   useEffect(() => {
     fieldDataRef.current = data;
   }, [data]);
