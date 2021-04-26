@@ -125,6 +125,11 @@ function Form(_props) {
   };
   const unregisterField = (name) => {
     delete fields.current[name];
+    setState((state) =>
+      deletePath(state, `errors.${name}`, {
+        deleteEmptyObjects: { except: ["errors"] },
+      })
+    );
   };
   const providerValue = {
     state,
@@ -143,14 +148,14 @@ function Form(_props) {
       !field || // See: https://stackoverflow.com/q/65659161/247243
       field.disabled === true ||
       (field.optional === true &&
-        typeof field.data?.isEmpty === "function" &&
-        field.data.isEmpty(value) === true)
+        typeof field.data.current?.isEmpty === "function" &&
+        field.data.current.isEmpty(value) === true)
     ) {
       return null;
     }
 
     if (typeof field.validate === "function") {
-      const errors = field.validate(value, field.data);
+      const errors = field.validate(value, field.data.current);
 
       if (typeof errors === "string") {
         return [errors];

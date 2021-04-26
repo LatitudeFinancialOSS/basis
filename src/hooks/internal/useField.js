@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useForm from "./useForm";
 import { getPath } from "../../utils/objectPath";
 import { notStringOrEmpty } from "../../utils/string";
@@ -7,7 +7,6 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
   if (notStringOrEmpty(name)) {
     throw new Error(`${componentName} component is missing a name prop`);
   }
-
   const {
     state,
     onFocus,
@@ -17,6 +16,16 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     registerField,
     unregisterField,
   } = useForm(componentName);
+
+  const fieldDataRef = useRef(data);
+  const registerDataRef = useRef({
+    registerField,
+    unregisterField,
+    name,
+    disabled,
+    optional,
+    validate,
+  });
 
   if (typeof state.values === "undefined") {
     throw new Error("Form is missing initialValues");
@@ -31,26 +40,33 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
   const errors = getPath(state.errors, name);
   const hasErrors = Array.isArray(errors) && errors.length > 0;
 
+  // we need to store the data in a ref so that if the validateData prop changes, we have a referece
+  // to the new value.
   useEffect(() => {
+    fieldDataRef.current = data;
+  }, [data]);
+
+  useEffect(() => {
+    const {
+      registerField,
+      unregisterField,
+      name,
+      disabled,
+      optional,
+      validate,
+    } = registerDataRef.current;
+
     registerField(name, {
       disabled,
       optional,
       validate,
-      data,
+      data: fieldDataRef,
     });
 
     return () => {
       unregisterField(name);
     };
-  }, [
-    name,
-    disabled,
-    optional,
-    validate,
-    data,
-    registerField,
-    unregisterField,
-  ]);
+  }, []);
 
   return {
     value,
