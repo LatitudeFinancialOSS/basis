@@ -6,6 +6,7 @@ export default (theme, { getColor, getTextStyle }) => {
           return {
             display: "flex",
             flexDirection: "column",
+            height: "100%",
           };
         }
 
@@ -25,6 +26,7 @@ export default (theme, { getColor, getTextStyle }) => {
             alignItems: "flex-start",
             padding: `${theme.space[3]} ${theme.space[4]}`,
             minHeight: "24px",
+            height: "100%",
             ...getTextStyle({ name: "body1", mode: "container" }),
             color: theme.colors.black,
             backgroundColor: getColor(color),

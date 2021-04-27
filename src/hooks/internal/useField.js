@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
 import useForm from "./useForm";
 import { getPath } from "../../utils/objectPath";
-import { notStringOrEmpty } from "../../utils/string";
 
 function useField(componentName, { name, disabled, optional, validate, data }) {
-  if (notStringOrEmpty(name)) {
+  if (typeof name !== "string" || name.trim() === "") {
     throw new Error(`${componentName} component is missing a name prop`);
   }
   const {

@@ -55,6 +55,20 @@ function FormPage() {
         value: "chernobyl"
       }
     ];
+    const fruitOptions = [
+      {
+        key: "apple",
+        label: "Apple",
+      },
+      {
+        key: "banana",
+        label: "Banana",
+      },
+      {
+        key: "lemon",
+        label: "Lemon",
+      },
+    ];
     const hungryOptions = [
       {
         label: "Yes",
@@ -106,6 +120,11 @@ function FormPage() {
       name: "",
       relationshipStatus: "",
       favouriteMovie: "",
+      fruits: {
+        apple: false,
+        banana: false,
+        lemon: false,
+      },
       likeIceCream: false,
       hungry: "",
       salary: {
@@ -136,19 +155,20 @@ function FormPage() {
       return (
         <Container padding="8">
           <Form initialValues={initialValues} onSubmit={onSubmit}>
-            <Grid rowsGap="8">
+            <Stack gap="8">
               <Text as="h2" textStyle="heading4">About you</Text>
               <Input name="name" label="Name" />
               <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
               <Dropdown name="favouriteMovie" label="Favourite movie" placeholderComponent={MoviePlaceholder} options={movieOptions} optionToString={movieOptionToString} optionComponent={MovieOption}  />
+              <CheckboxGroup name="fruits" label="Which fruits do you like?" options={fruitOptions} />
               <Checkbox label="Do you like ice cream?" hideLabel name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
               <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
-              <Frequency name="salary" label="Salary" />
+              <Frequency name="salary" label="Salary (before tax)" amountPrefix="$" />
               <DatePicker name="birthDate" label="Birth date" />
               <TimeSpan name="age" label="Age" />
               <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
               <Button type="submit">Submit</Button>
-            </Grid>
+            </Stack>
           </Form>
         </Container>
       );

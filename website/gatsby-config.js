@@ -3,7 +3,7 @@ const { COMPONENT_STATUS } = require("./src/utils/constants");
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://basis.now.sh",
+    siteUrl: "https://basis.vercel.app",
     components: {
       Accordion: {
         status: COMPONENT_STATUS.READY,
@@ -12,6 +12,9 @@ module.exports = {
         status: COMPONENT_STATUS.READY,
       },
       Checkbox: {
+        status: COMPONENT_STATUS.READY,
+      },
+      CheckboxGroup: {
         status: COMPONENT_STATUS.READY,
       },
       Container: {
