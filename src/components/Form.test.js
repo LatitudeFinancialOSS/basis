@@ -4,13 +4,14 @@ import "@testing-library/jest-dom/extend-expect";
 import {
   Button,
   Checkbox,
+  CheckboxGroup,
   DatePicker,
   Form,
   Frequency,
-  Grid,
   Input,
   RadioGroup,
   Select,
+  Stack,
   Text,
   Textarea,
   TimeSpan,
@@ -29,6 +30,20 @@ const relationshipStatusOptions = [
   {
     label: "Other",
     value: "other",
+  },
+];
+const fruitOptions = [
+  {
+    key: "apple",
+    label: "Apple",
+  },
+  {
+    key: "banana",
+    label: "Banana",
+  },
+  {
+    key: "lemon",
+    label: "Lemon",
   },
 ];
 const hungryOptions = [
@@ -68,6 +83,11 @@ function ComplexForm({
   const formInitialValues = {
     name: "",
     relationshipStatus: "",
+    fruits: {
+      apple: false,
+      banana: false,
+      lemon: false,
+    },
     likeIceCream: false,
     hungry: "",
     salary: {
@@ -108,7 +128,7 @@ function ComplexForm({
       }}
     >
       {() => (
-        <Grid rowsGap="8">
+        <Stack gap="8">
           <Text as="h2" textStyle="heading4">
             About you
           </Text>
@@ -117,6 +137,11 @@ function ComplexForm({
             name="relationshipStatus"
             label="Relationship status"
             options={relationshipStatusOptions}
+          />
+          <CheckboxGroup
+            name="fruits"
+            label="Which fruits do you like?"
+            options={fruitOptions}
           />
           <Checkbox
             label="Do you like ice cream?"
@@ -142,7 +167,7 @@ function ComplexForm({
           <Input name="address.streetNumber" label="Street number" />
           <Input name="address.streetName" label="Street name" />
           <Button type="submit">Submit</Button>
-        </Grid>
+        </Stack>
       )}
     </Form>
   );
@@ -166,6 +191,7 @@ describe("Form", () => {
       expect(onSubmit).toBeCalledWith({
         errors: {
           age: ["Must be at least 1 month."],
+          fruits: ["Please make a selection."],
           hungry: ["Please make a selection."],
           likeIceCream: ["Must be checked"],
           name: ["Required"],
@@ -182,6 +208,11 @@ describe("Form", () => {
           age: {
             months: "",
             years: "",
+          },
+          fruits: {
+            apple: false,
+            banana: false,
+            lemon: false,
           },
           hungry: "",
           likeIceCream: false,
@@ -310,6 +341,51 @@ describe("Form", () => {
       expect(
         screen.queryByText("Try to spell it differently.")
       ).not.toBeInTheDocument();
+    });
+  });
+
+  it("doesn't validate fields when they become disabled", async () => {
+    render(
+      <Form
+        initialValues={{
+          nameDisabled: false,
+          name: "",
+        }}
+      >
+        {({ state, validateField }) => {
+          return (
+            <Stack gap="8">
+              <Checkbox
+                name="nameDisabled"
+                label="Is name disabled?"
+                hideLabel
+                testId="checkbox"
+              >
+                Is name disabled?
+              </Checkbox>
+              <Input
+                name="name"
+                label="Name"
+                disabled={state.values.nameDisabled}
+              />
+              <Button
+                onClick={() => {
+                  validateField("name");
+                }}
+              >
+                Validate name
+              </Button>
+            </Stack>
+          );
+        }}
+      </Form>
+    );
+
+    userEvent.click(screen.getByTestId("checkbox").querySelector("label"));
+    userEvent.click(screen.getByRole("button", { name: "Validate name" }));
+
+    await waitFor(() => {
+      expect(screen.queryByText("Required")).not.toBeInTheDocument();
     });
   });
 
