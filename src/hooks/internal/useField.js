@@ -43,7 +43,6 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
   // that we can update with the new value.
   useEffect(() => {
     registerDataRef.current = {
-      ...registerDataRef.current,
       registerField,
       unregisterField,
       name,
@@ -52,8 +51,15 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
       validate,
       data,
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, disabled, optional, validate, data]);
+  }, [
+    name,
+    disabled,
+    optional,
+    validate,
+    data,
+    registerField,
+    unregisterField,
+  ]);
 
   useEffect(() => {
     registerField(name, registerDataRef);
@@ -61,8 +67,7 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     return () => {
       unregisterField(name);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [registerField, unregisterField, name]);
 
   return {
     value,

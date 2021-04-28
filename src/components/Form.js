@@ -123,17 +123,17 @@ function Form(_props) {
 
     lastMouseDownInputElement.current = inputElement;
   };
-  const registerField = (name, field) => {
+  const registerField = useCallback((name, field) => {
     fields.current[name] = field;
-  };
-  const unregisterField = (name) => {
+  }, []);
+  const unregisterField = useCallback((name) => {
     delete fields.current[name];
     setState((state) =>
       deletePath(state, `errors.${name}`, {
         deleteEmptyObjects: { except: ["errors"] },
       })
     );
-  };
+  }, []);
   const providerValue = {
     state,
     onFocus, // should be called by inputs
