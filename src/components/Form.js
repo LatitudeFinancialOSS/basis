@@ -104,7 +104,10 @@ function Form(_props) {
           2. Press the Checkbox without releasing it (validation error appears).
           3. If you resease the Checkbox now, the validation error disappears.
       */
-      if (state.shouldValidateOnChange || isCheckbox) {
+      if (
+        state.shouldValidateOnChange ||
+        (isCheckbox && target.dataset.parentName === undefined)
+      ) {
         newState = setPath(newState, "namesToValidate", [
           getParentFieldName(target),
         ]);
