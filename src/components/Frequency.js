@@ -108,6 +108,7 @@ function Frequency(props) {
     amountPrefix,
     amountPlaceholder,
     selectPlaceholder,
+    amountMaxLength,
     helpText,
     disabled,
     optional,
@@ -185,6 +186,7 @@ function Frequency(props) {
       prefix={amountPrefix}
       color={props.color}
       placeholder={amountPlaceholder}
+      maxLength={amountMaxLength}
       disabled={disabled}
       onFocus={onFocus}
       onBlur={onBlur}
@@ -266,6 +268,7 @@ Frequency.propTypes = {
   weekly: PropTypes.bool,
   amountPrefix: PropTypes.string,
   amountPlaceholder: PropTypes.string,
+  amountMaxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   selectPlaceholder: PropTypes.string,
   helpText: PropTypes.node,
   disabled: PropTypes.bool,

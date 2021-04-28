@@ -1,4 +1,4 @@
-import { notStringOrEmpty } from "./string";
+import React from "react";
 import { DEFAULT_BREAKPOINT } from "./css";
 import { hasOwnProperty } from "./core";
 
@@ -34,7 +34,33 @@ export function areOptionsValid(options) {
   }
 
   for (const option of options) {
-    if (notStringOrEmpty(option.label) || typeof option.value !== "string") {
+    if (
+      !(
+        typeof option.value === "string" &&
+        ((typeof option.label === "string" && option.label.trim() !== "") ||
+          React.isValidElement(option.label))
+      )
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export function areCheckboxOptionsValid(options) {
+  if (!Array.isArray(options) || options.length === 0) {
+    return false;
+  }
+
+  for (const option of options) {
+    if (
+      !(
+        typeof option.key === "string" &&
+        ((typeof option.label === "string" && option.label.trim() !== "") ||
+          React.isValidElement(option.label))
+      )
+    ) {
       return false;
     }
   }

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const SPLITBEE_SCRIPT_ID = "basis-splitbee";
 
 function isSplitbeeEnabled() {
-  return window.location.host === "basis.now.sh";
+  return window.location.host === "basis.vercel.app";
 }
 
 export function trackEvent(eventName) {

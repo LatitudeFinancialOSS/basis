@@ -10,6 +10,9 @@ module.exports = {
   Checkbox: {
     status: COMPONENT_STATUS.READY,
   },
+  CheckboxGroup: {
+    status: COMPONENT_STATUS.READY,
+  },
   Container: {
     status: COMPONENT_STATUS.READY,
   },

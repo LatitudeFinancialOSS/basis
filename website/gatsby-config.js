@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://basis.now.sh",
+    siteUrl: "https://basis.vercel.app",
   },
   plugins: [
     {

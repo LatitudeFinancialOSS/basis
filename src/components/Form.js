@@ -104,7 +104,10 @@ function Form(_props) {
           2. Press the Checkbox without releasing it (validation error appears).
           3. If you resease the Checkbox now, the validation error disappears.
       */
-      if (state.shouldValidateOnChange || isCheckbox) {
+      if (
+        state.shouldValidateOnChange ||
+        (isCheckbox && target.dataset.parentName === undefined)
+      ) {
         newState = setPath(newState, "namesToValidate", [
           getParentFieldName(target),
         ]);
@@ -223,17 +226,20 @@ function Form(_props) {
   };
   const setErrors = useCallback((errorsMap) => {
     setState((state) => {
-      const newErrors = Object.keys(fields.current).reduce((acc, name) => {
-        if (typeof errorsMap[name] === "string") {
-          acc[name] = [errorsMap[name]];
-        } else if (Array.isArray(errorsMap[name])) {
-          acc[name] = errorsMap[name];
-        } else {
-          acc[name] = state.errors[name];
-        }
+      const newErrors = Object.keys(fields.current).reduce(
+        (acc, name) => {
+          if (typeof errorsMap[name] === "string") {
+            return setPath(acc, name, [errorsMap[name]]);
+          }
 
-        return acc;
-      }, {});
+          if (Array.isArray(errorsMap[name])) {
+            return setPath(acc, name, errorsMap[name]);
+          }
+
+          return acc;
+        },
+        { ...state.errors }
+      );
 
       return {
         ...state,
@@ -241,6 +247,13 @@ function Form(_props) {
       };
     });
   }, []);
+  const resetForm = ({ values, errors } = {}) => {
+    setState((state) => ({
+      ...state,
+      values: values ?? initialValues,
+      errors: errors ?? initialErrors ?? {},
+    }));
+  };
   const responsiveFormCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     width: responsiveSize("width"),
   });
@@ -297,6 +310,8 @@ function Form(_props) {
               validateField,
               submitForm,
               setValues,
+              setErrors,
+              resetForm,
             })
           : children}
       </form>

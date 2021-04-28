@@ -78,3 +78,6 @@ yarn-error.log
 
 # Vercel
 .vercel
+
+# JetBrains
+.idea
