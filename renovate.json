@@ -1,6 +1,7 @@
 {
   "extends": ["config:base"],
   "schedule": "every weekend",
+  "baseBranches": ["master", "2.0"],
   "packageRules": [
     {
       "depTypeList": ["dependencies", "devDependencies"],

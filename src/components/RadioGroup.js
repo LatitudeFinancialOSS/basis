@@ -55,9 +55,7 @@ function RadioGroup(props) {
   } = mergedProps;
 
   if (!options) {
-    throw new Error(
-      `RadioGroup options should have the following format: [{ label: "option-label", value: "option-value" }, ...]`
-    );
+    throw new Error("RadioGroup options are invalid");
   }
 
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
@@ -141,13 +139,21 @@ function RadioGroup(props) {
 RadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      description: PropTypes.node,
-      value: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  options: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        description: PropTypes.node,
+        value: PropTypes.string.isRequired,
+      })
+    ),
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.node.isRequired,
+        value: PropTypes.string.isRequired,
+      })
+    ),
+  ]).isRequired,
   columns: (props) => {
     if (props.columns !== undefined) {
       if (typeof props.columns !== "number") {
