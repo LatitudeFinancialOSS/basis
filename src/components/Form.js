@@ -104,10 +104,7 @@ function Form(_props) {
           2. Press the Checkbox without releasing it (validation error appears).
           3. If you resease the Checkbox now, the validation error disappears.
       */
-      if (
-        state.shouldValidateOnChange ||
-        (isCheckbox && target.dataset.parentName === undefined)
-      ) {
+      if (state.shouldValidateOnChange || isCheckbox) {
         newState = setPath(newState, "namesToValidate", [
           getParentFieldName(target),
         ]);
@@ -145,20 +142,20 @@ function Form(_props) {
   };
   const getFieldErrors = useCallback((values, name) => {
     const value = getPath(values, name);
-    const field = fields.current[name];
+    const field = fields.current[name].current;
 
     if (
       !field || // See: https://stackoverflow.com/q/65659161/247243
       field.disabled === true ||
       (field.optional === true &&
-        typeof field.data.current?.isEmpty === "function" &&
-        field.data.current.isEmpty(value) === true)
+        typeof field.data?.isEmpty === "function" &&
+        field.data.isEmpty(value) === true)
     ) {
       return null;
     }
 
     if (typeof field.validate === "function") {
-      const errors = field.validate(value, field.data.current);
+      const errors = field.validate(value, field.data);
 
       if (typeof errors === "string") {
         return [errors];
@@ -187,7 +184,7 @@ function Form(_props) {
   );
   const validateField = useCallback(
     (name) => {
-      if (fields.current[name]) {
+      if (fields.current[name].current) {
         setState((state) => {
           const errors = getFieldErrors(state.values, name);
 

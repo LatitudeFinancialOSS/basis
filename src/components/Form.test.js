@@ -345,14 +345,12 @@ describe("Form", () => {
 
     userEvent.type(screen.getByLabelText("Name"), "Helena");
 
-    await waitFor(() => {
-      expect(
-        screen.queryByText("This name is already taken.")
-      ).not.toBeInTheDocument();
-      expect(
-        screen.queryByText("Try to spell it differently.")
-      ).not.toBeInTheDocument();
-    });
+    expect(
+      screen.queryByText("This name is already taken.")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Try to spell it differently.")
+    ).not.toBeInTheDocument();
   });
 
   it("doesn't validate fields when they become disabled", async () => {

@@ -16,7 +16,6 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     unregisterField,
   } = useForm(componentName);
 
-  const fieldDataRef = useRef(data);
   const registerDataRef = useRef({
     registerField,
     unregisterField,
@@ -24,6 +23,7 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
     disabled,
     optional,
     validate,
+    data,
   });
 
   if (typeof state.values === "undefined") {
@@ -42,29 +42,26 @@ function useField(componentName, { name, disabled, optional, validate, data }) {
   // we need to store the data in a ref so that if the validateData prop changes, we have a reference
   // that we can update with the new value.
   useEffect(() => {
-    fieldDataRef.current = data;
-  }, [data]);
-
-  useEffect(() => {
-    const {
+    registerDataRef.current = {
+      ...registerDataRef.current,
       registerField,
       unregisterField,
       name,
       disabled,
       optional,
       validate,
-    } = registerDataRef.current;
+      data,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, disabled, optional, validate, data]);
 
-    registerField(name, {
-      disabled,
-      optional,
-      validate,
-      data: fieldDataRef,
-    });
+  useEffect(() => {
+    registerField(name, registerDataRef);
 
     return () => {
       unregisterField(name);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
