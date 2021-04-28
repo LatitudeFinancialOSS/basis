@@ -1,6 +1,6 @@
 const path = require("path");
 const { pascalCase } = require("pascal-case");
-const { siteMetadata } = require("./gatsby-config");
+const componentsStatus = require("./componentsStatus");
 
 const prodAlias = {
   react: path.resolve("./node_modules/react"), // Resolves to [REPO_LOCATION]/website/node_modules/react
@@ -82,7 +82,7 @@ exports.onCreatePage = ({ page, actions }) => {
       const componentName = pascalCase(match[1]);
 
       page.context.header = componentName;
-      page.context.status = siteMetadata.components[componentName].status;
+      page.context.status = componentsStatus[componentName].status;
     }
   }
 
