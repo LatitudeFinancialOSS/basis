@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import useField from "../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../utils/component";
@@ -30,7 +30,20 @@ const DEFAULT_PROPS = {
 Select.COLORS = COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Select(props) {
+type Option = {
+  label: string;
+  value: string;
+};
+
+interface Props {
+  // TODO color needs to be typed based on COLORS
+  color: string;
+  options: Option[] | Readonly<Option[]>;
+  // TODO Let's type it properly later!
+  [key: string]: any;
+}
+
+function Select(props: Props) {
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -137,26 +150,26 @@ function Select(props) {
   );
 }
 
-Select.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  color: PropTypes.oneOf(COLORS),
-  placeholder: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  fullWidth: PropTypes.bool,
-  helpText: PropTypes.string,
-  disabled: PropTypes.bool,
-  optional: PropTypes.bool,
-  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.any,
-  onChange: PropTypes.func,
-  testId: PropTypes.string,
-  __internal__focus: PropTypes.bool,
-};
+// Select.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   label: PropTypes.string.isRequired,
+//   color: PropTypes.oneOf(COLORS),
+//   placeholder: PropTypes.string,
+//   options: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       label: PropTypes.string.isRequired,
+//       value: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+//   fullWidth: PropTypes.bool,
+//   helpText: PropTypes.string,
+//   disabled: PropTypes.bool,
+//   optional: PropTypes.bool,
+//   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+//   validateData: PropTypes.any,
+//   onChange: PropTypes.func,
+//   testId: PropTypes.string,
+//   __internal__focus: PropTypes.bool,
+// };
 
 export default Select;
