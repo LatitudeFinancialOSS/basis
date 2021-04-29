@@ -34,7 +34,7 @@ type Option = {
 
 interface Props {
   // TODO color needs to be typed based on COLORS
-  color: string;
+  color?: string;
   options: Option[] | Readonly<Option[]>;
   // TODO Let's type it properly later!
   [key: string]: any;
