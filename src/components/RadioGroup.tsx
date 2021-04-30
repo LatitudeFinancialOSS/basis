@@ -1,5 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useMemo, useCallback, ReactNode } from "react";
 import { nanoid } from "nanoid";
 import useField from "../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../utils/component";
@@ -28,7 +27,40 @@ const DEFAULT_PROPS = {
 RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function RadioGroup(props) {
+type Options =
+  | {
+      label: string;
+      desription?: ReactNode;
+      value: string;
+    }[]
+  | {
+      label: ReactNode;
+      value: string;
+    }[]
+  | Readonly<
+      {
+        label: string;
+        desription?: ReactNode;
+        value: string;
+      }[]
+    >
+  | Readonly<
+      {
+        label: ReactNode;
+        value: string;
+      }[]
+    >;
+
+interface Props {
+  // TODO color needs to be typed based on COLORS
+  color?: string;
+  // options: Option[] | Readonly<Option[]>;
+  options: Options;
+  // TODO Let's type it properly later!
+  [key: string]: any;
+}
+
+function RadioGroup(props: Props) {
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -119,7 +151,6 @@ function RadioGroup(props) {
       <InternalRadioGroup
         name={name}
         labelId={labelId}
-        auxId={auxId}
         options={options}
         columns={cols}
         color={props.color}
@@ -136,50 +167,50 @@ function RadioGroup(props) {
   );
 }
 
-RadioGroup.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  options: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        description: PropTypes.node,
-        value: PropTypes.string.isRequired,
-      })
-    ),
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.node.isRequired,
-        value: PropTypes.string.isRequired,
-      })
-    ),
-  ]).isRequired,
-  columns: (props) => {
-    if (props.columns !== undefined) {
-      if (typeof props.columns !== "number") {
-        return new Error(
-          `RadioGroup: columns must be a number (${typeof props.columns} found)`
-        );
-      }
+// RadioGroup.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   label: PropTypes.string.isRequired,
+//   options: PropTypes.oneOfType([
+//     PropTypes.arrayOf(
+//       PropTypes.shape({
+//         label: PropTypes.string.isRequired,
+//         description: PropTypes.node,
+//         value: PropTypes.string.isRequired,
+//       })
+//     ),
+//     PropTypes.arrayOf(
+//       PropTypes.shape({
+//         label: PropTypes.node.isRequired,
+//         value: PropTypes.string.isRequired,
+//       })
+//     ),
+//   ]).isRequired,
+//   columns: (props) => {
+//     if (props.columns !== undefined) {
+//       if (typeof props.columns !== "number") {
+//         return new Error(
+//           `RadioGroup: columns must be a number (${typeof props.columns} found)`
+//         );
+//       }
 
-      if (
-        props.columns !== 1 &&
-        props.options.some((option) => option.description)
-      ) {
-        return new Error(
-          `RadioGroup: option's description can only be used when columns={1}`
-        );
-      }
-    }
-  },
-  color: PropTypes.oneOf(COLORS),
-  helpText: PropTypes.string,
-  disabled: PropTypes.bool,
-  optional: PropTypes.bool,
-  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.any,
-  onChange: PropTypes.func,
-  testId: PropTypes.string,
-};
+//       if (
+//         props.columns !== 1 &&
+//         props.options.some((option) => option.description)
+//       ) {
+//         return new Error(
+//           `RadioGroup: option's description can only be used when columns={1}`
+//         );
+//       }
+//     }
+//   },
+//   color: PropTypes.oneOf(COLORS),
+//   helpText: PropTypes.string,
+//   disabled: PropTypes.bool,
+//   optional: PropTypes.bool,
+//   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+//   validateData: PropTypes.any,
+//   onChange: PropTypes.func,
+//   testId: PropTypes.string,
+// };
 
 export default RadioGroup;

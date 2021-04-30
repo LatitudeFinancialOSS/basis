@@ -53,7 +53,7 @@ const DEFAULT_PROPS = {
   },
 };
 
-function getHelpText(years, months, defaultHelpText) {
+function getHelpText(years, months, defaultHelpText = "") {
   const yearsInt = parseInt(years || "0", 10);
   const monthsInt = parseInt(months || "0", 10);
 
