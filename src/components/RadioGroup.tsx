@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, ReactNode } from "react";
 import { nanoid } from "nanoid";
 import useField from "../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../utils/component";
@@ -28,7 +28,7 @@ RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 type Option = {
-  label: string;
+  label: string | ReactNode;
   value: string;
 };
 
