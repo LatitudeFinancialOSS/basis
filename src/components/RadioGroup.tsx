@@ -151,7 +151,6 @@ function RadioGroup(props: Props) {
       <InternalRadioGroup
         name={name}
         labelId={labelId}
-        // auxId={auxId}
         options={options}
         columns={cols}
         color={props.color}
