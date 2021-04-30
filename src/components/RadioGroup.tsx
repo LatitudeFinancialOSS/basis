@@ -27,15 +27,35 @@ const DEFAULT_PROPS = {
 RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
-type Option = {
-  label: string | ReactNode;
-  value: string;
-};
+type Options =
+  | {
+      label: string;
+      desription?: ReactNode;
+      value: string;
+    }[]
+  | {
+      label: ReactNode;
+      value: string;
+    }[]
+  | Readonly<
+      {
+        label: string;
+        desription?: ReactNode;
+        value: string;
+      }[]
+    >
+  | Readonly<
+      {
+        label: ReactNode;
+        value: string;
+      }[]
+    >;
 
 interface Props {
   // TODO color needs to be typed based on COLORS
   color?: string;
-  options: Option[] | Readonly<Option[]>;
+  // options: Option[] | Readonly<Option[]>;
+  options: Options;
   // TODO Let's type it properly later!
   [key: string]: any;
 }
