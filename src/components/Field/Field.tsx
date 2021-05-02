@@ -4,7 +4,9 @@ import { useBasisField } from "../../hooks/useBasisForm/useBasisField";
 import mergeRefs from "../../utils/mergeRefs";
 import { ValidationError, Validator } from "../../types";
 
-export type Component<Props> = ComponentType<Props> | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
+export type Component<Props> =
+  | ComponentType<Props>
+  | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
   | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> & Record<string, any>
   | React.Component<Props> & Record<string, any>;
 
@@ -36,7 +38,11 @@ type FieldProps<
   // show nicer error message for component mismatch
   : "Component in `as=` expects a different value than the one provided by `name=`";
 
-export type FieldComponent<TFieldValues extends FieldValues = FieldValues> = <Name extends FieldPath<TFieldValues>, P = ValueProps<FieldPathValue<TFieldValues, Name>>>(props: FieldProps<TFieldValues, Name, P>) => any;
+export type FieldComponent<TFieldValues extends FieldValues = FieldValues> =
+  <
+    Name extends FieldPath<TFieldValues>,
+    P = ValueProps<FieldPathValue<TFieldValues, Name>>
+    >(props: FieldProps<TFieldValues, Name, P>) => any;
 
 // similar to Field Props but with less typescript inferrance
 // the typescript inferrance is not carried over to the useBasisField

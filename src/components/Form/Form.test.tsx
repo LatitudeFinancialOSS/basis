@@ -31,7 +31,7 @@ const SimpleForm = ({ onSubmit, validate }: SimpleProps) => {
   )
 }
 
-describe('FormTwo', () => {
+describe('Form', () => {
   it('should render the form', () => {
     render(<SimpleForm onSubmit={() => { }} />)
 

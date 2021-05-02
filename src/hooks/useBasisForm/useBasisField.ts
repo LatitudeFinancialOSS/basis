@@ -44,7 +44,8 @@ export const useBasisField = <
     setBasisErrors(validationErrors);
 
     // this return is used to tell Rhf that there is an error (see rules in useController)
-    // this avoids it calling onSubmit callback and focuses the first invalid field
+    // this ensures it doens't call onSubmit callback when errors are present
+    // also tells it to focuses the first invalid field when user submits with errors
     return validationErrors === null ? true : false;
   };
 
@@ -68,7 +69,7 @@ export const useBasisField = <
     }
   }, [fieldState.invalid, hasBeenInvalid])
 
-  // trigger in ref to avoid recreating event listeners when these change
+  // functions in ref to avoid recreating event listeners when these change
   const functionRefs = useRef({
     trigger,
     componentOnChange: componentProps.onChange,

@@ -6,7 +6,6 @@ type CommonProperties = {
   VARIANTS?: string[];
   COLORS: string[];
   displayName: string;
-  // DEFAULT_PROPS: Partial<Props>;
   [key: string]: any;
 }
 
