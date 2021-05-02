@@ -5,6 +5,7 @@ import useTheme from "./useTheme";
 import { DEFAULT_BREAKPOINT } from "../utils/css";
 import { hasOwnProperty, isObjectEmpty } from "../utils/core";
 
+// @ts-ignore
 function getResponsiveProp(prop, breakpoints) {
   for (let i = 0; i < breakpoints.length; i++) {
     const responsiveSuffix = `-${breakpoints[i]}`;
@@ -17,20 +18,25 @@ function getResponsiveProp(prop, breakpoints) {
   return prop;
 }
 
+// @ts-ignore
 function getResponsiveProps(props, breakpoints) {
   const result = {};
 
   for (const prop in props) {
+    // @ts-ignore
     result[getResponsiveProp(prop, breakpoints)] = true;
   }
 
   return result;
 }
 
+// @ts-ignore
 function hasAnyBreakpoint(prop, breakpoints) {
+  // @ts-ignore
   return breakpoints.some((bp) => prop.endsWith(`-${bp}`));
 }
 
+// @ts-ignore
 function getDefaultBreakpointProps(props, breakpoints) {
   const result = { ...props };
 
@@ -43,6 +49,7 @@ function getDefaultBreakpointProps(props, breakpoints) {
   return result;
 }
 
+// @ts-ignore
 export function getBreakpointToPropsMap(theme, props, defaultProps) {
   const breakpoints = Object.keys(theme.breakpoints);
   /*
@@ -59,6 +66,7 @@ export function getBreakpointToPropsMap(theme, props, defaultProps) {
   };
 
   breakpoints.forEach((bp) => {
+    // @ts-ignore
     result[bp] = {
       ...defaultProps,
       ...lastBreakpointProps,
@@ -68,16 +76,19 @@ export function getBreakpointToPropsMap(theme, props, defaultProps) {
       const propAtBreakpoint = `${prop}-${bp}`;
 
       if (hasOwnProperty(props, propAtBreakpoint)) {
+        // @ts-ignore
         result[bp][prop] = props[propAtBreakpoint];
       }
     }
 
+    // @ts-ignore
     lastBreakpointProps = result[bp];
   });
 
   return result;
 }
 
+// @ts-ignore
 function getCSSforBreakpoint(responsiveProps, propsAtBreakpoint, theme, bp) {
   let result = {};
 
@@ -91,6 +102,7 @@ function getCSSforBreakpoint(responsiveProps, propsAtBreakpoint, theme, bp) {
   return result;
 }
 
+// @ts-ignore
 function removeRedundantCSS(newCSS, existingCSS, mediaQueries) {
   let remainingNewCSS = deepClone(newCSS);
   let result = {};
@@ -101,6 +113,7 @@ function removeRedundantCSS(newCSS, existingCSS, mediaQueries) {
     i--
   ) {
     const breakpointCSS = existingCSS[mediaQueries[i]] || {};
+    // @ts-ignore
     const { added, updated } = detailedDiff(breakpointCSS, remainingNewCSS); // The order is important here
 
     result = deepMerge(result, updated);
@@ -114,6 +127,7 @@ function removeRedundantCSS(newCSS, existingCSS, mediaQueries) {
 
 const DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER = "";
 
+// @ts-ignore
 function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
   const theme = useTheme();
   const breakpointToPropsMap = getBreakpointToPropsMap(
@@ -130,6 +144,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
     const bp = breakpoints[i];
     const newCSS = getCSSforBreakpoint(
       responsiveProps,
+      // @ts-ignore
       breakpointToPropsMap[bp],
       theme,
       bp
@@ -147,6 +162,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
     );
 
     if (!isObjectEmpty(necessaryNewCSS)) {
+      // @ts-ignore
       result[
         theme.minMediaQueries[bp] || DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER
       ] = necessaryNewCSS;
@@ -159,7 +175,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
           Also, the media queries should be in order.
 
     If the default CSS was placed after the media queries, e.g.:
-      
+
       {
         "@media (min-width: 576px)": {
           height: "24px"
@@ -183,10 +199,12 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
     on screen sizes >= 576px, the height would be 48px, which is wrong.
   */
   result = {
+    // @ts-ignore
     ...result[DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER],
     ...result,
   };
 
+  // @ts-ignore
   delete result[DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER];
 
   return result;

@@ -6,12 +6,12 @@ import React, {
   useRef,
 } from "react";
 import PropTypes from "prop-types";
-import { FormProvider } from "../hooks/internal/useForm";
-import { getPath, setPath, deletePath } from "../utils/objectPath";
-import { responsiveWidthType } from "../hooks/useResponsiveProp";
-import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsiveSize } from "../utils/css";
-import { formatArray } from "../utils/array";
+import { FormProvider } from "../../hooks/internal/useForm";
+import { getPath, setPath, deletePath } from "../../utils/objectPath";
+import { responsiveWidthType } from "../../hooks/useResponsiveProp";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
+import { responsiveSize } from "../../utils/css";
+import { formatArray } from "../../utils/array";
 
 const DEFAULT_PROPS = {
   debug: false,
@@ -73,7 +73,7 @@ function Form(_props) {
       lastMouseDownInputElement.current = null;
     }
 
-    /* 
+    /*
       We use setTimeout in order to differentiate between onBlur to another field within
       the same parent (e.g. DatePicker) and onBlur out of the parent.
     */

@@ -1,9 +1,9 @@
 import React from "react";
-import { render, screen, waitFor, userEvent } from "../utils/test";
+import { render, screen, waitFor, userEvent } from "../../utils/test";
 import "@testing-library/jest-dom/extend-expect";
-import Form from "./Form";
-import Input from "./Input";
-import Container from "./Container";
+import Form from "../Form";
+import Input from "../Input";
+import Container from "../Container";
 
 function FormWithInput(props) {
   const initialValues = {

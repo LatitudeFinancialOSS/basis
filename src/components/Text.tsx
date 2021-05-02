@@ -56,6 +56,7 @@ const allowedColors = [
   },
 ];
 
+// @ts-ignore
 function getInheritedColor(backgroundColor) {
   return backgroundColor === "primary.blue.t100" ? "white" : "black";
 }
@@ -75,22 +76,30 @@ Text.ALIGNS = ALIGNS;
 Text.allowedColors = allowedColors;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Text(props: any) {
-  const { textStyle: inheritedTextStyle }: any = useTextStyle();
+// @ts-ignore
+function Text(props) {
+  const { textStyle: inheritedTextStyle } = useTextStyle();
   const { bgMap } = useBackground();
   const inheritedProps = {
     textStyle: inheritedTextStyle,
   };
   const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
+    // @ts-ignore
     id: (id) => typeof id === "string",
+    // @ts-ignore
     as: (as) => AS.includes(as),
+    // @ts-ignore
     textStyle: (textStyle) => TEXT_STYLES.includes(textStyle),
+    // @ts-ignore
     color: (color) => COLORS.includes(color),
+    // @ts-ignore
     align: (align) => ALIGNS.includes(align),
+    // @ts-ignore
     wrap: (wrap) => typeof wrap === "boolean",
   });
   const { id, as, align, wrap, role, children, testId } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
+    // @ts-ignore
     color: (_, theme, bp) => {
       const color =
         hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
@@ -120,6 +129,7 @@ function Text(props: any) {
 //   as: PropTypes.oneOf(AS),
 //   ...responsiveMarginType,
 //   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
+//   //@ts-ignore
 //   color: (props) => {
 //     allowedColors.forEach(({ textStyles, allowedColors }) => {
 //       if (
@@ -127,8 +137,7 @@ function Text(props: any) {
 //         !allowedColors.includes(props.color)
 //       ) {
 //         return new Error(
-//           `Text: color="${props.color}" is not allowed for textStyle="${
-//             props.textStyle
+//           `Text: color="${props.color}" is not allowed for textStyle="${props.textStyle
 //           }". Must be one of: ${formatArray(allowedColors)}`
 //         );
 //       }

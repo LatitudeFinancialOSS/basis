@@ -2,7 +2,7 @@ module.exports = {
   preset: "ts-jest/presets/js-with-babel",
   testMatch: [
     "<rootDir>/src/**/*.test.js",
-    "<rootDir>/src/**/*.test.tsx?",
+    "<rootDir>/src/**/*.test.ts?(x)",
     "<rootDir>/website/src/**/*.test.js",
     "<rootDir>/website/src/**/*.test.tsx?",
   ],

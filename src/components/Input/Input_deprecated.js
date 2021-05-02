@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
-import Field from "./internal/Field";
-import InternalInput from "./internal/InternalInput";
+import useField from "../../hooks/internal/useField";
+import { mergeProps } from "../../utils/component";
+import Field from "../internal/Field";
+import InternalInput from "../internal/InternalInput";
 
 const { TYPES, VARIANTS, COLORS, NUMERIC_REGEX, DECIMAL_REGEX } = InternalInput;
 

@@ -1,9 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Grid from "../Grid";
 import Text from "../Text";
 import VisuallyHidden from "../VisuallyHidden";
 import useTheme from "../../hooks/useTheme";
+
+interface FieldProps {
+  fullWidth?: boolean,
+  optional: boolean,
+  disabled: boolean,
+  labelId?: string,
+  labelFor?: string,
+  label?: React.ReactNode,
+  hideLabel?: boolean,
+  renderLabel?: boolean,
+  auxId: string,
+  helpText?: React.ReactNode,
+  errors?: React.ReactNode[],
+  children: React.ReactNode,
+  testId?: string,
+}
 
 function Field({
   fullWidth = true,
@@ -19,7 +34,7 @@ function Field({
   errors,
   children,
   testId,
-}) {
+}: FieldProps) {
   const theme = useTheme();
   let labelToRender = null;
 
@@ -65,41 +80,30 @@ function Field({
           })}
           id={auxId}
         >
-          <Grid cols={1} rowsGap={1}>
-            {errors.map((error, index) => (
-              <Text
-                textStyle="body2"
-                color="conditional.negative.text"
-                key={index}
-              >
-                {error}
-              </Text>
-            ))}
-          </Grid>
+          {
+            // @ts-ignore
+            <Grid cols={1} rowsGap={1}>
+              {errors.map((error, index) => (
+                <Text
+                  textStyle="body2"
+                  color="conditional.negative.text"
+                  key={index}
+                >
+                  {error}
+                </Text>
+              ))}
+            </Grid>
+          }
         </div>
       ) : helpText ? (
         <div css={theme.field.getCSS({ targetElement: "helpText" })} id={auxId}>
-          <Text textStyle="body2">{helpText}</Text>
+          {
+            <Text textStyle="body2">{helpText}</Text>
+          }
         </div>
       ) : null}
     </div>
   );
 }
-
-Field.propTypes = {
-  fullWidth: PropTypes.bool,
-  optional: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  labelId: PropTypes.string,
-  labelFor: PropTypes.string,
-  label: PropTypes.node,
-  hideLabel: PropTypes.bool,
-  renderLabel: PropTypes.bool,
-  auxId: PropTypes.string.isRequired,
-  helpText: PropTypes.node,
-  errors: PropTypes.arrayOf(PropTypes.node),
-  children: PropTypes.node.isRequired,
-  testId: PropTypes.string,
-};
 
 export default Field;

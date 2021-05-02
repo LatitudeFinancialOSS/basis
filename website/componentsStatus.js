@@ -34,6 +34,9 @@ module.exports = {
   Form: {
     status: COMPONENT_STATUS.READY,
   },
+  Form2: {
+    status: COMPONENT_STATUS.DRAFT,
+  },
   Frequency: {
     status: COMPONENT_STATUS.READY,
   },

@@ -15,8 +15,8 @@ import {
   Text,
   Textarea,
   TimeSpan,
-} from ".";
-import { render, screen, userEvent, waitFor } from "../utils/test";
+} from "..";
+import { render, screen, userEvent, waitFor } from "../../utils/test";
 
 const relationshipStatusOptions = [
   {
@@ -184,7 +184,7 @@ function ComplexForm({
   );
 }
 
-describe("Form", () => {
+describe("Form_deprecated", () => {
   it("renders a form", () => {
     const { container } = render(<SimpleForm />);
 
