@@ -7,7 +7,9 @@ import InternalRadioGroup from "./internal/InternalRadioGroup";
 
 const { COLORS } = InternalRadioGroup;
 
+// @ts-ignore
 function isOptionSelected(options, value) {
+  // @ts-ignore
   return options.findIndex((option) => option.value === value) > -1;
 }
 
@@ -15,6 +17,7 @@ const DEFAULT_PROPS = {
   color: InternalRadioGroup.DEFAULT_PROPS.color,
   disabled: false,
   optional: false,
+  // @ts-ignore
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Please make a selection.";
@@ -29,27 +32,27 @@ RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 type Options =
   | {
+    label: string;
+    desription?: ReactNode;
+    value: string;
+  }[]
+  | {
+    label: ReactNode;
+    value: string;
+  }[]
+  | Readonly<
+    {
       label: string;
       desription?: ReactNode;
       value: string;
     }[]
-  | {
+  >
+  | Readonly<
+    {
       label: ReactNode;
       value: string;
     }[]
-  | Readonly<
-      {
-        label: string;
-        desription?: ReactNode;
-        value: string;
-      }[]
-    >
-  | Readonly<
-      {
-        label: ReactNode;
-        value: string;
-      }[]
-    >;
+  >;
 
 interface Props {
   // TODO color needs to be typed based on COLORS
@@ -66,9 +69,13 @@ function RadioGroup(props: Props) {
     DEFAULT_PROPS,
     {},
     {
+      // @ts-ignore
       color: (color) => COLORS.includes(color),
+      // @ts-ignore
       disabled: (disabled) => typeof disabled === "boolean",
+      // @ts-ignore
       optional: (optional) => typeof optional === "boolean",
+      // @ts-ignore
       options: (options) => areOptionsValid(options),
     }
   );
@@ -92,11 +99,12 @@ function RadioGroup(props: Props) {
 
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
+  // @ts-ignore
   const cols = options.some((option) => option.description)
     ? 1
     : columns === undefined
-    ? options.length
-    : columns;
+      ? options.length
+      : columns;
   const isEmpty = useCallback(
     (value) => isOptionSelected(options, value) === false,
     [options]
@@ -129,6 +137,7 @@ function RadioGroup(props: Props) {
 
       const selectedValue = event.target.value;
       const selectedOption = options.find(
+        // @ts-ignore
         (option) => option.value === selectedValue
       );
 

@@ -8,7 +8,9 @@ import InternalSelect from "./internal/InternalSelect";
 
 const { COLORS } = InternalSelect;
 
+// @ts-ignore
 function isOptionSelected(options, value) {
+  // @ts-ignore
   return options.findIndex((option) => option.value === value) > -1;
 }
 
@@ -18,6 +20,7 @@ const DEFAULT_PROPS = {
   fullWidth: InternalSelect.DEFAULT_PROPS.fullWidth,
   disabled: false,
   optional: false,
+  // @ts-ignore
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Please make a selection.";
@@ -49,13 +52,21 @@ function Select(props: Props) {
     DEFAULT_PROPS,
     {},
     {
+      // @ts-ignore
       color: (color) => COLORS.includes(color),
+      // @ts-ignore
       placeholder: (placeholder) => typeof placeholder === "string",
+      // @ts-ignore
       fullWidth: (fullWidth) => typeof fullWidth === "boolean",
+      // @ts-ignore
       helpText: (helpText) => typeof helpText === "string",
+      // @ts-ignore
       disabled: (disabled) => typeof disabled === "boolean",
+      // @ts-ignore
       optional: (optional) => typeof optional === "boolean",
+      // @ts-ignore
       options: (options) => areOptionsValid(options),
+      // @ts-ignore
       onChange: (onChange) => typeof onChange === "function",
     }
   );
@@ -108,10 +119,12 @@ function Select(props: Props) {
     validate,
     data,
   });
+  // @ts-ignore
   const onChange = (event) => {
     fieldOnChange(event);
 
     const selectedValue = event.target.value;
+    // @ts-ignore
     const selectedOption = options.find(({ value }) => value === selectedValue);
 
     propsOnChange && propsOnChange({ selectedOption });
