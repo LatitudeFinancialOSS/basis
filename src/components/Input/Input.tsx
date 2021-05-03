@@ -33,6 +33,7 @@ const Input = (props: InternalInputProps) => {
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
 
   const fieldErrors = Array.isArray(error) ? error : [error];
+  const hasErrors = Array.isArray(error) ? error.length === 0 : !!error;
 
   return (
     <Field
@@ -58,8 +59,8 @@ const Input = (props: InternalInputProps) => {
         color={props.color}
         disabled={disabled}
         pasteAllowed={pasteAllowed}
-        isValid={!error}
-        describedBy={helpText || error ? auxId : ""}
+        isValid={hasErrors}
+        describedBy={helpText || hasErrors ? auxId : ""}
         onFocus={onFocus}
         onBlur={onBlur}
         value={value}
