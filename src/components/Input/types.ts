@@ -1,62 +1,68 @@
 import React from "react";
-import { InternalInputColors, InternalInputTypes, InternalInputVariants } from "../internal/InternalInput";
+import {
+  InternalInputColors,
+  InternalInputTypes,
+  InternalInputVariants,
+} from "../internal/InternalInput";
 
 export interface DeprecatedInputProps {
-  name: string,
+  name: string;
   label: string;
-  id?: string,
-  type?: InternalInputTypes,
-  placeholder?: string,
-  variant?: InternalInputVariants,
-  prefix?: string,
-  suffix?: string,
-  maxLength?: string | number,
-  autoComplete?: string,
-  optional?: boolean,
-  color?: InternalInputColors,
-  helpText?: React.ReactNode,
-  disabled?: boolean,
-  pasteAllowed?: boolean,
-  isValid?: boolean,
+  id?: string;
+  type?: InternalInputTypes;
+  placeholder?: string;
+  variant?: InternalInputVariants;
+  prefix?: string;
+  suffix?: string;
+  maxLength?: string | number;
+  autoComplete?: string;
+  optional?: boolean;
+  color?: InternalInputColors;
+  helpText?: React.ReactNode;
+  disabled?: boolean;
+  pasteAllowed?: boolean;
+  isValid?: boolean;
   testId?: string;
-  describedBy?: string,
-  value?: string,
-  onChange?: React.ChangeEventHandler<HTMLInputElement>,
-  errors?: React.ReactNode[],
-  error?: string | string[],
-  __internal__focus?: boolean,
+  describedBy?: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  error?: string | string[];
+  __internal__focus?: boolean;
 }
 
 export interface InternalInputProps {
   label: string;
-  parentName?: string,
-  id?: string,
-  type?: InternalInputTypes,
-  innerRef?: React.Ref<HTMLInputElement>
-  placeholder?: string,
-  variant?: InternalInputVariants,
-  prefix?: string,
-  suffix?: string,
-  maxLength?: string | number,
-  autoComplete?: string,
-  optional?: boolean,
-  color?: InternalInputColors,
-  helpText?: React.ReactNode,
-  disabled?: boolean,
-  pasteAllowed?: boolean,
-  isValid?: boolean,
+  parentName?: string;
+  id?: string;
+  type?: InternalInputTypes;
+  innerRef?: React.Ref<HTMLInputElement>;
+  placeholder?: string;
+  variant?: InternalInputVariants;
+  prefix?: string;
+  suffix?: string;
+  maxLength?: string | number;
+  autoComplete?: string;
+  optional?: boolean;
+  color?: InternalInputColors;
+  helpText?: React.ReactNode;
+  disabled?: boolean;
+  pasteAllowed?: boolean;
+  isValid?: boolean;
   testId?: string;
-  describedBy?: string,
-  onFocus?: React.FocusEventHandler<HTMLInputElement>,
-  onBlur?: React.FocusEventHandler<HTMLInputElement>,
-  value?: string,
-  onChange?: React.ChangeEventHandler<HTMLInputElement>,
-  error?: string | string[],
-  __internal__focus?: boolean,
+  describedBy?: string;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  error?: string | string[];
+  __internal__focus?: boolean;
 }
 
 export type InputProps = InternalInputProps;
 
-export const setDeprecatedProps = (_props: InputProps, isDeprecated: boolean): _props is DeprecatedInputProps => {
+export const setDeprecatedProps = (
+  _props: InputProps,
+  isDeprecated: boolean
+): _props is DeprecatedInputProps => {
   return isDeprecated;
-}
+};

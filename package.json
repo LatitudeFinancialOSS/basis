@@ -27,7 +27,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"yarn build-watch\"  \"yarn start-website\"",
     "start-website": "cd website && yarn clean && yarn start",
-    "prettier": "prettier --write \"**/*.{js,json,css,md}\"",
+    "prettier": "prettier --write \"**/*.{ts,tsx,js,json,css,md}\"",
     "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
     "test": "cross-env BABEL_ENV=cjs jest",
     "percy": "percy snapshot public -c .percy.js",

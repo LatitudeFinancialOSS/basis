@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 import { FormCombinedProps, isNewProps } from "./types";
-import { default as FormDeprecated } from './Form_deprecated'
-import { Form as FormInternal } from './Form';
-import { FieldValues } from 'react-hook-form';
+import { default as FormDeprecated } from "./Form_deprecated";
+import { Form as FormInternal } from "./Form";
+import { FieldValues } from "react-hook-form";
 
-const Form = <TFieldValues extends FieldValues = FieldValues>(props: FormCombinedProps<TFieldValues>) => {
+const Form = <TFieldValues extends FieldValues = FieldValues>(
+  props: FormCombinedProps<TFieldValues>
+) => {
   if (isNewProps(props)) {
-    return (<FormInternal {...props} />)
+    return <FormInternal {...props} />;
   }
 
   return (
     <>
       {
         // @ts-ignore
-        <FormDeprecated
-          {...props}
-        />
+        <FormDeprecated {...props} />
       }
     </>
-  )
-}
+  );
+};
 
 export default Form;

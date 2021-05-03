@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // don't want to install an npm package for this just adding the code into here.
 // https://github.com/gregberge/react-merge-refs/blob/3dc2804807097562e9952cfa6057a8a3bef9f39f/src/index.tsx

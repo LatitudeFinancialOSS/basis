@@ -5,19 +5,19 @@ import VisuallyHidden from "../VisuallyHidden";
 import useTheme from "../../hooks/useTheme";
 
 interface FieldProps {
-  fullWidth?: boolean,
-  optional: boolean,
-  disabled: boolean,
-  labelId?: string,
-  labelFor?: string,
-  label?: React.ReactNode,
-  hideLabel?: boolean,
-  renderLabel?: boolean,
-  auxId: string,
-  helpText?: React.ReactNode,
-  errors?: React.ReactNode[],
-  children: React.ReactNode,
-  testId?: string,
+  fullWidth?: boolean;
+  optional: boolean;
+  disabled: boolean;
+  labelId?: string;
+  labelFor?: string;
+  label?: React.ReactNode;
+  hideLabel?: boolean;
+  renderLabel?: boolean;
+  auxId: string;
+  helpText?: React.ReactNode;
+  errors?: React.ReactNode[];
+  children: React.ReactNode;
+  testId?: string;
 }
 
 function Field({
@@ -97,9 +97,7 @@ function Field({
         </div>
       ) : helpText ? (
         <div css={theme.field.getCSS({ targetElement: "helpText" })} id={auxId}>
-          {
-            <Text textStyle="body2">{helpText}</Text>
-          }
+          {<Text textStyle="body2">{helpText}</Text>}
         </div>
       ) : null}
     </div>

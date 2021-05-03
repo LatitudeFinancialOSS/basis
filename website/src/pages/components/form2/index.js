@@ -31,7 +31,14 @@ function FormPage() {
     render(<App />);
   `);
 
-  return <ComponentContainer code={code} noInline scope={{ ...scope, useBasisForm }} width="sm" />;
+  return (
+    <ComponentContainer
+      code={code}
+      noInline
+      scope={{ ...scope, useBasisForm }}
+      width="sm"
+    />
+  );
 }
 
 export default FormPage;

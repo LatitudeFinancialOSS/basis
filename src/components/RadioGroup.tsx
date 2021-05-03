@@ -32,27 +32,27 @@ RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 type Options =
   | {
-    label: string;
-    desription?: ReactNode;
-    value: string;
-  }[]
-  | {
-    label: ReactNode;
-    value: string;
-  }[]
-  | Readonly<
-    {
       label: string;
-      desription?: ReactNode;
+      description?: ReactNode;
       value: string;
     }[]
-  >
-  | Readonly<
-    {
+  | {
       label: ReactNode;
       value: string;
     }[]
-  >;
+  | Readonly<
+      {
+        label: string;
+        description?: ReactNode;
+        value: string;
+      }[]
+    >
+  | Readonly<
+      {
+        label: ReactNode;
+        value: string;
+      }[]
+    >;
 
 interface Props {
   // TODO color needs to be typed based on COLORS
@@ -103,8 +103,8 @@ function RadioGroup(props: Props) {
   const cols = options.some((option) => option.description)
     ? 1
     : columns === undefined
-      ? options.length
-      : columns;
+    ? options.length
+    : columns;
   const isEmpty = useCallback(
     (value) => isOptionSelected(options, value) === false,
     [options]

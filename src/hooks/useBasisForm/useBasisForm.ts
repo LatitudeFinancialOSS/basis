@@ -1,13 +1,18 @@
-import { DeepPartial, FieldValues, UnpackNestedValue, useForm } from "react-hook-form";
-import { Field, FieldComponent } from '../../components/Field/Field';
+import {
+  DeepPartial,
+  FieldValues,
+  UnpackNestedValue,
+  useForm,
+} from "react-hook-form";
+import { Field, FieldComponent } from "../../components/Field/Field";
 
-type UseBasisOptions<
-  TFieldValues extends FieldValues = FieldValues,
-> = {
+type UseBasisOptions<TFieldValues extends FieldValues = FieldValues> = {
   defaultValues?: UnpackNestedValue<DeepPartial<TFieldValues>>;
 };
 
-export function useBasisForm<FieldValues>(options: UseBasisOptions<FieldValues> = {}) {
+export function useBasisForm<FieldValues>(
+  options: UseBasisOptions<FieldValues> = {}
+) {
   const { defaultValues } = options;
   const methods = useForm<FieldValues>({
     mode: "onBlur",
@@ -21,4 +26,4 @@ export function useBasisForm<FieldValues>(options: UseBasisOptions<FieldValues> 
   };
 }
 
-export { useFieldArray, useWatch, useFormState } from 'react-hook-form';
+export { useFieldArray, useWatch, useFormState } from "react-hook-form";

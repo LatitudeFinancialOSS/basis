@@ -8,4 +8,3 @@ function useIsDeprecatedForm() {
 }
 
 export default useIsDeprecatedForm;
-

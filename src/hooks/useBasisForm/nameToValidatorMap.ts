@@ -1,7 +1,7 @@
-import { ComponentName } from "../../components/ComponentNames";
-import { Validator } from "../../types";
+import { ComponentName } from "../../components/componentName";
+import { ValidateFn } from "../../types";
 import { validateInput } from "./validation/validateInput";
 
-export const nameToValidatorMap: Record<ComponentName, Validator> = {
+export const nameToValidatorMap: Record<ComponentName, ValidateFn> = {
   [ComponentName.Input]: validateInput,
-}
+};

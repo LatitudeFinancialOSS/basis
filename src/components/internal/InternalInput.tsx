@@ -22,43 +22,34 @@ const DEFAULT_PROPS = {
   __internal__focus: false,
 } as const;
 
-export type InternalInputTypes =
-  | "text"
-  | "password"
-  | "email"
-  | "tel";
+export type InternalInputTypes = "text" | "password" | "email" | "tel";
 
-export type InternalInputVariants =
-  | "text"
-  | "numeric"
-  | "decimal";
+export type InternalInputVariants = "text" | "numeric" | "decimal";
 
-export type InternalInputColors =
- | "grey.t05"
- | "white";
+export type InternalInputColors = "grey.t05" | "white";
 
 interface InternalInputProps {
   name?: string;
-  parentName?: string,
-  innerRef?: React.Ref<HTMLInputElement>
-  id?: string,
-  type?: InternalInputTypes,
-  placeholder?: string,
-  variant: InternalInputVariants,
-  prefix?: string,
-  suffix?: string,
-  maxLength?: string | number,
-  autoComplete?: string,
-  color?: InternalInputColors,
-  disabled?: boolean,
-  pasteAllowed?: boolean,
-  isValid?: boolean,
-  describedBy?: string,
-  onFocus?: React.FocusEventHandler<HTMLInputElement>,
-  onBlur?: React.FocusEventHandler<HTMLInputElement>,
-  value?: string,
-  onChange?: React.ChangeEventHandler<HTMLInputElement>,
-  __internal__focus?: boolean,
+  parentName?: string;
+  innerRef?: React.Ref<HTMLInputElement>;
+  id?: string;
+  type?: InternalInputTypes;
+  placeholder?: string;
+  variant: InternalInputVariants;
+  prefix?: string;
+  suffix?: string;
+  maxLength?: string | number;
+  autoComplete?: string;
+  color?: InternalInputColors;
+  disabled?: boolean;
+  pasteAllowed?: boolean;
+  isValid?: boolean;
+  describedBy?: string;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  __internal__focus?: boolean;
 }
 
 const InternalInput = (props: InternalInputProps) => {
@@ -112,16 +103,16 @@ const InternalInput = (props: InternalInputProps) => {
   );
   const variantProps =
     variant === "numeric"
-      ? {
-        // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
-        inputMode: "numeric",
-        pattern: "[0-9]*",
-      } as const
+      ? ({
+          // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
+          inputMode: "numeric",
+          pattern: "[0-9]*",
+        } as const)
       : variant === "decimal"
-        ? {
+      ? ({
           inputMode: "decimal",
-        } as const
-        : {};
+        } as const)
+      : {};
 
   return (
     <div
@@ -141,7 +132,9 @@ const InternalInput = (props: InternalInputProps) => {
         placeholder={placeholder}
         type={type}
         {...variantProps}
-        maxLength={typeof maxLength === "string" ? parseInt(maxLength) : maxLength}
+        maxLength={
+          typeof maxLength === "string" ? parseInt(maxLength) : maxLength
+        }
         disabled={disabled}
         onPaste={onPaste}
         autoComplete={autoComplete}
@@ -159,7 +152,7 @@ const InternalInput = (props: InternalInputProps) => {
   );
 };
 
-InternalInput.displayName = "BasisInternalInput"
+InternalInput.displayName = "BasisInternalInput";
 InternalInput.TYPES = TYPES;
 InternalInput.VARIANTS = VARIANTS;
 InternalInput.COLORS = COLORS;

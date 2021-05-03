@@ -4,7 +4,6 @@ import Field from "../internal/Field";
 import InternalInput from "../internal/InternalInput";
 import { InternalInputProps } from "./types";
 
-
 const Input = (props: InternalInputProps) => {
   const {
     type = InternalInput.DEFAULT_PROPS.type,
@@ -72,4 +71,3 @@ const Input = (props: InternalInputProps) => {
 };
 
 export default Input;
-
