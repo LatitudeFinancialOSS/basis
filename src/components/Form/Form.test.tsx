@@ -39,7 +39,9 @@ describe("Form", () => {
     const input = screen.getByLabelText("Test");
 
     await act(async () => {
+      // focus input
       await userEvent.tab();
+      // blur the input
       await userEvent.tab();
     });
 
