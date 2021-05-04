@@ -145,7 +145,7 @@ function Form(_props) {
   };
   const getFieldErrors = useCallback((values, name) => {
     const value = getPath(values, name);
-    const field = fields.current[name].current;
+    const field = fields.current[name]?.current;
 
     if (
       !field || // See: https://stackoverflow.com/q/65659161/247243
