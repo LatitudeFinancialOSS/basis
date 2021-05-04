@@ -33,7 +33,7 @@ const Input = (props: InternalInputProps) => {
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
 
   const fieldErrors = Array.isArray(error) ? error : [error];
-  const hasErrors = Array.isArray(error) ? error.length === 0 : !!error;
+  const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
   return (
     <Field
