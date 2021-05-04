@@ -11,14 +11,8 @@ const Form = <TFieldValues extends FieldValues = FieldValues>(
     return <FormInternal {...props} />;
   }
 
-  return (
-    <>
-      {
-        // @ts-ignore
-        <FormDeprecated {...props} />
-      }
-    </>
-  );
-};
+  // @ts-ignore
+  return <FormDeprecated {...props} />;
+}
 
 export default Form;

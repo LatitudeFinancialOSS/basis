@@ -58,11 +58,11 @@ export interface InternalInputProps {
   __internal__focus?: boolean;
 }
 
-export type InputProps = InternalInputProps;
+export type InputProps = InternalInputProps | DeprecatedInputProps;
 
 export const setDeprecatedProps = (
-  _props: InputProps,
+  props: InputProps,
   isDeprecated: boolean
-): _props is DeprecatedInputProps => {
+): props is DeprecatedInputProps => {
   return isDeprecated;
 };

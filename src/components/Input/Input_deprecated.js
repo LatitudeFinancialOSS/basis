@@ -5,8 +5,9 @@ import useField from "../../hooks/internal/useField";
 import { mergeProps } from "../../utils/component";
 import Field from "../internal/Field";
 import InternalInput from "../internal/InternalInput";
+import { validateInput } from "../../hooks/useBasisForm/validation/validateInput";
 
-const { TYPES, VARIANTS, COLORS, NUMERIC_REGEX, DECIMAL_REGEX } = InternalInput;
+const { TYPES, VARIANTS, COLORS } = InternalInput;
 
 const DEFAULT_PROPS = {
   type: InternalInput.DEFAULT_PROPS.type,
@@ -15,21 +16,7 @@ const DEFAULT_PROPS = {
   disabled: false,
   pasteAllowed: true,
   optional: false,
-  validate: (value, { isEmpty, variant }) => {
-    if (isEmpty(value)) {
-      return "Required";
-    }
-
-    if (variant === "numeric" && NUMERIC_REGEX.test(value) === false) {
-      return "Only 0-9 are allowed";
-    }
-
-    if (variant === "decimal" && DECIMAL_REGEX.test(value) === false) {
-      return "Invalid";
-    }
-
-    return null;
-  },
+  validate: validateInput,
 };
 
 Input.TYPES = TYPES;

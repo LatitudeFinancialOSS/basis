@@ -22,12 +22,12 @@ interface DeprecatedSubmitParams {
 export interface DeprecatedFormProps {
   initialValues: Record<string, any>;
   intialErrors?: Record<string, any>;
-  onSubmit?: (param: DeprecatedSubmitParams) => void;
+  onSubmit?: (params: DeprecatedSubmitParams) => void;
   debug?: boolean;
   testId?: string;
   children:
     | React.ReactNode
-    | ((args: DeprecatedRenderParams) => React.ReactNode);
+    | ((params: DeprecatedRenderParams) => React.ReactNode);
   width?: string;
 }
 

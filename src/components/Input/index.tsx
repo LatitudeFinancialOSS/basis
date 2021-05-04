@@ -5,7 +5,6 @@ import { ComponentName } from "../componentName";
 import { default as InputInternal } from "./Input";
 import { default as InputDeprecated } from "./Input_deprecated";
 import {
-  DeprecatedInputProps,
   InputProps,
   setDeprecatedProps as shouldUseDeprecatedInput,
 } from "./types";
@@ -16,7 +15,7 @@ const Input = forwardRef(function InputComponent(props: InputProps, ref) {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
-    return <InputDeprecated {...(props as DeprecatedInputProps)} />;
+    return <InputDeprecated {...props} />;
   }
 
   return <InputInternal {...props} innerRef={ref} />;

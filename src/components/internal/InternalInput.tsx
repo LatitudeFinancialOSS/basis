@@ -133,7 +133,7 @@ const InternalInput = (props: InternalInputProps) => {
         type={type}
         {...variantProps}
         maxLength={
-          typeof maxLength === "string" ? parseInt(maxLength) : maxLength
+          typeof maxLength === "string" ? parseInt(maxLength, 10) : maxLength
         }
         disabled={disabled}
         onPaste={onPaste}

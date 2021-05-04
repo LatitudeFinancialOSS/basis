@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 import { ComponentName } from "../../components/componentName";
 import { ValidationError, ValidateFn } from "../../types";
-import { nameToValidatorMap } from "./nameToValidatorMap";
+import { nameToValidateMap } from "./nameToValidateMap";
 import { nameToDefaultValueMap } from "./nameToDefaultValueMap";
 
 interface FieldOptions<
@@ -39,7 +39,7 @@ export const useBasisField = <
 
   // as any is needed due to: https://github.com/microsoft/TypeScript/issues/35186
   const validate = (customValidation ??
-    nameToValidatorMap[componentDisplayName as ComponentName]) as any;
+    nameToValidateMap[componentDisplayName as ComponentName]) as any;
 
   const [basisErrors, setBasisErrors] = useState<ValidationError>(null);
 
