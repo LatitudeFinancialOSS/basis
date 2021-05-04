@@ -59,7 +59,7 @@ const Input = (props: InternalInputProps) => {
         color={props.color}
         disabled={disabled}
         pasteAllowed={pasteAllowed}
-        isValid={hasErrors}
+        isValid={!hasErrors}
         describedBy={helpText || hasErrors ? auxId : ""}
         onFocus={onFocus}
         onBlur={onBlur}
