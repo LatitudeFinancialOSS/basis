@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { Form, Input, Button, useBasisForm } from "../..";
 
-import { render, screen, userEvent, act, fireEvent } from "../../utils/test";
+import { render, screen, userEvent, fireEvent, waitFor } from "../../utils/test";
 import { SubmitHandler } from "react-hook-form";
 
 interface SimpleFormValues {
@@ -14,7 +14,7 @@ interface SimpleProps {
   validate?: (val: string) => string | string[] | null;
 }
 
-const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleProps) => {
+const SimpleForm = ({ onSubmit = () => { }, validate }: SimpleProps) => {
   const { methods, Field } = useBasisForm<SimpleFormValues>();
 
   return (
@@ -38,14 +38,14 @@ describe("Form", () => {
 
     const input = screen.getByLabelText("Test");
 
-    await act(async () => {
-      // focus input
-      await userEvent.tab();
-      // blur the input
-      await userEvent.tab();
-    });
+    expect(input).not.toBeInvalid();
 
-    expect(input).toBeInvalid();
+    // focus input
+    userEvent.tab();
+    // blur the input
+    userEvent.tab();
+
+    await waitFor(() => expect(input).toBeInvalid());
     expect(screen.getByText("Required")).toBeInTheDocument();
   });
 
@@ -55,22 +55,23 @@ describe("Form", () => {
 
     const input = screen.getByLabelText("Test");
 
-    await act(async () => {
-      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
-      await fireEvent.input(input, {
-        target: {
-          value: "some-data",
-        },
-      });
 
-      // await userEvent.click(screen.getByRole("button", {
-      //   name: "Submit"
-      // }));
-      await userEvent.click(screen.getByText("Submit"));
+    // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+    fireEvent.input(input, {
+      target: {
+        value: "some-data",
+      },
     });
 
-    expect(submitHandler.mock.calls[0][0]).toStrictEqual({
-      testInput: "some-data",
+    // await userEvent.click(screen.getByRole("button", {
+    //   name: "Submit"
+    // }));
+    userEvent.click(screen.getByText("Submit"));
+
+    await waitFor(() => {
+      expect(submitHandler.mock.calls[0][0]).toStrictEqual({
+        testInput: "some-data",
+      });
     });
 
     expect(submitHandler).toHaveBeenCalledTimes(1);
@@ -87,18 +88,16 @@ describe("Form", () => {
 
     const input = screen.getByLabelText("Test");
 
-    await act(async () => {
       // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
-      await fireEvent.input(input, {
+      fireEvent.input(input, {
         target: {
           value: "invalid",
         },
       });
 
-      await userEvent.click(screen.getByText("Submit"));
-    });
+      userEvent.click(screen.getByText("Submit"));
 
-    expect(input).toBeInvalid();
+    await waitFor(() => expect(input).toBeInvalid());
     expect(input).toHaveFocus();
     expect(onSubmit).not.toHaveBeenCalled();
     expect(screen.getByText("Wrong")).toBeInTheDocument();
