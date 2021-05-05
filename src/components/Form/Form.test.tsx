@@ -15,12 +15,12 @@ interface SimpleFormValues {
   testInput: string;
 }
 
-interface SimpleProps {
+interface SimpleFormProps {
   onSubmit?: SubmitHandler<SimpleFormValues>;
   validate?: (val: string) => string | string[] | null;
 }
 
-const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleProps) => {
+const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
   const { methods, Field } = useBasisForm<SimpleFormValues>();
 
   return (
@@ -44,7 +44,7 @@ describe("Form", () => {
 
     const input = screen.getByLabelText("Test");
 
-    expect(input).not.toBeInvalid();
+    expect(input).toBeValid();
 
     // focus input
     userEvent.tab();
