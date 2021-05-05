@@ -4,7 +4,7 @@ import { FieldPath, FieldPathValue, FieldValues } from "react-hook-form";
 // see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34757#issuecomment-488848720
 export type ComponentWithStaticProperties<
   Props extends {},
-  Properties extends {},
+  Properties extends {}
 > =
   | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
       Properties)

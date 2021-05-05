@@ -23,8 +23,11 @@ export function useBasisForm<FieldValues>(
     defaultValues,
   });
 
-  const setBasisError = (name: FieldPath<FieldValues>, error: ValidationError) => {
-    const message = rhfErrorConverter.getRhfError(error)
+  const setBasisError = (
+    name: FieldPath<FieldValues>,
+    error: ValidationError
+  ) => {
+    const message = rhfErrorConverter.getRhfError(error);
     if (typeof message !== "string") {
       return;
     }

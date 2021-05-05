@@ -12,8 +12,8 @@ import {
 const { TYPES, VARIANTS, COLORS, DEFAULT_PROPS } = InputDeprecated;
 
 interface StaticProperties {
-  displayName: string,
-  TYPES: string[],
+  displayName: string;
+  TYPES: string[];
   VARIANTS: string[];
   COLORS: string[];
   DEFAULT_PROPS: typeof InputDeprecated.DEFAULT_PROPS;

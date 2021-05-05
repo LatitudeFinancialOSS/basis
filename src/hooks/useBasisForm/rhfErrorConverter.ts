@@ -9,7 +9,7 @@ interface ErrorConverter {
 const BasisErrorKey = "__basis_stringified_error";
 
 export const rhfErrorConverter: ErrorConverter = {
-  getRhfError: error => {
+  getRhfError: (error) => {
     if (error === null) {
       return true;
     }
@@ -21,7 +21,7 @@ export const rhfErrorConverter: ErrorConverter = {
 
     return error;
   },
-  getBasisError: error => {
+  getBasisError: (error) => {
     if (!error?.message) {
       return null;
     }
@@ -35,4 +35,4 @@ export const rhfErrorConverter: ErrorConverter = {
 
     return JSON.parse(stringifiedError);
   },
-}
+};

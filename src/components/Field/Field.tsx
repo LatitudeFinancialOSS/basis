@@ -107,7 +107,7 @@ export const Field = forwardRef(
       onChange,
       onBlur,
       ref: mergeRefs([ref, formComponentRef]),
-    }
+    };
 
     return <Component {...mergedProps} />;
   }

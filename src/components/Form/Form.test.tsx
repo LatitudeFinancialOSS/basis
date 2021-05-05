@@ -2,7 +2,13 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { Form, Input, Button, useBasisForm } from "../..";
 
-import { render, screen, userEvent, fireEvent, waitFor } from "../../utils/test";
+import {
+  render,
+  screen,
+  userEvent,
+  fireEvent,
+  waitFor,
+} from "../../utils/test";
 import { SubmitHandler } from "react-hook-form";
 
 interface SimpleFormValues {
@@ -14,7 +20,7 @@ interface SimpleProps {
   validate?: (val: string) => string | string[] | null;
 }
 
-const SimpleForm = ({ onSubmit = () => { }, validate }: SimpleProps) => {
+const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleProps) => {
   const { methods, Field } = useBasisForm<SimpleFormValues>();
 
   return (
@@ -34,7 +40,7 @@ describe("Form", () => {
   });
 
   it("should display required error when input blurred without value", async () => {
-    render(<SimpleForm onSubmit={() => { }} />);
+    render(<SimpleForm onSubmit={() => {}} />);
 
     const input = screen.getByLabelText("Test");
 
@@ -54,7 +60,6 @@ describe("Form", () => {
     render(<SimpleForm onSubmit={submitHandler} />);
 
     const input = screen.getByLabelText("Test");
-
 
     // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
     fireEvent.input(input, {
@@ -88,14 +93,14 @@ describe("Form", () => {
 
     const input = screen.getByLabelText("Test");
 
-      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
-      fireEvent.input(input, {
-        target: {
-          value: "invalid",
-        },
-      });
+    // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+    fireEvent.input(input, {
+      target: {
+        value: "invalid",
+      },
+    });
 
-      userEvent.click(screen.getByText("Submit"));
+    userEvent.click(screen.getByText("Submit"));
 
     await waitFor(() => expect(input).toBeInvalid());
     expect(input).toHaveFocus();
