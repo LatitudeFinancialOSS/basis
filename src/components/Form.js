@@ -145,7 +145,19 @@ function Form(_props) {
   };
   const getFieldErrors = useCallback((values, name) => {
     const value = getPath(values, name);
-    const field = fields.current[name].current;
+    /*
+      Note: 
+      `getFieldErrors` is called by `useEffect` below when `namesToValidate` change, 
+      and we set `namesToValidate` inside `setTimeout` in `onBlur`. This means that 
+      `getFieldErrors` will be called with a little delay.
+      This opens the door for `unregisterField` being called BEFORE `getFieldErrors` is called.
+      Think about an input field being focused and then the user clicks on a Next button which 
+      unmounts the current form and mounts the next form page.
+      In this case, `getFieldErrors` will be called with a `name` that doesn't exist in `fields.current`
+      anymore since `unregisterField` deleted it.
+      That's why we need to take case of this scenario :)
+    */
+    const field = fields.current[name]?.current;
 
     if (
       !field || // See: https://stackoverflow.com/q/65659161/247243
