@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import useIsDeprecatedForm from "../../hooks/internal/useIsDeprecatedForm";
-import { ComponentWithProperties } from "../../types";
-import { ComponentName } from "../componentName";
+import { ComponentWithStaticProperties } from "../../types";
+import { ComponentName } from "../componentNames";
 import { default as InputInternal } from "./Input";
 import { default as InputDeprecated } from "./Input_deprecated";
 import {
@@ -11,6 +11,15 @@ import {
 
 const { TYPES, VARIANTS, COLORS, DEFAULT_PROPS } = InputDeprecated;
 
+interface StaticProperties {
+  displayName: string,
+  TYPES: string[],
+  VARIANTS: string[];
+  COLORS: string[];
+  DEFAULT_PROPS: typeof InputDeprecated.DEFAULT_PROPS;
+}
+
+// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
 const Input = forwardRef(function InputComponent(props: InputProps, ref) {
   const isDeprecatedForm = useIsDeprecatedForm();
 
@@ -19,7 +28,7 @@ const Input = forwardRef(function InputComponent(props: InputProps, ref) {
   }
 
   return <InputInternal {...props} innerRef={ref} />;
-}) as ComponentWithProperties<InputProps>;
+}) as ComponentWithStaticProperties<InputProps, StaticProperties>;
 
 Input.displayName = ComponentName.Input;
 

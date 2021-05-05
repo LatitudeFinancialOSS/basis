@@ -47,7 +47,7 @@ const Input = (props: InternalInputProps) => {
       testId={testId}
     >
       <InternalInput
-        id={label ? inputId : ""}
+        id={label ? inputId : undefined}
         innerRef={innerRef}
         type={type}
         variant={variant}
@@ -60,7 +60,7 @@ const Input = (props: InternalInputProps) => {
         disabled={disabled}
         pasteAllowed={pasteAllowed}
         isValid={!hasErrors}
-        describedBy={helpText || hasErrors ? auxId : ""}
+        describedBy={helpText || hasErrors ? auxId : undefined}
         onFocus={onFocus}
         onBlur={onBlur}
         value={value}

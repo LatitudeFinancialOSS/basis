@@ -6,11 +6,11 @@ import {
   useController,
   useFormContext,
 } from "react-hook-form";
-import { ComponentName } from "../../components/componentName";
+import { ComponentName } from "../../components/componentNames";
 import { ValidationError, ValidateFn } from "../../types";
 import { nameToValidateMap } from "./nameToValidateMap";
 import { nameToDefaultValueMap } from "./nameToDefaultValueMap";
-
+import { rhfErrorConverter } from "./rhfErrorConverter";
 interface FieldOptions<
   TFieldValues extends FieldValues,
   Name extends FieldPath<TFieldValues>
@@ -21,6 +21,8 @@ interface FieldOptions<
   validate?: ValidateFn<TFieldValues, Name>;
   defaultValue?: FieldPathValue<TFieldValues, Name>;
 }
+
+export const BASIS_INTERNAL_VALIDATION_KEY = "__internalBasisValidation";
 
 export const useBasisField = <
   TFieldValues extends FieldValues,
@@ -41,18 +43,11 @@ export const useBasisField = <
   const validate = (customValidation ??
     nameToValidateMap[componentDisplayName as ComponentName]) as any;
 
-  const [basisErrors, setBasisErrors] = useState<ValidationError>(null);
-
-  const triggerBasisValidation = (value: any) => {
+  const internalBasisValidation = (value: any) => {
     // as ValidationError is needed due to: https://github.com/microsoft/TypeScript/issues/35186
     const validationErrors = validate(value, componentProps) as ValidationError;
 
-    setBasisErrors(validationErrors);
-
-    // this return is used to tell Rhf that there is an error (see rules in useController)
-    // this ensures it doens't call onSubmit callback when errors are present
-    // also tells it to focuses the first invalid field when user submits with errors
-    return validationErrors === null ? true : false;
+    return rhfErrorConverter.getRhfError(validationErrors);
   };
 
   const componentDefaultValue =
@@ -63,7 +58,7 @@ export const useBasisField = <
     defaultValue: defaultValue ?? componentDefaultValue,
     rules: {
       validate: {
-        __InternalBasisValidation: triggerBasisValidation,
+        [BASIS_INTERNAL_VALIDATION_KEY]: internalBasisValidation,
       },
     },
   });
@@ -107,7 +102,7 @@ export const useBasisField = <
   const onBlur = useCallback(
     (...args) => {
       functionRefs.current.componentOnBlur?.(...args);
-      functionRefs.current.fieldOnBlur?.();
+      functionRefs.current.fieldOnBlur();
 
       // if the onBlur is called with valid fieldState
       // then stop triggering validation checks on every change
@@ -122,6 +117,6 @@ export const useBasisField = <
     ...field,
     onBlur,
     onChange,
-    error: basisErrors ?? undefined,
+    error: rhfErrorConverter.getBasisError(fieldState.error) ?? undefined,
   };
 };

@@ -10,11 +10,11 @@ interface SimpleFormValues {
 }
 
 interface SimpleProps {
-  onSubmit: SubmitHandler<SimpleFormValues>;
+  onSubmit?: SubmitHandler<SimpleFormValues>;
   validate?: (val: string) => string | string[] | null;
 }
 
-const SimpleForm = ({ onSubmit, validate }: SimpleProps) => {
+const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleProps) => {
   const { methods, Field } = useBasisForm<SimpleFormValues>();
 
   return (
@@ -26,8 +26,8 @@ const SimpleForm = ({ onSubmit, validate }: SimpleProps) => {
 };
 
 describe("Form", () => {
-  it("should render the form", () => {
-    render(<SimpleForm onSubmit={() => { }} />);
+  it("should render a form with an input", () => {
+    render(<SimpleForm />);
 
     const input = screen.getByLabelText("Test");
     expect(input).toBeInTheDocument();
@@ -63,9 +63,10 @@ describe("Form", () => {
         },
       });
 
-      await userEvent.click(screen.getByRole("button", {
-        name: "Submit"
-      }));
+      // await userEvent.click(screen.getByRole("button", {
+      //   name: "Submit"
+      // }));
+      await userEvent.click(screen.getByText("Submit"));
     });
 
     expect(submitHandler.mock.calls[0][0]).toStrictEqual({

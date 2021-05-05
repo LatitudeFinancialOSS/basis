@@ -1,6 +1,5 @@
 import React from "react";
 import * as allDesignSystem from "basis";
-import { useBasisForm } from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
 
@@ -18,11 +17,11 @@ function FormPage() {
       return (
         <Container padding="8">
           <Form methods={methods} onSubmit={onSubmit}>
-            <Grid rowsGap="8">
+            <Stack gap="8">
               <Field name="firstName" label="First Name" as={Input}/>
               <Field name="lastName" label="Last Name" as={Input}/>
               <Button type="submit">Submit</Button>
-            </Grid>
+            </Stack>
           </Form>
         </Container>
       );
@@ -35,7 +34,7 @@ function FormPage() {
     <ComponentContainer
       code={code}
       noInline
-      scope={{ ...scope, useBasisForm }}
+      scope={scope}
       width="sm"
     />
   );

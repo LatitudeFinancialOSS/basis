@@ -100,15 +100,15 @@ export const Field = forwardRef(
       defaultValue,
     });
 
-    return (
-      <Component
-        {...props}
-        error={error}
-        {...childProps}
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={mergeRefs([ref, formComponentRef])}
-      />
-    );
+    const mergedProps = {
+      ...props,
+      ...childProps,
+      error,
+      onChange,
+      onBlur,
+      ref: mergeRefs([ref, formComponentRef]),
+    }
+
+    return <Component {...mergedProps} />;
   }
 );

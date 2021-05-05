@@ -1,18 +1,10 @@
 import React from "react";
 import { FieldPath, FieldPathValue, FieldValues } from "react-hook-form";
 
-type CommonProperties = {
-  TYPES?: string[];
-  VARIANTS?: string[];
-  COLORS: string[];
-  displayName: string;
-  [key: string]: any;
-};
-
 // see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34757#issuecomment-488848720
-export type ComponentWithProperties<
+export type ComponentWithStaticProperties<
   Props extends {},
-  Properties extends {} = CommonProperties
+  Properties extends {},
 > =
   | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
       Properties)

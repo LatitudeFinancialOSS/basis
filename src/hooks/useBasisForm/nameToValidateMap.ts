@@ -1,4 +1,4 @@
-import { ComponentName } from "../../components/componentName";
+import { ComponentName } from "../../components/componentNames";
 import { ValidateFn } from "../../types";
 import { validateInput } from "./validation/validateInput";
 

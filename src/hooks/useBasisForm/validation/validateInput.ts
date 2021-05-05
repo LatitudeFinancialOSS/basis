@@ -1,5 +1,5 @@
-const NUMERIC_REGEX = /^\d*$/;
-const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
+export const NUMERIC_REGEX = /^\d*$/;
+export const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
 
 export const validateInput = (
   value: string,
