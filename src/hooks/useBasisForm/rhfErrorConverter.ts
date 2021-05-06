@@ -21,6 +21,8 @@ export const rhfErrorConverter: ErrorConverter = {
 
     return error;
   },
+  // TODO: check the error schema based on ComponentName
+  // to ensure wrong error scheme doesn't go to the wrong component
   getBasisError: (error) => {
     if (!error?.message) {
       return null;
