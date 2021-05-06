@@ -27,6 +27,7 @@ export interface DeprecatedInputProps {
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   error?: string | string[];
+  validate?: boolean | ((value: any, data: any) => string | string[] | null),
   __internal__focus?: boolean;
 }
 
