@@ -55,6 +55,30 @@ describe("Form", () => {
     expect(screen.getByText("Required")).toBeInTheDocument();
   });
 
+  it("should display required error when input only has space", async () => {
+    render(<SimpleForm onSubmit={() => {}} />);
+
+    const input = screen.getByLabelText("Test");
+
+    expect(input).toBeValid();
+
+    // focus input
+    userEvent.tab();
+
+    // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+    fireEvent.input(input, {
+      target: {
+        value: " ",
+      },
+    });
+
+    // blur the input
+    userEvent.tab();
+
+    await waitFor(() => expect(input).toBeInvalid());
+    expect(screen.getByText("Required")).toBeInTheDocument();
+  });
+
   it("should call onSubmit with values when form is submitted correctly", async () => {
     const submitHandler = jest.fn();
     render(<SimpleForm onSubmit={submitHandler} />);

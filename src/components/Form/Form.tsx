@@ -24,6 +24,7 @@ export function Form<TFieldValues extends FieldValues = FieldValues>({
         action="#"
         data-testid={testId}
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
       >
         {children}
       </form>

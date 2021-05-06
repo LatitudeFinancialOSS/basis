@@ -6,7 +6,7 @@ interface ErrorConverter {
   getBasisError: (error: FieldError | undefined) => ValidationError;
 }
 
-const BasisJsonErrorPrefix = "__basis_json_error_prefix";
+const BASIS_JSON_ERROR_PREFIX = "__basis_json_error_prefix";
 
 export const rhfErrorConverter: ErrorConverter = {
   getRhfError: (error) => {
@@ -14,13 +14,13 @@ export const rhfErrorConverter: ErrorConverter = {
       return true;
     }
 
-    // if the error is an object or array then stringify the result
-    if (typeof error === "object") {
-      return `${BasisJsonErrorPrefix}${JSON.stringify(error)}`;
+    if (typeof error === "string") {
+      return error;
     }
 
-    return error;
+    return `${BASIS_JSON_ERROR_PREFIX}${JSON.stringify(error)}`;
   },
+
   // TODO: check the error schema based on ComponentName
   // to ensure wrong error scheme doesn't go to the wrong component
   getBasisError: (error) => {
@@ -30,7 +30,7 @@ export const rhfErrorConverter: ErrorConverter = {
 
     // split the result, if it was a simple string it will be the first results
     // if stringified then it will be the second result
-    const [stringError, jsonError] = error.message.split(BasisJsonErrorPrefix);
+    const [stringError, jsonError] = error.message.split(BASIS_JSON_ERROR_PREFIX);
     if (stringError) {
       return stringError;
     }
