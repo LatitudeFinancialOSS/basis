@@ -6,7 +6,7 @@ interface ErrorConverter {
   getBasisError: (error: FieldError | undefined) => ValidationError;
 }
 
-const BasisErrorKey = "__basis_stringified_error";
+const BasisJsonErrorPrefix = "__basis_json_error_prefix";
 
 export const rhfErrorConverter: ErrorConverter = {
   getRhfError: (error) => {
@@ -16,7 +16,7 @@ export const rhfErrorConverter: ErrorConverter = {
 
     // if the error is an object or array then stringify the result
     if (typeof error === "object") {
-      return `${BasisErrorKey}${JSON.stringify(error)}`;
+      return `${BasisJsonErrorPrefix}${JSON.stringify(error)}`;
     }
 
     return error;
@@ -30,11 +30,11 @@ export const rhfErrorConverter: ErrorConverter = {
 
     // split the result, if it was a simple string it will be the first results
     // if stringified then it will be the second result
-    const [simpleError, stringifiedError] = error.message.split(BasisErrorKey);
-    if (simpleError) {
-      return simpleError;
+    const [stringError, jsonError] = error.message.split(BasisJsonErrorPrefix);
+    if (stringError) {
+      return stringError;
     }
 
-    return JSON.parse(stringifiedError);
+    return JSON.parse(jsonError);
   },
 };

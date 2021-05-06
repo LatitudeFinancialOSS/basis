@@ -21,3 +21,14 @@ export type ValidateFn<
   value: FieldPathValue<TFieldValues, Name>,
   props: Props
 ) => ErrorType | null;
+
+type Breakpoints =
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl";
+
+export type ResponsiveProp<Key extends string, T = number | string> = {
+  [key in (`${Key}-${Breakpoints}` | Key)]?: T
+};

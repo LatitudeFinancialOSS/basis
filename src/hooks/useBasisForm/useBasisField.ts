@@ -6,7 +6,7 @@ import {
   useController,
   useFormContext,
 } from "react-hook-form";
-import { ComponentName } from "../../components/componentNames";
+import { ComponentNames } from "../../components/componentNames";
 import { ValidationError, ValidateFn } from "../../types";
 import { nameToValidateMap } from "./nameToValidateMap";
 import { nameToDefaultValueMap } from "./nameToDefaultValueMap";
@@ -41,7 +41,7 @@ export const useBasisField = <
 
   // as any is needed due to: https://github.com/microsoft/TypeScript/issues/35186
   const validate = (customValidation ??
-    nameToValidateMap[componentDisplayName as ComponentName]) as any;
+    nameToValidateMap[componentDisplayName as ComponentNames]) as any;
 
   const internalBasisValidation = (value: any) => {
     // as ValidationError is needed due to: https://github.com/microsoft/TypeScript/issues/35186
@@ -51,7 +51,7 @@ export const useBasisField = <
   };
 
   const componentDefaultValue =
-    nameToDefaultValueMap[componentDisplayName as ComponentName];
+    nameToDefaultValueMap[componentDisplayName as ComponentNames];
 
   const { field, fieldState } = useController({
     name,

@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import useIsDeprecatedForm from "../../hooks/internal/useIsDeprecatedForm";
 import { ComponentWithStaticProperties } from "../../types";
-import { ComponentName } from "../componentNames";
+import { ComponentNames } from "../componentNames";
 import { default as InputInternal } from "./Input";
 import { default as InputDeprecated } from "./Input_deprecated";
 import {
@@ -30,7 +30,7 @@ const Input = forwardRef(function InputComponent(props: InputProps, ref) {
   return <InputInternal {...props} innerRef={ref} />;
 }) as ComponentWithStaticProperties<InputProps, StaticProperties>;
 
-Input.displayName = ComponentName.Input;
+Input.displayName = ComponentNames.Input;
 
 Input.TYPES = TYPES;
 Input.VARIANTS = VARIANTS;

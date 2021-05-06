@@ -1,5 +1,6 @@
 import React from "react";
 import { FieldValues, SubmitHandler, UseFormReturn } from "react-hook-form";
+import { ResponsiveProp } from "../../types";
 
 interface DeprecatedRenderParams {
   state: {
@@ -19,7 +20,7 @@ interface DeprecatedSubmitParams {
   setErrors: (errors: Record<string, any>) => void;
 }
 
-export interface DeprecatedFormProps {
+export type DeprecatedFormProps = {
   initialValues: Record<string, any>;
   intialErrors?: Record<string, any>;
   onSubmit?: (params: DeprecatedSubmitParams) => void;
@@ -28,14 +29,14 @@ export interface DeprecatedFormProps {
   children:
     | React.ReactNode
     | ((params: DeprecatedRenderParams) => React.ReactNode);
-  width?: string;
-}
+} & ResponsiveProp<"width">
 
 export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
   methods: UseFormReturn<TFieldValues>;
   onSubmit: SubmitHandler<TFieldValues>;
   children: React.ReactNode;
-};
+  testId?: string;
+} & ResponsiveProp<"width">;
 
 export type FormCombinedProps<TFieldValues extends FieldValues = FieldValues> =
   | DeprecatedFormProps

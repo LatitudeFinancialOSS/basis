@@ -1,3 +1,3 @@
-export enum ComponentName {
+export enum ComponentNames {
   Input = "BasisInput",
 }

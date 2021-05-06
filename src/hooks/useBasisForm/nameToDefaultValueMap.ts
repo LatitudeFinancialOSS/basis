@@ -1,5 +1,5 @@
-import { ComponentName } from "../../components/componentNames";
+import { ComponentNames } from "../../components/componentNames";
 
-export const nameToDefaultValueMap: Record<ComponentName, any> = {
-  [ComponentName.Input]: "",
+export const nameToDefaultValueMap: Record<ComponentNames, any> = {
+  [ComponentNames.Input]: "",
 };
