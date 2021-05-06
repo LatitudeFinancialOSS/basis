@@ -9,8 +9,8 @@ export const validateInput = (
 ) => {
   const { optional, variant } = inputProps;
 
-  if (isInputEmpty(value) && !optional) {
-    return "Required";
+  if (isInputEmpty(value)) {
+    return optional ? null : "Required";
   }
 
   if (variant === "numeric" && NUMERIC_REGEX.test(value) === false) {
