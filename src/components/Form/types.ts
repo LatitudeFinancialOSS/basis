@@ -15,9 +15,9 @@ interface DeprecatedRenderParams {
 }
 
 interface DeprecatedSubmitParams {
-  errors: Record<string, any>;
-  values: Record<string, any>;
-  setErrors: (errors: Record<string, any>) => void;
+  errors: any;
+  values: any;
+  setErrors: (errors: any) => any;
 }
 
 export type DeprecatedFormProps = {
