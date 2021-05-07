@@ -22,7 +22,7 @@ interface DeprecatedSubmitParams {
 
 export type DeprecatedFormProps = {
   initialValues: Record<string, any>;
-  intialErrors?: Record<string, any>;
+  initialErrors?: Record<string, any>;
   onSubmit?: (params: DeprecatedSubmitParams) => void;
   debug?: boolean;
   testId?: string;
