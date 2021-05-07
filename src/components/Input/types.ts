@@ -25,6 +25,7 @@ export interface DeprecatedInputProps {
   testId?: string;
   describedBy?: string;
   value?: string;
+  validateData?: any;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   error?: string | string[];
   validate?: boolean | ((value: any, data: any) => string | string[] | null);
