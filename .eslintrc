@@ -11,6 +11,7 @@
     "plugin:import/errors"
   ],
   "plugins": [
+    "@typescript-eslint",
     "import",
     "react-hooks",
     "jest",
@@ -20,7 +21,8 @@
   ],
   "rules": {
     "no-console": ["error", { "allow": ["error"] }],
-    "no-unused-vars": [
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
       "error",
       { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
     ],
