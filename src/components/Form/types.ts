@@ -4,25 +4,25 @@ import { ResponsiveProp } from "../../types";
 
 interface DeprecatedRenderParams {
   state: {
-    values: Record<string, any>;
-    errors: Record<string, any>;
+    values: any;
+    errors: any;
   };
   validateField: (name: string) => void;
   submitForm: () => void;
-  setValues: (vals: Record<string, any>) => void;
-  setErrors: (errors: Record<string, any>) => void;
+  setValues: (vals: any) => void;
+  setErrors: (errors: any) => void;
   resetForm: () => void;
 }
 
 interface DeprecatedSubmitParams {
-  errors: Record<string, any>;
-  values: Record<string, any>;
-  setErrors: (errors: Record<string, any>) => void;
+  errors: any;
+  values: any;
+  setErrors: (errors: any) => any;
 }
 
 export type DeprecatedFormProps = {
-  initialValues: Record<string, any>;
-  intialErrors?: Record<string, any>;
+  initialValues: any;
+  initialErrors?: any;
   onSubmit?: (params: DeprecatedSubmitParams) => void;
   debug?: boolean;
   testId?: string;

@@ -8,7 +8,7 @@ export type ComponentWithStaticProperties<
 > =
   | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
       Properties)
-  | (React.Component<Props> & Properties);
+  | (React.ComponentType<Props> & Properties);
 
 export type ValidationError = string | string[] | Record<string, string> | null;
 
