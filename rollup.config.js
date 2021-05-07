@@ -9,7 +9,10 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 export default [
   {
     input: "src/index.ts",
-    output: [{ file: pkg.module, format: "esm" }],
+    output: [
+      { file: pkg.main, format: "cjs" },
+      { file: pkg.module, format: "esm" },
+    ],
     plugins: [
       // https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
       peerDepsExternal(),
