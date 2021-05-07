@@ -29,7 +29,7 @@ export type DeprecatedFormProps = {
   children:
     | React.ReactNode
     | ((params: DeprecatedRenderParams) => React.ReactNode);
-} & ResponsiveProp<"width">
+} & ResponsiveProp<"width">;
 
 export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
   methods: UseFormReturn<TFieldValues>;

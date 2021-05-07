@@ -30,7 +30,9 @@ export const rhfErrorConverter: ErrorConverter = {
 
     // split the result, if it was a simple string it will be the first results
     // if stringified then it will be the second result
-    const [stringError, jsonError] = error.message.split(BASIS_JSON_ERROR_PREFIX);
+    const [stringError, jsonError] = error.message.split(
+      BASIS_JSON_ERROR_PREFIX
+    );
     if (stringError) {
       return stringError;
     }

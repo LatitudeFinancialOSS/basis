@@ -22,13 +22,8 @@ export type ValidateFn<
   props: Props
 ) => ErrorType | null;
 
-type Breakpoints =
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl";
+type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type ResponsiveProp<Key extends string, T = number | string> = {
-  [key in (`${Key}-${Breakpoints}` | Key)]?: T
+  [key in `${Key}-${Breakpoints}` | Key]?: T;
 };
