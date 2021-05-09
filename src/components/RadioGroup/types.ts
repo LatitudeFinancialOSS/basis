@@ -20,7 +20,7 @@ export interface DeprecatedRadioGroupProps {
   helpText?: string;
   disabled?: boolean;
   optional?: boolean;
-  validate?: boolean | ((value: any, data: any) => string | string[] | null),
+  validate?: boolean | ((value: any, data: any) => string | string[] | null);
   validateData?: any;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   testId?: string;

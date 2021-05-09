@@ -76,7 +76,7 @@ type Option = {
 export type RadioOptions = Option[] | Readonly<Option>[];
 
 interface RadioProps {
-  innerRef?: React.Ref<HTMLInputElement>,
+  innerRef?: React.Ref<HTMLInputElement>;
   color?: RadioGroupColor;
   label: string | React.ReactNode;
   isLabelBold: boolean;
@@ -210,10 +210,12 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
   const RadioGroupRef = useRef<HTMLDivElement>(null);
 
   const onRadioBlur: React.FocusEventHandler<HTMLInputElement> = (event) => {
-    if (!RadioGroupRef.current?.contains(event.relatedTarget as HTMLInputElement)) {
+    if (
+      !RadioGroupRef.current?.contains(event.relatedTarget as HTMLInputElement)
+    ) {
       onBlur?.(event);
     }
-  }
+  };
   return (
     <div
       role="radiogroup"

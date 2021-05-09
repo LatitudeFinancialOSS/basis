@@ -20,7 +20,7 @@ interface SimpleFormProps {
   validate?: (val: string) => string | string[] | null;
 }
 
-const SimpleForm = ({ onSubmit = () => { }, validate }: SimpleFormProps) => {
+const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
   const { methods, Field } = useBasisForm<SimpleFormValues>();
 
   return (
@@ -32,8 +32,8 @@ const SimpleForm = ({ onSubmit = () => { }, validate }: SimpleFormProps) => {
 };
 
 interface ComplexFormValues {
-  testInput: string,
-  testRadio: string,
+  testInput: string;
+  testRadio: string;
 }
 
 const RadioOptions = [
@@ -47,13 +47,30 @@ interface ComplexFormProps {
   testId?: string;
 }
 
-const ComplexForm = ({ onSubmit = () => { }, validate, testId }: ComplexFormProps) => {
+const ComplexForm = ({
+  onSubmit = () => {},
+  validate,
+  testId,
+}: ComplexFormProps) => {
   const { methods, Field } = useBasisForm<ComplexFormValues>();
 
   return (
     <Form testId={testId} methods={methods} onSubmit={onSubmit}>
-      <Field label="Test Input" name="testInput" testId="field" as={Input} validate={validate} />
-      <Field label="Test Radio" name="testRadio" testId="field" options={RadioOptions} as={RadioGroup} validate={validate} />
+      <Field
+        label="Test Input"
+        name="testInput"
+        testId="field"
+        as={Input}
+        validate={validate}
+      />
+      <Field
+        label="Test Radio"
+        name="testRadio"
+        testId="field"
+        options={RadioOptions}
+        as={RadioGroup}
+        validate={validate}
+      />
       <Button type="submit">Submit</Button>
     </Form>
   );
@@ -69,7 +86,7 @@ describe("Form", () => {
     });
 
     it("should display required error when input blurred without value", async () => {
-      render(<SimpleForm onSubmit={() => { }} />);
+      render(<SimpleForm onSubmit={() => {}} />);
 
       const input = screen.getByLabelText("Test");
 
@@ -85,7 +102,7 @@ describe("Form", () => {
     });
 
     it("should display required error when input only has space", async () => {
-      render(<SimpleForm onSubmit={() => { }} />);
+      render(<SimpleForm onSubmit={() => {}} />);
 
       const input = screen.getByLabelText("Test");
 
@@ -172,13 +189,13 @@ describe("Form", () => {
 
       const fields = screen.getAllByTestId("field");
 
-      fields.forEach(field => expect(field).toBeValid());
+      fields.forEach((field) => expect(field).toBeValid());
       const lastField = fields[fields.length - 1];
 
       userEvent.click(screen.getByText("Submit"));
 
       await waitFor(() => expect(lastField).toBeInvalid());
-      fields.forEach(field => expect(field).toBeInvalid());
+      fields.forEach((field) => expect(field).toBeInvalid());
       expect(fields[0]).toHaveFocus();
     });
 
@@ -193,7 +210,6 @@ describe("Form", () => {
         },
       });
 
-
       userEvent.click(screen.getByLabelText("Radio Option 1"));
 
       userEvent.click(screen.getByText("Submit"));
@@ -207,5 +223,5 @@ describe("Form", () => {
 
       expect(submitHandler).toHaveBeenCalledTimes(1);
     });
-  })
+  });
 });
