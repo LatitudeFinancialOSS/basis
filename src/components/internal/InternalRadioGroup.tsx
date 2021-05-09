@@ -1,24 +1,33 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import useTheme from "../../hooks/useTheme";
 import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import Grid from "../Grid";
 import VisuallyHidden from "../VisuallyHidden";
+import mergeRefs from "../../utils/mergeRefs";
 
-const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"] as const;
 
 const DEFAULT_PROPS = {
   color: "grey.t05",
   disabled: false,
   isValid: true,
-};
+} as const;
 
 InternalRadioGroup.COLORS = COLORS;
 InternalRadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function RadioCircle(props) {
+export type RadioGroupColor = "grey.t05" | "white";
+
+type RadioCirlcleColor = "white" | "secondary.lightBlue.t25";
+
+interface RadioCirlcleProps {
+  color: RadioCirlcleColor;
+  isChecked: boolean;
+}
+
+function RadioCircle(props: RadioCirlcleProps) {
   const { isChecked } = props;
   const theme = useTheme();
   const { inputColorMap } = useBackground();
@@ -26,9 +35,11 @@ function RadioCircle(props) {
     props,
     {},
     {
+      // @ts-ignore
       color: (propsAtBreakpoint, theme, bp) => {
         return theme.radioGroup.getCSS({
           targetElement: "outerCircle",
+          // @ts-ignore
           color: props.color ?? inputColorMap[bp],
           isChecked,
         });
@@ -56,14 +67,35 @@ function RadioCircle(props) {
   );
 }
 
-RadioCircle.propTypes = {
-  color: PropTypes.oneOf(["white", "secondary.lightBlue.t25"]),
-  isChecked: PropTypes.bool.isRequired,
+type Option = {
+  label: string | React.ReactNode;
+  description?: React.ReactNode;
+  value: string;
 };
 
-function Radio(props) {
+export type RadioOptions = Option[] | Readonly<Option>[];
+
+interface RadioProps {
+  innerRef?: React.Ref<HTMLInputElement>,
+  color?: RadioGroupColor;
+  label: string | React.ReactNode;
+  isLabelBold: boolean;
+  name?: string;
+  parentName?: string;
+  value?: string;
+  description?: React.ReactNode;
+  isChecked: boolean;
+  disabled: boolean;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+function Radio(props: RadioProps) {
   const {
     name,
+    innerRef,
     parentName,
     label,
     isLabelBold,
@@ -76,12 +108,15 @@ function Radio(props) {
     value,
     onChange,
   } = props;
+
   const theme = useTheme();
   const { inputColorMap } = useBackground();
   const labelCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) => {
       return theme.radioGroup.getCSS({
         targetElement: "radioLabel",
+        // @ts-ignore
         color: props.color ?? inputColorMap[bp],
       });
     },
@@ -97,6 +132,7 @@ function Radio(props) {
       <VisuallyHidden>
         <input
           css={theme.radioGroup.getCSS({ targetElement: "radioInput" })}
+          ref={innerRef}
           type="radio"
           id={inputId}
           name={name}
@@ -111,7 +147,10 @@ function Radio(props) {
       </VisuallyHidden>
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
       <label css={labelCSS} htmlFor={inputId} onMouseDown={onMouseDown}>
-        <RadioCircle color={props.color} isChecked={isChecked} />
+        {
+          // @ts-ignore TODO: find out why there the colors are different
+          <RadioCircle color={props.color} isChecked={isChecked} />
+        }
         <div>
           {isLabelBold ? <strong>{label}</strong> : label}
           {description ? (
@@ -127,35 +166,39 @@ function Radio(props) {
   );
 }
 
-Radio.propTypes = {
-  name: PropTypes.string.isRequired,
-  parentName: PropTypes.string,
-  color: PropTypes.oneOf(COLORS),
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
-  isLabelBold: PropTypes.bool.isRequired,
-  description: PropTypes.node,
-  isChecked: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  onMouseDown: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
+export interface InternalRadioGroupProps {
+  name?: string;
+  value?: string;
+  innerRef?: React.Ref<HTMLDivElement>;
+  parentName?: string;
+  labelId?: string;
+  options: Option[] | Readonly<Option>[];
+  columns?: number;
+  color?: RadioGroupColor;
+  disabled?: boolean;
+  isValid?: boolean;
+  describedBy?: string;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  testId?: string;
+}
 
-function InternalRadioGroup(_props) {
-  const props = { ...DEFAULT_PROPS, ..._props };
+function InternalRadioGroup(props: InternalRadioGroupProps) {
   const {
     name,
+    innerRef,
     parentName,
     labelId,
     options,
     columns,
     color,
-    disabled,
+    disabled = DEFAULT_PROPS.disabled,
     isValid,
     describedBy,
     onFocus,
+    testId,
     onBlur,
     onMouseDown,
     value: checkedValue,
@@ -164,15 +207,24 @@ function InternalRadioGroup(_props) {
   const cols = columns === undefined ? options.length : columns;
   const areLabelsBold = options.some((option) => option.description);
 
+  const RadioGroupRef = useRef<HTMLDivElement>(null);
+
+  const onRadioBlur: React.FocusEventHandler<HTMLInputElement> = (event) => {
+    if (!RadioGroupRef.current?.contains(event.relatedTarget as HTMLInputElement)) {
+      onBlur?.(event);
+    }
+  }
   return (
     <div
       role="radiogroup"
-      aria-invalid={isValid ? null : "true"}
+      ref={mergeRefs([RadioGroupRef, innerRef ?? null])}
+      data-testid={testId}
+      aria-invalid={isValid ? false : "true"}
       aria-labelledby={labelId}
       aria-describedby={describedBy}
     >
       <Grid cols={cols} colsGap={1} rowsGap={1}>
-        {options.map(({ label, description, value }, index) => (
+        {options.map(({ label, value, description }: Option, index: number) => (
           <Grid.Item
             colSpan={index % cols}
             rowSpan={Math.floor(index / cols)}
@@ -189,7 +241,7 @@ function InternalRadioGroup(_props) {
               isChecked={value === checkedValue}
               disabled={disabled}
               onFocus={onFocus}
-              onBlur={onBlur}
+              onBlur={onRadioBlur}
               onMouseDown={onMouseDown}
               onChange={onChange}
             />
@@ -199,36 +251,5 @@ function InternalRadioGroup(_props) {
     </div>
   );
 }
-
-InternalRadioGroup.propTypes = {
-  name: PropTypes.string.isRequired,
-  parentName: PropTypes.string,
-  labelId: PropTypes.string,
-  options: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        description: PropTypes.node,
-        value: PropTypes.string.isRequired,
-      })
-    ),
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.node.isRequired,
-        value: PropTypes.string.isRequired,
-      })
-    ),
-  ]).isRequired,
-  columns: PropTypes.number,
-  color: PropTypes.oneOf(COLORS),
-  disabled: PropTypes.bool,
-  isValid: PropTypes.bool,
-  describedBy: PropTypes.string,
-  onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  onMouseDown: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 
 export default InternalRadioGroup;

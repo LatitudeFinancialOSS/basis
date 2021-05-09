@@ -27,3 +27,5 @@ type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
 export type ResponsiveProp<Key extends string, T = number | string> = {
   [key in `${Key}-${Breakpoints}` | Key]?: T;
 };
+
+export type SizeValue = `${number}px` | `${number}`;

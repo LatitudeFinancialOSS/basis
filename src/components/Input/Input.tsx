@@ -44,10 +44,10 @@ const Input = (props: InternalInputProps) => {
       auxId={auxId}
       helpText={helpText}
       errors={fieldErrors}
-      testId={testId}
     >
       <InternalInput
         id={label ? inputId : undefined}
+        testId={testId}
         innerRef={innerRef}
         type={type}
         variant={variant}

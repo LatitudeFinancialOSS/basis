@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { Form, Input, Button, useBasisForm } from "../..";
+import { Form, Input, RadioGroup, Button, useBasisForm } from "../..";
 
 import {
   render,
@@ -20,7 +20,7 @@ interface SimpleFormProps {
   validate?: (val: string) => string | string[] | null;
 }
 
-const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
+const SimpleForm = ({ onSubmit = () => { }, validate }: SimpleFormProps) => {
   const { methods, Field } = useBasisForm<SimpleFormValues>();
 
   return (
@@ -31,104 +31,181 @@ const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
   );
 };
 
+interface ComplexFormValues {
+  testInput: string,
+  testRadio: string,
+}
+
+const RadioOptions = [
+  { label: "Radio Option 1", value: "value1" },
+  { label: "Radio Option 2", value: "value2" },
+];
+
+interface ComplexFormProps {
+  onSubmit?: SubmitHandler<SimpleFormValues>;
+  validate?: (val: string) => string | string[] | null;
+  testId?: string;
+}
+
+const ComplexForm = ({ onSubmit = () => { }, validate, testId }: ComplexFormProps) => {
+  const { methods, Field } = useBasisForm<ComplexFormValues>();
+
+  return (
+    <Form testId={testId} methods={methods} onSubmit={onSubmit}>
+      <Field label="Test Input" name="testInput" testId="field" as={Input} validate={validate} />
+      <Field label="Test Radio" name="testRadio" testId="field" options={RadioOptions} as={RadioGroup} validate={validate} />
+      <Button type="submit">Submit</Button>
+    </Form>
+  );
+};
+
 describe("Form", () => {
-  it("should render a form with an input", () => {
-    render(<SimpleForm />);
+  describe("SimpleForm", () => {
+    it("should render a form with an input", () => {
+      render(<SimpleForm />);
 
-    const input = screen.getByLabelText("Test");
-    expect(input).toBeInTheDocument();
-  });
-
-  it("should display required error when input blurred without value", async () => {
-    render(<SimpleForm onSubmit={() => {}} />);
-
-    const input = screen.getByLabelText("Test");
-
-    expect(input).toBeValid();
-
-    // focus input
-    userEvent.tab();
-    // blur the input
-    userEvent.tab();
-
-    await waitFor(() => expect(input).toBeInvalid());
-    expect(screen.getByText("Required")).toBeInTheDocument();
-  });
-
-  it("should display required error when input only has space", async () => {
-    render(<SimpleForm onSubmit={() => {}} />);
-
-    const input = screen.getByLabelText("Test");
-
-    expect(input).toBeValid();
-
-    // focus input
-    userEvent.tab();
-
-    // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
-    fireEvent.input(input, {
-      target: {
-        value: " ",
-      },
+      const input = screen.getByLabelText("Test");
+      expect(input).toBeInTheDocument();
     });
 
-    // blur the input
-    userEvent.tab();
+    it("should display required error when input blurred without value", async () => {
+      render(<SimpleForm onSubmit={() => { }} />);
 
-    await waitFor(() => expect(input).toBeInvalid());
-    expect(screen.getByText("Required")).toBeInTheDocument();
-  });
+      const input = screen.getByLabelText("Test");
 
-  it("should call onSubmit with values when form is submitted correctly", async () => {
-    const submitHandler = jest.fn();
-    render(<SimpleForm onSubmit={submitHandler} />);
+      expect(input).toBeValid();
 
-    const input = screen.getByLabelText("Test");
+      // focus input
+      userEvent.tab();
+      // blur the input
+      userEvent.tab();
 
-    // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
-    fireEvent.input(input, {
-      target: {
-        value: "some-data",
-      },
+      await waitFor(() => expect(input).toBeInvalid());
+      expect(screen.getByText("Required")).toBeInTheDocument();
     });
 
-    // await userEvent.click(screen.getByRole("button", {
-    //   name: "Submit"
-    // }));
-    userEvent.click(screen.getByText("Submit"));
+    it("should display required error when input only has space", async () => {
+      render(<SimpleForm onSubmit={() => { }} />);
 
-    await waitFor(() => {
-      expect(submitHandler.mock.calls[0][0]).toStrictEqual({
-        testInput: "some-data",
+      const input = screen.getByLabelText("Test");
+
+      expect(input).toBeValid();
+
+      // focus input
+      userEvent.tab();
+
+      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+      fireEvent.input(input, {
+        target: {
+          value: " ",
+        },
       });
+
+      // blur the input
+      userEvent.tab();
+
+      await waitFor(() => expect(input).toBeInvalid());
+      expect(screen.getByText("Required")).toBeInTheDocument();
     });
 
-    expect(submitHandler).toHaveBeenCalledTimes(1);
-  });
+    it("should call onSubmit with values when form is submitted correctly", async () => {
+      const submitHandler = jest.fn();
+      render(<SimpleForm onSubmit={submitHandler} />);
 
-  it("should give an error with validation message when custom validate is provided", async () => {
-    const onSubmit = jest.fn();
-    render(
-      <SimpleForm
-        onSubmit={onSubmit}
-        validate={(val: string) => (val === "invalid" ? "Wrong" : null)}
-      />
-    );
+      const input = screen.getByLabelText("Test");
 
-    const input = screen.getByLabelText("Test");
+      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+      fireEvent.input(input, {
+        target: {
+          value: "some-data",
+        },
+      });
 
-    // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
-    fireEvent.input(input, {
-      target: {
-        value: "invalid",
-      },
+      userEvent.click(screen.getByText("Submit"));
+
+      await waitFor(() => {
+        expect(submitHandler.mock.calls[0][0]).toStrictEqual({
+          testInput: "some-data",
+        });
+      });
+
+      expect(submitHandler).toHaveBeenCalledTimes(1);
     });
 
-    userEvent.click(screen.getByText("Submit"));
+    it("should give an error with validation message when custom validate is provided", async () => {
+      const onSubmit = jest.fn();
+      render(
+        <SimpleForm
+          onSubmit={onSubmit}
+          validate={(val: string) => (val === "invalid" ? "Wrong" : null)}
+        />
+      );
 
-    await waitFor(() => expect(input).toBeInvalid());
-    expect(input).toHaveFocus();
-    expect(onSubmit).not.toHaveBeenCalled();
-    expect(screen.getByText("Wrong")).toBeInTheDocument();
+      const input = screen.getByLabelText("Test");
+
+      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+      fireEvent.input(input, {
+        target: {
+          value: "invalid",
+        },
+      });
+
+      userEvent.click(screen.getByText("Submit"));
+
+      await waitFor(() => expect(input).toBeInvalid());
+      expect(input).toHaveFocus();
+      expect(onSubmit).not.toHaveBeenCalled();
+      expect(screen.getByText("Wrong")).toBeInTheDocument();
+    });
   });
+
+  describe("ComplexForm", () => {
+    it("should render a form with variety of input types", () => {
+      render(<ComplexForm testId="form" />);
+
+      const form = screen.getByTestId("form");
+      expect(form).toBeInTheDocument();
+    });
+
+    it("should have all fields invalid when submit is called without values", async () => {
+      render(<ComplexForm />);
+
+      const fields = screen.getAllByTestId("field");
+
+      fields.forEach(field => expect(field).toBeValid());
+      const lastField = fields[fields.length - 1];
+
+      userEvent.click(screen.getByText("Submit"));
+
+      await waitFor(() => expect(lastField).toBeInvalid());
+      fields.forEach(field => expect(field).toBeInvalid());
+      expect(fields[0]).toHaveFocus();
+    });
+
+    it("should call onSubmit with correct values", async () => {
+      const submitHandler = jest.fn();
+      render(<ComplexForm onSubmit={submitHandler} />);
+
+      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+      fireEvent.input(screen.getByLabelText("Test Input"), {
+        target: {
+          value: "some-data",
+        },
+      });
+
+
+      userEvent.click(screen.getByLabelText("Radio Option 1"));
+
+      userEvent.click(screen.getByText("Submit"));
+
+      await waitFor(() => {
+        expect(submitHandler.mock.calls[0][0]).toStrictEqual({
+          testInput: "some-data",
+          testRadio: "value1",
+        });
+      });
+
+      expect(submitHandler).toHaveBeenCalledTimes(1);
+    });
+  })
 });

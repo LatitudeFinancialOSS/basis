@@ -33,6 +33,7 @@ interface InternalInputProps {
   parentName?: string;
   innerRef?: React.Ref<HTMLInputElement>;
   id?: string;
+  testId?: string;
   type?: InternalInputTypes;
   placeholder?: string;
   variant: InternalInputVariants;
@@ -58,6 +59,7 @@ const InternalInput = (props: InternalInputProps) => {
     parentName,
     innerRef,
     id,
+    testId,
     type = DEFAULT_PROPS.type,
     placeholder,
     variant = DEFAULT_PROPS.variant,
@@ -128,6 +130,7 @@ const InternalInput = (props: InternalInputProps) => {
         name={name}
         ref={innerRef}
         id={id}
+        data-testid={testId}
         data-parent-name={parentName}
         placeholder={placeholder}
         type={type}
