@@ -1,16 +1,17 @@
-import React, { useState, useMemo, useCallback, ReactNode } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps, areOptionsValid } from "../utils/component";
-import Field from "./internal/Field";
-import InternalRadioGroup from "./internal/InternalRadioGroup";
+import useField from "../../hooks/internal/useField";
+import { mergeProps, areOptionsValid } from "../../utils/component";
+import Field from "../internal/Field";
+import InternalRadioGroup from "../internal/InternalRadioGroup";
+import { DeprecatedRadioGroupProps, RadioOption, RadioOptions } from "./types";
 
 const { COLORS } = InternalRadioGroup;
 
-// @ts-ignore
-function isOptionSelected(options, value) {
-  // @ts-ignore
-  return options.findIndex((option) => option.value === value) > -1;
+function isOptionSelected(options: RadioOptions, value: string) {
+  return (
+    options.findIndex((option: RadioOption) => option.value === value) > -1
+  );
 }
 
 const DEFAULT_PROPS = {
@@ -30,40 +31,7 @@ const DEFAULT_PROPS = {
 RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
-type Options =
-  | {
-      label: string;
-      description?: ReactNode;
-      value: string;
-    }[]
-  | {
-      label: ReactNode;
-      value: string;
-    }[]
-  | Readonly<
-      {
-        label: string;
-        description?: ReactNode;
-        value: string;
-      }[]
-    >
-  | Readonly<
-      {
-        label: ReactNode;
-        value: string;
-      }[]
-    >;
-
-interface Props {
-  // TODO color needs to be typed based on COLORS
-  color?: string;
-  // options: Option[] | Readonly<Option[]>;
-  options: Options;
-  // TODO Let's type it properly later!
-  [key: string]: any;
-}
-
-function RadioGroup(props: Props) {
+function RadioGroup(props: DeprecatedRadioGroupProps) {
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -165,7 +133,7 @@ function RadioGroup(props: Props) {
         color={props.color}
         disabled={disabled}
         isValid={!hasErrors}
-        describedBy={helpText || hasErrors ? auxId : null}
+        describedBy={helpText || hasErrors ? auxId : undefined}
         onFocus={onFocus}
         onBlur={onBlur}
         onMouseDown={onMouseDown}
@@ -175,51 +143,5 @@ function RadioGroup(props: Props) {
     </Field>
   );
 }
-
-// RadioGroup.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   label: PropTypes.string.isRequired,
-//   options: PropTypes.oneOfType([
-//     PropTypes.arrayOf(
-//       PropTypes.shape({
-//         label: PropTypes.string.isRequired,
-//         description: PropTypes.node,
-//         value: PropTypes.string.isRequired,
-//       })
-//     ),
-//     PropTypes.arrayOf(
-//       PropTypes.shape({
-//         label: PropTypes.node.isRequired,
-//         value: PropTypes.string.isRequired,
-//       })
-//     ),
-//   ]).isRequired,
-//   columns: (props) => {
-//     if (props.columns !== undefined) {
-//       if (typeof props.columns !== "number") {
-//         return new Error(
-//           `RadioGroup: columns must be a number (${typeof props.columns} found)`
-//         );
-//       }
-
-//       if (
-//         props.columns !== 1 &&
-//         props.options.some((option) => option.description)
-//       ) {
-//         return new Error(
-//           `RadioGroup: option's description can only be used when columns={1}`
-//         );
-//       }
-//     }
-//   },
-//   color: PropTypes.oneOf(COLORS),
-//   helpText: PropTypes.string,
-//   disabled: PropTypes.bool,
-//   optional: PropTypes.bool,
-//   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-//   validateData: PropTypes.any,
-//   onChange: PropTypes.func,
-//   testId: PropTypes.string,
-// };
 
 export default RadioGroup;
