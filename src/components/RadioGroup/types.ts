@@ -23,8 +23,8 @@ export type RadioOption =
 export type RadioOptions =
   | StringOption[]
   | NodeOption[]
-  | Readonly<StringOption>[]
-  | Readonly<NodeOption>[];
+  | Readonly<StringOption[]>
+  | Readonly<NodeOption[]>;
 
 export interface DeprecatedRadioGroupProps {
   name: string;
