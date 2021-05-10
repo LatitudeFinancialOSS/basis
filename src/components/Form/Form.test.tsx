@@ -193,7 +193,9 @@ describe("Form", () => {
 
       userEvent.click(screen.getByText("Submit"));
 
-      await waitFor(() => fields.forEach((field) => expect(field).toBeInvalid()));
+      await waitFor(() =>
+        fields.forEach((field) => expect(field).toBeInvalid())
+      );
       expect(fields[0]).toHaveFocus();
     });
 
