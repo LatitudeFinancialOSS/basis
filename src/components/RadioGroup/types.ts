@@ -9,6 +9,7 @@ type StringOption = {
 
 type NodeOption = {
   label: React.ReactNode;
+  // explicit undefined is needed due to: https://github.com/microsoft/TypeScript/issues/12815#issuecomment-266250230
   description: undefined;
   value: string;
 };
@@ -48,7 +49,6 @@ export interface InternalRadioGroupProps {
   helpText?: string;
   disabled?: boolean;
   optional?: boolean;
-  validate?: boolean | ((...args: any[]) => void);
   innerRef?: React.Ref<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
