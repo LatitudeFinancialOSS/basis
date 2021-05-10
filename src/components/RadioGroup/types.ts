@@ -14,17 +14,16 @@ type NodeOption = {
 };
 
 export type RadioOption =
- | StringOption
- | NodeOption
- | Readonly<StringOption>
- | Readonly<NodeOption>;
-
+  | StringOption
+  | NodeOption
+  | Readonly<StringOption>
+  | Readonly<NodeOption>;
 
 export type RadioOptions =
- | StringOption[]
- | NodeOption[]
- | Readonly<StringOption>[]
- | Readonly<NodeOption>[];
+  | StringOption[]
+  | NodeOption[]
+  | Readonly<StringOption>[]
+  | Readonly<NodeOption>[];
 
 export interface DeprecatedRadioGroupProps {
   name: string;

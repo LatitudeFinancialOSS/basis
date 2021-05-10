@@ -9,7 +9,9 @@ import { DeprecatedRadioGroupProps, RadioOption, RadioOptions } from "./types";
 const { COLORS } = InternalRadioGroup;
 
 function isOptionSelected(options: RadioOptions, value: string) {
-  return options.findIndex((option: RadioOption) => option.value === value) > -1;
+  return (
+    options.findIndex((option: RadioOption) => option.value === value) > -1
+  );
 }
 
 const DEFAULT_PROPS = {

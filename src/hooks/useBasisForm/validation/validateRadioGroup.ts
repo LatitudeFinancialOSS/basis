@@ -1,4 +1,8 @@
-import { InternalRadioGroupProps, RadioOption, RadioOptions } from "../../../components/RadioGroup/types";
+import {
+  InternalRadioGroupProps,
+  RadioOption,
+  RadioOptions,
+} from "../../../components/RadioGroup/types";
 
 const isRadioGroupEmpty = (value: string, options: RadioOptions) =>
   options.findIndex((option: RadioOption) => option.value === value) === -1;

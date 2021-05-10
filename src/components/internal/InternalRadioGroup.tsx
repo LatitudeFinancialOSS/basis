@@ -198,7 +198,9 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
     onChange,
   } = props;
   const cols = columns === undefined ? options.length : columns;
-  const areLabelsBold = options.some((option: RadioOption) => option.description);
+  const areLabelsBold = options.some(
+    (option: RadioOption) => option.description
+  );
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
 
@@ -219,29 +221,31 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
       aria-describedby={describedBy}
     >
       <Grid cols={cols} colsGap={1} rowsGap={1}>
-        {options.map(({ label, value, description }: RadioOption, index: number) => (
-          <Grid.Item
-            colSpan={index % cols}
-            rowSpan={Math.floor(index / cols)}
-            key={value}
-          >
-            <Radio
-              name={name}
-              parentName={parentName}
-              color={color}
-              label={label}
-              isLabelBold={areLabelsBold}
-              description={description}
-              value={value}
-              isChecked={value === checkedValue}
-              disabled={disabled}
-              onFocus={onFocus}
-              onBlur={onRadioBlur}
-              onMouseDown={onMouseDown}
-              onChange={onChange}
-            />
-          </Grid.Item>
-        ))}
+        {options.map(
+          ({ label, value, description }: RadioOption, index: number) => (
+            <Grid.Item
+              colSpan={index % cols}
+              rowSpan={Math.floor(index / cols)}
+              key={value}
+            >
+              <Radio
+                name={name}
+                parentName={parentName}
+                color={color}
+                label={label}
+                isLabelBold={areLabelsBold}
+                description={description}
+                value={value}
+                isChecked={value === checkedValue}
+                disabled={disabled}
+                onFocus={onFocus}
+                onBlur={onRadioBlur}
+                onMouseDown={onMouseDown}
+                onChange={onChange}
+              />
+            </Grid.Item>
+          )
+        )}
       </Grid>
     </div>
   );
