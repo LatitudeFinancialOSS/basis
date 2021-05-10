@@ -36,7 +36,7 @@ interface ComplexFormValues {
   testRadio: string;
 }
 
-const RadioOptions = [
+const radioOptions = [
   { label: "Radio Option 1", value: "value1" },
   { label: "Radio Option 2", value: "value2" },
 ];
@@ -67,7 +67,7 @@ const ComplexForm = ({
         label="Test Radio"
         name="testRadio"
         testId="field"
-        options={RadioOptions}
+        options={radioOptions}
         as={RadioGroup}
         validate={validate}
       />
@@ -190,12 +190,10 @@ describe("Form", () => {
       const fields = screen.getAllByTestId("field");
 
       fields.forEach((field) => expect(field).toBeValid());
-      const lastField = fields[fields.length - 1];
 
       userEvent.click(screen.getByText("Submit"));
 
-      await waitFor(() => expect(lastField).toBeInvalid());
-      fields.forEach((field) => expect(field).toBeInvalid());
+      await waitFor(() => fields.forEach((field) => expect(field).toBeInvalid()));
       expect(fields[0]).toHaveFocus();
     });
 

@@ -4,12 +4,12 @@ import useField from "../../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../../utils/component";
 import Field from "../internal/Field";
 import InternalRadioGroup from "../internal/InternalRadioGroup";
-import { DeprecatedRadioGroupProps, RadioOptions } from "./types";
+import { DeprecatedRadioGroupProps, RadioOption, RadioOptions } from "./types";
 
 const { COLORS } = InternalRadioGroup;
 
 function isOptionSelected(options: RadioOptions, value: string) {
-  return options.findIndex((option) => option.value === value) > -1;
+  return options.findIndex((option: RadioOption) => option.value === value) > -1;
 }
 
 const DEFAULT_PROPS = {

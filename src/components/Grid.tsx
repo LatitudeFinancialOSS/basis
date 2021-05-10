@@ -91,7 +91,7 @@ type GridProps = {
   ResponsiveProp<"rowsGap"> &
   ResponsiveProp<"rows"> &
   ResponsiveProp<"cols"> &
-  ResponsiveProp<"hight", SizeValue> &
+  ResponsiveProp<"height", SizeValue> &
   ResponsiveProp<"margin">;
 
 function Grid(props: GridProps) {

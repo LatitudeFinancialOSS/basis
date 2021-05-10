@@ -7,20 +7,20 @@ const scope = allDesignSystem;
 
 function FormPage() {
   const code = formatCode(`
-    const fruitOptions = [
+    const hungryOptions = [
       {
-        label: "Apple",
-        value: "apple",
+        label: "Yes",
+        value: "yes"
       },
       {
-        label: "Banana",
-        value: "banana",
+        label: "No",
+        value: "no"
       },
       {
-        label: "Lemon",
-        value: "lemon",
-      },
-    ];
+        label: "Maybe",
+        value: "maybe"
+      }
+    ]
 
     function App() {
       const onSubmit = (...args) => {
@@ -33,9 +33,9 @@ function FormPage() {
         <Container padding="8">
           <Form methods={methods} onSubmit={onSubmit}>
             <Stack gap="8">
-              <Field name="firstName" label="First Name" as={Input}/>
-              <Field name="lastName" label="Last Name" as={Input}/>
-              <Field name="fruit" label="Favourite Fruit" options={fruitOptions} as={RadioGroup}/>
+              <Text as="h2" textStyle="heading4">About you</Text>
+              <Field name="name" label="Name" as={Input}/>
+              <Field name="hungry" label="Are you hungry?" options={hungryOptions} as={RadioGroup}/>
               <Button type="submit">Submit</Button>
             </Stack>
           </Form>

@@ -1,15 +1,30 @@
 import React from "react";
 import { RadioGroupColor } from "../internal/InternalRadioGroup";
 
-type Option = {
-  label: string | React.ReactNode;
+type StringOption = {
+  label: string;
   description?: React.ReactNode;
   value: string;
 };
 
-export type RadioOption = Option | Readonly<Option>;
+type NodeOption = {
+  label: React.ReactNode;
+  description: undefined;
+  value: string;
+};
 
-export type RadioOptions = RadioOption[];
+export type RadioOption =
+ | StringOption
+ | NodeOption
+ | Readonly<StringOption>
+ | Readonly<NodeOption>;
+
+
+export type RadioOptions =
+ | StringOption[]
+ | NodeOption[]
+ | Readonly<StringOption>[]
+ | Readonly<NodeOption>[];
 
 export interface DeprecatedRadioGroupProps {
   name: string;

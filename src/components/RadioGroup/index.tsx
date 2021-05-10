@@ -17,7 +17,7 @@ type StaticProperties = {
   DEFAULT_PROPS: typeof RadioDeprecated.DEFAULT_PROPS;
 };
 
-const RadioGroup = forwardRef(function InputComponent(
+const RadioGroup = forwardRef(function RadioGroupComponent(
   props: RadioGroupProps,
   ref
 ) {

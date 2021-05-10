@@ -6,6 +6,7 @@ import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import Grid from "../Grid";
 import VisuallyHidden from "../VisuallyHidden";
 import mergeRefs from "../../utils/mergeRefs";
+import { RadioOption, RadioOptions } from "../RadioGroup/types";
 
 const COLORS = ["grey.t05", "white"] as const;
 
@@ -20,10 +21,10 @@ InternalRadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 export type RadioGroupColor = "grey.t05" | "white";
 
-type RadioCirlcleColor = "white" | "secondary.lightBlue.t25";
+type RadioCircleColor = "white" | "secondary.lightBlue.t25";
 
 interface RadioCirlcleProps {
-  color: RadioCirlcleColor;
+  color: RadioCircleColor;
   isChecked: boolean;
 }
 
@@ -66,14 +67,6 @@ function RadioCircle(props: RadioCirlcleProps) {
     </svg>
   );
 }
-
-type Option = {
-  label: string | React.ReactNode;
-  description?: React.ReactNode;
-  value: string;
-};
-
-export type RadioOptions = Option[] | Readonly<Option>[];
 
 interface RadioProps {
   innerRef?: React.Ref<HTMLInputElement>;
@@ -172,7 +165,7 @@ export interface InternalRadioGroupProps {
   innerRef?: React.Ref<HTMLDivElement>;
   parentName?: string;
   labelId?: string;
-  options: Option[] | Readonly<Option>[];
+  options: RadioOptions;
   columns?: number;
   color?: RadioGroupColor;
   disabled?: boolean;
@@ -205,13 +198,13 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
     onChange,
   } = props;
   const cols = columns === undefined ? options.length : columns;
-  const areLabelsBold = options.some((option) => option.description);
+  const areLabelsBold = options.some((option: RadioOption) => option.description);
 
-  const RadioGroupRef = useRef<HTMLDivElement>(null);
+  const radioGroupRef = useRef<HTMLDivElement>(null);
 
   const onRadioBlur: React.FocusEventHandler<HTMLInputElement> = (event) => {
     if (
-      !RadioGroupRef.current?.contains(event.relatedTarget as HTMLInputElement)
+      !radioGroupRef.current?.contains(event.relatedTarget as HTMLInputElement)
     ) {
       onBlur?.(event);
     }
@@ -219,14 +212,14 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
   return (
     <div
       role="radiogroup"
-      ref={mergeRefs([RadioGroupRef, innerRef ?? null])}
+      ref={mergeRefs([radioGroupRef, innerRef ?? null])}
       data-testid={testId}
-      aria-invalid={isValid ? false : "true"}
+      aria-invalid={isValid ? "false" : "true"}
       aria-labelledby={labelId}
       aria-describedby={describedBy}
     >
       <Grid cols={cols} colsGap={1} rowsGap={1}>
-        {options.map(({ label, value, description }: Option, index: number) => (
+        {options.map(({ label, value, description }: RadioOption, index: number) => (
           <Grid.Item
             colSpan={index % cols}
             rowSpan={Math.floor(index / cols)}
