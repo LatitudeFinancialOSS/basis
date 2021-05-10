@@ -22,31 +22,31 @@ export type SelectColors = "grey.t05" | "white";
 type Option = {
   label: string;
   value: string;
-}
+};
 
-export type SelectOption = Option | Readonly<Option>
+export type SelectOption = Option | Readonly<Option>;
 
 export type SelectOptions = Option[] | Readonly<Option>[];
 
 interface InternalSelectProps {
-  name?: string,
-  innerRef?: React.Ref<HTMLSelectElement>,
-  parentName?: string,
-  id?: string,
-  color?: SelectColors,
-  testId?: string,
-  placeholder?: string,
-  options: SelectOptions,
-  fullWidth?: boolean,
-  optional: boolean,
-  disabled?: boolean,
-  isValid?: boolean,
+  name?: string;
+  innerRef?: React.Ref<HTMLSelectElement>;
+  parentName?: string;
+  id?: string;
+  color?: SelectColors;
+  testId?: string;
+  placeholder?: string;
+  options: SelectOptions;
+  fullWidth?: boolean;
+  optional: boolean;
+  disabled?: boolean;
+  isValid?: boolean;
   describedBy?: string;
-  onFocus?: React.FocusEventHandler<HTMLSelectElement>,
-  onBlur?: React.FocusEventHandler<HTMLSelectElement>,
-  value?: string,
-  onChange?: React.ChangeEventHandler<HTMLSelectElement>,
-  __internal__focus?: boolean,
+  onFocus?: React.FocusEventHandler<HTMLSelectElement>;
+  onBlur?: React.FocusEventHandler<HTMLSelectElement>;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  __internal__focus?: boolean;
 }
 
 function InternalSelect(props: InternalSelectProps) {
@@ -73,14 +73,13 @@ function InternalSelect(props: InternalSelectProps) {
   const { inputColorMap } = useBackground();
   const css = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     // @ts-ignore
-    color: (propsAtBreakpoint, theme, bp) => (
+    color: (propsAtBreakpoint, theme, bp) =>
       theme.select.getCSS({
         // @ts-ignore
         color: color ?? inputColorMap[bp],
         fullWidth,
         __internal__focus,
-      })
-    ),
+      }),
   });
 
   return (

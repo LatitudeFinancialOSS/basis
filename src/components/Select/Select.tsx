@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import Field from "../internal/Field";
 import InternalSelect from "../internal/InternalSelect";
-import {  InternalSelectProps } from "./types";
+import { InternalSelectProps } from "./types";
 
 const { DEFAULT_PROPS } = InternalSelect;
 
@@ -72,5 +72,3 @@ function Select(props: InternalSelectProps) {
 }
 
 export default Select;
-
-

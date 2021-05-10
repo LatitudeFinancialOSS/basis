@@ -174,4 +174,3 @@ function Select(props: DeprecatedSelectProps) {
 // };
 
 export default Select;
-

@@ -38,4 +38,3 @@ Select.COLORS = SelectDeprecated.COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
 export default Select;
-
