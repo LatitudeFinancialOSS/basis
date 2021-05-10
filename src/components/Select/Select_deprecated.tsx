@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useCallback } from "react";
 // import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps, areOptionsValid } from "../utils/component";
-import Field from "./internal/Field";
-import InternalSelect from "./internal/InternalSelect";
+import useField from "../../hooks/internal/useField";
+import { mergeProps, areOptionsValid } from "../../utils/component";
+import Field from "../internal/Field";
+import InternalSelect from "../internal/InternalSelect";
+import { DeprecatedSelectProps } from "./types";
 
 const { COLORS } = InternalSelect;
 
@@ -33,20 +34,7 @@ const DEFAULT_PROPS = {
 Select.COLORS = COLORS;
 Select.DEFAULT_PROPS = DEFAULT_PROPS;
 
-type Option = {
-  label: string;
-  value: string;
-};
-
-interface Props {
-  // TODO color needs to be typed based on COLORS
-  color?: string;
-  options: Option[] | Readonly<Option[]>;
-  // TODO Let's type it properly later!
-  [key: string]: any;
-}
-
-function Select(props: Props) {
+function Select(props: DeprecatedSelectProps) {
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -152,7 +140,7 @@ function Select(props: Props) {
         optional={optional}
         disabled={disabled}
         isValid={!hasErrors}
-        describedBy={helpText || hasErrors ? auxId : null}
+        describedBy={helpText || hasErrors ? auxId : undefined}
         onFocus={onFocus}
         onBlur={onBlur}
         value={value}
@@ -186,3 +174,4 @@ function Select(props: Props) {
 // };
 
 export default Select;
+
