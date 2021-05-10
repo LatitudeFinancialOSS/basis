@@ -36,13 +36,13 @@ export { userEvent };
 
 // throw if console.error is called in tests
 beforeEach(() => {
-  // jest.spyOn(console, "error").mockImplementation(() => {
-  //   throw new Error();
-  // });
+  jest.spyOn(console, "error").mockImplementation(() => {
+    throw new Error();
+  });
 });
 
 afterEach(() => {
-  // console.error.mockRestore();
+  console.error.mockRestore();
 });
 
 // custom matchers

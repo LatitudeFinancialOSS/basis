@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useCallback } from "react";
-// import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import useField from "../../hooks/internal/useField";
 import { mergeProps, areOptionsValid } from "../../utils/component";
@@ -150,27 +149,5 @@ function Select(props: DeprecatedSelectProps) {
     </Field>
   );
 }
-
-// Select.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   label: PropTypes.string.isRequired,
-//   color: PropTypes.oneOf(COLORS),
-//   placeholder: PropTypes.string,
-//   options: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       label: PropTypes.string.isRequired,
-//       value: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-//   fullWidth: PropTypes.bool,
-//   helpText: PropTypes.string,
-//   disabled: PropTypes.bool,
-//   optional: PropTypes.bool,
-//   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-//   validateData: PropTypes.any,
-//   onChange: PropTypes.func,
-//   testId: PropTypes.string,
-//   __internal__focus: PropTypes.bool,
-// };
 
 export default Select;

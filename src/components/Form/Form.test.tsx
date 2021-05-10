@@ -40,12 +40,12 @@ interface ComplexFormValues {
 const radioOptions = [
   { label: "Radio Option 1", value: "value1" },
   { label: "Radio Option 2", value: "value2" },
-];
+] as const;
 
 const selectOptions = [
   { label: "Select Option 1", value: "value1" },
   { label: "Select Option 2", value: "value2" },
-];
+] as const;
 interface ComplexFormProps {
   onSubmit?: SubmitHandler<SimpleFormValues>;
   validate?: (val: string) => string | string[] | null;
