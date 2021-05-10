@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 
@@ -52,6 +51,7 @@ interface InternalSelectProps {
 function InternalSelect(props: InternalSelectProps) {
   const {
     name,
+    innerRef,
     testId,
     parentName,
     id,
@@ -84,7 +84,7 @@ function InternalSelect(props: InternalSelectProps) {
 
   return (
     <select
-      ref={null}
+      ref={innerRef}
       css={css}
       id={id}
       name={name}
@@ -119,29 +119,5 @@ function InternalSelect(props: InternalSelectProps) {
     </select>
   );
 }
-
-InternalSelect.propTypes = {
-  name: PropTypes.string.isRequired,
-  parentName: PropTypes.string,
-  id: PropTypes.string,
-  color: PropTypes.oneOf(COLORS),
-  placeholder: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  fullWidth: PropTypes.bool,
-  optional: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool,
-  isValid: PropTypes.bool,
-  describedBy: PropTypes.string,
-  onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  __internal__focus: PropTypes.bool,
-};
 
 export default InternalSelect;
