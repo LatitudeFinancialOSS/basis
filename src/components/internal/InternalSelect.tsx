@@ -26,7 +26,7 @@ type Option = {
 
 export type SelectOption = Option | Readonly<Option>;
 
-export type SelectOptions = Option[] | Readonly<Option>[];
+export type SelectOptions = Option[] | Readonly<Option[]>;
 
 interface InternalSelectProps {
   name?: string;
