@@ -24,20 +24,23 @@ type FieldProps<
   Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   Props = ValueProps<FieldPathValue<TFieldValues, Name>>
 > =
-  // check if value of component passed from `as` matches the
-  Props extends ValueProps<FieldPathValue<TFieldValues, Name>>
-    ? // Infer the type of Error expected by the validate function
-      Props extends ErrorProps<infer ErrorType>
-      ? {
-          name: Name;
-          validate?: ValidateFn<TFieldValues, Name, Props, ErrorType>;
-          defaultValue?: FieldPathValue<TFieldValues, Name>;
-          // Have to use Component<Props> to allow components with custom properties and forward refs
-          as: Component<Props>;
-        } & Props
-      : never
-    : // show nicer error message for component mismatch
-      "Component in `as=` expects a different value than the one provided by `name=`";
+  // infer the value prop from the component
+  Props extends ValueProps<infer Value>
+    ? // check if value of prop is compatible with type from Field path
+      FieldPathValue<TFieldValues, Name> extends Value
+      ? // Infer the type of Error expected by the validate function
+        Props extends ErrorProps<infer ErrorType>
+        ? {
+            name: Name;
+            validate?: ValidateFn<TFieldValues, Name, Props, ErrorType>;
+            defaultValue?: FieldPathValue<TFieldValues, Name>;
+            // Have to use Component<Props> to allow components with custom properties and forward refs
+            as: Component<Props>;
+          } & Props
+        : never
+      : // show nicer error message for component mismatch
+        "Component in `as=` expects a different value than the one provided by `name=`"
+    : never;
 
 export type FieldComponent<TFieldValues extends FieldValues = FieldValues> = <
   Name extends FieldPath<TFieldValues>,
@@ -111,4 +114,4 @@ export const Field = forwardRef(
 
     return <Component {...mergedProps} />;
   }
-);
+) as FieldComponent;
