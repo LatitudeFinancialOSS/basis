@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { Form, Input, RadioGroup, Button, useBasisForm } from "../..";
+import { Form, Input, RadioGroup, Button, Select, useBasisForm } from "../..";
 
 import {
   render,
@@ -34,13 +34,18 @@ const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
 interface ComplexFormValues {
   testInput: string;
   testRadio: string;
+  testSelect: string;
 }
 
 const radioOptions = [
   { label: "Radio Option 1", value: "value1" },
   { label: "Radio Option 2", value: "value2" },
-];
+] as const;
 
+const selectOptions = [
+  { label: "Select Option 1", value: "value1" },
+  { label: "Select Option 2", value: "value2" },
+] as const;
 interface ComplexFormProps {
   onSubmit?: SubmitHandler<SimpleFormValues>;
   validate?: (val: string) => string | string[] | null;
@@ -69,6 +74,14 @@ const ComplexForm = ({
         testId="field"
         options={radioOptions}
         as={RadioGroup}
+        validate={validate}
+      />
+      <Field
+        label="Test Select"
+        name="testSelect"
+        testId="field"
+        options={selectOptions}
+        as={Select}
         validate={validate}
       />
       <Button type="submit">Submit</Button>
@@ -211,6 +224,7 @@ describe("Form", () => {
       });
 
       userEvent.click(screen.getByLabelText("Radio Option 1"));
+      userEvent.selectOptions(screen.getByLabelText("Test Select"), ["value2"]);
 
       userEvent.click(screen.getByText("Submit"));
 
@@ -218,6 +232,7 @@ describe("Form", () => {
         expect(submitHandler.mock.calls[0][0]).toStrictEqual({
           testInput: "some-data",
           testRadio: "value1",
+          testSelect: "value2",
         });
       });
 

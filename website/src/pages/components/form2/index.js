@@ -7,6 +7,21 @@ const scope = allDesignSystem;
 
 function FormPage() {
   const code = formatCode(`
+    const relationshipStatusOptions = [
+      {
+        label: "Single",
+        value: "single"
+      },
+      {
+        label: "Married",
+        value: "married"
+      },
+      {
+        label: "Other",
+        value: "other"
+      }
+    ];
+
     const hungryOptions = [
       {
         label: "Yes",
@@ -35,6 +50,7 @@ function FormPage() {
             <Stack gap="8">
               <Text as="h2" textStyle="heading4">About you</Text>
               <Field name="name" label="Name" as={Input}/>
+              <Field name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} as={Select} />
               <Field name="hungry" label="Are you hungry?" options={hungryOptions} as={RadioGroup}/>
               <Button type="submit">Submit</Button>
             </Stack>
