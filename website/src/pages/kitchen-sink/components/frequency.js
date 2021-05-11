@@ -40,7 +40,7 @@ function FormWithFrequency({
         weekly={weekly}
         amountPrefix={amountPrefix}
         amountPlaceholder={amountPlaceholder}
-        selectPlaceholder={selectPlaceholder}
+        {...(selectPlaceholder ? { selectPlaceholder } : {})}
         disabled={disabled}
       />
     </KitchenSinkForm>
