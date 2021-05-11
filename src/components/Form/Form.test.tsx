@@ -33,7 +33,7 @@ const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
 
 interface ComplexFormValues {
   testInput: string;
-  testRadio: string;
+  testRadio: "value1" | "value2";
   testSelect: string;
 }
 
