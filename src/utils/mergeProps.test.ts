@@ -16,7 +16,7 @@ describe("mergeProps", () => {
       prop2: "test",
     } as const;
 
-    expect(mergeProps(props, defaultProps)).toMatchObject({
+    expect(mergeProps(props, defaultProps)).toStrictEqual({
       prop1: "test",
       prop2: "test",
     });
@@ -32,7 +32,7 @@ describe("mergeProps", () => {
       prop2: "test",
     } as const;
 
-    expect(mergeProps(props, defaultProps)).toMatchObject({
+    expect(mergeProps(props, defaultProps)).toStrictEqual({
       prop1: "test",
       prop2: "test",
     });
@@ -48,7 +48,7 @@ describe("mergeProps", () => {
       prop3: "test",
     } as const;
 
-    expect(mergeProps(props, defaultProps)).toMatchObject({
+    expect(mergeProps(props, defaultProps)).toStrictEqual({
       prop1: "test",
       prop3: null,
     });

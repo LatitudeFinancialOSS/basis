@@ -102,7 +102,7 @@ const ComplexForm = ({
         validate={validate}
       />
       <Field
-        label="tett"
+        label="Test DateInput"
         name="testDateInput"
         as={DateInput}
         validate={validateDate}

@@ -13,7 +13,6 @@ import {
 const { COLORS, DEFAULT_PROPS, DAY_MODES, YEAR_MODES } = DateInputInternal;
 
 interface StaticProperties {
-  // displayName: string;
   YEAR_MODES: typeof DateInputInternal.YEAR_MODES;
   DAY_MODES: typeof DateInputInternal.DAY_MODES;
   COLORS: typeof DateInputInternal.COLORS;
