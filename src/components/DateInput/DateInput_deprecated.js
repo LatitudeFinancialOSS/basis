@@ -17,17 +17,15 @@ import {
   MONTH_REGEX,
   TWO_DIGITS_YEAR_REGEX,
 } from "../../hooks/useBasisForm/validation/validateDateInput";
+import { defaultDateInputProps } from "./defaultDateInputProps";
 
 const { COLORS } = InternalInput;
 const DAY_MODES = ["none", "2-digits"];
 const YEAR_MODES = ["2-digits", "4-digits"];
 
 const DEFAULT_PROPS = {
+  ...defaultDateInputProps,
   color: InternalInput.DEFAULT_PROPS.color,
-  dayMode: "2-digits",
-  yearMode: "4-digits",
-  disabled: false,
-  optional: false,
   validate: (value, { isEmpty, dayMode, yearMode }) => {
     if (isEmpty(value)) {
       return "Required";

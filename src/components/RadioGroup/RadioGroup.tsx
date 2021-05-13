@@ -9,9 +9,8 @@ import { defaultRadioGroupProps } from "./defaultRadioGroupProps";
 const { COLORS } = InternalRadioGroup;
 
 const DEFAULT_PROPS = {
+  ...defaultRadioGroupProps,
   color: InternalRadioGroup.DEFAULT_PROPS.color,
-  disabled: false,
-  optional: false,
   // @ts-ignore
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
