@@ -1,4 +1,4 @@
-import React, { ComponentType, forwardRef } from "react";
+import React, { ComponentType, forwardRef, useMemo } from "react";
 import { FieldPathValue, FieldPath, FieldValues } from "react-hook-form";
 import { useBasisField } from "../../hooks/useBasisForm/useBasisField";
 import mergeRefs from "../../utils/mergeRefs";
@@ -81,13 +81,15 @@ export const Field = forwardRef(
     props: ValidProps<TFieldValues, Name, Props>,
     ref: any
   ) => {
-    const {
-      name,
-      defaultValue,
-      validate,
-      as: Component,
-      ...componentProps
-    } = props;
+    const { name, defaultValue, validate, as: Component, ...rest } = props;
+
+    const componentProps = useMemo(
+      () => ({
+        ...Component.defaultProps,
+        ...rest,
+      }),
+      [Component.defaultProps, rest]
+    );
 
     const {
       onChange,
@@ -98,7 +100,7 @@ export const Field = forwardRef(
     } = useBasisField<TFieldValues, Name>({
       name,
       componentDisplayName: Component.displayName,
-      componentProps: componentProps,
+      componentProps,
       validate,
       defaultValue,
     });

@@ -94,7 +94,7 @@ function FormPage() {
 
     function MovieOption({ data }) {
       const { name, description, imageSrc } = data
-    
+
       return (
         <Grid cols="80px 1fr" colsGap="4">
           <Grid.Item colSpan="0" rowSpan="0-1">
@@ -142,7 +142,7 @@ function FormPage() {
       },
       aboutYourself: ""
     };
-      
+
     function App() {
       const onSubmit = ({ errors, values }) => {
         if (Object.keys(errors).length > 0) {
@@ -151,7 +151,7 @@ function FormPage() {
           console.log("Submitting:", JSON.stringify(values, null, 2));
         }
       };
-    
+
       return (
         <Container padding="8">
           <Form initialValues={initialValues} onSubmit={onSubmit}>
@@ -164,7 +164,7 @@ function FormPage() {
               <Checkbox label="Do you like ice cream?" hideLabel name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
               <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
               <Frequency name="salary" label="Salary (before tax)" amountPrefix="$" />
-              <DatePicker name="birthDate" label="Birth date" />
+              <DateInput name="birthDate" label="Birth date" />
               <TimeSpan name="age" label="Age" />
               <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
               <Button type="submit">Submit</Button>

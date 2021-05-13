@@ -16,7 +16,7 @@ module.exports = {
   Container: {
     status: COMPONENT_STATUS.READY,
   },
-  DatePicker: {
+  DateInput: {
     status: COMPONENT_STATUS.READY,
   },
   Divider: {

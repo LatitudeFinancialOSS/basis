@@ -1,6 +1,14 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { Form, Input, RadioGroup, Button, Select, useBasisForm } from "../..";
+import {
+  Form,
+  Input,
+  RadioGroup,
+  Button,
+  Select,
+  DateInput,
+  useBasisForm,
+} from "../..";
 
 import {
   render,
@@ -10,6 +18,7 @@ import {
   waitFor,
 } from "../../utils/test";
 import { SubmitHandler } from "react-hook-form";
+import { ValidationFunction } from "../../types";
 
 interface SimpleFormValues {
   testInput: string;
@@ -35,6 +44,11 @@ interface ComplexFormValues {
   testInput: string;
   testRadio: "value1" | "value2";
   testSelect: string;
+  testDateInput: {
+    day: string;
+    month: string;
+    year: string;
+  };
 }
 
 const radioOptions = [
@@ -51,6 +65,10 @@ interface ComplexFormProps {
   validate?: (val: string) => string | string[] | null;
   testId?: string;
 }
+
+const validateDate: ValidationFunction<typeof DateInput> = (val, props) => {
+  return val.day === "" && !props.optional ? { field: "Required date" } : null;
+};
 
 const ComplexForm = ({
   onSubmit = () => {},
@@ -74,7 +92,6 @@ const ComplexForm = ({
         testId="field"
         options={radioOptions}
         as={RadioGroup}
-        validate={validate}
       />
       <Field
         label="Test Select"
@@ -83,6 +100,12 @@ const ComplexForm = ({
         options={selectOptions}
         as={Select}
         validate={validate}
+      />
+      <Field
+        label="tett"
+        name="testDateInput"
+        as={DateInput}
+        validate={validateDate}
       />
       <Button type="submit">Submit</Button>
     </Form>
@@ -209,6 +232,8 @@ describe("Form", () => {
       await waitFor(() =>
         fields.forEach((field) => expect(field).toBeInvalid())
       );
+
+      expect(screen.getByText("Required date")).toBeInTheDocument();
       expect(fields[0]).toHaveFocus();
     });
 
@@ -226,6 +251,23 @@ describe("Form", () => {
       userEvent.click(screen.getByLabelText("Radio Option 1"));
       userEvent.selectOptions(screen.getByLabelText("Test Select"), ["value2"]);
 
+      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+      fireEvent.input(screen.getByLabelText("day"), {
+        target: {
+          value: "1",
+        },
+      });
+      fireEvent.input(screen.getByLabelText("month"), {
+        target: {
+          value: "2",
+        },
+      });
+      fireEvent.input(screen.getByLabelText("year"), {
+        target: {
+          value: "2020",
+        },
+      });
+
       userEvent.click(screen.getByText("Submit"));
 
       await waitFor(() => {
@@ -233,6 +275,11 @@ describe("Form", () => {
           testInput: "some-data",
           testRadio: "value1",
           testSelect: "value2",
+          testDateInput: {
+            day: "1",
+            month: "2",
+            year: "2020",
+          },
         });
       });
 

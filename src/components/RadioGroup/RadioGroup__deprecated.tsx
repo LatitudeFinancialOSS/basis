@@ -5,6 +5,7 @@ import { mergeProps, areOptionsValid } from "../../utils/component";
 import Field from "../internal/Field";
 import InternalRadioGroup from "../internal/InternalRadioGroup";
 import { DeprecatedRadioGroupProps, RadioOption, RadioOptions } from "./types";
+import { defaultRadioGroupProps } from "./defaultRadioGroupProps";
 
 const { COLORS } = InternalRadioGroup;
 
@@ -15,9 +16,8 @@ function isOptionSelected(options: RadioOptions, value: string) {
 }
 
 const DEFAULT_PROPS = {
+  ...defaultRadioGroupProps,
   color: InternalRadioGroup.DEFAULT_PROPS.color,
-  disabled: false,
-  optional: false,
   // @ts-ignore
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {

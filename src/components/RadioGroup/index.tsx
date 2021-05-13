@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import useIsDeprecatedForm from "../../hooks/internal/useIsDeprecatedForm";
 import { ComponentWithStaticProperties } from "../../types";
 import { ComponentNames } from "../componentNames";
+import { defaultRadioGroupProps } from "./defaultRadioGroupProps";
 import { default as RadioInternal } from "./RadioGroup";
 import { default as RadioDeprecated } from "./RadioGroup__deprecated";
 import {
@@ -29,6 +30,8 @@ const RadioGroup = forwardRef(function RadioGroupComponent(
 
   return <RadioInternal {...props} innerRef={ref} />;
 }) as ComponentWithStaticProperties<RadioGroupProps, StaticProperties>;
+
+RadioGroup.defaultProps = defaultRadioGroupProps;
 
 RadioGroup.displayName = ComponentNames.RadioGroup;
 

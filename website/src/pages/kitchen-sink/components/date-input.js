@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Grid, DatePicker } from "basis";
+import { Container, Grid, DateInput } from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 
-function FormWithDatePicker({
+function FormWithDateInput({
   initialValue = {
     day: "",
     month: "",
@@ -18,15 +18,15 @@ function FormWithDatePicker({
       initialValues={{ birthDate: initialValue }}
       submitOnMount={submitOnMount}
     >
-      <DatePicker name="birthDate" {...rest} />
+      <DateInput name="birthDate" {...rest} />
     </KitchenSinkForm>
   );
 }
 
-FormWithDatePicker.propTypes = {
+FormWithDateInput.propTypes = {
   label: PropTypes.string.isRequired,
-  dayMode: PropTypes.oneOf(DatePicker.DAY_MODES),
-  yearMode: PropTypes.oneOf(DatePicker.YEAR_MODES),
+  dayMode: PropTypes.oneOf(DateInput.DAY_MODES),
+  yearMode: PropTypes.oneOf(DateInput.YEAR_MODES),
   initialValue: PropTypes.shape({
     day: PropTypes.string,
     month: PropTypes.string.isRequired,
@@ -35,24 +35,24 @@ FormWithDatePicker.propTypes = {
   submitOnMount: PropTypes.bool,
 };
 
-function KitchenSinkDatePicker() {
+function KitchenSinkDateInput() {
   return (
-    <KitchenSinkLayout name="DatePicker">
+    <KitchenSinkLayout name="DateInput">
       <Container padding="4" width="320" bg="white">
         <Grid rowsGap="8">
-          <FormWithDatePicker label="Default" />
+          <FormWithDateInput label="Default" />
 
-          <FormWithDatePicker label="2 digits year" yearMode="2-digits" />
+          <FormWithDateInput label="2 digits year" yearMode="2-digits" />
 
-          <FormWithDatePicker label="No day" dayMode="none" />
+          <FormWithDateInput label="No day" dayMode="none" />
 
-          <FormWithDatePicker
+          <FormWithDateInput
             label="No day and 2 digits year"
             dayMode="none"
             yearMode="2-digits"
           />
 
-          <FormWithDatePicker
+          <FormWithDateInput
             label="With error"
             initialValue={{
               day: "17",
@@ -66,7 +66,7 @@ function KitchenSinkDatePicker() {
 
       <Container padding="4" width="320" bg="grey.t05">
         <Grid rowsGap="8">
-          <FormWithDatePicker
+          <FormWithDateInput
             label="White"
             initialValue={{
               day: "1",
@@ -75,7 +75,7 @@ function KitchenSinkDatePicker() {
             }}
           />
 
-          <FormWithDatePicker
+          <FormWithDateInput
             label="No day"
             dayMode="none"
             initialValue={{
@@ -84,7 +84,7 @@ function KitchenSinkDatePicker() {
             }}
           />
 
-          <FormWithDatePicker
+          <FormWithDateInput
             label="No day and 2 digits year"
             dayMode="none"
             yearMode="2-digits"
@@ -94,9 +94,9 @@ function KitchenSinkDatePicker() {
             }}
           />
 
-          <FormWithDatePicker label="Required" submitOnMount />
+          <FormWithDateInput label="Required" submitOnMount />
 
-          <FormWithDatePicker
+          <FormWithDateInput
             label="Multiple errors"
             initialValue={{
               day: "34",
@@ -111,4 +111,4 @@ function KitchenSinkDatePicker() {
   );
 }
 
-export default KitchenSinkDatePicker;
+export default KitchenSinkDateInput;

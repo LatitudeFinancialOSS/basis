@@ -3,6 +3,8 @@ import { nanoid } from "nanoid";
 import Field from "../internal/Field";
 import InternalRadioGroup from "../internal/InternalRadioGroup";
 import { InternalRadioGroupProps } from "./types";
+import { useMergedProps } from "../../hooks/useMergedProps";
+import { defaultRadioGroupProps } from "./defaultRadioGroupProps";
 
 const { COLORS } = InternalRadioGroup;
 
@@ -24,6 +26,7 @@ RadioGroup.COLORS = COLORS;
 RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function RadioGroup(props: InternalRadioGroupProps) {
+  const mergedProps = useMergedProps(props, defaultRadioGroupProps);
   const {
     value,
     label,
@@ -31,8 +34,8 @@ function RadioGroup(props: InternalRadioGroupProps) {
     columns,
     helpText,
     innerRef,
-    disabled = DEFAULT_PROPS.disabled,
-    optional = DEFAULT_PROPS.optional,
+    disabled,
+    optional,
     color = DEFAULT_PROPS.color,
     error = [],
     onChange,
@@ -40,7 +43,7 @@ function RadioGroup(props: InternalRadioGroupProps) {
     onBlur,
     onMouseDown,
     testId,
-  } = props;
+  } = mergedProps;
 
   if (!options) {
     throw new Error("RadioGroup options are invalid");

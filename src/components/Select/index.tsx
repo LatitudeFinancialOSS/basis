@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import useIsDeprecatedForm from "../../hooks/internal/useIsDeprecatedForm";
 import { ComponentWithStaticProperties } from "../../types";
 import { ComponentNames } from "../componentNames";
+import { defaultSelectProps } from "./defaultSelectProps";
 import { default as SelectInternal } from "./Select";
 import { default as SelectDeprecated } from "./Select_deprecated";
 import {
@@ -10,7 +11,7 @@ import {
 } from "./types";
 
 const DEFAULT_PROPS = {
-  ...SelectDeprecated.DEFAULT_PROPS,
+  ...defaultSelectProps,
   disabled: false,
   optional: false,
 } as const;
@@ -31,6 +32,8 @@ const Select = forwardRef(function SelectComponent(props: SelectProps, ref) {
 
   return <SelectInternal {...props} innerRef={ref} />;
 }) as ComponentWithStaticProperties<SelectProps, StaticProperties>;
+
+Select.defaultProps = defaultSelectProps;
 
 Select.displayName = ComponentNames.Select;
 

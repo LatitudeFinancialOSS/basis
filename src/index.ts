@@ -15,3 +15,5 @@ export { getUniqueId } from "./utils/core";
 export * from "./components";
 
 export * from "./hooks/useBasisForm/useBasisForm";
+
+export type { ValidationFunction } from "./types";

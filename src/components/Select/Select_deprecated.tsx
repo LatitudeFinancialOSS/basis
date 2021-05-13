@@ -5,6 +5,7 @@ import { mergeProps, areOptionsValid } from "../../utils/component";
 import Field from "../internal/Field";
 import InternalSelect from "../internal/InternalSelect";
 import { DeprecatedSelectProps } from "./types";
+import { defaultSelectProps } from "./defaultSelectProps";
 
 const { COLORS } = InternalSelect;
 
@@ -15,11 +16,8 @@ function isOptionSelected(options, value) {
 }
 
 const DEFAULT_PROPS = {
+  ...defaultSelectProps,
   color: InternalSelect.DEFAULT_PROPS.color,
-  placeholder: InternalSelect.DEFAULT_PROPS.placeholder,
-  fullWidth: InternalSelect.DEFAULT_PROPS.fullWidth,
-  disabled: false,
-  optional: false,
   // @ts-ignore
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {

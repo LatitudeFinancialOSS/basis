@@ -6,20 +6,21 @@ import {
   format as formatDate,
 } from "date-fns";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
-import Field from "./internal/Field";
-import InternalInput from "./internal/InternalInput";
-import Grid from "./Grid";
+import useField from "../../hooks/internal/useField";
+import { mergeProps } from "../../utils/component";
+import Field from "../internal/Field";
+import InternalInput from "../internal/InternalInput";
+import Grid from "../Grid";
+import {
+  DAY_REGEX,
+  FOUR_DIGITS_YEAR_REGEX,
+  MONTH_REGEX,
+  TWO_DIGITS_YEAR_REGEX,
+} from "../../hooks/useBasisForm/validation/validateDateInput";
 
 const { COLORS } = InternalInput;
 const DAY_MODES = ["none", "2-digits"];
 const YEAR_MODES = ["2-digits", "4-digits"];
-
-const DAY_REGEX = /^([012]?[1-9]|[123]0|31)$/;
-const MONTH_REGEX = /^(0?[1-9]|1[012])$/;
-const TWO_DIGITS_YEAR_REGEX = /^\d{2}$/;
-const FOUR_DIGITS_YEAR_REGEX = /^(19|20|21)\d{2}$/;
 
 const DEFAULT_PROPS = {
   color: InternalInput.DEFAULT_PROPS.color,
@@ -76,10 +77,10 @@ const DEFAULT_PROPS = {
   },
 };
 
-DatePicker.COLORS = COLORS;
-DatePicker.DAY_MODES = DAY_MODES;
-DatePicker.YEAR_MODES = YEAR_MODES;
-DatePicker.DEFAULT_PROPS = DEFAULT_PROPS;
+DateInput.COLORS = COLORS;
+DateInput.DAY_MODES = DAY_MODES;
+DateInput.YEAR_MODES = YEAR_MODES;
+DateInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function getHelpText(value, dayMode, yearMode, defaultHelpText) {
   if (
@@ -110,7 +111,7 @@ function getHelpText(value, dayMode, yearMode, defaultHelpText) {
   return formatDate(date, dayMode === "2-digits" ? "d MMMM yyyy" : "MMMM yyyy");
 }
 
-function DatePicker(props) {
+function DateInput(props) {
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -138,8 +139,8 @@ function DatePicker(props) {
     "aria-labelledby": ariaLabelledby,
     testId,
   } = mergedProps;
-  const [labelId] = useState(() => `date-picker-${nanoid()}`);
-  const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
+  const [labelId] = useState(() => `date-input-${nanoid()}`);
+  const [auxId] = useState(() => `date-input-aux-${nanoid()}`);
   const isEmpty = useCallback(
     ({ day, month, year }) =>
       (dayMode === "none" || day.trim() === "") &&
@@ -157,7 +158,7 @@ function DatePicker(props) {
     [isEmpty, dayMode, yearMode, validateData]
   );
   const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
-    "DatePicker",
+    "DateInput",
     {
       name,
       disabled,
@@ -261,7 +262,7 @@ function DatePicker(props) {
   );
 }
 
-DatePicker.propTypes = {
+DateInput.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.oneOf(COLORS),
   label: PropTypes.string,
@@ -276,4 +277,4 @@ DatePicker.propTypes = {
   testId: PropTypes.string,
 };
 
-export default DatePicker;
+export default DateInput;

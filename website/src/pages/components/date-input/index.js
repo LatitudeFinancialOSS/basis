@@ -7,8 +7,8 @@ import RadioGroupSetting, {
 } from "../../../components/RadioGroupSetting";
 import { formatCode, nonDefaultProps } from "../../../utils/formatting";
 
-const { useTheme, DatePicker } = allDesignSystem;
-const { COLORS, DAY_MODES, YEAR_MODES, DEFAULT_PROPS } = DatePicker;
+const { useTheme, DateInput } = allDesignSystem;
+const { COLORS, DAY_MODES, YEAR_MODES, DEFAULT_PROPS } = DateInput;
 const scope = allDesignSystem;
 
 const colorOptions = getRadioOptions(COLORS);
@@ -18,7 +18,7 @@ const isOptionalOptions = getCheckboxOptions();
 const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
 
-function DatePickerPage() {
+function DateInputPage() {
   const theme = useTheme();
   const [color, setColor] = useState(DEFAULT_PROPS.color);
   const [dayMode, setDayMode] = useState(DEFAULT_PROPS.dayMode);
@@ -40,7 +40,7 @@ function DatePickerPage() {
 
       return (
         <Form initialValues={initialValues}>
-          <DatePicker ${nonDefaultProps([
+          <DateInput ${nonDefaultProps([
             {
               prop: "name",
               value: "birthDate",
@@ -153,4 +153,4 @@ function DatePickerPage() {
   );
 }
 
-export default DatePickerPage;
+export default DateInputPage;

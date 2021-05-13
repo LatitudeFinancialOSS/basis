@@ -5,7 +5,7 @@ import {
   Button,
   Checkbox,
   CheckboxGroup,
-  DatePicker,
+  DateInput,
   Form,
   Frequency,
   Input,
@@ -168,7 +168,7 @@ function ComplexForm({
             options={hungryOptions}
           />
           <Frequency name="salary" label="Salary" />
-          <DatePicker name="birthDate" label="Birth date" />
+          <DateInput name="birthDate" label="Birth date" />
           <TimeSpan name="age" label="Age" />
           <Textarea
             name="aboutYourself"
