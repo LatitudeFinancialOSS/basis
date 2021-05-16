@@ -52,6 +52,7 @@ function FormPage() {
               <Field name="name" label="Name" as={Input}/>
               <Field name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} as={Select} />
               <Field name="hungry" label="Are you hungry?" options={hungryOptions} as={RadioGroup}/>
+              <Field name="birthDate" label="Birth date" as={DateInput}/>
               <Button type="submit">Submit</Button>
             </Stack>
           </Form>

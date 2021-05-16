@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import useTheme from "../../hooks/useTheme";
 import useBackground from "../../hooks/useBackground";
@@ -199,18 +199,24 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
   } = props;
   const cols = columns === undefined ? options.length : columns;
   const areLabelsBold = options.some(
-    (option: RadioOption) => option.description
+    (option: RadioOption) => "description" in option
   );
 
   const radioGroupRef = useRef<HTMLDivElement>(null);
 
-  const onRadioBlur: React.FocusEventHandler<HTMLInputElement> = (event) => {
-    if (
-      !radioGroupRef.current?.contains(event.relatedTarget as HTMLInputElement)
-    ) {
-      onBlur?.(event);
-    }
-  };
+  const onRadioBlur: React.FocusEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (
+        !radioGroupRef.current?.contains(
+          event.relatedTarget as HTMLInputElement
+        )
+      ) {
+        onBlur?.(event);
+      }
+    },
+    [onBlur]
+  );
+
   return (
     <div
       role="radiogroup"

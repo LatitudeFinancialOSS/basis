@@ -3,28 +3,29 @@ import { nanoid } from "nanoid";
 import Field from "../internal/Field";
 import InternalSelect from "../internal/InternalSelect";
 import { InternalSelectProps } from "./types";
-
-const { DEFAULT_PROPS } = InternalSelect;
+import { useMergedProps } from "../../hooks/useMergedProps";
+import { defaultSelectProps } from "./defaultSelectProps";
 
 function Select(props: InternalSelectProps) {
+  const mergedProps = useMergedProps(props, defaultSelectProps);
   const {
     value,
     innerRef,
     label,
-    placeholder = DEFAULT_PROPS.placeholder,
+    placeholder,
     options,
-    fullWidth = DEFAULT_PROPS.fullWidth,
+    fullWidth,
     helpText,
-    disabled = false,
-    optional = false,
+    disabled,
+    optional,
     onChange,
     onFocus,
     onBlur,
-    error,
+    error = [],
     testId,
     color,
     __internal__focus,
-  } = props;
+  } = mergedProps;
 
   if (!options) {
     throw new Error(

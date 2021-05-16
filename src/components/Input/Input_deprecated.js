@@ -6,16 +6,13 @@ import { mergeProps } from "../../utils/component";
 import Field from "../internal/Field";
 import InternalInput from "../internal/InternalInput";
 import { validateInput } from "../../hooks/useBasisForm/validation/validateInput";
+import { defaultInputProps } from "./defaultInputProps";
 
 const { TYPES, VARIANTS, COLORS } = InternalInput;
 
 const DEFAULT_PROPS = {
-  type: InternalInput.DEFAULT_PROPS.type,
-  variant: InternalInput.DEFAULT_PROPS.variant,
+  ...defaultInputProps,
   color: InternalInput.DEFAULT_PROPS.color,
-  disabled: false,
-  pasteAllowed: true,
-  optional: false,
   validate: validateInput,
 };
 

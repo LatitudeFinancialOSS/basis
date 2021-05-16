@@ -12,6 +12,7 @@
   ],
   "plugins": [
     "@typescript-eslint",
+    "prettier",
     "import",
     "react-hooks",
     "jest",
@@ -20,6 +21,7 @@
     "jsx-a11y"
   ],
   "rules": {
+    "prettier/prettier": "warn",
     "no-console": ["error", { "allow": ["error"] }],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [

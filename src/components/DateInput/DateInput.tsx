@@ -1,33 +1,32 @@
-import React, { useState, useMemo, useCallback } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 import {
-  parseISO,
   isValid as isDateValid,
   format as formatDate,
+  parseISO,
 } from "date-fns";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
-import Field from "./internal/Field";
-import InternalInput from "./internal/InternalInput";
-import Grid from "./Grid";
+import Field from "../internal/Field";
+import InternalInput from "../internal/InternalInput";
+import Grid from "../Grid";
+import { DateValue, DayMode, InternalDateInputProps, YearMode } from "./types";
+import mergeRefs from "../../utils/mergeRefs";
+import {
+  DAY_REGEX,
+  FOUR_DIGITS_YEAR_REGEX,
+  MONTH_REGEX,
+  TWO_DIGITS_YEAR_REGEX,
+} from "../../hooks/useBasisForm/validation/validateDateInput";
+import { defaultDateInputProps } from "./defaultDateInputProps";
+import { useMergedProps } from "../../hooks/useMergedProps";
 
 const { COLORS } = InternalInput;
-const DAY_MODES = ["none", "2-digits"];
-const YEAR_MODES = ["2-digits", "4-digits"];
+const DAY_MODES = ["none", "2-digits"] as const;
+const YEAR_MODES = ["2-digits", "4-digits"] as const;
 
-const DAY_REGEX = /^([012]?[1-9]|[123]0|31)$/;
-const MONTH_REGEX = /^(0?[1-9]|1[012])$/;
-const TWO_DIGITS_YEAR_REGEX = /^\d{2}$/;
-const FOUR_DIGITS_YEAR_REGEX = /^(19|20|21)\d{2}$/;
-
-const DEFAULT_PROPS = {
+export const DEFAULT_PROPS = {
+  ...defaultDateInputProps,
   color: InternalInput.DEFAULT_PROPS.color,
-  dayMode: "2-digits",
-  yearMode: "4-digits",
-  disabled: false,
-  optional: false,
-  validate: (value, { isEmpty, dayMode, yearMode }) => {
+  validate: (value: DateValue, { isEmpty, dayMode, yearMode }: any) => {
     if (isEmpty(value)) {
       return "Required";
     }
@@ -74,14 +73,19 @@ const DEFAULT_PROPS = {
 
     return errors;
   },
-};
+} as const;
 
-DatePicker.COLORS = COLORS;
-DatePicker.DAY_MODES = DAY_MODES;
-DatePicker.YEAR_MODES = YEAR_MODES;
-DatePicker.DEFAULT_PROPS = DEFAULT_PROPS;
+DateInput.COLORS = COLORS;
+DateInput.DAY_MODES = DAY_MODES;
+DateInput.YEAR_MODES = YEAR_MODES;
+DateInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function getHelpText(value, dayMode, yearMode, defaultHelpText) {
+function getHelpText(
+  value: DateValue,
+  dayMode: DayMode,
+  yearMode: YearMode,
+  defaultHelpText: string = ""
+) {
   if (
     (dayMode === "2-digits" && DAY_REGEX.test(value.day) === false) ||
     MONTH_REGEX.test(value.month) === false ||
@@ -103,73 +107,74 @@ function getHelpText(value, dayMode, yearMode, defaultHelpText) {
     dayInt
   );
 
-  if (isNaN(date)) {
+  if (!isDateValid(date)) {
     return defaultHelpText;
   }
 
   return formatDate(date, dayMode === "2-digits" ? "d MMMM yyyy" : "MMMM yyyy");
 }
-
-function DatePicker(props) {
-  const mergedProps = mergeProps(
-    props,
-    DEFAULT_PROPS,
-    {},
-    {
-      color: (color) => COLORS.includes(color),
-      dayMode: (dayMode) => DAY_MODES.includes(dayMode),
-      yearMode: (yearMode) => YEAR_MODES.includes(yearMode),
-      disabled: (disabled) => typeof disabled === "boolean",
-      optional: (optional) => typeof optional === "boolean",
-      "aria-labelledby": (ariaLabelledby) =>
-        typeof ariaLabelledby === "string" && ariaLabelledby.trim() !== "",
-    }
-  );
+function DateInput(props: InternalDateInputProps) {
+  const mergedProps = useMergedProps(props, defaultDateInputProps);
   const {
-    name,
     label,
+    onBlur,
+    onFocus,
+    innerRef,
     dayMode,
     yearMode,
     helpText: helpTextProp,
     disabled,
     optional,
-    validate,
-    validateData,
     "aria-labelledby": ariaLabelledby,
     testId,
+    error,
   } = mergedProps;
-  const [labelId] = useState(() => `date-picker-${nanoid()}`);
-  const [auxId] = useState(() => `date-picker-aux-${nanoid()}`);
-  const isEmpty = useCallback(
-    ({ day, month, year }) =>
-      (dayMode === "none" || day.trim() === "") &&
-      month.trim() === "" &&
-      year.trim() === "",
-    [dayMode]
-  );
-  const data = useMemo(
-    () => ({
-      isEmpty,
-      dayMode,
-      yearMode,
-      ...(validateData && { data: validateData }),
-    }),
-    [isEmpty, dayMode, yearMode, validateData]
-  );
-  const { value, errors, hasErrors, onFocus, onBlur, onChange } = useField(
-    "DatePicker",
-    {
-      name,
-      disabled,
-      optional,
-      validate,
-      data,
-    }
-  );
+  const [labelId] = useState(() => `date-input-${nanoid()}`);
+  const [auxId] = useState(() => `date-input-aux-${nanoid()}`);
+  const [internalValue, setInternalValue] = useState<DateValue>({
+    day: "",
+    month: "",
+    year: "",
+  });
+
+  const value = props.value ?? internalValue;
+
   const helpText = useMemo(
     () => getHelpText(value, dayMode, yearMode, helpTextProp),
     [value, dayMode, yearMode, helpTextProp]
   );
+
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    let { name: key, value: updatedValue } = event.target;
+    if (key !== "day" && key !== "month" && key !== "year") {
+      return;
+    }
+    props.onChange?.({
+      ...value,
+      [key]: updatedValue,
+    });
+
+    setInternalValue((val) => ({
+      ...val,
+      [key]: updatedValue,
+    }));
+  };
+
+  const dateInputRef = useRef<HTMLDivElement>(null);
+
+  const onDateInputBlur: React.FocusEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (
+        !dateInputRef.current?.contains(event.relatedTarget as HTMLInputElement)
+      ) {
+        onBlur?.(event);
+      }
+    },
+    [onBlur]
+  );
+
+  const fieldErrors = Object.values(error ?? {});
+  const hasErrors = !!error;
 
   return (
     <Field
@@ -180,13 +185,14 @@ function DatePicker(props) {
       renderLabel={ariaLabelledby === undefined}
       auxId={auxId}
       helpText={helpText}
-      errors={errors}
+      errors={fieldErrors}
       testId={testId}
     >
       <div
-        aria-invalid={hasErrors ? "true" : null}
+        ref={mergeRefs([dateInputRef, innerRef ?? null])}
+        aria-invalid={hasErrors ? "true" : "false"}
         aria-labelledby={ariaLabelledby || labelId}
-        aria-describedby={helpText || hasErrors ? auxId : null}
+        aria-describedby={helpText || hasErrors ? auxId : undefined}
       >
         <Grid
           cols={
@@ -201,15 +207,15 @@ function DatePicker(props) {
           {dayMode === "2-digits" && (
             <Grid.Item colSpan={0}>
               <InternalInput
-                name={`${name}.day`}
-                parentName={name}
+                name="day"
+                aria-label="day"
                 variant="numeric"
                 color={props.color}
                 placeholder="DD"
                 maxLength="2"
                 disabled={disabled}
                 onFocus={onFocus}
-                onBlur={onBlur}
+                onBlur={onDateInputBlur}
                 value={value.day}
                 onChange={onChange}
               />
@@ -217,15 +223,15 @@ function DatePicker(props) {
           )}
           <Grid.Item colSpan={dayMode === "2-digits" ? 1 : 0}>
             <InternalInput
-              name={`${name}.month`}
-              parentName={name}
+              name="month"
+              aria-label="month"
               variant="numeric"
               color={props.color}
               placeholder="MM"
               maxLength="2"
               disabled={disabled}
               onFocus={onFocus}
-              onBlur={onBlur}
+              onBlur={onDateInputBlur}
               value={value.month}
               onChange={onChange}
             />
@@ -242,15 +248,15 @@ function DatePicker(props) {
             }
           >
             <InternalInput
-              name={`${name}.year`}
-              parentName={name}
+              name="year"
+              aria-label="year"
               variant="numeric"
               color={props.color}
               placeholder={yearMode === "2-digits" ? "YY" : "YYYY"}
               maxLength={yearMode === "2-digits" ? "2" : "4"}
               disabled={disabled}
               onFocus={onFocus}
-              onBlur={onBlur}
+              onBlur={onDateInputBlur}
               value={value.year}
               onChange={onChange}
             />
@@ -261,19 +267,8 @@ function DatePicker(props) {
   );
 }
 
-DatePicker.propTypes = {
-  name: PropTypes.string.isRequired,
-  color: PropTypes.oneOf(COLORS),
-  label: PropTypes.string,
-  dayMode: PropTypes.oneOf(DAY_MODES),
-  yearMode: PropTypes.oneOf(YEAR_MODES),
-  helpText: PropTypes.string,
-  disabled: PropTypes.bool,
-  optional: PropTypes.bool,
-  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.any,
-  "aria-labelledby": PropTypes.string,
-  testId: PropTypes.string,
+DateInput.defaultProps = {
+  optional: true,
 };
 
-export default DatePicker;
+export default DateInput;

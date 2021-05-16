@@ -1,11 +1,11 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, screen, waitFor, userEvent } from "../utils/test";
-import Form from "./Form";
-import DatePicker from "./DatePicker";
-import Container from "./Container";
+import { render, screen, waitFor, userEvent } from "../../utils/test";
+import Form from "../Form";
+import DateInput from "./DateInput_deprecated";
+import Container from "../Container";
 
-function FormWithDatePicker(props) {
+function FormWithDateInput(props) {
   const initialValues = {
     birthDate: {
       day: "",
@@ -16,7 +16,7 @@ function FormWithDatePicker(props) {
 
   return (
     <Form initialValues={initialValues}>
-      <DatePicker name="birthDate" {...props} />
+      <DateInput name="birthDate" {...props} />
     </Form>
   );
 }
@@ -28,9 +28,9 @@ function getHelpText(container) {
   return container.querySelector(`[id="${describedBy}"]`).textContent;
 }
 
-describe("DatePicker", () => {
+describe("DateInput", () => {
   it("renders label and 3 fields", () => {
-    const { container } = render(<FormWithDatePicker label="Expiry date" />);
+    const { container } = render(<FormWithDateInput label="Expiry date" />);
     const label = screen.getByText("Expiry date");
     const inputsContainer = container.querySelector("[aria-labelledby]");
     const labelId = label.getAttribute("id");
@@ -53,14 +53,14 @@ describe("DatePicker", () => {
   });
 
   it(`doesn't render the day field when dayMode="none"`, () => {
-    render(<FormWithDatePicker label="Expiry date" dayMode="none" />);
+    render(<FormWithDateInput label="Expiry date" dayMode="none" />);
 
     expect(screen.queryByPlaceholderText("DD")).not.toBeInTheDocument();
   });
 
   it("doesn't render the label when aria-labelledby is specified", () => {
     const { container } = render(
-      <FormWithDatePicker label="Expiry date" aria-labelledby="my-id" />
+      <FormWithDateInput label="Expiry date" aria-labelledby="my-id" />
     );
     const inputsContainer = container.querySelector("[aria-labelledby]");
 
@@ -69,7 +69,7 @@ describe("DatePicker", () => {
   });
 
   it("help text date - 4 digits year", async () => {
-    const { container } = render(<FormWithDatePicker label="Expiry date" />);
+    const { container } = render(<FormWithDateInput label="Expiry date" />);
 
     await userEvent.type(screen.getByPlaceholderText("DD"), "6");
     await userEvent.type(screen.getByPlaceholderText("MM"), "4");
@@ -80,7 +80,7 @@ describe("DatePicker", () => {
 
   it("help text date - 2 digits year", async () => {
     const { container } = render(
-      <FormWithDatePicker label="Expiry date" yearMode="2-digits" />
+      <FormWithDateInput label="Expiry date" yearMode="2-digits" />
     );
 
     await userEvent.type(screen.getByPlaceholderText("DD"), "02");
@@ -92,7 +92,7 @@ describe("DatePicker", () => {
 
   it("help text date - no day, 4 digits year", async () => {
     const { container } = render(
-      <FormWithDatePicker label="Expiry date" dayMode="none" />
+      <FormWithDateInput label="Expiry date" dayMode="none" />
     );
 
     await userEvent.type(screen.getByPlaceholderText("MM"), "4");
@@ -103,7 +103,7 @@ describe("DatePicker", () => {
 
   it("help text date - no day, 2 digits year", async () => {
     const { container } = render(
-      <FormWithDatePicker
+      <FormWithDateInput
         label="Expiry date"
         dayMode="none"
         yearMode="2-digits"
@@ -118,16 +118,14 @@ describe("DatePicker", () => {
 
   it("renders help text", () => {
     const { container } = render(
-      <FormWithDatePicker label="Expiry date" helpText="Some help text" />
+      <FormWithDateInput label="Expiry date" helpText="Some help text" />
     );
 
     expect(getHelpText(container)).toBe("Some help text");
   });
 
   it("required error message", async () => {
-    render(
-      <FormWithDatePicker label="Expiry date" helpText="Some help text" />
-    );
+    render(<FormWithDateInput label="Expiry date" helpText="Some help text" />);
 
     const dayInput = screen.getByPlaceholderText("DD");
 
@@ -141,9 +139,7 @@ describe("DatePicker", () => {
   });
 
   it("multiple error messages", async () => {
-    render(
-      <FormWithDatePicker label="Expiry date" helpText="Some help text" />
-    );
+    render(<FormWithDateInput label="Expiry date" helpText="Some help text" />);
 
     const dayInput = screen.getByPlaceholderText("DD");
     const monthInput = screen.getByPlaceholderText("MM");
@@ -165,7 +161,7 @@ describe("DatePicker", () => {
   });
 
   it("invalid date", async () => {
-    render(<FormWithDatePicker label="Expiry date" />);
+    render(<FormWithDateInput label="Expiry date" />);
 
     const dayInput = screen.getByPlaceholderText("DD");
     const monthInput = screen.getByPlaceholderText("MM");
@@ -187,7 +183,7 @@ describe("DatePicker", () => {
   it("inside dark container", () => {
     render(
       <Container bg="primary.blue.t100">
-        <FormWithDatePicker label="Expiry date" />
+        <FormWithDateInput label="Expiry date" />
       </Container>
     );
 
@@ -210,7 +206,7 @@ describe("DatePicker", () => {
     render(
       <Container bg="primary.blue.t100">
         <Container>
-          <FormWithDatePicker label="Expiry date" />
+          <FormWithDateInput label="Expiry date" />
         </Container>
       </Container>
     );
@@ -224,12 +220,12 @@ describe("DatePicker", () => {
 
   it("with testId", () => {
     const { container } = render(
-      <FormWithDatePicker label="Expiry date" testId="my-date-picker" />
+      <FormWithDateInput label="Expiry date" testId="my-date-input" />
     );
 
     expect(container.querySelector("form").firstChild).toHaveAttribute(
       "data-testid",
-      "my-date-picker"
+      "my-date-input"
     );
   });
 });

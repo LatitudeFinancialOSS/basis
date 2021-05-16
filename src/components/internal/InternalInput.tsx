@@ -11,7 +11,7 @@ const COLORS = ["grey.t05", "white"];
 const NUMERIC_REGEX = /^\d*$/;
 const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
 
-const DEFAULT_PROPS = {
+export const DEFAULT_PROPS = {
   type: "text",
   variant: "text",
   color: "grey.t05",
@@ -49,6 +49,7 @@ interface InternalInputProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   value?: string;
+  "aria-label"?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   __internal__focus?: boolean;
 }
@@ -75,6 +76,7 @@ const InternalInput = (props: InternalInputProps) => {
     onBlur,
     value,
     onChange,
+    "aria-label": ariaLabel,
     __internal__focus = DEFAULT_PROPS.__internal__focus,
   } = props;
   const theme = useTheme();
@@ -127,6 +129,7 @@ const InternalInput = (props: InternalInputProps) => {
     >
       <input
         css={inputCSS}
+        aria-label={ariaLabel}
         name={name}
         ref={innerRef}
         id={id}

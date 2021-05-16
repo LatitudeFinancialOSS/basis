@@ -3,11 +3,14 @@ import { nanoid } from "nanoid";
 import Field from "../internal/Field";
 import InternalInput from "../internal/InternalInput";
 import { InternalInputProps } from "./types";
+import { useMergedProps } from "../../hooks/useMergedProps";
+import { defaultInputProps } from "./defaultInputProps";
 
 const Input = (props: InternalInputProps) => {
+  const mergedProps = useMergedProps(props, defaultInputProps);
   const {
-    type = InternalInput.DEFAULT_PROPS.type,
-    variant = InternalInput.DEFAULT_PROPS.variant,
+    type,
+    variant,
     prefix,
     suffix,
     maxLength,
@@ -16,9 +19,9 @@ const Input = (props: InternalInputProps) => {
     placeholder,
     helpText,
     innerRef,
-    disabled = false,
-    pasteAllowed = true,
-    optional = false,
+    disabled,
+    pasteAllowed,
+    optional,
     onChange,
     onBlur,
     onFocus,
@@ -27,7 +30,7 @@ const Input = (props: InternalInputProps) => {
     error = [],
     id,
     __internal__focus,
-  } = props;
+  } = mergedProps;
 
   const [inputId] = useState(() => id ?? `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);

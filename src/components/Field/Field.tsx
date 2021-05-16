@@ -1,4 +1,4 @@
-import React, { ComponentType, forwardRef } from "react";
+import React, { ComponentType, forwardRef, useMemo } from "react";
 import { FieldPathValue, FieldPath, FieldValues } from "react-hook-form";
 import { useBasisField } from "../../hooks/useBasisForm/useBasisField";
 import mergeRefs from "../../utils/mergeRefs";
@@ -19,6 +19,22 @@ type ValueProps<Value> = {
   value?: Value;
 };
 
+type FieldInnerProps<
+  TFieldValues extends FieldValues = FieldValues,
+  Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  Props = ValueProps<FieldPathValue<TFieldValues, Name>>
+> =
+  // Infer the type of Error expected by the validate function
+  Props extends ErrorProps<infer ErrorType>
+    ? {
+        name: Name;
+        validate?: ValidateFn<TFieldValues, Name, Props, ErrorType>;
+        defaultValue?: FieldPathValue<TFieldValues, Name>;
+        // Have to use Component<Props> to allow components with custom properties and forward refs
+        as: Component<Props>;
+      } & Props
+    : never;
+
 type FieldProps<
   TFieldValues extends FieldValues = FieldValues,
   Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
@@ -27,17 +43,11 @@ type FieldProps<
   // infer the value prop from the component
   Props extends ValueProps<infer Value>
     ? // check if value of prop is compatible with type from Field path
-      FieldPathValue<TFieldValues, Name> extends Value
+      Value extends FieldPathValue<TFieldValues, Name>
       ? // Infer the type of Error expected by the validate function
-        Props extends ErrorProps<infer ErrorType>
-        ? {
-            name: Name;
-            validate?: ValidateFn<TFieldValues, Name, Props, ErrorType>;
-            defaultValue?: FieldPathValue<TFieldValues, Name>;
-            // Have to use Component<Props> to allow components with custom properties and forward refs
-            as: Component<Props>;
-          } & Props
-        : never
+        FieldInnerProps<TFieldValues, Name, Props>
+      : FieldPathValue<TFieldValues, Name> extends Value
+      ? FieldInnerProps<TFieldValues, Name, Props>
       : // show nicer error message for component mismatch
         "Component in `as=` expects a different value than the one provided by `name=`"
     : never;
@@ -81,13 +91,15 @@ export const Field = forwardRef(
     props: ValidProps<TFieldValues, Name, Props>,
     ref: any
   ) => {
-    const {
-      name,
-      defaultValue,
-      validate,
-      as: Component,
-      ...componentProps
-    } = props;
+    const { name, defaultValue, validate, as: Component, ...rest } = props;
+
+    const componentProps = useMemo(
+      () => ({
+        ...Component.defaultProps,
+        ...rest,
+      }),
+      [Component.defaultProps, rest]
+    );
 
     const {
       onChange,
@@ -98,7 +110,7 @@ export const Field = forwardRef(
     } = useBasisField<TFieldValues, Name>({
       name,
       componentDisplayName: Component.displayName,
-      componentProps: componentProps,
+      componentProps,
       validate,
       defaultValue,
     });

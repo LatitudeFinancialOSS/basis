@@ -22,10 +22,30 @@ export type ValidateFn<
   props: Props
 ) => ErrorType | null;
 
+type Component<Props> =
+  | React.ComponentType<Props>
+  | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
+  | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
+      Record<string, any>)
+  | (React.Component<Props> & Record<string, any>);
+
+type ValidationProps<Value, Error> = {
+  value?: Value;
+  error?: Error;
+};
+
+export type ValidationFunction<
+  Comp extends Component<any>
+> = Comp extends Component<infer Props>
+  ? Props extends ValidationProps<infer Value, infer ErrorType>
+    ? (value: Value, props: Props) => ErrorType | null
+    : never
+  : never;
+
 type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type ResponsiveProp<Key extends string, T = number | string> = {
   [key in `${Key}-${Breakpoints}` | Key]?: T;
 };
 
-export type SizeValue = `${number}px` | `${number}`;
+export type SizeValue = `${number}px` | `${number}` | `${number}%`;
