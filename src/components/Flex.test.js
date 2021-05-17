@@ -7,7 +7,7 @@ describe("Flex", () => {
   it("with width", () => {
     const { container } = render(<Flex width="320">Content goes here</Flex>);
 
-    expect(container.firstChild).toHaveStyle({
+    expect(container.firstChild.firstChild).toHaveStyle({
       width: "320px",
     });
   });
@@ -15,7 +15,7 @@ describe("Flex", () => {
   it("with height", () => {
     const { container } = render(<Flex height="100%">Content goes here</Flex>);
 
-    expect(container.firstChild).toHaveStyle({
+    expect(container.firstChild.firstChild).toHaveStyle({
       height: "100%",
     });
   });
@@ -25,6 +25,9 @@ describe("Flex", () => {
       <Flex testId="my-flex">Content goes here</Flex>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-flex");
+    expect(container.firstChild.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-flex"
+    );
   });
 });

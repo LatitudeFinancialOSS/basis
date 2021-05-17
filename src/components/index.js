@@ -19,6 +19,7 @@ export { default as Link } from "./Link";
 export { default as List } from "./List";
 export { default as LoadingIcon } from "./LoadingIcon";
 export { default as Message } from "./Message";
+export { default as Modal } from "./Modal";
 export { default as Placeholder } from "./Placeholder";
 export { default as RadioGroup } from "./RadioGroup";
 export { default as Select } from "./Select";

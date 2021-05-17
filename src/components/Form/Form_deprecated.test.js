@@ -188,7 +188,7 @@ describe("Form_deprecated", () => {
   it("renders a form", () => {
     const { container } = render(<SimpleForm />);
 
-    expect(container.firstChild.tagName).toBe("FORM");
+    expect(container.querySelector("form")).toBeInTheDocument();
   });
 
   it("calls onSubmit with the right params", async () => {
@@ -422,7 +422,10 @@ describe("Form_deprecated", () => {
   it("with testId", () => {
     const { container } = render(<SimpleForm testId="my-form" />);
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-form");
+    expect(container.querySelector("form")).toHaveAttribute(
+      "data-testid",
+      "my-form"
+    );
   });
 
   describe("calling exposed functions from render child", () => {

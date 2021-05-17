@@ -1,5 +1,5 @@
-import React from "react";
 import "@testing-library/jest-dom/extend-expect";
+import React from "react";
 import Button from "./Button";
 import Link from "./Link";
 import Message from "./Message";
@@ -160,6 +160,9 @@ describe("Message", () => {
       </Message>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-message");
+    expect(container.firstChild.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-message"
+    );
   });
 });

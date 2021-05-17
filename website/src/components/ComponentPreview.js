@@ -95,7 +95,7 @@ function ComponentPreviewContent({
   }, [setDocument, document]);
 
   return (
-    <BasisProvider theme={defaultTheme} window={window}>
+    <BasisProvider theme={defaultTheme} isRoot window={window}>
       {!hasBodyMargin && (
         <Global
           styles={{

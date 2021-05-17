@@ -158,8 +158,10 @@ describe("Text", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(<Text testId="my-text">Hello World</Text>);
+    render(<Text testId="my-text">Hello World</Text>);
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-text");
+    const node = screen.getByText("Hello World");
+
+    expect(node).toHaveAttribute("data-testid", "my-text");
   });
 });

@@ -7,7 +7,7 @@ describe("Placeholder", () => {
   it("with width", () => {
     const { container } = render(<Placeholder width="80" />);
 
-    expect(container.firstChild).toHaveStyle({
+    expect(container.firstChild.firstChild).toHaveStyle({
       width: "80px",
     });
   });
@@ -15,7 +15,7 @@ describe("Placeholder", () => {
   it("with height", () => {
     const { container } = render(<Placeholder height="100%" />);
 
-    expect(container.firstChild).toHaveStyle({
+    expect(container.firstChild.firstChild).toHaveStyle({
       height: "100%",
     });
   });
@@ -29,7 +29,7 @@ describe("Placeholder", () => {
   it("with testId", () => {
     const { container } = render(<Placeholder testId="my-placeholder" />);
 
-    expect(container.firstChild).toHaveAttribute(
+    expect(container.firstChild.firstChild).toHaveAttribute(
       "data-testid",
       "my-placeholder"
     );

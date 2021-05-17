@@ -8,7 +8,6 @@ const prodAlias = {
 };
 
 const devAlias = {
-  "react-dom": "@hot-loader/react-dom", // https://github.com/gatsbyjs/gatsby/issues/11934
   "react-error-overlay": path.resolve("./react-error-overlay"), // For react-error-overlay disabling see: https://github.com/gatsbyjs/gatsby/issues/20420
 };
 

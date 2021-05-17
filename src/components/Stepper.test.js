@@ -30,6 +30,9 @@ describe("Stepper", () => {
       </Stepper>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-stepper");
+    expect(container.firstChild.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-stepper"
+    );
   });
 });

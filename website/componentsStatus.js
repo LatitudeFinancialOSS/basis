@@ -64,6 +64,9 @@ module.exports = {
   Message: {
     status: COMPONENT_STATUS.READY,
   },
+  Modal: {
+    status: COMPONENT_STATUS.DRAFT,
+  },
   Placeholder: {
     status: COMPONENT_STATUS.READY,
   },

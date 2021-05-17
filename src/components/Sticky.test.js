@@ -76,7 +76,10 @@ describe("Sticky", () => {
       </Sticky>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-sticky");
+    expect(container.firstChild.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-sticky"
+    );
     expect(screen.getByTestId("my-sticky-item")).toBeInTheDocument();
   });
 });

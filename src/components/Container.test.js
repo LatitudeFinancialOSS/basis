@@ -129,6 +129,9 @@ describe("Container", () => {
       <Container testId="my-container">Hello World</Container>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-container");
+    expect(container.firstChild.firstChild).toHaveAttribute(
+      "data-testid",
+      "my-container"
+    );
   });
 });
