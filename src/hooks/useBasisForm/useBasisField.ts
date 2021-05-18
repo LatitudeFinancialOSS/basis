@@ -18,7 +18,7 @@ interface FieldOptions<
   name: Name;
   componentDisplayName?: string;
   componentProps?: Record<string, any>;
-  validate?: ValidateFn<TFieldValues, Name>;
+  validate?: ValidateFn<FieldPathValue<TFieldValues, Name>>;
   defaultValue?: FieldPathValue<TFieldValues, Name>;
 }
 

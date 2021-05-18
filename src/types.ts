@@ -1,5 +1,4 @@
 import React from "react";
-import { FieldPath, FieldPathValue, FieldValues } from "react-hook-form";
 
 // see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34757#issuecomment-488848720
 export type ComponentWithStaticProperties<
@@ -13,14 +12,10 @@ export type ComponentWithStaticProperties<
 export type ValidationError = string | string[] | Record<string, string> | null;
 
 export type ValidateFn<
-  TFieldValues extends FieldValues = FieldValues,
-  Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  Value = any,
   Props extends Record<string, any> = Record<string, any>,
   ErrorType extends ValidationError = ValidationError
-> = (
-  value: FieldPathValue<TFieldValues, Name>,
-  props: Props
-) => ErrorType | null;
+> = (value: Value, props: Props) => ErrorType | null;
 
 type Component<Props> =
   | React.ComponentType<Props>

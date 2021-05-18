@@ -19,17 +19,13 @@ type ValueProps<Value> = {
   value?: Value;
 };
 
-type FieldInnerProps<
-  TFieldValues extends FieldValues = FieldValues,
-  Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  Props = ValueProps<FieldPathValue<TFieldValues, Name>>
-> =
+type FieldInnerProps<Name = string, Value = any, Props = ValueProps<Value>> =
   // Infer the type of Error expected by the validate function
   Props extends ErrorProps<infer ErrorType>
     ? {
         name: Name;
-        validate?: ValidateFn<TFieldValues, Name, Props, ErrorType>;
-        defaultValue?: FieldPathValue<TFieldValues, Name>;
+        validate?: ValidateFn<Value, Props, ErrorType>;
+        defaultValue?: Value;
         // Have to use Component<Props> to allow components with custom properties and forward refs
         as: Component<Props>;
       } & Props
@@ -45,9 +41,9 @@ type FieldProps<
     ? // check if value of prop is compatible with type from Field path
       Value extends FieldPathValue<TFieldValues, Name>
       ? // Infer the type of Error expected by the validate function
-        FieldInnerProps<TFieldValues, Name, Props>
+        FieldInnerProps<Name, Value, Props>
       : FieldPathValue<TFieldValues, Name> extends Value
-      ? FieldInnerProps<TFieldValues, Name, Props>
+      ? FieldInnerProps<Name, Value, Props>
       : // show nicer error message for component mismatch
         "Component in `as=` expects a different value than the one provided by `name=`"
     : never;
@@ -70,8 +66,7 @@ type ValidProps<
   ? {
       name: Name;
       validate?: ValidateFn<
-        TFieldValues,
-        Name,
+        FieldPathValue<TFieldValues, Name>,
         Record<string, any>,
         ValidationError
       >;
