@@ -5,7 +5,7 @@ import List from "./List";
 
 describe("List", () => {
   it("unordered", () => {
-    const { container } = render(
+    render(
       <List>
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -19,7 +19,10 @@ describe("List", () => {
       </List>
     );
 
-    expect(container.firstChild.tagName).toBe("UL");
+    const lists = screen.getAllByRole("list");
+
+    expect(lists[0].tagName).toBe("UL");
+    expect(lists[1].tagName).toBe("UL");
 
     expect(screen.getByText("First Item")).toBeInTheDocument();
     expect(screen.getByText("Second Item")).toBeInTheDocument();
@@ -29,7 +32,7 @@ describe("List", () => {
   });
 
   it("ordered", () => {
-    const { container } = render(
+    render(
       <List type="ordered">
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -43,7 +46,10 @@ describe("List", () => {
       </List>
     );
 
-    expect(container.firstChild.tagName).toBe("OL");
+    const lists = screen.getAllByRole("list");
+
+    expect(lists[0].tagName).toBe("OL");
+    expect(lists[1].tagName).toBe("OL");
 
     expect(screen.getByText("First Item")).toBeInTheDocument();
     expect(screen.getByText("Second Item")).toBeInTheDocument();
@@ -53,7 +59,7 @@ describe("List", () => {
   });
 
   it("steps", () => {
-    const { container } = render(
+    render(
       <List type="steps">
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -67,7 +73,10 @@ describe("List", () => {
       </List>
     );
 
-    expect(container.firstChild.tagName).toBe("OL");
+    const lists = screen.getAllByRole("list");
+
+    expect(lists[0].tagName).toBe("OL");
+    expect(lists[1].tagName).toBe("OL");
 
     expect(screen.getByText("First Item")).toBeInTheDocument();
     expect(screen.getByText("Second Item")).toBeInTheDocument();
@@ -77,7 +86,7 @@ describe("List", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(
+    render(
       <List testId="my-list">
         <List.Item>First Item</List.Item>
         <List.Item>Second Item</List.Item>
@@ -85,6 +94,6 @@ describe("List", () => {
       </List>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-list");
+    expect(screen.getByRole("list")).toHaveAttribute("data-testid", "my-list");
   });
 });

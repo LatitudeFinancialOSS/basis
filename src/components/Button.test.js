@@ -203,10 +203,10 @@ describe("Button", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(
-      <Button testId="my-button">Find out more</Button>
-    );
+    render(<Button testId="my-button">Find out more</Button>);
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-button");
+    const button = screen.getByRole("button", { name: "Find out more" });
+
+    expect(button).toHaveAttribute("data-testid", "my-button");
   });
 });

@@ -13,9 +13,8 @@ describe("Link", () => {
     );
 
     const span = screen.getByText("Terms and Conditions");
-    const link = span.parentElement;
+    const link = screen.getByRole("link");
 
-    expect(link.tagName).toBe("A");
     expect(link).not.toHaveAttribute("target");
     expect(link).toHaveAttribute("href", "/terms");
     expect(link).toHaveStyle({
@@ -41,8 +40,7 @@ describe("Link", () => {
       </Link>
     );
 
-    const span = screen.getByText("Terms and Conditions");
-    const link = span.parentElement;
+    const link = screen.getByRole("link");
 
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noreferrer");
@@ -162,8 +160,7 @@ describe("Link", () => {
       </Link>
     );
 
-    const span = screen.getByText("Terms and Conditions");
-    const link = span.parentElement;
+    const link = screen.getByRole("link");
 
     expect(link).toHaveStyle({
       margin: "4px 8px 12px",
@@ -183,7 +180,7 @@ describe("Link", () => {
     );
 
     const span = screen.getByText("Terms and Conditions");
-    const link = span.parentElement;
+    const link = screen.getByRole("link");
 
     expect(link).toHaveStyle({
       width: "300px",
@@ -204,8 +201,7 @@ describe("Link", () => {
       </Link>
     );
 
-    const span = screen.getByText("Terms and Conditions");
-    const link = span.parentElement;
+    const link = screen.getByRole("link");
 
     userEvent.click(link);
 
@@ -213,12 +209,14 @@ describe("Link", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(
+    render(
       <Link href="/terms" newTab={false} testId="my-link">
         Terms and Conditions
       </Link>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-link");
+    const link = screen.getByRole("link");
+
+    expect(link).toHaveAttribute("data-testid", "my-link");
   });
 });

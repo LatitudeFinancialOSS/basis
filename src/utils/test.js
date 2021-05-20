@@ -13,7 +13,11 @@ export const theme = enhanceTheme(defaultTheme);
 matchMediaPolyfill(global);
 
 export function TestWrapper({ children }) {
-  return <BasisProvider theme={defaultTheme}>{children}</BasisProvider>;
+  return (
+    <BasisProvider theme={defaultTheme} isRoot>
+      {children}
+    </BasisProvider>
+  );
 }
 
 TestWrapper.propTypes = {

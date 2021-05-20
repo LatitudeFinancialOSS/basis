@@ -377,7 +377,7 @@ describe("Accordion", () => {
   });
 
   it("with testId", () => {
-    const { container } = render(
+    render(
       <Accordion testId="my-accordion">
         <Accordion.Item>
           <Accordion.Item.Header>No icon</Accordion.Item.Header>
@@ -424,12 +424,17 @@ describe("Accordion", () => {
       </Accordion>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-accordion");
-    expect(screen.getByTestId("my-accordion-item")).toBeInTheDocument();
+    const secondItem = screen.getByTestId("my-accordion-item");
+
+    expect(secondItem).toBeInTheDocument();
     expect(screen.getByTestId("my-accordion-item-header")).toBeInTheDocument();
     expect(screen.getByTestId("my-accordion-item-content")).toBeInTheDocument();
     expect(
       screen.getByTestId("my-accordion-item-header-icon")
     ).toBeInTheDocument();
+    expect(secondItem.parentElement).toHaveAttribute(
+      "data-testid",
+      "my-accordion"
+    );
   });
 });

@@ -87,7 +87,10 @@ describe("Footer", () => {
       </Footer>
     );
 
-    expect(container.firstChild).toHaveAttribute("data-testid", "my-footer");
+    expect(container.querySelector("footer")).toHaveAttribute(
+      "data-testid",
+      "my-footer"
+    );
 
     expect(screen.getByTestId("my-footer-header")).toBeInTheDocument();
     expect(screen.getByTestId("my-footer-header-logo")).toBeInTheDocument();

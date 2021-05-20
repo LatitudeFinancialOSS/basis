@@ -7,7 +7,7 @@ describe("LoadingIcon", () => {
   it("with testId", () => {
     const { container } = render(<LoadingIcon testId="my-loading-icon" />);
 
-    expect(container.firstChild).toHaveAttribute(
+    expect(container.querySelector("svg")).toHaveAttribute(
       "data-testid",
       "my-loading-icon"
     );
