@@ -37,7 +37,7 @@ export type ValidationFunction<
     : never
   : never;
 
-type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
+export type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type ResponsiveProp<Key extends string, T = number | string> = {
   [key in `${Key}-${Breakpoints}` | Key]?: T;
