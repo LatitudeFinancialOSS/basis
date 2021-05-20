@@ -170,6 +170,31 @@ const App = () => {
 };
 ```
 
+The validation prop will no longer accept boolean to disable the default validation. If no validation is required then an validation function will need to be provided with a `null` return.
+
+```jsx
+import { useBasisForm, Form, Input } from "basis";
+
+const App = () => {
+  const { methods, Field } = useBasisForm();
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
+  return (
+    <Form methods={methods}>
+      <Field
+        name="firstName"
+        label="First Name"
+        as={Input}
+        validate={() => null}
+      />
+    </Form>
+  );
+};
+```
+
 For Typescript consumers the validation functions will need to be typed with `ValidationFunction` to provide the correct types for the props.
 
 ```tsx
