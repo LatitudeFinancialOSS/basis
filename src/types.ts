@@ -37,10 +37,10 @@ export type ValidationFunction<
     : never
   : never;
 
-export type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
+export type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type ResponsiveProp<Key extends string, T = number | string> = {
-  [key in `${Key}-${Breakpoints}` | Key]?: T;
+  [key in `${Key}-${Breakpoint}` | Key]?: T;
 };
 
 export type SizeValue = `${number}px` | `${number}` | `${number}%`;
