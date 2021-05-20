@@ -1,21 +1,21 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import useBackground from "../hooks/useBackground";
-import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import { responsiveHeightType } from "../hooks/useResponsiveProp";
-import { responsiveSize } from "../utils/css";
+import useField from "../../hooks/internal/useField";
+import useBackground from "../../hooks/useBackground";
+import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
+import { responsiveHeightType } from "../../hooks/useResponsiveProp";
+import { responsiveSize } from "../../utils/css";
 
-import { mergeProps } from "../utils/component";
-import Field from "./internal/Field";
+import { mergeProps } from "../../utils/component";
+import Field from "../internal/Field";
+import { defaultTextareaProps } from "./defaultTextareaProps";
 
 const COLORS = ["grey.t05", "white"];
 
 const DEFAULT_PROPS = {
+  ...defaultTextareaProps,
   color: "grey.t05",
-  disabled: false,
-  optional: false,
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Required";
@@ -23,7 +23,6 @@ const DEFAULT_PROPS = {
 
     return null;
   },
-  __internal__focus: false,
 };
 
 Textarea.COLORS = COLORS;
