@@ -34,7 +34,7 @@ const Textarea = forwardRef(function TextareaComponent(
   return <TextareaInternal {...props} innerRef={ref} />;
 }) as ComponentWithStaticProperties<TextareaProps, StaticProperties>;
 
-Textarea.displayName = ComponentNames.Input;
+Textarea.displayName = ComponentNames.Textarea;
 
 Textarea.defaultProps = defaultTextareaProps;
 
