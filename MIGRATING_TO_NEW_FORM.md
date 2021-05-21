@@ -2,7 +2,7 @@
 
 ## Background
 
-The form has been updated to add Typescript supporting by wrapping [`react-hook-form`](https://react-hook-form.com).
+The form has been updated to add TypeScript supporting by wrapping [`react-hook-form`](https://react-hook-form.com).
 
 This is a non breaking change as the previous implementation of Form is still supported for the foreseable future. The new pattern is opt in see Form section below.
 
@@ -47,9 +47,9 @@ const App = () => {
 };
 ```
 
-### Using with Typescript
+### Using with TypeScript
 
-To use the Form with Typescript provide the types expected by the return value into the `useBasisForm<Types>` generic.
+To use the Form with TypeScript provide the types expected by the return value into the `useBasisForm<Types>` generic.
 
 ```tsx
 import { useBasisForm, Form } from "basis";
@@ -98,10 +98,10 @@ const App = () => {
   };
 
   return (
-    <Form methods={methods}>
-      <Field name="firstName" label="First Name" as={Input} />
-      <Field name="lastName" label="Last Name" as={Input} />
-      <Field name="birthDay" label="Birth Day" as={DateInput} />
+    <Form methods={methods} onSubmit={onSubmit}>
+      <Field name="firstName" label="First name" as={Input} />
+      <Field name="lastName" label="Last name" as={Input} />
+      <Field name="birthDay" label="Birth day" as={DateInput} />
     </Form>
   );
 };
@@ -122,10 +122,10 @@ const App = () => {
   };
 
   return (
-    <Form methods={methods}>
+    <Form methods={methods} onSubmit={onSubmit}>
       <Field
         name="firstName"
-        label="First Name"
+        label="First name"
         as={Input}
         validate={(value, inputProps) => (value === "wrong" ? "Error" : null)}
       />
@@ -134,7 +134,7 @@ const App = () => {
 };
 ```
 
-The default Validation functions provided by `Component.DEFAULT_PROPS.validate` are incompatible with the new Form. Intead the default validation functions are individually exported from within basis.
+The default validation functions provided by `Component.DEFAULT_PROPS.validate` are incompatible with the new Form. Instead the default validation functions are individually exported from within basis.
 
 ```jsx
 import { useBasisForm, Form, Input, validateInput } from "basis";
@@ -147,7 +147,7 @@ const App = () => {
   };
 
   return (
-    <Form methods={methods}>
+    <Form methods={methods} onSubmit={onSubmit}>
       <Field
         name="email"
         label="Email"
@@ -170,7 +170,7 @@ const App = () => {
 };
 ```
 
-The validation prop will no longer accept boolean to disable the default validation. If no validation is required then an validation function will need to be provided with a `null` return.
+The validation prop will no longer accept boolean to disable the default validation. If no validation is required then the validation function will need to be provided with a `null` return.
 
 ```jsx
 import { useBasisForm, Form, Input } from "basis";
@@ -183,10 +183,10 @@ const App = () => {
   };
 
   return (
-    <Form methods={methods}>
+    <Form methods={methods} onSubmit={onSubmit}>
       <Field
         name="firstName"
-        label="First Name"
+        label="First name"
         as={Input}
         validate={() => null}
       />
@@ -195,14 +195,14 @@ const App = () => {
 };
 ```
 
-For Typescript consumers the validation functions will need to be typed with `ValidationFunction` to provide the correct types for the props.
+For TypeScript consumers the validation functions will need to be typed with `ValidationFunction` to provide the correct types for the props.
 
 ```tsx
 import { Input, validateInput, ValidationFunction } from 'basis'
 
 // value will automatically get type of string
 // props will automatically get type of InputProps
-const ValidateEmail: ValidationFunction<typeof Input> = (value, props) => {
+const validateEmail: ValidationFunction<typeof Input> = (value, props) => {
   const errors = validateInput(value, props);
 
   if (errors) {
@@ -210,7 +210,7 @@ const ValidateEmail: ValidationFunction<typeof Input> = (value, props) => {
   }
 
   if (!isValidEmail(value)) {
-    return "Invalid Email".
+    return "Invalid email".
   }
 
   return null;
