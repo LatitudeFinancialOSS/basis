@@ -1,4 +1,5 @@
 import React from "react";
+import { ResponsiveProp, SizeValue } from "../../types";
 
 export type TextareaColors = "grey.t05" | "white";
 
@@ -16,7 +17,7 @@ export type DeprecatedTextareaProps = {
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   testId?: string;
   __internal__focus?: boolean;
-};
+} & ResponsiveProp<"height", SizeValue>;
 
 export type InternalTextareaProps = {
   label: string;
@@ -34,7 +35,7 @@ export type InternalTextareaProps = {
   onFocus?: React.FocusEventHandler<HTMLTextAreaElement>;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
   __internal__focus?: boolean;
-};
+} & ResponsiveProp<"height", SizeValue>;
 
 export type TextareaProps = InternalTextareaProps | DeprecatedTextareaProps;
 
