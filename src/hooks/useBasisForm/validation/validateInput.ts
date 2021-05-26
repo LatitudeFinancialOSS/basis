@@ -3,7 +3,7 @@ import { InternalInputProps } from "../../../components/Input/types";
 export const NUMERIC_REGEX = /^\d*$/;
 export const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
 
-const isInputEmpty = (value: string) => value.trim() === "";
+export const isInputEmpty = (value: string) => value.trim() === "";
 
 export const validateInput = (
   value: string,

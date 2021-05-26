@@ -1,15 +1,9 @@
 import React from "react";
+import { DateInputError, DateInputValue } from "../../values";
 import { InternalInputColors } from "../internal/InternalInput";
 
 export type DayMode = "none" | "2-digits";
 export type YearMode = "2-digits" | "4-digits";
-
-export interface DateValue {
-  day: string;
-  month: string;
-  year: string;
-}
-
 export interface DeprecatedDateInputProps {
   name: string;
   color?: InternalInputColors;
@@ -24,16 +18,8 @@ export interface DeprecatedDateInputProps {
   "aria-labelledby"?: string;
   testId?: string;
 }
-
-export type DateInputError = {
-  day?: string;
-  month?: string;
-  year?: string;
-  field?: string;
-};
-
 export interface InternalDateInputProps {
-  value?: DateValue;
+  value?: DateInputValue;
   innerRef?: React.Ref<HTMLDivElement>;
   color?: InternalInputColors;
   label?: string;
@@ -45,7 +31,7 @@ export interface InternalDateInputProps {
   error?: DateInputError;
   "aria-labelledby"?: string;
   testId?: string;
-  onChange?: (value: DateValue) => void;
+  onChange?: (value: DateInputValue) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
 }

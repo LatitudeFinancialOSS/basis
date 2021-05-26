@@ -10,4 +10,8 @@ export const nameToDefaultValueMap: Record<ComponentNames, any> = {
     month: "",
     year: "",
   },
+  [ComponentNames.Frequency]: {
+    amount: "",
+    frequency: "",
+  },
 };

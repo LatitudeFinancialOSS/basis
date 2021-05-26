@@ -18,4 +18,7 @@ export * from "./hooks/useBasisForm/useBasisForm";
 
 export * from "./hooks/useBasisForm/validation";
 
+// Types
 export type { Breakpoint, ValidationFunction } from "./types";
+
+export * from "./values";

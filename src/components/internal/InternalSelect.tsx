@@ -39,6 +39,7 @@ interface InternalSelectProps {
   fullWidth?: boolean;
   optional: boolean;
   disabled?: boolean;
+  "aria-label"?: string;
   isValid?: boolean;
   describedBy?: string;
   onFocus?: React.FocusEventHandler<HTMLSelectElement>;
@@ -62,6 +63,7 @@ function InternalSelect(props: InternalSelectProps) {
     disabled = DEFAULT_PROPS.disabled,
     isValid = DEFAULT_PROPS.isValid,
     describedBy,
+    "aria-label": ariaLabel,
     onFocus,
     onBlur,
     value,
@@ -92,6 +94,7 @@ function InternalSelect(props: InternalSelectProps) {
       data-testid={testId}
       aria-invalid={isValid ? "false" : "true"}
       aria-describedby={describedBy}
+      aria-label={ariaLabel}
       disabled={disabled}
       value={value}
       onFocus={onFocus}

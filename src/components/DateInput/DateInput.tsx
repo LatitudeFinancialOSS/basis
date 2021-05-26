@@ -8,7 +8,7 @@ import { nanoid } from "nanoid";
 import Field from "../internal/Field";
 import InternalInput from "../internal/InternalInput";
 import Grid from "../Grid";
-import { DateValue, DayMode, InternalDateInputProps, YearMode } from "./types";
+import { DayMode, InternalDateInputProps, YearMode } from "./types";
 import mergeRefs from "../../utils/mergeRefs";
 import {
   DAY_REGEX,
@@ -18,6 +18,7 @@ import {
 } from "../../hooks/useBasisForm/validation/validateDateInput";
 import { defaultDateInputProps } from "./defaultDateInputProps";
 import { useMergedProps } from "../../hooks/useMergedProps";
+import { DateInputValue } from "../../values";
 
 const { COLORS } = InternalInput;
 const DAY_MODES = ["none", "2-digits"] as const;
@@ -26,7 +27,7 @@ const YEAR_MODES = ["2-digits", "4-digits"] as const;
 export const DEFAULT_PROPS = {
   ...defaultDateInputProps,
   color: InternalInput.DEFAULT_PROPS.color,
-  validate: (value: DateValue, { isEmpty, dayMode, yearMode }: any) => {
+  validate: (value: DateInputValue, { isEmpty, dayMode, yearMode }: any) => {
     if (isEmpty(value)) {
       return "Required";
     }
@@ -81,7 +82,7 @@ DateInput.YEAR_MODES = YEAR_MODES;
 DateInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
 function getHelpText(
-  value: DateValue,
+  value: DateInputValue,
   dayMode: DayMode,
   yearMode: YearMode,
   defaultHelpText: string = ""
@@ -131,7 +132,7 @@ function DateInput(props: InternalDateInputProps) {
   } = mergedProps;
   const [labelId] = useState(() => `date-input-${nanoid()}`);
   const [auxId] = useState(() => `date-input-aux-${nanoid()}`);
-  const [internalValue, setInternalValue] = useState<DateValue>({
+  const [internalValue, setInternalValue] = useState<DateInputValue>({
     day: "",
     month: "",
     year: "",

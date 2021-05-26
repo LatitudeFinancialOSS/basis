@@ -1,36 +1,15 @@
 import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
-import Field from "./internal/Field";
-import Grid from "./Grid";
-import InternalInput from "./internal/InternalInput";
-import InternalRadioGroup from "./internal/InternalRadioGroup";
-import InternalSelect from "./internal/InternalSelect";
-
-const ALL_FREQUENCY_OPTIONS = [
-  {
-    label: "Annually",
-    value: "annually",
-  },
-  {
-    label: "Quarterly",
-    value: "quarterly",
-  },
-  {
-    label: "Monthly",
-    value: "monthly",
-  },
-  {
-    label: "Fortnightly",
-    value: "fortnightly",
-  },
-  {
-    label: "Weekly",
-    value: "weekly",
-  },
-];
+import useField from "../../hooks/internal/useField";
+import { mergeProps } from "../../utils/component";
+import Field from "../internal/Field";
+import Grid from "../Grid";
+import InternalInput from "../internal/InternalInput";
+import InternalRadioGroup from "../internal/InternalRadioGroup";
+import InternalSelect from "../internal/InternalSelect";
+import { defaultFrequencyProps } from "./defaultFrequencyProps";
+import { ALL_FREQUENCY_OPTIONS } from "../../values";
 
 const { COLORS, NUMERIC_REGEX } = InternalInput;
 const MODES = ["radio-group", "select"];
@@ -43,16 +22,8 @@ function isFrequencySelected(frequency, frequencyPropsMap) {
 }
 
 const DEFAULT_PROPS = {
+  ...defaultFrequencyProps,
   color: InternalInput.DEFAULT_PROPS.color,
-  mode: "radio-group",
-  annually: true,
-  quarterly: true,
-  monthly: true,
-  fortnightly: true,
-  weekly: true,
-  disabled: false,
-  selectPlaceholder: InternalSelect.DEFAULT_PROPS.placeholder,
-  optional: false,
   validate: (value, { isInputEmpty, isFrequencyEmpty }) => {
     const errors = [];
 

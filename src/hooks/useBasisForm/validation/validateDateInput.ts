@@ -1,11 +1,8 @@
 import { isValid, parseISO } from "date-fns";
-import {
-  DateInputError,
-  DateValue,
-  InternalDateInputProps,
-} from "../../../components/DateInput/types";
+import { InternalDateInputProps } from "../../../components/DateInput/types";
+import { DateInputError, DateInputValue } from "../../../values";
 const isDateInputEmpty = (
-  { day, month, year }: DateValue,
+  { day, month, year }: DateInputValue,
   props: InternalDateInputProps
 ) =>
   (props.dayMode === "none" || day.trim() === "") &&
@@ -18,7 +15,7 @@ export const TWO_DIGITS_YEAR_REGEX = /^\d{2}$/;
 export const FOUR_DIGITS_YEAR_REGEX = /^(19|20|21)\d{2}$/;
 
 export const validateDateInput = (
-  value: DateValue,
+  value: DateInputValue,
   props: Record<string, any>
 ): Record<string, any> | null => {
   const { dayMode, optional, yearMode } = props as InternalDateInputProps;
