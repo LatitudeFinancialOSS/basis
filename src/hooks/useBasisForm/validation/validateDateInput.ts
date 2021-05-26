@@ -16,9 +16,9 @@ export const FOUR_DIGITS_YEAR_REGEX = /^(19|20|21)\d{2}$/;
 
 export const validateDateInput = (
   value: DateInputValue,
-  props: Record<string, any>
-): Record<string, any> | null => {
-  const { dayMode, optional, yearMode } = props as InternalDateInputProps;
+  props: InternalDateInputProps
+) => {
+  const { dayMode, optional, yearMode } = props;
 
   if (!optional && isDateInputEmpty(value, props)) {
     return { field: "Required" };

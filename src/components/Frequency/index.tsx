@@ -20,11 +20,7 @@ interface StaticProperties {
   ALL_FREQUENCY_OPTIONS: typeof ALL_FREQUENCY_OPTIONS;
 }
 
-// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-const Frequency = forwardRef(function InputComponent(
-  props: FrequencyProps,
-  ref
-) {
+const FrequencyComponent = (props: FrequencyProps, ref: any) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
@@ -32,7 +28,11 @@ const Frequency = forwardRef(function InputComponent(
   }
 
   return <FrequencyInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<FrequencyProps, StaticProperties>;
+};
+
+const Frequency = forwardRef(
+  FrequencyComponent
+) as ComponentWithStaticProperties<FrequencyProps, StaticProperties>;
 
 Frequency.displayName = ComponentNames.Frequency;
 

@@ -7,9 +7,9 @@ export const isInputEmpty = (value: string) => value.trim() === "";
 
 export const validateInput = (
   value: string,
-  inputProps: Record<string, any>
+  inputProps: InternalInputProps
 ) => {
-  const { optional, variant } = inputProps as InternalInputProps;
+  const { optional, variant } = inputProps;
 
   if (isInputEmpty(value)) {
     return optional ? null : "Required";

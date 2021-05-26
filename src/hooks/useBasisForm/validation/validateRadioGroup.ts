@@ -9,9 +9,9 @@ const isRadioGroupEmpty = (value: string, options: RadioOptions) =>
 
 export const validateRadioGroup = (
   value: string,
-  props: Record<string, any>
+  props: InternalRadioGroupProps
 ) => {
-  const { options } = props as InternalRadioGroupProps;
+  const { options } = props;
 
   if (isRadioGroupEmpty(value, options)) {
     return "Please make a selection.";

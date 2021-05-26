@@ -8,16 +8,9 @@ import { isInputEmpty, NUMERIC_REGEX } from "./validateInput";
 
 export const validateFrequency = (
   value: FrequencyValue,
-  props: Record<string, any>
+  props: InternalFrequencyProps
 ) => {
-  const {
-    annually,
-    quarterly,
-    monthly,
-    fortnightly,
-    weekly,
-    optional,
-  } = props as InternalFrequencyProps;
+  const { annually, quarterly, monthly, fortnightly, weekly, optional } = props;
 
   const frequencyPropsMap = {
     annually,

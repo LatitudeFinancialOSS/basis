@@ -4,9 +4,9 @@ const isTextareaEmpty = (value: string) => value.trim() === "";
 
 export const validateTextarea = (
   value: string,
-  textareaProps: Record<string, any>
+  textareaProps: InternalTextareaProps
 ) => {
-  const { optional } = textareaProps as InternalTextareaProps;
+  const { optional } = textareaProps;
 
   if (isTextareaEmpty(value)) {
     return optional ? null : "Required";
