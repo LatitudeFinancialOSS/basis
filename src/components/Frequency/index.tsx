@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import useIsDeprecatedForm from "../../hooks/internal/useIsDeprecatedForm";
 import { ComponentWithStaticProperties } from "../../types";
+import { ALL_FREQUENCY_OPTIONS } from "../../values";
 import { ComponentNames } from "../componentNames";
 import { defaultFrequencyProps } from "./defaultFrequencyProps";
 import { default as FrequencyInternal } from "./Frequency";
@@ -10,14 +11,13 @@ import {
   setDeprecatedProps as shouldUseDeprecatedInput,
 } from "./types";
 
-const { COLORS, DEFAULT_PROPS } = FrequencyDeprecated;
+const { COLORS, DEFAULT_PROPS, MODES } = FrequencyDeprecated;
 
 interface StaticProperties {
-  displayName: string;
-  TYPES: string[];
-  VARIANTS: string[];
   COLORS: string[];
   DEFAULT_PROPS: typeof FrequencyDeprecated.DEFAULT_PROPS;
+  MODES: typeof FrequencyDeprecated.MODES;
+  ALL_FREQUENCY_OPTIONS: typeof ALL_FREQUENCY_OPTIONS;
 }
 
 // can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
@@ -40,5 +40,7 @@ Frequency.defaultProps = defaultFrequencyProps;
 
 Frequency.COLORS = COLORS;
 Frequency.DEFAULT_PROPS = DEFAULT_PROPS;
+Frequency.MODES = MODES;
+Frequency.ALL_FREQUENCY_OPTIONS = ALL_FREQUENCY_OPTIONS;
 
 export default Frequency;
