@@ -105,11 +105,7 @@ const ComplexForm = ({
         as={DateInput}
         validate={validateDate}
       />
-      <Field
-        label="Test Frequency"
-        name="testFrequency"
-        as={Frequency}
-      />
+      <Field label="Test Frequency" name="testFrequency" as={Frequency} />
       <Button type="submit">Submit</Button>
     </Form>
   );
@@ -292,8 +288,8 @@ describe("Form", () => {
           },
           testFrequency: {
             amount: "200",
-            frequency: "monthly"
-          }
+            frequency: "monthly",
+          },
         });
       });
 
