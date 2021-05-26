@@ -18,6 +18,8 @@ import {
 } from "../../utils/test";
 import { SubmitHandler } from "react-hook-form";
 import { ValidationFunction } from "../../types";
+import { DateInputValue, FrequencyValue } from "../../values";
+import { Frequency } from "..";
 
 interface SimpleFormValues {
   testInput: string;
@@ -43,11 +45,8 @@ interface ComplexFormValues {
   testInput: string;
   testRadio: "value1" | "value2";
   testSelect: string;
-  testDateInput: {
-    day: string;
-    month: string;
-    year: string;
-  };
+  testDateInput: DateInputValue;
+  testFrequency: FrequencyValue;
 }
 
 const radioOptions = [
@@ -106,6 +105,7 @@ const ComplexForm = ({
         as={DateInput}
         validate={validateDate}
       />
+      <Field label="Test Frequency" name="testFrequency" as={Frequency} />
       <Button type="submit">Submit</Button>
     </Form>
   );
@@ -267,6 +267,13 @@ describe("Form", () => {
         },
       });
 
+      fireEvent.input(screen.getByLabelText("amount"), {
+        target: {
+          value: "200",
+        },
+      });
+      userEvent.click(screen.getByLabelText("Monthly"));
+
       userEvent.click(screen.getByText("Submit"));
 
       await waitFor(() => {
@@ -278,6 +285,10 @@ describe("Form", () => {
             day: "1",
             month: "2",
             year: "2020",
+          },
+          testFrequency: {
+            amount: "200",
+            frequency: "monthly",
           },
         });
       });

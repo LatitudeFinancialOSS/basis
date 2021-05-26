@@ -44,3 +44,8 @@ export type ResponsiveProp<Key extends string, T = number | string> = {
 };
 
 export type SizeValue = `${number}px` | `${number}` | `${number}%`;
+
+// See: https://stackoverflow.com/a/66234597/247243
+export type OptionsValues<T extends { [key: number]: { value: string } }> =
+  | T[number]["value"]
+  | "";

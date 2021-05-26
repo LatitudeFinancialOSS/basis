@@ -1,9 +1,7 @@
 import React from "react";
-import { render, screen, waitFor } from "../utils/test";
+import { render, screen, waitFor } from "../../utils/test";
 import "@testing-library/jest-dom/extend-expect";
-import Form from "./Form";
-import Frequency from "./Frequency";
-import Container from "./Container";
+import { Form, Container, Frequency } from "..";
 
 function FormWithFrequency(props) {
   const initialValues = {

@@ -4,4 +4,5 @@ export enum ComponentNames {
   Textarea = "BasisTextarea",
   Select = "BasisSelect",
   DateInput = "BasisDateInput",
+  Frequency = "BasisFrequency",
 }

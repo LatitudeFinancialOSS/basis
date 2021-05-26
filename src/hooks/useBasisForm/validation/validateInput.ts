@@ -3,13 +3,13 @@ import { InternalInputProps } from "../../../components/Input/types";
 export const NUMERIC_REGEX = /^\d*$/;
 export const DECIMAL_REGEX = /^\d*(\.\d{2})?$/;
 
-const isInputEmpty = (value: string) => value.trim() === "";
+export const isInputEmpty = (value: string) => value.trim() === "";
 
 export const validateInput = (
   value: string,
-  inputProps: Record<string, any>
+  inputProps: InternalInputProps
 ) => {
-  const { optional, variant } = inputProps as InternalInputProps;
+  const { optional, variant } = inputProps;
 
   if (isInputEmpty(value)) {
     return optional ? null : "Required";

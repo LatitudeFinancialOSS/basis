@@ -165,6 +165,7 @@ export interface InternalRadioGroupProps {
   innerRef?: React.Ref<HTMLDivElement>;
   parentName?: string;
   labelId?: string;
+  "aria-label"?: string;
   options: RadioOptions;
   columns?: number;
   color?: RadioGroupColor;
@@ -189,6 +190,7 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
     color,
     disabled = DEFAULT_PROPS.disabled,
     isValid,
+    "aria-label": ariaLabel,
     describedBy,
     onFocus,
     testId,
@@ -224,6 +226,7 @@ function InternalRadioGroup(props: InternalRadioGroupProps) {
       data-testid={testId}
       aria-invalid={isValid ? "false" : "true"}
       aria-labelledby={labelId}
+      aria-label={ariaLabel}
       aria-describedby={describedBy}
     >
       <Grid cols={cols} colsGap={1} rowsGap={1}>
