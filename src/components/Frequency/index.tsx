@@ -20,7 +20,10 @@ interface StaticProperties {
   ALL_FREQUENCY_OPTIONS: typeof ALL_FREQUENCY_OPTIONS;
 }
 
-const FrequencyComponent = (props: FrequencyProps, ref: any) => {
+const FrequencyComponent = (
+  props: FrequencyProps,
+  ref: React.Ref<HTMLDivElement>
+) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
