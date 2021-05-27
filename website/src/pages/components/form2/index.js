@@ -51,8 +51,11 @@ function FormPage() {
               <Text as="h2" textStyle="heading4">About you</Text>
               <Field name="name" label="Name" as={Input}/>
               <Field name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} as={Select} />
+              <Field label="Do you like ice cream?" hideLabel name="likeIceCream" helpText="You MUST like it!" as={Checkbox}>I like ice cream</Field>
               <Field name="hungry" label="Are you hungry?" options={hungryOptions} as={RadioGroup}/>
+              <Field name="salary" label="Salary (before tax)" amountPrefix="$" as={Frequency}/>
               <Field name="birthDate" label="Birth date" as={DateInput}/>
+              <Field name="aboutYourself" label="Tell us about yourself" height="100" as={Textarea}/>
               <Button type="submit">Submit</Button>
             </Stack>
           </Form>

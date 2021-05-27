@@ -19,9 +19,10 @@ interface StaticProperties {
   COLORS: string[];
   DEFAULT_PROPS: typeof InputDeprecated.DEFAULT_PROPS;
 }
-
-// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-const Input = forwardRef(function InputComponent(props: InputProps, ref) {
+const InputComponent = (
+  props: InputProps,
+  ref: React.Ref<HTMLInputElement>
+) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
@@ -29,7 +30,12 @@ const Input = forwardRef(function InputComponent(props: InputProps, ref) {
   }
 
   return <InputInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<InputProps, StaticProperties>;
+};
+
+const Input = forwardRef(InputComponent) as ComponentWithStaticProperties<
+  InputProps,
+  StaticProperties
+>;
 
 Input.displayName = ComponentNames.Input;
 

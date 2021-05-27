@@ -4,3 +4,4 @@ export { validateRadioGroup } from "./validateRadioGroup";
 export { validateSelect } from "./validateSelect";
 export { validateTextarea } from "./validateTextarea";
 export { validateFrequency } from "./validateFrequency";
+export { validateCheckbox } from "./validateCheckbox";

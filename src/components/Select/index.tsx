@@ -21,9 +21,10 @@ interface StaticProperties {
   COLORS: typeof SelectDeprecated.COLORS;
   DEFAULT_PROPS: typeof DEFAULT_PROPS;
 }
-
-// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-const Select = forwardRef(function SelectComponent(props: SelectProps, ref) {
+const SelectComponent = (
+  props: SelectProps,
+  ref: React.Ref<HTMLSelectElement>
+) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedSelect(props, isDeprecatedForm)) {
@@ -31,7 +32,12 @@ const Select = forwardRef(function SelectComponent(props: SelectProps, ref) {
   }
 
   return <SelectInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<SelectProps, StaticProperties>;
+};
+
+const Select = forwardRef(SelectComponent) as ComponentWithStaticProperties<
+  SelectProps,
+  StaticProperties
+>;
 
 Select.defaultProps = defaultSelectProps;
 

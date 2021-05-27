@@ -1,19 +1,16 @@
 import React, { useState, useMemo, useCallback } from "react";
-import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import { mergeProps } from "../utils/component";
-import Field from "./internal/Field";
-import InternalCheckbox from "./internal/InternalCheckbox";
+import useField from "../../hooks/internal/useField";
+import { mergeProps } from "../../utils/component";
+import Field from "../internal/Field";
+import InternalCheckbox from "../internal/InternalCheckbox";
+import { defaultCheckboxProps } from "./defaultCheckboxProps";
 
 const { COLORS } = InternalCheckbox;
 
 const DEFAULT_PROPS = {
-  hideLabel: false,
+  ...defaultCheckboxProps,
   color: InternalCheckbox.DEFAULT_PROPS.color,
-  disabled: false,
-  __internal__keyboardFocus: false,
-  optional: false,
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Must be checked";
@@ -101,6 +98,7 @@ function Checkbox(props) {
       <InternalCheckbox
         name={name}
         inputId={inputId}
+        // eslint-disable-next-line react/prop-types
         color={props.color}
         disabled={disabled}
         isValid={!hasErrors}
@@ -118,21 +116,5 @@ function Checkbox(props) {
     </Field>
   );
 }
-
-Checkbox.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  hideLabel: PropTypes.bool,
-  color: PropTypes.oneOf(COLORS),
-  helpText: PropTypes.string,
-  disabled: PropTypes.bool,
-  optional: PropTypes.bool,
-  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.any,
-  onChange: PropTypes.func,
-  children: PropTypes.node.isRequired,
-  testId: PropTypes.string,
-  __internal__keyboardFocus: PropTypes.bool,
-};
 
 export default Checkbox;

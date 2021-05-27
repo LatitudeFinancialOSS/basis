@@ -7,6 +7,9 @@ import {
   Button,
   Select,
   DateInput,
+  Checkbox,
+  Textarea,
+  Frequency,
   useBasisForm,
 } from "../..";
 import {
@@ -19,7 +22,6 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import { ValidationFunction } from "../../types";
 import { DateInputValue, FrequencyValue } from "../../values";
-import { Frequency } from "..";
 
 interface SimpleFormValues {
   testInput: string;
@@ -47,6 +49,8 @@ interface ComplexFormValues {
   testSelect: string;
   testDateInput: DateInputValue;
   testFrequency: FrequencyValue;
+  testCheckbox: boolean;
+  testTextarea: string;
 }
 
 const radioOptions = [
@@ -106,6 +110,20 @@ const ComplexForm = ({
         validate={validateDate}
       />
       <Field label="Test Frequency" name="testFrequency" as={Frequency} />
+      <Field
+        label="Test Checkbox"
+        name="testCheckbox"
+        testId="field"
+        as={Checkbox}
+      >
+        I agree
+      </Field>
+      <Field
+        label="Test Textarea"
+        name="testTextarea"
+        testId="field"
+        as={Textarea}
+      />
       <Button type="submit">Submit</Button>
     </Form>
   );
@@ -274,6 +292,13 @@ describe("Form", () => {
       });
       userEvent.click(screen.getByLabelText("Monthly"));
 
+      userEvent.click(screen.getByLabelText("Test Checkbox"));
+
+      fireEvent.input(screen.getByLabelText("Test Textarea"), {
+        target: {
+          value: "Long text",
+        },
+      });
       userEvent.click(screen.getByText("Submit"));
 
       await waitFor(() => {
@@ -290,6 +315,8 @@ describe("Form", () => {
             amount: "200",
             frequency: "monthly",
           },
+          testCheckbox: true,
+          testTextarea: "Long text",
         });
       });
 

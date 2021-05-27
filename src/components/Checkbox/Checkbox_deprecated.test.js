@@ -1,9 +1,7 @@
 import React from "react";
-import { render, screen, userEvent } from "../utils/test";
+import { render, screen, userEvent } from "../../utils/test";
 import "@testing-library/jest-dom/extend-expect";
-import Form from "./Form";
-import Checkbox from "./Checkbox";
-import Container from "./Container";
+import { Form, Checkbox, Container } from "..";
 
 function FormWithCheckbox(props) {
   const initialValues = {
@@ -32,10 +30,8 @@ describe("Checkbox", () => {
       checkboxContainer.getAttribute("aria-labelledby")
     );
 
-    const checkboxInput = checkboxContainer.querySelector(
-      'input[type="checkbox"]'
-    );
-    const checkboxInputLabel = checkboxContainer.querySelector("label");
+    const checkboxInput = container.querySelector('input[type="checkbox"]');
+    const checkboxInputLabel = container.querySelector("label");
 
     expect(checkboxInputLabel).toHaveAttribute(
       "for",
@@ -64,8 +60,7 @@ describe("Checkbox", () => {
         </FormWithCheckbox>
       </Container>
     );
-    const checkboxContainer = container.querySelector("[aria-labelledby]");
-    const checkboxInputLabel = checkboxContainer.querySelector("label");
+    const checkboxInputLabel = container.querySelector("label");
 
     expect(checkboxInputLabel).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -82,8 +77,7 @@ describe("Checkbox", () => {
         </Container>
       </Container>
     );
-    const checkboxContainer = container.querySelector("[aria-labelledby]");
-    const checkboxInputLabel = checkboxContainer.querySelector("label");
+    const checkboxInputLabel = container.querySelector("label");
 
     expect(checkboxInputLabel).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -109,8 +103,7 @@ describe("Checkbox", () => {
         I agree
       </FormWithCheckbox>
     );
-    const checkboxContainer = container.querySelector("[aria-labelledby]");
-    const checkboxInputLabel = checkboxContainer.querySelector("label");
+    const checkboxInputLabel = container.querySelector("label");
 
     // Check
     userEvent.click(checkboxInputLabel);

@@ -18,10 +18,10 @@ type StaticProperties = {
   DEFAULT_PROPS: typeof RadioDeprecated.DEFAULT_PROPS;
 };
 
-const RadioGroup = forwardRef(function RadioGroupComponent(
+const RadioGroupComponent = (
   props: RadioGroupProps,
-  ref
-) {
+  ref: React.Ref<HTMLInputElement>
+) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
@@ -29,7 +29,11 @@ const RadioGroup = forwardRef(function RadioGroupComponent(
   }
 
   return <RadioInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<RadioGroupProps, StaticProperties>;
+};
+
+const RadioGroup = forwardRef(
+  RadioGroupComponent
+) as ComponentWithStaticProperties<RadioGroupProps, StaticProperties>;
 
 RadioGroup.defaultProps = defaultRadioGroupProps;
 
