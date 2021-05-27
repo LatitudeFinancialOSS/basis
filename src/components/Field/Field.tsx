@@ -4,10 +4,12 @@ import { useBasisField } from "../../hooks/useBasisForm/useBasisField";
 import mergeRefs from "../../utils/mergeRefs";
 import { ValidationError, ValidateFn } from "../../types";
 
-export type Component<Props> = React.ForwardRefExoticComponent<
-  Props & React.RefAttributes<any>
-> &
-  Record<string, any>;
+export type Component<Props> =
+  | ComponentType<Props>
+  | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
+  | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
+      Record<string, any>)
+  | (React.Component<Props> & Record<string, any>);
 
 type ErrorProps<ErrorType extends ValidationError> = {
   error?: ErrorType;
