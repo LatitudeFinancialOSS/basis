@@ -36,7 +36,7 @@ function RadioGroup(props: InternalRadioGroupProps) {
     disabled,
     optional,
     color = DEFAULT_PROPS.color,
-    error = [],
+    error,
     onChange,
     onFocus,
     onBlur,
@@ -51,7 +51,8 @@ function RadioGroup(props: InternalRadioGroupProps) {
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
   const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
 
-  const fieldErrors = Array.isArray(error) ? error : [error];
+  const fieldErrors =
+    Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
   // @ts-ignore

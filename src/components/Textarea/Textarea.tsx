@@ -32,7 +32,7 @@ function Textarea(props: InternalTextareaProps) {
     helpText,
     disabled,
     optional,
-    error = [],
+    error,
     onChange,
     onFocus,
     onBlur,
@@ -57,7 +57,8 @@ function Textarea(props: InternalTextareaProps) {
     height: responsiveSize("height"),
   });
 
-  const fieldErrors = Array.isArray(error) ? error : [error];
+  const fieldErrors =
+    Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
   return (

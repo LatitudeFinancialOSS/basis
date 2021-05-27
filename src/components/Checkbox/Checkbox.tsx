@@ -21,7 +21,7 @@ function Checkbox(props: InternalCheckboxProps) {
     onMouseDown,
     children,
     testId,
-    error = [],
+    error,
     __internal__keyboardFocus,
   } = mergedProps;
   const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
@@ -34,7 +34,8 @@ function Checkbox(props: InternalCheckboxProps) {
     onChange?.(event.target.checked);
   };
 
-  const fieldErrors = Array.isArray(error) ? error : [error];
+  const fieldErrors =
+    Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
   return (

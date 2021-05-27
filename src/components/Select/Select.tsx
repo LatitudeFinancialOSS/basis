@@ -21,7 +21,7 @@ function Select(props: InternalSelectProps) {
     onChange,
     onFocus,
     onBlur,
-    error = [],
+    error,
     testId,
     color,
     __internal__focus,
@@ -36,7 +36,8 @@ function Select(props: InternalSelectProps) {
   const [selectId] = useState(() => `select-${nanoid()}`);
   const [auxId] = useState(() => `select-aux-${nanoid()}`);
 
-  const fieldErrors = Array.isArray(error) ? error : [error];
+  const fieldErrors =
+    Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
   return (

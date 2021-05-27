@@ -18,9 +18,10 @@ interface StaticProperties {
   COLORS: typeof DateInputInternal.COLORS;
   DEFAULT_PROPS: typeof DateInputInternal.DEFAULT_PROPS;
 }
-
-// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-const DateInput = forwardRef(function DateInputComponent(props, ref) {
+const DateInputComponent = (
+  props: DateInputProps,
+  ref: React.Ref<HTMLDivElement>
+) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedDateInput(props, isDeprecatedForm)) {
@@ -28,7 +29,11 @@ const DateInput = forwardRef(function DateInputComponent(props, ref) {
   }
 
   return <DateInputInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<DateInputProps, StaticProperties>;
+};
+// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
+const DateInput = forwardRef(
+  DateInputComponent
+) as ComponentWithStaticProperties<DateInputProps, StaticProperties>;
 
 DateInput.displayName = ComponentNames.DateInput;
 

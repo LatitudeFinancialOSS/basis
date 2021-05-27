@@ -27,7 +27,7 @@ const Input = (props: InternalInputProps) => {
     onFocus,
     testId,
     value,
-    error = [],
+    error,
     id,
     __internal__focus,
   } = mergedProps;
@@ -35,7 +35,8 @@ const Input = (props: InternalInputProps) => {
   const [inputId] = useState(() => id ?? `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
 
-  const fieldErrors = Array.isArray(error) ? error : [error];
+  const fieldErrors =
+    Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
   return (

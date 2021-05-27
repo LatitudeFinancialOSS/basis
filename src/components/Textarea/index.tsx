@@ -19,12 +19,10 @@ interface StaticProperties {
   COLORS: string[];
   DEFAULT_PROPS: typeof TextareaDeprecated.DEFAULT_PROPS;
 }
-
-// can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-const Textarea = forwardRef(function TextareaComponent(
+const TextareaComponent = (
   props: TextareaProps,
-  ref
-) {
+  ref: React.Ref<HTMLTextAreaElement>
+) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
@@ -32,7 +30,12 @@ const Textarea = forwardRef(function TextareaComponent(
   }
 
   return <TextareaInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<TextareaProps, StaticProperties>;
+};
+
+const Textarea = forwardRef(TextareaComponent) as ComponentWithStaticProperties<
+  TextareaProps,
+  StaticProperties
+>;
 
 Textarea.displayName = ComponentNames.Textarea;
 

@@ -8,6 +8,7 @@ import {
   Select,
   DateInput,
   Checkbox,
+  Textarea,
   Frequency,
   useBasisForm,
 } from "../..";
@@ -21,7 +22,6 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import { ValidationFunction } from "../../types";
 import { DateInputValue, FrequencyValue } from "../../values";
-import { Textarea } from "..";
 
 interface SimpleFormValues {
   testInput: string;
