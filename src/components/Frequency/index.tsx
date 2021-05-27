@@ -8,7 +8,7 @@ import { default as FrequencyInternal } from "./Frequency";
 import { default as FrequencyDeprecated } from "./Frequency__deprecated";
 import {
   FrequencyProps,
-  setDeprecatedProps as shouldUseDeprecatedInput,
+  setDeprecatedProps as shouldUseDeprecatedFrequency,
 } from "./types";
 
 const { COLORS, DEFAULT_PROPS, MODES } = FrequencyDeprecated;
@@ -26,7 +26,7 @@ const FrequencyComponent = (
 ) => {
   const isDeprecatedForm = useIsDeprecatedForm();
 
-  if (shouldUseDeprecatedInput(props, isDeprecatedForm)) {
+  if (shouldUseDeprecatedFrequency(props, isDeprecatedForm)) {
     return <FrequencyDeprecated {...props} />;
   }
 

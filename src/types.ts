@@ -4,10 +4,8 @@ import React from "react";
 export type ComponentWithStaticProperties<
   Props extends {},
   Properties extends {}
-> =
-  | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
-      Properties)
-  | (React.ComponentType<Props> & Properties);
+> = React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
+  Properties;
 
 export type ValidationError = string | string[] | Record<string, string> | null;
 

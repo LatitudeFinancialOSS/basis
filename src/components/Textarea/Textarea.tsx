@@ -32,7 +32,7 @@ function Textarea(props: InternalTextareaProps) {
     helpText,
     disabled,
     optional,
-    error,
+    error = [],
     onChange,
     onFocus,
     onBlur,

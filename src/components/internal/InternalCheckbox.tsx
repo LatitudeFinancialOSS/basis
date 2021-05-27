@@ -6,27 +6,36 @@ import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import VisuallyHidden from "../VisuallyHidden";
 
-const COLORS = ["grey.t05", "white"];
+const COLORS = ["grey.t05", "white"] as const;
 
 const DEFAULT_PROPS = {
   color: "grey.t05",
   disabled: false,
   __internal__keyboardFocus: false,
-};
+} as const;
 
 InternalCheckbox.COLORS = COLORS;
 InternalCheckbox.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function CheckboxIcon({ color, isChecked }) {
+type CheckboxColor = "grey.t05" | "white";
+
+interface CheckboxIconProps {
+  color: CheckboxColor;
+  isChecked?: boolean;
+}
+
+function CheckboxIcon({ color, isChecked = false }: CheckboxIconProps) {
   const theme = useTheme();
   const { inputColorMap } = useBackground();
   const rectCSS = useResponsivePropsCSS(
     {},
     {},
     {
+      // @ts-ignore
       color: (propsAtBreakpoint, theme, bp) => {
         return theme.checkbox.getCSS({
           targetElement: "svgRect",
+          // @ts-ignore
           color: color ?? inputColorMap[bp],
           isChecked,
         });
@@ -61,7 +70,26 @@ CheckboxIcon.propTypes = {
   isChecked: PropTypes.bool.isRequired,
 };
 
-function InternalCheckbox(_props) {
+interface InternalCheckboxProps {
+  name?: string;
+  parentName?: string;
+  inputId?: string;
+  color?: CheckboxColor;
+  testId?: string;
+  disabled?: boolean;
+  isValid: boolean;
+  labelledBy?: string;
+  describedBy?: string;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  value?: boolean;
+  onChange: React.FocusEventHandler<HTMLInputElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
+  children: React.ReactNode;
+  __internal__keyboardFocus?: boolean;
+}
+
+function InternalCheckbox(_props: InternalCheckboxProps) {
   const props = { ...DEFAULT_PROPS, ..._props };
   const {
     name,
@@ -69,6 +97,7 @@ function InternalCheckbox(_props) {
     color,
     disabled,
     isValid,
+    testId,
     labelledBy,
     describedBy,
     onFocus,
@@ -83,9 +112,11 @@ function InternalCheckbox(_props) {
   const { inputColorMap } = useBackground();
   const [inputId] = useState(() => props.inputId ?? `checkbox-${nanoid()}`);
   const labelCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) => {
       return theme.checkbox.getCSS({
         targetElement: "label",
+        // @ts-ignore
         color: _props.color ?? inputColorMap[bp],
         __internal__keyboardFocus,
       });
@@ -93,16 +124,15 @@ function InternalCheckbox(_props) {
   });
 
   return (
-    <div
-      css={theme.checkbox.getCSS({ targetElement: "container" })}
-      aria-invalid={isValid ? null : "true"}
-      aria-labelledby={labelledBy}
-      aria-describedby={describedBy}
-    >
+    <div css={theme.checkbox.getCSS({ targetElement: "container" })}>
       <VisuallyHidden>
         <input
           css={theme.checkbox.getCSS({ targetElement: "input" })}
+          aria-invalid={isValid ? "false" : "true"}
+          aria-labelledby={labelledBy}
+          aria-describedby={describedBy}
           type="checkbox"
+          data-testid={testId}
           id={inputId}
           name={name}
           data-parent-name={parentName}
@@ -124,23 +154,5 @@ function InternalCheckbox(_props) {
     </div>
   );
 }
-
-InternalCheckbox.propTypes = {
-  name: PropTypes.string.isRequired,
-  parentName: PropTypes.string,
-  inputId: PropTypes.string,
-  color: PropTypes.oneOf(COLORS),
-  disabled: PropTypes.bool,
-  isValid: PropTypes.bool.isRequired,
-  labelledBy: PropTypes.string,
-  describedBy: PropTypes.string,
-  onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  value: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onMouseDown: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  __internal__keyboardFocus: PropTypes.bool,
-};
 
 export default InternalCheckbox;

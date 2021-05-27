@@ -1,6 +1,7 @@
 import { ComponentNames } from "../../components/componentNames";
 import { ValidateFn } from "../../types";
 import {
+  validateCheckbox,
   validateDateInput,
   validateFrequency,
   validateInput,
@@ -16,4 +17,5 @@ export const nameToValidateMap: Record<ComponentNames, ValidateFn> = {
   [ComponentNames.DateInput]: validateDateInput as ValidateFn,
   [ComponentNames.Textarea]: validateTextarea as ValidateFn,
   [ComponentNames.Frequency]: validateFrequency as ValidateFn,
+  [ComponentNames.Checkbox]: validateCheckbox as ValidateFn,
 };

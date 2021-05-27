@@ -120,13 +120,13 @@ function Frequency(props: InternalFrequencyProps) {
       auxId={auxId}
       helpText={helpText}
       errors={fieldErrors}
-      testId={testId}
     >
       <div
         ref={mergeRefs([innerRef, frequencyRef])}
         aria-invalid={hasErrors ? "true" : "false"}
         aria-labelledby={labelId}
         aria-describedby={helpText || hasErrors ? auxId : undefined}
+        data-testid={testId}
       >
         {mode === "radio-group" && (
           <Grid cols={1} rowsGap={1}>

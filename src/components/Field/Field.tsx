@@ -4,12 +4,10 @@ import { useBasisField } from "../../hooks/useBasisForm/useBasisField";
 import mergeRefs from "../../utils/mergeRefs";
 import { ValidationError, ValidateFn } from "../../types";
 
-export type Component<Props> =
-  | ComponentType<Props>
-  | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
-  | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
-      Record<string, any>)
-  | (React.Component<Props> & Record<string, any>);
+export type Component<Props> = React.ForwardRefExoticComponent<
+  Props & React.RefAttributes<any>
+> &
+  Record<string, any>;
 
 type ErrorProps<ErrorType extends ValidationError> = {
   error?: ErrorType;
@@ -39,10 +37,10 @@ type FieldProps<
   // infer the value prop from the component
   Props extends ValueProps<infer Value>
     ? // check if value of prop is compatible with type from Field path
-      Value extends FieldPathValue<TFieldValues, Name>
+      FieldPathValue<TFieldValues, Name> extends Value
       ? // Infer the type of Error expected by the validate function
         FieldInnerProps<Name, Value, Props>
-      : FieldPathValue<TFieldValues, Name> extends Value
+      : Value extends FieldPathValue<TFieldValues, Name>
       ? FieldInnerProps<Name, Value, Props>
       : // show nicer error message for component mismatch
         "Component in `as=` expects a different value than the one provided by `name=`"

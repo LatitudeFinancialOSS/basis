@@ -254,3 +254,31 @@ Has the following changes:
 - `testId` will be placed on `<div role="radiogroup" />` component instead of the wrapping `<div />` if the `testId` was being used to test children then they may break.
 - Now accepts `error`, `value`, `onBlur`, `onFocus` and `ref` props.
 - No longer accepts `name` and `validate`, these are now props of `Field` component
+
+## Textarea
+
+Has the following changes:
+
+- When used outside the old Form will not throw an Error. Will instead behave as a dumb component.
+- `testId` will be placed on `<textarea />` component instead of the wrapping `<div />` if the `testId` was being used to test children then they may break.
+- Now accepts `error`, `value`, `onBlur`, `onFocus` and `ref` props.
+- No longer accepts `name` and `validate`, these are now props of `Field` component
+
+## Frequency
+
+Has the following changes:
+
+- When used outside the old Form will not throw an Error. Will instead behave as a dumb component.
+- `testId` will be placed on `<div />` component with `aria` attributes instead of the wrapping `<div />` if the `testId` was being used to test children then they may break.
+- Now accepts `error`, `value`, `onChange`, `onBlur`, `onFocus` and `ref` props.
+- No longer accepts `name` and `validate`, these are now props of `Field` component
+
+## Checkbox
+
+Has the following changes:
+
+- When used outside the old Form will not throw an Error. Will instead behave as a dumb component.
+- `testId` will be placed on `<input />` instead of the wrapping `<div />` if the `testId` was being used to test children then they may break.
+- Now accepts `error`, `value`, `onBlur`, `onFocus` and `ref` props.
+- No longer accepts `name` and `validate`, these are now props of `Field` component
+- `onChange` no longer called with `{ isChecked: boolean }` instead directly called with `boolean`

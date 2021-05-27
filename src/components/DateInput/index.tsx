@@ -20,10 +20,7 @@ interface StaticProperties {
 }
 
 // can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-const DateInput = forwardRef(function DateInputComponent(
-  props: DateInputProps,
-  ref
-) {
+const DateInput = forwardRef(function DateInputComponent(props, ref) {
   const isDeprecatedForm = useIsDeprecatedForm();
 
   if (shouldUseDeprecatedDateInput(props, isDeprecatedForm)) {
