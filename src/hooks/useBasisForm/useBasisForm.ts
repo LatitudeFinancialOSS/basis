@@ -5,7 +5,8 @@ import {
   UnpackNestedValue,
   useForm,
 } from "react-hook-form";
-import { Field, FieldComponent } from "../../components/Field/Field";
+import { Field } from "../../components/Field/Field";
+import { FieldComponent } from "../../components/Field/types";
 import { ValidationError } from "../../types";
 import { rhfErrorConverter } from "./rhfErrorConverter";
 import { BASIS_INTERNAL_VALIDATION_KEY } from "./useBasisField";

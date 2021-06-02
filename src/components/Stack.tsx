@@ -1,45 +1,49 @@
 import React from "react";
-import PropTypes from "prop-types";
 import flattenChildren from "react-keyed-flatten-children";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
-import useResponsiveProp, {
-  responsiveMarginType,
-  responsiveWidthType,
-  responsivePropType,
-} from "../hooks/useResponsiveProp";
+import useResponsiveProp from "../hooks/useResponsiveProp";
 import {
   responsiveMargin,
   responsiveSize,
   getGapValues,
   mergeResponsiveCSS,
 } from "../utils/css";
-import { mergeProps } from "../utils/component";
+import { ResponsiveProp, SizeValue } from "../types";
+import { useMergedProps } from "../hooks/useMergedProps";
+import { Interpolation } from "@emotion/serialize";
+import { Theme } from "@emotion/react";
 
-const DIRECTIONS = ["vertical", "horizontal"];
-const ALIGNMENTS = ["normal", "left", "center", "right"];
+const DIRECTIONS = ["vertical", "horizontal"] as const;
+const ALIGNMENTS = ["normal", "left", "center", "right"] as const;
 
 const DEFAULT_PROPS = {
   direction: "vertical",
   align: "normal",
   gap: "0",
   flatten: false,
-};
+} as const;
 
 Stack.DIRECTIONS = DIRECTIONS;
 Stack.ALIGNMENTS = ALIGNMENTS;
 Stack.DEFAULT_PROPS = DEFAULT_PROPS;
 
-function Stack(props) {
-  const mergedProps = mergeProps(
-    props,
-    DEFAULT_PROPS,
-    {},
-    {
-      direction: (direction) => DIRECTIONS.includes(direction),
-      align: (align) => ALIGNMENTS.includes(align),
-      flatten: (flatten) => typeof flatten === "boolean",
-    }
-  );
+type StackDirection = "vertical" | "horizontal";
+
+type StackAlignment = "normal" | "left" | "center" | "right";
+
+type StackProps = {
+  flatten?: boolean;
+  children: React.ReactNode;
+  testId?: string;
+} & ResponsiveProp<"margin", SizeValue> &
+  ResponsiveProp<"width", SizeValue> &
+  ResponsiveProp<"direction", StackDirection> &
+  ResponsiveProp<"align", StackAlignment> &
+  ResponsiveProp<"gap">;
+
+function Stack(props: StackProps) {
+  const mergedProps = useMergedProps(props, DEFAULT_PROPS);
+
   const { flatten, children, testId } = mergedProps;
   const maybeFlattenedChildren = flatten
     ? flattenChildren(children)
@@ -48,6 +52,7 @@ function Stack(props) {
   const flexWrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     width: responsiveSize("width"),
+    // @ts-ignore
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
@@ -65,6 +70,7 @@ function Stack(props) {
     },
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    // @ts-ignore
     align: ({ direction, align }) => {
       if (!align) {
         return {};
@@ -81,6 +87,7 @@ function Stack(props) {
           : "flex-start",
       };
     },
+    // @ts-ignore
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
@@ -96,6 +103,7 @@ function Stack(props) {
     },
   });
   const childCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    // @ts-ignore
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
@@ -114,23 +122,25 @@ function Stack(props) {
 
   return (
     <div
-      css={mergeResponsiveCSS(
-        {
-          paddingTop: "1px",
-          "::before": {
-            content: '""',
-            display: "block",
+      css={
+        mergeResponsiveCSS(
+          {
+            paddingTop: "1px",
+            "::before": {
+              content: '""',
+              display: "block",
+            },
           },
-        },
-        flexWrapperCSS
-      )}
+          flexWrapperCSS
+        ) as Interpolation<Theme>
+      }
       data-testid={testId}
     >
       <div
         css={{
           display: "flex",
-          flexDirection: direction === "horizontal" ? null : "column",
-          flexWrap: direction === "horizontal" ? "wrap" : null,
+          flexDirection: direction === "horizontal" ? undefined : "column",
+          flexWrap: direction === "horizontal" ? "wrap" : undefined,
           ...flexCSS,
         }}
       >
@@ -153,19 +163,5 @@ function Stack(props) {
     </div>
   );
 }
-
-Stack.propTypes = {
-  ...responsiveMarginType,
-  ...responsiveWidthType,
-  ...responsivePropType("direction", PropTypes.oneOf(DIRECTIONS)),
-  ...responsivePropType("align", PropTypes.oneOf(ALIGNMENTS)),
-  ...responsivePropType(
-    "gap",
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  ),
-  flatten: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-  testId: PropTypes.string,
-};
 
 export default Stack;

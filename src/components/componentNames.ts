@@ -6,4 +6,5 @@ export enum ComponentNames {
   DateInput = "BasisDateInput",
   Frequency = "BasisFrequency",
   Checkbox = "BasisCheckbox",
+  CheckboxGroup = "BasisCheckboxGroup",
 }
