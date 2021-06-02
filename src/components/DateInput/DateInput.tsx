@@ -138,7 +138,7 @@ function DateInput(props: InternalDateInputProps) {
     year: "",
   });
 
-  const value = props.value ?? internalValue;
+  const value = mergedProps.value ?? internalValue;
 
   const helpText = useMemo(
     () => getHelpText(value, dayMode, yearMode, helpTextProp),

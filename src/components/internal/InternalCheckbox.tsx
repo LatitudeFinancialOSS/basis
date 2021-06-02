@@ -83,7 +83,7 @@ interface InternalCheckboxProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   value?: boolean;
-  onChange: React.FocusEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
   children: React.ReactNode;
   __internal__keyboardFocus?: boolean;

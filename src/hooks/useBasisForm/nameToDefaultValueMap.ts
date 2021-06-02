@@ -15,4 +15,5 @@ export const nameToDefaultValueMap: Record<ComponentNames, any> = {
     frequency: "",
   },
   [ComponentNames.Checkbox]: false,
+  [ComponentNames.CheckboxGroup]: {},
 };

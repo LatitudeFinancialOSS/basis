@@ -1,18 +1,17 @@
 import React, { useState, useMemo, useCallback } from "react";
-import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
-import useField from "../hooks/internal/useField";
-import InternalCheckbox from "./internal/InternalCheckbox";
-import Field from "./internal/Field";
-import Stack from "./Stack";
-import { mergeProps, areCheckboxOptionsValid } from "../utils/component";
+import useField from "../../hooks/internal/useField";
+import InternalCheckbox from "../internal/InternalCheckbox";
+import Field from "../internal/Field";
+import Stack from "../Stack";
+import { mergeProps, areCheckboxOptionsValid } from "../../utils/component";
+import { defaultCheckboxGroupProps } from "./defaultCheckboxGroupProps";
 
 const { COLORS } = InternalCheckbox;
 
 const DEFAULT_PROPS = {
+  ...defaultCheckboxGroupProps,
   color: InternalCheckbox.DEFAULT_PROPS.color,
-  disabled: false,
-  optional: false,
   validate: (value, { isEmpty }) => {
     if (isEmpty(value)) {
       return "Please make a selection.";
@@ -124,6 +123,7 @@ function CheckboxGroup(props) {
           <InternalCheckbox
             name={`${name}.${key}`}
             parentName={name}
+            // eslint-disable-next-line react/prop-types
             color={props.color}
             disabled={disabled}
             isValid={!hasErrors}
@@ -141,32 +141,5 @@ function CheckboxGroup(props) {
     </Field>
   );
 }
-
-CheckboxGroup.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  options: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      })
-    ),
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.node.isRequired,
-      })
-    ),
-  ]).isRequired,
-  color: PropTypes.oneOf(COLORS),
-  helpText: PropTypes.string,
-  disabled: PropTypes.bool,
-  optional: PropTypes.bool,
-  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  validateData: PropTypes.any,
-  onChange: PropTypes.func,
-  testId: PropTypes.string,
-};
 
 export default CheckboxGroup;

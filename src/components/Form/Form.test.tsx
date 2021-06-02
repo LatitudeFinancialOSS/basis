@@ -10,6 +10,7 @@ import {
   Checkbox,
   Textarea,
   Frequency,
+  CheckboxGroup,
   useBasisForm,
 } from "../..";
 import {
@@ -48,9 +49,11 @@ interface ComplexFormValues {
   testRadio: "value1" | "value2";
   testSelect: string;
   testDateInput: DateInputValue;
+  birthDay: DateInputValue;
   testFrequency: FrequencyValue;
   testCheckbox: boolean;
   testTextarea: string;
+  testCheckboxGroup: Record<string, boolean>;
 }
 
 const radioOptions = [
@@ -62,6 +65,22 @@ const selectOptions = [
   { label: "Select Option 1", value: "value1" },
   { label: "Select Option 2", value: "value2" },
 ] as const;
+
+const checkboxGroupOptions = [
+  {
+    key: "value1",
+    label: "CheckboxGroup Option 1",
+  },
+  {
+    key: "value2",
+    label: "CheckboxGroup Option 2",
+  },
+  {
+    key: "value3",
+    label: "CheckboxGroup Option 3",
+  },
+] as const;
+
 interface ComplexFormProps {
   onSubmit?: SubmitHandler<SimpleFormValues>;
   validate?: (val: string) => string | string[] | null;
@@ -123,6 +142,12 @@ const ComplexForm = ({
         name="testTextarea"
         testId="field"
         as={Textarea}
+      />
+      <Field
+        label="Test CheckboxGroup"
+        name="testCheckboxGroup"
+        options={checkboxGroupOptions}
+        as={CheckboxGroup}
       />
       <Button type="submit">Submit</Button>
     </Form>
@@ -294,6 +319,8 @@ describe("Form", () => {
 
       userEvent.click(screen.getByLabelText("Test Checkbox"));
 
+      userEvent.click(screen.getByLabelText("CheckboxGroup Option 1"));
+
       fireEvent.input(screen.getByLabelText("Test Textarea"), {
         target: {
           value: "Long text",
@@ -317,6 +344,11 @@ describe("Form", () => {
           },
           testCheckbox: true,
           testTextarea: "Long text",
+          testCheckboxGroup: {
+            value1: true,
+            value2: false,
+            value3: false,
+          },
         });
       });
 
