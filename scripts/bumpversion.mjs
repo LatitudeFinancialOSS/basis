@@ -78,7 +78,7 @@ async function chooseTag() {
 async function main() {
   if (!process.env.PERCY_TOKEN) {
     console.log(chalk.red("No PERCY_TOKEN found in the environment"));
-    return;
+    process.exit(1);
   }
 
   const branch = await runSilently(() => $`git branch --show-current`);
@@ -95,7 +95,7 @@ async function main() {
 
     if (proceed === "no") {
       console.log(chalk.red("aborting the release"));
-      return;
+      process.exit(1);
     }
 
     if (proceed === "switch to latest master") {
@@ -140,7 +140,7 @@ async function main() {
 
   if (proceed === "no") {
     console.log(chalk.red("aborting the release"));
-    return;
+    process.exit(1);
   }
   const content = await fs.readFile("./package.json");
   const replaced = content.toString().replace(version, newVersion);
@@ -170,14 +170,14 @@ async function main() {
 
   if (passes === "no") {
     console.log(chalk.red("aborting the release"));
-    return;
+    process.exit(1);
   }
 
   const tag = await chooseTag();
 
   if (!tag) {
     console.log(chalk.red("aborting the release"));
-    return;
+    process.exit(1);
   }
 
   await $`git commit -am "${newVersion}"`;
