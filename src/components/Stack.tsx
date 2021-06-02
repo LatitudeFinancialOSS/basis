@@ -35,7 +35,7 @@ type StackProps = {
   flatten?: boolean;
   children: React.ReactNode;
   testId?: string;
-} & ResponsiveProp<"margin", SizeValue> &
+} & ResponsiveProp<"margin", string> &
   ResponsiveProp<"width", SizeValue> &
   ResponsiveProp<"direction", StackDirection> &
   ResponsiveProp<"align", StackAlignment> &
