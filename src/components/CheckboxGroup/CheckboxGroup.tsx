@@ -88,7 +88,6 @@ const CheckboxGroup: CheckboxGroupComponent = (props) => {
       testId={testId}
     >
       <div ref={mergeRefs([checkboxRef, innerRef])}>
-        {/* @ts-ignore */}
         <Stack gap="1">
           {options.map(({ key, label }: CheckboxOption) => (
             <InternalCheckbox
