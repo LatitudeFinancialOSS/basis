@@ -54,6 +54,7 @@ interface ComplexFormValues {
   testCheckbox: boolean;
   testTextarea: string;
   testCheckboxGroup: Record<string, boolean>;
+  testCustomInput: string;
 }
 
 const radioOptions = [
@@ -96,7 +97,7 @@ const ComplexForm = ({
   validate,
   testId,
 }: ComplexFormProps) => {
-  const { methods, Field } = useBasisForm<ComplexFormValues>();
+  const { methods, Field, CustomField } = useBasisForm<ComplexFormValues>();
 
   return (
     <Form testId={testId} methods={methods} onSubmit={onSubmit}>
@@ -149,6 +150,13 @@ const ComplexForm = ({
         options={checkboxGroupOptions}
         as={CheckboxGroup}
       />
+      <CustomField
+        name="testCustomInput"
+        defaultValue=""
+        validate={(val) => (val === "" ? "Required" : null)}
+      >
+        {(props) => <Input label="Custom Input" {...props} testId="field" />}
+      </CustomField>
       <Button type="submit">Submit</Button>
     </Form>
   );
@@ -326,6 +334,13 @@ describe("Form", () => {
           value: "Long text",
         },
       });
+
+      // can't use userEvent.type becuase of: https://github.com/testing-library/user-event/issues/387#issuecomment-819761470
+      fireEvent.input(screen.getByLabelText("Custom Input"), {
+        target: {
+          value: "some-data",
+        },
+      });
       userEvent.click(screen.getByText("Submit"));
 
       await waitFor(() => {
@@ -349,6 +364,7 @@ describe("Form", () => {
             value2: false,
             value3: false,
           },
+          testCustomInput: "some-data",
         });
       });
 

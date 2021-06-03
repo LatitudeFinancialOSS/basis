@@ -5,8 +5,12 @@ import {
   UnpackNestedValue,
   useForm,
 } from "react-hook-form";
+import { CustomField } from "../../components/Field/CustomField";
 import { Field } from "../../components/Field/Field";
-import { FieldComponent } from "../../components/Field/types";
+import {
+  CustomFieldComponent,
+  FieldComponent,
+} from "../../components/Field/types";
 import { ValidationError } from "../../types";
 import { rhfErrorConverter } from "./rhfErrorConverter";
 import { BASIS_INTERNAL_VALIDATION_KEY } from "./useBasisField";
@@ -43,6 +47,7 @@ export function useBasisForm<FieldValues>(
   return {
     methods,
     Field: Field as FieldComponent<FieldValues>,
+    CustomField: CustomField as CustomFieldComponent<FieldValues>,
     setError: setBasisError,
   };
 }
