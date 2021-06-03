@@ -28,7 +28,7 @@ export const useBasisField = <
   TFieldValues extends FieldValues,
   Name extends FieldPath<TFieldValues>
 >(
-  props: FieldOptions<TFieldValues, Name>
+  options: FieldOptions<TFieldValues, Name>
 ) => {
   const {
     name,
@@ -36,7 +36,7 @@ export const useBasisField = <
     componentProps = {},
     validate: customValidation,
     componentDisplayName = "",
-  } = props;
+  } = options;
   const { trigger } = useFormContext<TFieldValues>();
 
   // as any is needed due to: https://github.com/microsoft/TypeScript/issues/35186

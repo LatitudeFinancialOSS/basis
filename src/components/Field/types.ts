@@ -1,5 +1,11 @@
 import React, { ComponentType } from "react";
-import { FieldPath, FieldValues } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldPath,
+  FieldPathValue,
+  FieldValues,
+  PathValue,
+} from "react-hook-form";
 import { ValidationError, ValidateFn } from "../../types";
 
 export type Primitive =
@@ -94,4 +100,30 @@ export type ValidProps<
       // of components with arbitrary properties and refs
       as: ComponentType<Props>;
     } & Props
-  : "Component in `as=` expects a different value than the one provided by `name=`";
+  : never;
+
+type CustomFieldRenderProp<
+  TFieldValues extends FieldValues = FieldValues,
+  Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = (
+  values: ControllerRenderProps<TFieldValues, Name> & {
+    value: FieldPathValue<TFieldValues, Name>;
+    error?: ValidationError;
+  }
+) => React.ReactNode;
+
+export type CustomFieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+  Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = {
+  name: Name;
+  validate: ValidateFn<PathValue<TFieldValues, Name>, {}, ValidationError>;
+  defaultValue: PathValue<TFieldValues, Name>;
+  children: CustomFieldRenderProp<TFieldValues, Name>;
+};
+
+export type CustomFieldComponent<
+  TFieldValues extends FieldValues = FieldValues
+> = <Name extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>(
+  props: CustomFieldProps<TFieldValues, Name>
+) => any;
