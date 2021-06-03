@@ -45,6 +45,8 @@
     "install-website": "cd website && yarn && cd .."
   },
   "dependencies": {
+    "@appsignal/javascript": "1.3.12",
+    "@appsignal/react": "1.0.7",
     "date-fns": "2.21.1",
     "deep-object-diff": "1.1.0",
     "deepmerge": "4.2.2",
