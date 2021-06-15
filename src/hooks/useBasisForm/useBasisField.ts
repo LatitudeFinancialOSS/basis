@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { RefCallback, useCallback, useEffect, useRef, useState } from "react";
 import {
   FieldPathValue,
   FieldPath,
@@ -63,6 +63,24 @@ export const useBasisField = <
     },
   });
 
+  const { ref: rhfRef } = field;
+
+  // https://github.com/react-hook-form/react-hook-form/discussions/5548#discussioncomment-849081
+  const ref: RefCallback<HTMLElement> = useCallback(
+    (e) => {
+      e &&
+        rhfRef({
+          focus: () => {
+            const tabIndex = e.tabIndex;
+            e.tabIndex = 1;
+            e.focus();
+            e.tabIndex = tabIndex;
+          },
+        });
+    },
+    [rhfRef]
+  );
+
   const [hasBeenInvalid, setHasBeenInvalid] = useState(false);
 
   useEffect(() => {
@@ -115,6 +133,7 @@ export const useBasisField = <
 
   return {
     ...field,
+    ref,
     onBlur,
     onChange,
     error: rhfErrorConverter.getBasisError(fieldState.error) ?? undefined,

@@ -12,6 +12,7 @@ function Checkbox(props: InternalCheckboxProps) {
     label,
     value,
     hideLabel,
+    innerRef,
     helpText,
     disabled,
     optional,
@@ -50,6 +51,7 @@ function Checkbox(props: InternalCheckboxProps) {
       errors={fieldErrors}
     >
       <InternalCheckbox
+        innerRef={innerRef}
         inputId={inputId}
         testId={testId}
         color={props.color}
