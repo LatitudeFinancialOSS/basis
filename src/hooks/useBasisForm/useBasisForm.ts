@@ -52,7 +52,10 @@ export function useBasisForm<FieldValues>(
   };
 }
 
-export { useFieldArray, useWatch, useFormState } from "react-hook-form";
-
-// currently can't export all types see: https://github.com/microsoft/TypeScript/issues/37238
-export { Controller } from "react-hook-form";
+export {
+  Controller,
+  useFieldArray,
+  useFormContext,
+  useFormState,
+  useWatch,
+} from "react-hook-form";
