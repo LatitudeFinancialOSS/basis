@@ -70,7 +70,12 @@ export const useBasisField = <
     (e) => {
       e &&
         rhfRef({
-          focus: () => e.focus(),
+          focus: () => {
+            const tabIndex = e.tabIndex;
+            e.tabIndex = 1;
+            e.focus();
+            e.tabIndex = tabIndex;
+          },
         });
     },
     [rhfRef]

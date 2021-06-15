@@ -72,6 +72,7 @@ CheckboxIcon.propTypes = {
 
 interface InternalCheckboxProps {
   name?: string;
+  innerRef?: React.Ref<HTMLInputElement>;
   parentName?: string;
   inputId?: string;
   color?: CheckboxColor;
@@ -97,6 +98,7 @@ function InternalCheckbox(_props: InternalCheckboxProps) {
     color,
     disabled,
     isValid,
+    innerRef,
     testId,
     labelledBy,
     describedBy,
@@ -128,6 +130,7 @@ function InternalCheckbox(_props: InternalCheckboxProps) {
       <VisuallyHidden>
         <input
           css={theme.checkbox.getCSS({ targetElement: "input" })}
+          ref={innerRef}
           aria-invalid={isValid ? "false" : "true"}
           aria-labelledby={labelledBy}
           aria-describedby={describedBy}
