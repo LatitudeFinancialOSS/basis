@@ -14,9 +14,7 @@ export { getUniqueId } from "./utils/core";
 // Components
 export * from "./components";
 
-export * from "./hooks/useBasisForm/useBasisForm";
-
-export * from "./hooks/useBasisForm/validation";
+export * from "./hooks/useBasisForm";
 
 // Types
 export type { Breakpoint, ValidationFunction } from "./types";
