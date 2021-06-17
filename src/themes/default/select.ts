@@ -1,11 +1,26 @@
-export default (theme, { getColor }) => {
+import { BasisTheme, SelectTheme, ThemeHelpers } from "../types";
+
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "radii"
+    | "shadows"
+    | "fonts"
+    | "fontSizes"
+    | "fontWeights"
+    | "lineHeights"
+    | "colors"
+    | "space"
+  >,
+  { getColor }: ThemeHelpers
+): SelectTheme => {
   return {
     getCSS: ({ color, fullWidth, __internal__focus }) => {
       const focusStyle = {
         outline: 0,
         borderRadius: theme.radii[0],
         boxShadow: theme.shadows.focus,
-      };
+      } as const;
 
       return {
         display: "inline-block",
@@ -14,7 +29,7 @@ export default (theme, { getColor }) => {
         lineHeight: theme.lineHeights[2],
         fontFamily: theme.fonts.body,
         color: theme.colors.black,
-        width: fullWidth ? "100%" : null,
+        width: fullWidth ? "100%" : undefined,
         height: "48px",
         paddingLeft: theme.space[4],
         paddingRight: theme.space[10],
@@ -34,7 +49,7 @@ export default (theme, { getColor }) => {
         },
         ":focus": focusStyle,
         ...(__internal__focus && focusStyle),
-      };
+      } as const;
     },
   };
 };

@@ -1,12 +1,22 @@
-export default (theme, { getColor }) => {
+import { BasisTheme, CheckboxTheme, ThemeHelpers } from "../types";
+
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "space"
+    | "fontSizes"
+    | "fontWeights"
+    | "lineHeights"
+    | "fonts"
+    | "colors"
+    | "radii"
+    | "focusStyles"
+  >,
+  { getColor }: ThemeHelpers
+): CheckboxTheme => {
   return {
-    getCSS: ({
-      targetElement,
-      color,
-      isChecked,
-      __internal__keyboardFocus,
-    }) => {
-      switch (targetElement) {
+    getCSS: (options) => {
+      switch (options.targetElement) {
         case "container": {
           return {
             display: "flex",
@@ -36,9 +46,9 @@ export default (theme, { getColor }) => {
             lineHeight: theme.lineHeights[2],
             fontFamily: theme.fonts.body,
             color: theme.colors.black,
-            backgroundColor: getColor(color),
+            backgroundColor: getColor(options.color),
             borderRadius: theme.radii[0],
-            ...(__internal__keyboardFocus &&
+            ...(options.__internal__keyboardFocus &&
               theme.focusStyles.__keyboardFocusAdjacentLabel),
           };
         }
@@ -55,7 +65,7 @@ export default (theme, { getColor }) => {
         case "svgRect": {
           return {
             fill: getColor(
-              color === "grey.t05" || isChecked
+              options.color === "grey.t05" || options.isChecked
                 ? "white"
                 : "secondary.lightBlue.t25"
             ),
@@ -69,7 +79,7 @@ export default (theme, { getColor }) => {
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },

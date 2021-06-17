@@ -1,7 +1,11 @@
-export default (theme) => {
+import { BasisTheme, StepperTheme } from "../types";
+
+export default (
+  theme: Pick<BasisTheme, "space" | "colors" | "radii" | "borderWidths">
+): StepperTheme => {
   return {
-    getCSS: ({ targetElement, stepsCount, isMinor, isCurrent, isPrevious }) => {
-      switch (targetElement) {
+    getCSS: (options) => {
+      switch (options.targetElement) {
         case "container": {
           return {
             display: "flex",
@@ -12,7 +16,7 @@ export default (theme) => {
           return {
             paddingTop: theme.space[4],
             paddingBottom: theme.space[4],
-            width: `${100 / stepsCount}%`,
+            width: `${100 / options.stepsCount}%`,
           };
         }
 
@@ -52,7 +56,7 @@ export default (theme) => {
             height: "8px",
             top: "calc(50% - 4px)",
             backgroundColor:
-              isPrevious || isCurrent
+              options.isPrevious || options.isCurrent
                 ? theme.colors.primary.blue.t100
                 : theme.colors.white,
           };
@@ -65,7 +69,7 @@ export default (theme) => {
             width: "50%",
             height: "8px",
             top: "calc(50% - 4px)",
-            backgroundColor: isPrevious
+            backgroundColor: options.isPrevious
               ? theme.colors.primary.blue.t100
               : theme.colors.white,
           };
@@ -84,21 +88,21 @@ export default (theme) => {
             boxSizing: "border-box",
             flexShrink: 0,
             zIndex: 1,
-            ...(isMinor && {
+            ...(options.isMinor && {
               width: "20px",
               height: "20px",
             }),
-            ...(isCurrent && {
+            ...(options.isCurrent && {
               border: `${theme.borderWidths[1]} solid ${theme.colors.primary.blue.t100}`,
             }),
-            ...(isPrevious && {
+            ...(options.isPrevious && {
               backgroundColor: theme.colors.primary.blue.t100,
             }),
           };
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },
