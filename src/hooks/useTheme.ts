@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
-import { defaultTheme } from "..";
-import { BasisTheme } from "../themes/types";
+import defaultTheme from "../themes/default";
+import { EnhancedTheme } from "../themes/types";
+import { enhanceTheme } from "../utils/theme";
 
-export const ThemeContext = React.createContext<BasisTheme>(defaultTheme);
+export const ThemeContext = React.createContext<EnhancedTheme>(
+  enhanceTheme(defaultTheme)
+);
 
 function useTheme() {
   const theme = useContext(ThemeContext);

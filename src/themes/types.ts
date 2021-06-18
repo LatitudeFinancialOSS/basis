@@ -2,6 +2,7 @@ import { CSSObject } from "@emotion/react";
 import { CSSProperties } from "react";
 import { ValidPath } from "../components/Field/types";
 import { InternalInputVariants } from "../components/internal/InternalInput";
+import { Breakpoint } from "../types";
 
 type PixelValue = `${number}px`;
 
@@ -542,4 +543,12 @@ export type BasisTheme = {
   dropdown: DropdownTheme;
   checkbox: CheckboxTheme;
   accordion: AccordionTheme;
+};
+
+export type EnhancedTheme = BasisTheme & {
+  minMediaQueries: Record<Breakpoint, string>;
+  exclusiveMediaQueries: Record<Breakpoint, string>;
+  getColor: (color: Color) => string | null;
+  getTextStyleCSS: (textStyle: TextStyleNames) => CSSObject | null;
+  getSpaceValue: (spcae: string | number) => string | null;
 };

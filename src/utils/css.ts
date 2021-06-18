@@ -1,7 +1,15 @@
 import { hasOwnProperty } from "./core";
 import { TEXT_ALIGNS, FLEX_DIRECTIONS, FLEX_PLACE_ITEMS } from "./constants";
+import {
+  BasisTheme,
+  BreakPoints,
+  EnhancedTheme,
+  TextStyleNames,
+} from "../themes/types";
+import { CSSObject } from "@emotion/react";
+import { Breakpoint } from "../types";
 
-export function getGapValues(gap, theme) {
+export function getGapValues(gap: string | number, theme: BasisTheme) {
   if (typeof gap === "number") {
     gap = String(gap);
   }
@@ -16,9 +24,9 @@ export function getGapValues(gap, theme) {
     return null;
   }
 
-  const rowGapPx = theme.space[parts[0]] || "0px";
+  const rowGapPx = theme.space[Number(parts[0])] || "0px";
   const columnGapPx =
-    parts.length === 2 ? theme.space[parts[1]] || "0px" : rowGapPx;
+    parts.length === 2 ? theme.space[Number(parts[1])] || "0px" : rowGapPx;
 
   return {
     rowGap: rowGapPx,
@@ -26,7 +34,7 @@ export function getGapValues(gap, theme) {
   };
 }
 
-function getTextAlignValue(textAlign) {
+function getTextAlignValue(textAlign: typeof TEXT_ALIGNS[number]) {
   if (TEXT_ALIGNS.includes(textAlign)) {
     return textAlign;
   }
@@ -36,13 +44,11 @@ function getTextAlignValue(textAlign) {
 
 const OVERFLOW_VALUES = ["visible", "hidden", "scroll", "auto"];
 
-function getOverflowValue(overflow) {
+function getOverflowValue(overflow: string) {
   const parts =
     typeof overflow === "string" ? overflow.trim().split(/\s+/) : null;
-  const isValid =
-    parts !== null && parts.every((part) => OVERFLOW_VALUES.includes(part));
 
-  if (isValid) {
+  if (parts !== null && parts.every((part) => OVERFLOW_VALUES.includes(part))) {
     return parts.join(" ");
   }
 
@@ -51,7 +57,10 @@ function getOverflowValue(overflow) {
 
 const SPAN_LINES_REGEX = /^(\d+)(-(\d+))?$/;
 
-export function getGridRowColumn(span, { allAllowed = false } = {}) {
+export function getGridRowColumn(
+  span: string | number,
+  { allAllowed = false } = {}
+) {
   if (allAllowed && span === "all") {
     return "1 / -1";
   }
@@ -76,16 +85,16 @@ export function getGridRowColumn(span, { allAllowed = false } = {}) {
   return span;
 }
 
-export function getGapPx(gap, theme) {
+export function getGapPx(gap: string | number, theme: BasisTheme) {
   // Exception to our space scale
   if (gap === "30px") {
     return gap;
   }
 
-  return theme.space[gap] || "0px";
+  return theme.space[Number(gap)] || "0px";
 }
 
-export function getGridTemplateColumns(cols) {
+export function getGridTemplateColumns(cols: string | number) {
   const colsInt = Number(cols);
 
   if (colsInt) {
@@ -103,7 +112,11 @@ export const getGridTemplateRows = getGridTemplateColumns;
 
 export const DEFAULT_BREAKPOINT = "default";
 
-export function compareBreakpoints(bp1, bp2, theme) {
+export function compareBreakpoints(
+  bp1: Breakpoint,
+  bp2: Breakpoint,
+  theme: BasisTheme
+) {
   const breakpoints = [DEFAULT_BREAKPOINT, ...Object.keys(theme.breakpoints)];
   const index1 = breakpoints.indexOf(bp1);
   const index2 = breakpoints.indexOf(bp2);
@@ -119,23 +132,24 @@ export function compareBreakpoints(bp1, bp2, theme) {
   return index1 < index2 ? -1 : 1;
 }
 
-export function getMinMediaQueries(breakpoints) {
+export function getMinMediaQueries(breakpoints: BreakPoints) {
   if (!breakpoints) {
-    return {};
+    throw new Error("Theme expects breakpoints but none were recieved");
   }
 
-  const result = {};
+  let result: any = {};
 
-  for (const bp in breakpoints) {
+  let bp: Breakpoint;
+  for (bp in breakpoints) {
     result[bp] = `@media (min-width: ${breakpoints[bp]})`;
   }
 
-  return result;
+  return result as Record<Breakpoint, string>;
 }
 
-export function getExclusiveMediaQueries(breakpoints) {
+export function getExclusiveMediaQueries(breakpoints: BreakPoints) {
   if (!breakpoints) {
-    return {};
+    throw new Error("Theme expects breakpoints but none were recieved");
   }
 
   const entries = Object.entries(breakpoints).map(([bp, px]) => ({
@@ -144,10 +158,10 @@ export function getExclusiveMediaQueries(breakpoints) {
   }));
 
   if (!entries[0]) {
-    return {};
+    throw new Error("Theme expects breakpoints to be an object with values");
   }
 
-  const result = {
+  const result: any = {
     [DEFAULT_BREAKPOINT]: `(max-width: ${entries[0].px - 1}px)`,
   };
   let i, len;
@@ -160,11 +174,11 @@ export function getExclusiveMediaQueries(breakpoints) {
 
   result[entries[i].bp] = `(min-width: ${entries[i].px}px)`;
 
-  return result;
+  return result as Record<Breakpoint, string>;
 }
 
-function sortMediaQueries(css) {
-  const result = {};
+function sortMediaQueries(css: CSSObject) {
+  const result: any = {};
   const minWidths = [];
 
   for (const key in css) {
@@ -187,27 +201,29 @@ function sortMediaQueries(css) {
       result[mediaQuery] = css[mediaQuery];
     });
 
-  return result;
+  return result as CSSObject;
 }
 
-export function mergeResponsiveCSS(css1, css2) {
-  const result = {};
+export function mergeResponsiveCSS(css1: CSSObject, css2: CSSObject) {
+  const result: any = {};
 
   for (const key in css1) {
-    if (typeof css1[key] === "object") {
-      result[key] = { ...css1[key] };
+    const value = css1[key];
+    if (typeof value === "object") {
+      result[key] = { ...value };
     } else {
       result[key] = css1[key];
     }
   }
 
   for (const key in css2) {
-    if (typeof css2[key] === "object") {
+    const value = css2[key];
+    if (typeof value === "object") {
       if (hasOwnProperty(result, key)) {
         // merge with css1
         result[key] = {
           ...result[key],
-          ...css2[key],
+          ...value,
         };
       } else {
         result[key] = css2[key];
@@ -222,11 +238,11 @@ export function mergeResponsiveCSS(css1, css2) {
 
 const MIN_MEDIA_QUERY_REGEX = /^@media \(min-width: (\d+)px\)$/;
 
-function isMinMediaQuery(str) {
+function isMinMediaQuery(str: string) {
   return str.match(MIN_MEDIA_QUERY_REGEX) !== null;
 }
 
-export function isCSSinOrder(css) {
+export function isCSSinOrder(css: CSSObject) {
   const keys = Object.keys(css);
   const firstMinMediaQueryIndex = keys.findIndex(isMinMediaQuery);
 
@@ -258,13 +274,19 @@ export function isCSSinOrder(css) {
   return true;
 }
 
-export function responsiveMargin(propsAtBreakpoint, theme) {
+export function responsiveMargin(
+  propsAtBreakpoint: { margin: string | number },
+  theme: EnhancedTheme
+) {
   const margin = theme.getSpaceValue(propsAtBreakpoint.margin);
 
   return margin === null ? {} : { margin };
 }
 
-export function responsivePadding(propsAtBreakpoint, theme) {
+export function responsivePadding(
+  propsAtBreakpoint: { padding: string | number },
+  theme: EnhancedTheme
+) {
   const padding = theme.getSpaceValue(propsAtBreakpoint.padding);
 
   return padding === null ? {} : { padding };
@@ -272,7 +294,7 @@ export function responsivePadding(propsAtBreakpoint, theme) {
 
 const NUMBERS_ONLY_REGEX = /^\d+$/;
 
-function addPxIfNeeded(str) {
+function addPxIfNeeded(str: string) {
   if (NUMBERS_ONLY_REGEX.test(str)) {
     return `${str}px`;
   }
@@ -280,7 +302,9 @@ function addPxIfNeeded(str) {
   return str;
 }
 
-export const responsiveSize = (prop) => (propsAtBreakpoint) => {
+export const responsiveSize = (prop: string) => (
+  propsAtBreakpoint: Record<string, any>
+) => {
   const value =
     typeof propsAtBreakpoint[prop] === "string" &&
     propsAtBreakpoint[prop].trim() !== ""
@@ -291,9 +315,12 @@ export const responsiveSize = (prop) => (propsAtBreakpoint) => {
 };
 
 export function responsiveHasBreakpointWidth(
-  { hasBreakpointWidth, margin },
-  theme,
-  bp
+  {
+    hasBreakpointWidth,
+    margin,
+  }: { hasBreakpointWidth: boolean; margin: string },
+  theme: BasisTheme,
+  bp: Exclude<Breakpoint, "xs"> | "default"
 ) {
   if (hasBreakpointWidth !== true) {
     if (margin) {
@@ -323,25 +350,34 @@ export function responsiveHasBreakpointWidth(
   };
 }
 
-export function responsiveTextStyle(propsAtBreakpoint, theme) {
+export function responsiveTextStyle(
+  propsAtBreakpoint: { textStyle: TextStyleNames },
+  theme: EnhancedTheme
+) {
   const css = theme.getTextStyleCSS(propsAtBreakpoint.textStyle);
 
   return css === null ? {} : css;
 }
 
-export function responsiveTextAlign(propsAtBreakpoint) {
+export function responsiveTextAlign(propsAtBreakpoint: {
+  textAlign: typeof TEXT_ALIGNS[number];
+}) {
   const textAlign = getTextAlignValue(propsAtBreakpoint.textAlign);
 
   return textAlign === null ? {} : { textAlign };
 }
 
-export function responsiveOverflow(propsAtBreakpoint) {
+export function responsiveOverflow(propsAtBreakpoint: { overflow: string }) {
   const overflow = getOverflowValue(propsAtBreakpoint.overflow);
 
   return overflow === null ? {} : { overflow };
 }
 
-export function responsiveFlexDirection({ direction }) {
+export function responsiveFlexDirection({
+  direction,
+}: {
+  direction: typeof FLEX_DIRECTIONS[number];
+}) {
   if (!FLEX_DIRECTIONS.includes(direction)) {
     return {};
   }
@@ -351,7 +387,13 @@ export function responsiveFlexDirection({ direction }) {
   };
 }
 
-export function responsiveFlexPlaceItems({ direction, placeItems }) {
+export function responsiveFlexPlaceItems({
+  direction,
+  placeItems,
+}: {
+  direction: typeof FLEX_DIRECTIONS[number];
+  placeItems: typeof FLEX_PLACE_ITEMS[number];
+}) {
   if (!FLEX_PLACE_ITEMS.includes(placeItems)) {
     return {};
   }

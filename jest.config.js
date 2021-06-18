@@ -1,5 +1,5 @@
 module.exports = {
-  preset: "ts-jest/presets/js-with-babel",
+  preset: "ts-jest/presets/js-with-ts-esm",
   testMatch: [
     "<rootDir>/src/**/*.test.js",
     "<rootDir>/src/**/*.test.ts(x)?",
@@ -13,4 +13,5 @@ module.exports = {
     "typeface-roboto": "identity-obj-proxy",
   },
   bail: true,
+  testEnvironment: "jsdom",
 };

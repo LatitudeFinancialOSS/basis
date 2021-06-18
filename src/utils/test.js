@@ -8,10 +8,9 @@ import matchMediaPolyfill from "mq-polyfill";
 import { BasisProvider, defaultTheme } from "..";
 import { enhanceTheme } from "./theme";
 
-export const theme = enhanceTheme(defaultTheme);
-
 matchMediaPolyfill(global);
 
+export const theme = enhanceTheme(defaultTheme);
 export function TestWrapper({ children }) {
   return (
     <BasisProvider theme={defaultTheme} isRoot>
