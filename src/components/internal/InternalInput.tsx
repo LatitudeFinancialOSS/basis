@@ -48,6 +48,7 @@ interface InternalInputProps {
   describedBy?: string;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   value?: string;
   "aria-label"?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -76,6 +77,7 @@ const InternalInput = (props: InternalInputProps) => {
     onBlur,
     value,
     onChange,
+    onKeyDown,
     "aria-label": ariaLabel,
     __internal__focus = DEFAULT_PROPS.__internal__focus,
   } = props;
@@ -153,6 +155,7 @@ const InternalInput = (props: InternalInputProps) => {
         onBlur={onBlur}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

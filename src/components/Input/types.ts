@@ -52,6 +52,7 @@ export interface InternalInputProps {
   describedBy?: string;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   error?: string | string[];
