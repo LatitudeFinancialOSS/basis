@@ -4,6 +4,9 @@ module.exports = {
   Accordion: {
     status: COMPONENT_STATUS.READY,
   },
+  AutoComplete: {
+    status: COMPONENT_STATUS.READY,
+  },
   Button: {
     status: COMPONENT_STATUS.READY,
   },
