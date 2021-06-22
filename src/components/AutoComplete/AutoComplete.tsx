@@ -27,7 +27,7 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
     error,
     // defaultValue,
     onBlur,
-    onChange: onInputValueChange,
+    onInputValueChange,
     onSelectedItemChange,
     onFocus,
     // onCantFind,
@@ -37,6 +37,7 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
     placeholder = "Search here",
     isLoading,
     highlightColor = theme.colors.secondary.lightBlue.t25,
+    toggleIcon: Toggle,
   } = props;
 
   //   const { search, data, isLoading } = useAddressSearch({ countryCode });
@@ -78,13 +79,16 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
       </div>
       <div css={styles.right(!!error)}>
         {!!isLoading && <LoadingIcon />}
-        <button
-          type="button"
-          {...getToggleButtonProps()}
-          aria-label="toggle menu"
-        >
-          {/* <SvgInline name="magnifier" css={styles.searchIcon} size="32" /> */}
-        </button>
+        {Toggle && (
+          <button
+            type="button"
+            {...getToggleButtonProps()}
+            aria-label="toggle menu"
+          >
+            <Toggle />
+            {/* <SvgInline name="magnifier" css={styles.searchIcon} size="32" /> */}
+          </button>
+        )}
       </div>
       <ul {...getMenuProps()} css={styles.ul(!!error)}>
         {isOpen && (

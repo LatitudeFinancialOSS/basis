@@ -11,7 +11,7 @@ export type InternalAutoCompleteProps<Item> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue?: any;
   //   onChange?: (props: { value: string; autoFields: SearchAddress }) => void;
-  onChange?: <Item>(changes: Partial<UseComboboxState<Item>>) => void;
+  onInputValueChange?: (changes: Partial<UseComboboxState<Item>>) => void;
   onSelectedItemChange?: (changes: Partial<UseComboboxState<Item>>) => void;
   stateReducer?: (
     state: UseComboboxState<Item>,
@@ -22,8 +22,9 @@ export type InternalAutoCompleteProps<Item> = {
   // onCantFind?: () => void;
   items: ListItem<Item>[];
   placeholder?: string;
-  itemToString?: (item: Item) => string;
+  itemToString: (item: Item) => string;
   isLoading?: boolean;
   highlightColor?: string;
+  toggleIcon?: React.ComponentType;
   // itemToString;
 };
