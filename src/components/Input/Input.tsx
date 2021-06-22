@@ -29,6 +29,7 @@ const Input = (props: InternalInputProps) => {
     value,
     error,
     id,
+    onKeyDown,
     __internal__focus,
   } = mergedProps;
 
@@ -69,6 +70,7 @@ const Input = (props: InternalInputProps) => {
         onBlur={onBlur}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         __internal__focus={__internal__focus}
       />
     </Field>
