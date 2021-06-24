@@ -7,7 +7,8 @@ type ListItem<Item> = Item & {
 
 export type InternalAutoCompleteProps<Item> = {
   label: string;
-  ref?: React.Ref<HTMLInputElement>;
+  // ref?: React.Ref<HTMLInputElement>;
+  innerRef?: React.Ref<HTMLInputElement>;
   error?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue?: any;
@@ -27,6 +28,8 @@ export type InternalAutoCompleteProps<Item> = {
   isLoading?: boolean;
   highlightColor?: string;
   toggleIcon?: React.ComponentType;
-  itemsFooter?: React.ReactNode;
+  itemsFooter?: React.ComponentType;
   // itemToString;
 };
+
+export type AutoCompleteProps<Items> = InternalAutoCompleteProps<Items>;

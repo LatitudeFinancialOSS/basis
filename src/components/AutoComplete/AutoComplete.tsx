@@ -27,6 +27,7 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
   const {
     label,
     // ref,
+    innerRef,
     error,
     // defaultValue,
     onBlur,
@@ -40,6 +41,7 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
     placeholder = "Search here",
     isLoading,
     highlightColor = theme.colors.secondary.lightBlue.t25,
+    itemsFooter: Footer,
     // toggleIcon: Toggle,
   } = props;
 
@@ -71,6 +73,7 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
         <Input
           {...getInputProps({
             // ref: mergeRefs([ref, inputRef]),
+            ref: innerRef,
           })}
           label={label}
           onFocus={onFocus}
@@ -124,6 +127,8 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
                 {itemToString ? itemToString(record) : record}
               </li>
             ))}
+            {Footer && <Footer />}
+
             {/* <li>
               <Link
                 href="#"

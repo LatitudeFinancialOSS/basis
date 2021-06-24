@@ -20,4 +20,5 @@ export const nameToValidateMap: Record<ComponentNames, ValidateFn> = {
   [ComponentNames.Frequency]: validateFrequency as ValidateFn,
   [ComponentNames.Checkbox]: validateCheckbox as ValidateFn,
   [ComponentNames.CheckboxGroup]: validateCheckboxGroup as ValidateFn,
+  [ComponentNames.AutoComplete]: validateInput as ValidateFn,
 };
