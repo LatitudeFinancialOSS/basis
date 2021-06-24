@@ -16,6 +16,9 @@ import * as styles from "./AutoComplete.styles";
 
 import useTheme from "../../hooks/useTheme";
 import LoadingIcon from "../LoadingIcon";
+import VisuallyHidden from "../VisuallyHidden";
+// import Button from "../Button";
+import Icon from "../Icon";
 // import { SvgInline } from 'components/SvgInline/SvgInline';
 
 function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
@@ -33,11 +36,11 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
     // onCantFind,
     items,
     itemToString,
-    // stateReducer,
+    stateReducer,
     placeholder = "Search here",
     isLoading,
     highlightColor = theme.colors.secondary.lightBlue.t25,
-    toggleIcon: Toggle,
+    // toggleIcon: Toggle,
   } = props;
 
   //   const { search, data, isLoading } = useAddressSearch({ countryCode });
@@ -56,7 +59,7 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
     highlightedIndex,
   } = useCombobox<Item>({
     items,
-    // stateReducer,
+    ...(stateReducer && { stateReducer }),
     onInputValueChange,
     onSelectedItemChange,
     itemToString,
@@ -74,28 +77,42 @@ function AutoComplete<Item>(props: InternalAutoCompleteProps<Item>) {
           onBlur={onBlur}
           error={error}
           placeholder={placeholder}
-          autoComplete="new-address" // 🦘 ref: https://stackoverflow.com/a/50348848/340827
+          autoComplete="off" // 🦘 ref: https://stackoverflow.com/a/50348848/340827
         />
       </div>
       <div css={styles.right(!!error)}>
         {!!isLoading && <LoadingIcon />}
-        {Toggle && (
-          <button
-            type="button"
-            {...getToggleButtonProps()}
-            aria-label="toggle menu"
-          >
-            <Toggle />
-            {/* <SvgInline name="magnifier" css={styles.searchIcon} size="32" /> */}
-          </button>
-        )}
+        {/* <SvgInline name="magnifier" css={styles.searchIcon} size="32" /> */}
+
+        <button
+          type="button"
+          {...getToggleButtonProps()}
+          //   theme.space.
+          css={{
+            width: theme.space[11],
+            height: theme.space[11],
+            border: 0,
+            background: "none",
+            appearance: "none",
+            cursor: "pointer",
+          }}
+          //   aria-label="toggle menu"
+        >
+          <Icon name="search" />
+          <VisuallyHidden>Search</VisuallyHidden>
+        </button>
+
+        {/* <Button {...getToggleButtonProps()} variant="icon">
+          <Icon name="search" />
+          <VisuallyHidden>Search</VisuallyHidden>
+        </Button> */}
       </div>
       <ul {...getMenuProps()} css={styles.ul(!!error)}>
         {isOpen && (
           <>
             {items.map((record, index) => (
               <li
-                key={record.key || index}
+                key={record.id || index}
                 css={styles.highlight(
                   highlightedIndex === index,
                   highlightColor

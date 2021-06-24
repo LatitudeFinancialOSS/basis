@@ -2,8 +2,9 @@ import { UseComboboxState, UseComboboxStateChangeOptions } from "downshift";
 import React from "react";
 
 type ListItem<Item> = Item & {
-  key: string;
+  id: string;
 };
+
 export type InternalAutoCompleteProps<Item> = {
   label: string;
   ref?: React.Ref<HTMLInputElement>;
@@ -26,5 +27,6 @@ export type InternalAutoCompleteProps<Item> = {
   isLoading?: boolean;
   highlightColor?: string;
   toggleIcon?: React.ComponentType;
+  itemsFooter?: React.ReactNode;
   // itemToString;
 };
