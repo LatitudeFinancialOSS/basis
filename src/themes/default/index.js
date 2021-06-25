@@ -1,4 +1,5 @@
 import accordion from "./accordion";
+import autoComplete from "./autoComplete";
 import button from "./button";
 import checkbox from "./checkbox";
 import dropdown from "./dropdown";
@@ -261,6 +262,7 @@ const helpers = {
 export default {
   ...theme,
   accordion: accordion(theme, helpers),
+  autoComplete: autoComplete(theme, helpers),
   button: button(theme, helpers),
   checkbox: checkbox(theme, helpers),
   dropdown: dropdown(theme, helpers),

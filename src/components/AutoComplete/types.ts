@@ -1,27 +1,21 @@
 import { UseComboboxState, UseComboboxStateChangeOptions } from "downshift";
 import React from "react";
 
+// export type AutoCompleteProps<Item> = InternalAutoCompleteProps<Item> & {
+//   optional?: boolean;
+//   disabled?: boolean;
+
+//   hideLabel?: boolean;
+//   helpText?: string;
+// };
+
 type ListItem<Item> = Item & {
   id: string;
 };
 
 export type InternalAutoCompleteProps<Item> = {
-  label: string;
-  // ref?: React.Ref<HTMLInputElement>;
-  innerRef?: React.Ref<HTMLInputElement>;
-  error?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue?: any;
-  //   onChange?: (props: { value: string; autoFields: SearchAddress }) => void;
-  onInputValueChange?: (changes: Partial<UseComboboxState<Item>>) => void;
-  onSelectedItemChange?: (changes: Partial<UseComboboxState<Item>>) => void;
-  stateReducer?: (
-    state: UseComboboxState<Item>,
-    actionAndChanges: UseComboboxStateChangeOptions<Item>
-  ) => UseComboboxState<Item>;
-  onBlur?: () => void;
-  onFocus?: () => void;
-  // onCantFind?: () => void;
+  label: string;
   items: ListItem<Item>[];
   placeholder?: string;
   itemToString: (item: Item) => string;
@@ -29,7 +23,28 @@ export type InternalAutoCompleteProps<Item> = {
   highlightColor?: string;
   toggleIcon?: React.ComponentType;
   itemsFooter?: React.ComponentType;
-  // itemToString;
+  // color?: CheckboxColor;
+  value?: boolean;
+  error?: string | string[];
+  innerRef?: React.Ref<HTMLInputElement>;
+  onChange?: (isChecked: boolean) => void;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
+  children: React.ReactNode;
+  testId?: string;
+  onInputValueChange?: (changes: Partial<UseComboboxState<Item>>) => void;
+  onSelectedItemChange?: (changes: Partial<UseComboboxState<Item>>) => void;
+  stateReducer?: (
+    state: UseComboboxState<Item>,
+    actionAndChanges: UseComboboxStateChangeOptions<Item>
+  ) => UseComboboxState<Item>;
+  __internal__keyboardFocus?: boolean;
 };
 
-export type AutoCompleteProps<Items> = InternalAutoCompleteProps<Items>;
+export type AutoCompleteProps<Item> = InternalAutoCompleteProps<Item> & {
+  optional?: boolean;
+  disabled?: boolean;
+  hideLabel?: boolean;
+  helpText?: string;
+};

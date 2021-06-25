@@ -1,10 +1,14 @@
-export default (theme, { getColor }) => {
+export default (
+  theme
+  // , { getColor }
+) => {
   return {
     getCSS: ({
       targetElement,
-      color,
-      isPlaceholder,
+      // color,
+      // isPlaceholder,
       isHighlighted,
+      isOpen,
       __internal__focus,
     }) => {
       switch (targetElement) {
@@ -14,73 +18,62 @@ export default (theme, { getColor }) => {
           };
         }
 
-        case "button": {
+        case "searchIcon": {
           return {
-            display: "flex",
-            alignItems: "center",
-            boxSizing: "border-box",
-            padding: theme.space[4],
-            width: "100%",
-            color: theme.colors.black,
-            backgroundColor: getColor(color),
-            textAlign: "left",
-            margin: 0,
+            width: theme.space[11],
+            height: theme.space[11],
             border: 0,
-            borderRadius: theme.radii[0],
-            outline: 0,
-            ...theme.focusStyles.focusVisible,
-            ...(isPlaceholder && {
-              padding: `${theme.space[2]} ${theme.space[4]}`,
-            }),
-            ...(__internal__focus && theme.focusStyles.__keyboardFocus),
-            // See: https://stackoverflow.com/a/199319/247243
-            "::-moz-focus-inner": {
-              border: 0,
-            },
+            background: "none",
+            appearance: "none",
+            cursor: "pointer",
           };
         }
 
-        case "buttonContent": {
+        case "ul": {
           return {
-            display: "flex",
-            alignItems: "center",
-            flexGrow: 1,
-          };
-        }
-
-        case "buttonChevron": {
-          return {
-            display: "flex",
-            transformOrigin: "50% 50%",
-            transition: "transform .25s ease",
-          };
-        }
-
-        case "options": {
-          return {
-            position: "absolute",
-            width: "100%",
-            margin: 0,
             padding: 0,
-            backgroundColor: theme.colors.white,
-            boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.3)",
+            position: "absolute",
+            overflowX: "hidden",
             overflowY: "auto",
-            zIndex: theme.zIndices.dropdown,
-            ":focus": {
-              outline: 0,
-            },
+            // margin: ${hasError ? "-25px 0 0" : "0"},
+            margin: 0,
+            borderTop: 0,
+            zIndex: 1000,
+            listStyle: "none",
+            transition: "opacity .1s ease",
+            borderRadius: "0 0 0.28571429rem 0.28571429rem",
+            boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)",
+            ...(isOpen ? { border: "1px solid #e5e5e5" } : { border: 0 }),
+            minWidth: "200px",
+            backgroundColor: "white",
+            width: "100%",
           };
         }
 
-        case "option": {
+        case "li": {
           return {
-            listStyleType: "none",
-            padding: theme.space[4],
-            borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
-            cursor: "default",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            border: "1px solid #e5e5e5",
+            borderTop: "none",
+            height: "56px",
+            padding: "16px 24px",
+            cursor: "pointer",
             ...(isHighlighted && {
               backgroundColor: theme.colors.secondary.lightBlue.t25,
             }),
+            borderRadius: "0 0 0.28571429re3 0.28571429rem",
+          };
+        }
+
+        case "right": {
+          return {
+            display: "flex",
+            position: "absolute",
+            right: 0,
+            marginTop: `-${theme.space[11]}`,
+            alignItems: "center",
           };
         }
 
