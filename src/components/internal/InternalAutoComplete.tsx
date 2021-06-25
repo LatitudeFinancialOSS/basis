@@ -99,17 +99,6 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
               </li>
             ))}
             {Footer && <Footer />}
-
-            {/* <li>
-          <Link
-            href="#"
-            newTab={false}
-            css={styles.link}
-            onClick={handleCantFind}
-          >
-            <b>Can't find your address?</b>
-          </Link>
-        </li> */}
           </>
         )}
       </ul>
