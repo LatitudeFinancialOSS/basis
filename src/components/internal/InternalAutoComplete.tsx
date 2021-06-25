@@ -63,6 +63,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     isLoading,
     highlightedIndex,
     itemsFooter: Footer,
+    innerRef,
   } = props;
   // const { inputColorMap } = useBackground();
 
@@ -77,6 +78,8 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
             // // ref: mergeRefs([ref, inputRef]),
             // ref: innerRef,
             refKey: "innerRef",
+            ref: innerRef,
+            // refKey: "innerRef",
           })}
           label={label}
           onFocus={onFocus}

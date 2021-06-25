@@ -15,7 +15,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
   const mergedProps = useMergedProps(props, defaultAutoCompleteProps);
   const {
     label,
-    // ref,
     innerRef,
     error,
     // defaultValue,
