@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, AutoComplete, Stack } from "basis";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+// import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
-import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 const items = [
   {
     id: "AuPaf643492660",
@@ -33,71 +33,63 @@ const itemToString = (value) =>
     ? `${value.AddressLine}, ${value.Locality}, ${value.State}, ${value.Country}`
     : "";
 
-function FormWithAutoComplete({
-  initialValue = "",
-  label,
-  placeholder,
-  disabled,
-  helpText,
-  optional,
-  itemToString,
-  __internal__loading,
-  items = [],
-  __internal__open,
-  submitOnMount,
-  __internal__highlightedIndex,
-  __internal__focus,
-}) {
-  return (
-    <KitchenSinkForm
-      initialValues={{ status: initialValue }}
-      submitOnMount={submitOnMount}
-    >
-      {/* <Select
-        name="status"
-        label={label}
-        placeholder={placeholder}
-        options={options}
-        disabled={disabled}
-        helpText={helpText}
-        optional={optional}
-        fullWidth={fullWidth}
-        __internal__focus={__internal__focus}
-      /> */}
-      <AutoComplete
-        label={label}
-        items={items}
-        placeholder={placeholder}
-        disabled={disabled}
-        helpText={helpText}
-        optional={optional}
-        itemToString={itemToString}
-        __internal__open={__internal__open}
-        __internal__loading={__internal__loading}
-        __internal__highlightedIndex={__internal__highlightedIndex}
-        __internal__focus={__internal__focus}
-      />
-    </KitchenSinkForm>
-  );
-}
+// function FormWithAutoComplete({
+//   initialValue = "",
+//   label,
+//   placeholder,
+//   disabled,
+//   helpText,
+//   submitOnMount,
+//   optional,
+//   ...rest
+// }) {
+//   return (
+//     <KitchenSinkForm
+//       initialValues={{ status: initialValue }}
+//       submitOnMount={submitOnMount}
+//     >
+//       {/* <Select
+//         name="status"
+//         label={label}
+//         placeholder={placeholder}
+//         options={options}
+//         disabled={disabled}
+//         helpText={helpText}
+//         optional={optional}
+//         fullWidth={fullWidth}
+//         __internal__focus={__internal__focus}
+//       /> */}
+//       <AutoComplete
+//         label={label}
+//         items={items}
+//         placeholder={placeholder}
+//         disabled={disabled}
+//         helpText={helpText}
+//         optional={optional}
+//         itemToString={itemToString}
+//         {...rest}
+//       />
+//     </KitchenSinkForm>
+//   );
+// }
 
-FormWithAutoComplete.propTypes = {
-  initialValue: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  itemToString: PropTypes.func,
-  placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  helpText: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.object, PropTypes.string])
-  ),
-  optional: PropTypes.bool,
-  __internal__focus: PropTypes.bool,
-  __internal__open: PropTypes.bool,
-  __internal__loading: PropTypes.bool,
-  __internal__highlightedIndex: PropTypes.number,
-  submitOnMount: PropTypes.bool,
-};
+// FormWithAutoComplete.propTypes = {
+//   initialValue: PropTypes.string,
+//   label: PropTypes.string.isRequired,
+//   itemToString: PropTypes.func,
+//   placeholder: PropTypes.string,
+//   disabled: PropTypes.bool,
+//   helpText: PropTypes.string,
+//   items: PropTypes.arrayOf(
+//     PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+//   ),
+//   optional: PropTypes.bool,
+//   __internal__focus: PropTypes.bool,
+//   __internal__open: PropTypes.bool,
+//   __internal__loading: PropTypes.bool,
+//   __internal__highlightedIndex: PropTypes.number,
+//   submitOnMount: PropTypes.bool,
+// };
 
 function KitchenSinkAccordion() {
   return (
@@ -105,29 +97,31 @@ function KitchenSinkAccordion() {
       {["transparent", "grey.t05"].map((bg) => (
         <Container bg={bg} padding="4" key={bg}>
           <Stack width="360" gap="8">
-            <FormWithAutoComplete label="Default" items={simpleItems} />
-            <FormWithAutoComplete
+            <AutoComplete label="Default" items={simpleItems} />
+            <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"
+              items={[]}
             />
-            <FormWithAutoComplete
+            <AutoComplete
               label="Help text"
               helpText="This is for help"
+              items={[]}
             />
 
-            <FormWithAutoComplete label="Optional" optional />
-            <FormWithAutoComplete label="Focus" __internal__focus />
-            <FormWithAutoComplete label="Loading" __internal__loading />
-            <FormWithAutoComplete label="With error" submitOnMount />
+            <AutoComplete label="Optional" optional items={[]} />
+            <AutoComplete label="Focus" items={[]} __internal__focus />
+            <AutoComplete label="Loading" items={[]} __internal__loading />
+            <AutoComplete label="With error" items={[]} error="Required" />
 
-            <FormWithAutoComplete
+            <AutoComplete
               label="Simple Items Open"
               items={simpleItems}
               __internal__open
             />
 
-            <Container margin="14 0 0 0 " padding="14 0 0 0 ">
-              <FormWithAutoComplete
+            <Container margin="14 0 0 0" padding="14 0 0 0">
+              <AutoComplete
                 label="Address Items Open"
                 itemToString={itemToString}
                 items={items}
@@ -137,7 +131,7 @@ function KitchenSinkAccordion() {
             </Container>
 
             <Container margin="14 0" padding="14 0">
-              <FormWithAutoComplete
+              <AutoComplete
                 label="Loading Open"
                 itemToString={itemToString}
                 items={items}

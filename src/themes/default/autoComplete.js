@@ -9,6 +9,7 @@ export default (
       // isPlaceholder,
       isHighlighted,
       isOpen,
+      showClearIcon,
       __internal__focus,
     }) => {
       switch (targetElement) {
@@ -27,6 +28,18 @@ export default (
             appearance: "none",
             cursor: "pointer",
           };
+        }
+        case "clearIcon": {
+          return showClearIcon
+            ? {
+                width: theme.space[11],
+                height: theme.space[11],
+                border: 0,
+                background: "none",
+                appearance: "none",
+                cursor: "pointer",
+              }
+            : { display: "none" };
         }
 
         case "ul": {

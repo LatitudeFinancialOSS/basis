@@ -2,16 +2,17 @@ import { useCombobox } from "downshift";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
-import useTheme from "../../hooks/useTheme";
+// import useTheme from "../../hooks/useTheme";
 import Field from "../internal/Field";
 import InternalAutoComplete from "../internal/InternalAutoComplete";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 import { AutoCompleteProps } from "./types";
 
 function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const mergedProps = useMergedProps(props, defaultAutoCompleteProps);
+
   const {
     label,
     innerRef,
@@ -29,7 +30,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     stateReducer,
     placeholder,
     isLoading,
-    highlightColor = theme.colors.secondary.lightBlue.t25,
+    // highlightColor = theme.colors.secondary.lightBlue.t25,
     itemsFooter,
     // __internal__keyboardFocus,
     hideLabel,
@@ -41,6 +42,8 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     __internal__loading,
     __internal__focus,
   } = mergedProps;
+
+  const [inputValue, setInputValue] = useState("");
   // const [labelId] = useState(() => `auto-complete-label-${nanoid()}`);
   // const [inputId] = useState(() => `auto-complete-input-${nanoid()}`);
   const [auxId] = useState(() => `auto-complete-aux-${nanoid()}`);
@@ -49,13 +52,30 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
+  // const { clearSelection } =
   const useComboboxResult = useCombobox<Item>({
     items,
+    inputValue,
     ...(stateReducer && { stateReducer }),
-    onInputValueChange,
+    // onInputValueChange,
+    onInputValueChange: (e) => {
+      if (e.inputValue) {
+        setInputValue(e.inputValue);
+      }
+      onInputValueChange?.(e);
+    },
     onSelectedItemChange,
-    itemToString,
+    itemToString: (item) =>
+      itemToString ? itemToString?.(item) : String(item),
   });
+
+  // const { selectItem, setInputValue } = useComboboxResult;
+
+  const onClear = () => {
+    setInputValue("");
+  };
+
+  const showClearIcon = inputValue !== "";
 
   return (
     <Field
@@ -79,7 +99,9 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         itemToString={itemToString}
         placeholder={placeholder}
         isLoading={isLoading}
-        highlightColor={highlightColor}
+        // highlightColor={highlightColor}
+        onClear={onClear}
+        showClearIcon={showClearIcon}
         itemsFooter={itemsFooter}
         isValid={!hasErrors}
         describedBy={helpText || hasErrors ? auxId : undefined}

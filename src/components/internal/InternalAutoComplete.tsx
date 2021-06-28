@@ -16,6 +16,7 @@ import VisuallyHidden from "../VisuallyHidden";
 type Props<Item> = InternalAutoCompleteProps<Item> & {
   isValid: boolean;
   isOpen: boolean;
+  onClear: () => void;
   getMenuProps: (options?: UseComboboxGetMenuPropsOptions | undefined) => any;
   getInputProps: (options?: UseComboboxGetInputPropsOptions | undefined) => any;
   getItemProps: (options: UseComboboxGetItemPropsOptions<Item>) => any;
@@ -27,6 +28,7 @@ type Props<Item> = InternalAutoCompleteProps<Item> & {
   ) => any;
   highlightedIndex: number;
   describedBy?: string;
+  showClearIcon: boolean;
 };
 
 function InternalAutoComplete<Item>(props: Props<Item>) {
@@ -45,18 +47,20 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     getToggleButtonProps,
     // closeMenu,
     // openMenu,
-    // inputValue,
+    onClear,
     itemToString,
     isLoading,
     highlightedIndex,
     itemsFooter: Footer,
+    showClearIcon,
     innerRef,
     __internal__open,
     __internal__highlightedIndex,
     __internal__loading,
     __internal__focus,
   } = props;
-  // const { inputColorMap } = useBackground();
+
+  const menuIsOpen = isOpen || __internal__open;
 
   return (
     <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
@@ -73,20 +77,38 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
       </div>
       <div css={theme.autoComplete.getCSS({ targetElement: "right" })}>
         {(!!isLoading || __internal__loading) && <LoadingIcon />}
+
         <button
           type="button"
-          {...getToggleButtonProps()}
-          css={theme.autoComplete.getCSS({ targetElement: "searchIcon" })}
+          onClick={onClear}
+          css={theme.autoComplete.getCSS({
+            targetElement: "clearIcon",
+            showClearIcon: showClearIcon || menuIsOpen,
+          })}
         >
-          <Icon name="search" />
-          <VisuallyHidden>Search</VisuallyHidden>
+          <Icon name="cross" />
+          <VisuallyHidden>Clear</VisuallyHidden>
         </button>
+
+        {!menuIsOpen && (
+          <button
+            type="button"
+            {...getToggleButtonProps()}
+            css={theme.autoComplete.getCSS({ targetElement: "searchIcon" })}
+          >
+            <Icon name="search" />
+            <VisuallyHidden>Search</VisuallyHidden>
+          </button>
+        )}
       </div>
       <ul
         {...getMenuProps()}
-        css={theme.autoComplete.getCSS({ targetElement: "ul", isOpen })}
+        css={theme.autoComplete.getCSS({
+          targetElement: "ul",
+          isOpen: menuIsOpen,
+        })}
       >
-        {(isOpen || __internal__open) && (
+        {menuIsOpen && (
           <>
             {items.map((record, index) => (
               <li
