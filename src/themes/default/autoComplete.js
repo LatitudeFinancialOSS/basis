@@ -70,8 +70,7 @@ export default (
             alignItems: "center",
             border: "1px solid #e5e5e5",
             borderTop: "none",
-            height: "56px",
-            padding: "16px 24px",
+            padding: `${theme.space[4]} ${theme.space[6]}`,
             cursor: "pointer",
             ...(isHighlighted && {
               backgroundColor: theme.colors.secondary.lightBlue.t25,
