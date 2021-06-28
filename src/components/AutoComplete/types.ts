@@ -40,6 +40,10 @@ export type InternalAutoCompleteProps<Item> = {
     actionAndChanges: UseComboboxStateChangeOptions<Item>
   ) => UseComboboxState<Item>;
   __internal__keyboardFocus?: boolean;
+  __internal__open?: boolean;
+  __internal__highlightedIndex?: number;
+  __internal__loading?: boolean;
+  __internal__focus?: boolean;
 };
 
 export type AutoCompleteProps<Item> = InternalAutoCompleteProps<Item> & {

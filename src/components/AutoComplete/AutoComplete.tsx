@@ -35,6 +35,11 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     hideLabel,
     children,
     testId,
+    optional,
+    __internal__open,
+    __internal__highlightedIndex,
+    __internal__loading,
+    __internal__focus,
   } = mergedProps;
   // const [labelId] = useState(() => `auto-complete-label-${nanoid()}`);
   // const [inputId] = useState(() => `auto-complete-input-${nanoid()}`);
@@ -54,7 +59,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
 
   return (
     <Field
-      optional={false}
+      optional={optional}
       disabled={disabled}
       label={label}
       hideLabel={hideLabel}
@@ -78,6 +83,10 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         itemsFooter={itemsFooter}
         isValid={!hasErrors}
         describedBy={helpText || hasErrors ? auxId : undefined}
+        __internal__open={__internal__open}
+        __internal__highlightedIndex={__internal__highlightedIndex}
+        __internal__loading={__internal__loading}
+        __internal__focus={__internal__focus}
         // isOpen={isOpen}
         // getMenuProps={getMenuProps}
         // getInputProps={getInputProps}

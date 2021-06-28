@@ -5,6 +5,7 @@ import {
   UseComboboxGetMenuPropsOptions,
   UseComboboxGetToggleButtonPropsOptions,
 } from "downshift";
+import React from "react";
 import useTheme from "../../hooks/useTheme";
 import { InternalAutoCompleteProps } from "../AutoComplete/types";
 import Icon from "../Icon";
@@ -50,6 +51,10 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     highlightedIndex,
     itemsFooter: Footer,
     innerRef,
+    __internal__open,
+    __internal__highlightedIndex,
+    __internal__loading,
+    __internal__focus,
   } = props;
   // const { inputColorMap } = useBackground();
 
@@ -57,20 +62,17 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
       <div {...getComboboxProps()}>
         <InternalInput
-          {...getInputProps({
-            refKey: "innerRef",
-            ref: innerRef,
-            // ref: mergeRefs([ref, inputRef]),,
-          })}
+          {...getInputProps({ refKey: "innerRef", ref: innerRef })}
           label={label}
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}
+          __internal__focus={__internal__focus}
           autoComplete="off" // 🦘 ref: https://stackoverflow.com/a/50348848/340827
         />
       </div>
       <div css={theme.autoComplete.getCSS({ targetElement: "right" })}>
-        {!!isLoading && <LoadingIcon />}
+        {(!!isLoading || __internal__loading) && <LoadingIcon />}
         <button
           type="button"
           {...getToggleButtonProps()}
@@ -84,14 +86,16 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
         {...getMenuProps()}
         css={theme.autoComplete.getCSS({ targetElement: "ul", isOpen })}
       >
-        {isOpen && (
+        {(isOpen || __internal__open) && (
           <>
             {items.map((record, index) => (
               <li
                 key={record.id || index}
                 css={theme.autoComplete.getCSS({
                   targetElement: "li",
-                  isHighlighted: highlightedIndex === index,
+                  isHighlighted:
+                    highlightedIndex === index ||
+                    __internal__highlightedIndex === index,
                 })}
                 {...getItemProps({ index, item: record })}
               >
