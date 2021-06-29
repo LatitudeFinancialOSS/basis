@@ -97,7 +97,7 @@ function KitchenSinkAccordion() {
       {["transparent", "grey.t05"].map((bg) => (
         <Container bg={bg} padding="4" key={bg}>
           <Stack width="360" gap="8">
-            <AutoComplete label="Default" items={simpleItems} />
+            <AutoComplete label="Default" items={simpleItems} emptyValue={""} />
             <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"

@@ -33,6 +33,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     // highlightColor = theme.colors.secondary.lightBlue.t25,
     itemsFooter,
     // __internal__keyboardFocus,
+    emptyValue,
     hideLabel,
     children,
     testId,
@@ -70,10 +71,11 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
   });
 
   // const { selectItem } = useComboboxResult;
-  const { setInputValue, inputValue } = useComboboxResult;
+  const { setInputValue, inputValue, selectItem } = useComboboxResult;
 
   const onClear = () => {
     setInputValue("");
+    selectItem(emptyValue);
   };
 
   const showClearIcon = inputValue !== "";
@@ -97,6 +99,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         onSelectedItemChange={onSelectedItemChange}
         onFocus={onFocus}
         items={items}
+        emptyValue={emptyValue}
         itemToString={itemToString}
         placeholder={placeholder}
         isLoading={isLoading}

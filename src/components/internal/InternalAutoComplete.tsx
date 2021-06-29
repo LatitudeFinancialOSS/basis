@@ -62,6 +62,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
 
   const menuIsOpen = isOpen || __internal__open;
   const showMagnifier = !menuIsOpen && !showClearIcon;
+  const loading = !!isLoading || __internal__loading;
 
   return (
     <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
@@ -74,10 +75,12 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
           placeholder={placeholder}
           __internal__focus={__internal__focus}
           autoComplete="off"
+          hasSuffixButton
+          isLoading={loading}
         />
       </div>
       <div css={theme.autoComplete.getCSS({ targetElement: "right" })}>
-        {(!!isLoading || __internal__loading) && <LoadingIcon />}
+        {loading && <LoadingIcon />}
 
         <button
           type="button"

@@ -17,6 +17,7 @@ export type InternalAutoCompleteProps<Item> = {
   defaultValue?: any;
   label: string;
   items: ListItem<Item>[];
+  emptyValue: Item;
   placeholder?: string;
   itemToString?: (item: Item) => string;
   isLoading?: boolean;

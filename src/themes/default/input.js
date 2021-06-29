@@ -5,6 +5,8 @@ export default (theme, { getColor }) => {
       variant,
       prefix,
       suffix,
+      hasSuffixButton,
+      isLoading,
       color,
       __internal__focus,
     }) => {
@@ -46,10 +48,15 @@ export default (theme, { getColor }) => {
             boxShadow: theme.shadows.focus,
           };
 
-          const paddingRight = hasSuffix
+          let paddingRight = hasSuffix
             ? `calc(${theme.space[4]} + ${suffix.length + 1}ch)`
             : theme.space[4];
 
+          paddingRight = isLoading && hasSuffixButton ? "84px" : paddingRight; // Auto complete with loading
+          paddingRight =
+            !isLoading && hasSuffixButton ? theme.space[11] : paddingRight; // Auto complete without loading
+
+          // isLoading
           return {
             boxSizing: "border-box",
             width: "100%",

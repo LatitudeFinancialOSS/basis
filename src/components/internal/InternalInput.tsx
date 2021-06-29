@@ -17,6 +17,8 @@ export const DEFAULT_PROPS = {
   color: "grey.t05",
   disabled: false,
   autoComplete: "off",
+  isLoading: false,
+  hasSuffixButton: false,
   pasteAllowed: true,
   isValid: true,
   __internal__focus: false,
@@ -39,6 +41,8 @@ interface InternalInputProps {
   variant: InternalInputVariants;
   prefix?: string;
   suffix?: string;
+  isLoading?: boolean;
+  hasSuffixButton?: boolean;
   maxLength?: string | number;
   autoComplete?: string;
   color?: InternalInputColors;
@@ -67,6 +71,8 @@ const InternalInput = (props: InternalInputProps) => {
     variant = DEFAULT_PROPS.variant,
     prefix,
     suffix,
+    isLoading,
+    hasSuffixButton,
     maxLength,
     autoComplete = DEFAULT_PROPS.autoComplete,
     disabled = DEFAULT_PROPS.disabled,
@@ -95,10 +101,11 @@ const InternalInput = (props: InternalInputProps) => {
         prefix,
         suffix,
         color,
+        isLoading,
+        hasSuffixButton,
         __internal__focus,
       });
     },
-    
   }) as Interpolation<any>;
   const onPaste = useCallback(
     (event) => {

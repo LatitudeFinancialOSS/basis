@@ -7,26 +7,26 @@ import { default as AutoCompleteInternal } from "./AutoComplete";
 import { ComponentWithStaticProperties } from "../../types";
 
 interface StaticProperties {}
-type Items = Record<string, any>;
+type AutoCompleteItem = Record<string, any>;
 
-// function AutoCompleteComponent<Items>(
-//   props: AutoCompleteProps<Items>,
+// function AutoCompleteComponent<AutoCompleteItem>(
+//   props: AutoCompleteProps<AutoCompleteItem>,
 //   ref: React.Ref<HTMLInputElement>
 // ) {
 //   return <AutoCompleteInternal {...props} innerRef={ref} />;
 // }
 
-export interface CompoundedComponent<Items>
+export interface CompoundedComponent<AutoCompleteItem>
   extends React.ForwardRefExoticComponent<
-    AutoCompleteProps<Items> & React.RefAttributes<HTMLInputElement>
+    AutoCompleteProps<AutoCompleteItem> & React.RefAttributes<HTMLInputElement>
   > {
   yourStaticFunctionOrSomethingLikeThat: () => void;
 }
 
 // can't be an arrow function due to: https://github.com/yannickcr/eslint-plugin-react/issues/2269
-// const AutoComplete = forwardRef<Items, HTMLInputElement>(
-//   function AutoCompleteComponent<Items>(
-//     // props: AutoCompleteProps<Items>,
+// const AutoComplete = forwardRef<AutoCompleteItem, HTMLInputElement>(
+//   function AutoCompleteComponent<AutoCompleteItem>(
+//     // props: AutoCompleteProps<AutoCompleteItem>,
 //     // ref: React.Ref<HTMLInputElement>
 //     props,
 //     ref
@@ -64,7 +64,7 @@ export interface CompoundedComponent<Items>
 //       // closeMenu,
 //       // openMenu,
 //       // inputValue,
-//       }= useCombobox<Items>({
+//       }= useCombobox<AutoCompleteItem>({
 //       items,
 //       ...(stateReducer && { stateReducer }),
 //       onInputValueChange,
@@ -75,12 +75,17 @@ export interface CompoundedComponent<Items>
 //     return <AutoCompleteInternal {...props} innerRef={ref} />;
 //   }
 // );
-const AutoComplete = forwardRef(function AutoCompleteComponent<Items>(
-  props: AutoCompleteProps<Items>,
+const AutoComplete = forwardRef(function AutoCompleteComponent<
+  AutoCompleteItem
+>(
+  props: AutoCompleteProps<AutoCompleteItem>,
   ref: React.Ref<HTMLInputElement>
 ) {
   return <AutoCompleteInternal {...props} innerRef={ref} />;
-}) as ComponentWithStaticProperties<AutoCompleteProps<Items>, StaticProperties>;
+}) as ComponentWithStaticProperties<
+  AutoCompleteProps<AutoCompleteItem>,
+  StaticProperties
+>;
 
 AutoComplete.displayName = ComponentNames.AutoComplete;
 
