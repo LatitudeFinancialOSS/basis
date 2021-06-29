@@ -33,7 +33,7 @@ export type InternalAutoCompleteProps<Item> = {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
   selectItem?: (item: Item) => void;
-  children: React.ReactNode;
+  // children: React.ReactNode;
   testId?: string;
   onInputValueChange?: (changes: Partial<UseComboboxState<Item>>) => void;
   onSelectedItemChange?: (changes: Partial<UseComboboxState<Item>>) => void;

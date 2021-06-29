@@ -35,7 +35,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     // __internal__keyboardFocus,
     emptyValue,
     hideLabel,
-    children,
+    // children,
     testId,
     optional,
     __internal__open,
@@ -121,9 +121,9 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         // getToggleButtonProps={getToggleButtonProps}
         // highlightedIndex={highlightedIndex}
         {...useComboboxResult}
-      >
-        {children}
-      </InternalAutoComplete>
+      />
+      {/* {children} */}
+      {/* </InternalAutoComplete> */}
     </Field>
   );
 }
