@@ -56,7 +56,6 @@ export default (theme, { getColor }) => {
           paddingRight =
             !isLoading && hasSuffixButton ? theme.space[11] : paddingRight; // Auto complete without loading
 
-          // isLoading
           return {
             boxSizing: "border-box",
             width: "100%",

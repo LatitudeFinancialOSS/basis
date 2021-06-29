@@ -1,7 +1,5 @@
 import React from "react";
 import { Container, AutoComplete, Stack } from "basis";
-// import PropTypes from "prop-types";
-// import KitchenSinkForm from "../../../components/kitchen-sink/KitchenSinkForm";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 const items = [
   {
@@ -32,64 +30,6 @@ const itemToString = (value) =>
   value
     ? `${value.AddressLine}, ${value.Locality}, ${value.State}, ${value.Country}`
     : "";
-
-// function FormWithAutoComplete({
-//   initialValue = "",
-//   label,
-//   placeholder,
-//   disabled,
-//   helpText,
-//   submitOnMount,
-//   optional,
-//   ...rest
-// }) {
-//   return (
-//     <KitchenSinkForm
-//       initialValues={{ status: initialValue }}
-//       submitOnMount={submitOnMount}
-//     >
-//       {/* <Select
-//         name="status"
-//         label={label}
-//         placeholder={placeholder}
-//         options={options}
-//         disabled={disabled}
-//         helpText={helpText}
-//         optional={optional}
-//         fullWidth={fullWidth}
-//         __internal__focus={__internal__focus}
-//       /> */}
-//       <AutoComplete
-//         label={label}
-//         items={items}
-//         placeholder={placeholder}
-//         disabled={disabled}
-//         helpText={helpText}
-//         optional={optional}
-//         itemToString={itemToString}
-//         {...rest}
-//       />
-//     </KitchenSinkForm>
-//   );
-// }
-
-// FormWithAutoComplete.propTypes = {
-//   initialValue: PropTypes.string,
-//   label: PropTypes.string.isRequired,
-//   itemToString: PropTypes.func,
-//   placeholder: PropTypes.string,
-//   disabled: PropTypes.bool,
-//   helpText: PropTypes.string,
-//   items: PropTypes.arrayOf(
-//     PropTypes.oneOfType([PropTypes.object, PropTypes.string])
-//   ),
-//   optional: PropTypes.bool,
-//   __internal__focus: PropTypes.bool,
-//   __internal__open: PropTypes.bool,
-//   __internal__loading: PropTypes.bool,
-//   __internal__highlightedIndex: PropTypes.number,
-//   submitOnMount: PropTypes.bool,
-// };
 
 function KitchenSinkAccordion() {
   return (

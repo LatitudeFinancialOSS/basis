@@ -1,17 +1,6 @@
-export default (
-  theme
-  // , { getColor }
-) => {
+export default (theme) => {
   return {
-    getCSS: ({
-      targetElement,
-      // color,
-      // isPlaceholder,
-      isHighlighted,
-      isOpen,
-      showClearIcon,
-      __internal__focus,
-    }) => {
+    getCSS: ({ targetElement, isHighlighted, isOpen, showClearIcon }) => {
       switch (targetElement) {
         case "container": {
           return {
@@ -56,7 +45,9 @@ export default (
             transition: "opacity .1s ease",
             borderRadius: "0 0 0.28571429rem 0.28571429rem",
             boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)",
-            ...(isOpen ? { border: "1px solid #e5e5e5" } : { border: 0 }),
+            ...(isOpen
+              ? { border: `1px solid ${theme.colors.grey.t10}` }
+              : { border: 0 }),
             minWidth: "200px",
             backgroundColor: "white",
             width: "100%",
@@ -68,7 +59,7 @@ export default (
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-            border: "1px solid #e5e5e5",
+            border: `1px solid ${theme.colors.grey.t10}`,
             borderTop: "none",
             padding: `${theme.space[4]} ${theme.space[6]}`,
             cursor: "pointer",
