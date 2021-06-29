@@ -46,6 +46,10 @@ export default (theme, { getColor }) => {
             boxShadow: theme.shadows.focus,
           };
 
+          const paddingRight = hasSuffix
+            ? `calc(${theme.space[4]} + ${suffix.length + 1}ch)`
+            : theme.space[4];
+
           return {
             boxSizing: "border-box",
             width: "100%",
@@ -63,9 +67,7 @@ export default (theme, { getColor }) => {
             paddingLeft: hasPrefix
               ? `calc(${theme.space[4]} + ${prefix.length + 1}ch)`
               : theme.space[4],
-            paddingRight: hasSuffix
-              ? `calc(${theme.space[4]} + ${suffix.length + 1}ch)`
-              : theme.space[4],
+            paddingRight,
             ":focus": focusStyle,
             ...(__internal__focus && focusStyle),
           };

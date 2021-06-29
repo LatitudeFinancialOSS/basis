@@ -43,7 +43,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     __internal__focus,
   } = mergedProps;
 
-  const [inputValue, setInputValue] = useState("");
+  // const [inputValue, setInputValue] = useState("");
   // const [labelId] = useState(() => `auto-complete-label-${nanoid()}`);
   // const [inputId] = useState(() => `auto-complete-input-${nanoid()}`);
   const [auxId] = useState(() => `auto-complete-aux-${nanoid()}`);
@@ -55,21 +55,22 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
   // const { clearSelection } =
   const useComboboxResult = useCombobox<Item>({
     items,
-    inputValue,
+    // inputValue,
     ...(stateReducer && { stateReducer }),
-    // onInputValueChange,
-    onInputValueChange: (e) => {
-      if (e.inputValue) {
-        setInputValue(e.inputValue);
-      }
-      onInputValueChange?.(e);
-    },
+    onInputValueChange,
+    // onInputValueChange: (e) => {
+    //   if (e.inputValue) {
+    //     setInputValue(e.inputValue);
+    //   }
+    //   onInputValueChange?.(e);
+    // },
     onSelectedItemChange,
     itemToString: (item) =>
       itemToString ? itemToString?.(item) : String(item),
   });
 
-  // const { selectItem, setInputValue } = useComboboxResult;
+  // const { selectItem } = useComboboxResult;
+  const { setInputValue, inputValue } = useComboboxResult;
 
   const onClear = () => {
     setInputValue("");

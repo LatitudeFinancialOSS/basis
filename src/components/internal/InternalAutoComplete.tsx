@@ -61,6 +61,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
   } = props;
 
   const menuIsOpen = isOpen || __internal__open;
+  const showMagnifier = !menuIsOpen && !showClearIcon;
 
   return (
     <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
@@ -72,7 +73,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
           onBlur={onBlur}
           placeholder={placeholder}
           __internal__focus={__internal__focus}
-          autoComplete="off" // 🦘 ref: https://stackoverflow.com/a/50348848/340827
+          autoComplete="off"
         />
       </div>
       <div css={theme.autoComplete.getCSS({ targetElement: "right" })}>
@@ -90,7 +91,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
           <VisuallyHidden>Clear</VisuallyHidden>
         </button>
 
-        {!menuIsOpen && (
+        {showMagnifier && (
           <button
             type="button"
             {...getToggleButtonProps()}

@@ -112,6 +112,12 @@ function KitchenSinkAccordion() {
             <AutoComplete label="Optional" optional items={[]} />
             <AutoComplete label="Focus" items={[]} __internal__focus />
             <AutoComplete label="Loading" items={[]} __internal__loading />
+            <AutoComplete
+              label="Big address"
+              optional
+              items={[]}
+              placeholder={itemToString(items[0])}
+            />
             <AutoComplete label="With error" items={[]} error="Required" />
 
             <AutoComplete

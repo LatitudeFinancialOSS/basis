@@ -98,6 +98,7 @@ const InternalInput = (props: InternalInputProps) => {
         __internal__focus,
       });
     },
+    
   }) as Interpolation<any>;
   const onPaste = useCallback(
     (event) => {
