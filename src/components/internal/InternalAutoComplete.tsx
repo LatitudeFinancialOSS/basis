@@ -45,8 +45,6 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     getItemProps,
     getComboboxProps,
     getToggleButtonProps,
-    // closeMenu,
-    // openMenu,
     onClear,
     itemToString,
     isLoading,

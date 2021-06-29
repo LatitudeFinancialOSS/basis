@@ -3,40 +3,32 @@ import { useCombobox } from "downshift";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
-// import useTheme from "../../hooks/useTheme";
 import Field from "../internal/Field";
 import InternalAutoComplete from "../internal/InternalAutoComplete";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 import { AutoCompleteProps } from "./types";
 
 function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
-  // const theme = useTheme();
-
   const mergedProps = useMergedProps(props, defaultAutoCompleteProps);
 
   const {
     label,
     innerRef,
     error,
-    // defaultValue,
     onBlur,
     onInputValueChange,
     onSelectedItemChange,
     onFocus,
     disabled,
-    // onCantFind,
     helpText,
     items,
     itemToString,
     stateReducer,
     placeholder,
     isLoading,
-    // highlightColor = theme.colors.secondary.lightBlue.t25,
     itemsFooter,
-    // __internal__keyboardFocus,
     emptyValue,
     hideLabel,
-    // children,
     testId,
     optional,
     __internal__open,
@@ -45,34 +37,31 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     __internal__focus,
   } = mergedProps;
 
-  // const [inputValue, setInputValue] = useState("");
-  // const [labelId] = useState(() => `auto-complete-label-${nanoid()}`);
-  // const [inputId] = useState(() => `auto-complete-input-${nanoid()}`);
   const [auxId] = useState(() => `auto-complete-aux-${nanoid()}`);
 
   const fieldErrors =
     Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
-  // const { clearSelection } =
-  const useComboboxResult = useCombobox<Item>({
+  const {
+    isOpen,
+    getMenuProps,
+    getInputProps,
+    getItemProps,
+    getComboboxProps,
+    getToggleButtonProps,
+    highlightedIndex,
+    setInputValue,
+    inputValue,
+    selectItem,
+  } = useCombobox<Item>({
     items,
-    // inputValue,
     ...(stateReducer && { stateReducer }),
     onInputValueChange,
-    // onInputValueChange: (e) => {
-    //   if (e.inputValue) {
-    //     setInputValue(e.inputValue);
-    //   }
-    //   onInputValueChange?.(e);
-    // },
     onSelectedItemChange,
     itemToString: (item) =>
       itemToString ? itemToString?.(item) : String(item),
   });
-
-  // const { selectItem } = useComboboxResult;
-  const { setInputValue, inputValue, selectItem } = useComboboxResult;
 
   const onClear = () => {
     setInputValue("");
@@ -104,7 +93,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         itemToString={itemToString}
         placeholder={placeholder}
         isLoading={isLoading}
-        // highlightColor={highlightColor}
         onClear={onClear}
         showClearIcon={showClearIcon}
         itemsFooter={itemsFooter}
@@ -114,17 +102,14 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         __internal__highlightedIndex={__internal__highlightedIndex}
         __internal__loading={__internal__loading}
         __internal__focus={__internal__focus}
-        // isOpen={isOpen}
-        // getMenuProps={getMenuProps}
-        // getInputProps={getInputProps}
-        // getItemProps={getItemProps}
-        // getComboboxProps={getComboboxProps}
-        // getToggleButtonProps={getToggleButtonProps}
-        // highlightedIndex={highlightedIndex}
-        {...useComboboxResult}
+        isOpen={isOpen}
+        getMenuProps={getMenuProps}
+        getInputProps={getInputProps}
+        getItemProps={getItemProps}
+        getComboboxProps={getComboboxProps}
+        getToggleButtonProps={getToggleButtonProps}
+        highlightedIndex={highlightedIndex}
       />
-      {/* {children} */}
-      {/* </InternalAutoComplete> */}
     </Field>
   );
 }
