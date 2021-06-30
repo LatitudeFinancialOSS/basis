@@ -2,7 +2,7 @@ import { hasOwnProperty } from "./core";
 import { TEXT_ALIGNS, FLEX_DIRECTIONS, FLEX_PLACE_ITEMS } from "./constants";
 import {
   BasisTheme,
-  BreakPoints,
+  Breakpoints,
   EnhancedTheme,
   TextStyleNames,
 } from "../themes/types";
@@ -132,7 +132,7 @@ export function compareBreakpoints(
   return index1 < index2 ? -1 : 1;
 }
 
-export function getMinMediaQueries(breakpoints: BreakPoints) {
+export function getMinMediaQueries(breakpoints: Breakpoints) {
   if (!breakpoints) {
     throw new Error("Theme expects breakpoints but none were recieved");
   }
@@ -147,7 +147,7 @@ export function getMinMediaQueries(breakpoints: BreakPoints) {
   return result as Record<Breakpoint, string>;
 }
 
-export function getExclusiveMediaQueries(breakpoints: BreakPoints) {
+export function getExclusiveMediaQueries(breakpoints: Breakpoints) {
   if (!breakpoints) {
     throw new Error("Theme expects breakpoints but none were recieved");
   }

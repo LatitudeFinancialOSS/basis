@@ -13,7 +13,7 @@ type FocusStyle = {
   zIndex: number;
 } & Required<Pick<CSSProperties, "position">>;
 
-export type BreakPoints = {
+export type Breakpoints = {
   xs: PixelValue;
   sm: PixelValue;
   md: PixelValue;
@@ -402,99 +402,10 @@ export type BasisTheme = {
     semiBold: number;
     bold: number;
   };
-  colors: {
-    black: string;
-    grey: {
-      t75: string;
-      t65: string;
-      t30: string;
-      t16: string;
-      t10: string;
-      t07: string;
-      t05: string;
-      t03: string;
-    };
-    white: string;
-    primary: {
-      blue: {
-        t100: string;
-        t80: string;
-        t60: string;
-        t30: string;
-        t10: string;
-      };
-    };
-    secondary: {
-      lightBlue: {
-        t100: string;
-        t80: string;
-        t60: string;
-        t25: string;
-        t15: string;
-      };
-      pink: {
-        t100: string;
-        t80: string;
-        t60: string;
-        t30: string;
-        t15: string;
-      };
-      purple: {
-        t100: string;
-        t80: string;
-        t60: string;
-        t30: string;
-        t15: string;
-      };
-      turquoise: {
-        t100: string;
-        t80: string;
-        t60: string;
-        t30: string;
-        t10: string;
-      };
-    };
-    highlight: {
-      blue: {
-        t100: string;
-        t80: string;
-        t50: string;
-        t30: string;
-        t15: string;
-      };
-      pink: {
-        t100: string;
-        t80: string;
-        t50: string;
-        t30: string;
-        t15: string;
-      };
-      purple: {
-        t100: string;
-        t80: string;
-        t50: string;
-        t30: string;
-        t15: string;
-      };
-    };
-    conditional: {
-      positive: {
-        graphics: string;
-        text: string;
-      };
-      attention: {
-        graphics: string;
-        text: string;
-      };
-      negative: {
-        graphics: string;
-        text: string;
-      };
-    };
-  };
+  colors: ThemeColors;
   borderWidths: Collection<PixelValue>;
   radii: Collection<string>;
-  breakpoints: BreakPoints;
+  breakpoints: Breakpoints;
   breakpointMaxWidths: {
     sm: PixelValue;
     md: PixelValue;
@@ -550,5 +461,5 @@ export type EnhancedTheme = BasisTheme & {
   exclusiveMediaQueries: Record<Breakpoint, string>;
   getColor: (color: Color) => string | null;
   getTextStyleCSS: (textStyle: TextStyleNames) => CSSObject | null;
-  getSpaceValue: (spcae: string | number) => string | null;
+  getSpaceValue: (space: string | number) => string | null;
 };

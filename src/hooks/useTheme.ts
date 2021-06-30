@@ -8,9 +8,7 @@ export const ThemeContext = React.createContext<EnhancedTheme>(
 );
 
 function useTheme() {
-  const theme = useContext(ThemeContext);
-
-  return theme;
+  return useContext(ThemeContext);
 }
 
 export default useTheme;
