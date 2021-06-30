@@ -11,11 +11,6 @@ import {
 } from "./css";
 
 describe("getMinMediaQueries", () => {
-  it("no breakpoints", () => {
-    expect(getMinMediaQueries(undefined)).toStrictEqual({});
-    expect(getMinMediaQueries({})).toStrictEqual({});
-  });
-
   it("5 breakpoints", () => {
     expect(
       getMinMediaQueries({
@@ -36,11 +31,6 @@ describe("getMinMediaQueries", () => {
 });
 
 describe("getExclusiveMediaQueries", () => {
-  it("0 breakpoints", () => {
-    expect(getExclusiveMediaQueries(undefined)).toStrictEqual({});
-    expect(getExclusiveMediaQueries({})).toStrictEqual({});
-  });
-
   it("1 breakpoint", () => {
     expect(
       getExclusiveMediaQueries({

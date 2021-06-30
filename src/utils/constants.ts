@@ -12,15 +12,15 @@ export const TEXT_STYLES = [
   "body2",
   "legal",
   "overline",
-];
-export const TEXT_ALIGNS = ["inherit", "left", "center", "right"];
+] as const;
+export const TEXT_ALIGNS = ["inherit", "left", "center", "right"] as const;
 
 export const FLEX_DIRECTIONS = [
   "row",
   "row-reverse",
   "column",
   "column-reverse",
-];
+] as const;
 export const FLEX_PLACE_ITEMS = [
   "top left",
   "top center",
@@ -42,4 +42,4 @@ export const FLEX_PLACE_ITEMS = [
   "right bottom",
 
   "center",
-];
+] as const;

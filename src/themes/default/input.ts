@@ -1,17 +1,27 @@
-export default (theme, { getColor }) => {
-  return {
-    getCSS: ({
-      targetElement,
-      variant,
-      prefix,
-      suffix,
-      color,
-      __internal__focus,
-    }) => {
-      const hasPrefix = ["numeric", "decimal"].includes(variant) && prefix;
-      const hasSuffix = ["numeric", "decimal"].includes(variant) && suffix;
+import { BasisTheme, InputTheme, ThemeHelpers } from "../types";
 
-      switch (targetElement) {
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "fontSizes"
+    | "fontWeights"
+    | "lineHeights"
+    | "fonts"
+    | "colors"
+    | "space"
+    | "shadows"
+    | "radii"
+  >,
+  { getColor }: ThemeHelpers
+): InputTheme => {
+  return {
+    getCSS: (options) => {
+      const hasPrefix =
+        ["numeric", "decimal"].includes(options.variant) && options.prefix;
+      const hasSuffix =
+        ["numeric", "decimal"].includes(options.variant) && options.suffix;
+
+      switch (options.targetElement) {
         case "inputContainer": {
           return {
             position: "relative",
@@ -22,7 +32,7 @@ export default (theme, { getColor }) => {
             color: theme.colors.black,
             ...(hasPrefix && {
               "::before": {
-                content: `"${prefix}"`,
+                content: `"${options.prefix}"`,
                 position: "absolute",
                 top: "13px",
                 left: theme.space[4],
@@ -30,13 +40,13 @@ export default (theme, { getColor }) => {
             }),
             ...(hasSuffix && {
               "::after": {
-                content: `"${suffix}"`,
+                content: `"${options.suffix}"`,
                 position: "absolute",
                 top: "13px",
                 right: theme.space[4],
               },
             }),
-          };
+          } as const;
         }
 
         case "input": {
@@ -44,7 +54,7 @@ export default (theme, { getColor }) => {
             outline: 0,
             borderRadius: theme.radii[0],
             boxShadow: theme.shadows.focus,
-          };
+          } as const;
 
           return {
             boxSizing: "border-box",
@@ -59,20 +69,22 @@ export default (theme, { getColor }) => {
             lineHeight: "inherit",
             fontFamily: "inherit",
             color: "inherit",
-            backgroundColor: getColor(color),
-            paddingLeft: hasPrefix
-              ? `calc(${theme.space[4]} + ${prefix.length + 1}ch)`
-              : theme.space[4],
-            paddingRight: hasSuffix
-              ? `calc(${theme.space[4]} + ${suffix.length + 1}ch)`
-              : theme.space[4],
+            backgroundColor: getColor(options.color),
+            paddingLeft:
+              hasPrefix && options.prefix
+                ? `calc(${theme.space[4]} + ${options.prefix.length + 1}ch)`
+                : theme.space[4],
+            paddingRight:
+              hasSuffix && options.suffix
+                ? `calc(${theme.space[4]} + ${options.suffix.length + 1}ch)`
+                : theme.space[4],
             ":focus": focusStyle,
-            ...(__internal__focus && focusStyle),
-          };
+            ...(options.__internal__focus && focusStyle),
+          } as const;
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },

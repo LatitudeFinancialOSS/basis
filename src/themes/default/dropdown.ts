@@ -1,17 +1,19 @@
-export default (theme, { getColor }) => {
+import { BasisTheme, DropdownTheme, ThemeHelpers } from "../types";
+
+export default (
+  theme: Pick<
+    BasisTheme,
+    "radii" | "space" | "focusStyles" | "zIndices" | "colors" | "borderWidths"
+  >,
+  { getColor }: ThemeHelpers
+): DropdownTheme => {
   return {
-    getCSS: ({
-      targetElement,
-      color,
-      isPlaceholder,
-      isHighlighted,
-      __internal__focus,
-    }) => {
-      switch (targetElement) {
+    getCSS: (options) => {
+      switch (options.targetElement) {
         case "container": {
           return {
             position: "relative",
-          };
+          } as const;
         }
 
         case "button": {
@@ -22,22 +24,22 @@ export default (theme, { getColor }) => {
             padding: theme.space[4],
             width: "100%",
             color: theme.colors.black,
-            backgroundColor: getColor(color),
+            backgroundColor: getColor(options.color),
             textAlign: "left",
             margin: 0,
             border: 0,
             borderRadius: theme.radii[0],
             outline: 0,
             ...theme.focusStyles.focusVisible,
-            ...(isPlaceholder && {
+            ...(options.isPlaceholder && {
               padding: `${theme.space[2]} ${theme.space[4]}`,
             }),
-            ...(__internal__focus && theme.focusStyles.__keyboardFocus),
+            ...(options.__internal__focus && theme.focusStyles.__keyboardFocus),
             // See: https://stackoverflow.com/a/199319/247243
             "::-moz-focus-inner": {
               border: 0,
             },
-          };
+          } as const;
         }
 
         case "buttonContent": {
@@ -45,7 +47,7 @@ export default (theme, { getColor }) => {
             display: "flex",
             alignItems: "center",
             flexGrow: 1,
-          };
+          } as const;
         }
 
         case "buttonChevron": {
@@ -53,7 +55,7 @@ export default (theme, { getColor }) => {
             display: "flex",
             transformOrigin: "50% 50%",
             transition: "transform .25s ease",
-          };
+          } as const;
         }
 
         case "options": {
@@ -69,7 +71,7 @@ export default (theme, { getColor }) => {
             ":focus": {
               outline: 0,
             },
-          };
+          } as const;
         }
 
         case "option": {
@@ -78,14 +80,14 @@ export default (theme, { getColor }) => {
             padding: theme.space[4],
             borderTop: `${theme.borderWidths[0]} solid ${theme.colors.grey.t10}`,
             cursor: "default",
-            ...(isHighlighted && {
+            ...(options.isHighlighted && {
               backgroundColor: theme.colors.secondary.lightBlue.t25,
             }),
-          };
+          } as const;
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },

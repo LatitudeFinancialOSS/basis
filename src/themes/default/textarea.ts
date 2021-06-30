@@ -1,4 +1,19 @@
-export default (theme, { getColor }) => {
+import { BasisTheme, TextareaTheme, ThemeHelpers } from "../types";
+
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "radii"
+    | "shadows"
+    | "fontSizes"
+    | "fontWeights"
+    | "lineHeights"
+    | "fonts"
+    | "colors"
+    | "space"
+  >,
+  { getColor }: ThemeHelpers
+): TextareaTheme => {
   return {
     getCSS: ({ color, __internal__focus }) => {
       const focusStyle = {
@@ -23,7 +38,7 @@ export default (theme, { getColor }) => {
         padding: `${theme.space[2]} ${theme.space[4]}`,
         ":focus": focusStyle,
         ...(__internal__focus && focusStyle),
-      };
+      } as const;
     },
-  };
+  } as const;
 };

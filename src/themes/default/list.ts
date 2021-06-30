@@ -1,37 +1,42 @@
-export default (theme, { getTextStyle }) => {
+import { BasisTheme, ListTheme, ThemeHelpers } from "../types";
+
+export default (
+  theme: Pick<BasisTheme, "colors" | "space" | "radii" | "fontWeights">,
+  { getTextStyle }: ThemeHelpers
+): ListTheme => {
   return {
-    getCSS: ({ targetElement, type, variant, textStyle }) => {
-      switch (targetElement) {
+    getCSS: (options) => {
+      switch (options.targetElement) {
         case "list": {
           return {
             margin: 0,
             listStyleType: "none",
-            ...(type === "unordered" && {
+            ...(options.type === "unordered" && {
               paddingLeft: "1.25em",
             }),
-            ...(type === "ordered" && {
+            ...(options.type === "ordered" && {
               counterReset: "ordered",
               paddingLeft: "1.25em",
             }),
-            ...(type === "steps" && {
+            ...(options.type === "steps" && {
               counterReset: "steps",
               padding: "0.25em 0 0.25em 2.5em",
             }),
-            ...getTextStyle({ name: textStyle, mode: "container" }),
+            ...getTextStyle({ name: options.textStyle, mode: "container" }),
             color: theme.colors.black,
-          };
+          } as const;
         }
 
         case "item": {
-          switch (type) {
+          switch (options.type) {
             case "unordered": {
               return {
                 position: "relative",
                 ":not(:first-of-type)": {
                   marginTop:
-                    textStyle === "subtitle1"
+                    options.textStyle === "subtitle1"
                       ? theme.space[4]
-                      : textStyle === "subtitle2"
+                      : options.textStyle === "subtitle2"
                       ? theme.space[3]
                       : theme.space[2],
                 },
@@ -44,7 +49,7 @@ export default (theme, { getTextStyle }) => {
                   top: "0.5em",
                   left: "-1.25em",
                   backgroundColor:
-                    variant === "danger"
+                    options.variant === "danger"
                       ? theme.colors.conditional.negative.graphics
                       : theme.colors.secondary.lightBlue.t100,
                 },
@@ -54,7 +59,7 @@ export default (theme, { getTextStyle }) => {
                 "&:not(:last-of-type) ul, &:not(:last-of-type) ol": {
                   marginBottom: "1em",
                 },
-              };
+              } as const;
             }
 
             case "ordered": {
@@ -63,9 +68,9 @@ export default (theme, { getTextStyle }) => {
                 counterIncrement: "ordered",
                 ":not(:first-of-type)": {
                   marginTop:
-                    textStyle === "subtitle1"
+                    options.textStyle === "subtitle1"
                       ? theme.space[4]
-                      : textStyle === "subtitle2"
+                      : options.textStyle === "subtitle2"
                       ? theme.space[3]
                       : theme.space[2],
                 },
@@ -87,7 +92,7 @@ export default (theme, { getTextStyle }) => {
                 "& ol ol li::before": {
                   content: 'counter(ordered, lower-roman) ". "',
                 },
-              };
+              } as const;
             }
 
             case "steps": {
@@ -123,17 +128,17 @@ export default (theme, { getTextStyle }) => {
                   color: theme.colors.black,
                   backgroundColor: theme.colors.secondary.lightBlue.t100,
                 },
-              };
+              } as const;
             }
 
             default: {
-              return null;
+              return {};
             }
           }
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },

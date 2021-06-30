@@ -1,5 +1,11 @@
-export default (theme, { getColor, getTextStyle }) => {
-  function getContentColor(headerColor) {
+import { CSSObject } from "@emotion/react";
+import { AccordionTheme, BasisTheme, Color, ThemeHelpers } from "../types";
+
+export default (
+  theme: Pick<BasisTheme, "space" | "radii" | "focusStyles">,
+  { getColor, getTextStyle }: ThemeHelpers
+): AccordionTheme => {
+  function getContentColor(headerColor: Color) {
     return headerColor === "grey.t07"
       ? "grey.t03"
       : headerColor === "secondary.lightBlue.t25"
@@ -9,15 +15,8 @@ export default (theme, { getColor, getTextStyle }) => {
 
   return {
     getContentColor,
-    getCSS: ({
-      targetElement,
-      color,
-      textColor,
-      itemGap,
-      isOpen,
-      __internal__keyboardFocus,
-    }) => {
-      switch (targetElement) {
+    getCSS: (options): CSSObject => {
+      switch (options.targetElement) {
         case "headerContainer": {
           return {
             margin: 0,
@@ -37,9 +36,10 @@ export default (theme, { getColor, getTextStyle }) => {
             ...getTextStyle({ name: "subtitle2", mode: "self-bold" }),
             outline: 0,
             ...theme.focusStyles.focusVisible,
-            ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-            backgroundColor: getColor(color),
-            color: getColor(textColor),
+            ...(options.__internal__keyboardFocus &&
+              theme.focusStyles.__keyboardFocus),
+            backgroundColor: getColor(options.color),
+            color: getColor(options.textColor),
           };
         }
 
@@ -63,7 +63,7 @@ export default (theme, { getColor, getTextStyle }) => {
             display: "flex",
             transformOrigin: "50% 50%",
             transition: "transform .25s ease",
-            ...(isOpen && {
+            ...(options.isOpen && {
               transform: "translateZ(0) rotate(180deg)",
             }),
           };
@@ -72,7 +72,7 @@ export default (theme, { getColor, getTextStyle }) => {
         case "content": {
           return {
             textAlign: "left",
-            backgroundColor: getColor(getContentColor(color)),
+            backgroundColor: getColor(getContentColor(options.color)),
             padding: `${theme.space[4]} ${theme.space[11]} ${theme.space[4]} ${theme.space[6]}`,
           };
         }
@@ -81,7 +81,7 @@ export default (theme, { getColor, getTextStyle }) => {
           return {
             ":not(:first-of-type)": {
               marginTop:
-                itemGap === "small"
+                options.itemGap === "small"
                   ? "1px" // This is an exception to our space scale
                   : theme.space[1],
             },
@@ -89,7 +89,7 @@ export default (theme, { getColor, getTextStyle }) => {
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },

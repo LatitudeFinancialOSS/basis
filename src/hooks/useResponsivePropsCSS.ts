@@ -152,18 +152,18 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
     const necessaryNewCSS = removeRedundantCSS(
       newCSS,
       result,
-      breakpoints
-        .slice(0, i)
-        .map(
-          (bp) =>
-            theme.minMediaQueries[bp] ||
-            DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER
-        )
+      breakpoints.slice(0, i).map(
+        (bp) =>
+          // @ts-ignore
+          theme.minMediaQueries[bp] ||
+          DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER
+      )
     );
 
     if (!isObjectEmpty(necessaryNewCSS)) {
       // @ts-ignore
       result[
+        // @ts-ignore
         theme.minMediaQueries[bp] || DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER
       ] = necessaryNewCSS;
     }

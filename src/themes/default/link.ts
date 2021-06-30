@@ -1,9 +1,29 @@
+import { CSSObject } from "@emotion/react";
 import { rgba } from "polished";
+import { BasisTheme, LinkTheme } from "../types";
 
-export default (theme) => {
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "radii"
+    | "focusStyles"
+    | "fonts"
+    | "fontWeights"
+    | "transitions"
+    | "colors"
+    | "borderWidths"
+  >
+): LinkTheme => {
+  type StateOptions = {
+    hover: CSSObject;
+    active: CSSObject;
+    __internal__hover: boolean;
+    __internal__active: boolean;
+  };
+
   function addStates(
-    css,
-    { hover, active, __internal__hover, __internal__active }
+    css: CSSObject,
+    { hover, active, __internal__hover, __internal__active }: StateOptions
   ) {
     return {
       ...css,
@@ -11,10 +31,10 @@ export default (theme) => {
       ...(__internal__hover && hover),
       ":active": active,
       ...(__internal__active && active),
-    };
+    } as const;
   }
 
-  function getButtonCSS(css) {
+  function getButtonCSS(css: CSSObject) {
     return {
       ...css,
       display: "inline-flex",
@@ -23,37 +43,37 @@ export default (theme) => {
       textDecoration: "none",
       boxSizing: "border-box",
       width: "100%",
-    };
+    } as const;
   }
 
   return {
-    getCSS: ({
-      targetElement,
-      appearance,
-      variant,
-      buttonTheme,
-      __internal__keyboardFocus,
-      __internal__hover,
-      __internal__active,
-    }) => {
-      switch (targetElement) {
+    getCSS: (options) => {
+      switch (options.targetElement) {
         case "anchor": {
           return {
             textDecoration: "none",
             borderRadius: theme.radii[1],
             outline: 0,
             display: ["primary-button", "secondary-button", "icon"].includes(
-              appearance
+              options.appearance
             )
               ? "inline-flex"
               : null,
-            verticalAlign: appearance === "icon" ? "top" : null,
+            verticalAlign: options.appearance === "icon" ? "top" : null,
             ...theme.focusStyles.focusVisible,
-            ...(__internal__keyboardFocus && theme.focusStyles.__keyboardFocus),
-          };
+            ...(options.__internal__keyboardFocus &&
+              theme.focusStyles.__keyboardFocus),
+          } as const;
         }
 
         case "span": {
+          const {
+            variant,
+            buttonTheme,
+            appearance,
+            __internal__active,
+            __internal__hover,
+          } = options;
           switch (variant) {
             case "light-bg": {
               return addStates(
