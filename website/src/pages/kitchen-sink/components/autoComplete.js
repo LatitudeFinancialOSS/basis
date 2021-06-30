@@ -25,6 +25,16 @@ const items = [
 ];
 
 const simpleItems = ["item1", "item2"];
+const emptyValue = {
+  id: "",
+  RecordId: "",
+  AddressLine: "",
+  Locality: "",
+  State: "",
+  Postcode: "",
+  Country: "",
+  CountryCode: "",
+};
 
 const itemToString = (value) =>
   value
@@ -39,6 +49,15 @@ function KitchenSinkAccordion() {
           <Stack width="360" gap="8">
             <AutoComplete label="Default" items={simpleItems} emptyValue={""} />
             <AutoComplete
+              label="Custom list item"
+              items={items}
+              emptyValue={emptyValue}
+              itemToString={itemToString}
+              listItem={({ item }) => {
+                return <div>{`${item.AddressLine} $$$ ${item.Locality}`}</div>;
+              }}
+            />
+            {/* <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"
               items={[]}
@@ -85,7 +104,7 @@ function KitchenSinkAccordion() {
                 __internal__loading
                 __internal__highlightedIndex={1}
               />
-            </Container>
+            </Container> */}
           </Stack>
         </Container>
       ))}

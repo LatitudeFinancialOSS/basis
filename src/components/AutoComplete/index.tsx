@@ -12,7 +12,7 @@ declare module "react" {
 }
 
 function AutoCompleteComponent<AutoCompleteItem>(
-  props: AutoCompleteProps<AutoCompleteItem>,
+  props: AutoCompleteProps<AutoCompleteItem | null>,
   ref: React.Ref<HTMLInputElement>
 ) {
   return <AutoCompleteInternal {...props} innerRef={ref} />;

@@ -7,7 +7,10 @@ import {
 } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
-import { InternalAutoCompleteProps } from "../AutoComplete/types";
+import {
+  AutoCompleteListItem,
+  InternalAutoCompleteProps,
+} from "../AutoComplete/types";
 import Icon from "../Icon";
 import InternalInput from "../internal/InternalInput";
 import LoadingIcon from "../LoadingIcon";
@@ -26,6 +29,7 @@ type Props<Item> = InternalAutoCompleteProps<Item> & {
   getToggleButtonProps: (
     options?: UseComboboxGetToggleButtonPropsOptions | undefined
   ) => any;
+  inputValue: string;
   highlightedIndex: number;
   describedBy?: string;
   showClearIcon: boolean;
@@ -40,6 +44,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     placeholder,
     items,
     isOpen,
+    listItem: ListItem,
     getMenuProps,
     getInputProps,
     getItemProps,
@@ -50,6 +55,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     isLoading,
     highlightedIndex,
     itemsFooter: Footer,
+    inputValue,
     showClearIcon,
     innerRef,
     __internal__open,
@@ -61,6 +67,13 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
   const menuIsOpen = isOpen || __internal__open;
   const showMagnifier = !menuIsOpen && !showClearIcon;
   const loading = !!isLoading || __internal__loading;
+
+  const renderListItem = (record: AutoCompleteListItem<Item>) => {
+    if (ListItem) {
+      return <ListItem inputValue={inputValue} item={record} />;
+    }
+    return itemToString ? itemToString(record) : record;
+  };
 
   return (
     <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
@@ -123,7 +136,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
                 })}
                 {...getItemProps({ index, item: record })}
               >
-                {itemToString ? itemToString(record) : record}
+                {renderListItem(record)}
               </li>
             ))}
             {Footer && <Footer />}

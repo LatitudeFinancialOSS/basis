@@ -8,7 +8,7 @@ import InternalAutoComplete from "../internal/InternalAutoComplete";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 import { AutoCompleteProps } from "./types";
 
-function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
+function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
   const mergedProps = useMergedProps(props, defaultAutoCompleteProps);
 
   const {
@@ -27,7 +27,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     placeholder,
     isLoading,
     itemsFooter,
-    emptyValue,
+    listItem,
     hideLabel,
     testId,
     optional,
@@ -51,21 +51,19 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
     getComboboxProps,
     getToggleButtonProps,
     highlightedIndex,
-    setInputValue,
     inputValue,
     selectItem,
-  } = useCombobox<Item>({
+  } = useCombobox<Item | null>({
     items,
     ...(stateReducer && { stateReducer }),
     onInputValueChange,
     onSelectedItemChange,
     itemToString: (item) =>
-      itemToString ? itemToString?.(item) : String(item),
+      itemToString ? itemToString?.(item) : item ? String(item) : "",
   });
 
   const onClear = () => {
-    setInputValue("");
-    selectItem(emptyValue);
+    selectItem(null);
   };
 
   const showClearIcon = inputValue !== "";
@@ -89,14 +87,16 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item>) {
         onSelectedItemChange={onSelectedItemChange}
         onFocus={onFocus}
         items={items}
-        emptyValue={emptyValue}
+        // emptyValue={emptyValue}
         itemToString={itemToString}
         placeholder={placeholder}
         isLoading={isLoading}
+        inputValue={inputValue}
         onClear={onClear}
         showClearIcon={showClearIcon}
         itemsFooter={itemsFooter}
         isValid={!hasErrors}
+        listItem={listItem}
         describedBy={helpText || hasErrors ? auxId : undefined}
         __internal__open={__internal__open}
         __internal__highlightedIndex={__internal__highlightedIndex}
