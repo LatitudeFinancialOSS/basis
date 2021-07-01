@@ -1,29 +1,29 @@
-import React from "react";
 import "@testing-library/jest-dom/extend-expect";
+import React from "react";
+import { SubmitHandler } from "react-hook-form";
 import {
+  // AutoComplete,
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  DateInput,
   Form,
+  Frequency,
   Input,
   RadioGroup,
-  Button,
   Select,
-  DateInput,
-  Checkbox,
   Textarea,
-  Frequency,
-  CheckboxGroup,
   useBasisForm,
 } from "../..";
+import { ValidationFunction } from "../../types";
 import {
+  fireEvent,
   render,
   screen,
   userEvent,
-  fireEvent,
   waitFor,
 } from "../../utils/test";
-import { SubmitHandler } from "react-hook-form";
-import { ValidationFunction } from "../../types";
 import { DateInputValue, FrequencyValue } from "../../values";
-
 interface SimpleFormValues {
   testInput: string;
 }
@@ -55,6 +55,17 @@ interface ComplexFormValues {
   testTextarea: string;
   testCheckboxGroup: Record<string, boolean>;
   testCustomInput: string;
+  address: {
+    auto: {
+      AddressLine: string;
+      Country: string;
+      CountryCode: string;
+      Locality: string;
+      Postcode: string;
+      RecordId: string;
+      State: string;
+    };
+  };
 }
 
 const radioOptions = [
@@ -157,6 +168,19 @@ const ComplexForm = ({
       >
         {(props) => <Input label="Custom Input" {...props} testId="field" />}
       </CustomField>
+
+      {/* <Field
+        name="address"
+        label="Address complete"
+        items={[]}
+        placeholder="Search here!"
+        isLoading={false}
+        onSelectedItemChange={() => {}}
+        onInputValueChange={() => {}}
+        itemToString={() => ""}
+        as={AutoComplete}
+      /> */}
+
       <Button type="submit">Submit</Button>
     </Form>
   );

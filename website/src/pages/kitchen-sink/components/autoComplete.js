@@ -1,5 +1,5 @@
+import { AutoComplete, Container, Stack } from "basis";
 import React from "react";
-import { Container, AutoComplete, Stack } from "basis";
 import KitchenSinkLayout from "../../../components/kitchen-sink/KitchenSinkLayout";
 const items = [
   {
@@ -25,16 +25,16 @@ const items = [
 ];
 
 const simpleItems = ["item1", "item2"];
-const emptyValue = {
-  id: "",
-  RecordId: "",
-  AddressLine: "",
-  Locality: "",
-  State: "",
-  Postcode: "",
-  Country: "",
-  CountryCode: "",
-};
+// const emptyValue = {
+//   id: "",
+//   RecordId: "",
+//   AddressLine: "",
+//   Locality: "",
+//   State: "",
+//   Postcode: "",
+//   Country: "",
+//   CountryCode: "",
+// };
 
 const itemToString = (value) =>
   value
@@ -42,13 +42,16 @@ const itemToString = (value) =>
     : "";
 
 function KitchenSinkAccordion() {
+  // const { methods, Field } = useBasisForm();
+  // const handleStart = () => {};
+
   return (
     <KitchenSinkLayout name="AutoComplete">
       {["transparent", "grey.t05"].map((bg) => (
         <Container bg={bg} padding="4" key={bg}>
           <Stack width="360" gap="8">
             <AutoComplete label="Default" items={simpleItems} emptyValue={""} />
-            <AutoComplete
+            {/* <AutoComplete
               label="Custom list item"
               items={items}
               emptyValue={emptyValue}
@@ -57,7 +60,21 @@ function KitchenSinkAccordion() {
                 return <div>{`${item.AddressLine} $$$ ${item.Locality}`}</div>;
               }}
             />
-            {/* <AutoComplete
+            <Form methods={methods} onSubmit={handleStart}>
+              <Field
+                name="myAddress"
+                label="Address complete"
+                items={items}
+                placeholder="Search here!"
+                isLoading={false}
+                onSelectedItemChange={() => {}}
+                onInputValueChange={() => {}}
+                itemToString={itemToString}
+                as={AutoComplete}
+              />
+              <Button type="submit">Get started</Button>
+            </Form> */}
+            <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"
               items={[]}
@@ -69,6 +86,8 @@ function KitchenSinkAccordion() {
             />
 
             <AutoComplete label="Optional" optional items={[]} />
+            <AutoComplete label="With value" items={items} value={items[0]} />
+
             <AutoComplete label="Focus" items={[]} __internal__focus />
             <AutoComplete label="Loading" items={[]} __internal__loading />
             <AutoComplete
@@ -85,7 +104,7 @@ function KitchenSinkAccordion() {
               __internal__open
             />
 
-            <Container margin="14 0 0 0" padding="14 0 0 0">
+            <Container margin="14 0" padding="14 0">
               <AutoComplete
                 label="Address Items Open"
                 itemToString={itemToString}
@@ -95,7 +114,7 @@ function KitchenSinkAccordion() {
               />
             </Container>
 
-            <Container margin="14 0" padding="14 0">
+            {/* <Container margin="14 0" padding="14 0">
               <AutoComplete
                 label="Loading Open"
                 itemToString={itemToString}

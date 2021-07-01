@@ -43,7 +43,8 @@ export type Component<Props> =
   | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
   | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
       Record<string, any>)
-  | (React.Component<Props> & Record<string, any>);
+  | (React.Component<Props> & Record<string, any>)
+  | ((props: Props & React.RefAttributes<any>) => React.ReactElement | null);
 
 type ErrorProps<ErrorType extends ValidationError> = {
   error?: ErrorType;
@@ -70,14 +71,15 @@ type FieldInnerProps<
     } & Props
   : never;
 
-type FieldProps<TFieldValues extends FieldValues = FieldValues, Props = any> =
-  // infer the value prop from the component
-  Props extends ValueProps<infer Value>
-    ? // check if value of prop is compatible with type from Field path
-      // Infer the type of Error expected by the validate function
-      FieldInnerProps<TFieldValues, Value, Props>
-    : // show nicer error message for component mismatch
-      never;
+type FieldProps<
+  TFieldValues extends FieldValues = FieldValues,
+  Props = any
+> = Props extends ValueProps<infer Value>
+  ? // check if value of prop is compatible with type from Field path
+    // Infer the type of Error expected by the validate function
+    FieldInnerProps<TFieldValues, Value, Props>
+  : // show nicer error message for component mismatch
+    "Either you passed a non basis component or you missed name prop";
 
 export type FieldComponent<TFieldValues extends FieldValues = FieldValues> = <
   P = ValueProps<any>

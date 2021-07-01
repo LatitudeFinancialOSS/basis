@@ -16,5 +16,5 @@ export const nameToDefaultValueMap: Record<ComponentNames, any> = {
   },
   [ComponentNames.Checkbox]: false,
   [ComponentNames.CheckboxGroup]: {},
-  [ComponentNames.AutoComplete]: {},
+  [ComponentNames.AutoComplete]: null,
 };

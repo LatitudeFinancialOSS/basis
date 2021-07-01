@@ -15,6 +15,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     label,
     innerRef,
     error,
+    onChange,
     onBlur,
     onInputValueChange,
     onSelectedItemChange,
@@ -22,6 +23,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     disabled,
     helpText,
     items,
+    // getItems,
     itemToString,
     stateReducer,
     placeholder,
@@ -30,6 +32,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     listItem,
     hideLabel,
     testId,
+    value,
     optional,
     __internal__open,
     __internal__highlightedIndex,
@@ -42,6 +45,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
   const fieldErrors =
     Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
+  // const items = await getItems();
 
   const {
     isOpen,
@@ -53,11 +57,16 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     highlightedIndex,
     inputValue,
     selectItem,
+    // selectedItem,
   } = useCombobox<Item | null>({
     items,
+    defaultSelectedItem: value,
     ...(stateReducer && { stateReducer }),
     onInputValueChange,
-    onSelectedItemChange,
+    onSelectedItemChange: (changed) => {
+      onChange?.(changed.selectedItem);
+      onSelectedItemChange?.(changed);
+    },
     itemToString: (item) =>
       itemToString ? itemToString?.(item) : item ? String(item) : "",
   });
