@@ -81,6 +81,15 @@ function AutoCompletePage() {
       <Form methods={methods} onSubmit={console.log}>
         <Stack gap="8">
           <Field
+            name="simpleList"
+            label="Simple items"
+            placeholder=""
+            isLoading={false}
+            items={["item1", "item2"]}
+            as={AutoComplete}
+          />
+
+          <Field
             name="myAddress"
             label="Address Auto Complete"
             placeholder="Search here!"
@@ -94,6 +103,7 @@ function AutoCompletePage() {
           <Field
             name="typeAhead"
             label="Type Ahead"
+            optional
             placeholder="Type abcde.... "
             isLoading={loading2}
             items={items2}
