@@ -2,7 +2,7 @@ import "@testing-library/jest-dom/extend-expect";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import {
-  AutoComplete,
+  // AutoComplete,
   Button,
   Checkbox,
   CheckboxGroup,
@@ -112,7 +112,7 @@ const ComplexForm = ({
 
   return (
     <Form testId={testId} methods={methods} onSubmit={onSubmit}>
-      {/* <Field
+      <Field
         label="Test Input"
         name="testInput"
         testId="field"
@@ -167,16 +167,16 @@ const ComplexForm = ({
         validate={(val) => (val === "" ? "Required" : null)}
       >
         {(props) => <Input label="Custom Input" {...props} testId="field" />}
-      </CustomField> */}
+      </CustomField>
 
-      <Field
+      {/* <Field
         name="address"
         testId="field"
         label="Simple items"
         isLoading={false}
         items={["item1", "item2"]}
         as={AutoComplete}
-      />
+      /> */}
 
       <Button type="submit">Submit</Button>
     </Form>
@@ -363,13 +363,13 @@ describe("Form", () => {
         },
       });
 
-      fireEvent.input(screen.getByLabelText("Simple items"), {
-        target: { value: "it" },
-      });
+      // fireEvent.input(screen.getByLabelText("Simple items"), {
+      //   target: { value: "it" },
+      // });
 
-      await waitFor(() => {
-        userEvent.click(screen.getByText("item1"));
-      });
+      // await waitFor(() => {
+      //   userEvent.click(screen.getByText("item1"));
+      // });
 
       userEvent.click(screen.getByText("Submit"));
 
