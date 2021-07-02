@@ -25,16 +25,6 @@ const items = [
 ];
 
 const simpleItems = ["item1", "item2"];
-// const emptyValue = {
-//   id: "",
-//   RecordId: "",
-//   AddressLine: "",
-//   Locality: "",
-//   State: "",
-//   Postcode: "",
-//   Country: "",
-//   CountryCode: "",
-// };
 
 const itemToString = (value) =>
   value
@@ -42,9 +32,6 @@ const itemToString = (value) =>
     : "";
 
 function KitchenSinkAccordion() {
-  // const { methods, Field } = useBasisForm();
-  // const handleStart = () => {};
-
   return (
     <KitchenSinkLayout name="AutoComplete">
       {["transparent", "grey.t05"].map((bg) => (
@@ -86,7 +73,12 @@ function KitchenSinkAccordion() {
             />
 
             <AutoComplete label="Optional" optional items={[]} />
-            <AutoComplete label="With value" items={items} value={items[0]} />
+            <AutoComplete
+              label="With value"
+              items={items}
+              value={items[0]}
+              itemToString={itemToString}
+            />
 
             <AutoComplete label="Focus" items={[]} __internal__focus />
             <AutoComplete label="Loading" items={[]} __internal__loading />
