@@ -46,6 +46,15 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
   // const items = await getItems();
+  // const typeAheadReducer = (state, actionAndChanges) => {
+  //   const { type, changes } = actionAndChanges;
+  //   switch (type) {
+  //     case useCombobox.stateChangeTypes.ItemClick:
+  //       return { ...changes, isOpen: state.isOpen };
+  //     default:
+  //       return changes;
+  //   }
+  // };
 
   const {
     isOpen,
@@ -61,7 +70,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
   } = useCombobox<Item | null>({
     items,
     defaultSelectedItem: value,
-    ...(stateReducer && { stateReducer }),
     onInputValueChange,
     onSelectedItemChange: (changed) => {
       onChange?.(changed.selectedItem);
@@ -69,6 +77,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     },
     itemToString: (item) =>
       itemToString ? itemToString?.(item) : item ? String(item) : "",
+    ...(stateReducer && { stateReducer }),
   });
 
   const onClear = () => {
