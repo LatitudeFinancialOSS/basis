@@ -105,17 +105,6 @@ function KitchenSinkAccordion() {
                 __internal__highlightedIndex={1}
               />
             </Container>
-
-            {/* <Container margin="14 0" padding="14 0">
-              <AutoComplete
-                label="Loading Open"
-                itemToString={itemToString}
-                items={items}
-                __internal__open
-                __internal__loading
-                __internal__highlightedIndex={1}
-              />
-            </Container> */}
           </Stack>
         </Container>
       ))}
