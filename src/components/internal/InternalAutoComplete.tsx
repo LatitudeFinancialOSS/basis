@@ -7,7 +7,6 @@ import {
 } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
-// import { useWrapperFocus } from '../../hooks/useWrapperFocus';
 import {
   AutoCompleteListItem,
   InternalAutoCompleteProps,
@@ -80,10 +79,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
   };
 
   return (
-    <div
-      css={theme.autoComplete.getCSS({ targetElement: "container" })}
-      // ref={wrapperRef}
-    >
+    <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
       <div {...getComboboxProps()}>
         <InternalInput
           {...getInputProps({ refKey: "innerRef", ref: innerRef })}

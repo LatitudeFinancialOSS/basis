@@ -37,13 +37,12 @@ export default (theme) => {
             position: "absolute",
             overflowX: "hidden",
             overflowY: "auto",
-            // margin: ${hasError ? "-25px 0 0" : "0"},
             margin: 0,
             borderTop: 0,
             zIndex: 1000,
             listStyle: "none",
             transition: "opacity .1s ease",
-            borderRadius: "0 0 0.28571429rem 0.28571429rem",
+            borderRadius: theme.radii[0],
             boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)",
             ...(isOpen
               ? { border: `1px solid ${theme.colors.grey.t10}` }
@@ -66,7 +65,7 @@ export default (theme) => {
             ...(isHighlighted && {
               backgroundColor: theme.colors.secondary.lightBlue.t25,
             }),
-            borderRadius: "0 0 0.28571429re3 0.28571429rem",
+            borderRadius: theme.radii[0],
           };
         }
 
