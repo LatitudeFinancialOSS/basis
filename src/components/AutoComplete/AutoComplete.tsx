@@ -44,16 +44,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
   const fieldErrors =
     Array.isArray(error) || error === undefined ? error : [error];
   const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
-  // const items = await getItems();
-  // const typeAheadReducer = (state, actionAndChanges) => {
-  //   const { type, changes } = actionAndChanges;
-  //   switch (type) {
-  //     case useCombobox.stateChangeTypes.ItemClick:
-  //       return { ...changes, isOpen: state.isOpen };
-  //     default:
-  //       return changes;
-  //   }
-  // };
 
   const itemToString = (item: Item | null): string =>
     itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
@@ -68,7 +58,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     highlightedIndex,
     inputValue,
     selectItem,
-    // selectedItem,
     setInputValue,
     openMenu,
     closeMenu,
@@ -113,7 +102,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
         openMenu={openMenu}
         closeMenu={closeMenu}
         items={items}
-        // emptyValue={emptyValue}
         itemToString={itemToString}
         placeholder={placeholder}
         isLoading={isLoading}

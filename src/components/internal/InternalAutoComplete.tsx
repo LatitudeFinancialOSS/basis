@@ -7,7 +7,6 @@ import {
 } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
-import { useWrapperFocus } from "../../hooks/useWrapperFocus";
 // import { useWrapperFocus } from '../../hooks/useWrapperFocus';
 import {
   AutoCompleteListItem,
@@ -54,10 +53,9 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     getComboboxProps,
     getToggleButtonProps,
     onClear,
-    setInputValue,
-    closeMenu,
+    onBlur,
+    onFocus,
     itemToString,
-    // openMenu,
     isLoading,
     highlightedIndex,
     itemsFooter: Footer,
@@ -80,30 +78,6 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     }
     return itemToString ? itemToString(record) : record;
   };
-
-  const onFocus: React.FocusEventHandler<HTMLInputElement> = (e) => {
-    // openMenu();
-    props.onFocus?.(e);
-  };
-
-  const onBlur: React.FocusEventHandler<HTMLInputElement> = () => {
-    // if (highlightedIndex === -1) {
-    //   setInputValue(itemToString?.(null) ?? "");
-    // }
-
-    // setTimeout(() => props.onBlur?.());
-    props.onBlur?.();
-  };
-
-  // const wrapperRef = useWrapperFocus({
-  //   onBlur: () => {
-  //     // if (highlightedIndex === -1) {
-  //     //   setInputValue(itemToString?.(null) ?? "");
-  //     // }
-  //     // setTimeout(() => props.onBlur?.());
-  //     props.onBlur?.();
-  //   },
-  // });
 
   return (
     <div
