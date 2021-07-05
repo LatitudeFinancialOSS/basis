@@ -6,8 +6,8 @@ export const validateAutoComplete = <Item>(
 ) => {
   const { optional } = autoCompleteProps;
 
-  if (value === null) {
-    return optional ? null : "Required";
+  if (value === null && !optional) {
+    return "Required";
   }
 
   return null;
