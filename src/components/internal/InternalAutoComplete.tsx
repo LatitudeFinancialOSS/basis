@@ -124,7 +124,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
         {...getMenuProps()}
         css={theme.autoComplete.getCSS({
           targetElement: "ul",
-          isOpen: menuIsOpen,
+          isOpen: menuIsOpen ?? false,
         })}
       >
         {menuIsOpen && (

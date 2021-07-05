@@ -1,32 +1,43 @@
+import { CSSObject } from "@emotion/react";
 import mem from "mem";
+import {
+  BasisTheme,
+  Color,
+  EnhancedTheme,
+  TextStyleNames,
+} from "../themes/types";
 import { getMinMediaQueries, getExclusiveMediaQueries } from "./css";
 import { getPath } from "./objectPath";
 
-function getColor(colorName, theme) {
+function getColor(colorName: Color | "transparent", theme: BasisTheme) {
   if (typeof colorName !== "string" || colorName === "transparent") {
     return null;
   }
 
-  return getPath(theme.colors, colorName);
+  return getPath(theme.colors, colorName) as string;
 }
 
-function getTextStyleCSS(textStyle, theme) {
+function getTextStyleCSS(
+  textStyle: TextStyleNames,
+  theme: BasisTheme
+): CSSObject | null {
   if (typeof textStyle !== "string") {
     return null;
   }
 
-  const boldCSS = theme.textStyles[`${textStyle}.bold`];
+  const boldCSS = theme.textStyles[`${textStyle}.bold` as const];
 
   return {
     ...theme.textStyles[textStyle],
-    ...(boldCSS && {
-      "& strong": boldCSS,
-      "& b": boldCSS,
-    }),
-  };
+    ...(boldCSS &&
+      ({
+        "& strong": boldCSS,
+        "& b": boldCSS,
+      } as const)),
+  } as const;
 }
 
-function getSpaceValue(space, theme) {
+function getSpaceValue(space: number | string, theme: BasisTheme) {
   if (typeof space === "number") {
     return theme.space[space] || "0px";
   }
@@ -48,18 +59,18 @@ function getSpaceValue(space, theme) {
       }
 
       if (n[0] === "-") {
-        const pxValue = theme.space[n.slice(1)];
+        const pxValue = theme.space[(n.slice(1) as any) as number];
 
         return pxValue ? `-${pxValue}` : "0px";
       }
 
-      return theme.space[n] || "0px";
+      return theme.space[(n as any) as number] || "0px";
     })
     .join(" ");
 }
 
-function memoizeGetCSS(theme) {
-  const result = {};
+function memoizeGetCSS(theme: any) {
+  const result: any = {};
 
   for (const key in theme) {
     if (typeof theme[key].getCSS === "function") {
@@ -78,15 +89,16 @@ function memoizeGetCSS(theme) {
   return result;
 }
 
-export function enhanceTheme(theme) {
+export function enhanceTheme(theme: BasisTheme): EnhancedTheme {
   theme = memoizeGetCSS(theme);
 
   return {
     ...theme,
     minMediaQueries: getMinMediaQueries(theme.breakpoints),
     exclusiveMediaQueries: getExclusiveMediaQueries(theme.breakpoints),
-    getColor: (color) => getColor(color, theme),
-    getTextStyleCSS: (textStyle) => getTextStyleCSS(textStyle, theme),
-    getSpaceValue: (space) => getSpaceValue(space, theme),
+    getColor: (color: Color) => getColor(color, theme),
+    getTextStyleCSS: (textStyle: TextStyleNames) =>
+      getTextStyleCSS(textStyle, theme),
+    getSpaceValue: (space: string | number) => getSpaceValue(space, theme),
   };
 }

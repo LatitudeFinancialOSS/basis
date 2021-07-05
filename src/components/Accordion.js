@@ -142,9 +142,9 @@ function Content(props) {
           color: colorMap[bp],
         });
       },
-      /* 
-        Note: 
-          `padding` needs to come after `backgroundColor` because 
+      /*
+        Note:
+          `padding` needs to come after `backgroundColor` because
           `backgroundColor` sets a default padding and we want to
           allow users to override it.
       */

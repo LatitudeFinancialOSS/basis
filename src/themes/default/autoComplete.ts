@@ -1,7 +1,15 @@
-export default (theme) => {
+import { CSSObject } from "@emotion/react";
+import { AutoCompleteTheme, BasisTheme } from "../types";
+
+export default (
+  theme: Pick<
+    BasisTheme,
+    "radii" | "space" | "focusStyles" | "zIndices" | "colors" | "borderWidths"
+  >
+): AutoCompleteTheme => {
   return {
-    getCSS: ({ targetElement, isHighlighted, isOpen, showClearIcon }) => {
-      switch (targetElement) {
+    getCSS: (options: CSSObject) => {
+      switch (options.targetElement) {
         case "container": {
           return {
             position: "relative",
@@ -19,7 +27,7 @@ export default (theme) => {
           };
         }
         case "clearIcon": {
-          return showClearIcon
+          return options.showClearIcon
             ? {
                 width: theme.space[11],
                 height: theme.space[11],
@@ -44,7 +52,7 @@ export default (theme) => {
             transition: "opacity .1s ease",
             borderRadius: theme.radii[0],
             boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)",
-            ...(isOpen
+            ...(options.isOpen
               ? { border: `1px solid ${theme.colors.grey.t10}` }
               : { border: 0 }),
             minWidth: "200px",
@@ -62,7 +70,7 @@ export default (theme) => {
             borderTop: "none",
             padding: `${theme.space[4]} ${theme.space[6]}`,
             cursor: "pointer",
-            ...(isHighlighted && {
+            ...(options.isHighlighted && {
               backgroundColor: theme.colors.secondary.lightBlue.t25,
             }),
             borderRadius: theme.radii[0],
@@ -80,7 +88,7 @@ export default (theme) => {
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },

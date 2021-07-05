@@ -1,8 +1,33 @@
+import { CSSObject } from "@emotion/react";
 import { rgba } from "polished";
+import { BasisTheme, ButtonTheme } from "../types";
 
-export default (theme) => {
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "colors"
+    | "fontSizes"
+    | "lineHeights"
+    | "fonts"
+    | "fontWeights"
+    | "space"
+    | "transitions"
+    | "radii"
+    | "focusStyles"
+    | "borderWidths"
+  >
+): ButtonTheme => {
+  type AddStatesOptions = {
+    hover?: CSSObject;
+    active?: CSSObject;
+    loading?: CSSObject;
+    showLoadingIcon?: boolean;
+    disabled?: CSSObject;
+    __internal__hover?: boolean;
+    __internal__active?: boolean;
+  };
   function addStates(
-    css,
+    css: CSSObject,
     {
       hover,
       active,
@@ -11,8 +36,8 @@ export default (theme) => {
       disabled,
       __internal__hover,
       __internal__active,
-    }
-  ) {
+    }: AddStatesOptions
+  ): CSSObject {
     if (showLoadingIcon) {
       return {
         ...css,
@@ -32,22 +57,23 @@ export default (theme) => {
           ...disabled,
         },
       }),
-    };
+    } as const;
   }
 
   return {
-    getCSS: ({
-      targetElement,
-      variant,
-      color,
-      showLoadingIcon,
-      __internal__keyboardFocus,
-      __internal__hover,
-      __internal__active,
-    }) => {
-      switch (targetElement) {
+    getCSS: (options) => {
+      switch (options.targetElement) {
         case "button": {
-          let css = {
+          const {
+            variant,
+            color,
+            showLoadingIcon,
+            __internal__active,
+            __internal__keyboardFocus,
+            __internal__hover,
+          } = options;
+
+          let css: CSSObject = {
             position: "relative",
             fontSize: theme.fontSizes[2],
             lineHeight: theme.lineHeights[3],
@@ -312,7 +338,7 @@ export default (theme) => {
         }
 
         case "content": {
-          if (showLoadingIcon) {
+          if (options.showLoadingIcon) {
             return {
               opacity: 0,
             };

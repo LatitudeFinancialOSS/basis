@@ -1,18 +1,33 @@
-export default (theme) => {
+import { CSSObject } from "@emotion/react";
+import { BasisTheme, FieldTheme } from "../types";
+
+export default (
+  theme: Pick<
+    BasisTheme,
+    | "fonts"
+    | "fontSizes"
+    | "fontWeights"
+    | "lineHeights"
+    | "colors"
+    | "space"
+    | "borderWidths"
+    | "radii"
+  >
+): FieldTheme => {
   return {
-    getCSS: ({ targetElement, fullWidth, disabled }) => {
-      switch (targetElement) {
+    getCSS: (options): CSSObject => {
+      switch (options.targetElement) {
         case "fieldContainer": {
           return {
             display: "inline-flex",
             flexDirection: "column",
             position: "relative",
-            ...(fullWidth && {
+            ...(options.fullWidth && {
               display: "flex",
               width: "100%",
               minWidth: 0, // See: https://stackoverflow.com/a/36247448/247243
             }),
-            ...(disabled && { opacity: 0.5 }),
+            ...(options.disabled && { opacity: 0.5 }),
           };
         }
 
@@ -57,7 +72,7 @@ export default (theme) => {
         }
 
         default: {
-          return null;
+          return {};
         }
       }
     },
