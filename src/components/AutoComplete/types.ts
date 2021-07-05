@@ -1,11 +1,9 @@
 import { UseComboboxState, UseComboboxStateChangeOptions } from "downshift";
 import React from "react";
 
-export type AutoCompleteListItem<Item> =
-  | (Item & {
-      id: string;
-    })
-  | string;
+export type AutoCompleteListItem<Item> = Item & {
+  id: string;
+};
 
 export type InternalAutoCompleteProps<Item> = {
   defaultValue?: Item | null;
