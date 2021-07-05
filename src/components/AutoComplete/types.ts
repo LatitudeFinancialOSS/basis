@@ -14,7 +14,7 @@ export type InternalAutoCompleteProps<Item> = {
   // ) => Promise<AutoCompleteListItem<Item>[]> | AutoCompleteListItem<Item>[];
   // emptyValue: Item;
   placeholder?: string;
-  itemToString?: (item: Item) => string;
+  itemToString?: (item: Item | null) => string;
   isLoading?: boolean;
   listItem?: React.ComponentType<{ inputValue: string; item: Item | null }>;
   itemsFooter?: React.ComponentType;
@@ -22,7 +22,8 @@ export type InternalAutoCompleteProps<Item> = {
   error?: string | string[];
   innerRef?: React.Ref<HTMLInputElement>;
   onChange?: (changed?: Item | null) => void;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  // onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: () => void;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
   selectItem?: (item: Item) => void;

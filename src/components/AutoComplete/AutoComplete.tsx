@@ -24,7 +24,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     helpText,
     items,
     // getItems,
-    itemToString,
+    itemToString: itemToStringFn,
     stateReducer,
     placeholder,
     isLoading,
@@ -56,6 +56,9 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
   //   }
   // };
 
+  const itemToString = (item: Item | null): string =>
+    itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
+
   const {
     isOpen,
     getMenuProps,
@@ -67,6 +70,8 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     inputValue,
     selectItem,
     // selectedItem,
+    setInputValue,
+    openMenu,
   } = useCombobox<Item | null>({
     items,
     defaultSelectedItem: value,
@@ -76,7 +81,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
       onSelectedItemChange?.(changed);
     },
     itemToString: (item) =>
-      itemToString ? itemToString?.(item) : item ? String(item) : "",
+      itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "",
     ...(stateReducer && { stateReducer }),
   });
 
@@ -104,6 +109,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
         onInputValueChange={onInputValueChange}
         onSelectedItemChange={onSelectedItemChange}
         onFocus={onFocus}
+        openMenu={openMenu}
         items={items}
         // emptyValue={emptyValue}
         itemToString={itemToString}
@@ -113,6 +119,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
         onClear={onClear}
         showClearIcon={showClearIcon}
         itemsFooter={itemsFooter}
+        setInputValue={setInputValue}
         isValid={!hasErrors}
         listItem={listItem}
         describedBy={helpText || hasErrors ? auxId : undefined}
