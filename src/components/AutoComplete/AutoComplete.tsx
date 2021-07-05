@@ -111,6 +111,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
         onSelectedItemChange={onSelectedItemChange}
         onFocus={onFocus}
         openMenu={openMenu}
+        closeMenu={closeMenu}
         items={items}
         // emptyValue={emptyValue}
         itemToString={itemToString}

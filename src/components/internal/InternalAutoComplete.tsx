@@ -7,6 +7,7 @@ import {
 } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
+import { useWrapperFocus } from "../../hooks/useWrapperFocus";
 // import { useWrapperFocus } from '../../hooks/useWrapperFocus';
 import {
   AutoCompleteListItem,
@@ -36,6 +37,7 @@ type Props<Item> = InternalAutoCompleteProps<Item> & {
   describedBy?: string;
   showClearIcon: boolean;
   openMenu: () => void;
+  closeMenu: () => void;
 };
 
 function InternalAutoComplete<Item>(props: Props<Item>) {
@@ -53,6 +55,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     getToggleButtonProps,
     onClear,
     setInputValue,
+    closeMenu,
     itemToString,
     // openMenu,
     isLoading,
@@ -84,19 +87,21 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
   };
 
   const onBlur: React.FocusEventHandler<HTMLInputElement> = () => {
-    if (highlightedIndex === -1) {
-      setInputValue(itemToString?.(null) ?? "");
-    }
+    // if (highlightedIndex === -1) {
+    //   setInputValue(itemToString?.(null) ?? "");
+    // }
 
-    setTimeout(() => props.onBlur?.());
+    // setTimeout(() => props.onBlur?.());
+    props.onBlur?.();
   };
 
   // const wrapperRef = useWrapperFocus({
   //   onBlur: () => {
-  //     if (highlightedIndex === -1) {
-  //       setInputValue(itemToString?.(null) ?? "");
-  //     }
-  //     setTimeout(() => props.onBlur?.());
+  //     // if (highlightedIndex === -1) {
+  //     //   setInputValue(itemToString?.(null) ?? "");
+  //     // }
+  //     // setTimeout(() => props.onBlur?.());
+  //     props.onBlur?.();
   //   },
   // });
 
@@ -124,6 +129,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
         <button
           type="button"
           onClick={onClear}
+          tabIndex={-1}
           css={theme.autoComplete.getCSS({
             targetElement: "clearIcon",
             showClearIcon: showClearIcon || menuIsOpen,
