@@ -9,10 +9,6 @@ export type InternalAutoCompleteProps<Item> = {
   defaultValue?: Item | null;
   label: string;
   items: AutoCompleteListItem<Item>[];
-  // getItems: (
-  //   inputValue: string
-  // ) => Promise<AutoCompleteListItem<Item>[]> | AutoCompleteListItem<Item>[];
-  // emptyValue: Item;
   placeholder?: string;
   itemToString?: (item: Item | null) => string;
   isLoading?: boolean;
@@ -22,7 +18,6 @@ export type InternalAutoCompleteProps<Item> = {
   error?: string | string[];
   innerRef?: React.Ref<HTMLInputElement>;
   onChange?: (changed?: Item | null) => void;
-  // onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: () => void;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
