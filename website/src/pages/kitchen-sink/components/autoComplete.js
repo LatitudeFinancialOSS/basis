@@ -38,29 +38,6 @@ function KitchenSinkAccordion() {
         <Container bg={bg} padding="4" key={bg}>
           <Stack width="360" gap="8">
             <AutoComplete label="Default" items={simpleItems} emptyValue={""} />
-            {/* <AutoComplete
-              label="Custom list item"
-              items={items}
-              emptyValue={emptyValue}
-              itemToString={itemToString}
-              listItem={({ item }) => {
-                return <div>{`${item.AddressLine} $$$ ${item.Locality}`}</div>;
-              }}
-            />
-            <Form methods={methods} onSubmit={handleStart}>
-              <Field
-                name="myAddress"
-                label="Address complete"
-                items={items}
-                placeholder="Search here!"
-                isLoading={false}
-                onSelectedItemChange={() => {}}
-                onInputValueChange={() => {}}
-                itemToString={itemToString}
-                as={AutoComplete}
-              />
-              <Button type="submit">Get started</Button>
-            </Form> */}
             <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"

@@ -1,6 +1,5 @@
 import { BasisTheme, InputTheme, ThemeHelpers } from "../types";
 
-// const Type =
 export default (
   theme: Pick<
     BasisTheme,

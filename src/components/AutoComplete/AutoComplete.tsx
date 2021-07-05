@@ -22,7 +22,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     disabled,
     helpText,
     items,
-    // getItems,
     itemToString: itemToStringFn,
     stateReducer,
     placeholder,

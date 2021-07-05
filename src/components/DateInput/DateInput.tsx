@@ -130,7 +130,6 @@ function DateInput(props: InternalDateInputProps) {
     testId,
     error,
   } = mergedProps;
-
   const [labelId] = useState(() => `date-input-${nanoid()}`);
   const [auxId] = useState(() => `date-input-aux-${nanoid()}`);
   const [internalValue, setInternalValue] = useState<DateInputValue>({

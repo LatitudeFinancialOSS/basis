@@ -51,7 +51,6 @@ export default (
             listStyle: "none",
             transition: "opacity .1s ease",
             borderRadius: theme.radii[0],
-            boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)",
             ...(options.isOpen
               ? { border: `1px solid ${theme.colors.grey.t10}` }
               : { border: 0 }),
