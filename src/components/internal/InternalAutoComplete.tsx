@@ -7,7 +7,7 @@ import {
 } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
-// import { useWrapperFocus } from "../../hooks/useWrapperFocus";
+// import { useWrapperFocus } from '../../hooks/useWrapperFocus';
 import {
   AutoCompleteListItem,
   InternalAutoCompleteProps,
@@ -42,7 +42,6 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
   const theme = useTheme();
   const {
     label,
-    onBlur,
     placeholder,
     items,
     isOpen,
@@ -53,7 +52,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     getComboboxProps,
     getToggleButtonProps,
     onClear,
-    // setInputValue,
+    setInputValue,
     itemToString,
     // openMenu,
     isLoading,
@@ -84,12 +83,20 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     props.onFocus?.(e);
   };
 
+  const onBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+    if (highlightedIndex === -1) {
+      setInputValue(itemToString?.(null) ?? "");
+    }
+
+    setTimeout(() => props.onBlur?.());
+  };
+
   // const wrapperRef = useWrapperFocus({
   //   onBlur: () => {
   //     if (highlightedIndex === -1) {
   //       setInputValue(itemToString?.(null) ?? "");
   //     }
-  //     setTimeout(() => onBlur?.());
+  //     setTimeout(() => props.onBlur?.());
   //   },
   // });
 

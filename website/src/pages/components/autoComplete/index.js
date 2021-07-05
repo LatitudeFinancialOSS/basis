@@ -25,14 +25,16 @@ function AutoCompletePage() {
     const [items, setItems] = React.useState([])
     const [loading, setLoading] = React.useState(false)
   
-    const fetch = () => {
-      setLoading(true)
+    const fetch = (inputValue) => {
+      if(!inputValue) return [];
+      setLoading(true);
       setTimeout(() => {
-        setItems(mockAddressList)
-        setLoading(false)
-        return mockAddressList
-      }, 1000)
-    }
+        setItems(mockAddressList);
+        setLoading(false);
+        return mockAddressList;
+      }, 1000);
+    };
+
     return { fetch, items, loading }
   }
   
@@ -41,6 +43,7 @@ function AutoCompletePage() {
     const [loading, setLoading] = React.useState(false)
   
     const fetch = (inputValue) => {
+      if(!inputValue) return [];
       setLoading(true)
       setTimeout(() => {
         setLoading(false)
@@ -58,7 +61,7 @@ function AutoCompletePage() {
     const { fetch: fetch2, items: items2 = [], loading: loading2 } = useTypeAhead()
   
     const onInputValueChange = (changed) => {
-      fetch()
+      fetch(changed.inputValue)
     }
   
     const typeAheadInputChange = (changed) => {

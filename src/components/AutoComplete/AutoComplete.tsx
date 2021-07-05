@@ -1,7 +1,6 @@
-import React from "react";
 import { useCombobox } from "downshift";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
 import Field from "../internal/Field";
 import InternalAutoComplete from "../internal/InternalAutoComplete";
@@ -72,6 +71,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     // selectedItem,
     setInputValue,
     openMenu,
+    closeMenu,
   } = useCombobox<Item | null>({
     items,
     defaultSelectedItem: value,
@@ -87,6 +87,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
 
   const onClear = () => {
     selectItem(null);
+    closeMenu();
   };
 
   const showClearIcon = inputValue !== "";
