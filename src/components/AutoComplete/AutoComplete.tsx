@@ -1,6 +1,6 @@
 import { useCombobox } from "downshift";
 import { nanoid } from "nanoid";
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
 import Field from "../internal/Field";
 import InternalAutoComplete from "../internal/InternalAutoComplete";
@@ -38,7 +38,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     __internal__focus,
   } = mergedProps;
 
-  const [auxId] = useState(() => `auto-complete-aux-${nanoid()}`);
+  const auxId = useMemo(() => `auto-complete-aux-${nanoid()}`, []);
 
   const fieldErrors =
     Array.isArray(error) || error === undefined ? error : [error];
