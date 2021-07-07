@@ -26,15 +26,15 @@ function AutoCompletePage() {
     const [loading, setLoading] = React.useState(false)
   
     const fetch = (inputValue) => {
-      if(!inputValue) return [];
-      setLoading(true);
+      if (!inputValue) return []
+      setLoading(true)
       setTimeout(() => {
-        setItems(mockAddressList);
-        setLoading(false);
-        return mockAddressList;
-      }, 1000);
-    };
-
+        setItems(mockAddressList)
+        setLoading(false)
+        return mockAddressList
+      }, 1000)
+    }
+  
     return { fetch, items, loading }
   }
   
@@ -43,7 +43,7 @@ function AutoCompletePage() {
     const [loading, setLoading] = React.useState(false)
   
     const fetch = (inputValue) => {
-      if(!inputValue) return [];
+      if (!inputValue) return []
       setLoading(true)
       setTimeout(() => {
         setLoading(false)
@@ -58,7 +58,11 @@ function AutoCompletePage() {
   function App() {
     const { methods, Field } = useBasisForm()
     const { fetch, items = [], loading } = useData()
-    const { fetch: fetch2, items: items2 = [], loading: loading2 } = useTypeAhead()
+    const {
+      fetch: fetch2,
+      items: items2 = [],
+      loading: loading2,
+    } = useTypeAhead()
   
     const onInputValueChange = (changed) => {
       fetch(changed.inputValue)
@@ -68,16 +72,19 @@ function AutoCompletePage() {
       fetch2(changed.inputValue)
     }
   
-    const typeAheadReducer = (state, actionAndChanges) => {
-      const { type, changes } = actionAndChanges;
-      console.log('changes', type, changes)
+    const typeAheadReducer = (
+      state,
+      actionAndChanges
+    ) => {
+      const { type, changes } = actionAndChanges
+      console.log("changes", type, changes)
       switch (type) {
         case useCombobox.stateChangeTypes.ItemClick:
-          return { ...changes, isOpen: state.isOpen };
+          return { ...changes, isOpen: state.isOpen }
         default:
-          return changes;
+          return changes
       }
-    };
+    }
   
     console.log("items2", items2)
     return (
@@ -87,11 +94,10 @@ function AutoCompletePage() {
             name="simpleList"
             label="Simple items"
             placeholder=""
-            isLoading={false}
-            items={["item1", "item2"]}
+            getItems={()=>["item1", "item2"]}
             as={AutoComplete}
           />
-
+  
           <Field
             name="myAddress"
             label="Address Auto Complete"
@@ -110,7 +116,9 @@ function AutoCompletePage() {
             placeholder="Type abcde.... "
             isLoading={loading2}
             items={items2}
-            itemToString={(value) => (value ? value.text : "")}
+            itemToString={(value) =>
+              value ? value.text : ""
+            }
             onInputValueChange={typeAheadInputChange}
             stateReducer={typeAheadReducer}
             as={AutoComplete}

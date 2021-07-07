@@ -1,34 +1,31 @@
-import {
-  UseComboboxGetComboboxPropsOptions,
-  UseComboboxGetInputPropsOptions,
-  UseComboboxGetItemPropsOptions,
-  UseComboboxGetMenuPropsOptions,
-  UseComboboxGetToggleButtonPropsOptions,
-} from "downshift";
+import { useCombobox, UseComboboxState } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
-import { SharedAutoCompleteProps, ListItemKey } from "../AutoComplete/types";
+import { ListItemKey, SharedAutoCompleteProps } from "../AutoComplete/types";
 import Icon from "../Icon";
 import InternalInput from "../internal/InternalInput";
 import LoadingIcon from "../LoadingIcon";
 import VisuallyHidden from "../VisuallyHidden";
 
-type Props<Item> = SharedAutoCompleteProps<Item> & {
-  isOpen: boolean;
-  onClear: () => void;
-  getMenuProps: (options?: UseComboboxGetMenuPropsOptions | undefined) => any;
-  getInputProps: (options?: UseComboboxGetInputPropsOptions | undefined) => any;
-  getItemProps: (options: UseComboboxGetItemPropsOptions<Item>) => any;
-  getComboboxProps: (
-    options?: UseComboboxGetComboboxPropsOptions | undefined
-  ) => any;
-  getToggleButtonProps: (
-    options?: UseComboboxGetToggleButtonPropsOptions | undefined
-  ) => any;
-  inputValue: string;
-  highlightedIndex: number;
+type Props<
+  Item extends ListItemKey = ListItemKey
+> = SharedAutoCompleteProps<Item> & {
+  // isOpen: boolean;
+  // onClear: () => void;
+  // getMenuProps: (options?: UseComboboxGetMenuPropsOptions | undefined) => any;
+  // getInputProps: (options?: UseComboboxGetInputPropsOptions | undefined) => any;
+  // getItemProps: (options: UseComboboxGetItemPropsOptions<Item>) => any;
+  // getComboboxProps: (
+  //   options?: UseComboboxGetComboboxPropsOptions | undefined
+  // ) => any;
+  // getToggleButtonProps: (
+  //   options?: UseComboboxGetToggleButtonPropsOptions | undefined
+  // ) => any;
+  // inputValue: string;
+  // highlightedIndex: number;
+  onInputValueChange: (changes: Partial<UseComboboxState<Item | null>>) => void;
   describedBy?: string;
-  showClearIcon: boolean;
+  // showClearIcon: boolean;
   isLoading: boolean;
   items: Item[];
 };
@@ -41,32 +38,66 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
     label,
     placeholder,
     items,
-    isOpen,
+    // isOpen,
     listItem: ListItem,
-    getMenuProps,
-    getInputProps,
-    getItemProps,
-    getComboboxProps,
-    getToggleButtonProps,
-    onClear,
+    // getMenuProps,
+    // getInputProps,
+    // getItemProps,
+    // getComboboxProps,
+    // getToggleButtonProps,
+    // onClear,
+    onInputValueChange,
     onBlur,
     onFocus,
-    itemToString,
+    itemToString: itemToStringFn,
     isLoading,
-    highlightedIndex,
+    // highlightedIndex,
     itemsFooter: Footer,
-    inputValue,
+    // inputValue,
     describedBy,
-    showClearIcon,
+    // showClearIcon,
+    onChange,
     innerRef,
     __internal__open,
     __internal__highlightedIndex,
     __internal__loading,
     __internal__focus,
+    value,
   } = props;
 
-  const menuIsOpen = isOpen || __internal__open;
-  const showMagnifier = !menuIsOpen && !showClearIcon;
+  const itemToString = (item: Item | null): string =>
+    itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
+
+  const {
+    isOpen,
+    getMenuProps,
+    getInputProps,
+    getItemProps,
+    getComboboxProps,
+    getToggleButtonProps,
+    highlightedIndex,
+    inputValue,
+    selectItem,
+    closeMenu,
+  } = useCombobox<Item | null>({
+    items: items || [],
+    defaultSelectedItem: value,
+    onInputValueChange,
+    onSelectedItemChange: (changed) => {
+      onChange?.(changed.selectedItem);
+    },
+    itemToString: (item) =>
+      itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "",
+  });
+
+  const onClear = () => {
+    selectItem(null);
+    closeMenu();
+  };
+
+  const menuIsOpen = isOpen || (__internal__open ?? false);
+  const showClearIcon = (menuIsOpen && items.length > 0) || inputValue !== "";
+  const showMagnifier = !showClearIcon;
   const loading = !!isLoading || __internal__loading;
 
   const renderListItem = (record: Item) => {
@@ -101,7 +132,7 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
           tabIndex={-1}
           css={theme.autoComplete.getCSS({
             targetElement: "clearIcon",
-            showClearIcon: showClearIcon || menuIsOpen,
+            showClearIcon: showClearIcon,
           })}
         >
           <Icon name="cross" />
@@ -123,10 +154,10 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
         {...getMenuProps()}
         css={theme.autoComplete.getCSS({
           targetElement: "ul",
-          isOpen: menuIsOpen ?? false,
+          isOpen: showClearIcon,
         })}
       >
-        {menuIsOpen && (
+        {showClearIcon && (
           <>
             {items.map((record, index) => (
               <li
