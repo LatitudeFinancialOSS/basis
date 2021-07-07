@@ -7,17 +7,13 @@ import {
 } from "downshift";
 import React from "react";
 import useTheme from "../../hooks/useTheme";
-import {
-  AutoCompleteListItem,
-  InternalAutoCompleteProps,
-} from "../AutoComplete/types";
+import { SharedAutoCompleteProps, ListItemKey } from "../AutoComplete/types";
 import Icon from "../Icon";
 import InternalInput from "../internal/InternalInput";
 import LoadingIcon from "../LoadingIcon";
 import VisuallyHidden from "../VisuallyHidden";
 
-type Props<Item> = InternalAutoCompleteProps<Item> & {
-  isValid: boolean;
+type Props<Item> = SharedAutoCompleteProps<Item> & {
   isOpen: boolean;
   onClear: () => void;
   getMenuProps: (options?: UseComboboxGetMenuPropsOptions | undefined) => any;
@@ -29,16 +25,15 @@ type Props<Item> = InternalAutoCompleteProps<Item> & {
   getToggleButtonProps: (
     options?: UseComboboxGetToggleButtonPropsOptions | undefined
   ) => any;
-  setInputValue: (item: string) => void;
   inputValue: string;
   highlightedIndex: number;
   describedBy?: string;
   showClearIcon: boolean;
-  openMenu: () => void;
-  closeMenu: () => void;
 };
 
-function InternalAutoComplete<Item>(props: Props<Item>) {
+function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
+  props: Props<Item>
+) {
   const theme = useTheme();
   const {
     label,
@@ -59,6 +54,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
     highlightedIndex,
     itemsFooter: Footer,
     inputValue,
+    describedBy,
     showClearIcon,
     innerRef,
     __internal__open,
@@ -71,7 +67,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
   const showMagnifier = !menuIsOpen && !showClearIcon;
   const loading = !!isLoading || __internal__loading;
 
-  const renderListItem = (record: AutoCompleteListItem<Item>) => {
+  const renderListItem = (record: Item) => {
     if (ListItem) {
       return <ListItem inputValue={inputValue} item={record} />;
     }
@@ -84,6 +80,7 @@ function InternalAutoComplete<Item>(props: Props<Item>) {
         <InternalInput
           {...getInputProps({ refKey: "innerRef", ref: innerRef })}
           label={label}
+          describedBy={describedBy}
           onFocus={onFocus}
           onBlur={onBlur}
           placeholder={placeholder}

@@ -1,6 +1,6 @@
 import React, { forwardRef, NamedExoticComponent } from "react";
 import { ComponentNames } from "../componentNames";
-import { AutoCompleteProps } from "./types";
+import { AutoCompleteProps, ListItemKey } from "./types";
 import { default as AutoCompleteInternal } from "./AutoComplete";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 
@@ -12,8 +12,8 @@ declare module "react" {
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
 
-function AutoCompleteComponent<AutoCompleteItem>(
-  props: AutoCompleteProps<AutoCompleteItem | null>,
+function AutoCompleteComponent<Item extends ListItemKey = ListItemKey>(
+  props: AutoCompleteProps<Item>,
   ref: React.Ref<HTMLInputElement>
 ) {
   return <AutoCompleteInternal {...props} innerRef={ref} />;

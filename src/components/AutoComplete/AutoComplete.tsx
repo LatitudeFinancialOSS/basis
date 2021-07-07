@@ -5,9 +5,11 @@ import { useMergedProps } from "../../hooks/useMergedProps";
 import Field from "../internal/Field";
 import InternalAutoComplete from "../internal/InternalAutoComplete";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
-import { AutoCompleteProps } from "./types";
+import { AutoCompleteProps, ListItemKey } from "./types";
 
-function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
+function AutoComplete<Item extends ListItemKey = ListItemKey>(
+  props: AutoCompleteProps<Item>
+) {
   const mergedProps = useMergedProps(props, defaultAutoCompleteProps);
 
   const {
@@ -17,13 +19,11 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     onChange,
     onBlur,
     onInputValueChange,
-    onSelectedItemChange,
     onFocus,
     disabled,
     helpText,
     items,
     itemToString: itemToStringFn,
-    stateReducer,
     placeholder,
     isLoading,
     itemsFooter,
@@ -57,8 +57,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     highlightedIndex,
     inputValue,
     selectItem,
-    setInputValue,
-    openMenu,
     closeMenu,
   } = useCombobox<Item | null>({
     items,
@@ -66,11 +64,9 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
     onInputValueChange,
     onSelectedItemChange: (changed) => {
       onChange?.(changed.selectedItem);
-      onSelectedItemChange?.(changed);
     },
     itemToString: (item) =>
       itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "",
-    ...(stateReducer && { stateReducer }),
   });
 
   const onClear = () => {
@@ -96,10 +92,7 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
         innerRef={innerRef}
         onBlur={onBlur}
         onInputValueChange={onInputValueChange}
-        onSelectedItemChange={onSelectedItemChange}
         onFocus={onFocus}
-        openMenu={openMenu}
-        closeMenu={closeMenu}
         items={items}
         itemToString={itemToString}
         placeholder={placeholder}
@@ -108,8 +101,6 @@ function AutoComplete<Item>(props: AutoCompleteProps<Item | null>) {
         onClear={onClear}
         showClearIcon={showClearIcon}
         itemsFooter={itemsFooter}
-        setInputValue={setInputValue}
-        isValid={!hasErrors}
         listItem={listItem}
         describedBy={helpText || hasErrors ? auxId : undefined}
         __internal__open={__internal__open}

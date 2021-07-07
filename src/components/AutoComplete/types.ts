@@ -1,20 +1,18 @@
-import { UseComboboxState, UseComboboxStateChangeOptions } from "downshift";
+import { UseComboboxState } from "downshift";
 import React from "react";
 
-export type AutoCompleteListItem<Item> = Item & {
-  id: string;
-};
+export type ListItemKey = { id: string };
 
-export type InternalAutoCompleteProps<Item> = {
+export type SharedAutoCompleteProps<Item> = {
   defaultValue?: Item | null;
   label: string;
-  items: AutoCompleteListItem<Item>[];
+  items: Item[];
   placeholder?: string;
   itemToString?: (item: Item | null) => string;
   isLoading?: boolean;
   listItem?: React.ComponentType<{ inputValue: string; item: Item | null }>;
   itemsFooter?: React.ComponentType;
-  value?: Item | null;
+  value?: Item;
   error?: string | string[];
   innerRef?: React.Ref<HTMLInputElement>;
   onChange?: (changed?: Item | null) => void;
@@ -23,12 +21,9 @@ export type InternalAutoCompleteProps<Item> = {
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
   selectItem?: (item: Item) => void;
   testId?: string;
-  onInputValueChange?: (changes: Partial<UseComboboxState<Item>>) => void;
-  onSelectedItemChange?: (changes: Partial<UseComboboxState<Item>>) => void;
-  stateReducer?: (
-    state: UseComboboxState<Item>,
-    actionAndChanges: UseComboboxStateChangeOptions<Item>
-  ) => UseComboboxState<Item>;
+  onInputValueChange?: (
+    changes: Partial<UseComboboxState<Item | null>>
+  ) => void;
   __internal__keyboardFocus?: boolean;
   __internal__open?: boolean;
   __internal__highlightedIndex?: number;
@@ -36,7 +31,7 @@ export type InternalAutoCompleteProps<Item> = {
   __internal__focus?: boolean;
 };
 
-export type AutoCompleteProps<Item> = InternalAutoCompleteProps<Item> & {
+export type AutoCompleteProps<Item> = SharedAutoCompleteProps<Item> & {
   optional?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;
