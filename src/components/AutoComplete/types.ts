@@ -6,10 +6,8 @@ export type ListItemKey = { id: string };
 export type SharedAutoCompleteProps<Item> = {
   defaultValue?: Item | null;
   label: string;
-  items: Item[];
   placeholder?: string;
   itemToString?: (item: Item | null) => string;
-  isLoading?: boolean;
   listItem?: React.ComponentType<{ inputValue: string; item: Item | null }>;
   itemsFooter?: React.ComponentType;
   value?: Item;
@@ -21,9 +19,6 @@ export type SharedAutoCompleteProps<Item> = {
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
   selectItem?: (item: Item) => void;
   testId?: string;
-  onInputValueChange?: (
-    changes: Partial<UseComboboxState<Item | null>>
-  ) => void;
   __internal__keyboardFocus?: boolean;
   __internal__open?: boolean;
   __internal__highlightedIndex?: number;
@@ -32,8 +27,16 @@ export type SharedAutoCompleteProps<Item> = {
 };
 
 export type AutoCompleteProps<Item> = SharedAutoCompleteProps<Item> & {
+  getItems: (
+    item: Pick<Partial<UseComboboxState<Item | null>>, "inputValue">
+  ) => Item[];
   optional?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;
   helpText?: string;
+};
+
+export type InternalState<Item> = {
+  isLoading?: boolean;
+  items?: Item[];
 };

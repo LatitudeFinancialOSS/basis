@@ -29,6 +29,8 @@ type Props<Item> = SharedAutoCompleteProps<Item> & {
   highlightedIndex: number;
   describedBy?: string;
   showClearIcon: boolean;
+  isLoading: boolean;
+  items: Item[];
 };
 
 function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(

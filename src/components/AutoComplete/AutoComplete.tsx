@@ -1,11 +1,11 @@
 import { useCombobox } from "downshift";
 import { nanoid } from "nanoid";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
 import Field from "../internal/Field";
 import InternalAutoComplete from "../internal/InternalAutoComplete";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
-import { AutoCompleteProps, ListItemKey } from "./types";
+import { AutoCompleteProps, InternalState, ListItemKey } from "./types";
 
 function AutoComplete<Item extends ListItemKey = ListItemKey>(
   props: AutoCompleteProps<Item>
@@ -18,14 +18,12 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     error,
     onChange,
     onBlur,
-    onInputValueChange,
+    getItems,
     onFocus,
     disabled,
     helpText,
-    items,
     itemToString: itemToStringFn,
     placeholder,
-    isLoading,
     itemsFooter,
     listItem,
     hideLabel,
@@ -46,6 +44,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
 
   const itemToString = (item: Item | null): string =>
     itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
+  const [internalState, setInternalState] = useState<InternalState<Item>>({});
 
   const {
     isOpen,
@@ -59,9 +58,22 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     selectItem,
     closeMenu,
   } = useCombobox<Item | null>({
-    items,
+    items: internalState.items || [],
     defaultSelectedItem: value,
-    onInputValueChange,
+    onInputValueChange: async (changed) => {
+      if (!changed.inputValue) {
+        return;
+      }
+
+      setInternalState({ isLoading: true });
+      try {
+        const items = await getItems({ inputValue: changed.inputValue });
+        setInternalState({ isLoading: false, items });
+      } catch (error) {
+        console.error("Basis cannot get items!");
+      }
+      setInternalState({ isLoading: false });
+    },
     onSelectedItemChange: (changed) => {
       onChange?.(changed.selectedItem);
     },
@@ -91,12 +103,11 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
         label={label}
         innerRef={innerRef}
         onBlur={onBlur}
-        onInputValueChange={onInputValueChange}
         onFocus={onFocus}
-        items={items}
+        items={internalState.items || []}
+        isLoading={internalState.isLoading ?? false}
         itemToString={itemToString}
         placeholder={placeholder}
-        isLoading={isLoading}
         inputValue={inputValue}
         onClear={onClear}
         showClearIcon={showClearIcon}
