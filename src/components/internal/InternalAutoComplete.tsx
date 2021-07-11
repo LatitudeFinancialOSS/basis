@@ -10,22 +10,8 @@ import VisuallyHidden from "../VisuallyHidden";
 type Props<
   Item extends ListItemKey = ListItemKey
 > = SharedAutoCompleteProps<Item> & {
-  // isOpen: boolean;
-  // onClear: () => void;
-  // getMenuProps: (options?: UseComboboxGetMenuPropsOptions | undefined) => any;
-  // getInputProps: (options?: UseComboboxGetInputPropsOptions | undefined) => any;
-  // getItemProps: (options: UseComboboxGetItemPropsOptions<Item>) => any;
-  // getComboboxProps: (
-  //   options?: UseComboboxGetComboboxPropsOptions | undefined
-  // ) => any;
-  // getToggleButtonProps: (
-  //   options?: UseComboboxGetToggleButtonPropsOptions | undefined
-  // ) => any;
-  // inputValue: string;
-  // highlightedIndex: number;
   onInputValueChange: (changes: Partial<UseComboboxState<Item | null>>) => void;
   describedBy?: string;
-  // showClearIcon: boolean;
   isLoading: boolean;
   items: Item[];
 };
@@ -38,24 +24,14 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
     label,
     placeholder,
     items,
-    // isOpen,
     listItem: ListItem,
-    // getMenuProps,
-    // getInputProps,
-    // getItemProps,
-    // getComboboxProps,
-    // getToggleButtonProps,
-    // onClear,
     onInputValueChange,
     onBlur,
     onFocus,
     itemToString: itemToStringFn,
     isLoading,
-    // highlightedIndex,
     itemsFooter: Footer,
-    // inputValue,
     describedBy,
-    // showClearIcon,
     onChange,
     innerRef,
     __internal__open,
