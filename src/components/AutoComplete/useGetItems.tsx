@@ -26,31 +26,27 @@ function useGetItems<Item>(
         return;
       }
       dispatch({
-        type: ActionType.UPDATE_STATE,
+        type: ActionType.UPDATE_LOADING,
         payload: { isLoading: true },
       });
 
       try {
-        const data = await getItemsSource.fn({
+        const res = await getItemsSource({
           inputValue: changed?.inputValue,
         });
 
-        const items = data.filter(Boolean) as Item[]; // 🚨 Make sure we don't have array of null
+        const items = res.filter(Boolean) as Item[]; // 🚨 Make sure we don't have array of null
 
         dispatch({
           type: ActionType.LOAD_ITEMS_SUCCESS,
-          payload: { items, isLoading: false, isError: true },
+          payload: { items },
         });
       } catch (error) {
-        const message = getItemsSource.error || "Basis cannot get items!";
-        console.error(message, error);
+        console.error("Basis cannot get items!", error);
+      } finally {
         dispatch({
-          type: ActionType.UPDATE_STATE,
-          payload: {
-            isLoading: false,
-            isError: true,
-            error: message,
-          },
+          type: ActionType.UPDATE_LOADING,
+          payload: { isLoading: false, isError: true },
         });
       }
     },

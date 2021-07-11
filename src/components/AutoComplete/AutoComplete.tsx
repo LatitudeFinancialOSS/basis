@@ -7,28 +7,6 @@ import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 import { AutoCompleteProps, ListItemKey } from "./types";
 import useGetItems from "./useGetItems";
 
-const getFieldErrors = (
-  error: string | string[] | undefined,
-  getItemError: string | undefined
-): { fieldErrors: string[] | undefined; hasErrors: boolean } => {
-  if (error === undefined && getItemError === undefined) {
-    return { fieldErrors: undefined, hasErrors: false };
-  }
-
-  if (error === undefined) {
-    return { fieldErrors: [getItemError as string], hasErrors: true };
-  }
-
-  if (Array.isArray(error)) {
-    return {
-      fieldErrors: [...error, getItemError] as string[],
-      hasErrors: true,
-    };
-  }
-
-  return { fieldErrors: [error, getItemError] as string[], hasErrors: true };
-};
-
 function AutoComplete<Item extends ListItemKey = ListItemKey>(
   props: AutoCompleteProps<Item>
 ) {
@@ -49,7 +27,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     listItem,
     hideLabel,
     testId,
-    value,
+    // value,
     optional,
     __internal__open,
     __internal__highlightedIndex,
@@ -59,11 +37,11 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
 
   const auxId = useMemo(() => `auto-complete-aux-${nanoid()}`, []);
 
-  const { items, getItems, isLoading, error: getItemError } = useGetItems(
-    props.getItems
-  );
+  const fieldErrors =
+    Array.isArray(error) || error === undefined ? error : [error];
+  const hasErrors = Array.isArray(error) ? error.length !== 0 : !!error;
 
-  const { fieldErrors, hasErrors } = getFieldErrors(error, getItemError);
+  const { items, getItems, isLoading } = useGetItems(props.getItems);
 
   return (
     <Field
@@ -87,7 +65,6 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
         onChange={onChange}
         placeholder={placeholder}
         onInputValueChange={getItems}
-        value={value}
         itemsFooter={itemsFooter}
         listItem={listItem}
         describedBy={helpText || hasErrors ? auxId : undefined}

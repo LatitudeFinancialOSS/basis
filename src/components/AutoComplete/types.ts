@@ -27,40 +27,45 @@ export type SharedAutoCompleteProps<Item> = {
 };
 
 export type AutoCompleteProps<Item> = SharedAutoCompleteProps<Item> & {
-  getItems: {
-    fn: (
-      item: Pick<Partial<UseComboboxState<Item | null>>, "inputValue">
-    ) => Item[];
-    error?: string;
-  };
+  getItems: (
+    item: Pick<Partial<UseComboboxState<Item | null>>, "inputValue">
+  ) => Item[];
   optional?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;
   helpText?: string;
 };
 
+// export type InternalState<Item> = {
+//   isLoading?: boolean;
+//   items?: Item[];
+// };
+
 export type InternalState<Item> = {
   isLoading: boolean;
   isError?: boolean;
-  error?: string;
   items: Item[];
 };
 
 export enum ActionType {
+  LOAD_ITEMS = "LOAD_ITEMS",
   LOAD_ITEMS_SUCCESS = "LOAD_ITEMS_SUCCESS",
-  UPDATE_STATE = "UPDATE_STATE",
+  LOAD_ITEMS_ERROR = "LOAD_ITEMS_ERROR",
+  UPDATE_LOADING = "UPDATE_LOADING",
 }
 
 export type Action<Item> =
   | {
-      type: ActionType.UPDATE_STATE;
-      payload: { isLoading: boolean; isError?: boolean; error?: string };
+      type: ActionType.LOAD_ITEMS | ActionType.LOAD_ITEMS_ERROR;
+      payload: {}; // 🐨  Make sure we have a unified payload actions so reducer is simpler!
+    }
+  | {
+      type: ActionType.UPDATE_LOADING;
+      payload: { isLoading: boolean; isError?: boolean };
     }
   | {
       type: ActionType.LOAD_ITEMS_SUCCESS;
       payload: {
         items: Item[];
-        isLoading: boolean;
-        isError?: boolean;
       };
     };
