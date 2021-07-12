@@ -9,7 +9,9 @@ export type SharedAutoCompleteProps<Item> = {
   placeholder?: string;
   itemToString?: (item: Item | null) => string;
   listItem?: React.ComponentType<{ inputValue: string; item: Item | null }>;
-  itemsFooter?: React.ComponentType;
+  itemsFooter?: React.ComponentType<{
+    closeMenu: () => void;
+  }>;
   value?: Item;
   error?: string | string[];
   innerRef?: React.Ref<HTMLInputElement>;
@@ -18,6 +20,7 @@ export type SharedAutoCompleteProps<Item> = {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
   selectItem?: (item: Item) => void;
+  onCantFind?: () => void;
   testId?: string;
   __internal__keyboardFocus?: boolean;
   __internal__open?: boolean;

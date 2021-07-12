@@ -25,6 +25,19 @@ function App() {
     if (!inputValue) return []
     return mockAddressList
   }
+  const CantFind = ({ closeMenu }) => (
+    <Link
+      href="#"
+      newTab={false}
+      onClick={() => {
+        closeMenu();
+      }}
+    >
+      <span>
+        <b>Can't find your address?</b>
+      </span>
+    </Link>
+  )
 
   return (
     <Form methods={methods} onSubmit={console.log}>
@@ -42,6 +55,7 @@ function App() {
           placeholder="Search Address here!"
           getItems={fetchAddress}
           itemToString={itemToString}
+          itemsFooter={CantFind}
           as={AutoComplete}
         />
 

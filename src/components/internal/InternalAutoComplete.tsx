@@ -60,8 +60,6 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
     defaultSelectedItem: value,
     onInputValueChange,
     onSelectedItemChange: (changed) => {
-      // selectItem(changed.selectedItem);
-      // closeMenu();
       onChange?.(changed.selectedItem);
     },
     itemToString: (item) =>
@@ -151,7 +149,7 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
                 {renderListItem(record)}
               </li>
             ))}
-            {Footer && <Footer />}
+            {Footer && <Footer closeMenu={closeMenu} />}
           </>
         )}
       </ul>
