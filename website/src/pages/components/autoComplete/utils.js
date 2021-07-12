@@ -113,7 +113,7 @@ export const itemToString = (value) =>
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-export const typeAhead = (q) => {
+export const typeAhead = ({ inputValue: q }) => {
   if (!q) return [];
 
   const query = String(q).trim().replace(" ...", "");
@@ -131,3 +131,6 @@ export const typeAhead = (q) => {
 
   return data;
 };
+
+export const timeout = (ms) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

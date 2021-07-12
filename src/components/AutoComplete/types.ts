@@ -27,21 +27,19 @@ export type SharedAutoCompleteProps<Item> = {
 };
 
 export type AutoCompleteProps<Item> = SharedAutoCompleteProps<Item> & {
-  getItems: {
-    fn: (
-      item: Pick<Partial<UseComboboxState<Item | null>>, "inputValue">
-    ) => Item[];
-    error?: string;
-  };
+  getItems: (
+    item: Pick<Partial<UseComboboxState<Item | null>>, "inputValue">
+  ) => Item[];
   optional?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;
   helpText?: string;
 };
 
+type Status = "IDLE" | "LOADING" | "ERROR" | "SUCCESS";
+
 export type InternalState<Item> = {
-  isLoading: boolean;
-  isError?: boolean;
+  status: Status;
   error?: string;
   items: Item[];
 };
@@ -54,13 +52,12 @@ export enum ActionType {
 export type Action<Item> =
   | {
       type: ActionType.UPDATE_STATE;
-      payload: { isLoading: boolean; isError?: boolean; error?: string };
+      payload: { status: Status; error?: string };
     }
   | {
       type: ActionType.LOAD_ITEMS_SUCCESS;
       payload: {
         items: Item[];
-        isLoading: boolean;
-        isError?: boolean;
+        status: Status;
       };
     };

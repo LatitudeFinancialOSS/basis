@@ -10,9 +10,9 @@ const reducer = <Item,>(
 function useGetItems<Item>(
   getItemsSource: AutoCompleteProps<Item | null>["getItems"]
 ) {
-  const initial = {
-    isLoading: false,
-    items: [] as Item[],
+  const initial: InternalState<Item> = {
+    status: "IDLE",
+    items: [],
   };
 
   const [state, dispatch] = useReducer(reducer, initial) as [
@@ -22,33 +22,33 @@ function useGetItems<Item>(
 
   const getItems = useCallback(
     async (changed?: Partial<UseComboboxState<Item | null>>) => {
+
       if (!getItemsSource) {
         return;
       }
       dispatch({
         type: ActionType.UPDATE_STATE,
-        payload: { isLoading: true },
+        payload: { status: "LOADING" },
       });
 
       try {
-        const data = await getItemsSource.fn({
+        const data = await getItemsSource({
           inputValue: changed?.inputValue,
         });
 
-        const items = data.filter(Boolean) as Item[]; // 🚨 Make sure we don't have array of null
+        const items = (data || []).filter(Boolean) as Item[]; // 🚨 Make sure we don't have array of null (ie. null[])
 
         dispatch({
           type: ActionType.LOAD_ITEMS_SUCCESS,
-          payload: { items, isLoading: false, isError: true },
+          payload: { items, status: "SUCCESS" },
         });
       } catch (error) {
-        const message = getItemsSource.error || "Basis cannot get items!";
+        const message = "Basis cannot get items!";
         console.error(message, error);
         dispatch({
           type: ActionType.UPDATE_STATE,
           payload: {
-            isLoading: false,
-            isError: true,
+            status: "ERROR",
             error: message,
           },
         });

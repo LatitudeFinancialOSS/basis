@@ -8,25 +8,20 @@ import { AutoCompleteProps, ListItemKey } from "./types";
 import useGetItems from "./useGetItems";
 
 const getFieldErrors = (
-  error: string | string[] | undefined,
-  getItemError: string | undefined
+  error: string | string[] | undefined
 ): { fieldErrors: string[] | undefined; hasErrors: boolean } => {
-  if (error === undefined && getItemError === undefined) {
-    return { fieldErrors: undefined, hasErrors: false };
-  }
-
   if (error === undefined) {
-    return { fieldErrors: [getItemError as string], hasErrors: true };
+    return { fieldErrors: undefined, hasErrors: false };
   }
 
   if (Array.isArray(error)) {
     return {
-      fieldErrors: [...error, getItemError] as string[],
+      fieldErrors: error,
       hasErrors: true,
     };
   }
 
-  return { fieldErrors: [error, getItemError] as string[], hasErrors: true };
+  return { fieldErrors: [error], hasErrors: true };
 };
 
 function AutoComplete<Item extends ListItemKey = ListItemKey>(
@@ -57,13 +52,11 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     __internal__focus,
   } = mergedProps;
 
+  const { items, getItems, status } = useGetItems(props.getItems);
+
   const auxId = useMemo(() => `auto-complete-aux-${nanoid()}`, []);
-
-  const { items, getItems, isLoading, error: getItemError } = useGetItems(
-    props.getItems
-  );
-
-  const { fieldErrors, hasErrors } = getFieldErrors(error, getItemError);
+  const { fieldErrors, hasErrors } = getFieldErrors(error);
+  const describeBy = helpText || hasErrors ? auxId : undefined;
 
   return (
     <Field
@@ -82,7 +75,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
         onBlur={onBlur}
         onFocus={onFocus}
         items={items}
-        isLoading={isLoading ?? false}
+        isLoading={status === "LOADING"}
         itemToString={itemToString}
         onChange={onChange}
         placeholder={placeholder}
@@ -90,7 +83,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
         value={value}
         itemsFooter={itemsFooter}
         listItem={listItem}
-        describedBy={helpText || hasErrors ? auxId : undefined}
+        describedBy={describeBy}
         __internal__open={__internal__open}
         __internal__highlightedIndex={__internal__highlightedIndex}
         __internal__loading={__internal__loading}

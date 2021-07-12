@@ -60,6 +60,8 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
     defaultSelectedItem: value,
     onInputValueChange,
     onSelectedItemChange: (changed) => {
+      // selectItem(changed.selectedItem);
+      // closeMenu();
       onChange?.(changed.selectedItem);
     },
     itemToString: (item) =>
@@ -130,10 +132,10 @@ function InternalAutoComplete<Item extends ListItemKey = ListItemKey>(
         {...getMenuProps()}
         css={theme.autoComplete.getCSS({
           targetElement: "ul",
-          isOpen: showClearIcon,
+          isOpen: menuIsOpen,
         })}
       >
-        {showClearIcon && (
+        {menuIsOpen && (
           <>
             {items.map((record, index) => (
               <li
