@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { nanoid } from "nanoid";
 import Field from "../internal/Field";
 import InternalRadioGroup from "../internal/InternalRadioGroup";
@@ -27,6 +27,7 @@ RadioGroup.DEFAULT_PROPS = DEFAULT_PROPS;
 function RadioGroup(props: InternalRadioGroupProps) {
   const mergedProps = useMergedProps(props, defaultRadioGroupProps);
   const {
+    name,
     value,
     label,
     options,
@@ -48,8 +49,11 @@ function RadioGroup(props: InternalRadioGroupProps) {
     throw new Error("RadioGroup options are invalid");
   }
 
-  const [labelId] = useState(() => `radio-group-label-${nanoid()}`);
-  const [auxId] = useState(() => `radio-group-aux-${nanoid()}`);
+  const labelId = useMemo(() => `radio-group-label-${nanoid()}`, []);
+  const auxId = useMemo(() => `radio-group-aux-${nanoid()}`, []);
+  const radioName = useMemo(() => name || `radio-group-name-${nanoid()}`, [
+    name,
+  ]);
 
   const fieldErrors =
     Array.isArray(error) || error === undefined ? error : [error];
@@ -74,6 +78,7 @@ function RadioGroup(props: InternalRadioGroupProps) {
     >
       <InternalRadioGroup
         testId={testId}
+        name={radioName}
         labelId={labelId}
         innerRef={innerRef}
         options={options}

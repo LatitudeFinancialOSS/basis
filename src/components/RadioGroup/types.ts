@@ -43,6 +43,7 @@ export interface DeprecatedRadioGroupProps {
 
 export interface InternalRadioGroupProps {
   label: string;
+  name?: string;
   options: RadioOptions;
   columns?: number;
   color?: RadioGroupColor;
