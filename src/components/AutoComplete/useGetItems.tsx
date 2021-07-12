@@ -22,7 +22,6 @@ function useGetItems<Item>(
 
   const getItems = useCallback(
     async (changed?: Partial<UseComboboxState<Item | null>>) => {
-
       if (!getItemsSource) {
         return;
       }
