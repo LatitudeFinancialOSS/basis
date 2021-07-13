@@ -33,7 +33,7 @@ export type SharedAutoCompleteProps<Item> = {
 export type AutoCompleteProps<Item> = SharedAutoCompleteProps<Item> & {
   getItems: (
     item: Pick<Partial<UseComboboxState<Item>>, "inputValue">
-  ) => Item[];
+  ) => Promise<Item[]>;
   optional?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;

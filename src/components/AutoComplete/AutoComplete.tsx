@@ -13,6 +13,7 @@ import { AutoCompleteProps, ListItemKey } from "./types";
 import useGetItems from "./useGetItems";
 import { useWrapperFocus } from "../../hooks/useWrapperFocus";
 import mergeRefs from "../../utils/mergeRefs";
+import isEqual from "lodash.isequal";
 
 const getFieldErrors = (
   error: string | string[] | undefined
@@ -55,7 +56,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     value,
     optional,
     emptyValue,
-
+    defaultValue,
     __internal__open,
     __internal__highlightedIndex,
     __internal__loading,
@@ -72,8 +73,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const defaultValue = value || props.defaultValue;
-  const defaultItems = defaultValue ? [defaultValue] : [];
+  const defaultItems = value && !isEqual(value, emptyValue) ? [value] : [];
   const items = data.length ? data : defaultItems;
 
   const {

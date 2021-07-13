@@ -37,39 +37,51 @@ function KitchenSinkAccordion() {
       {["transparent", "grey.t05"].map((bg) => (
         <Container bg={bg} padding="4" key={bg}>
           <Stack width="360" gap="8">
-            <AutoComplete label="Default" items={simpleItems} emptyValue={""} />
+            <AutoComplete
+              label="Default"
+              getItems={() => simpleItems}
+              emptyValue={""}
+            />
             <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"
-              items={[]}
+              getItems={() => []}
             />
             <AutoComplete
               label="Help text"
               helpText="This is for help"
-              items={[]}
+              getItems={() => []}
             />
 
-            <AutoComplete label="Optional" optional items={[]} />
+            <AutoComplete label="Optional" optional getItems={() => []} />
             <AutoComplete
               label="With value"
-              items={items}
+              getItems={() => items}
               value={items[0]}
               itemToString={itemToString}
             />
 
-            <AutoComplete label="Focus" items={[]} __internal__focus />
-            <AutoComplete label="Loading" items={[]} __internal__loading />
+            <AutoComplete label="Focus" getItems={() => []} __internal__focus />
+            <AutoComplete
+              label="Loading"
+              getItems={() => []}
+              __internal__loading
+            />
             <AutoComplete
               label="Big address"
               optional
-              items={[]}
+              getItems={() => []}
               placeholder={itemToString(items[0])}
             />
-            <AutoComplete label="With error" items={[]} error="Required" />
+            <AutoComplete
+              label="With error"
+              getItems={() => []}
+              error="Required"
+            />
 
             <AutoComplete
               label="Simple Items Open"
-              items={simpleItems}
+              getItems={() => simpleItems}
               __internal__open
             />
 
@@ -77,7 +89,7 @@ function KitchenSinkAccordion() {
               <AutoComplete
                 label="Address Items Open"
                 itemToString={itemToString}
-                items={items}
+                getItems={() => items}
                 __internal__open
                 __internal__highlightedIndex={1}
               />
