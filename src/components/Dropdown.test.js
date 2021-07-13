@@ -41,12 +41,14 @@ const initialValues = {
   movie: "",
 };
 
+const buttonLabel = "Movie";
+
 function FormWithDropdown(props) {
   return (
     <Form initialValues={initialValues}>
       <Dropdown
         name="movie"
-        label="Movie"
+        label={buttonLabel}
         options={movieOptions}
         optionToString={movieOptionToString}
         optionComponent={MovieOption}
@@ -65,7 +67,7 @@ describe("Dropdown", () => {
     render(<FormWithDropdown />);
 
     const label = screen.getByText("Movie");
-    const button = screen.getByRole("button", { name: /Please select/ });
+    const button = screen.getByRole("button", { name: buttonLabel });
     const buttonId = button.getAttribute("id");
 
     expect(buttonId).toBeTruthy();
@@ -79,7 +81,7 @@ describe("Dropdown", () => {
   it("reveals options", async () => {
     render(<FormWithDropdown />);
 
-    const button = screen.getByRole("button", { name: /Please select/ });
+    const button = screen.getByRole("button", { name: buttonLabel });
 
     userEvent.click(button);
 
@@ -91,7 +93,7 @@ describe("Dropdown", () => {
   it("hides options", async () => {
     render(<FormWithDropdown />);
 
-    const button = screen.getByRole("button", { name: /Please select/ });
+    const button = screen.getByRole("button", { name: buttonLabel });
 
     // Open
     userEvent.click(button);
@@ -118,7 +120,7 @@ describe("Dropdown", () => {
         <FormWithDropdown />
       </Container>
     );
-    const button = screen.getByRole("button", { name: /Please select/ });
+    const button = screen.getByRole("button", { name: buttonLabel });
 
     expect(button).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -133,7 +135,7 @@ describe("Dropdown", () => {
         </Container>
       </Container>
     );
-    const button = screen.getByRole("button", { name: /Please select/ });
+    const button = screen.getByRole("button", { name: buttonLabel });
 
     expect(button).toHaveStyle({
       backgroundColor: "#ffffff",
@@ -145,7 +147,7 @@ describe("Dropdown", () => {
 
     render(<FormWithDropdown onChange={onChange} />);
 
-    const button = screen.getByRole("button", { name: /Please select/ });
+    const button = screen.getByRole("button", { name: buttonLabel });
 
     userEvent.click(button);
     userEvent.click(screen.getByText("Movie 2"));

@@ -70,7 +70,7 @@ export function deletePath(obj, path, { deleteEmptyObjects = false } = {}) {
     const shouldDeleteKey =
       deleteEmptyObjects === true ||
       (Array.isArray(deleteEmptyObjects) &&
-        deleteEmptyObjects.includes(key) === false);
+        deleteEmptyObjects.except.includes(key) === false);
 
     if (shouldDeleteKey && isObjectEmpty(result)) {
       result = {
