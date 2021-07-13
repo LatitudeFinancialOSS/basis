@@ -171,7 +171,6 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
           <button
             type="button"
             onClick={onClear}
-            tabIndex={-1}
             css={theme.autoComplete.getCSS({
               targetElement: "clearIcon",
               showClearIcon: showClearIcon,
