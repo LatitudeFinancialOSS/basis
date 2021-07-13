@@ -4,18 +4,19 @@ import React from "react";
 export type ListItemKey = { id: string };
 
 export type SharedAutoCompleteProps<Item> = {
-  defaultValue?: Item | null;
+  defaultValue?: Item;
   label: string;
   placeholder?: string;
-  itemToString?: (item: Item | null) => string;
-  listItem?: React.ComponentType<{ inputValue: string; item: Item | null }>;
+  itemToString?: (item: Item) => string;
+  listItem?: React.ComponentType<{ inputValue: string; item: Item }>;
   itemsFooter?: React.ComponentType<{
     closeMenu: () => void;
   }>;
+  emptyValue: Item;
   value?: Item;
   error?: string | string[];
   innerRef?: React.Ref<HTMLInputElement>;
-  onChange?: (changed?: Item | null) => void;
+  onChange?: (changed?: Item) => void;
   onBlur?: () => void;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
@@ -31,7 +32,7 @@ export type SharedAutoCompleteProps<Item> = {
 
 export type AutoCompleteProps<Item> = SharedAutoCompleteProps<Item> & {
   getItems: (
-    item: Pick<Partial<UseComboboxState<Item | null>>, "inputValue">
+    item: Pick<Partial<UseComboboxState<Item>>, "inputValue">
   ) => Item[];
   optional?: boolean;
   disabled?: boolean;

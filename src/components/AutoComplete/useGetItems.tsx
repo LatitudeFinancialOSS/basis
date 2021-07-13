@@ -8,7 +8,7 @@ const reducer = <Item,>(
 ): InternalState<Item> => ({ ...state, ...action.payload });
 
 function useGetItems<Item>(
-  getItemsSource: AutoCompleteProps<Item | null>["getItems"]
+  getItemsSource: AutoCompleteProps<Item>["getItems"]
 ) {
   const initial: InternalState<Item> = {
     status: "IDLE",
@@ -21,7 +21,7 @@ function useGetItems<Item>(
   ];
 
   const getItems = useCallback(
-    async (changed?: Partial<UseComboboxState<Item | null>>) => {
+    async (changed?: Partial<UseComboboxState<Item>>) => {
       if (!getItemsSource) {
         return;
       }

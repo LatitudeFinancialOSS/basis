@@ -1,12 +1,13 @@
+import isEqual from "lodash.isequal";
 import { AutoCompleteProps } from "../../../components/AutoComplete/types";
 
 export const validateAutoComplete = <Item>(
-  value: Item | null,
+  value: Item,
   autoCompleteProps: AutoCompleteProps<Item>
 ) => {
-  const { optional } = autoCompleteProps;
+  const { optional, emptyValue } = autoCompleteProps;
 
-  if (value === null && !optional) {
+  if (!isEqual(value, emptyValue) && !optional) {
     return "Required";
   }
 

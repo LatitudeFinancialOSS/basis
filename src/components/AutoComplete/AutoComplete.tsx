@@ -1,6 +1,6 @@
 import { useCombobox } from "downshift";
 import { nanoid } from "nanoid";
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
 import useTheme from "../../hooks/useTheme";
 import Icon from "../Icon";
@@ -11,6 +11,8 @@ import VisuallyHidden from "../VisuallyHidden";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 import { AutoCompleteProps, ListItemKey } from "./types";
 import useGetItems from "./useGetItems";
+import { useWrapperFocus } from "../../hooks/useWrapperFocus";
+import mergeRefs from "../../utils/mergeRefs";
 
 const getFieldErrors = (
   error: string | string[] | undefined
@@ -37,7 +39,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
 
   const {
     label,
-    innerRef,
+    innerRef = null,
     error,
     onChange,
     onBlur,
@@ -52,20 +54,27 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     testId,
     value,
     optional,
+    emptyValue,
+
     __internal__open,
     __internal__highlightedIndex,
     __internal__loading,
     __internal__focus,
   } = mergedProps;
 
-  const { items, getItems, status } = useGetItems(props.getItems);
+  const { items: data, getItems, status } = useGetItems(props.getItems);
 
   const auxId = useMemo(() => `auto-complete-aux-${nanoid()}`, []);
   const { fieldErrors, hasErrors } = getFieldErrors(error);
   const describedBy = helpText || hasErrors ? auxId : undefined;
 
-  const itemToString = (item: Item | null): string =>
+  const itemToString = (item: Item): string =>
     itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const defaultValue = value || props.defaultValue;
+  const defaultItems = defaultValue ? [defaultValue] : [];
+  const items = data.length ? data : defaultItems;
 
   const {
     isOpen,
@@ -78,21 +87,27 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     inputValue,
     selectItem,
     closeMenu,
-  } = useCombobox<Item | null>({
-    items: items || [],
-    defaultSelectedItem: value,
+    setInputValue,
+    selectedItem,
+  } = useCombobox<Item>({
+    items,
+    defaultSelectedItem: value || defaultValue || emptyValue,
     onInputValueChange: (changed) => {
       getItems(changed);
     },
-    onSelectedItemChange: (changed) => {
-      onChange?.(changed.selectedItem);
+    onSelectedItemChange: ({ selectedItem }) => {
+      if (!selectedItem) {
+        onChange?.(emptyValue);
+      } else {
+        onChange?.(selectedItem);
+      }
     },
-    itemToString: (item) =>
-      itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "",
+    itemToString,
   });
 
   const onClear = () => {
-    selectItem(null);
+    selectItem(emptyValue);
+    inputRef.current?.focus();
     closeMenu();
   };
 
@@ -108,6 +123,17 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     return itemToString ? itemToString(record) : record;
   };
 
+  const wrapperRef = useWrapperFocus({
+    onBlur: () => {
+      if (highlightedIndex === -1) {
+        setInputValue(itemToString(selectedItem));
+      }
+      setTimeout(() => {
+        onBlur?.();
+      });
+    },
+  });
+
   return (
     <Field
       optional={optional}
@@ -119,14 +145,19 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
       errors={fieldErrors}
       testId={testId}
     >
-      <div css={theme.autoComplete.getCSS({ targetElement: "container" })}>
+      <div
+        ref={wrapperRef}
+        css={theme.autoComplete.getCSS({ targetElement: "container" })}
+      >
         <div {...getComboboxProps()}>
           <InternalInput
-            {...getInputProps({ refKey: "innerRef", ref: innerRef })}
+            {...getInputProps({
+              refKey: "innerRef",
+              ref: mergeRefs([innerRef, inputRef]),
+            })}
             label={label}
             describedBy={describedBy}
             onFocus={onFocus}
-            onBlur={onBlur}
             placeholder={placeholder}
             __internal__focus={__internal__focus}
             autoComplete="off"
