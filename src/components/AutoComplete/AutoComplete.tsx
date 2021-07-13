@@ -22,14 +22,9 @@ const getFieldErrors = (
     return { fieldErrors: undefined, hasErrors: false };
   }
 
-  if (Array.isArray(error)) {
-    return {
-      fieldErrors: error,
-      hasErrors: true,
-    };
-  }
+  const fieldErrors = Array.isArray(error) ? error : [error];
 
-  return { fieldErrors: [error], hasErrors: true };
+  return { fieldErrors, hasErrors: true };
 };
 
 function AutoComplete<Item extends ListItemKey = ListItemKey>(

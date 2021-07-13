@@ -3,5 +3,4 @@ export const defaultAutoCompleteProps = {
   disabled: false,
   __internal__keyboardFocus: false,
   optional: false,
-  validate: () => {},
 };
