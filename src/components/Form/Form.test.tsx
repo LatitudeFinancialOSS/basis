@@ -169,18 +169,6 @@ const ComplexForm = ({
         {(props) => <Input label="Custom Input" {...props} testId="field" />}
       </CustomField>
 
-      {/* <Field
-        name="address.auto"
-        label="Address"
-        items={[]}
-        // placeholder="Search here!"
-        // onSelectedItemChange={onAddressChange}
-        // itemToString={itemToString}
-        // listItem={BoldLineItem}
-        getItems={() => []}
-        as={AutoComplete}
-      /> */}
-
       <Button type="submit">Submit</Button>
     </Form>
   );
