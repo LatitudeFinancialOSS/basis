@@ -140,7 +140,12 @@ function FormPage() {
         years: "",
         months: ""
       },
-      aboutYourself: ""
+      aboutYourself: "",
+      iceCreamType: false,
+      iceCream: {
+        type: "",
+        size: ""
+      }
     };
       
     function App() {
@@ -155,20 +160,25 @@ function FormPage() {
       return (
         <Container padding="8">
           <Form initialValues={initialValues} onSubmit={onSubmit}>
-            <Stack gap="8">
-              <Text as="h2" textStyle="heading4">About you</Text>
-              <Input name="name" label="Name" />
-              <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
-              <Dropdown name="favouriteMovie" label="Favourite movie" placeholderComponent={MoviePlaceholder} options={movieOptions} optionToString={movieOptionToString} optionComponent={MovieOption}  />
-              <CheckboxGroup name="fruits" label="Which fruits do you like?" options={fruitOptions} />
-              <Checkbox label="Do you like ice cream?" hideLabel name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
-              <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
-              <Frequency name="salary" label="Salary (before tax)" amountPrefix="$" />
-              <DatePicker name="birthDate" label="Birth date" />
-              <TimeSpan name="age" label="Age" />
-              <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
-              <Button type="submit">Submit</Button>
-            </Stack>
+             {(formData) => (
+              <Stack gap="8">
+                <Text as="h2" textStyle="heading4">About you</Text>
+                <Input name="name" label="Name" />
+                <Select name="relationshipStatus" label="Relationship status" options={relationshipStatusOptions} />
+                <Dropdown name="favouriteMovie" label="Favourite movie" placeholderComponent={MoviePlaceholder} options={movieOptions} optionToString={movieOptionToString} optionComponent={MovieOption}  />
+                <CheckboxGroup name="fruits" label="Which fruits do you like?" options={fruitOptions} />
+                <Checkbox label="Do you like ice cream?" hideLabel name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
+                <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
+                <Frequency name="salary" label="Salary (before tax)" amountPrefix="$" />
+                <DatePicker name="birthDate" label="Birth date" />
+                <TimeSpan name="age" label="Age" />
+                <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
+                <Checkbox label="Do you want to tell me your favourite ice cream?" hideLabel name="iceCreamType" optional>I want to tell you my favourite ice cream</Checkbox>
+                {formData.state.values.iceCreamType && <Input name="iceCream.type" label="Ice Cream" />}
+                <Input name="iceCream.size" label="Ice Cream Size" />
+                <Button type="submit">Submit</Button>
+              </Stack>
+            )}
           </Form>
         </Container>
       );
