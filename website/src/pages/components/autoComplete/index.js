@@ -3,7 +3,12 @@ import { useCombobox } from "downshift";
 import * as allDesignSystem from "basis";
 import ComponentContainer from "../../../components/ComponentContainer";
 import { formatCode } from "../../../utils/formatting";
-import { mockAddressList, itemToString, typeAhead, timeout } from "./utils";
+import {
+  mockAddressList,
+  itemToString,
+  typeAhead,
+  timeout,
+} from "../../../utils/autoComplete-utils";
 
 const scope = {
   ...allDesignSystem,
