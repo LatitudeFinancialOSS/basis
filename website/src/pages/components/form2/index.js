@@ -42,7 +42,7 @@ function FormPage() {
         console.log(...args)
       };
 
-      const { methods, Field } = useBasisForm();
+      const { methods, Field, CustomField } = useBasisForm();
 
       return (
         <Container padding="8">
@@ -56,6 +56,21 @@ function FormPage() {
               <Field name="salary" label="Salary (before tax)" amountPrefix="$" as={Frequency}/>
               <Field name="birthDate" label="Birth date" as={DateInput}/>
               <Field name="aboutYourself" label="Tell us about yourself" height="100" as={Textarea}/>
+              <CustomField
+              name="testCustomInput"
+              defaultValue=""
+              validate={(val) => (val === "" ? "Required" : null)}
+            >
+              {(props) => (
+                <Input label="Custom Input" {...props} testId="field" />
+              )}
+            </CustomField>
+              <Field
+                name="simpleList"
+                label="Simple items"
+                getItems={() => ["item1", "item2"]}
+                as={AutoComplete}
+              />
               <Button type="submit">Submit</Button>
             </Stack>
           </Form>

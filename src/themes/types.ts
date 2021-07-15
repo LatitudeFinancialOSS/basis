@@ -281,6 +281,8 @@ type InputCssOptions =
       suffix?: string;
       color: Color;
       __internal__focus: boolean;
+      hasSuffixButton: string;
+      isLoading: string;
     }
   | {
       targetElement: "inputContainer";
@@ -365,6 +367,30 @@ export type AccordionTheme = ComponentTheme<AccordionCssOptions> & {
     headerColor: Color
   ) => "grey.t03" | "secondary.lightBlue.t15" | "white";
 };
+
+type AutoCompleteCssOptions =
+  | {
+      targetElement:
+        | "container"
+        | "searchIcon"
+        | "clearIcon"
+        | "right"
+        | "listItemContent";
+    }
+  | {
+      targetElement: "li";
+      isHighlighted: boolean;
+    }
+  | {
+      targetElement: "ul";
+      isOpen: boolean;
+    }
+  | {
+      targetElement: "clearIcon";
+      showClearIcon: boolean;
+    };
+
+export type AutoCompleteTheme = ComponentTheme<AutoCompleteCssOptions>;
 
 export type ThemeHelpers = {
   getColor: (color: Color) => string;
@@ -454,6 +480,7 @@ export type BasisTheme = {
   dropdown: DropdownTheme;
   checkbox: CheckboxTheme;
   accordion: AccordionTheme;
+  autoComplete: AutoCompleteTheme;
 };
 
 export type EnhancedTheme = BasisTheme & {

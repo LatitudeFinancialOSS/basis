@@ -1,4 +1,5 @@
 export { default as Accordion } from "./Accordion";
+export { default as AutoComplete } from "./AutoComplete";
 export { default as Button } from "./Button";
 export { default as Checkbox } from "./Checkbox";
 export { default as CheckboxGroup } from "./CheckboxGroup";

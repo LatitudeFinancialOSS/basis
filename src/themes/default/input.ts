@@ -56,6 +56,20 @@ export default (
             boxShadow: theme.shadows.focus,
           } as const;
 
+          let paddingRight =
+            hasSuffix && options.suffix
+              ? `calc(${theme.space[4]} + ${options.suffix.length + 1}ch)`
+              : theme.space[4];
+
+          paddingRight =
+            options.isLoading && options.hasSuffixButton
+              ? "84px"
+              : paddingRight; // Auto complete with loading
+          paddingRight =
+            !options.isLoading && options.hasSuffixButton
+              ? theme.space[11]
+              : paddingRight; // Auto complete without loading
+
           return {
             boxSizing: "border-box",
             width: "100%",
@@ -74,10 +88,7 @@ export default (
               hasPrefix && options.prefix
                 ? `calc(${theme.space[4]} + ${options.prefix.length + 1}ch)`
                 : theme.space[4],
-            paddingRight:
-              hasSuffix && options.suffix
-                ? `calc(${theme.space[4]} + ${options.suffix.length + 1}ch)`
-                : theme.space[4],
+            paddingRight,
             ":focus": focusStyle,
             ...(options.__internal__focus && focusStyle),
           } as const;

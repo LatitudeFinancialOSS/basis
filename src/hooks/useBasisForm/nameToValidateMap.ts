@@ -1,6 +1,7 @@
 import { ComponentNames } from "../../components/componentNames";
 import { ValidateFn } from "../../types";
 import {
+  validateAutoComplete,
   validateCheckbox,
   validateCheckboxGroup,
   validateDateInput,
@@ -20,4 +21,5 @@ export const nameToValidateMap: Record<ComponentNames, ValidateFn> = {
   [ComponentNames.Frequency]: validateFrequency as ValidateFn,
   [ComponentNames.Checkbox]: validateCheckbox as ValidateFn,
   [ComponentNames.CheckboxGroup]: validateCheckboxGroup as ValidateFn,
+  [ComponentNames.AutoComplete]: validateAutoComplete as ValidateFn,
 };

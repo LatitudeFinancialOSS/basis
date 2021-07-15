@@ -1,5 +1,6 @@
 import accordion from "./accordion";
 import button from "./button";
+import autoComplete from "./autoComplete";
 import checkbox from "./checkbox";
 import dropdown from "./dropdown";
 import field from "./field";
@@ -301,6 +302,7 @@ const theme: BasisTheme = {
   // margin, padding
   ...baseTheme,
   accordion: accordion(baseTheme, helpers),
+  autoComplete: autoComplete(baseTheme),
   button: button(baseTheme),
   textarea: textarea(baseTheme, helpers),
   text: text({}, helpers),

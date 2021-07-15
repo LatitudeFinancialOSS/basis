@@ -7,4 +7,5 @@ export enum ComponentNames {
   Frequency = "BasisFrequency",
   Checkbox = "BasisCheckbox",
   CheckboxGroup = "BasisCheckboxGroup",
+  AutoComplete = "BasisAutoComplete",
 }
