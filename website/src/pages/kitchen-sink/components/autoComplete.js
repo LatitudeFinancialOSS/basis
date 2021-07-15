@@ -45,15 +45,19 @@ function KitchenSinkAccordion() {
             <AutoComplete
               label="With custom placeholder"
               placeholder="Search something!"
-              getItems={() => []}
+              getItems={() => simpleItems}
             />
             <AutoComplete
               label="Help text"
               helpText="This is for help"
-              getItems={() => []}
+              getItems={() => simpleItems}
             />
 
-            <AutoComplete label="Optional" optional getItems={() => []} />
+            <AutoComplete
+              label="Optional"
+              optional
+              getItems={() => simpleItems}
+            />
             <AutoComplete
               label="With value"
               getItems={() => items}
@@ -61,21 +65,25 @@ function KitchenSinkAccordion() {
               itemToString={itemToString}
             />
 
-            <AutoComplete label="Focus" getItems={() => []} __internal__focus />
+            <AutoComplete
+              label="Focus"
+              getItems={() => simpleItems}
+              __internal__focus
+            />
             <AutoComplete
               label="Loading"
-              getItems={() => []}
+              getItems={() => simpleItems}
               __internal__loading
             />
             <AutoComplete
               label="Big address"
               optional
-              getItems={() => []}
+              getItems={() => items}
               placeholder={itemToString(items[0])}
             />
             <AutoComplete
               label="With error"
-              getItems={() => []}
+              getItems={() => simpleItems}
               error="Required"
             />
 
