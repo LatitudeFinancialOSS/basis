@@ -63,19 +63,8 @@ function App() {
           itemsFooter={CantFind}
           as={AutoComplete}
         />
-
-        <Field
-          name="typeAhead"
-          label="Type Ahead"
-          optional
-          placeholder="Type abcde.... "
-          getItems={typeAhead}
-          itemToString={(value) =>
-            value ? value.text : ""
-          }
-          as={AutoComplete}
-        />
-        <Button type="submit">Get started</Button>
+ 
+        <Button type="submit">Submit</Button>
       </Stack>
     </Form>
   )

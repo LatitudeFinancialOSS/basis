@@ -68,9 +68,7 @@ function FormPage() {
               <Field
                 name="simpleList"
                 label="Simple items"
-                placeholder=""
-                isLoading={false}
-                items={["item1", "item2"]}
+                getItems={() => ["item1", "item2"]}
                 as={AutoComplete}
               />
               <Button type="submit">Submit</Button>
