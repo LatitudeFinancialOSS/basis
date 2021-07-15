@@ -76,6 +76,11 @@ export default (
           };
         }
 
+        case "listItemContent": {
+          // @ts-ignore
+          return theme.textStyles["body1"];
+        }
+
         case "right": {
           return {
             display: "flex",

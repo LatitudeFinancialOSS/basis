@@ -370,7 +370,12 @@ export type AccordionTheme = ComponentTheme<AccordionCssOptions> & {
 
 type AutoCompleteCssOptions =
   | {
-      targetElement: "container" | "searchIcon" | "clearIcon" | "right";
+      targetElement:
+        | "container"
+        | "searchIcon"
+        | "clearIcon"
+        | "right"
+        | "listItemContent";
     }
   | {
       targetElement: "li";

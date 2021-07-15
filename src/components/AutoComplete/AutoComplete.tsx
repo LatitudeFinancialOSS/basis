@@ -43,7 +43,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     disabled,
     helpText,
     itemToString: itemToStringFn,
-    placeholder,
+    placeholder = "Search here",
     itemsFooter: Footer,
     listItem: ListItem,
     hideLabel,
@@ -115,7 +115,13 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     if (ListItem) {
       return <ListItem inputValue={inputValue} item={record} />;
     }
-    return itemToString ? itemToString(record) : record;
+    return (
+      <span
+        css={theme.autoComplete.getCSS({ targetElement: "listItemContent" })}
+      >
+        {itemToString ? itemToString(record) : record}
+      </span>
+    );
   };
 
   const wrapperRef = useWrapperFocus({

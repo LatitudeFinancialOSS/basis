@@ -30,43 +30,27 @@ function App() {
     if (!inputValue) return []
     return mockAddressList
   }
-  const CantFind = ({ closeMenu }) => (
+  const CantFind = () => (
     <Link
       href="#"
       newTab={false}
-      onClick={() => {
-        closeMenu();
-      }}
     >
-      <span>
         <b>Can't find your address?</b>
-      </span>
     </Link>
   )
 
   return (
     <Form methods={methods} onSubmit={console.log}>
-      <Stack gap="8">
-        <Field
-          name="simpleList"
-          label="Simple items"
-          getItems={() => ["item1", "item2"]}
-          as={AutoComplete}
-        />
-
         <Field
           name="myAddress"
-          label="Address Auto Complete"
-          placeholder="Search Address here!"
+          label="Address"
           getItems={fetchAddress}
           itemToString={itemToString}
           itemsFooter={CantFind}
           as={AutoComplete}
         />
- 
-        <Button type="submit">Submit</Button>
-      </Stack>
-    </Form>
+        </Form>
+
   )
 }
 
