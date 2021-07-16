@@ -176,7 +176,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
             onClick={onClear}
             css={theme.autoComplete.getCSS({
               targetElement: "clearIcon",
-              showClearIcon: showClearIcon,
+              showClearIcon,
             })}
           >
             <Icon name="cross" />
