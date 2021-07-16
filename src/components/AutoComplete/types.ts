@@ -27,6 +27,7 @@ export type SharedAutoCompleteProps<Item> = {
   __internal__open?: boolean;
   __internal__highlightedIndex?: number;
   __internal__loading?: boolean;
+  __internal__items?: Item[];
   __internal__focus?: boolean;
 };
 

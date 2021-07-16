@@ -91,6 +91,7 @@ function KitchenSinkAccordion() {
               label="Simple Items Open"
               getItems={() => simpleItems}
               __internal__open
+              __internal__items={simpleItems}
             />
 
             <Container margin="14 0" padding="14 0">
@@ -100,6 +101,7 @@ function KitchenSinkAccordion() {
                 getItems={() => items}
                 __internal__open
                 __internal__highlightedIndex={1}
+                __internal__items={items}
               />
             </Container>
           </Stack>
