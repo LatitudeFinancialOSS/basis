@@ -56,6 +56,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     __internal__highlightedIndex,
     __internal__loading,
     __internal__focus,
+    __internal__items = [],
   } = mergedProps;
 
   const { items: data, getItems, status } = useGetItems(props.getItems);
@@ -68,7 +69,8 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const defaultItems = value && !isEqual(value, emptyValue) ? [value] : [];
+  const defaultItems =
+    value && !isEqual(value, emptyValue) ? [value] : __internal__items;
   const items = data.length ? data : defaultItems;
 
   const {
@@ -174,7 +176,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
             onClick={onClear}
             css={theme.autoComplete.getCSS({
               targetElement: "clearIcon",
-              showClearIcon: showClearIcon,
+              showClearIcon,
             })}
           >
             <Icon name="cross" />
