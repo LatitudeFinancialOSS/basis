@@ -56,7 +56,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     __internal__highlightedIndex,
     __internal__loading,
     __internal__focus,
-    __internal__items = [], // purely for Kitchen sink
+    __internal__items = [],
   } = mergedProps;
 
   const { items: data, getItems, status } = useGetItems(props.getItems);

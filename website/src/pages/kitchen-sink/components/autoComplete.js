@@ -77,7 +77,6 @@ function KitchenSinkAccordion() {
             />
             <AutoComplete
               label="Big address"
-              optional
               getItems={() => items}
               placeholder={itemToString(items[0])}
             />
