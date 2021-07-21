@@ -8,6 +8,7 @@ import {
   itemToString,
   typeAhead,
   timeout,
+  EMPTY_ADDRESS_VALUE,
 } from "../../../utils/autoComplete-utils";
 
 const scope = {
@@ -17,11 +18,12 @@ const scope = {
   typeAhead,
   useCombobox,
   timeout,
+  EMPTY_ADDRESS_VALUE,
 };
 
 function AutoCompletePage() {
   const code = formatCode(`
-  // mockAddressList, itemToString, typeAheadm, timeout from './utils' folder
+  // mockAddressList, itemToString, typeAheadm, timeout, EMPTY_ADDRESS_VALUE from './utils' folder
 
 function App() {
   const { methods, Field } = useBasisForm()
@@ -31,12 +33,11 @@ function App() {
     return mockAddressList
   }
   const CantFind = () => (
-    <Link
-      href="#"
-      newTab={false}
-    >
-        <b>Can't find your address?</b>
-    </Link>
+    <div>
+    <Text color="primary.blue.t100">
+      <b>Can't find your address?</b>
+    </Text>
+  </div>
   )
 
   return (
@@ -45,6 +46,7 @@ function App() {
           name="myAddress"
           label="Address"
           getItems={fetchAddress}
+          emptyValue={EMPTY_ADDRESS_VALUE}
           itemToString={itemToString}
           itemsFooter={CantFind}
           as={AutoComplete}

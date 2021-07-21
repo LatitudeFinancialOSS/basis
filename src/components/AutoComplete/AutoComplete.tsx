@@ -1,8 +1,11 @@
 import { useCombobox } from "downshift";
+import isEqual from "lodash.isequal";
 import { nanoid } from "nanoid";
 import React, { useMemo, useRef } from "react";
 import { useMergedProps } from "../../hooks/useMergedProps";
 import useTheme from "../../hooks/useTheme";
+import { useWrapperFocus } from "../../hooks/useWrapperFocus";
+import mergeRefs from "../../utils/mergeRefs";
 import Icon from "../Icon";
 import Field from "../internal/Field";
 import InternalInput from "../internal/InternalInput";
@@ -11,21 +14,7 @@ import VisuallyHidden from "../VisuallyHidden";
 import { defaultAutoCompleteProps } from "./defaultAutoCompleteProps";
 import { AutoCompleteProps, ListItemKey } from "./types";
 import useGetItems from "./useGetItems";
-import { useWrapperFocus } from "../../hooks/useWrapperFocus";
-import mergeRefs from "../../utils/mergeRefs";
-import isEqual from "lodash.isequal";
-
-const getFieldErrors = (
-  error: string | string[] | undefined
-): { fieldErrors: string[] | undefined; hasErrors: boolean } => {
-  if (error === undefined) {
-    return { fieldErrors: undefined, hasErrors: false };
-  }
-
-  const fieldErrors = Array.isArray(error) ? error : [error];
-
-  return { fieldErrors, hasErrors: true };
-};
+import { getFieldErrors } from "./utils";
 
 function AutoComplete<Item extends ListItemKey = ListItemKey>(
   props: AutoCompleteProps<Item>
@@ -44,8 +33,9 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     helpText,
     itemToString: itemToStringFn,
     placeholder = "Search here",
-    itemsFooter: Footer,
+    renderItemsFooter,
     listItem: ListItem,
+    onItemsFooterSelect,
     hideLabel,
     testId,
     value,
@@ -59,14 +49,29 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     __internal__items = [],
   } = mergedProps;
 
-  const { items: data, getItems, status } = useGetItems(props.getItems);
+  const hasFooter = !!renderItemsFooter;
 
   const auxId = useMemo(() => `auto-complete-aux-${nanoid()}`, []);
+  const footerId = useMemo(() => (hasFooter ? `footer-id-${nanoid()}` : ""), [
+    hasFooter,
+  ]);
+
+  const { items: data, getItems, status } = useGetItems(
+    props.getItems,
+    footerId,
+    hasFooter
+  );
+
   const { fieldErrors, hasErrors } = getFieldErrors(error);
   const describedBy = helpText || hasErrors ? auxId : undefined;
 
-  const itemToString = (item: Item): string =>
-    itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
+  const itemToString = (item: Item): string => {
+    if (item.id === footerId) {
+      return "";
+    }
+    return itemToStringFn ? itemToStringFn?.(item) : item ? String(item) : "";
+  };
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const defaultItems =
@@ -92,12 +97,21 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     onInputValueChange: (changed) => {
       getItems(changed);
     },
-    onSelectedItemChange: ({ selectedItem }) => {
-      if (!selectedItem) {
+    onSelectedItemChange: ({ selectedItem, highlightedIndex }) => {
+      /**
+       * 🦘 Handle the case where the menu has extra footer (eg. Cant find)
+       * and we need to call onItemsFooterSelect when that item is selected.
+       */
+      if (selectedItem?.id === footerId) {
+        onItemsFooterSelect?.();
         onChange?.(emptyValue);
-      } else {
-        onChange?.(selectedItem);
+        return;
       }
+      if (!selectedItem || highlightedIndex === -1) {
+        onChange?.(emptyValue);
+        return;
+      }
+      onChange?.(selectedItem);
     },
     itemToString,
   });
@@ -198,28 +212,25 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
           {...getMenuProps()}
           css={theme.autoComplete.getCSS({
             targetElement: "ul",
-            isOpen: menuIsOpen,
           })}
         >
-          {menuIsOpen && (
-            <>
-              {items.map((record, index) => (
-                <li
-                  key={record.id || index}
-                  css={theme.autoComplete.getCSS({
-                    targetElement: "li",
-                    isHighlighted:
-                      highlightedIndex === index ||
-                      __internal__highlightedIndex === index,
-                  })}
-                  {...getItemProps({ index, item: record })}
-                >
-                  {renderListItem(record)}
-                </li>
-              ))}
-              {Footer && <Footer closeMenu={closeMenu} />}
-            </>
-          )}
+          {menuIsOpen &&
+            items.map((record, index) => (
+              <li
+                key={record.id || index}
+                css={theme.autoComplete.getCSS({
+                  targetElement: "li",
+                  isHighlighted:
+                    highlightedIndex === index ||
+                    __internal__highlightedIndex === index,
+                })}
+                {...getItemProps({ index, item: record })}
+              >
+                {index === items.length - 1 && !!renderItemsFooter
+                  ? renderItemsFooter()
+                  : renderListItem(record)}
+              </li>
+            ))}
         </ul>
       </div>
     </Field>

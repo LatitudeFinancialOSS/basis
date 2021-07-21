@@ -1,5 +1,6 @@
 import { UseComboboxState } from "downshift";
 import React from "react";
+import { ReactNode } from "react";
 
 export type ListItemKey = { id: string };
 
@@ -9,9 +10,7 @@ export type SharedAutoCompleteProps<Item> = {
   placeholder?: string;
   itemToString?: (item: Item) => string;
   listItem?: React.ComponentType<{ inputValue: string; item: Item }>;
-  itemsFooter?: React.ComponentType<{
-    closeMenu: () => void;
-  }>;
+  renderItemsFooter?: () => ReactNode;
   emptyValue: Item;
   value?: Item;
   error?: string | string[];
@@ -20,8 +19,7 @@ export type SharedAutoCompleteProps<Item> = {
   onBlur?: () => void;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onMouseDown?: React.MouseEventHandler<HTMLLabelElement>;
-  selectItem?: (item: Item) => void;
-  onCantFind?: () => void;
+  onItemsFooterSelect?: () => void;
   testId?: string;
   __internal__keyboardFocus?: boolean;
   __internal__open?: boolean;
