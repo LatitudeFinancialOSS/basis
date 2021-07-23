@@ -107,7 +107,7 @@ export const delay = (timeout = 1000) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
 export const itemToString = (value) =>
-  value
+  value.AddressLine
     ? `${value.AddressLine}, ${value.Locality}, ${value.State}, ${value.Country}`
     : "";
 
@@ -134,3 +134,14 @@ export const typeAhead = ({ inputValue: q }) => {
 
 export const timeout = (ms) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export const EMPTY_ADDRESS_VALUE = {
+  id: "",
+  AddressLine: "",
+  Country: "",
+  CountryCode: "",
+  Locality: "",
+  Postcode: "",
+  RecordId: "",
+  State: "",
+};

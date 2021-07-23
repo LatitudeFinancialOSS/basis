@@ -383,7 +383,6 @@ type AutoCompleteCssOptions =
     }
   | {
       targetElement: "ul";
-      isOpen: boolean;
     }
   | {
       targetElement: "clearIcon";

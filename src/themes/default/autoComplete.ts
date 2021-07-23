@@ -51,9 +51,6 @@ export default (
             listStyle: "none",
             transition: "opacity .1s ease",
             borderRadius: theme.radii[0],
-            ...(options.isOpen
-              ? { border: `1px solid ${theme.colors.grey.t10}` }
-              : { border: 0 }),
             minWidth: "200px",
             backgroundColor: "white",
             width: "100%",

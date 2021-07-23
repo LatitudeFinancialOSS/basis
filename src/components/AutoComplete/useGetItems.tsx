@@ -8,7 +8,9 @@ const reducer = <Item,>(
 ): InternalState<Item> => ({ ...state, ...action.payload });
 
 function useGetItems<Item>(
-  getItemsSource: AutoCompleteProps<Item>["getItems"]
+  getItemsSource: AutoCompleteProps<Item>["getItems"],
+  footerId: string,
+  hasItemsFooter: boolean
 ) {
   const initial: InternalState<Item> = {
     status: "IDLE",
@@ -35,7 +37,8 @@ function useGetItems<Item>(
           inputValue: changed?.inputValue,
         });
 
-        const items = (data || []).filter(Boolean) as Item[]; // 🚨 Make sure we don't have array of null (ie. null[])
+        const apiItems = hasItemsFooter ? [...data, { id: footerId }] : data;
+        const items = (apiItems || []).filter(Boolean) as Item[]; // 🚨 Make sure we don't have array of null (ie. null[])
 
         dispatch({
           type: ActionType.LOAD_ITEMS_SUCCESS,
@@ -53,7 +56,7 @@ function useGetItems<Item>(
         });
       }
     },
-    [getItemsSource]
+    [footerId, getItemsSource, hasItemsFooter]
   );
 
   return { ...state, getItems };

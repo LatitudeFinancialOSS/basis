@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import useWindow from "./useWindow";
 
 interface WrapperOptions {
   onFocus?: () => void;
@@ -12,8 +11,6 @@ export const useWrapperFocus = ({
   onBlur,
   defaultFocus = false,
 }: WrapperOptions) => {
-  const window = useWindow();
-
   /** Useful when working with autoFocus */
   const wrapper = useRef<HTMLDivElement>(null);
   const prevFocused = useRef<boolean>(defaultFocus);
@@ -48,15 +45,15 @@ export const useWrapperFocus = ({
 
     // need the third argument as we want the bubbled event
     window.addEventListener("focus", onFocusChange, true);
-    window.document.addEventListener("mousedown", onFocusChange);
-    window.document.addEventListener("touchstart", onFocusChange);
+    document.addEventListener("mousedown", onFocusChange);
+    document.addEventListener("touchstart", onFocusChange);
 
     return () => {
       window.removeEventListener("focus", onFocusChange);
-      window.document.removeEventListener("mousedown", onFocusChange);
-      window.document.removeEventListener("touchstart", onFocusChange);
+      document.removeEventListener("mousedown", onFocusChange);
+      document.removeEventListener("touchstart", onFocusChange);
     };
-  }, [window]);
+  }, []);
 
   return wrapper;
 };
