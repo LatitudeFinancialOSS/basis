@@ -5,19 +5,17 @@ import { formatCode } from "../../../utils/formatting";
 import {
   mockAddressList,
   itemToString,
-  EMPTY_ADDRESS_VALUE,
 } from "../../../utils/autoComplete-utils";
 
 const scope = {
   ...allDesignSystem,
   mockAddressList,
   itemToString,
-  EMPTY_ADDRESS_VALUE,
 };
 
 function AutoCompletePage() {
   const code = formatCode(`
-    // mockAddressList, itemToString and EMPTY_ADDRESS_VALUE are from './utils'
+    // mockAddressList and itemToString are from './utils' folder
 
     const getItems = async ({ inputValue }) => {
       if (!inputValue) return []
@@ -25,10 +23,10 @@ function AutoCompletePage() {
     }
 
     const CantFind = () => (
-      <Container padding="6 4">
-        <Text color="primary.blue.t100">
+      <Container padding="4 6">
+        <Link href="#" newTab={false}>
           <b>Can't find your address?</b>
-        </Text>
+        </Link>
       </Container>
     )
 
@@ -42,7 +40,6 @@ function AutoCompletePage() {
             name="address"
             label="Address"
             getItems={getItems}
-            emptyValue={EMPTY_ADDRESS_VALUE}
             itemToString={itemToString}
             itemsFooter={CantFind}
           />
