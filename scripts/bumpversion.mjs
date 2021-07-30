@@ -47,6 +47,7 @@ async function runSilently(command) {
 async function chooseTag() {
   const tags = ["latest", "beta"];
 
+  await sleep(1000);
   const { tag } = await inquirer.prompt([
     {
       name: "tag",
@@ -55,6 +56,8 @@ async function chooseTag() {
       choices: tags,
     },
   ]);
+
+  await sleep(1000);
   const { proceed } = await inquirer.prompt([
     {
       name: "tag",
@@ -84,6 +87,7 @@ async function main() {
   const branch = await runSilently(() => $`git branch --show-current`);
 
   if (branch !== "master") {
+    await sleep(1000);
     const { proceed } = await inquirer.prompt([
       {
         name: "proceed",
@@ -118,6 +122,7 @@ async function main() {
     "pre",
   ];
 
+  await sleep(1000);
   const { release } = await inquirer.prompt([
     {
       name: "release",
@@ -129,6 +134,7 @@ async function main() {
 
   const newVersion = semver.inc(version, release);
 
+  await sleep(1000);
   const { proceed } = await inquirer.prompt([
     {
       name: "proceed",
@@ -157,8 +163,8 @@ async function main() {
   );
   console.log(chalk.green("percy build complete"));
   const buildUrl = percyOutput.match(/(https:\/\/percy.io\S*)/g)[0];
-  await sleep(1000);
 
+  await sleep(1000);
   const { passes } = await inquirer.prompt([
     {
       name: "passes",
