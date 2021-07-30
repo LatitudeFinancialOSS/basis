@@ -17,9 +17,9 @@ export default (
   return {
     getCSS: (options) => {
       const hasPrefix =
-        ["numeric", "decimal"].includes(options.variant) && options.prefix;
+        typeof options.prefix === "string" && options.prefix.length > 0;
       const hasSuffix =
-        ["numeric", "decimal"].includes(options.variant) && options.suffix;
+        typeof options.suffix === "string" && options.suffix.length > 0;
 
       switch (options.targetElement) {
         case "inputContainer": {
