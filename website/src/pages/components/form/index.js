@@ -170,7 +170,7 @@ function FormPage() {
                 <Checkbox label="Do you like ice cream?" hideLabel name="likeIceCream" helpText="You MUST like it!">I like ice cream</Checkbox>
                 <RadioGroup name="hungry" label="Are you hungry?" options={hungryOptions} />
                 <Frequency name="salary" label="Salary (before tax)" amountPrefix="$" />
-                <DatePicker name="birthDate" label="Birth date" />
+                <DateInput name="birthDate" label="Birth date" />
                 <TimeSpan name="age" label="Age" />
                 <Textarea name="aboutYourself" label="Tell us about yourself" height="100" />
                 <Checkbox label="Do you want to tell me your favourite ice cream?" hideLabel name="iceCreamType" optional>I want to tell you my favourite ice cream</Checkbox>
