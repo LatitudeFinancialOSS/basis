@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import useTheme from "../hooks/useTheme";
+import useWindow from "../hooks/useWindow";
 import useBackground, {
   BackgroundProvider,
   mapResponsiveValues,
@@ -183,6 +184,7 @@ Item.DEFAULT_PROPS = DEFAULT_ITEM_PROPS;
 
 function Item(props) {
   const theme = useTheme();
+  const windowFromContext = useWindow();
   const { itemGap } = useAccordion();
   const [headerId] = useState(() => `accordion-item-header-${nanoid()}`);
   const [contentId] = useState(() => `accordion-item-content-${nanoid()}`);
@@ -192,21 +194,31 @@ function Item(props) {
     {},
     {
       initiallyOpen: (initiallyOpen) => typeof initiallyOpen === "boolean",
+      open: (open) => typeof open === "boolean",
+      onToggle: (onToggle) => typeof onToggle === "function",
     }
   );
-  const { initiallyOpen, children, testId } = mergedProps;
-  const [isOpen, setIsOpen] = useState(initiallyOpen);
+  const { initiallyOpen, open, onToggle, children, testId } = mergedProps;
+
+  if (open !== undefined && !onToggle) {
+    windowFromContext.console.warn(
+      "If you provide the `open` prop to `Accordion.Item`, you should also provide the `onToggle` handler. Otherwise, clicking the `Accordion.Item.Header` would be ignored."
+    );
+  }
+
+  const [isOpen, setIsOpen] = useState(initiallyOpen || open);
   const toggleAccordionItem = useCallback(() => {
     setIsOpen((isOpen) => !isOpen);
-  }, []);
+    onToggle && onToggle(!open);
+  }, [open, onToggle]);
   const accordionItemInfo = useMemo(
     () => ({
       headerId,
       contentId,
-      isOpen,
+      isOpen: open === undefined ? isOpen : open,
       toggleAccordionItem,
     }),
-    [headerId, contentId, isOpen, toggleAccordionItem]
+    [headerId, contentId, isOpen, open, toggleAccordionItem]
   );
 
   return (
@@ -223,6 +235,8 @@ function Item(props) {
 
 Item.propTypes = {
   initiallyOpen: PropTypes.bool,
+  open: PropTypes.bool,
+  onToggle: PropTypes.func,
   children: PropTypes.node.isRequired,
   testId: PropTypes.string,
 };

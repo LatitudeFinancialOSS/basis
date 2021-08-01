@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen, userEvent } from "../utils/test";
 import Accordion from "./Accordion";
 import Container from "./Container";
 import Text from "./Text";
+
+function ControlledAccordion() {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <Accordion>
+      <Accordion.Item open={open} onToggle={setOpen} testId="accordion-item-1">
+        <Accordion.Item.Header>My header</Accordion.Item.Header>
+        <Accordion.Item.Content>
+          <Text>My content</Text>
+        </Accordion.Item.Content>
+      </Accordion.Item>
+    </Accordion>
+  );
+}
 
 describe("Accordion", () => {
   it("default", () => {
@@ -308,6 +323,28 @@ describe("Accordion", () => {
       isOpen: true,
       itemHeaderChildren: ["Header with dynamic number ", 5],
     });
+  });
+
+  it("controlled", () => {
+    const { container } = render(<ControlledAccordion />);
+    const itemHeaderButton = container.querySelector("[aria-controls]");
+    const content = container.querySelector(`[role="region"]`);
+
+    // Initially open
+    expect(itemHeaderButton).toHaveAttribute("aria-expanded", "true");
+    expect(content).not.toHaveAttribute("hidden");
+
+    // Close
+    userEvent.click(itemHeaderButton);
+
+    expect(itemHeaderButton).toHaveAttribute("aria-expanded", "false");
+    expect(content).toHaveAttribute("hidden");
+
+    // Open
+    userEvent.click(itemHeaderButton);
+
+    expect(itemHeaderButton).toHaveAttribute("aria-expanded", "true");
+    expect(content).not.toHaveAttribute("hidden");
   });
 
   it("with custom content padding", () => {
