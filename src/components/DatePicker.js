@@ -202,6 +202,7 @@ function DatePicker(props) {
             <Grid.Item colSpan={0}>
               <InternalInput
                 name={`${name}.day`}
+                aria-label="day"
                 parentName={name}
                 variant="numeric"
                 color={props.color}
@@ -218,6 +219,7 @@ function DatePicker(props) {
           <Grid.Item colSpan={dayMode === "2-digits" ? 1 : 0}>
             <InternalInput
               name={`${name}.month`}
+              aria-label="month"
               parentName={name}
               variant="numeric"
               color={props.color}
@@ -244,6 +246,7 @@ function DatePicker(props) {
             <InternalInput
               name={`${name}.year`}
               parentName={name}
+              aria-label="year"
               variant="numeric"
               color={props.color}
               placeholder={yearMode === "2-digits" ? "YY" : "YYYY"}

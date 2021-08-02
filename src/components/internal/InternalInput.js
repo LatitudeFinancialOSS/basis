@@ -59,6 +59,7 @@ function InternalInput(props) {
     suffix,
     maxLength,
     autoComplete,
+    "aria-label": ariaLabel,
     disabled,
     pasteAllowed,
     isValid,
@@ -120,6 +121,7 @@ function InternalInput(props) {
         id={id}
         name={name}
         data-parent-name={parentName}
+        aria-label={ariaLabel}
         placeholder={placeholder}
         type={type}
         {...variantProps}
@@ -145,6 +147,7 @@ InternalInput.propTypes = {
   name: PropTypes.string.isRequired,
   parentName: PropTypes.string,
   id: PropTypes.string,
+  "aria-label": PropTypes.string,
   type: PropTypes.oneOf(TYPES),
   placeholder: PropTypes.string,
   variant: PropTypes.oneOf(VARIANTS),
