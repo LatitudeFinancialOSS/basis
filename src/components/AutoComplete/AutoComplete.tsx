@@ -97,7 +97,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
     onInputValueChange: (changed) => {
       getItems(changed);
     },
-    onSelectedItemChange: ({ selectedItem, highlightedIndex }) => {
+    onSelectedItemChange: ({ selectedItem }) => {
       /**
        * 🦘 Handle the case where the menu has extra footer (eg. Cant find)
        * and we need to call onItemsFooterSelect when that item is selected.
@@ -107,7 +107,7 @@ function AutoComplete<Item extends ListItemKey = ListItemKey>(
         onChange?.(emptyValue);
         return;
       }
-      if (!selectedItem || highlightedIndex === -1) {
+      if (!selectedItem) {
         onChange?.(emptyValue);
         return;
       }
