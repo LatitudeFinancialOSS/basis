@@ -5,6 +5,7 @@ import { babel } from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import dts from "rollup-plugin-dts";
 
 export default [
   {
@@ -24,8 +25,14 @@ export default [
       commonjs(),
       typescript({
         include: ["src/*.js", "src/**/*.js", "src/*.ts(x)?", "src/**/*.ts(x)?"],
+        useTsconfigDeclarationDir: true,
       }),
     ],
     external: Object.keys(pkg.peerDependencies || {}),
+  },
+  {
+    input: "./dist/dts/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "es" }],
+    plugins: [dts()],
   },
 ];
