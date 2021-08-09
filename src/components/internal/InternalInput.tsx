@@ -90,9 +90,7 @@ const InternalInput = (props: InternalInputProps) => {
   const theme = useTheme();
   const { inputColorMap } = useBackground();
   const inputCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) => {
-      // @ts-ignore
       const color = props.color ?? inputColorMap[bp];
 
       return theme.input.getCSS({

@@ -3,86 +3,57 @@ import deepMerge from "deepmerge";
 import { detailedDiff } from "deep-object-diff";
 import useTheme from "./useTheme";
 import { DEFAULT_BREAKPOINT } from "../utils/css";
-import { hasOwnProperty, isObjectEmpty } from "../utils/core";
+import { isObjectEmpty } from "../utils/core";
+import { CSSObject } from "@emotion/serialize";
+import { Breakpoint } from "../types";
+import { EnhancedTheme } from "../themes/types";
+
+type BreakpointWithDefault = Breakpoint | typeof DEFAULT_BREAKPOINT;
+
+type BreakpointToPropsMap<T> = Record<BreakpointWithDefault, Partial<T>>;
 
 // @ts-ignore
-function getResponsiveProp(prop, breakpoints) {
-  for (let i = 0; i < breakpoints.length; i++) {
-    const responsiveSuffix = `-${breakpoints[i]}`;
+export function getBreakpointToPropsMap<T extends Record<string, any>>(
+  theme: EnhancedTheme,
+  props: T,
+  defaultProps: Partial<T>
+) {
+  const breakpoints = Object.entries(theme.breakpoints)
+    .sort((a, b) => a[1].localeCompare(b[1], "en", { numeric: true }))
+    .map(([bp]) => bp) as Breakpoint[];
 
-    if (prop.endsWith(responsiveSuffix)) {
-      return prop.slice(0, -responsiveSuffix.length);
-    }
-  }
-
-  return prop;
-}
-
-// @ts-ignore
-function getResponsiveProps(props, breakpoints) {
-  const result = {};
-
-  for (const prop in props) {
-    // @ts-ignore
-    result[getResponsiveProp(prop, breakpoints)] = true;
-  }
-
-  return result;
-}
-
-// @ts-ignore
-function hasAnyBreakpoint(prop, breakpoints) {
-  // @ts-ignore
-  return breakpoints.some((bp) => prop.endsWith(`-${bp}`));
-}
-
-// @ts-ignore
-function getDefaultBreakpointProps(props, breakpoints) {
-  const result = { ...props };
-
-  for (const prop in result) {
-    if (hasAnyBreakpoint(prop, breakpoints)) {
-      delete result[prop];
-    }
-  }
-
-  return result;
-}
-
-// @ts-ignore
-export function getBreakpointToPropsMap(theme, props, defaultProps) {
-  const breakpoints = Object.keys(theme.breakpoints);
   /*
     If `props` is { "height-sm": "40px" }, `getResponsiveProps` will include "height".
     But, `getDefaultBreakpointProps` will not.
   */
-  const nonBreakpointProps = getResponsiveProps(props, breakpoints);
-  let lastBreakpointProps = getDefaultBreakpointProps(props, breakpoints);
-  const result = {
-    [DEFAULT_BREAKPOINT]: {
-      ...defaultProps,
-      ...lastBreakpointProps,
-    },
+
+  const breakpointsWithDefault: BreakpointWithDefault[] = [
+    DEFAULT_BREAKPOINT,
+    ...breakpoints,
+  ];
+  const result: BreakpointToPropsMap<T> = Object.fromEntries(
+    breakpointsWithDefault.map((bp) => [bp, {}])
+  ) as BreakpointToPropsMap<T>;
+
+  const allProps = {
+    ...defaultProps,
+    ...props,
   };
 
-  breakpoints.forEach((bp) => {
-    // @ts-ignore
-    result[bp] = {
-      ...defaultProps,
-      ...lastBreakpointProps,
-    };
+  Object.entries(allProps).forEach(([prop, value]) => {
+    const startIndex = breakpoints.findIndex((bp) => prop.endsWith(`-${bp}`)); // -1
 
-    for (const prop in nonBreakpointProps) {
-      const propAtBreakpoint = `${prop}-${bp}`;
+    // adding 1 because of adding the default breakpoint
+    let i = startIndex === -1 ? 0 : startIndex + 1;
+    const propWithoutSuffix =
+      startIndex === -1
+        ? prop
+        : prop.slice(0, -`-${breakpoints[startIndex]}`.length);
 
-      if (hasOwnProperty(props, propAtBreakpoint)) {
-        // @ts-ignore
-        result[bp][prop] = props[propAtBreakpoint];
-      }
+    for (i; i < breakpointsWithDefault.length; i += 1) {
+      const breakpoint = breakpointsWithDefault[i];
+      result[breakpoint][propWithoutSuffix as keyof T] = value;
     }
-
-    // @ts-ignore
-    lastBreakpointProps = result[bp];
   });
 
   return result;
@@ -127,8 +98,17 @@ function removeRedundantCSS(newCSS, existingCSS, mediaQueries) {
 
 const DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER = "";
 
-// @ts-ignore
-function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
+type ResponsiveProp<T extends Record<string, any>> = (
+  propsAtBreakPoint: T,
+  theme: EnhancedTheme,
+  breakPoint: Breakpoint
+) => CSSObject;
+
+const useResponsivePropsCSS = <T extends Record<string, any>>(
+  props: T,
+  defaultProps: Partial<T>,
+  responsiveProps: Record<string, ResponsiveProp<T>>
+) => {
   const theme = useTheme();
   const breakpointToPropsMap = getBreakpointToPropsMap(
     theme,
@@ -138,7 +118,7 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
   const breakpoints = [DEFAULT_BREAKPOINT].concat(
     Object.keys(theme.minMediaQueries)
   );
-  let result = {};
+  let result: CSSObject = {};
 
   for (let i = 0; i < breakpoints.length; i++) {
     const bp = breakpoints[i];
@@ -208,6 +188,6 @@ function useResponsivePropsCSS(props, defaultProps, responsiveProps) {
   delete result[DEFAULT_BREAKPOINT_MEDIA_QUERY_PLACEHOLDER];
 
   return result;
-}
+};
 
 export default useResponsivePropsCSS;

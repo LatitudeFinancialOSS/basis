@@ -36,11 +36,9 @@ function RadioCircle(props: RadioCirlcleProps) {
     props,
     {},
     {
-      // @ts-ignore
       color: (propsAtBreakpoint, theme, bp) => {
         return theme.radioGroup.getCSS({
           targetElement: "outerCircle",
-          // @ts-ignore
           color: props.color ?? inputColorMap[bp],
           isChecked,
         });
@@ -105,11 +103,9 @@ function Radio(props: RadioProps) {
   const theme = useTheme();
   const { inputColorMap } = useBackground();
   const labelCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) => {
       return theme.radioGroup.getCSS({
         targetElement: "radioLabel",
-        // @ts-ignore
         color: props.color ?? inputColorMap[bp],
       });
     },

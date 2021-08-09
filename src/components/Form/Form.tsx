@@ -12,7 +12,6 @@ export function Form<TFieldValues extends FieldValues = FieldValues>({
   ...rest
 }: FormProps<TFieldValues>) {
   const { handleSubmit } = methods;
-  // @ts-ignore
   const responsiveFormCSS = useResponsivePropsCSS(
     rest,
     {},

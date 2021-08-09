@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
+import { TextStyleNames } from "../themes/types";
 import useTheme from "./useTheme";
 
-const TextStyleContext = React.createContext();
+const TextStyleContext = React.createContext<TextStyleNames | undefined>(
+  undefined
+);
 
 export const TextStyleProvider = TextStyleContext.Provider;
 
