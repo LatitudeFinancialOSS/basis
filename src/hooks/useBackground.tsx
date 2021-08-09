@@ -1,29 +1,37 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import useTheme from "./useTheme";
 import { DEFAULT_BREAKPOINT } from "../utils/css";
+import { Color, EnhancedTheme } from "../themes/types";
+import { Breakpoint } from "../types";
 
-function getInputColor(backgroundColor) {
+function getInputColor(backgroundColor: Color | undefined) {
   return [undefined, "transparent", "white"].includes(backgroundColor)
     ? "grey.t05"
     : "white";
 }
 
-export function mapResponsiveValues(map, mapFn, theme) {
+type BackgroundMap = Record<Breakpoint | typeof DEFAULT_BREAKPOINT, Color>;
+
+export function mapResponsiveValues(
+  map: BackgroundMap | undefined,
+  mapFn: (color?: Color) => Color,
+  theme: EnhancedTheme
+) {
   if (map) {
-    const result = {
+    const result: any = {
       [DEFAULT_BREAKPOINT]: mapFn(map[DEFAULT_BREAKPOINT]),
     };
 
-    for (const bp in theme.breakpoints) {
+    let bp: Breakpoint;
+    for (bp in theme.breakpoints) {
       result[bp] = mapFn(map[bp]);
     }
 
-    return result;
+    return result as BackgroundMap;
   }
 
   const defaultValue = mapFn();
-  const result = {
+  const result: any = {
     [DEFAULT_BREAKPOINT]: defaultValue,
   };
 
@@ -31,11 +39,11 @@ export function mapResponsiveValues(map, mapFn, theme) {
     result[bp] = defaultValue;
   }
 
-  return result;
+  return result as BackgroundMap;
 }
 
-function getBgMapFromValue(value, theme) {
-  const result = {
+function getBgMapFromValue(value: Color, theme: EnhancedTheme): BackgroundMap {
+  const result: any = {
     [DEFAULT_BREAKPOINT]: value,
   };
 
@@ -43,12 +51,19 @@ function getBgMapFromValue(value, theme) {
     result[bp] = value;
   }
 
-  return result;
+  return result as BackgroundMap;
 }
 
-const BackgroundContext = React.createContext();
+const BackgroundContext = React.createContext<BackgroundMap | undefined>(
+  undefined
+);
 
-export function BackgroundProvider({ value, children }) {
+type BackgroundProps = {
+  value: Color | BackgroundMap;
+  children: React.ReactNode;
+};
+
+export function BackgroundProvider({ value, children }: BackgroundProps) {
   const theme = useTheme();
   const bgMap =
     typeof value === "object" ? value : getBgMapFromValue(value, theme);
@@ -59,11 +74,6 @@ export function BackgroundProvider({ value, children }) {
     </BackgroundContext.Provider>
   );
 }
-
-BackgroundProvider.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  children: PropTypes.node,
-};
 
 function useBackground() {
   const theme = useTheme();

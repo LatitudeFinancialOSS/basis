@@ -81,7 +81,6 @@ function Field({
           id={auxId}
         >
           {
-            // @ts-ignore
             <Grid cols={1} rowsGap={1}>
               {errors.map((error, index) => (
                 <Text

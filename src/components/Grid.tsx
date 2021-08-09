@@ -28,13 +28,11 @@ export function Item(props: ItemProps) {
     props,
     DEFAULT_GRID_ITEM_PROPS,
     {
-      // @ts-ignore
       colSpan: ({ colSpan }) => {
         const gridColumn = getGridRowColumn(colSpan, { allAllowed: true });
 
         return gridColumn ? { gridColumn } : {};
       },
-      // @ts-ignore
       rowSpan: ({ rowSpan }) => {
         const gridRow = getGridRowColumn(rowSpan);
 
@@ -105,25 +103,21 @@ function Grid(props: GridProps) {
     parsedProps,
     DEFAULT_GRID_PROPS,
     {
-      // @ts-ignore
       cols: ({ cols }) => {
         return {
-          gridTemplateColumns: getGridTemplateColumns(cols),
+          gridTemplateColumns: getGridTemplateColumns(cols) ?? undefined,
         };
       },
-      // @ts-ignore
       rows: ({ rows }) => {
         return {
-          gridTemplateRows: getGridTemplateRows(rows),
+          gridTemplateRows: getGridTemplateRows(rows) ?? undefined,
         };
       },
-      // @ts-ignore
       colsGap: ({ colsGap }) => {
         return {
           gridColumnGap: getGapPx(colsGap, theme),
         };
       },
-      // @ts-ignore
       rowsGap: ({ rowsGap }) => {
         return {
           gridRowGap: getGapPx(rowsGap, theme),

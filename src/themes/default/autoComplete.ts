@@ -4,7 +4,13 @@ import { AutoCompleteTheme, BasisTheme } from "../types";
 export default (
   theme: Pick<
     BasisTheme,
-    "radii" | "space" | "focusStyles" | "zIndices" | "colors" | "borderWidths"
+    | "radii"
+    | "space"
+    | "focusStyles"
+    | "zIndices"
+    | "colors"
+    | "borderWidths"
+    | "textStyles"
   >
 ): AutoCompleteTheme => {
   return {
@@ -74,7 +80,6 @@ export default (
         }
 
         case "listItemContent": {
-          // @ts-ignore
           return theme.textStyles["body1"];
         }
 

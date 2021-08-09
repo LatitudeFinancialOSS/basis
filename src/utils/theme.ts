@@ -18,7 +18,7 @@ function getColor(colorName: Color | "transparent", theme: BasisTheme) {
 }
 
 function getTextStyleCSS(
-  textStyle: TextStyleNames,
+  textStyle: TextStyleNames | undefined,
   theme: BasisTheme
 ): CSSObject | null {
   if (typeof textStyle !== "string") {
@@ -37,7 +37,7 @@ function getTextStyleCSS(
   } as const;
 }
 
-function getSpaceValue(space: number | string, theme: BasisTheme) {
+function getSpaceValue(space: number | string | undefined, theme: BasisTheme) {
   if (typeof space === "number") {
     return theme.space[space] || "0px";
   }
@@ -97,8 +97,9 @@ export function enhanceTheme(theme: BasisTheme): EnhancedTheme {
     minMediaQueries: getMinMediaQueries(theme.breakpoints),
     exclusiveMediaQueries: getExclusiveMediaQueries(theme.breakpoints),
     getColor: (color: Color) => getColor(color, theme),
-    getTextStyleCSS: (textStyle: TextStyleNames) =>
+    getTextStyleCSS: (textStyle: TextStyleNames | undefined) =>
       getTextStyleCSS(textStyle, theme),
-    getSpaceValue: (space: string | number) => getSpaceValue(space, theme),
+    getSpaceValue: (space: string | number | undefined) =>
+      getSpaceValue(space, theme),
   };
 }

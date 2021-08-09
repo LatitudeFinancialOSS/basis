@@ -74,10 +74,8 @@ function InternalSelect(props: InternalSelectProps) {
 
   const { inputColorMap } = useBackground();
   const css = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) =>
       theme.select.getCSS({
-        // @ts-ignore
         color: color ?? inputColorMap[bp],
         fullWidth,
         __internal__focus,

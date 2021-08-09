@@ -281,8 +281,8 @@ type InputCssOptions =
       suffix?: string;
       color: Color;
       __internal__focus: boolean;
-      hasSuffixButton: string;
-      isLoading: string;
+      hasSuffixButton?: boolean;
+      isLoading?: boolean;
     }
   | {
       targetElement: "inputContainer";
@@ -486,6 +486,6 @@ export type EnhancedTheme = BasisTheme & {
   minMediaQueries: Record<Breakpoint, string>;
   exclusiveMediaQueries: Record<Breakpoint, string>;
   getColor: (color: Color) => string | null;
-  getTextStyleCSS: (textStyle: TextStyleNames) => CSSObject | null;
-  getSpaceValue: (space: string | number) => string | null;
+  getTextStyleCSS: (textStyle: TextStyleNames | undefined) => CSSObject | null;
+  getSpaceValue: (spcae: string | number | undefined) => string | null;
 };

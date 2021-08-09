@@ -1,13 +1,15 @@
 import React from "react";
 import useBackground from "../hooks/useBackground";
+import { useMergedProps } from "../hooks/useMergedProps";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 import useTextStyle from "../hooks/useTextStyle";
-import { mergeProps } from "../utils/component";
+import { Color } from "../themes/types";
+import { OneOf, ResponsiveProp } from "../types";
 import { TEXT_ALIGNS, TEXT_STYLES } from "../utils/constants";
 import { hasOwnProperty } from "../utils/core";
 import { responsiveMargin, responsiveTextStyle } from "../utils/css";
 
-const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
+const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"] as const;
 const COLORS = [
   "black",
   "white",
@@ -16,7 +18,7 @@ const COLORS = [
   "highlight.blue.t100",
   "conditional.positive.text",
   "conditional.negative.text",
-];
+] as const;
 const ALIGNS = TEXT_ALIGNS;
 
 const allowedColors = [
@@ -54,10 +56,9 @@ const allowedColors = [
       "highlight.blue.t100",
     ],
   },
-];
+] as const;
 
-// @ts-ignore
-function getInheritedColor(backgroundColor) {
+function getInheritedColor(backgroundColor: Color | undefined) {
   return backgroundColor === "primary.blue.t100" ? "white" : "black";
 }
 
@@ -67,7 +68,7 @@ const DEFAULT_PROPS = {
   color: "black",
   align: "inherit",
   wrap: true,
-};
+} as const;
 
 Text.AS = AS;
 Text.TEXT_STYLES = TEXT_STYLES;
@@ -76,30 +77,50 @@ Text.ALIGNS = ALIGNS;
 Text.allowedColors = allowedColors;
 Text.DEFAULT_PROPS = DEFAULT_PROPS;
 
-// @ts-ignore
-function Text(props) {
+type BaseTextProps = {
+  id?: string;
+  as?: OneOf<typeof AS>;
+  align?: OneOf<typeof ALIGNS>;
+  wrap?: boolean;
+  role?: string;
+  children: React.ReactNode;
+  testId?: string;
+} & ResponsiveProp<"margin", string>;
+
+type ConstraintTextProp<
+  T extends readonly any[],
+  U extends readonly any[]
+> = BaseTextProps & {
+  color?: OneOf<T>;
+} & ResponsiveProp<"textStyle", OneOf<U>>;
+
+type TextProps =
+  | ConstraintTextProp<
+      typeof allowedColors[0]["allowedColors"],
+      typeof allowedColors[0]["textStyles"]
+    >
+  | ConstraintTextProp<
+      typeof allowedColors[1]["allowedColors"],
+      typeof allowedColors[1]["textStyles"]
+    >
+  | ConstraintTextProp<
+      typeof allowedColors[2]["allowedColors"],
+      typeof allowedColors[2]["textStyles"]
+    >;
+
+function Text(props: TextProps) {
   const { textStyle: inheritedTextStyle } = useTextStyle();
   const { bgMap } = useBackground();
-  const inheritedProps = {
+  const inheritedProps = inheritedTextStyle && {
     textStyle: inheritedTextStyle,
   };
-  const mergedProps = mergeProps(props, DEFAULT_PROPS, inheritedProps, {
-    // @ts-ignore
-    id: (id) => typeof id === "string",
-    // @ts-ignore
-    as: (as) => AS.includes(as),
-    // @ts-ignore
-    textStyle: (textStyle) => TEXT_STYLES.includes(textStyle),
-    // @ts-ignore
-    color: (color) => COLORS.includes(color),
-    // @ts-ignore
-    align: (align) => ALIGNS.includes(align),
-    // @ts-ignore
-    wrap: (wrap) => typeof wrap === "boolean",
+  const mergedProps = useMergedProps(props, {
+    ...DEFAULT_PROPS,
+    ...inheritedProps,
   });
+
   const { id, as, align, wrap, role, children, testId } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
-    // @ts-ignore
     color: (_, theme, bp) => {
       const color =
         hasOwnProperty(props, "color") && hasOwnProperty(mergedProps, "color")
@@ -123,31 +144,5 @@ function Text(props) {
     </Component>
   );
 }
-
-// Text.propTypes = {
-//   id: PropTypes.string,
-//   as: PropTypes.oneOf(AS),
-//   ...responsiveMarginType,
-//   ...responsivePropType("textStyle", PropTypes.oneOf(TEXT_STYLES)),
-//   //@ts-ignore
-//   color: (props) => {
-//     allowedColors.forEach(({ textStyles, allowedColors }) => {
-//       if (
-//         textStyles.includes(props.textStyle) &&
-//         !allowedColors.includes(props.color)
-//       ) {
-//         return new Error(
-//           `Text: color="${props.color}" is not allowed for textStyle="${props.textStyle
-//           }". Must be one of: ${formatArray(allowedColors)}`
-//         );
-//       }
-//     });
-//   },
-//   align: PropTypes.oneOf(ALIGNS),
-//   wrap: PropTypes.bool,
-//   role: PropTypes.string,
-//   children: PropTypes.node,
-//   testId: PropTypes.string,
-// };
 
 export default Text;

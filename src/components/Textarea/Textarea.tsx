@@ -44,9 +44,7 @@ function Textarea(props: InternalTextareaProps) {
 
   const { inputColorMap } = useBackground();
   const textareaCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) => {
-      // @ts-ignore
       const color = props.color ?? inputColorMap[bp];
 
       return theme.textarea.getCSS({

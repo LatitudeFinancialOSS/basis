@@ -49,3 +49,5 @@ export type SizeValue = `${number}px` | `${number}` | `${number}%`;
 export type OptionsValues<T extends { [key: number]: { value: string } }> =
   | T[number]["value"]
   | "";
+
+export type OneOf<T extends readonly any[]> = T[number];

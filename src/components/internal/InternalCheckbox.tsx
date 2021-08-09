@@ -31,11 +31,9 @@ function CheckboxIcon({ color, isChecked = false }: CheckboxIconProps) {
     {},
     {},
     {
-      // @ts-ignore
       color: (propsAtBreakpoint, theme, bp) => {
         return theme.checkbox.getCSS({
           targetElement: "svgRect",
-          // @ts-ignore
           color: color ?? inputColorMap[bp],
           isChecked,
         });
@@ -114,11 +112,9 @@ function InternalCheckbox(_props: InternalCheckboxProps) {
   const { inputColorMap } = useBackground();
   const [inputId] = useState(() => props.inputId ?? `checkbox-${nanoid()}`);
   const labelCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     color: (propsAtBreakpoint, theme, bp) => {
       return theme.checkbox.getCSS({
         targetElement: "label",
-        // @ts-ignore
         color: _props.color ?? inputColorMap[bp],
         __internal__keyboardFocus,
       });

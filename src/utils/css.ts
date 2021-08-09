@@ -9,7 +9,10 @@ import {
 import { CSSObject } from "@emotion/react";
 import { Breakpoint } from "../types";
 
-export function getGapValues(gap: string | number, theme: BasisTheme) {
+export function getGapValues(
+  gap: string | number | undefined,
+  theme: BasisTheme
+) {
   if (typeof gap === "number") {
     gap = String(gap);
   }
@@ -58,7 +61,7 @@ function getOverflowValue(overflow: string) {
 const SPAN_LINES_REGEX = /^(\d+)(-(\d+))?$/;
 
 export function getGridRowColumn(
-  span: string | number,
+  span: string | number | undefined,
   { allAllowed = false } = {}
 ) {
   if (allAllowed && span === "all") {
@@ -85,7 +88,7 @@ export function getGridRowColumn(
   return span;
 }
 
-export function getGapPx(gap: string | number, theme: BasisTheme) {
+export function getGapPx(gap: string | number | undefined, theme: BasisTheme) {
   // Exception to our space scale
   if (gap === "30px") {
     return gap;
@@ -94,7 +97,7 @@ export function getGapPx(gap: string | number, theme: BasisTheme) {
   return theme.space[Number(gap)] || "0px";
 }
 
-export function getGridTemplateColumns(cols: string | number) {
+export function getGridTemplateColumns(cols: string | number | undefined) {
   const colsInt = Number(cols);
 
   if (colsInt) {
@@ -275,7 +278,7 @@ export function isCSSinOrder(css: CSSObject) {
 }
 
 export function responsiveMargin(
-  propsAtBreakpoint: { margin: string | number },
+  propsAtBreakpoint: { margin?: string | number },
   theme: EnhancedTheme
 ) {
   const margin = theme.getSpaceValue(propsAtBreakpoint.margin);
@@ -284,7 +287,7 @@ export function responsiveMargin(
 }
 
 export function responsivePadding(
-  propsAtBreakpoint: { padding: string | number },
+  propsAtBreakpoint: { padding?: string | number },
   theme: EnhancedTheme
 ) {
   const padding = theme.getSpaceValue(propsAtBreakpoint.padding);
@@ -351,7 +354,7 @@ export function responsiveHasBreakpointWidth(
 }
 
 export function responsiveTextStyle(
-  propsAtBreakpoint: { textStyle: TextStyleNames },
+  propsAtBreakpoint: { textStyle: TextStyleNames | undefined },
   theme: EnhancedTheme
 ) {
   const css = theme.getTextStyleCSS(propsAtBreakpoint.textStyle);

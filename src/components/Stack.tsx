@@ -52,7 +52,6 @@ function Stack(props: StackProps) {
   const flexWrapperCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
     margin: responsiveMargin,
     width: responsiveSize("width"),
-    // @ts-ignore
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
@@ -70,7 +69,6 @@ function Stack(props: StackProps) {
     },
   });
   const flexCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     align: ({ direction, align }) => {
       if (!align) {
         return {};
@@ -87,7 +85,6 @@ function Stack(props: StackProps) {
           : "flex-start",
       };
     },
-    // @ts-ignore
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
@@ -103,7 +100,6 @@ function Stack(props: StackProps) {
     },
   });
   const childCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
-    // @ts-ignore
     gap: ({ gap }, theme) => {
       const gapValues = getGapValues(gap, theme);
 
