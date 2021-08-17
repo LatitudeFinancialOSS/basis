@@ -1,10 +1,5 @@
 import { useCallback } from "react";
-import {
-  DeepPartial,
-  FieldValues,
-  UnpackNestedValue,
-  useForm,
-} from "react-hook-form";
+import { useForm, UseFormProps } from "react-hook-form";
 import { CustomField } from "../../components/Field/CustomField";
 import { Field } from "../../components/Field/Field";
 import {
@@ -13,19 +8,12 @@ import {
 } from "../../components/Field/types";
 import { setBasisError } from "./setBasisError";
 
-type UseBasisOptions<TFieldValues extends FieldValues = FieldValues> = {
-  defaultValues?: UnpackNestedValue<DeepPartial<TFieldValues>>;
-  shouldUnregister?: boolean;
-};
-
 export function useBasisForm<FieldValues>(
-  options: UseBasisOptions<FieldValues> = {}
+  options: UseFormProps<FieldValues> = {}
 ) {
-  const { defaultValues, shouldUnregister } = options;
   const methods = useForm<FieldValues>({
+    ...options,
     mode: "onBlur",
-    defaultValues,
-    shouldUnregister,
   });
 
   const setError = useCallback(() => setBasisError(methods), [methods]);
