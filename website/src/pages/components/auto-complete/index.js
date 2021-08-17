@@ -5,12 +5,14 @@ import { formatCode } from "../../../utils/formatting";
 import {
   mockAddressList,
   itemToString,
+  EMPTY_ADDRESS_VALUE,
 } from "../../../utils/autoComplete-utils";
 
 const scope = {
   ...allDesignSystem,
   mockAddressList,
   itemToString,
+  EMPTY_ADDRESS_VALUE,
 };
 
 function AutoCompletePage() {
@@ -40,6 +42,7 @@ function AutoCompletePage() {
             name="address"
             label="Address"
             getItems={getItems}
+            emptyValue={EMPTY_ADDRESS_VALUE}
             itemToString={itemToString}
             itemsFooter={CantFind}
           />
