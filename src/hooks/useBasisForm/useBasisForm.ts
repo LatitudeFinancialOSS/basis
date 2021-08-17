@@ -15,15 +15,17 @@ import { setBasisError } from "./setBasisError";
 
 type UseBasisOptions<TFieldValues extends FieldValues = FieldValues> = {
   defaultValues?: UnpackNestedValue<DeepPartial<TFieldValues>>;
+  shouldUnregister?: boolean;
 };
 
 export function useBasisForm<FieldValues>(
   options: UseBasisOptions<FieldValues> = {}
 ) {
-  const { defaultValues } = options;
+  const { defaultValues, shouldUnregister } = options;
   const methods = useForm<FieldValues>({
     mode: "onBlur",
     defaultValues,
+    shouldUnregister,
   });
 
   const setError = useCallback(() => setBasisError(methods), [methods]);
