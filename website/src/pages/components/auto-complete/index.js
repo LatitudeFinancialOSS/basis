@@ -15,7 +15,7 @@ const scope = {
 
 function AutoCompletePage() {
   const code = formatCode(`
-    // mockAddressList and itemToString are from './utils' folder
+    // mockAddressList, itemToString and EMPTY_ADDRESS_VALUE are from './utils'
 
     const getItems = async ({ inputValue }) => {
       if (!inputValue) return []
@@ -23,10 +23,10 @@ function AutoCompletePage() {
     }
 
     const CantFind = () => (
-      <Container padding="4 6">
-        <Link href="#" newTab={false}>
+      <Container padding="6 4">
+        <Text color="primary.blue.t100">
           <b>Can't find your address?</b>
-        </Link>
+        </Text>
       </Container>
     )
 
