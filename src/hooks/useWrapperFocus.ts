@@ -34,7 +34,7 @@ const attachEventListeners = (
   window.addEventListener("focus", onFocusChange, true);
   document.addEventListener("mousedown", onFocusChange);
   document.addEventListener("touchstart", onFocusChange);
-}
+};
 
 const detachEventListeners = (
   node: HTMLDivElement | null,
