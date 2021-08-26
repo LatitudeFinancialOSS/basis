@@ -9,7 +9,7 @@ import {
 import { ComponentNames } from "../../components/componentNames";
 import { ValidationError, ValidateFn } from "../../types";
 import { nameToValidateMap } from "./nameToValidateMap";
-import { nameToDefaultValueMap } from "./nameToDefaultValueMap";
+import { nameToGetDefaultValueMap } from "./nameToDefaultValueMap";
 import { rhfErrorConverter } from "./rhfErrorConverter";
 interface FieldOptions<
   TFieldValues extends FieldValues,
@@ -50,8 +50,9 @@ export const useBasisField = <
     return rhfErrorConverter.getRhfError(validationErrors);
   };
 
-  const componentDefaultValue =
-    nameToDefaultValueMap[componentDisplayName as ComponentNames];
+  const getDefaultValue =
+    nameToGetDefaultValueMap[componentDisplayName as ComponentNames];
+  const componentDefaultValue = getDefaultValue?.(componentProps) ?? undefined;
 
   const { field, fieldState } = useController({
     name,
