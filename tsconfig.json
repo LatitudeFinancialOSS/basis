@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "declaration": true,
     "outDir": "./dist",
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "isolatedModules": true,
     "strict": true,
     "noImplicitAny": true,

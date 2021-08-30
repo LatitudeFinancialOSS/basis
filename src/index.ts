@@ -17,7 +17,12 @@ export * from "./components";
 export * from "./hooks/useBasisForm";
 
 // Types
-export type { Breakpoint, ValidationFunction } from "./types";
+export type {
+  Breakpoint,
+  ValidationFunction,
+  SizeValue,
+  OptionsValues,
+} from "./types";
 export type { Color, BasisTheme, EnhancedTheme } from "./themes/types";
 
 export * from "./values";
