@@ -6,26 +6,12 @@ interface WrapperOptions {
   defaultFocus?: boolean;
 }
 
-const getIframeDocument = (elem: HTMLDivElement | null) => {
-  const targetIframe = Array.from(
-    document.querySelectorAll("iframe")
-  ).find((val) => val.contentDocument?.contains(elem));
-  return targetIframe && (targetIframe!.contentDocument as Document);
-};
-
-const getIframeWindow = (elem: HTMLDivElement | null) => {
-  const targetIframe = Array.from(
-    document.querySelectorAll("iframe")
-  ).find((val) => val.contentDocument?.contains(elem));
-  return targetIframe && targetIframe!.contentWindow!.window;
-};
-
 const attachEventListeners = (
   node: HTMLDivElement | null,
   onFocusChange: (event: any) => void
 ) => {
-  const iframeWindow = getIframeWindow(node);
-  const iframeDocument = getIframeDocument(node);
+  const iframeWindow = node?.ownerDocument;
+  const iframeDocument = node?.ownerDocument.defaultView;
   if (iframeWindow && iframeDocument) {
     iframeWindow.addEventListener("focus", onFocusChange, true);
     iframeDocument.addEventListener("mousedown", onFocusChange);
@@ -40,8 +26,8 @@ const detachEventListeners = (
   node: HTMLDivElement | null,
   onFocusChange: (event: any) => void
 ) => {
-  const iframeWindow = getIframeWindow(node);
-  const iframeDocument = getIframeDocument(node);
+  const iframeWindow = node?.ownerDocument;
+  const iframeDocument = node?.ownerDocument.defaultView;
   if (iframeWindow && iframeDocument) {
     iframeWindow.removeEventListener("focus", onFocusChange, true);
     iframeDocument.removeEventListener("mousedown", onFocusChange);
