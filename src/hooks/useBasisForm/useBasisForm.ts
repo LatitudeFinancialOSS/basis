@@ -26,7 +26,8 @@ export function useBasisForm<FieldValues>(
     defaultValues,
   });
 
-  const setError = useCallback(() => setBasisError(methods), [methods]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const setError = useCallback(setBasisError(methods), [methods]);
 
   return {
     methods,

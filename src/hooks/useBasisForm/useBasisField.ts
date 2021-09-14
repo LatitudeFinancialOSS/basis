@@ -7,7 +7,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { ComponentNames } from "../../components/componentNames";
-import { ValidationError, ValidateFn } from "../../types";
+import { ValidateFn } from "../../types";
 import { nameToValidateMap } from "./nameToValidateMap";
 import { nameToGetDefaultValueMap } from "./nameToDefaultValueMap";
 import { rhfErrorConverter } from "./rhfErrorConverter";
@@ -39,13 +39,12 @@ export const useBasisField = <
   } = options;
   const { trigger } = useFormContext<TFieldValues>();
 
-  // as any is needed due to: https://github.com/microsoft/TypeScript/issues/35186
-  const validate = (customValidation ??
-    nameToValidateMap[componentDisplayName as ComponentNames]) as any;
+  const validate =
+    customValidation ??
+    nameToValidateMap[componentDisplayName as ComponentNames];
 
   const internalBasisValidation = (value: any) => {
-    // as ValidationError is needed due to: https://github.com/microsoft/TypeScript/issues/35186
-    const validationErrors = validate(value, componentProps) as ValidationError;
+    const validationErrors = validate(value, componentProps);
 
     return rhfErrorConverter.getRhfError(validationErrors);
   };
