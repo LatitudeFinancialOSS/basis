@@ -18,8 +18,10 @@ export * from "./hooks/useBasisForm";
 
 // Types
 export type {
+  BasisComponent,
   Breakpoint,
   ValidationFunction,
+  ValidationError,
   SizeValue,
   OptionsValues,
 } from "./types";

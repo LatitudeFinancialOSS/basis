@@ -10,7 +10,8 @@ import { setBasisError } from "./setBasisError";
 
 export function useBasisFormContext<FieldValues>() {
   const methods = useFormContext<FieldValues>();
-  const setError = useCallback(() => setBasisError(methods), [methods]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const setError = useCallback(setBasisError(methods), [methods]);
 
   return {
     methods,

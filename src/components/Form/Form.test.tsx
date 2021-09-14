@@ -34,11 +34,16 @@ interface SimpleFormProps {
 }
 
 const SimpleForm = ({ onSubmit = () => {}, validate }: SimpleFormProps) => {
-  const { methods, Field } = useBasisForm<SimpleFormValues>();
+  const { methods, Field, setError } = useBasisForm<SimpleFormValues>();
+
+  const onSetError = () => {
+    setError("testInput", "CustomError");
+  };
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Field label="Test" name="testInput" as={Input} validate={validate} />
+      <Button onClick={onSetError}>Set error</Button>
       <Button type="submit">Submit</Button>
     </Form>
   );
@@ -271,6 +276,17 @@ describe("Form", () => {
       expect(input).toHaveFocus();
       expect(onSubmit).not.toHaveBeenCalled();
       expect(screen.getByText("Wrong")).toBeInTheDocument();
+    });
+
+    it("should give set custom error when setError is called", async () => {
+      render(<SimpleForm />);
+
+      const input = screen.getByLabelText("Test");
+
+      userEvent.click(screen.getByText("Set error"));
+
+      await waitFor(() => expect(input).toBeInvalid());
+      expect(screen.getByText("CustomError")).toBeInTheDocument();
     });
   });
 

@@ -64,7 +64,7 @@ type FieldInnerProps<
   Props extends ErrorProps<infer ErrorType>
   ? {
       name: ValidPath<TFieldValues, Value>;
-      validate?: (value: Value, props: Props) => ErrorType | null;
+      validate?: ValidateFn<Value, Props, ErrorType>;
       defaultValue?: Value;
       // Have to use Component<Props> to allow components with custom properties and forward refs
       as: Component<Props>;

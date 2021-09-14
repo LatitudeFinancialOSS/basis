@@ -17,7 +17,7 @@ export type ValidateFn<
   ErrorType extends ValidationError = ValidationError
 > = (value: Value, props: Props) => ErrorType | null;
 
-type Component<Props> =
+export type BasisComponent<Props> =
   | React.ComponentType<Props>
   | React.ForwardRefExoticComponent<Props & React.RefAttributes<any>>
   | (React.ForwardRefExoticComponent<Props & React.RefAttributes<any>> &
@@ -30,8 +30,8 @@ type ValidationProps<Value, Error> = {
 };
 
 export type ValidationFunction<
-  Comp extends Component<any>
-> = Comp extends Component<infer Props>
+  Comp extends BasisComponent<any>
+> = Comp extends BasisComponent<infer Props>
   ? Props extends ValidationProps<infer Value, infer ErrorType>
     ? (value: Value, props: Props) => ErrorType | null
     : never
