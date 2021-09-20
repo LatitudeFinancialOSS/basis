@@ -1,4 +1,4 @@
-![CI](https://github.com/moroshko/basis/workflows/CI/badge.svg)
+![CI](https://github.com/LatitudeFinancialOSS/basis/workflows/CI/badge.svg)
 
 # Basis Design System
 

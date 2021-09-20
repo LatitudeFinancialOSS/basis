@@ -111,7 +111,7 @@ function Sidebar() {
         </GatsbyLink>
         <Link
           appearance="icon"
-          href="https://github.com/moroshko/basis"
+          href="https://github.com/LatitudeFinancialOSS/basis"
           newTab
           title="GitHub"
           onClick={() => {
