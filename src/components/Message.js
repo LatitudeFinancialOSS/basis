@@ -25,6 +25,7 @@ const BACKGROUNDS = [
   "highlight.pink.t100",
   "secondary.pink.t30",
   "primary.blue.t100",
+  "highlight.purple.t100",
   "secondary.lightBlue.t25",
   "grey.t10",
   "grey.t05",
@@ -64,6 +65,7 @@ function Message(props) {
   const theme = useTheme();
   const textAndIconColor = [
     "highlight.pink.t100",
+    "highlight.purple.t100",
     "primary.blue.t100",
   ].includes(bg)
     ? "white"
