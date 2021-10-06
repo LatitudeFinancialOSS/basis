@@ -4,6 +4,7 @@ import useTheme from "../../hooks/useTheme";
 import useBackground from "../../hooks/useBackground";
 import useResponsivePropsCSS from "../../hooks/useResponsivePropsCSS";
 import { mergeProps } from "../../utils/component";
+import { getDataAttributes } from "../../utils/getDataAttributes";
 
 const TYPES = ["text", "password", "email", "tel"];
 const VARIANTS = ["text", "numeric", "decimal"];
@@ -52,6 +53,7 @@ function InternalInput(props) {
     name,
     parentName,
     id,
+    data = {},
     type,
     placeholder,
     variant,
@@ -94,6 +96,8 @@ function InternalInput(props) {
     },
     [pasteAllowed]
   );
+  const dataAttrs = getDataAttributes(data);
+
   const variantProps =
     variant === "numeric"
       ? {
@@ -120,6 +124,7 @@ function InternalInput(props) {
         css={inputCSS}
         id={id}
         name={name}
+        {...dataAttrs}
         data-parent-name={parentName}
         aria-label={ariaLabel}
         placeholder={placeholder}
@@ -155,6 +160,7 @@ InternalInput.propTypes = {
   suffix: PropTypes.string,
   maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   autoComplete: PropTypes.string,
+  data: PropTypes.object,
   color: PropTypes.oneOf(COLORS),
   disabled: PropTypes.bool,
   pasteAllowed: PropTypes.bool,

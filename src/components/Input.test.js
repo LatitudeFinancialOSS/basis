@@ -269,6 +269,19 @@ describe("Input", () => {
     });
   });
 
+  it("with data attributes", () => {
+    render(
+      <FormWithInput
+        label="First name"
+        data={{ "some-id": "false", "other-id": "other-value" }}
+      />
+    );
+
+    const input = screen.getByLabelText("First name");
+    expect(input).toHaveAttribute("data-some-id", "false");
+    expect(input).toHaveAttribute("data-other-id", "other-value");
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithInput label="First name" testId="my-input" />

@@ -100,6 +100,7 @@ function Frequency(props) {
     name,
     mode,
     label,
+    data,
     annually,
     quarterly,
     monthly,
@@ -154,7 +155,7 @@ function Frequency(props) {
     },
     [isInputEmpty, isFrequencyEmpty]
   );
-  const data = useMemo(
+  const validationData = useMemo(
     () => ({
       isInputEmpty,
       isFrequencyEmpty,
@@ -176,13 +177,14 @@ function Frequency(props) {
     disabled,
     optional,
     validate,
-    data,
+    data: validationData,
   });
   const inputComponent = (
     <InternalInput
       name={`${name}.amount`}
       parentName={name}
       variant="numeric"
+      data={data}
       prefix={amountPrefix}
       color={props.color}
       placeholder={amountPlaceholder}
@@ -262,6 +264,7 @@ Frequency.propTypes = {
   mode: PropTypes.oneOf(MODES),
   label: PropTypes.string.isRequired,
   annually: PropTypes.bool,
+  data: PropTypes.object,
   quarterly: PropTypes.bool,
   monthly: PropTypes.bool,
   fortnightly: PropTypes.bool,
