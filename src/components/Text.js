@@ -12,6 +12,7 @@ import { mergeProps } from "../utils/component";
 import { hasOwnProperty } from "../utils/core";
 import { TEXT_STYLES, TEXT_ALIGNS } from "../utils/constants";
 import { formatArray } from "../utils/array";
+import { getDataAttributes } from "../utils/getDataAttributes";
 
 const AS = ["h1", "h2", "h3", "h4", "h5", "h6", "p"];
 const COLORS = [
@@ -95,7 +96,16 @@ function Text(props) {
     align: (align) => ALIGNS.includes(align),
     wrap: (wrap) => typeof wrap === "boolean",
   });
-  const { id, as, align, wrap, role, children, testId } = mergedProps;
+  const {
+    id,
+    as,
+    align,
+    wrap,
+    role,
+    children,
+    testId,
+    data = {},
+  } = mergedProps;
   const css = useResponsivePropsCSS(mergedProps, DEFAULT_PROPS, {
     color: (_, theme, bp) => {
       const color =
@@ -112,10 +122,19 @@ function Text(props) {
     margin: responsiveMargin,
     textStyle: responsiveTextStyle,
   });
+
+  const dataAttrs = getDataAttributes(data);
+
   const Component = as;
 
   return (
-    <Component id={id} css={css} role={role} data-testid={testId}>
+    <Component
+      id={id}
+      css={css}
+      role={role}
+      {...dataAttrs}
+      data-testid={testId}
+    >
       {children}
     </Component>
   );
@@ -140,6 +159,7 @@ Text.propTypes = {
       }
     });
   },
+  data: PropTypes.object,
   align: PropTypes.oneOf(ALIGNS),
   wrap: PropTypes.bool,
   role: PropTypes.string,

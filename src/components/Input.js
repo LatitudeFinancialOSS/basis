@@ -60,6 +60,7 @@ function Input(props) {
     name,
     type,
     variant,
+    data = {},
     prefix,
     suffix,
     maxLength,
@@ -79,7 +80,7 @@ function Input(props) {
   const [inputId] = useState(() => `input-${nanoid()}`);
   const [auxId] = useState(() => `input-aux-${nanoid()}`);
   const isEmpty = useCallback((value) => value.trim() === "", []);
-  const data = useMemo(
+  const validationData = useMemo(
     () => ({
       isEmpty,
       variant,
@@ -99,7 +100,7 @@ function Input(props) {
     disabled,
     optional,
     validate,
-    data,
+    data: validationData,
   });
   const onChange = useCallback(
     (event) => {
@@ -124,6 +125,7 @@ function Input(props) {
         id={label ? inputId : null}
         name={name}
         type={type}
+        data={data}
         variant={variant}
         prefix={prefix}
         suffix={suffix}
@@ -149,6 +151,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(TYPES),
   variant: PropTypes.oneOf(VARIANTS),
+  data: PropTypes.object,
   prefix: PropTypes.string,
   suffix: PropTypes.string,
   maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

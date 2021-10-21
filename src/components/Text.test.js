@@ -157,6 +157,18 @@ describe("Text", () => {
     expect(node).toHaveAttribute("role", "alert");
   });
 
+  it("with dataAttributes", () => {
+    render(
+      <Text data={{ "some-id": "false", "other-id": "other-value" }}>
+        Hello World
+      </Text>
+    );
+
+    const node = screen.getByText("Hello World");
+    expect(node).toHaveAttribute("data-some-id", "false");
+    expect(node).toHaveAttribute("data-other-id", "other-value");
+  });
+
   it("with testId", () => {
     const { container } = render(<Text testId="my-text">Hello World</Text>);
 

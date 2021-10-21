@@ -146,6 +146,22 @@ describe("Frequency", () => {
     });
   });
 
+  it("with data attributes", () => {
+    render(
+      <FormWithFrequency
+        label="Salary"
+        amountPlaceholder="0.00"
+        data={{ "some-id": "true", "other-id": "other-value" }}
+      />
+    );
+
+    const amountInput = screen.getByPlaceholderText("0.00");
+
+    expect(amountInput).toHaveAttribute("data-some-id", "true");
+
+    expect(amountInput).toHaveAttribute("data-other-id", "other-value");
+  });
+
   it("with testId", () => {
     const { container } = render(
       <FormWithFrequency label="Salary" testId="my-frequency" />
