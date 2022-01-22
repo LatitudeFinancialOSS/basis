@@ -33,7 +33,7 @@
     "gatsby-source-filesystem": "2.11.1",
     "gatsby-transformer-sharp": "2.12.1",
     "lz-string": "1.4.4",
-    "nanoid": "3.1.22",
+    "nanoid": "3.1.31",
     "param-case": "3.0.4",
     "pascal-case": "3.1.2",
     "polished": "3.7.1",
