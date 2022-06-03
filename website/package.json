@@ -23,7 +23,7 @@
     "gatsby-plugin-emotion": "4.5.0",
     "gatsby-plugin-layout": "1.10.0",
     "gatsby-plugin-manifest": "2.12.1",
-    "gatsby-plugin-mdx": "1.10.1",
+    "gatsby-plugin-mdx": "2.14.1",
     "gatsby-plugin-offline": "3.10.2",
     "gatsby-plugin-react-helmet-async": "1.2.0",
     "gatsby-plugin-robots-txt": "1.5.6",
