@@ -18,7 +18,7 @@ const DEFAULT_PROPS = {
 };
 
 function getParentFieldName(target) {
-  return target.dataset.parentName ?? target.name;
+  return target?.dataset?.parentName ?? target.name;
 }
 
 Form.DEFAULT_PROPS = DEFAULT_PROPS;
@@ -73,7 +73,7 @@ function Form(_props) {
       lastMouseDownInputElement.current = null;
     }
 
-    /* 
+    /*
       We use setTimeout in order to differentiate between onBlur to another field within
       the same parent (e.g. DatePicker) and onBlur out of the parent.
     */
@@ -146,12 +146,12 @@ function Form(_props) {
   const getFieldErrors = useCallback((values, name) => {
     const value = getPath(values, name);
     /*
-      Note: 
-      `getFieldErrors` is called by `useEffect` below when `namesToValidate` change, 
-      and we set `namesToValidate` inside `setTimeout` in `onBlur`. This means that 
+      Note:
+      `getFieldErrors` is called by `useEffect` below when `namesToValidate` change,
+      and we set `namesToValidate` inside `setTimeout` in `onBlur`. This means that
       `getFieldErrors` will be called with a little delay.
       This opens the door for `unregisterField` being called BEFORE `getFieldErrors` is called.
-      Think about an input field being focused and then the user clicks on a Next button which 
+      Think about an input field being focused and then the user clicks on a Next button which
       unmounts the current form and mounts the next form page.
       In this case, `getFieldErrors` will be called with a `name` that doesn't exist in `fields.current`
       anymore since `unregisterField` deleted it.

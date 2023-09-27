@@ -49,6 +49,9 @@ module.exports = {
   Input: {
     status: COMPONENT_STATUS.READY,
   },
+  OtpInput: {
+    status: COMPONENT_STATUS.READY,
+  },
   Link: {
     status: COMPONENT_STATUS.READY,
   },

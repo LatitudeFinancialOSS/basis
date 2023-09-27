@@ -30,3 +30,4 @@ export { default as Text } from "./Text";
 export { default as Textarea } from "./Textarea";
 export { default as TimeSpan } from "./TimeSpan";
 export { default as VisuallyHidden } from "./VisuallyHidden";
+export { default as OtpInput } from "./OtpInput";

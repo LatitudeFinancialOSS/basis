@@ -42,7 +42,7 @@ function ListPage() {
       Short item
     </List.Item>
     <List.Item>
-      Very long item with a <Link href="#" newTab={false}>link</Link> and a <b>bold text</b> that 
+      Very long item with a <Link href="#" newTab={false}>link</Link> and a <b>bold text</b> that
       demonstrates a multi-line paragraph.
     </List.Item>
     <List.Item>

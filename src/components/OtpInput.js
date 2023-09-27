@@ -1,19 +1,34 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import useField from "../hooks/internal/useField";
 import { mergeProps } from "../utils/component";
 import Field from "./internal/Field";
 import OTPInput from "react-otp-input";
+import useTheme from "../hooks/useTheme";
+import useBackground from "../hooks/useBackground";
+import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 
 const DEFAULT_PROPS = {
   numInputs: 6,
   disabled: false,
   optional: false,
+  color: "grey.t05",
   shouldAutoFocus: true,
+  validate: (value, { isEmpty }) => {
+    if (isEmpty(value)) {
+      return "Required";
+    }
+
+    if (value.length !== 6) {
+      return "Must be 6 digits";
+    }
+
+    return null;
+  },
 };
 
-function OtpInput(props) {
+export default function OtpInput(props) {
   const mergedProps = mergeProps(
     props,
     DEFAULT_PROPS,
@@ -22,7 +37,8 @@ function OtpInput(props) {
       numInputs: (numInputs) => typeof numInputs === "number",
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
-      shouldAutoFocus: (shouldAutoFocus) => typeof shouldAutoFocus === "boolean",
+      shouldAutoFocus: (shouldAutoFocus) =>
+        typeof shouldAutoFocus === "boolean",
       value: (value) => typeof value === "string",
     }
   );
@@ -36,7 +52,17 @@ function OtpInput(props) {
     label,
     helpText,
     testId,
+    validate,
+    validateData,
   } = mergedProps;
+  const isEmpty = useCallback((value) => value.trim() === "", []);
+  const validationData = useMemo(
+    () => ({
+      isEmpty,
+      ...(validateData && { data: validateData }),
+    }),
+    [isEmpty, validateData]
+  );
 
   const [otpInputId] = useState(() => `otp-input-${nanoid()}`);
   const [auxId] = useState(() => `otp-input-aux-${nanoid()}`);
@@ -44,16 +70,21 @@ function OtpInput(props) {
   const {
     value,
     errors,
+    hasErrors,
+    onFocus,
+    onBlur,
     onChange: fieldOnChange,
   } = useField("OtpInput", {
     name,
-    disabled: disabled,
+    disabled,
     optional,
+    validate,
+    data: validationData,
   });
 
   const onChange = useCallback(
     (otpValue) => {
-      fieldOnChange({ target: { value: otpValue, name }});
+      fieldOnChange({ target: { value: otpValue, name } });
       onChangeProp && onChangeProp(otpValue);
     },
     [fieldOnChange, onChangeProp, name]
@@ -75,15 +106,26 @@ function OtpInput(props) {
         value={value}
         onChange={onChange}
         numInputs={numInputs}
-        containerStyle={{gap: "4px"}}
-        renderInput={(inputProps, _index) => {
-        return <input
-          {...inputProps}
-        />}}
+        containerStyle={{ gap: "4px" }}
+        renderInput={(inputProps, index) => {
+          return (
+            <InternalInput
+              name={name}
+              inputProps={inputProps}
+              hasErrors={hasErrors}
+              disabled={disabled}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              index={index}
+            />
+          );
+        }}
       />
     </Field>
   );
 }
+
+OtpInput.DEFAULT_PROPS = DEFAULT_PROPS;
 
 OtpInput.propTypes = {
   name: PropTypes.string.isRequired,
@@ -93,9 +135,79 @@ OtpInput.propTypes = {
   shouldAutoFocus: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  validateData: PropTypes.any,
   label: PropTypes.string.isRequired,
   helpText: PropTypes.node,
   testId: PropTypes.string,
 };
 
-export default OtpInput;
+function InternalInput(props) {
+  const {
+    hasErrors,
+    onFocus,
+    onBlur,
+    index,
+    name,
+    disabled,
+    inputProps: { style, ...otpInputProps },
+  } = props;
+  const theme = useTheme();
+  const { inputColorMap } = useBackground();
+  const inputCSS = useResponsivePropsCSS(props, DEFAULT_PROPS, {
+    color: (propsAtBreakpoint, theme, bp) => {
+      const color = props.color ?? inputColorMap[bp];
+
+      return theme.otpInput.getCSS({
+        targetElement: "input",
+        color,
+      });
+    },
+  });
+
+  const internalOnFocus = useCallback(
+    (event) => {
+      otpInputProps.onFocus(event);
+      onFocus(event);
+    },
+    [otpInputProps, onFocus]
+  );
+
+  const internalOnBlur = useCallback(
+    (event) => {
+      otpInputProps.onBlur(event);
+      onBlur(event);
+    },
+    [otpInputProps, onBlur]
+  );
+
+  return (
+    <div
+      css={theme.input.getCSS({
+        targetElement: "inputContainer",
+      })}
+    >
+      <input
+        aria-invalid={hasErrors ? "true" : null}
+        {...otpInputProps}
+        css={inputCSS}
+        disabled={disabled}
+        name={name}
+        onFocus={internalOnFocus}
+        onBlur={internalOnBlur}
+        index={index}
+      />
+    </div>
+  );
+}
+
+InternalInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  color: PropTypes.string,
+  hasErrors: PropTypes.bool.isRequired,
+  onFocus: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  inputProps: PropTypes.object.isRequired,
+};

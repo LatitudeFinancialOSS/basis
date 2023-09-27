@@ -4,6 +4,7 @@ import checkbox from "./checkbox";
 import dropdown from "./dropdown";
 import field from "./field";
 import input from "./input";
+import otpInput from "./otpInput";
 import link from "./link";
 import list from "./list";
 import radioGroup from "./radioGroup";
@@ -266,6 +267,7 @@ export default {
   dropdown: dropdown(theme, helpers),
   field: field(theme, helpers),
   input: input(theme, helpers),
+  otpInput: otpInput(theme, helpers),
   link: link(theme, helpers),
   list: list(theme, helpers),
   radioGroup: radioGroup(theme, helpers),
