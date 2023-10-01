@@ -53,6 +53,7 @@ const DEFAULT_PROPS = {
   disabled: false,
   selectPlaceholder: InternalSelect.DEFAULT_PROPS.placeholder,
   optional: false,
+  commaSeparated: false,
   validate: (value, { isInputEmpty, isFrequencyEmpty }) => {
     const errors = [];
 
@@ -94,6 +95,7 @@ function Frequency(props) {
         typeof amountPrefix === "string" && amountPrefix.length > 0,
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
+      commaSeparated: (commaSeparated) => typeof commaSeparated === "boolean",
     }
   );
   const {
@@ -113,6 +115,7 @@ function Frequency(props) {
     helpText,
     disabled,
     optional,
+    commaSeparated,
     validate,
     validateData,
     testId,
@@ -183,7 +186,7 @@ function Frequency(props) {
     <InternalInput
       name={`${name}.amount`}
       parentName={name}
-      variant="numeric"
+      variant={commaSeparated ? "commaNumeric" : "numeric"}
       data={data}
       prefix={amountPrefix}
       color={props.color}
@@ -276,6 +279,7 @@ Frequency.propTypes = {
   helpText: PropTypes.node,
   disabled: PropTypes.bool,
   optional: PropTypes.bool,
+  commaSeparated: PropTypes.bool,
   validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   validateData: PropTypes.any,
   testId: PropTypes.string,

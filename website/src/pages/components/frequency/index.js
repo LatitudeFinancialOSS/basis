@@ -15,6 +15,7 @@ const scope = allDesignSystem;
 const colorOptions = getRadioOptions(COLORS);
 const modeOptions = getRadioOptions(MODES);
 const frequencyOptions = ALL_FREQUENCY_OPTIONS;
+const commaSeparatedOptions = getCheckboxOptions();
 const isOptionalOptions = getCheckboxOptions();
 const hasHelpTextOptions = getCheckboxOptions();
 const isDisabledOptions = getCheckboxOptions();
@@ -30,6 +31,9 @@ function FrequencyPage() {
       return acc;
     }, {});
   });
+  const [commaSeparated, setCommaSeparated] = useState(
+    DEFAULT_PROPS.commaSeparated
+  );
   const [optional, setIsOptional] = useState(DEFAULT_PROPS.optional);
   const [hasHelpText, setHasHelpText] = useState(
     Boolean(DEFAULT_PROPS.helpText)
@@ -100,6 +104,12 @@ function FrequencyPage() {
               type: "boolean",
             },
             {
+              prop: "commaSeparated",
+              value: commaSeparated,
+              defaultValue: DEFAULT_PROPS.commaSeparated,
+              type: "boolean",
+            },
+            {
               prop: "optional",
               value: optional,
               defaultValue: DEFAULT_PROPS.optional,
@@ -153,6 +163,14 @@ function FrequencyPage() {
           options={frequencyOptions}
           selectedValues={frequencies}
           setSelectedValues={setFrequencies}
+        />
+        <RadioGroupSetting
+          css={{ marginLeft: theme.space[13] }}
+          heading="Comma Separate"
+          options={commaSeparatedOptions}
+          selectedValue={commaSeparated}
+          setSelectedValue={setCommaSeparated}
+          type="boolean"
         />
         <RadioGroupSetting
           css={{ marginLeft: theme.space[13] }}

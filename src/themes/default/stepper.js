@@ -29,6 +29,8 @@ export default (theme) => {
             left: "50%",
             transform: "translateX(-50%)",
             whiteSpace: "nowrap",
+            colorCurrent: "primary.blue.t100",
+            colorNonCurrent: "black",
           };
         }
 
