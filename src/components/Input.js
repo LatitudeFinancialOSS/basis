@@ -20,7 +20,10 @@ const DEFAULT_PROPS = {
       return "Required";
     }
 
-    if (variant === "numeric" && NUMERIC_REGEX.test(value) === false) {
+    if (
+      ["numeric", "commaNumeric"].includes(variant) &&
+      NUMERIC_REGEX.test(value) === false
+    ) {
       return "Only 0-9 are allowed";
     }
 

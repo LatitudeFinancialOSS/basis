@@ -8,8 +8,10 @@ export default (theme, { getColor }) => {
       color,
       __internal__focus,
     }) => {
-      const hasPrefix = ["numeric", "decimal"].includes(variant) && prefix;
-      const hasSuffix = ["numeric", "decimal"].includes(variant) && suffix;
+      const hasPrefix =
+        ["commaNumeric", "numeric", "decimal"].includes(variant) && prefix;
+      const hasSuffix =
+        ["commaNumeric", "numeric", "decimal"].includes(variant) && suffix;
 
       switch (targetElement) {
         case "inputContainer": {

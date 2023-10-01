@@ -22,17 +22,18 @@ function Item(_props) {
   const label = useResponsiveProp(props, "label");
   const isFirst = index === 0;
   const isLast = index === total - 1;
+  const labelCss = theme.stepper.getCSS({ targetElement: "label" });
 
   return (
     <div
       css={theme.stepper.getCSS({ targetElement: "item", stepsCount: total })}
     >
       <div css={theme.stepper.getCSS({ targetElement: "labelContainer" })}>
-        <div css={theme.stepper.getCSS({ targetElement: "label" })}>
+        <div css={labelCss}>
           {label && (
             <Text
               textStyle="body2"
-              color={current ? "primary.blue.t100" : "black"}
+              color={current ? labelCss.colorCurrent : labelCss.colorNonCurrent}
               align="center"
             >
               <strong>{label}</strong>

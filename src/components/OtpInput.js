@@ -10,7 +10,7 @@ import useBackground from "../hooks/useBackground";
 import useResponsivePropsCSS from "../hooks/useResponsivePropsCSS";
 
 const DEFAULT_PROPS = {
-  numInputs: 6,
+  codeLength: 6,
   disabled: false,
   optional: false,
   color: "grey.t05",
@@ -34,7 +34,7 @@ export default function OtpInput(props) {
     DEFAULT_PROPS,
     {},
     {
-      numInputs: (numInputs) => typeof numInputs === "number",
+      codeLength: (codeLength) => typeof codeLength === "number",
       disabled: (disabled) => typeof disabled === "boolean",
       optional: (optional) => typeof optional === "boolean",
       shouldAutoFocus: (shouldAutoFocus) =>
@@ -45,7 +45,7 @@ export default function OtpInput(props) {
 
   const {
     name,
-    numInputs,
+    codeLength,
     disabled,
     optional,
     onChange: onChangeProp,
@@ -105,7 +105,7 @@ export default function OtpInput(props) {
         id={otpInputId}
         value={value}
         onChange={onChange}
-        numInputs={numInputs}
+        numInputs={codeLength}
         containerStyle={{ gap: "4px" }}
         renderInput={(inputProps, index) => {
           return (
@@ -130,7 +130,7 @@ OtpInput.DEFAULT_PROPS = DEFAULT_PROPS;
 OtpInput.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.string,
-  numInputs: PropTypes.number,
+  codeLength: PropTypes.number,
   isDisabled: PropTypes.bool,
   shouldAutoFocus: PropTypes.bool,
   value: PropTypes.string,

@@ -7,7 +7,7 @@ import { mergeProps } from "../../utils/component";
 import { getDataAttributes } from "../../utils/getDataAttributes";
 
 const TYPES = ["text", "password", "email", "tel"];
-const VARIANTS = ["text", "numeric", "decimal"];
+const VARIANTS = ["text", "numeric", "decimal", "commaNumeric"];
 const COLORS = ["grey.t05", "white"];
 
 const NUMERIC_REGEX = /^\d*$/;
@@ -98,18 +98,33 @@ function InternalInput(props) {
   );
   const dataAttrs = getDataAttributes(data);
 
-  const variantProps =
-    variant === "numeric"
-      ? {
-          // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
-          inputMode: "numeric",
-          pattern: "[0-9]*",
-        }
-      : variant === "decimal"
-      ? {
-          inputMode: "decimal",
-        }
-      : {};
+  const variantProps = ["numeric", "commaNumeric"].includes(variant)
+    ? {
+        // See: https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers
+        inputMode: "numeric",
+        pattern: "[0-9]*",
+      }
+    : variant === "decimal"
+    ? {
+        inputMode: "decimal",
+      }
+    : {};
+
+  const serializedValue =
+    variant === "commaNumeric" ? serializeCommaNumeric(value) : value;
+
+  const onChangeDeserialized = useCallback(
+    (event) => {
+      const input = event.target.value;
+
+      if (variant === "commaNumeric" && input && typeof input === "string") {
+        const deserializedValue = input.replace(/,/g, "");
+        event.target.value = deserializedValue;
+      }
+      onChange(event);
+    },
+    [variant, onChange]
+  );
 
   return (
     <div
@@ -141,8 +156,8 @@ function InternalInput(props) {
         aria-describedby={describedBy}
         onFocus={onFocus}
         onBlur={onBlur}
-        value={value}
-        onChange={onChange}
+        value={serializedValue}
+        onChange={onChangeDeserialized}
       />
     </div>
   );
@@ -174,3 +189,12 @@ InternalInput.propTypes = {
 };
 
 export default InternalInput;
+
+function serializeCommaNumeric(value) {
+  const commaNumeric = new Intl.NumberFormat("en", {
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(value);
+
+  return commaNumeric === "0" ? "" : commaNumeric;
+}
