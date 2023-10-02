@@ -35,6 +35,7 @@ const BACKGROUNDS = [
 
 const DEFAULT_PROPS = {
   bg: "grey.t10",
+  contentColor: null,
   hasBreakpointWidth: false,
 };
 
@@ -61,15 +62,18 @@ function Message(props) {
     role,
     children,
     testId,
+    contentColor,
   } = mergedProps;
   const theme = useTheme();
-  const textAndIconColor = [
-    "highlight.pink.t100",
-    "highlight.purple.t100",
-    "primary.blue.t100",
-  ].includes(bg)
-    ? "white"
-    : "black";
+  const textAndIconColor =
+    contentColor ||
+    ([
+      "highlight.pink.t100",
+      "highlight.purple.t100",
+      "primary.blue.t100",
+    ].includes(bg)
+      ? "white"
+      : "black");
   const switchLayoutAt = "md";
   const iconSize = 32;
   const distanceFromIcon = 8;
